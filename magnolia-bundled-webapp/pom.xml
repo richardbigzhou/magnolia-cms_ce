@@ -14,13 +14,13 @@
     <dependency>
       <groupId>info.magnolia</groupId>
       <artifactId>magnolia-empty-webapp</artifactId>
-      <version>${project.version}</version>
+      <version>${magnoliaVersion}</version>
       <type>war</type>
     </dependency>
     <dependency>
       <groupId>info.magnolia</groupId>
       <artifactId>magnolia-module-samples</artifactId>
-      <version>${project.version}</version>
+      <version>${magnoliaVersion}</version>
       <type>jar</type>
     </dependency>
     <dependency>
@@ -42,7 +42,7 @@
     <resources>
       <resource>
         <!-- these are the resources copied by the remote-resources-plugin -->
-        <directory>${project.build.directory}/maven-shared-archive-resources</directory>
+        <directory>target/maven-shared-archive-resources</directory>
         <excludes>
           <exclude>**/*</exclude>
         </excludes>
@@ -56,7 +56,7 @@
           <webResources>
             <resource>
               <!-- these are the resources copied by the remote-resources-plugin -->
-              <directory>${project.build.directory}/maven-shared-archive-resources</directory>
+              <directory>target/maven-shared-archive-resources</directory>
             </resource>
           </webResources>
         </configuration>

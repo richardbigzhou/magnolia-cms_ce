@@ -79,13 +79,13 @@
     <dependency>
       <groupId>info.magnolia</groupId>
       <artifactId>magnolia-bundled-webapp</artifactId>
-      <version>${project.version}</version>
+      <version>3.5-rc3-SNAPSHOT</version>
       <type>war</type>
     </dependency>
     <dependency>
       <groupId>info.magnolia</groupId>
       <artifactId>magnolia-module-workflow</artifactId>
-      <version>${project.version}</version>
+      <version>${magnoliaVersion}</version>
       <classifier>bundle</classifier>
       <type>tar.gz</type>
     </dependency>
