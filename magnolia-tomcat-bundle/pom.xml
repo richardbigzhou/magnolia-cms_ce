@@ -10,6 +10,7 @@
   <packaging>pom</packaging>
   <name>magnolia-tomcat-bundle</name>
   <description>Magnolia bundled with Tomcat 5.5</description>
+  <url>http://www.magnolia.info</url>
   <build>
     <plugins>
       <plugin>
