@@ -15,6 +15,23 @@ a {
     color: #669900;
 }
 
+h2 {
+    padding: 0;
+    margin: 0;
+    font-weight: normal;
+    color: #669900;
+    font-size: 14pt;
+}
+
+li {
+    list-style-type: none;
+    list-style-position: outside;
+    list-style-image: url(magnoliaAuthor/.resources/images/moduleManagerUI/listItem.gif);
+    margin: 0 0 5px 0;
+    padding-left: 0;
+    font-size: 9pt;
+}
+
 .page {
     margin-top: 15px;
     border: 1px solid #adbc61;
@@ -25,7 +42,7 @@ a {
     margin: 0;
     padding: 20px;
     height: 40px;
-    background: white url(${contextPath}/.resources/images/moduleManagerUI/backgroundBar.gif) repeat-x;
+    background: white url(magnoliaAuthor/.resources/images/moduleManagerUI/backgroundBar.gif) repeat-x;
 }
 
 #footer {
@@ -33,7 +50,7 @@ a {
     padding: 0;
 }
 
-#softwareIcon {
+#signpost {
     float: left;
     margin-right: 20px;
 }
@@ -54,147 +71,63 @@ a {
     color: #aaa;
 }
 
-#buttonStart {
-    float: right;
-    margin: 30px 40px 0 0;
-    color: #4d4d4d;
-    text-decoration: none;
-    font-size: 22px;
-    padding: 14px 75px 32px 20px;
-    background: transparent url(${contextPath}/.resources/images/moduleManagerUI/buttonStartBackground.png) no-repeat;
-}
-
-#buttonGo {
-    float: right;
-    margin: 30px 40px 0 0;
-    color: #4d4d4d;
-    text-decoration: none;
-    font-size: 22px;
-    padding: 14px 100px 32px 20px;
-    background: transparent url(${contextPath}/.resources/images/moduleManagerUI/buttonGoBackground.png) no-repeat;
-}
-
-h2, h3 {
-    padding: 0;
-    margin: 0;
-    font-weight: normal;
-}
-
-h2 {
-    color: #669900;
-    font-size: 14pt;
-}
-
-h2.messages {
-    margin: 20px 0 10px 0;
-}
-
-h3 {
-    font-size: 12pt;
-}
-
-h3, p {
-    display: inline;
-}
-
-p, p {
-    display: block;
-    margin: 5px 0 5px 0;
-}
-
 #content {
     padding: 30px 20px 20px 20px;
     margin: 0;
     font-weight: normal;
 }
 
-.module {
+div.instances {
+    margin: 25px 0 15px 35px;
+    padding: 0;
+}
+
+div.instance {
     background-color: #F6F6F6;
     padding: 10px;
-    margin-bottom: 10px;
+    width: 390px;
+    height: 160px;
 }
 
-.module h3 {
-    vertical-align: 5px;
-    margin-left: 5px;
+div#authorInstance {
+    float: left;
+    margin-right: 30px;
 }
 
-.module a {
-    font-weight: normal;
+div#publicInstance {
+    float: left;
 }
 
-.delta {
-    border-top: 1px solid #e0e0e0;
-    padding: 8px 0 0 0;
-    margin: 5px 0 0 0;
+div.instance h3 {
+    margin: 10px 0 10px 0;
 }
 
-/*
-.delta .install {
-    color: green;
+ul.links {
+    margin: 10px 0pt 10px 50px;
 }
 
-.delta .update {
-    color: purple;
-}
-*/
-
-.deltaType.span {
+.instanceLogo {
+    float: left;
+    margin-right: 20px;
+    margin-bottom: 100px;
 }
 
-.deltaDescription {
-    margin-top: 10px;
-    color: #6c6c6c;
+p.note {
+     font-size: 0.95em;
+     line-height: 1.3em;
+     color: grey; 
 }
 
-.deltaDetailsLink {
-    padding-left: 0.5em;
-    font-size: 9pt;
+p.note span {
+    margin-left: -10px;
 }
 
-.tasks, .conditions {
-    padding-left: 33px;
+span.note {
+     color: grey; 
+     margin-left: 1px;
 }
 
-.task, .condition, .message {
-    list-style-type: none;
-    list-style-position: outside;
-    list-style-image: url(${contextPath}/.resources/images/moduleManagerUI/listItem.gif);
-    margin: 0 0 5px 0;
-    padding-left: 0;
-    font-size: 9pt;
-}
-
-.condition {
-    color: #990000;
-}
-
-.taskDescription, .conditionDescription {
-    color: #666;
-}
-
-.messages .debug {
-    color: #9c9c9c;    
-}
-
-.messages .error {
-    background-color: #ffcccc;
-    color: #cc0000;
-    font-weight: bold;
-}
-
-p.status {
-    margin-bottom: 10px;
-}
-
-#progress {
-    margin-left: 20px;
-}
-
-#actions {
-    margin-left: 20px;
-}
-
-.executedTaskCount, totalTaskCount {
-    font-weight: bold;
+#installationNote {
+    width: 810px;
+    margin: 1em 0 25px 12px;
 }
