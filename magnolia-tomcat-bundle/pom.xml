@@ -11,6 +11,23 @@
   <name>magnolia-tomcat-bundle</name>
   <description>Magnolia bundled with Tomcat 5.5</description>
   <url>http://www.magnolia.info</url>
+
+  <dependencies>
+    <dependency>
+      <groupId>info.magnolia</groupId>
+      <artifactId>magnolia-bundled-webapp</artifactId>
+      <version>3.5.1</version>
+      <type>war</type>
+    </dependency>
+    <dependency>
+      <groupId>info.magnolia</groupId>
+      <artifactId>magnolia-module-workflow</artifactId>
+      <version>${magnoliaVersion}</version>
+      <classifier>bundle</classifier>
+      <type>tar.gz</type>
+    </dependency>
+  </dependencies>
+
   <build>
     <plugins>
       <plugin>
@@ -76,19 +93,4 @@
     </plugins>
   </build>
 
-  <dependencies>
-    <dependency>
-      <groupId>info.magnolia</groupId>
-      <artifactId>magnolia-bundled-webapp</artifactId>
-      <version>${project.version}</version>
-      <type>war</type>
-    </dependency>
-    <dependency>
-      <groupId>info.magnolia</groupId>
-      <artifactId>magnolia-module-workflow</artifactId>
-      <version>${magnoliaVersion}</version>
-      <classifier>bundle</classifier>
-      <type>tar.gz</type>
-    </dependency>
-  </dependencies>
 </project>
