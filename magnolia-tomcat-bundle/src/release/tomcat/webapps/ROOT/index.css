@@ -26,7 +26,7 @@ h2 {
 li {
     list-style-type: none;
     list-style-position: outside;
-    list-style-image: url(magnoliaAuthor/.resources/images/moduleManagerUI/listItem.gif);
+    list-style-image: url(images/listItem.gif);
     margin: 0 0 5px 0;
     padding-left: 0;
     font-size: 9pt;
@@ -42,7 +42,7 @@ li {
     margin: 0;
     padding: 20px;
     height: 40px;
-    background: white url(magnoliaAuthor/.resources/images/moduleManagerUI/backgroundBar.gif) repeat-x;
+    background: white url(images/backgroundBar.gif) repeat-x;
 }
 
 #footer {
@@ -87,6 +87,7 @@ div.instance {
     padding: 10px;
     width: 390px;
     height: 160px;
+    margin-bottom: 20px;
 }
 
 div#authorInstance {
@@ -128,6 +129,5 @@ span.note {
 }
 
 #installationNote {
-    width: 810px;
-    margin: 1em 0 25px 12px;
+    margin: -10px 0 25px 12px;
 }
