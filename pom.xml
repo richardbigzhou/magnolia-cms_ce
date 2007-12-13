@@ -18,7 +18,7 @@
   </scm>
   <properties>
     <magnoliaEdition>Community Edition</magnoliaEdition>
-    <magnoliaVersion>3.5</magnoliaVersion>
+    <magnoliaVersion>${project.version}</magnoliaVersion>
   </properties>
 
   <modules>
