@@ -29,6 +29,13 @@
   <build>
     <plugins>
       <plugin>
+        <artifactId>maven-release-plugin</artifactId>
+        <version>2.0-beta-7</version>
+        <configuration>
+          <autoVersionSubmodules>true</autoVersionSubmodules>
+        </configuration>
+      </plugin>
+      <plugin>
         <groupId>info.magnolia</groupId>
         <artifactId>maven-setproperty-plugin</artifactId>
         <version>1.0.1</version>
