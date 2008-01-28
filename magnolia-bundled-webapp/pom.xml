@@ -10,7 +10,6 @@
   <packaging>war</packaging>
   <name>magnolia-bundled-webapp</name>
   <description>Magnolia pre-installed with DMS and samples.</description>
-  <url>http://www.magnolia.info</url>
   <dependencies>
     <dependency>
       <groupId>info.magnolia</groupId>
