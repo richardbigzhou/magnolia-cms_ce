@@ -149,6 +149,10 @@
     </profile>
     <profile>
       <id>jetty6</id>
+      <activation>
+        <!-- TODO : if we activate another profile, will this one be disabled, or are we sure the other one's properties will override these ? -->
+        <activeByDefault>true</activeByDefault>
+      </activation>
       <properties>
         <containerId>jetty6x</containerId>
         <containerType>embedded</containerType>
