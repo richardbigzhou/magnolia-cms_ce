@@ -1,0 +1,191 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>info.magnolia</groupId>
+    <artifactId>magnolia-bundle-parent</artifactId>
+    <version>3.6-SNAPSHOT</version>
+  </parent>
+  <groupId>info.magnolia</groupId>
+  <artifactId>magnolia-integration-tests</artifactId>
+  <name>magnolia-integration-tests</name>
+  <packaging>pom</packaging>
+
+  <dependencies>
+    <dependency>
+      <groupId>info.magnolia</groupId>
+      <artifactId>magnolia-bundled-webapp</artifactId>
+      <version>${project.version}</version>
+      <type>war</type>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.1</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <!-- tell the compiler to compile the tests, which it does not do by default because this project has a packaging of type pom  -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <executions>
+          <execution>
+            <goals>
+              <goal>testCompile</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <!-- let surefire be executed in the integration-test phase -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <executions>
+          <execution>
+            <phase>integration-test</phase>
+            <goals>
+              <goal>test</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>org.codehaus.cargo</groupId>
+        <artifactId>cargo-maven2-plugin</artifactId>
+        <configuration>
+          <wait>false</wait>
+          <container>
+            <containerId>${containerId}</containerId>
+            <type>${containerType}</type>
+            <output>${project.build.directory}/${containerId}.log</output>
+            <log>${project.build.directory}/cargo.log</log>
+            <zipUrlInstaller>
+              <url>${url}</url>
+              <installDir>${cargo.installDir}</installDir>
+            </zipUrlInstaller>
+          </container>
+          <configuration>
+            <properties>
+              <cargo.jvmargs>-Xmx1024M -Xdebug -Xrunjdwp:transport=dt_socket,address=8000,server=y,suspend=n ${jvmargs}</cargo.jvmargs>
+              <cargo.servlet.port>${port}</cargo.servlet.port>
+              <cargo.logging>high</cargo.logging>
+            </properties>
+
+            <deployables>
+              <deployable>
+                <groupId>info.magnolia</groupId>
+                <artifactId>magnolia-bundled-webapp</artifactId>
+                <type>war</type>
+                <properties>
+                  <context>magnoliaAuthor</context>
+                </properties>
+              </deployable>
+              <deployable>
+                <groupId>info.magnolia</groupId>
+                <artifactId>magnolia-bundled-webapp</artifactId>
+                <type>war</type>
+                <properties>
+                  <context>magnoliaPublic</context>
+                </properties>
+              </deployable>
+            </deployables>
+
+          </configuration>
+        </configuration>
+
+        <executions>
+          <execution>
+            <id>start</id>
+            <phase>pre-integration-test</phase>
+            <goals>
+              <goal>start</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>stop</id>
+            <phase>post-integration-test</phase>
+            <goals>
+              <goal>stop</goal>
+            </goals>
+          </execution>
+        </executions>
+
+      </plugin>
+    </plugins>
+  </build>
+
+  <profiles>
+    <profile>
+      <id>tomcat50</id>
+      <properties>
+        <containerId>tomcat5x</containerId>
+        <containerType>installed</containerType>
+        <port>8080</port>
+        <url>http://archive.apache.org/dist/tomcat/tomcat-5/v5.0.30/bin/jakarta-tomcat-5.0.30.zip</url>
+      </properties>
+    </profile>
+    <profile>
+      <id>tomcat55</id>
+      <properties>
+        <containerId>tomcat5x</containerId>
+        <containerType>installed</containerType>
+        <port>8080</port>
+        <url>http://www.apache.org/dist/tomcat/tomcat-5/v5.5.25/bin/apache-tomcat-5.5.25.zip</url>
+      </properties>
+    </profile>
+    <profile>
+      <id>tomcat60</id>
+      <properties>
+        <containerId>tomcat5x</containerId>
+        <containerType>installed</containerType>
+        <port>8080</port>
+        <url>http://apache.mirror.testserver.li/tomcat/tomcat-6/v6.0.14/bin/apache-tomcat-6.0.14.zip</url>
+      </properties>
+    </profile>
+    <profile>
+      <id>jetty6</id>
+      <properties>
+        <containerId>jetty6x</containerId>
+        <containerType>embedded</containerType>
+        <port>8080</port>
+      </properties>
+    </profile>
+    <profile>
+      <id>jboss42</id>
+      <properties>
+        <containerId>jboss4x</containerId>
+        <containerType>installed</containerType>
+        <port>8080</port>
+        <url>http://switch.dl.sourceforge.net/sourceforge/jboss/jboss-4.2.2.GA.zip</url>
+        <jvmargs>
+          -Djava.security.auth.login.config=file:///Users/brainbug/Jobs/J2Global/magnolia-trunk/magnolia-webapp/target/magnolia-webapp-3.5-SNAPSHOT/WEB-INF/config/jaas.config
+          -Djboss.home.dir=${cargo.installDir}/jboss-4.2.2.GA/jboss-4.2.2.GA
+          -Djboss.server.home.dir=${cargo.installDir}/jboss-4.2.2.GA/jboss-4.2.2.GA/server/default
+          -Djboss.server.home.url=file:/${cargo.installDir}/jboss-4.2.2.GA/jboss-4.2.2.GA/server/default
+          -Djboss.server.name=jboss4x
+        </jvmargs>
+      </properties>
+    </profile>
+
+    <!-- unfortunately doesn't work since JBoss doesn't recognize the java.security.auth.login.config property -->
+    <!--
+    <profile>
+      <id>jboss40</id>
+      <properties>
+        <containerId>jboss4x</containerId>
+        <containerType>installed</containerType>
+        <port>8080</port>
+        <url>http://kent.dl.sourceforge.net/sourceforge/jboss/jboss-4.0.5.GA.zip</url>
+        <jvmargs>-Djava.security.auth.login.config=${project.build.directory}/${project.build.finalName}/WEB-INF/config/jaas.config</jvmargs>
+      </properties>
+    </profile>
+    -->
+  </profiles>
+
+
+</project>
