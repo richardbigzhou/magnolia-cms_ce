@@ -33,7 +33,8 @@
  */
 package info.magnolia.integrationtests;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.*;
+import org.junit.Test;
 
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -44,15 +45,17 @@ import java.net.URL;
  * @author gjoseph
  * @version $Revision: $ ($Author: $)
  */
-public class MostBasicTest extends TestCase {
-    public void testSeeIfWeCanSimplyReachTheAuthorInstance() throws Exception {
+public class MostBasicTest {
+    @Test
+    public void seeIfWeCanSimplyReachTheAuthorInstance() throws Exception {
         URL url = new URL("http://localhost:8080/magnoliaAuthor");
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.connect();
         assertEquals(200, connection.getResponseCode());
     }
 
-    public void testSeeIfWeCanReachBothInstances() throws Exception {
+    @Test
+    public void seeIfWeCanReachBothInstances() throws Exception {
         URL urlA = new URL("http://localhost:8080/magnoliaAuthor");
         HttpURLConnection connectionA = (HttpURLConnection) urlA.openConnection();
         connectionA.connect();
