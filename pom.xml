@@ -4,7 +4,7 @@
   <parent>
     <artifactId>magnolia-parent-pom</artifactId>
     <groupId>info.magnolia</groupId>
-    <version>3</version>
+    <version>4-SNAPSHOT</version>
   </parent>
   <artifactId>magnolia-bundle-parent</artifactId>
   <packaging>pom</packaging>
@@ -17,7 +17,7 @@
   </scm>
   <properties>
     <magnoliaEdition>Community Edition</magnoliaEdition>
-    <magnoliaVersion>3.6-m1</magnoliaVersion>
+    <magnoliaVersion>3.6-SNAPSHOT</magnoliaVersion>
   </properties>
 
   <modules>
@@ -29,8 +29,11 @@
   <build>
     <plugins>
       <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-enforcer-plugin</artifactId>
+      </plugin>
+      <plugin>
         <artifactId>maven-release-plugin</artifactId>
-        <version>2.0-beta-7</version>
         <configuration>
           <autoVersionSubmodules>true</autoVersionSubmodules>
         </configuration>
