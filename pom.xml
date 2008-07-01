@@ -17,7 +17,7 @@
   </scm>
   <properties>
     <magnoliaEdition>Community Edition</magnoliaEdition>
-    <magnoliaVersion>3.6-m2</magnoliaVersion>
+    <magnoliaVersion>3.6-SNAPSHOT</magnoliaVersion>
   </properties>
 
   <modules>
