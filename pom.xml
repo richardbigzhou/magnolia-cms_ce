@@ -23,8 +23,6 @@
 
   <modules>
     <module>magnolia-bundled-webapp</module>
-    <module>magnolia-test-webapp</module>
-    <module>magnolia-test-public-webapp</module>
     <module>magnolia-integration-tests</module>
     <module>magnolia-tomcat-bundle</module>
   </modules>
