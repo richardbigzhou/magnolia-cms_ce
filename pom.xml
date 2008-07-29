@@ -17,11 +17,14 @@
   </scm>
   <properties>
     <magnoliaEdition>Community Edition</magnoliaEdition>
-    <magnoliaVersion>3.6</magnoliaVersion>
+    <magnoliaVersion>3.6.1-SNAPSHOT</magnoliaVersion>
+    <documentationURL>http://documentation.magnolia.info/releases/3-6-1.html</documentationURL>
   </properties>
 
   <modules>
     <module>magnolia-bundled-webapp</module>
+    <module>magnolia-test-webapp</module>
+    <module>magnolia-test-public-webapp</module>
     <module>magnolia-integration-tests</module>
     <module>magnolia-tomcat-bundle</module>
   </modules>
@@ -81,7 +84,7 @@
         </executions>
         <configuration>
           <resourceBundles>
-            <resourceBundle>info.magnolia:magnolia-build-tools-dual-licensed:1.3</resourceBundle>
+            <resourceBundle>info.magnolia:magnolia-build-tools-dual-licensed:1.4</resourceBundle>
           </resourceBundles>
         </configuration>
       </plugin>
