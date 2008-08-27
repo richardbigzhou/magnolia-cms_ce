@@ -11,9 +11,9 @@
   <version>3.6.2-SNAPSHOT</version>
   <name>magnolia-bundle-parent</name>
   <scm>
-    <connection>scm:svn:http://svn.magnolia.info/svn/magnolia-bundle/trunk</connection>
-    <developerConnection>scm:svn:http://svn.magnolia.info/svn/magnolia-bundle/trunk</developerConnection>
-    <url>http://svn.magnolia.info/view/magnolia-bundle/trunk</url>
+    <connection>scm:svn:http://svn.magnolia.info/svn/community/bundle/trunk</connection>
+    <developerConnection>scm:svn:http://svn.magnolia.info/svn/community/bundle/trunk</developerConnection>
+    <url>http://svn.magnolia.info/view/community/bundle/trunk</url>
   </scm>
   <properties>
     <magnoliaEdition>Community Edition</magnoliaEdition>
