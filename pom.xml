@@ -4,7 +4,7 @@
   <parent>
     <artifactId>magnolia-parent-pom</artifactId>
     <groupId>info.magnolia</groupId>
-    <version>4</version>
+    <version>5-SNAPSHOT</version>
   </parent>
   <artifactId>magnolia-bundle-parent</artifactId>
   <packaging>pom</packaging>
@@ -17,8 +17,8 @@
   </scm>
   <properties>
     <magnoliaEdition>Community Edition</magnoliaEdition>
-    <magnoliaVersion>3.6.1</magnoliaVersion>
-    <documentationURL>http://documentation.magnolia.info/releases/3-6-1.html</documentationURL>
+    <magnoliaVersion>3.6.2-SNAPSHOT</magnoliaVersion>
+    <documentationURL>http://documentation.magnolia.info/releases/3-6-2.html</documentationURL>
   </properties>
 
   <modules>
@@ -42,7 +42,7 @@
       <plugin>
         <groupId>info.magnolia</groupId>
         <artifactId>maven-setproperty-plugin</artifactId>
-        <version>1.0.1</version>
+        <version>1.0.2-SNAPSHOT</version>
         <executions>
           <!-- set the current date -->
           <execution>
@@ -51,23 +51,6 @@
             <goals>
               <goal>set-property</goal>
             </goals>
-            <configuration>
-              <properties>
-                <property implementation="info.magnolia.maven.setproperty.CurrentDateValueProvider">
-                  <name>magnoliaCurrentDate</name>
-                  <format>d. MMMM yyyy</format>
-                </property>
-                <!-- don't use magnolia.version. By some plugins it would get treated as project.version -->
-                <property implementation="info.magnolia.maven.setproperty.VersionNameValueProvider">
-                  <name>magnoliaNiceVersion</name>
-                </property>
-                <!-- set the release date (default current) -->
-                <property implementation="info.magnolia.maven.setproperty.CurrentDateValueProvider">
-                  <name>magnoliaReleaseDate</name>
-                  <format>d. MMMM yyyy</format>
-                </property>
-              </properties>
-            </configuration>
           </execution>
         </executions>
       </plugin>
@@ -82,7 +65,7 @@
         </executions>
         <configuration>
           <resourceBundles>
-            <resourceBundle>info.magnolia:magnolia-build-tools-dual-licensed:1.4</resourceBundle>
+            <resourceBundle>info.magnolia:magnolia-build-tools-dual-licensed:1.4.1-SNAPSHOT</resourceBundle>
           </resourceBundles>
         </configuration>
       </plugin>
