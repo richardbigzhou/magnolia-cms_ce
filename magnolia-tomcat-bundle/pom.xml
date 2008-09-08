@@ -5,69 +5,18 @@
     <groupId>info.magnolia</groupId>
     <artifactId>magnolia-bundle-parent</artifactId>
     <version>3.6.2-SNAPSHOT</version>
+    <relativePath>../pom.xml</relativePath>
   </parent>
   <artifactId>magnolia-tomcat-bundle</artifactId>
   <packaging>pom</packaging>
   <name>magnolia-tomcat-bundle</name>
   <description>Magnolia bundled with Tomcat 5.5</description>
 
-  <dependencies>
-    <dependency>
-      <groupId>info.magnolia</groupId>
-      <artifactId>magnolia-bundled-webapp</artifactId>
-      <version>${project.version}</version>
-      <type>war</type>
-    </dependency>
-    <dependency>
-      <groupId>info.magnolia</groupId>
-      <artifactId>magnolia-module-workflow</artifactId>
-      <version>${magnoliaVersion}</version>
-      <classifier>bundle</classifier>
-      <type>tar.gz</type>
-    </dependency>
-  </dependencies>
-
   <build>
     <plugins>
       <plugin>
-        <groupId>info.magnolia</groupId>
-        <artifactId>maven-bundle-plugin</artifactId>
-        <version>1.0.3-SNAPSHOT</version>
-        <executions>
-          <execution>
-            <phase>process-resources</phase>
-            <id>get-tomcat</id>
-            <goals>
-              <goal>download</goal>
-            </goals>
-            <configuration>
-              <url>http://www.apache.org/dist/tomcat/tomcat-5/v5.5.25/bin/apache-tomcat-5.5.25.tar.gz</url>
-              <destDir>${basedir}/target/extracted-tomcat</destDir>
-            </configuration>
-          </execution>
-          <execution>
-            <phase>process-resources</phase>
-            <id>get-tomcat-compat-package</id>
-            <goals>
-              <goal>download</goal>
-            </goals>
-            <configuration>
-              <url>http://www.apache.org/dist/tomcat/tomcat-5/v5.5.25/bin/apache-tomcat-5.5.25-compat.tar.gz</url>
-              <destDir>${basedir}/target/extracted-tomcat-compat</destDir>
-            </configuration>
-          </execution>
-        </executions>
-        <configuration>
-          <downloadDir>tmp</downloadDir>
-        </configuration>
-      </plugin>
-      <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-assembly-plugin</artifactId>
-        <!-- Needs at least version 2.2-beta-2 of the maven-assembly-plugin, for it resolves the following issues:
-             http://jira.codehaus.org/browse/MASSEMBLY-73
-             http://jira.codehaus.org/browse/MASSEMBLY-221
-             http://jira.codehaus.org/browse/MASSEMBLY-250 -->
         <executions>
           <execution>
             <!-- inhibit module-assembly! -->
@@ -98,4 +47,19 @@
     </plugins>
   </build>
 
+  <dependencies>
+    <dependency>
+      <groupId>info.magnolia</groupId>
+      <artifactId>magnolia-bundled-webapp</artifactId>
+      <version>${project.version}</version>
+      <type>war</type>
+    </dependency>
+    <dependency>
+      <groupId>info.magnolia</groupId>
+      <artifactId>magnolia-module-workflow</artifactId>
+      <version>${magnoliaVersion}</version>
+      <classifier>bundle</classifier>
+      <type>tar.gz</type>
+    </dependency>
+  </dependencies>
 </project>
