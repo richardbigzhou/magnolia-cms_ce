@@ -2,7 +2,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd ">
   <modelVersion>4.0.0</modelVersion>
   <parent>
-    <artifactId>magnolia-parent-pom</artifactId>
+    <artifactId>magnolia-parent-pom-ce</artifactId>
     <groupId>info.magnolia</groupId>
     <version>5-SNAPSHOT</version>
   </parent>
@@ -26,51 +26,5 @@
     <module>magnolia-integration-tests</module>
     <module>magnolia-tomcat-bundle</module>
   </modules>
-
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-enforcer-plugin</artifactId>
-      </plugin>
-      <plugin>
-        <artifactId>maven-release-plugin</artifactId>
-        <configuration>
-          <autoVersionSubmodules>true</autoVersionSubmodules>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>info.magnolia</groupId>
-        <artifactId>maven-setproperty-plugin</artifactId>
-        <version>1.0.2-SNAPSHOT</version>
-        <executions>
-          <!-- set the current date -->
-          <execution>
-            <phase>generate-resources</phase>
-            <id>currentDate</id>
-            <goals>
-              <goal>set-property</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
-        <artifactId>maven-remote-resources-plugin</artifactId>
-        <executions>
-          <execution>
-            <goals>
-              <goal>process</goal>
-            </goals>
-          </execution>
-        </executions>
-        <configuration>
-          <resourceBundles>
-            <resourceBundle>info.magnolia:magnolia-build-tools-dual-licensed:1.4.1-SNAPSHOT</resourceBundle>
-          </resourceBundles>
-        </configuration>
-      </plugin>
-
-    </plugins>
-  </build>
 
 </project>

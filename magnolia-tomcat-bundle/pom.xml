@@ -70,13 +70,20 @@
              http://jira.codehaus.org/browse/MASSEMBLY-250 -->
         <executions>
           <execution>
-            <!-- using the same id as the parent to override its configuration ! -->
-            <id>make-assembly</id>
+            <!-- inhibit module-assembly! -->
+            <id>module-assembly</id>
+            <configuration>
+              <skipAssembly>true</skipAssembly>
+            </configuration>
+          </execution>
+          <execution>
+            <id>bundle-assembly</id>
             <phase>package</phase>
             <goals>
               <goal>attached</goal>
             </goals>
             <configuration>
+              <skipAssembly>false</skipAssembly>
               <finalName>magnolia-${project.version}</finalName>
               <descriptors>
                 <descriptor>src/release/bundle-jdk15.xml</descriptor>
