@@ -14,6 +14,8 @@
         <exclude>webapps/webdav/</exclude> -->
         <!-- otherwise, we just exclude everything, since we're replacing the ROOT app anyway: -->
         <exclude>webapps/**/*</exclude>
+        <!-- exclude .sh scripts which we include below with a specific fileMode -->
+        <exclude>bin/*.sh</exclude>
       </excludes>
       <!-- TODO filemode ? -->
       <fileMode>644</fileMode>
