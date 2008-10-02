@@ -17,8 +17,8 @@
   </scm>
   <properties>
     <magnoliaEdition>Community Edition</magnoliaEdition>
-    <magnoliaVersion>3.6.3</magnoliaVersion>
-    <documentationURL>http://documentation.magnolia.info/releases/3-6-3.html</documentationURL>
+    <magnoliaVersion>3.6.4-SNAPSHOT</magnoliaVersion>
+    <documentationURL>http://documentation.magnolia.info/releases/3-6-4.html</documentationURL>
   </properties>
 
   <modules>
