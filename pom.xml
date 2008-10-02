@@ -8,12 +8,12 @@
   </parent>
   <artifactId>magnolia-bundle-parent</artifactId>
   <packaging>pom</packaging>
-  <version>3.6.3-SNAPSHOT</version>
+  <version>3.6.3</version>
   <name>magnolia-bundle-parent</name>
   <scm>
-    <connection>scm:svn:http://svn.magnolia.info/svn/community/bundle/trunk</connection>
-    <developerConnection>scm:svn:http://svn.magnolia.info/svn/community/bundle/trunk</developerConnection>
-    <url>http://svn.magnolia.info/view/community/bundle/trunk</url>
+    <connection>scm:svn:http://svn.magnolia.info/svn/community/bundle/tags/magnolia-bundle-3.6.3</connection>
+    <developerConnection>scm:svn:http://svn.magnolia.info/svn/community/bundle/tags/magnolia-bundle-3.6.3</developerConnection>
+    <url>http://svn.magnolia.info/view/community/bundle/tags/magnolia-bundle-3.6.3</url>
   </scm>
   <properties>
     <magnoliaEdition>Community Edition</magnoliaEdition>
