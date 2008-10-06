@@ -13,7 +13,19 @@
   <dependencies>
     <dependency>
       <groupId>info.magnolia</groupId>
+      <artifactId>magnolia-core</artifactId>
+      <version>${magnoliaVersion}</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>info.magnolia</groupId>
       <artifactId>magnolia-bundled-webapp</artifactId>
+      <version>${project.version}</version>
+      <type>war</type>
+    </dependency>
+    <dependency>
+      <groupId>info.magnolia</groupId>
+      <artifactId>magnolia-test-webapp</artifactId>
       <version>${project.version}</version>
       <type>war</type>
     </dependency>
@@ -82,10 +94,10 @@
             <deployables>
               <deployable>
                 <groupId>info.magnolia</groupId>
-                <artifactId>magnolia-bundled-webapp</artifactId>
+                <artifactId>magnolia-test-webapp</artifactId>
                 <type>war</type>
                 <properties>
-                  <context>magnoliaAuthor</context>
+                  <context>magnoliaTest</context>
                 </properties>
               </deployable>
               <deployable>

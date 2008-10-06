@@ -1,5 +1,5 @@
 /**
- * This file Copyright (c) 2008 Magnolia International
+ * This file Copyright (c) 2003-2008 Magnolia International
  * Ltd.  (http://www.magnolia.info). All rights reserved.
  *
  *
@@ -31,39 +31,28 @@
  * intact.
  *
  */
-package info.magnolia.integrationtests;
+package info.magnolia.integrationtests.three_seven;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 import java.net.HttpURLConnection;
 import java.net.URL;
 
 /**
- * We're just checking if the container started and the application is reachable.
- *
  * @author gjoseph
  * @version $Revision: $ ($Author: $)
  */
-public class MostBasicTest {
+public class RenderingIn37Test {
+
     @Test
-    public void seeIfWeCanSimplyReachTheAuthorInstance() throws Exception {
-        URL url = new URL("http://localhost:8088/magnoliaTest");
+    public void renderFreemakrer() throws Exception {
+        // TODO use some framework like htmlunit or similar.
+        URL url = new URL("http://localhost:8080/magnoliaTest/templating_37/freemarker.html");
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.connect();
+
+        // TODO : assert contents !
         assertEquals(200, connection.getResponseCode());
-    }
-
-    @Test
-    public void seeIfWeCanReachBothInstances() throws Exception {
-        URL urlA = new URL("http://localhost:8088/magnoliaTest");
-        HttpURLConnection connectionA = (HttpURLConnection) urlA.openConnection();
-        connectionA.connect();
-        assertEquals(200, connectionA.getResponseCode());
-
-        URL urlB = new URL("http://localhost:8088/magnoliaPublic");
-        HttpURLConnection connectionB = (HttpURLConnection) urlB.openConnection();
-        connectionB.connect();
-        assertEquals(200, connectionB.getResponseCode());
     }
 }

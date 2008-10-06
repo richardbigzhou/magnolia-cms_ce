@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE module SYSTEM "module.dtd">
+<module>
+  <name>test</name>
+  <displayName>Integration tests</displayName>
+  <class>info.magnolia.test.SetupStuffForTests</class>
+  <!--<versionHandler></versionHandler>-->
+  <version>${project.version}</version>
+
+  <!-- make sure we're last -->
+  <dependencies>
+    <dependency>
+      <name>core</name>
+      <version>${magnoliaVersion}</version>
+    </dependency>
+    <dependency>
+      <name>adminInterface</name>
+      <version>${magnoliaVersion}</version>
+    </dependency>
+    <dependency>
+      <name>templating</name>
+      <version>${magnoliaVersion}</version>
+    </dependency>
+    <dependency>
+      <name>cache</name>
+      <optional>true</optional>
+    </dependency>
+    <dependency>
+      <name>exchange-simple</name>
+      <optional>true</optional>
+    </dependency>
+    <dependency>
+      <name>mail</name>
+      <optional>true</optional>
+    </dependency>
+    <dependency>
+      <name>samples</name>
+      <optional>true</optional>
+    </dependency>
+  </dependencies>
+</module>

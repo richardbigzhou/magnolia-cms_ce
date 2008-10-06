@@ -1,5 +1,5 @@
 /**
- * This file Copyright (c) 2008 Magnolia International
+ * This file Copyright (c) 2003-2008 Magnolia International
  * Ltd.  (http://www.magnolia.info). All rights reserved.
  *
  *
@@ -31,39 +31,31 @@
  * intact.
  *
  */
-package info.magnolia.integrationtests;
+package info.magnolia.test;
 
-import static org.junit.Assert.*;
-import org.junit.Test;
+import info.magnolia.cms.beans.config.Template;
+import info.magnolia.cms.beans.config.TemplateManager;
+import info.magnolia.module.ModuleLifecycle;
+import info.magnolia.module.ModuleLifecycleContext;
 
-import java.net.HttpURLConnection;
-import java.net.URL;
+import java.util.Iterator;
 
 /**
- * We're just checking if the container started and the application is reachable.
- *
  * @author gjoseph
  * @version $Revision: $ ($Author: $)
  */
-public class MostBasicTest {
-    @Test
-    public void seeIfWeCanSimplyReachTheAuthorInstance() throws Exception {
-        URL url = new URL("http://localhost:8088/magnoliaTest");
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-        connection.connect();
-        assertEquals(200, connection.getResponseCode());
+public class SetupStuffForTests implements ModuleLifecycle {
+    public void start(ModuleLifecycleContext moduleLifecycleContext) {
+        System.out.println("--------SetupStuffForTests implements ModuleLifecycle");
+        final Iterator templates = TemplateManager.getInstance().getAvailableTemplates();
+        while (templates.hasNext()) {
+            final Template template = (Template) templates.next();
+            System.out.println("template = " + template.getName());
+        }
+        System.out.println("-------------");
     }
 
-    @Test
-    public void seeIfWeCanReachBothInstances() throws Exception {
-        URL urlA = new URL("http://localhost:8088/magnoliaTest");
-        HttpURLConnection connectionA = (HttpURLConnection) urlA.openConnection();
-        connectionA.connect();
-        assertEquals(200, connectionA.getResponseCode());
-
-        URL urlB = new URL("http://localhost:8088/magnoliaPublic");
-        HttpURLConnection connectionB = (HttpURLConnection) urlB.openConnection();
-        connectionB.connect();
-        assertEquals(200, connectionB.getResponseCode());
+    public void stop(ModuleLifecycleContext moduleLifecycleContext) {
+        //To change body of implemented methods use File | Settings | File Templates.
     }
 }

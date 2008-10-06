@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sv:node sv:name="rendering-test-jsp-newschool" xmlns:jcr="http://www.jcp.org/jcr/1.0"
+  xmlns:mgnl="http://www.magnolia.info/jcr/mgnl" xmlns:mix="http://www.jcp.org/jcr/mix/1.0" xmlns:rep="internal"
+  xmlns:nt="http://www.jcp.org/jcr/nt/1.0" xmlns:fn="http://www.w3.org/2005/xpath-functions"
+  xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn_old="http://www.w3.org/2004/10/xpath-functions"
+  xmlns:sv="http://www.jcp.org/jcr/sv/1.0" xmlns:jcrfn="http://www.jcp.org/jcr/xpath-functions/1.0">
+  <sv:property sv:name="jcr:primaryType" sv:type="Name">
+    <sv:value>mgnl:contentNode</sv:value>
+  </sv:property>
+  <sv:property sv:name="jcr:mixinTypes" sv:type="Name">
+    <sv:value>mix:lockable</sv:value>
+  </sv:property>
+  <sv:property sv:name="jcr:uuid" sv:type="String">
+    <sv:value>60d5c160-83f2-4d8c-84b8-db313941058a</sv:value>
+  </sv:property>
+  <sv:property sv:name="path" sv:type="String">
+    <sv:value>/templates/test/templating_37/templating_test_newschool.jsp</sv:value>
+  </sv:property>
+  <sv:property sv:name="type" sv:type="String">
+    <sv:value>jsp</sv:value>
+  </sv:property>
+  <sv:property sv:name="visible" sv:type="String">
+    <sv:value>true</sv:value>
+  </sv:property>
+  <sv:node sv:name="MetaData">
+    <sv:property sv:name="jcr:primaryType" sv:type="Name">
+      <sv:value>mgnl:metaData</sv:value>
+    </sv:property>
+    <sv:property sv:name="mgnl:activated" sv:type="Boolean">
+      <sv:value>false</sv:value>
+    </sv:property>
+    <sv:property sv:name="mgnl:authorid" sv:type="String">
+      <sv:value>superuser</sv:value>
+    </sv:property>
+    <sv:property sv:name="mgnl:creationdate" sv:type="Date">
+      <sv:value>2008-10-06T20:02:54.870+02:00</sv:value>
+    </sv:property>
+    <sv:property sv:name="mgnl:lastmodified" sv:type="Date">
+      <sv:value>2008-10-06T20:08:22.768+02:00</sv:value>
+    </sv:property>
+  </sv:node>
+</sv:node>

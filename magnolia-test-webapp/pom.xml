@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>info.magnolia</groupId>
+    <artifactId>magnolia-bundle-parent</artifactId>
+    <version>3.7-SNAPSHOT</version>
+  </parent>
+  <artifactId>magnolia-test-webapp</artifactId>
+  <packaging>war</packaging>
+  <name>magnolia-test-webapp</name>
+  <description>A Magnolia instance used for testing.</description>
+  <dependencies>
+    <dependency>
+      <groupId>info.magnolia</groupId>
+      <artifactId>magnolia-empty-webapp</artifactId>
+      <version>${magnoliaVersion}</version>
+      <type>war</type>
+    </dependency>
+    <dependency>
+      <groupId>info.magnolia</groupId>
+      <artifactId>magnolia-module-samples</artifactId>
+      <version>${magnoliaVersion}</version>
+      <type>jar</type>
+    </dependency>
+    <dependency>
+      <groupId>info.magnolia</groupId>
+      <artifactId>magnolia-integration-tests-module</artifactId>
+      <version>${project.version}</version>
+      <type>jar</type>
+    </dependency>
+    <!--<dependency>-->
+      <!--<groupId>info.magnolia</groupId>-->
+      <!--<artifactId>magnolia-module-dms</artifactId>-->
+      <!--<version>1.2.5</version>-->
+      <!--<type>jar</type>-->
+    <!--</dependency>-->
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.1</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+  <!-- copied from magnolia-empty-webapp, in order to override its txt files : -->
+  <build>
+    <resources>
+      <resource>
+        <!-- these are the resources copied by the remote-resources-plugin -->
+        <directory>${basedir}/target/maven-shared-archive-resources</directory>
+        <excludes>
+          <exclude>**/*</exclude>
+        </excludes>
+      </resource>
+    </resources>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-war-plugin</artifactId>
+        <configuration>
+          <webResources>
+            <resource>
+              <!-- these are the resources copied by the remote-resources-plugin -->
+              <directory>${basedir}/target/maven-shared-archive-resources</directory>
+            </resource>
+          </webResources>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+</project>
