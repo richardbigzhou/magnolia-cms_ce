@@ -8,7 +8,7 @@
   </parent>
   <artifactId>magnolia-bundle-parent</artifactId>
   <packaging>pom</packaging>
-  <version>3.6.4-SNAPSHOT</version>
+  <version>3.7-SNAPSHOT</version>
   <name>magnolia-bundle-parent</name>
   <scm>
     <connection>scm:svn:http://svn.magnolia.info/svn/community/bundle/trunk</connection>
@@ -17,12 +17,16 @@
   </scm>
   <properties>
     <magnoliaEdition>Community Edition</magnoliaEdition>
-    <magnoliaVersion>3.6.4-SNAPSHOT</magnoliaVersion>
-    <documentationURL>http://documentation.magnolia.info/releases/3-6-4.html</documentationURL>
+    <magnoliaVersion>3.7-SNAPSHOT</magnoliaVersion>
+    <documentationURL>http://documentation.magnolia.info/releases/3-7.html</documentationURL>
   </properties>
 
   <modules>
     <module>magnolia-bundled-webapp</module>
+    <!--
+    <module>magnolia-integration-tests-module</module>
+    <module>magnolia-test-webapp</module>
+    -->
     <module>magnolia-integration-tests</module>
     <module>magnolia-tomcat-bundle</module>
   </modules>
