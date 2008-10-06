@@ -7,7 +7,7 @@
   </parent>
   <groupId>info.magnolia</groupId>
   <artifactId>magnolia-integration-tests-module</artifactId>
-  <name>magnolia-integration-tests</name>
+  <name>magnolia-integration-tests-module</name>
   <packaging>jar</packaging>
 
   <dependencies>
