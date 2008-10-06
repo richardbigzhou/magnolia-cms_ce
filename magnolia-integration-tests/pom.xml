@@ -128,7 +128,7 @@
       <properties>
         <containerId>tomcat5x</containerId>
         <containerType>installed</containerType>
-        <port>8080</port>
+        <port>8088</port>
         <url>http://archive.apache.org/dist/tomcat/tomcat-5/v5.0.30/bin/jakarta-tomcat-5.0.30.zip</url>
       </properties>
     </profile>
@@ -137,7 +137,7 @@
       <properties>
         <containerId>tomcat5x</containerId>
         <containerType>installed</containerType>
-        <port>8080</port>
+        <port>8088</port>
         <url>http://www.apache.org/dist/tomcat/tomcat-5/v5.5.25/bin/apache-tomcat-5.5.25.zip</url>
       </properties>
     </profile>
@@ -146,7 +146,7 @@
       <properties>
         <containerId>tomcat5x</containerId>
         <containerType>installed</containerType>
-        <port>8080</port>
+        <port>8088</port>
         <url>http://apache.mirror.testserver.li/tomcat/tomcat-6/v6.0.14/bin/apache-tomcat-6.0.14.zip</url>
       </properties>
     </profile>
@@ -159,7 +159,7 @@
       <properties>
         <containerId>jetty6x</containerId>
         <containerType>embedded</containerType>
-        <port>8080</port>
+        <port>8088</port>
       </properties>
     </profile>
     <profile>
@@ -167,7 +167,7 @@
       <properties>
         <containerId>jboss4x</containerId>
         <containerType>installed</containerType>
-        <port>8080</port>
+        <port>8088</port>
         <url>http://switch.dl.sourceforge.net/sourceforge/jboss/jboss-4.2.2.GA.zip</url>
         <jvmargs>
           -Djava.security.auth.login.config=file:///Users/brainbug/Jobs/J2Global/magnolia-trunk/magnolia-webapp/target/magnolia-webapp-3.5-SNAPSHOT/WEB-INF/config/jaas.config
@@ -186,7 +186,7 @@
       <properties>
         <containerId>jboss4x</containerId>
         <containerType>installed</containerType>
-        <port>8080</port>
+        <port>8088</port>
         <url>http://kent.dl.sourceforge.net/sourceforge/jboss/jboss-4.0.5.GA.zip</url>
         <jvmargs>-Djava.security.auth.login.config=${project.build.directory}/${project.build.finalName}/WEB-INF/config/jaas.config</jvmargs>
       </properties>

@@ -48,7 +48,7 @@ import java.net.URL;
 public class MostBasicTest {
     @Test
     public void seeIfWeCanSimplyReachTheAuthorInstance() throws Exception {
-        URL url = new URL("http://localhost:8080/magnoliaAuthor");
+        URL url = new URL("http://localhost:8088/magnoliaAuthor");
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.connect();
         assertEquals(200, connection.getResponseCode());
@@ -56,12 +56,12 @@ public class MostBasicTest {
 
     @Test
     public void seeIfWeCanReachBothInstances() throws Exception {
-        URL urlA = new URL("http://localhost:8080/magnoliaAuthor");
+        URL urlA = new URL("http://localhost:8088/magnoliaAuthor");
         HttpURLConnection connectionA = (HttpURLConnection) urlA.openConnection();
         connectionA.connect();
         assertEquals(200, connectionA.getResponseCode());
 
-        URL urlB = new URL("http://localhost:8080/magnoliaPublic");
+        URL urlB = new URL("http://localhost:8088/magnoliaPublic");
         HttpURLConnection connectionB = (HttpURLConnection) urlB.openConnection();
         connectionB.connect();
         assertEquals(200, connectionB.getResponseCode());
