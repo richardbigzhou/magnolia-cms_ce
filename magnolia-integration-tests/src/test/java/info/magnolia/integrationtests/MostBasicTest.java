@@ -37,7 +37,6 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import java.net.HttpURLConnection;
-import java.net.URL;
 
 /**
  * We're just checking if the container started and the application is reachable.
@@ -45,25 +44,24 @@ import java.net.URL;
  * @author gjoseph
  * @version $Revision: $ ($Author: $)
  */
-public class MostBasicTest {
+public class MostBasicTest extends MagnoliaIntegrationTest {
+
     @Test
-    public void seeIfWeCanSimplyReachTheAuthorInstance() throws Exception {
-        URL url = new URL("http://localhost:8088/magnoliaTest");
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-        connection.connect();
+    public void seeAuthorInstanceShouldBePasswordProtected() throws Exception {
+        final HttpURLConnection connection = openConnection("http://localhost:8088/magnoliaTest", null, null);
+        assertEquals(401, connection.getResponseCode());
+    }
+
+    @Test
+    public void seeIfWeLoginOnAuthorInstanceWithSuperuser() throws Exception {
+        final HttpURLConnection connection = openConnection("http://localhost:8088/magnoliaTest", "superuser", "superuser");
         assertEquals(200, connection.getResponseCode());
     }
 
     @Test
-    public void seeIfWeCanReachBothInstances() throws Exception {
-        URL urlA = new URL("http://localhost:8088/magnoliaTest");
-        HttpURLConnection connectionA = (HttpURLConnection) urlA.openConnection();
-        connectionA.connect();
-        assertEquals(200, connectionA.getResponseCode());
-
-        URL urlB = new URL("http://localhost:8088/magnoliaPublic");
-        HttpURLConnection connectionB = (HttpURLConnection) urlB.openConnection();
-        connectionB.connect();
-        assertEquals(200, connectionB.getResponseCode());
+    public void seeIfWeCanReachThePublicInstanceWithoutPassword() throws Exception {
+        final HttpURLConnection connection = openConnection("http://localhost:8088/magnoliaPublic", null, null);
+        assertEquals(200, connection.getResponseCode());
     }
+
 }

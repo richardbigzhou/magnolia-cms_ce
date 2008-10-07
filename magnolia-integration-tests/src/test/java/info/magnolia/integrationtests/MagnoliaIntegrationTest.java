@@ -31,25 +31,34 @@
  * intact.
  *
  */
-package info.magnolia.integrationtests.three_seven;
+package info.magnolia.integrationtests;
 
-import info.magnolia.integrationtests.MagnoliaIntegrationTest;
-import static org.junit.Assert.assertEquals;
-import org.junit.Test;
+import org.apache.commons.codec.binary.Base64;
 
+import java.io.IOException;
 import java.net.HttpURLConnection;
+import java.net.URL;
 
 /**
  * @author gjoseph
  * @version $Revision: $ ($Author: $)
  */
-public class RenderingIn37Test extends MagnoliaIntegrationTest {
+public abstract class MagnoliaIntegrationTest {
+//    @After
+//    public void afterEachTest() {
+    // ...
+//    }
 
-    @Test
-    public void renderFreemarker() throws Exception {
-        final HttpURLConnection connection = openConnection("http://localhost:8088/magnoliaTest", "superuser", "superuser");
+    protected HttpURLConnection openConnection(String urlStr, final String username, final String password) throws IOException {
+        final URL url = new URL(urlStr);
+        final HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        if (username != null) {
+            final String authString = username + ":" + password;
+            final String encodedAuthStr = new String(Base64.encodeBase64(authString.getBytes()));
+            connection.setRequestProperty("Authorization", "Basic " + encodedAuthStr);
+        }
 
-        // TODO : assert contents !
-        assertEquals(200, connection.getResponseCode());
+        connection.connect();
+        return connection;
     }
 }
