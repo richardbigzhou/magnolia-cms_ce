@@ -1,1 +1,0 @@
-${content.someProperty}
