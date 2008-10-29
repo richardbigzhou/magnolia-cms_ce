@@ -38,6 +38,8 @@ import org.apache.commons.codec.binary.Base64;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Map;
+import java.util.Collections;
 
 /**
  * @author gjoseph
@@ -50,12 +52,20 @@ public abstract class AbstractMagnoliaIntegrationTest {
 //    }
 
     protected HttpURLConnection openConnection(String urlStr, final String username, final String password) throws IOException {
+        return openConnection(urlStr, username, password, Collections.<String, String>emptyMap());
+    }
+
+    protected HttpURLConnection openConnection(String urlStr, final String username, final String password, Map<String, String> headers) throws IOException {
         final URL url = new URL(urlStr);
         final HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         if (username != null) {
             final String authString = username + ":" + password;
             final String encodedAuthStr = new String(Base64.encodeBase64(authString.getBytes()));
             connection.setRequestProperty("Authorization", "Basic " + encodedAuthStr);
+        }
+
+        for (String header : headers.keySet()) {
+            connection.setRequestProperty(header, headers.get(header));
         }
 
         connection.connect();

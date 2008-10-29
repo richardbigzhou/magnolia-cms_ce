@@ -67,8 +67,23 @@ public class RenderingIn37Test extends AbstractMagnoliaIntegrationTest {
         final String allContents = IOUtils.toString(connection.getInputStream());
         // TODO : the following won't be valid if we change the freemarker error handler
         assertEquals("There was a freemarker error", false, allContents.contains("FREEMARKER ERROR MESSAGE STARTS HERE"));
-        System.out.println("allContents = " + allContents);
+        // System.out.println("allContents = " + allContents);
         assertEquals(true, allContents.contains("no action result here"));
     }
 
+
+    @Test
+    public void ensureTheSimplePlainTextTestPageIsReachable() throws IOException {
+        final HttpURLConnection connection = openConnection("http://localhost:8088/magnoliaTest/testpages/plain.txt", "superuser", "superuser");
+        final String allContents = IOUtils.toString(connection.getInputStream());
+        // see MAGNOLIA-2393
+        assertEquals(true, allContents.contains("This is just one plain text page."));
+    }
+
+    @Test
+    public void ensureTheSimplePlainTextTestPageIsReachableAndCorrrectOnAPublicInstance() throws IOException {
+        final HttpURLConnection connection = openConnection("http://localhost:8088/magnoliaPublic/testpages/plain.txt", "superuser", "superuser");
+        final String allContents = IOUtils.toString(connection.getInputStream());
+        assertEquals("This is just one plain text page.", allContents);
+    }
 }
