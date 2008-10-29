@@ -33,29 +33,33 @@
  */
 package info.magnolia.test;
 
-import info.magnolia.cms.beans.config.Template;
-import info.magnolia.cms.beans.config.TemplateManager;
+import info.magnolia.module.AbstractModuleVersionHandler;
+import info.magnolia.module.InstallContext;
 import info.magnolia.module.ModuleLifecycle;
 import info.magnolia.module.ModuleLifecycleContext;
+import info.magnolia.module.delta.ModuleFilesExtraction;
+import info.magnolia.module.delta.PropertiesImportTask;
 
-import java.util.Iterator;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author gjoseph
  * @version $Revision: $ ($Author: $)
  */
-public class SetupStuffForTests implements ModuleLifecycle {
+public class SetupStuffForTests extends AbstractModuleVersionHandler implements ModuleLifecycle {
     public void start(ModuleLifecycleContext moduleLifecycleContext) {
-        System.out.println("--------SetupStuffForTests implements ModuleLifecycle");
-        final Iterator templates = TemplateManager.getInstance().getAvailableTemplates();
-        while (templates.hasNext()) {
-            final Template template = (Template) templates.next();
-            System.out.println("template = " + template.getName());
-        }
-        System.out.println("-------------");
     }
 
     public void stop(ModuleLifecycleContext moduleLifecycleContext) {
-        //To change body of implemented methods use File | Settings | File Templates.
     }
+
+    protected List getBasicInstallTasks(InstallContext installContext) {
+        final ArrayList list = new ArrayList();
+        list.add(new ModuleFilesExtraction());
+        list.add(new PropertiesImportTask("Test config content", "Imports content in the config workspace", "config", "/info/magnolia/test/config.properties"));
+        list.add(new PropertiesImportTask("Test website content", "Imports content in the website workspace", "website", "/info/magnolia/test/website.properties"));
+        return list;
+    }
+
 }

@@ -43,7 +43,7 @@ import java.net.URL;
  * @author gjoseph
  * @version $Revision: $ ($Author: $)
  */
-public abstract class MagnoliaIntegrationTest {
+public abstract class AbstractMagnoliaIntegrationTest {
 //    @After
 //    public void afterEachTest() {
     // ...

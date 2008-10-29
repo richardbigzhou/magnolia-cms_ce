@@ -33,23 +33,42 @@
  */
 package info.magnolia.integrationtests.three_seven;
 
-import info.magnolia.integrationtests.MagnoliaIntegrationTest;
+import info.magnolia.cms.util.ClasspathResourcesUtil;
+import info.magnolia.integrationtests.AbstractMagnoliaIntegrationTest;
+import org.apache.commons.io.IOUtils;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import org.junit.Test;
 
+import java.io.IOException;
 import java.net.HttpURLConnection;
+import java.net.URL;
 
 /**
  * @author gjoseph
  * @version $Revision: $ ($Author: $)
  */
-public class RenderingIn37Test extends MagnoliaIntegrationTest {
+public class RenderingIn37Test extends AbstractMagnoliaIntegrationTest {
+
+    @Test
+    public void ensureWeCanReachResourcesFromTheTestModule() throws IOException {
+        final URL resource = ClasspathResourcesUtil.getResource("/mgnl-files/templates/test/templating_37/templating_test_expectedresults.txt");
+        assertNotNull(resource);
+        assertNotNull(resource.openStream());
+    }
 
     @Test
     public void renderFreemarker() throws Exception {
-        final HttpURLConnection connection = openConnection("http://localhost:8088/magnoliaTest", "superuser", "superuser");
+        final HttpURLConnection connection = openConnection("http://localhost:8088/magnoliaTest/testpages/test_freemarker.html", "superuser", "superuser");
 
-        // TODO : assert contents !
         assertEquals(200, connection.getResponseCode());
+
+        // TODO : better assert of contents !?
+        final String allContents = IOUtils.toString(connection.getInputStream());
+        // TODO : the following won't be valid if we change the freemarker error handler
+        assertEquals("There was a freemarker error", false, allContents.contains("FREEMARKER ERROR MESSAGE STARTS HERE"));
+        System.out.println("allContents = " + allContents);
+        assertEquals(true, allContents.contains("no action result here"));
     }
+
 }

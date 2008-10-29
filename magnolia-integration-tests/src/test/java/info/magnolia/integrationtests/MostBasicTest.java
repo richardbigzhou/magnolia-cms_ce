@@ -44,7 +44,7 @@ import java.net.HttpURLConnection;
  * @author gjoseph
  * @version $Revision: $ ($Author: $)
  */
-public class MostBasicTest extends MagnoliaIntegrationTest {
+public class MostBasicTest extends AbstractMagnoliaIntegrationTest {
 
     @Test
     public void seeAuthorInstanceShouldBePasswordProtected() throws Exception {
