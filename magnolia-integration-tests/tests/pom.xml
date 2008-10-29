@@ -121,20 +121,18 @@
               /private/tmp/Jetty_0_0_0_0_8080_magnolia-test-webapp-3.6.1-SNAPSHOT.war__magnoliaPublic__-5xy1qx/webapp
               so Magnolia can't determine that it's a public instance, it consider the webapp name to be "webapp" and
               not "magnoliaPublic" like the context name.
-+              -->
-               <deployable>
-                 <groupId>info.magnolia</groupId>
-+                <artifactId>magnolia-test-public-webapp</artifactId>
+              -->
+              <deployable>
+                <groupId>info.magnolia</groupId>
+                <artifactId>magnolia-test-public-webapp</artifactId>
                 <type>war</type>
                 <properties>
                   <context>magnoliaPublic</context>
                 </properties>
               </deployable>
             </deployables>
-
           </configuration>
         </configuration>
-
         <executions>
           <execution>
             <id>start</id>
@@ -195,14 +193,14 @@
         <port>8088</port>
       </properties>
       <dependencies>
-          <dependency>
-            <groupId>org.mortbay.jetty</groupId>
-            <artifactId>jsp-2.1</artifactId>
-            <version>6.1.1rc1</version>
-            <type>pom</type>
-            <scope>test</scope>
-          </dependency>
-        </dependencies>
+        <dependency>
+          <groupId>org.mortbay.jetty</groupId>
+          <artifactId>jsp-2.1</artifactId>
+          <version>6.1.1rc1</version>
+          <type>pom</type>
+          <scope>test</scope>
+        </dependency>
+      </dependencies>
     </profile>
     <profile>
       <id>jboss42</id>
