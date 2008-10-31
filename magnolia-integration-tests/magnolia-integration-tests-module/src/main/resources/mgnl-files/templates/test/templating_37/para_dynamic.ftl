@@ -9,4 +9,9 @@ Paragraph model: ${model}
 Action result: ${actionResult!'... no action result here'}
 Current locale: ${ctx.locale}
 Aggregation state: ${aggregationState}
+
+Examples:
+[@cms.editBar /]
+                  
+
 ~~
