@@ -67,6 +67,14 @@
           </webResources>
         </configuration>
       </plugin>
+      <plugin>
+        <groupId>org.mortbay.jetty</groupId>
+        <artifactId>jetty-maven-plugin</artifactId>
+        <configuration>
+          <scanIntervalSeconds>5</scanIntervalSeconds>
+          <webAppSourceDirectory>target/${artifactId}-${version}</webAppSourceDirectory>
+        </configuration>
+      </plugin>
     </plugins>
   </build>
 
