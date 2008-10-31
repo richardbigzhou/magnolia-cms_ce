@@ -58,7 +58,6 @@ public class RenderingIn37Test extends AbstractMagnoliaIntegrationTest {
         final InputStream stream = resource.openStream();
         assertNotNull(stream);
         final String allContents = IOUtils.toString(stream);
-        System.out.println("allContents = " + allContents);
         assertTrue("Where is all the content gone ?", allContents.contains("This file is currently not used !"));
     }
 

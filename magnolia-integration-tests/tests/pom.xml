@@ -181,6 +181,7 @@
       </properties>
     </profile>
     <profile>
+      <!-- this currently doesn't work with jsp -->
       <id>jetty6-embedded</id>
       <properties>
         <containerId>jetty6x</containerId>
