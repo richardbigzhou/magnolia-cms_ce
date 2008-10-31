@@ -1,3 +1,4 @@
+[#assign cms=JspTaglibs["cms-taglib"]]
 ~~
 This is a dynamic paragraph rendered with Freemarker,
 showing some of the available variables and some syntax/usage details for Freemarker paragraphs:
