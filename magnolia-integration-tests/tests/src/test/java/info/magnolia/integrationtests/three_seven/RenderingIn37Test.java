@@ -36,11 +36,12 @@ package info.magnolia.integrationtests.three_seven;
 import info.magnolia.cms.util.ClasspathResourcesUtil;
 import info.magnolia.integrationtests.AbstractMagnoliaIntegrationTest;
 import org.apache.commons.io.IOUtils;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 import org.junit.Test;
 
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
@@ -54,7 +55,11 @@ public class RenderingIn37Test extends AbstractMagnoliaIntegrationTest {
     public void ensureWeCanReachResourcesFromTheTestModule() throws IOException {
         final URL resource = ClasspathResourcesUtil.getResource("/mgnl-files/templates/test/templating_37/templating_test_expectedresults.txt");
         assertNotNull(resource);
-        assertNotNull(resource.openStream());
+        final InputStream stream = resource.openStream();
+        assertNotNull(stream);
+        final String allContents = IOUtils.toString(stream);
+        System.out.println("allContents = " + allContents);
+        assertTrue("Where is all the content gone ?", allContents.contains("This file is currently not used !"));
     }
 
     @Test
@@ -62,12 +67,15 @@ public class RenderingIn37Test extends AbstractMagnoliaIntegrationTest {
         final HttpURLConnection connection = openConnection("http://localhost:8088/magnoliaTest/testpages/test_freemarker.html", "superuser", "superuser");
 
         assertEquals(200, connection.getResponseCode());
+        // TODO : save output to file for later inspection - if not 200, get the output from errorStream !
 
-        // TODO : better assert of contents !?
+        // TODO : better assert of contents !
         final String allContents = IOUtils.toString(connection.getInputStream());
+
+        IOUtils.write(allContents, new FileOutputStream(this.getClass().getName() + "-" + "renderFreemarker" + ".out"));
+
         // TODO : the following won't be valid if we change the freemarker error handler
         assertEquals("There was a freemarker error", false, allContents.contains("FREEMARKER ERROR MESSAGE STARTS HERE"));
-        // System.out.println("allContents = " + allContents);
         assertEquals(true, allContents.contains("no action result here"));
     }
 

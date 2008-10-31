@@ -17,5 +17,11 @@
       <version>${magnoliaVersion}</version>
       <scope>provided</scope>
     </dependency>
+    <dependency>
+      <groupId>info.magnolia</groupId>
+      <artifactId>magnolia-taglib-utility</artifactId>
+      <version>${magnoliaVersion}</version>
+      <scope>provided</scope>
+    </dependency>
   </dependencies>
 </project>

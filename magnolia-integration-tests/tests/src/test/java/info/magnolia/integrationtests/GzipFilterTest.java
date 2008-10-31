@@ -49,10 +49,7 @@ import java.util.HashMap;
 public class GzipFilterTest extends AbstractMagnoliaIntegrationTest {
     @Test
     public void pageShouldNotBeGZippedIfClientDoesNotSupportIt() throws Exception {
-        // TODO : can't use the sample pages for now, as they use JSP and the jetty setup currently
-        // doesn't support this - need to add some dependency
-        // HttpURLConnection connection = openConnection("http://localhost:8088/magnoliaPublic/help.html", null, null);
-        HttpURLConnection connection = openConnection("http://localhost:8088/magnoliaPublic/testpages/test_freemarker.html", null, null);
+         HttpURLConnection connection = openConnection("http://localhost:8088/magnoliaPublic/help.html", null, null);
         assertEquals(200, connection.getResponseCode());
         assertEquals(null, connection.getHeaderField("Content-Encoding"));
         assertGzipped(Boolean.FALSE, connection.getInputStream());
