@@ -7,5 +7,5 @@
 This should output the value of the "desc" property: <cms:out nodeDataName="desc"/>
 
 #the above doesn't work yet:
-This should do the same, in a more modern fashion, since Magnolia 3.7:  $ { content.desc}
+This should do the same, in a more modern fashion, since Magnolia 3.7:  ${content} ---.desc}
 ~~
