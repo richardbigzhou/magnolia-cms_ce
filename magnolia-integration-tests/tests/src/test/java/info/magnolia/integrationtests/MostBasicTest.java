@@ -33,10 +33,9 @@
  */
 package info.magnolia.integrationtests;
 
-import static org.junit.Assert.*;
+import com.gargoylesoftware.htmlunit.Page;
+import static org.junit.Assert.assertEquals;
 import org.junit.Test;
-
-import java.net.HttpURLConnection;
 
 /**
  * We're just checking if the container started and the application is reachable.
@@ -48,20 +47,20 @@ public class MostBasicTest extends AbstractMagnoliaIntegrationTest {
 
     @Test
     public void seeAuthorInstanceShouldBePasswordProtected() throws Exception {
-        final HttpURLConnection connection = openConnection("http://localhost:8088/magnoliaTest", null, null);
-        assertEquals(401, connection.getResponseCode());
+        final Page page = openPage(Instance.AUTHOR, "", null);
+        assertEquals(401, page.getWebResponse().getStatusCode());
     }
 
     @Test
     public void seeIfWeLoginOnAuthorInstanceWithSuperuser() throws Exception {
-        final HttpURLConnection connection = openConnection("http://localhost:8088/magnoliaTest", "superuser", "superuser");
-        assertEquals(200, connection.getResponseCode());
+        final Page page = openPage(Instance.AUTHOR, "", User.superuser);
+        assertEquals(200, page.getWebResponse().getStatusCode());
     }
 
     @Test
     public void seeIfWeCanReachThePublicInstanceWithoutPassword() throws Exception {
-        final HttpURLConnection connection = openConnection("http://localhost:8088/magnoliaPublic", null, null);
-        assertEquals(200, connection.getResponseCode());
+        final Page page = openPage(Instance.PUBLIC, "", null);
+        assertEquals(200, page.getWebResponse().getStatusCode());
     }
 
 }

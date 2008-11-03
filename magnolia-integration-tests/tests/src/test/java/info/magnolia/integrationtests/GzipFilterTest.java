@@ -36,20 +36,23 @@ package info.magnolia.integrationtests;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.FileNotFoundException;
 import java.net.HttpURLConnection;
 import java.util.HashMap;
 
 /**
+ * These tests use a plain java.net.HttpURLConnection because we don't want
+ * HtmlUnit to interfere with content (gzipped or not) returned by the server.
+ *
  * @author gjoseph
  * @version $Revision: $ ($Author: $)
  */
 public class GzipFilterTest extends AbstractMagnoliaIntegrationTest {
     @Test
     public void pageShouldNotBeGZippedIfClientDoesNotSupportIt() throws Exception {
-         HttpURLConnection connection = openConnection("http://localhost:8088/magnoliaPublic/help.html", null, null);
+        HttpURLConnection connection = openConnection(Instance.PUBLIC, "/help.html", null);
         assertEquals(200, connection.getResponseCode());
         assertEquals(null, connection.getHeaderField("Content-Encoding"));
         assertGzipped(Boolean.FALSE, connection.getInputStream());
@@ -57,8 +60,8 @@ public class GzipFilterTest extends AbstractMagnoliaIntegrationTest {
 
     @Test
     public void pageShouldBeGZippedIfClientDoesSupportIt() throws Exception {
-        HttpURLConnection connection = openConnection("http://localhost:8088/magnoliaPublic/testpages/test_freemarker.html", null, null,
-                new HashMap<String, String>(){{
+        HttpURLConnection connection = openConnection(Instance.PUBLIC, "/testpages/test_freemarker.html", null,
+                new HashMap<String, String>() {{
                     put("Accept-Encoding", "gzip,deflate");
                 }});
         assertEquals(200, connection.getResponseCode());
@@ -68,7 +71,7 @@ public class GzipFilterTest extends AbstractMagnoliaIntegrationTest {
 
     @Test
     public void fourOFourShouldNotBeGZipped() throws Exception {
-        HttpURLConnection connection = openConnection("http://localhost:8088/magnoliaPublic/unexisting-page.html", null, null);
+        HttpURLConnection connection = openConnection(Instance.PUBLIC, "/unexisting-page.html", null);
         assertEquals(404, connection.getResponseCode());
         assertEquals(null, connection.getHeaderField("Content-Encoding"));
         try {

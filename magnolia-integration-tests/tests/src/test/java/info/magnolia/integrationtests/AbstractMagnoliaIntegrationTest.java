@@ -33,35 +33,55 @@
  */
 package info.magnolia.integrationtests;
 
+import com.gargoylesoftware.htmlunit.BrowserVersion;
+import com.gargoylesoftware.htmlunit.Page;
+import com.gargoylesoftware.htmlunit.WebClient;
 import org.apache.commons.codec.binary.Base64;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.Map;
 import java.util.Collections;
+import java.util.EnumMap;
+import java.util.Map;
 
 /**
  * @author gjoseph
  * @version $Revision: $ ($Author: $)
  */
 public abstract class AbstractMagnoliaIntegrationTest {
-//    @After
-//    public void afterEachTest() {
-    // ...
-//    }
 
-    protected HttpURLConnection openConnection(String urlStr, final String username, final String password) throws IOException {
-        return openConnection(urlStr, username, password, Collections.<String, String>emptyMap());
+    protected enum Instance {
+        AUTHOR, PUBLIC
     }
 
-    protected HttpURLConnection openConnection(String urlStr, final String username, final String password, Map<String, String> headers) throws IOException {
-        final URL url = new URL(urlStr);
+    protected enum User {
+        superuser
+    }
+
+    // TODO : this c/should be configured
+    private EnumMap<Instance, String> instanceURLs = new EnumMap<Instance, String>(Instance.class) {{
+        put(Instance.AUTHOR, "http://localhost:8088/magnoliaTest");
+        put(Instance.PUBLIC, "http://localhost:8088/magnoliaPublic");
+    }};
+
+    /*
+    @After
+    public void afterEachTest() {
+     ...
+    }
+    */
+
+    protected HttpURLConnection openConnection(Instance instance, String path, User user) throws IOException {
+        return openConnection(instance, path, user, Collections.<String, String>emptyMap());
+    }
+
+    protected HttpURLConnection openConnection(Instance instance, String path, User user, Map<String, String> headers) throws IOException {
+        final URL url = new URL(getUrl(instance, path));
         final HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-        if (username != null) {
-            final String authString = username + ":" + password;
-            final String encodedAuthStr = new String(Base64.encodeBase64(authString.getBytes()));
-            connection.setRequestProperty("Authorization", "Basic " + encodedAuthStr);
+        if (user != null) {
+            final String authValue = getAuthValue(user.name());
+            connection.setRequestProperty("Authorization", authValue);
         }
 
         for (String header : headers.keySet()) {
@@ -70,5 +90,36 @@ public abstract class AbstractMagnoliaIntegrationTest {
 
         connection.connect();
         return connection;
+    }
+
+    protected Page openPage(Instance instance, String path, User user) throws IOException {
+        final String urlStr = getUrl(instance, path);
+
+        final WebClient webClient = new WebClient(BrowserVersion.getDefault());
+        // we also want to test error code handling:
+        webClient.setThrowExceptionOnFailingStatusCode(false);
+
+        // can't test with css for now: (css import not supported)
+        webClient.setCssEnabled(false);
+
+        if (user != null) {
+            final String authValue = getAuthValue(user.name());
+            webClient.addRequestHeader("Authorization", authValue);
+        }
+
+        return webClient.getPage(urlStr);
+    }
+
+    protected String getUrl(Instance instance, String path) {
+        return instanceURLs.get(instance) + path;
+    }
+
+    /**
+     * Sample users have an identical username and password !
+     */
+    protected String getAuthValue(String usernameAndPassword) {
+        final String authString = usernameAndPassword + ":" + usernameAndPassword;
+        final String encodedAuthStr = new String(Base64.encodeBase64(authString.getBytes()));
+        return "Basic " + encodedAuthStr;
     }
 }
