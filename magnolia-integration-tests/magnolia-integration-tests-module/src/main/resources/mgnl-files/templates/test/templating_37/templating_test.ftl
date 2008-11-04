@@ -8,6 +8,9 @@ This is ${mgnl.editMode?string('indeed', 'not')} the edit mode.
 This is ${mgnl.previewMode?string('indeed', 'not')} the preview mode.
 The current locale: ${ctx.locale}
 ${aggregationState}
+Metadata.creationDate?is_date : ${content.MetaData.creationDate?is_date?string}
+Metadata.creationDate in medium format : ${content.MetaData.creationDate?string.medium}
+Metadata.modificationDate : ${content.MetaData.modificationDate!"This node has never been modified."}
 
 =======================================================================================================================
 # Rendering paragraphs using the cms jsp tags:
