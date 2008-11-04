@@ -141,18 +141,25 @@ public abstract class AbstractMagnoliaIntegrationTest {
     }
 
     /**
-     * Need to pass a fake exception (of which we get the first StackTraceElement) to determine the
+     * Passing a fake exception might be simpler for some cases.
+     * @see #saveToFile(com.gargoylesoftware.htmlunit.Page, StackTraceElement)
+     */
+    protected void saveToFile(Page page, Throwable fakeException) throws IOException {
+        saveToFile(page, fakeException.getStackTrace()[0]);
+    }
+
+    /**
+     * Need to pass a StackTraceElement to determine the
      * current method, because we can't safely guess at what depth of the stack this method was called.
      * We're keeping this method separate from openPage() for the same reason: if a test/util method
      * calls the openPage method instead of the actual test, the stack won't reflect the "current test method"
      * properly.
      */
-    protected void saveToFile(Page page, Throwable fakeException) throws IOException {
+    protected void saveToFile(Page page, StackTraceElement stackTraceElement) throws IOException {
         final WebResponse res = page.getWebResponse();
-        final StackTraceElement stack = fakeException.getStackTrace()[0];
         final byte[] body = res.getResponseBody();
         // TODO : configure the output directory / get it from system properties ?
-        final String path = "target/" + stack.getClassName() + "-" + stack.getMethodName() + "-" + stack.getLineNumber() + ".out";
+        final String path = "target/" + stackTraceElement.getClassName() + "-" + stackTraceElement.getMethodName() + "-" + stackTraceElement.getLineNumber() + ".out";
         IOUtils.write(body, new FileOutputStream(path));
     }
     

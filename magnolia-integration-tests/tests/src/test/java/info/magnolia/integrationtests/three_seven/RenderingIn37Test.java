@@ -64,8 +64,22 @@ public class RenderingIn37Test extends AbstractMagnoliaIntegrationTest {
 
     @Test
     public void renderFreemarker() throws Exception {
-        final HtmlPage page = openHtmlPage(Instance.AUTHOR, "/testpages/test_freemarker.html", User.superuser);
-        saveToFile(page, new Throwable());
+        simpleRenderingTests("/testpages/test_freemarker.html");
+    }
+
+    @Test
+    public void renderJspNewSchool() throws Exception {
+        simpleRenderingTests("/testpages/test_jsp_newschool.html");
+    }
+
+    @Test
+    public void renderJspOldSchool() throws Exception {
+        simpleRenderingTests("/testpages/test_jsp_oldschool.html");
+    }
+
+    private void simpleRenderingTests(String path) throws IOException {
+        final HtmlPage page = openHtmlPage(Instance.AUTHOR, path, User.superuser);
+        saveToFile(page, new Throwable().getStackTrace()[1]);
 
         final WebResponse webResponse = page.getWebResponse();
         assertEquals(200, webResponse.getStatusCode());

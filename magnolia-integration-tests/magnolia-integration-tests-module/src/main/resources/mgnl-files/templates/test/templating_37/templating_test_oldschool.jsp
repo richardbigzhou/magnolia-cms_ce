@@ -2,7 +2,9 @@
 <cms:out nodeDataName="someProperty" />
 
 
-[@cms.contentNodeIterator contentNodeCollectionName="main" varStatus="loopStatus"]
+<!--cms:contentNodeIterator contentNodeCollectionName="main" varStatus="loopStatus"-->
 
 
---> check if this works in a parag <p>Paragraph #${loopStatus.index}</p>
+<cms:contentNodeIterator contentNodeCollectionName="paragraphs">
+    <cms:includeTemplate />
+</cms:contentNodeIterator>
