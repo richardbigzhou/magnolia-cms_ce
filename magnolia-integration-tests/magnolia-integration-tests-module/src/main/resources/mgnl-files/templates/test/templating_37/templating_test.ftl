@@ -12,19 +12,28 @@ Metadata.creationDate?is_date : ${content.MetaData.creationDate?is_date?string}
 Metadata.creationDate in medium format : ${content.MetaData.creationDate?string.medium}
 Metadata.modificationDate : ${content.MetaData.modificationDate!"This node has never been modified."}
 
-=======================================================================================================================
+====START SNIPPET: para-jsp ===========================================================================================
 # Rendering paragraphs using the cms jsp tags:
 ----------------------------------------------
 [@cms.contentNodeIterator contentNodeCollectionName="paragraphs"]
     [@cms.includeTemplate /]
 [/@cms.contentNodeIterator]
+====END SNIPPET: para-jsp =============================================================================================
 
-=======================================================================================================================
+====START SNIPPET: para-ftl ===========================================================================================
 # Rendering paragraphs in a more Freemarker-like way:
 -----------------------------------------------------
 [#list content.paragraphs?children as para]
     ${mgnl.renderParagraph(para)}
 [/#list]
+====END SNIPPET: para-ftl =============================================================================================
 
-=======================================================================================================================
+====START SNIPPET: mgnl-util ==========================================================================================
+# Utility methods in MagnoliaTemplatingUtilities:
+* siblings : ${mgnl.siblings(content)}
+* inherit  : ${mgnl.inherit(content)}
+* i18n     : ${mgnl.i18n(content)}
+====END SNIPPET: mgnl-util ============================================================================================
+
+
 </pre>
