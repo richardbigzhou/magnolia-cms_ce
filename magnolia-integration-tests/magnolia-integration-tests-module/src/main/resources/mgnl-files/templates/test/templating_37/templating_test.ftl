@@ -12,28 +12,28 @@ Metadata.creationDate?is_date : ${content.MetaData.creationDate?is_date?string}
 Metadata.creationDate in medium format : ${content.MetaData.creationDate?string.medium}
 Metadata.modificationDate : ${content.MetaData.modificationDate!"This node has never been modified."}
 
-====START SNIPPET: para-jsp ===========================================================================================
+====START SNIPPET: para-loop-jsp =======================================================================================
 # Rendering paragraphs using the cms jsp tags:
 ----------------------------------------------
 [@cms.contentNodeIterator contentNodeCollectionName="paragraphs"]
     [@cms.includeTemplate /]
 [/@cms.contentNodeIterator]
-====END SNIPPET: para-jsp =============================================================================================
+====END SNIPPET: para-loop-jsp =========================================================================================
 
-====START SNIPPET: para-ftl ===========================================================================================
+====START SNIPPET: para-loop-ftl =======================================================================================
 # Rendering paragraphs in a more Freemarker-like way:
 -----------------------------------------------------
 [#list content.paragraphs?children as para]
     ${mgnl.renderParagraph(para)}
 [/#list]
-====END SNIPPET: para-ftl =============================================================================================
+====END SNIPPET: para-loop-ftl =========================================================================================
 
-====START SNIPPET: mgnl-util ==========================================================================================
+====START SNIPPET: mgnl-util ===========================================================================================
 # Utility methods in MagnoliaTemplatingUtilities:
 * siblings : ${mgnl.siblings(content)}
 * inherit  : ${mgnl.inherit(content)}
 * i18n     : ${mgnl.i18n(content)}
-====END SNIPPET: mgnl-util ============================================================================================
+====END SNIPPET: mgnl-util =============================================================================================
 
 
 </pre>
