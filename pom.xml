@@ -8,7 +8,7 @@
   </parent>
   <artifactId>magnolia-bundle-parent</artifactId>
   <packaging>pom</packaging>
-  <version>3.7-SNAPSHOT</version>
+  <version>4.0-SNAPSHOT</version>
   <name>magnolia-bundle-parent</name>
   <scm>
     <connection>scm:svn:http://svn.magnolia.info/svn/community/bundle/trunk</connection>
@@ -17,8 +17,8 @@
   </scm>
   <properties>
     <magnoliaEdition>Community Edition</magnoliaEdition>
-    <magnoliaVersion>3.7-SNAPSHOT</magnoliaVersion>
-    <documentationURL>http://documentation.magnolia.info/releases/3-7.html</documentationURL>
+    <magnoliaVersion>4.0-SNAPSHOT</magnoliaVersion>
+    <documentationURL>http://documentation.magnolia.info/releases/4-0.html</documentationURL>
   </properties>
 
   <modules>
