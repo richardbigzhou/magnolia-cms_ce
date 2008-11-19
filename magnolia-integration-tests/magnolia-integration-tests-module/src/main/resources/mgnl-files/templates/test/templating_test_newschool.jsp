@@ -15,8 +15,8 @@ ${content.someProperty}
 * mgnl.previewMode    : ${mgnl.previewMode}
 ========================================================================================================================
 # Utility methods in MagnoliaTemplatingUtilities:
-<%@ page import="info.magnolia.module.templating.MagnoliaTemplatingUtilities" %>
 <%@ page import="info.magnolia.cms.core.Content" %>
+<%@ page import="info.magnolia.module.templating.MagnoliaTemplatingUtilities" %>
 <%
     MagnoliaTemplatingUtilities mgnl = (MagnoliaTemplatingUtilities) pageContext.getAttribute("mgnl", PageContext.REQUEST_SCOPE);
     Content node = (Content) pageContext.getAttribute("content", PageContext.REQUEST_SCOPE);
