@@ -31,7 +31,7 @@
  * intact.
  *
  */
-package info.magnolia.integrationtests.three_seven;
+package info.magnolia.integrationtests.rendering;
 
 import com.gargoylesoftware.htmlunit.Page;
 import com.gargoylesoftware.htmlunit.WebResponse;
@@ -50,11 +50,11 @@ import java.net.URL;
  * @author gjoseph
  * @version $Revision: $ ($Author: $)
  */
-public class RenderingIn37Test extends AbstractMagnoliaIntegrationTest {
+public class SimpleRenderingTest extends AbstractMagnoliaIntegrationTest {
 
     @Test
     public void ensureWeCanReachResourcesFromTheTestModule() throws IOException {
-        final URL resource = ClasspathResourcesUtil.getResource("/mgnl-files/templates/test/templating_37/templating_test_expectedresults.txt");
+        final URL resource = ClasspathResourcesUtil.getResource("/mgnl-files/templates/test/templating_test_expectedresults.txt");
         assertNotNull(resource);
         final InputStream stream = resource.openStream();
         assertNotNull(stream);
@@ -67,6 +67,9 @@ public class RenderingIn37Test extends AbstractMagnoliaIntegrationTest {
         simpleRenderingTests("/testpages/test_freemarker.html");
     }
 
+    /**
+     * Tests rendering with new "style" introduced in Magnolia 4.0
+     */
     @Test
     public void renderJspNewSchool() throws Exception {
         simpleRenderingTests("/testpages/test_jsp_newschool.html");
