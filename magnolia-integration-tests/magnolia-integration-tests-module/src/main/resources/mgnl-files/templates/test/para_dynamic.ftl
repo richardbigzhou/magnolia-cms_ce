@@ -6,7 +6,7 @@ The current page: ${page.@handle}
 The current node handle: ${content.@handle}
 The current node name: ${content.@name}
 The current node uuid: ${content.@uuid}
-The current paragraph definition: ${paragraphDef}
+The current paragraph definition: ${def}
 Paragraph model: ${model}
 Action result: ${actionResult!'... no action result here'}
 Current locale: ${ctx.locale}
@@ -21,6 +21,6 @@ Aggregation state: ${aggregationState}
 
 2. You can use the tags like user-defined directives:
 [@cms.editBar /]
-                  
+
 [@cmsu.poweredBy pattern="Magnolia: {0} - version {1}" /]
 ====END SNIPPET: ftl-taglib-usage ======================================================================================

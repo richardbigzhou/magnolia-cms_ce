@@ -1,7 +1,7 @@
 [#assign cms=JspTaglibs["cms-taglib"]]
 <pre>
 The value of "someProperty": ${content.someProperty}
-The current template definition: ${templateDef}
+The current template definition: ${def}
 This is ${mgnl.authorInstance?string('indeed', 'not')} an author instance.
 This is ${mgnl.publicInstance?string('indeed', 'not')} an public instance.
 This is ${mgnl.editMode?string('indeed', 'not')} the edit mode.
