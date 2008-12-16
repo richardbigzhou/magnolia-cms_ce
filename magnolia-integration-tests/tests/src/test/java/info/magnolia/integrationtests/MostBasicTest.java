@@ -58,10 +58,9 @@ public class MostBasicTest extends AbstractMagnoliaIntegrationTest {
     }
 
     @Test
-    public void seeIfWeCanReachThePublicInstanceWithoutPassword() throws Exception {
-        // can't get to root of since samples-module currently does not provide a working default redirect
-        // final Page page = openPage(Instance.PUBLIC, "", null);
-        final Page page = openPage(Instance.PUBLIC, "/testpages/test_freemarker.html", null);
+    public void checkDefaultRedirectAndSeeIfWeCanReachThePublicInstanceWithoutPassword() throws Exception {
+        // "" is root of the app, samples module should provide a default redirect
+        final Page page = openPage(Instance.PUBLIC, "", null);
         assertEquals(200, page.getWebResponse().getStatusCode());
     }
 
