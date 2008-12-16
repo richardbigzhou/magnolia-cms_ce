@@ -52,7 +52,7 @@ import java.util.HashMap;
 public class GzipFilterTest extends AbstractMagnoliaIntegrationTest {
     @Test
     public void pageShouldNotBeGZippedIfClientDoesNotSupportIt() throws Exception {
-        HttpURLConnection connection = openConnection(Instance.PUBLIC, "/help.html", null);
+        HttpURLConnection connection = openConnection(Instance.PUBLIC, "/testpages/test_freemarker.html", null);
         assertEquals(200, connection.getResponseCode());
         assertEquals(null, connection.getHeaderField("Content-Encoding"));
         assertGzipped(Boolean.FALSE, connection.getInputStream());

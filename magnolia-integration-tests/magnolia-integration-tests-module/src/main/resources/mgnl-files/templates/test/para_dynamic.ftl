@@ -6,7 +6,7 @@ The current page: ${page.@handle}
 The current node handle: ${content.@handle}
 The current node name: ${content.@name}
 The current node uuid: ${content.@uuid}
-The current paragraph definition: ${def}
+The current paragraph definition: ${def.name}
 Paragraph model: ${model}
 Action result: ${actionResult!'... no action result here'}
 Current locale: ${ctx.locale}

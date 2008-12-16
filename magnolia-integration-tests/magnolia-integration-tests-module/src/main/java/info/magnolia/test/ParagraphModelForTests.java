@@ -33,7 +33,7 @@
  */
 package info.magnolia.test;
 
-import info.magnolia.cms.beans.config.Renderable;
+import info.magnolia.cms.beans.config.RenderableDefinition;
 import info.magnolia.cms.beans.config.RenderingModel;
 import info.magnolia.cms.core.Content;
 
@@ -45,7 +45,7 @@ import java.util.Random;
  */
 public class ParagraphModelForTests implements RenderingModel {
     private static int executionCount;
-    public ParagraphModelForTests(Content content, Renderable renderable, RenderingModel parent) {
+    public ParagraphModelForTests(Content content, RenderableDefinition renderable, RenderingModel parent) {
     }
 
     public RenderingModel getParentModel() {
@@ -56,7 +56,7 @@ public class ParagraphModelForTests implements RenderingModel {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
-    public Renderable getRenderable() {
+    public RenderableDefinition getDefinition() {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
