@@ -48,8 +48,8 @@ public class ParagraphModelForTests implements RenderingModel {
     public ParagraphModelForTests(Content content, RenderableDefinition renderable, RenderingModel parent) {
     }
 
-    public RenderingModel getParentModel() {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+    public RenderingModel getParent() {
+        return null;
     }
 
     public Content getContent() {
