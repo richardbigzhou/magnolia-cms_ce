@@ -17,6 +17,7 @@
       <plugin>
         <groupId>info.magnolia</groupId>
         <artifactId>maven-bundle-plugin</artifactId>
+        <!-- TODO - this configuration can go as soon as we use v6 of the parent poms -->
         <executions>
           <!-- projects which need the info.magnolia:maven-bundle-plugin plugin can disable these specific executions with the skip parameter -->
           <execution>
