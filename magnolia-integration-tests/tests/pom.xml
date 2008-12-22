@@ -228,7 +228,7 @@
         <containerId>tomcat5x</containerId>
         <containerType>installed</containerType>
         <configType>standalone</configType>
-        <url>http://www.apache.org/dist/tomcat/tomcat-5/v5.5.25/bin/apache-tomcat-5.5.25.zip</url>
+        <url>http://www.apache.org/dist/tomcat/tomcat-5/v5.5.27/bin/apache-tomcat-5.5.27.zip</url>
       </properties>
     </profile>
     <profile>

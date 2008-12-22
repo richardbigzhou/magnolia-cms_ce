@@ -3,8 +3,8 @@
   <fileSets>
     <!-- unpacked tomcat -->
     <fileSet>
-      <directory>target/extracted-tomcat/apache-tomcat-5.5.25</directory>
-      <outputDirectory>apache-tomcat-5.5.25</outputDirectory>
+      <directory>target/extracted-tomcat/apache-tomcat-5.5.27</directory>
+      <outputDirectory>apache-tomcat-5.5.27</outputDirectory>
       <excludes>
         <!-- if we wanted to only exclude specific default webapps, the trailing slash is needed :
         <exclude>webapps/balancer/</exclude>
@@ -24,13 +24,13 @@
     <!-- our tomcat customisations -->
     <fileSet>
       <directory>src/release/tomcat</directory>
-      <outputDirectory>apache-tomcat-5.5.25</outputDirectory>
+      <outputDirectory>apache-tomcat-5.5.27</outputDirectory>
     </fileSet>
 
     <!-- making all .sh files executable : -->
     <fileSet>
-      <directory>target/extracted-tomcat/apache-tomcat-5.5.25/bin/</directory>
-      <outputDirectory>apache-tomcat-5.5.25/bin</outputDirectory>
+      <directory>target/extracted-tomcat/apache-tomcat-5.5.27/bin/</directory>
+      <outputDirectory>apache-tomcat-5.5.27/bin</outputDirectory>
       <includes>
         <include>*.sh</include>
       </includes>
@@ -38,7 +38,7 @@
     </fileSet>
     <fileSet>
       <directory>src/release/tomcat/bin</directory>
-      <outputDirectory>apache-tomcat-5.5.25/bin</outputDirectory>
+      <outputDirectory>apache-tomcat-5.5.27/bin</outputDirectory>
       <includes>
         <include>*.sh</include>
       </includes>
@@ -64,7 +64,7 @@
   <dependencySets>
     <!-- two copies of the webapp -->
     <dependencySet>
-      <outputDirectory>apache-tomcat-5.5.25/webapps/magnoliaAuthor</outputDirectory>
+      <outputDirectory>apache-tomcat-5.5.27/webapps/magnoliaAuthor</outputDirectory>
       <includes>
         <include>info.magnolia:magnolia-bundled-webapp</include>
       </includes>
@@ -73,7 +73,7 @@
     </dependencySet>
 
     <dependencySet>
-      <outputDirectory>apache-tomcat-5.5.25/webapps/magnoliaPublic</outputDirectory>
+      <outputDirectory>apache-tomcat-5.5.27/webapps/magnoliaPublic</outputDirectory>
       <includes>
         <include>info.magnolia:magnolia-bundled-webapp</include>
       </includes>

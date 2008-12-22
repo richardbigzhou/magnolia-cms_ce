@@ -10,8 +10,8 @@
   </componentDescriptors>
   <fileSets>
     <fileSet>
-      <directory>target/extracted-tomcat-compat/apache-tomcat-5.5.25</directory>
-      <outputDirectory>apache-tomcat-5.5.25</outputDirectory>
+      <directory>target/extracted-tomcat-compat/apache-tomcat-5.5.27</directory>
+      <outputDirectory>apache-tomcat-5.5.27</outputDirectory>
     </fileSet>
   </fileSets>
 </assembly>

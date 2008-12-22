@@ -17,6 +17,31 @@
       <plugin>
         <groupId>info.magnolia</groupId>
         <artifactId>maven-bundle-plugin</artifactId>
+        <executions>
+          <!-- projects which need the info.magnolia:maven-bundle-plugin plugin can disable these specific executions with the skip parameter -->
+          <execution>
+            <id>get-tomcat</id>
+            <phase>process-resources</phase>
+            <goals>
+              <goal>download</goal>
+            </goals>
+            <configuration>
+              <url>http://www.apache.org/dist/tomcat/tomcat-5/v5.5.27/bin/apache-tomcat-5.5.27.tar.gz</url>
+              <destDir>${basedir}/target/extracted-tomcat</destDir>
+            </configuration>
+          </execution>
+          <execution>
+            <id>get-tomcat-compat-package</id>
+            <phase>process-resources</phase>
+            <goals>
+              <goal>download</goal>
+            </goals>
+            <configuration>
+              <url>http://www.apache.org/dist/tomcat/tomcat-5/v5.5.27/bin/apache-tomcat-5.5.27-compat.tar.gz</url>
+              <destDir>${basedir}/target/extracted-tomcat-compat</destDir>
+            </configuration>
+          </execution>
+        </executions>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
