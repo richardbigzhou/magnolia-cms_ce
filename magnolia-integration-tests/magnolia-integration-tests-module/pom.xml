@@ -13,6 +13,12 @@
   <dependencies>
     <dependency>
       <groupId>info.magnolia</groupId>
+      <artifactId>magnolia-module-templating</artifactId>
+      <version>${magnoliaVersion}</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>info.magnolia</groupId>
       <artifactId>magnolia-taglib-cms</artifactId>
       <version>${magnoliaVersion}</version>
       <scope>provided</scope>
