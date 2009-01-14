@@ -33,8 +33,8 @@
  */
 package info.magnolia.test;
 
-import info.magnolia.cms.beans.config.RenderableDefinition;
-import info.magnolia.cms.beans.config.RenderingModel;
+import info.magnolia.module.templating.RenderableDefinition;
+import info.magnolia.module.templating.RenderingModel;
 import info.magnolia.cms.core.Content;
 
 import java.util.Random;
