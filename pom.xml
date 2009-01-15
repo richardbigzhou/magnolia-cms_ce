@@ -17,7 +17,7 @@
   </scm>
   <properties>
     <magnoliaEdition>Community Edition</magnoliaEdition>
-    <magnoliaVersion>4.0-m2</magnoliaVersion>
+    <magnoliaVersion>4.0-SNAPSHOT</magnoliaVersion>
     <documentationURL>http://documentation.magnolia.info/releases/4-0.html</documentationURL>
   </properties>
 
