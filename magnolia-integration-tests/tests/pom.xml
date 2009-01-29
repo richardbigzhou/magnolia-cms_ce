@@ -20,16 +20,6 @@
       <artifactId>magnolia-core</artifactId>
       <version>${magnoliaVersion}</version>
       <scope>provided</scope>
-<!--
-      <exclusions>
-        < ! - - need a more recent version of nekohtml, comes with htmlunit (different groupId) - - >
-        < ! - - jackrabbit 1.5 has an updated version of it, so the exclusion can go as soon as we use jackrabbit 1.5 - - >
-        <exclusion>
-          <groupId>nekohtml</groupId>
-          <artifactId>nekohtml</artifactId>
-        </exclusion>
-      </exclusions>
--->
     </dependency>
     <dependency>
       <groupId>info.magnolia</groupId>
