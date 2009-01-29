@@ -19,12 +19,6 @@
     </dependency>
     <dependency>
       <groupId>info.magnolia</groupId>
-      <artifactId>magnolia-module-samples</artifactId>
-      <version>${magnoliaVersion}</version>
-      <type>jar</type>
-    </dependency>
-    <dependency>
-      <groupId>info.magnolia</groupId>
       <artifactId>magnolia-module-dms</artifactId>
       <version>1.3-rc1</version>
       <type>jar</type>

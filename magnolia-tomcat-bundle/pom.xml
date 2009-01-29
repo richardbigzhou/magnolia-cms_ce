@@ -86,6 +86,13 @@
     </dependency>
     <dependency>
       <groupId>info.magnolia</groupId>
+      <artifactId>magnolia-module-samples</artifactId>
+      <version>${magnoliaVersion}</version>
+      <classifier>bundle</classifier>
+      <type>tar.gz</type>
+    </dependency>
+    <dependency>
+      <groupId>info.magnolia</groupId>
       <artifactId>magnolia-module-workflow</artifactId>
       <version>${magnoliaVersion}</version>
       <classifier>bundle</classifier>
