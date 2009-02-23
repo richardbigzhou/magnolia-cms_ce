@@ -8,7 +8,7 @@ goto noCommand
 
 :doStart
 rem Magnolia needs extra memory
-set CATALINA_OPTS=%CATALINA_OPTS% -Xms64M -Xmx512M -Djava.awt.headless=true
+set CATALINA_OPTS=%CATALINA_OPTS% -XX:MaxPermSize=256m -Xms64M -Xmx512M -Djava.awt.headless=true
 call startup.bat
 goto end
 
