@@ -3,7 +3,7 @@
   <parent>
     <groupId>info.magnolia</groupId>
     <artifactId>magnolia-bundle-parent</artifactId>
-    <version>4.0-rc4</version>
+    <version>4.0-SNAPSHOT</version>
   </parent>
   <groupId>info.magnolia</groupId>
   <artifactId>magnolia-integration-tests-parent</artifactId>
