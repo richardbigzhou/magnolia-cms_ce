@@ -66,7 +66,7 @@
               <finalName>magnolia-${project.version}</finalName>
               <descriptors>
                 <descriptor>src/release/bundle-jdk15.xml</descriptor>
-                <descriptor>src/release/bundle-jdk14.xml</descriptor>
+                <!--<descriptor>src/release/bundle-jdk14.xml</descriptor>-->
                 <!--<descriptor>src/release/src.xml</descriptor>-->
                 <!--<descriptor>src/release/wars.xml</descriptor>-->
               </descriptors>
