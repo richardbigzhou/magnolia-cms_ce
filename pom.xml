@@ -10,6 +10,7 @@
   <packaging>pom</packaging>
   <version>4.0.2-SNAPSHOT</version>
   <name>magnolia-bundle-parent</name>
+  <inceptionYear>1993</inceptionYear>
   <scm>
     <connection>scm:svn:http://svn.magnolia-cms.com/svn/community/bundle/trunk</connection>
     <developerConnection>scm:svn:http://svn.magnolia-cms.com/svn/community/bundle/trunk</developerConnection>
