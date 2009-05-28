@@ -12,9 +12,9 @@
   <name>magnolia-bundle-parent</name>
   <inceptionYear>2003</inceptionYear>
   <scm>
-    <connection>scm:svn:http://svn.magnolia-cms.com/svn/community/bundle/trunk</connection>
-    <developerConnection>scm:svn:http://svn.magnolia-cms.com/svn/community/bundle/trunk</developerConnection>
-    <url>http://svn.magnolia-cms.com/view/community/bundle/trunk</url>
+    <connection>scm:svn:http://svn.magnolia-cms.com/svn/community/bundle/branches/magnolia-bundle-4.0</connection>
+    <developerConnection>scm:svn:http://svn.magnolia-cms.com/svn/community/bundle/branches/magnolia-bundle-4.0</developerConnection>
+    <url>http://svn.magnolia-cms.com/view/community/bundle/branches/magnolia-bundle-4.0</url>
   </scm>
   <properties>
     <magnoliaEdition>Community Edition</magnoliaEdition>
