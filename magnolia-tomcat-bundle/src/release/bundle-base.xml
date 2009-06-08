@@ -17,8 +17,6 @@
         <!-- exclude .sh scripts which we include below with a specific fileMode -->
         <exclude>bin/*.sh</exclude>
       </excludes>
-      <!-- TODO filemode ? -->
-      <fileMode>644</fileMode>
     </fileSet>
 
     <!-- our tomcat customisations -->
