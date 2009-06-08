@@ -30,17 +30,6 @@
               <destDir>${basedir}/target/extracted-tomcat</destDir>
             </configuration>
           </execution>
-          <execution>
-            <id>get-tomcat-compat-package</id>
-            <phase>process-resources</phase>
-            <goals>
-              <goal>download</goal>
-            </goals>
-            <configuration>
-              <url>http://www.apache.org/dist/tomcat/tomcat-5/v5.5.27/bin/apache-tomcat-5.5.27-compat.tar.gz</url>
-              <destDir>${basedir}/target/extracted-tomcat-compat</destDir>
-            </configuration>
-          </execution>
         </executions>
       </plugin>
       <plugin>
@@ -66,7 +55,6 @@
               <finalName>magnolia-${project.version}</finalName>
               <descriptors>
                 <descriptor>src/release/bundle-jdk15.xml</descriptor>
-                <!--<descriptor>src/release/bundle-jdk14.xml</descriptor>-->
                 <!--<descriptor>src/release/src.xml</descriptor>-->
                 <!--<descriptor>src/release/wars.xml</descriptor>-->
               </descriptors>
