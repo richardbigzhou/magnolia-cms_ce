@@ -83,13 +83,23 @@
     <dependencySet>
       <outputDirectory>add-ons</outputDirectory>
       <includes>
-        <include>info.magnolia:*</include>
+        <!-- we only include (and unpack) dependencies of type tar.gz -->
+        <include>info.magnolia:*:tar.gz</include>
       </includes>
-      <excludes>
-        <exclude>info.magnolia:magnolia-bundled-webapp</exclude>
-      </excludes>
+      <useTransitiveDependencies>false</useTransitiveDependencies>
       <useStrictFiltering>true</useStrictFiltering>
       <unpack>true</unpack>
     </dependencySet>
+    <!-- for single jar add-ons, if needed:
+    <dependencySet>
+      <outputDirectory>add-ons</outputDirectory>
+      <includes>
+        <include>info.magnolia:*:jar</include>
+      </includes>
+      <useTransitiveDependencies>false</useTransitiveDependencies>
+      <useStrictFiltering>true</useStrictFiltering>
+      <unpack>false</unpack>
+    </dependencySet>
+    -->
   </dependencySets>
 </component>
