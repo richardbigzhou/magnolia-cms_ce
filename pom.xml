@@ -18,9 +18,9 @@
   </scm>
   <properties>
     <magnoliaEdition>Community Edition</magnoliaEdition>
-    <magnoliaVersion>4.1.1</magnoliaVersion>
+    <magnoliaVersion>4.1.2-SNAPSHOT</magnoliaVersion>
     <!-- do not reformat the following -->
-    <documentationURL>http://documentation.magnolia-cms.com/releases/4-1-1.html
+    <documentationURL>http://documentation.magnolia-cms.com/releases/4-1-2.html
 
 Installation instructions can be found at:
     http://documentation.magnolia-cms.com/install.html
