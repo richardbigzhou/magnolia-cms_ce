@@ -118,6 +118,9 @@
               <url>${url}</url>
               <installDir>${basedir}/tmp/cargo-install</installDir>
             </zipUrlInstaller>
+            <systemProperties>
+              <java.io.tmpdir>${project.build.directory}/java-io-tmpdir</java.io.tmpdir>
+            </systemProperties>
           </container>
           <configuration>
             <type>${configType}</type>
