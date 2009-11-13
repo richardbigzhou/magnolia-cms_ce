@@ -4,7 +4,7 @@
   <parent>
     <artifactId>magnolia-parent-pom-ce</artifactId>
     <groupId>info.magnolia</groupId>
-    <version>12</version>
+    <version>13</version>
   </parent>
   <artifactId>magnolia-bundle-parent</artifactId>
   <packaging>pom</packaging>
@@ -18,7 +18,7 @@
   </scm>
   <properties>
     <magnoliaEdition>Community Edition</magnoliaEdition>
-    <magnoliaVersion>4.2-beta1</magnoliaVersion>
+    <magnoliaVersion>4.2-rc1</magnoliaVersion>
     <documentationURL>http://documentation.magnolia-cms.com/releases/4-2.html</documentationURL>
   </properties>
 
