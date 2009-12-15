@@ -16,11 +16,22 @@
     <developerConnection>scm:svn:http://svn.magnolia-cms.com/svn/community/bundle/trunk</developerConnection>
     <url>http://svn.magnolia-cms.com/view/community/bundle/trunk</url>
   </scm>
+  
   <properties>
     <magnoliaEdition>Community Edition</magnoliaEdition>
-    <magnoliaVersion>4.2.1</magnoliaVersion>
+    <magnoliaVersion>4.2.2</magnoliaVersion>
     <documentationURL>http://documentation.magnolia-cms.com/releases/4-2.html</documentationURL>
   </properties>
+  
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>info.magnolia</groupId>
+        <artifactId>magnolia-module-dms</artifactId>
+        <version>1.4.2</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
 
   <modules>
     <module>magnolia-bundled-webapp</module>
