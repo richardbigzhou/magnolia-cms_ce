@@ -37,8 +37,8 @@
         <artifactId>maven-assembly-plugin</artifactId>
         <executions>
           <execution>
-            <!-- inhibit module-assembly! -->
-            <id>module-assembly</id>
+            <!-- inhibit default-assembly! -->
+            <id>default-assembly</id>
             <configuration>
               <skipAssembly>true</skipAssembly>
             </configuration>
