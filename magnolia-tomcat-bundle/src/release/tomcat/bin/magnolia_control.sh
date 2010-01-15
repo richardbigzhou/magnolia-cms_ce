@@ -27,7 +27,7 @@ if [ "$1" = "start" ] ; then
     # to enable debugging:
     # export JPDA_OPTS="-Xdebug -Xnoagent -Djava.compiler=NONE -Xrunjdwp:transport=dt_socket,address=54455,suspend=n,server=y"
 
-    # to start with jpda:
+    # to start with jpda (debugging):
     # exec "$PRGDIR"/catalina.sh jpda start
     exec "$PRGDIR"/startup.sh
 elif [ "$1" = "stop" ] ; then
