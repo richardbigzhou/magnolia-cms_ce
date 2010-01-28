@@ -14,7 +14,6 @@
     <dependency>
       <groupId>info.magnolia</groupId>
       <artifactId>magnolia-empty-webapp</artifactId>
-      <version>${magnoliaVersion}</version>
       <type>war</type>
     </dependency>
     <dependency>

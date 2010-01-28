@@ -53,9 +53,7 @@
               <skipAssembly>false</skipAssembly>
               <finalName>magnolia-${project.version}</finalName>
               <descriptors>
-                <descriptor>src/release/bundle-jdk15.xml</descriptor>
-                <!--<descriptor>src/release/src.xml</descriptor>-->
-                <!--<descriptor>src/release/wars.xml</descriptor>-->
+                <descriptor>src/release/tomcat-bundle.xml</descriptor>
               </descriptors>
             </configuration>
           </execution>
@@ -68,20 +66,24 @@
     <dependency>
       <groupId>info.magnolia</groupId>
       <artifactId>magnolia-bundled-webapp</artifactId>
-      <version>${project.version}</version>
+      <version>4.3-SNAPSHOT</version>
       <type>war</type>
     </dependency>
     <dependency>
       <groupId>info.magnolia</groupId>
       <artifactId>magnolia-module-samples</artifactId>
-      <version>${magnoliaVersion}</version>
       <classifier>bundle</classifier>
       <type>tar.gz</type>
     </dependency>
     <dependency>
       <groupId>info.magnolia</groupId>
       <artifactId>magnolia-module-workflow</artifactId>
-      <version>${magnoliaVersion}</version>
+      <classifier>bundle</classifier>
+      <type>tar.gz</type>
+    </dependency>
+    <dependency>
+      <groupId>info.magnolia</groupId>
+      <artifactId>magnolia-module-groovy</artifactId>
       <classifier>bundle</classifier>
       <type>tar.gz</type>
     </dependency>

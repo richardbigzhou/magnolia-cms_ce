@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<component>
+<assembly>
+  <id>tomcat-bundle</id>
+  <formats>
+    <format>zip</format>
+    <format>tar.gz</format>
+  </formats>
+  <includeBaseDirectory>true</includeBaseDirectory>
   <fileSets>
     <!-- unpacked tomcat -->
     <fileSet>
@@ -102,4 +108,4 @@
     </dependencySet>
     -->
   </dependencySets>
-</component>
+</assembly>
