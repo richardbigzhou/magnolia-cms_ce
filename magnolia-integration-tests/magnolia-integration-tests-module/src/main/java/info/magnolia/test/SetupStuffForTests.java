@@ -33,20 +33,17 @@
  */
 package info.magnolia.test;
 
-import info.magnolia.cms.core.HierarchyManager;
 import info.magnolia.module.AbstractModuleVersionHandler;
 import info.magnolia.module.InstallContext;
 import info.magnolia.module.ModuleLifecycle;
 import info.magnolia.module.ModuleLifecycleContext;
-import info.magnolia.module.delta.AbstractRepositoryTask;
 import info.magnolia.module.delta.ArrayDelegateTask;
 import info.magnolia.module.delta.CheckAndModifyPropertyValueTask;
+import info.magnolia.module.delta.CopyNodeTask;
 import info.magnolia.module.delta.ModuleFilesExtraction;
 import info.magnolia.module.delta.PropertiesImportTask;
 import info.magnolia.module.delta.Task;
-import info.magnolia.module.delta.TaskExecutionException;
 
-import javax.jcr.RepositoryException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -61,29 +58,25 @@ public class SetupStuffForTests extends AbstractModuleVersionHandler implements 
     public void stop(ModuleLifecycleContext moduleLifecycleContext) {
     }
 
-    protected List getBasicInstallTasks(InstallContext installContext) {
+    protected List<Task> getBasicInstallTasks(InstallContext installContext) {
         final ArrayList<Task> list = new ArrayList<Task>();
         list.add(new ModuleFilesExtraction());
         list.add(new PropertiesImportTask("Test config content", "Imports content in the config workspace", "config", "/info/magnolia/test/config.properties"));
         list.add(new PropertiesImportTask("Test website content", "Imports content in the website workspace", "website", "/info/magnolia/test/website.properties"));
 
-//        list.add(copyFreemarkerPageAndChangeTemplate("JSP sample page", "Copies Freemarker sample page to jsp_newschool and changes the template and title properties.", "test_jsp_newschool", "test_jsp_newschool", "Test page for old school JSP rendering"));
-//        list.add(copyFreemarkerPageAndChangeTemplate("JSP sample page", "Copies Freemarker sample page to jsp_oldschool and changes the template and title properties.", "test_jsp_oldschool", "test_jsp_oldschool", "Test page for old school JSP rendering"));
+        list.add(copyArchetypePageAndChangeTemplate("Freemarker sample page", "Copies archetype sample page to freemarker and changes the template and title properties.", "test_freemarker", "test_freemarker", "Test page for Freemarker rendering"));
+        list.add(copyArchetypePageAndChangeTemplate("JSP (new school) sample page", "Copies archetype sample page to jsp_newschool and changes the template and title properties.", "test_jsp_newschool", "test_jsp_newschool", "Test page for old school JSP rendering"));
+        list.add(copyArchetypePageAndChangeTemplate("JSP (old school) sample page", "Copies archetype sample page to jsp_oldschool and changes the template and title properties.", "test_jsp_oldschool", "test_jsp_oldschool", "Test page for old school JSP rendering"));
 
         return list;
     }
 
     // TODO : this currently doesn't work, since the copy is done at workspace level - while the PropertiesImportTask creates nodes in the current session
-    private ArrayDelegateTask copyFreemarkerPageAndChangeTemplate(final String name, final String description, final String newPageName, final String newTemplate, final String newTitle) {
+    private ArrayDelegateTask copyArchetypePageAndChangeTemplate(final String name, final String description, final String newPageName, final String newTemplate, final String newTitle) {
         return new ArrayDelegateTask(name, description,
-                new AbstractRepositoryTask(null, null) {
-                    protected void doExecute(InstallContext ctx) throws RepositoryException, TaskExecutionException {
-                        final HierarchyManager hm = ctx.getHierarchyManager("website");
-                        hm.copyTo("/testpages/test_freemarker", "/testpages/" + newPageName);
-                    }
-                },
-                new CheckAndModifyPropertyValueTask(null, null, "website", "/testpages/" + newPageName + "/MetaData", "mgnl:template", "test_freemarker", newTemplate),
-                new CheckAndModifyPropertyValueTask(null, null, "website", "/testpages/" + newPageName + "/MetaData", "mgnl:title", "Test page for Freemarker rendering", newTitle)
+                new CopyNodeTask(null, null, "website", "/testpages/test_template_archetype", "/testpages/" + newPageName, false),
+                new CheckAndModifyPropertyValueTask(null, null, "website", "/testpages/" + newPageName + "/MetaData", "mgnl:template", "test_template_archetype", newTemplate),
+                new CheckAndModifyPropertyValueTask(null, null, "website", "/testpages/" + newPageName + "/MetaData", "mgnl:title", "Archetype test page for rendering", newTitle)
         );
     }
 
