@@ -71,13 +71,13 @@ public class SimpleRenderingTest extends AbstractMagnoliaIntegrationTest {
      * Tests rendering with new "style" introduced in Magnolia 4.0
      */
     @Test
-    public void renderJspNewSchool() throws Exception {
-        simpleRenderingTests("/testpages/test_jsp_newschool.html");
+    public void renderJsp() throws Exception {
+        simpleRenderingTests("/testpages/test_jsp.html");
     }
 
     @Test
-    public void renderJspOldSchool() throws Exception {
-        simpleRenderingTests("/testpages/test_jsp_oldschool.html");
+    public void renderJspTagsOnly() throws Exception {
+        simpleRenderingTests("/testpages/test_jsp_tagsonly.html");
     }
 
     private void simpleRenderingTests(String path) throws IOException {
