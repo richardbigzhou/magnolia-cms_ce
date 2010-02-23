@@ -37,6 +37,8 @@ import info.magnolia.module.templating.RenderableDefinition;
 import info.magnolia.module.templating.RenderingModel;
 import info.magnolia.cms.core.Content;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -71,6 +73,10 @@ public class ParagraphModelForTests implements RenderingModel {
 
     public int getRandomInt() {
         return new Random().nextInt(100);
+    }
+
+    public List<String> getAllowedParagraphs(Content content) {
+        return Arrays.asList("foo", "bar");
     }
 
 }

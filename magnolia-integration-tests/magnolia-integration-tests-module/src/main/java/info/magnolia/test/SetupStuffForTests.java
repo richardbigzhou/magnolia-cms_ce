@@ -48,6 +48,7 @@ import info.magnolia.nodebuilder.ErrorHandler;
 import info.magnolia.nodebuilder.NodeOperation;
 import info.magnolia.nodebuilder.task.ErrorHandling;
 import info.magnolia.nodebuilder.task.ModuleNodeBuilderTask;
+import info.magnolia.nodebuilder.task.NodeBuilderTask;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -76,29 +77,48 @@ public class SetupStuffForTests extends AbstractModuleVersionHandler implements 
                 addNode("paragraphs", "mgnl:content")
         ));
 
-        list.add(newTemplate("test_jsp_tagsonly", "/templates/test/templating_test_tagsonly.jsp", "jsp", "test jsp tags only"));
-        list.add(newTemplate("test_jsp", "/templates/test/templating_test.jsp", "jsp", "test jsp"));
-        list.add(newTemplate("test_freemarker", "/templates/test/templating_test.ftl", "freemarker", "test freemarker"));
+        list.add(newTemplateDefinition("test_jsp_tagsonly", "/templates/test/templating_test_tagsonly.jsp", "jsp"));
+        list.add(newTemplateDefinition("test_jsp", "/templates/test/templating_test.jsp", "jsp"));
+        list.add(newTemplateDefinition("test_freemarker", "/templates/test/templating_test.ftl", "freemarker"));
+        list.add(newTemplateDefinition("test_freemarker_ui", "/templates/test/templating_test_ui.ftl", "freemarker"));
+        list.add(newTemplateDefinition("test_jsp_ui", "/templates/test/templating_test_ui.jsp", "jsp"));
 
-        list.add(newParagraph("ftl_static", "/templates/test/para_static.ftl", "freemarker", null));
-        list.add(newParagraph("ftl_dynamic", "/templates/test/para_dynamic.ftl", "freemarker", null));
-        list.add(newParagraph("ftl_model", "/templates/test/para_with_model.ftl", "freemarker", ParagraphModelForTests.class));
-        // list.add(newParagraph("ftl_templatingui", "/templates/test/para_with_templating_ui_components.ftl", "freemarker", null));
+        list.add(newParagraphDefinition("ftl_static", "/templates/test/para_static.ftl", "freemarker", null));
+        list.add(newParagraphDefinition("ftl_dynamic", "/templates/test/para_dynamic.ftl", "freemarker", null));
+        list.add(newParagraphDefinition("ftl_model", "/templates/test/para_with_model.ftl", "freemarker", ParagraphModelForTests.class));
+        list.add(newParagraphDefinition("ftl_templating_ui", "/templates/test/para_with_templating_ui_components.ftl", "freemarker", null));
 
-        list.add(newParagraph("jsp_static", "/templates/test/para_static.jsp", "jsp", null));
-        list.add(newParagraph("jsp_dynamic", "/templates/test/para_dynamic.jsp", "jsp", null));
-        list.add(newParagraph("jsp_model", "/templates/test/para_with_model.jsp", "jsp", ParagraphModelForTests.class));
-        list.add(newParagraph("jspx_dynamic", "/templates/test/para_dynamic.jspx", "jsp", null));
-        // list.add(newParagraph("jsp_templatingui", "/templates/test/para_with_templating_ui_components.jsp", "jsp", null));
+        list.add(newParagraphDefinition("jsp_static", "/templates/test/para_static.jsp", "jsp", null));
+        list.add(newParagraphDefinition("jsp_dynamic", "/templates/test/para_dynamic.jsp", "jsp", null));
+        list.add(newParagraphDefinition("jsp_model", "/templates/test/para_with_model.jsp", "jsp", ParagraphModelForTests.class));
+        list.add(newParagraphDefinition("jspx_dynamic", "/templates/test/para_dynamic.jspx", "jsp", null));
+        list.add(newParagraphDefinition("jsp_templating_ui", "/templates/test/para_with_templating_ui_components.jsp", "jsp", null));
 
-        list.add(copyArchetypePageAndChangeTemplate("Freemarker sample page", "Copies archetype sample page to test_freemarker and changes the template and title properties.", "test_freemarker", "test_freemarker", "Test page for Freemarker rendering"));
-        list.add(copyArchetypePageAndChangeTemplate("JSP (tags only) sample page", "Copies archetype sample page to test_jsp_tagsonly and changes the template and title properties.", "test_jsp_tagsonly", "test_jsp_tagsonly", "Test page for JSP rendering using tags only"));
-        list.add(copyArchetypePageAndChangeTemplate("JSP sample page", "Copies archetype sample page to test_jsp and changes the template and title properties.", "test_jsp", "test_jsp", "Test page for JSP rendering"));
+        list.add(copyArchetypePageAndChangeTemplate("Freemarker sample page", "test_freemarker", "test_freemarker", "Test page for Freemarker rendering"));
+        list.add(copyArchetypePageAndChangeTemplate("JSP (tags only) sample page", "test_jsp_tagsonly", "test_jsp_tagsonly", "Test page for JSP rendering using tags only"));
+        list.add(copyArchetypePageAndChangeTemplate("JSP sample page", "test_jsp", "test_jsp", "Test page for JSP rendering"));
+
+        list.add(newTestPageForUiComponents("test_freemarker_ui", "test_freemarker_ui"));
+        list.add(newTestPageForUiComponents("test_jsp_ui", "test_jsp_ui"));
 
         return list;
     }
 
-    private ModuleNodeBuilderTask newParagraph(String name, String templatePath, String type, Class modelClass) {
+    private ModuleNodeBuilderTask newTemplateDefinition(String name, String templatePath, String type) {
+        return new ModuleNodeBuilderTask("test template", "", ErrorHandling.strict,
+                getNode("templates").then(
+                        addNode(name, "mgnl:contentNode").then(
+                                addProperty("dialog", "sampleDialog"),
+                                addProperty("templatePath", templatePath),
+                                addProperty("type", type),
+                                addProperty("title", name),
+                                addProperty("visible", "true")
+                        )
+                )
+        );
+    }
+
+    private ModuleNodeBuilderTask newParagraphDefinition(String name, String templatePath, String type, Class modelClass) {
         return new ModuleNodeBuilderTask("test paragraph", "", ErrorHandling.strict,
                 getNode("paragraphs").then(
                         addNode(name, "mgnl:contentNode").then(
@@ -110,24 +130,37 @@ public class SetupStuffForTests extends AbstractModuleVersionHandler implements 
         );
     }
 
-    private ModuleNodeBuilderTask newTemplate(String name, String templatePath, String type, String title) {
-        return new ModuleNodeBuilderTask("test template", "", ErrorHandling.strict,
-                getNode("templates").then(
-                        addNode(name, "mgnl:contentNode").then(
-                                addProperty("templatePath", templatePath),
-                                addProperty("type", type),
-                                addProperty("title", title),
-                                addProperty("visible", "true")
-                        )
-                )
-        );
-    }
-
-    private ArrayDelegateTask copyArchetypePageAndChangeTemplate(final String name, final String description, final String newPageName, final String newTemplate, final String newTitle) {
-        return new ArrayDelegateTask(name, description,
+    private ArrayDelegateTask copyArchetypePageAndChangeTemplate(final String name, final String newPageName, final String newTemplate, final String newTitle) {
+        return new ArrayDelegateTask(name, "",
                 new CopyNodeTask(null, null, "website", "/testpages/test_template_archetype", "/testpages/" + newPageName, false),
                 new CheckAndModifyPropertyValueTask(null, null, "website", "/testpages/" + newPageName + "/MetaData", "mgnl:template", "test_template_archetype", newTemplate),
                 new CheckAndModifyPropertyValueTask(null, null, "website", "/testpages/" + newPageName + "/MetaData", "mgnl:title", "Archetype test page for rendering", newTitle)
+        );
+    }
+
+    private NodeBuilderTask newTestPageForUiComponents(String pageName, String pageTemplateName) {
+        return new NodeBuilderTask("Test page for UI components", "", ErrorHandling.strict, "website",
+                getNode("testpages").then(
+                        addNode(pageName, "mgnl:content").then(
+                                getNode("MetaData").then(
+                                        addProperty("mgnl:template", pageTemplateName),
+                                        addProperty("mgnl:title", "Testing UI components")
+                                ),
+                                addProperty("someProperty", "someValue"),
+                                addNode("paragraphs", "mgnl:contentNode").then(
+                                        addNode("1", "mgnl:contentNode").then(
+                                                getNode("MetaData").then(
+                                                        addProperty("mgnl:template", "ftl_templating_ui")
+                                                )
+                                        ),
+                                        addNode("2", "mgnl:contentNode").then(
+                                                getNode("MetaData").then(
+                                                        addProperty("mgnl:template", "jsp_templating_ui")
+                                                )
+                                        )
+                                )
+                        )
+                )
         );
     }
 
