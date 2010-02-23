@@ -71,7 +71,6 @@ public class SetupStuffForTests extends AbstractModuleVersionHandler implements 
         return list;
     }
 
-    // TODO : this currently doesn't work, since the copy is done at workspace level - while the PropertiesImportTask creates nodes in the current session
     private ArrayDelegateTask copyArchetypePageAndChangeTemplate(final String name, final String description, final String newPageName, final String newTemplate, final String newTitle) {
         return new ArrayDelegateTask(name, description,
                 new CopyNodeTask(null, null, "website", "/testpages/test_template_archetype", "/testpages/" + newPageName, false),
