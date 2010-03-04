@@ -41,9 +41,11 @@ import info.magnolia.module.ModuleLifecycleContext;
 import info.magnolia.module.delta.ArrayDelegateTask;
 import info.magnolia.module.delta.CheckAndModifyPropertyValueTask;
 import info.magnolia.module.delta.CopyNodeTask;
+import info.magnolia.module.delta.Delta;
 import info.magnolia.module.delta.ModuleFilesExtraction;
 import info.magnolia.module.delta.PropertiesImportTask;
 import info.magnolia.module.delta.Task;
+import info.magnolia.module.model.Version;
 import info.magnolia.nodebuilder.ErrorHandler;
 import info.magnolia.nodebuilder.NodeOperation;
 import info.magnolia.nodebuilder.task.ErrorHandling;
@@ -60,6 +62,19 @@ import static info.magnolia.nodebuilder.Ops.*;
  * @version $Revision: $ ($Author: $)
  */
 public class SetupStuffForTests extends AbstractModuleVersionHandler implements ModuleLifecycle {
+    @Override
+    public List<Delta> getDeltas(InstallContext installContext, Version from) {
+//        if (from != null) {
+//            final String s = "Updates are not supported - please do a fresh install !";
+//            final IllegalStateException e = new IllegalStateException(s);
+//            installContext.error(s, e);
+//            throw e;
+//        }
+
+        return super.getDeltas(installContext, from);
+    }
+
+
     public void start(ModuleLifecycleContext moduleLifecycleContext) {
     }
 
@@ -69,13 +84,12 @@ public class SetupStuffForTests extends AbstractModuleVersionHandler implements 
     protected List<Task> getBasicInstallTasks(InstallContext installContext) {
         final ArrayList<Task> list = new ArrayList<Task>();
         list.add(new ModuleFilesExtraction());
-        list.add(new PropertiesImportTask("Test config content", "Imports content in the config workspace", "config", "/info/magnolia/test/config.properties"));
-        list.add(new PropertiesImportTask("Test website content", "Imports content in the website workspace", "website", "/info/magnolia/test/website.properties"));
-
         list.add(new ModuleNodeBuilderTask("", "", ErrorHandling.strict,
                 addNode("templates", "mgnl:content"),
                 addNode("paragraphs", "mgnl:content")
         ));
+        list.add(new PropertiesImportTask("Test config content", "Imports content in the config workspace", "config", "/info/magnolia/test/config.properties"));
+        list.add(new PropertiesImportTask("Test website content", "Imports content in the website workspace", "website", "/info/magnolia/test/website.properties"));
 
         list.add(newTemplateDefinition("test_jsp_tagsonly", "/templates/test/templating_test_tagsonly.jsp", "jsp"));
         list.add(newTemplateDefinition("test_jsp", "/templates/test/templating_test.jsp", "jsp"));
