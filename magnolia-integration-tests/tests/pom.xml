@@ -83,10 +83,6 @@
             </goals>
           </execution>
         </executions>
-        <configuration>
-          <source>1.5</source>
-          <target>1.5</target>
-        </configuration>
       </plugin>
       <!-- let surefire be executed in the integration-test phase -->
       <plugin>
@@ -182,7 +178,7 @@
   </build>
   <profiles>
     <profile>
-      <id>wait</id>
+      <id>manual-tests</id>
       <properties>
         <leaveContainerRunningAndDontExecuteTests>true</leaveContainerRunningAndDontExecuteTests>
       </properties>
