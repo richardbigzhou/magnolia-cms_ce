@@ -9,7 +9,6 @@
 <html>
 <head>
     <title>${content.title}</title>
-    <@cms.links/>
     <style type="text/css">
         body {
             font-family: verdana,sans-serif;
