@@ -71,7 +71,7 @@ public abstract class AbstractMagnoliaIntegrationTest {
     // TODO : this c/should be configured
     private EnumMap<Instance, String> instanceURLs = new EnumMap<Instance, String>(Instance.class) {{
         put(Instance.AUTHOR, "http://localhost:8088/magnoliaTest");
-        put(Instance.PUBLIC, "http://localhost:8088/magnoliaPublic");
+        put(Instance.PUBLIC, "http://localhost:8088/magnoliaTestPublic");
     }};
 
     /*
