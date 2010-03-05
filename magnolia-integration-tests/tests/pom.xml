@@ -101,6 +101,7 @@
       <plugin>
         <groupId>org.codehaus.cargo</groupId>
         <artifactId>cargo-maven2-plugin</artifactId>
+        <version>1.0.1-alpha-2</version>
         <configuration>
           <wait>${leaveContainerRunningAndDontExecuteTests}</wait>
           <container>
