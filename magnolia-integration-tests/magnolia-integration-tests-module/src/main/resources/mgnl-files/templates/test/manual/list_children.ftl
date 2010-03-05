@@ -9,32 +9,7 @@
 <html>
 <head>
     <title>${content.title}</title>
-    <style type="text/css">
-        body {
-            font-family: verdana,sans-serif;
-            font-size: 60%;
-            color: gray;
-        }
-
-        div#test-description {
-            margin: 1em;
-            border: 1px purple dotted;
-            color: navy;
-        }
-
-        div {
-            border: 1px #99f dotted;
-        }
-
-        div.mgnlMainbar {
-            border: none;
-        }
-
-        .info {
-            font: 60%;
-            color: lightgray;
-        }
-    </style>
+    <link href="${contextPath}/docroot/test/style.css" type="text/css" rel="stylesheet"/>    
 </head>
 <body>
 <h1>Testing session for ${model.magnoliaVersion}</h1>

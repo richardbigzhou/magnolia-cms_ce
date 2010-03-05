@@ -3,39 +3,14 @@
 <%@ taglib prefix="ui" uri="http://magnolia-cms.com/taglib/templating-ui-components" %>
 <%@ taglib prefix="cms" uri="cms-taglib" %>
 <%@ taglib prefix="cmsfn" uri="http://www.magnolia.info/tlds/cmsfn-taglib.tld" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <html>
 <head>
     <title>${content.title}</title>
     <cms:links/>
-    <style type="text/css">
-        body {
-            font-family: verdana,sans-serif;
-            font-size: 60%;
-            color: gray;
-        }
-
-        div#test-description {
-            margin: 1em;
-            border: 1px purple dotted;
-            color: navy;
-        }
-
-        div {
-            border: 1px #99f dotted;
-        }
-
-        div.mgnlMainbar {
-            border: none;
-        }
-
-        .info {
-            font: 60%;
-            color: lightgray;
-        }
-    </style>
+    <link href="<%=request.getContextPath()%>/docroot/test/style.css" type="text/css" rel="stylesheet"/>
 </head>
 <body>
-<h1>Main bar:</h1>
 <ui:main dialog="mainProperties" />
 
 <div id="test-description">
@@ -59,7 +34,16 @@
     </ul>
 </div>
 
-<ui:main dialog="otherPageProperties" editLabel="Other page properties"/>
+<h1>Page properties:</h1>
+<div style="position:relative; float:left;">
+  <ui:main dialog="otherPageProperties" editLabel="Other page properties"/>
+</div>
+<ul>
+    <li>Title: ${content.title}</li>
+    <li>Text (substring): ${fn:substring(content.text, 0, 50)}</li>
+    <li>Foo: ${content.foo}</li>
+    <li>Bar: ${content.bar}</li>
+</ul>
 
 <h1>Singleton paragraph:</h1>
 <ui:singleton container="stage" paragraphs="testPara,testPara2,stkTextImage" >
@@ -68,6 +52,7 @@
 </ui:singleton>
 
 <h1>Regular paragraphs:</h1>
+${content.children}
 <cms:contentNodeIterator contentNodeCollectionName="myParagraphs">
     <!-- edit bar are supposed to be in rendered paragraphs -->
     <cms:includeTemplate/>

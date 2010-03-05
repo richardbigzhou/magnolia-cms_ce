@@ -71,7 +71,8 @@ public class SetupStuffForTests extends AbstractModuleVersionHandler implements 
 //            throw e;
 //        }
 
-        return super.getDeltas(installContext, from);
+        // force re-install ..
+        return super.getDeltas(installContext, null);
     }
 
 
@@ -108,6 +109,11 @@ public class SetupStuffForTests extends AbstractModuleVersionHandler implements 
         list.add(newParagraphDefinition("jspx_dynamic", "/templates/test/para_dynamic.jspx", "jsp", null));
         list.add(newParagraphDefinition("jsp_templating_ui", "/templates/test/para_with_templating_ui_components.jsp", "jsp", null));
 
+        list.add(copyArchetypeDialog("title_and_text_archetype", "mainProperties"));
+        list.add(copyArchetypeDialog("title_and_text_archetype", "dialog1"));
+        list.add(copyArchetypeDialog("title_and_text_archetype", "dialog2"));
+        list.add(copyArchetypeDialog("title_and_text_archetype", "dialog3"));
+
         list.add(copyArchetypePageAndChangeTemplate("Freemarker sample page", "test_freemarker", "test_freemarker", "Test page for Freemarker rendering"));
         list.add(copyArchetypePageAndChangeTemplate("JSP (tags only) sample page", "test_jsp_tagsonly", "test_jsp_tagsonly", "Test page for JSP rendering using tags only"));
         list.add(copyArchetypePageAndChangeTemplate("JSP sample page", "test_jsp", "test_jsp", "Test page for JSP rendering"));
@@ -142,6 +148,13 @@ public class SetupStuffForTests extends AbstractModuleVersionHandler implements 
                         )
                 )
         );
+    }
+
+    private Task copyArchetypeDialog(final String archetypeName, final String newName) {
+        final String pathPrefix = "/modules/test/dialogs/";
+        final String archetypePath = pathPrefix + archetypeName;
+        final String copyPath = pathPrefix + newName;
+        return new CopyNodeTask("Copy " + archetypeName + " dialog to " + newName, "", "config", archetypePath, copyPath, false);
     }
 
     private ArrayDelegateTask copyArchetypePageAndChangeTemplate(final String name, final String newPageName, final String newTemplate, final String newTitle) {
