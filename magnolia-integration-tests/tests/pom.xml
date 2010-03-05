@@ -135,6 +135,8 @@
               <cargo.jvmargs>-Dmagnolia.update.auto=true -Xmx512M</cargo.jvmargs>
               <cargo.servlet.port>8088</cargo.servlet.port>
               <cargo.logging>medium</cargo.logging>
+
+              <cargo.tomcat.ajp.port>8099</cargo.tomcat.ajp.port>
             </properties>
 
             <deployables>
