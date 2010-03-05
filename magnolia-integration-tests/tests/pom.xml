@@ -106,8 +106,12 @@
           <container>
             <containerId>${containerId}</containerId>
             <type>${containerType}</type>
+            <!--
             <output>${project.build.directory}/${containerId}.log</output>
             <log>${project.build.directory}/cargo.log</log>
+            specifying empty values for output and log should result in everything being printed in the console -->
+            <output></output>
+            <log></log>
             <!-- 5 minutes timeout IS long, but the default 2 minutes is sometimes not enough... ?? -->
             <timeout>300000</timeout>
             <zipUrlInstaller>
@@ -125,8 +129,9 @@
               <!-- TODO :
                Not all containers support passing args: http://cargo.codehaus.org/Jetty+6.x
                If they would, we could remove the magnolia.properties from the test-webapp - thus staying closer to the default one
+               TODO : <jvmargs> used by some profiles is not passed anymore - caused issues with Tomcat
               -->
-              <!--<cargo.jvmargs>-Dmagnolia.update.auto=true -Xmx1024M -Xdebug -Xrunjdwp:transport=dt_socket,address=8000,server=y,suspend=n ${jvmargs}</cargo.jvmargs>-->
+              <cargo.jvmargs>-Dmagnolia.update.auto=true -Xmx512M -Xdebug -Xrunjdwp:transport=dt_socket,address=8000,server=y,suspend=n</cargo.jvmargs>
               <cargo.servlet.port>8088</cargo.servlet.port>
               <cargo.logging>medium</cargo.logging>
             </properties>
@@ -184,15 +189,25 @@
       </properties>
     </profile>
     <profile>
-      <id>jetty6-standalone</id>
+      <id>tomcat60</id>
       <activation>
         <activeByDefault>true</activeByDefault>
       </activation>
       <properties>
+        <containerId>tomcat6x</containerId>
+        <containerType>installed</containerType>
+        <configType>standalone</configType>
+        <url>http://apache.mirror.testserver.li/tomcat/tomcat-6/v6.0.24/bin/apache-tomcat-6.0.24.tar.gz</url>
+      </properties>
+    </profile>
+    <profile>
+      <!-- memory issues with jsp - cargo.jvmargs not supported -->
+      <id>jetty6-standalone</id>
+      <properties>
         <containerId>jetty6x</containerId>
         <containerType>installed</containerType>
         <configType>standalone</configType>
-        <url>http://dist.codehaus.org/jetty/jetty-6.1.11/jetty-6.1.11.zip</url>
+        <url>http://dist.codehaus.org/jetty/jetty-6.1.22/jetty-6.1.22.zip</url>
       </properties>
     </profile>
     <profile>
@@ -202,15 +217,6 @@
         <containerId>jetty6x</containerId>
         <containerType>embedded</containerType>
         <configType>???</configType>
-      </properties>
-    </profile>
-    <profile>
-      <id>tomcat60</id>
-      <properties>
-        <containerId>tomcat5x</containerId>
-        <containerType>installed</containerType>
-        <configType>standalone</configType>
-        <url>http://apache.mirror.testserver.li/tomcat/tomcat-6/v6.0.14/bin/apache-tomcat-6.0.14.zip</url>
       </properties>
     </profile>
     <profile>
