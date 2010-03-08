@@ -1,4 +1,4 @@
-<%@ taglib prefix="ui" uri="http://magnolia-cms.com/taglib/templating-ui-components" %>
+<%@ taglib prefix="ui" uri="http://magnolia-cms.com/taglib/templating-components" %>
 
 <div class="paragraph">
     <ui:edit/>

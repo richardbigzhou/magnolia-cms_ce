@@ -87,7 +87,8 @@ public class SetupStuffForTests extends AbstractModuleVersionHandler implements 
         list.add(new ModuleFilesExtraction());
         list.add(new ModuleNodeBuilderTask("", "", ErrorHandling.strict,
                 addNode("templates", "mgnl:content"),
-                addNode("paragraphs", "mgnl:content")
+                addNode("paragraphs", "mgnl:content"),
+                addNode("dialogs", "mgnl:content")
         ));
         list.add(new PropertiesImportTask("Test config content", "Imports content in the config workspace", "config", "/info/magnolia/test/config.properties"));
         list.add(new PropertiesImportTask("Test website content", "Imports content in the website workspace", "website", "/info/magnolia/test/website.properties"));

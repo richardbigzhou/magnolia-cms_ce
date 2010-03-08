@@ -6,7 +6,7 @@
     <link href="${contextPath}/docroot/test/style.css" type="text/css" rel="stylesheet"/>
 </head>
 <body>
-<@ui.main dialog="mainProperties" />
+<@ui.page dialog="mainProperties" />
 
 <div id="test-description">
     <h1>Manual test for Templating UI Components - Freemarker</h1>
@@ -14,7 +14,7 @@
     <p>In this test, validate the following:</p>
     <ul>
         <li>Page properties can edited with the main bar on top of the page. Modified values are reflected on the page after saving.</li>
-        <li>Extra page properties can edited with the bar on below this text; it has a "Other page properties" label. Modified values are reflected on the page after saving.</li>
+        <li>Extra page properties can edited with the bar below this text; it has a "Other page properties" label. Modified values are reflected on the page after saving.</li>
         <li>Regular paragraphs can be added.
             <ul>
                 <li>The first "new bar" allows adding the "test_1_jsp" and "test_2_ftl" paragraphs, and has a default label("New content")</li>
@@ -30,17 +30,17 @@
 
 <h1>Page properties:</h1>
 <div style="position:relative; float:left;">
-    <@ui.main dialog="otherPageProperties" editLabel="Other page properties"/>
+    <@ui.edit dialog="otherPageProperties" editLabel="Other page properties" move=false delete=false/>
 </div>
 <ul>
     <li>Title: ${content.title}</li>
-    <li>Text (substring): ${content.text!?substring(0, 50)}</li>
+    <li>Text (substring): ${content.text!?right_pad(50)?substring(0, 50)?trim}</li>
     <li>Foo: ${content.foo!'(not specified)'}</li>
     <li>Bar: ${content.bar!'(not specified)'}</li>
 </ul>
 
 <h1>Singleton paragraph:</h1>
-<@ui.singleton container="stage" paragraphs="testPara,testPara2,stkTextImage" >
+<@ui.singleton content="stage" paragraphs=['test_1_jsp','test_2_ftl'] >
     <!-- the edit bar is in the rendered paragraph -->
     <@cms.includeTemplate contentNodeName="stage"/>
 </@ui.singleton>
@@ -52,8 +52,8 @@
 </@cms.contentNodeIterator>
 
 <h2>New bar for the above:</h2>
-<@ui.new target=content container="myParagraphs" paragraphs="test_1_jsp,test_2_ftl"/>
-<@ui.new target=content container="myParagraphs" paragraphs=['test_2_ftl', 'test_2_ftl'] newLabel="Add new content - custom label"/>
+<@ui.new container="myParagraphs" paragraphs="test_1_jsp,test_2_ftl"/>
+<@ui.new container="myParagraphs" paragraphs=['test_2_ftl', 'test_3_ftl'] newLabel="Add new content - custom label"/>
 
 </body>
 </html>
