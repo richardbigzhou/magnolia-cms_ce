@@ -1,5 +1,5 @@
 [#macro listChildren node]
-<li><a href="${mgnl.createLink(node)}">${node.title}</li>
+<li><a href="${mgnl.createLink(node)}">${node.title!(node + '(untitled)')}</li>
     [#if node?children?has_content]
         [#list node?children as c]
         <ul>[@listChildren c/]</ul>
