@@ -15,6 +15,8 @@
     <ul>
         <li>Page properties can edited with the main bar on top of the page. Modified values are reflected on the page after saving.</li>
         <li>Extra page properties can edited with the bar below this text; it has a "Other page properties" label. Modified values are reflected on the page after saving.</li>
+        <li>Page bar: the "preview" button should work, hide all other buttons and be "minimized" with at least a short label or symbol on it.</li>
+        <li>Page bar: the "AdminCentral" button should send you back to the AdminCentral with the current page selected in the website tree.</li>
         <li>Regular paragraphs can be added.
             <ul>
                 <li>The first "new bar" allows adding the "test_1_jsp" and "test_2_ftl" paragraphs, and has a default label("New content")</li>
