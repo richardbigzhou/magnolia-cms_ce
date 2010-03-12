@@ -71,6 +71,12 @@
     </dependency>
     <dependency>
       <groupId>info.magnolia</groupId>
+      <artifactId>magnolia-module-templating-components</artifactId>
+      <classifier>bundle</classifier>
+      <type>tar.gz</type>
+    </dependency>
+    <dependency>
+      <groupId>info.magnolia</groupId>
       <artifactId>magnolia-module-samples</artifactId>
       <classifier>bundle</classifier>
       <type>tar.gz</type>
