@@ -3,7 +3,7 @@
   <parent>
     <groupId>info.magnolia</groupId>
     <artifactId>magnolia-integration-tests-parent</artifactId>
-    <version>4.3-SNAPSHOT</version>
+    <version>4.3-beta1</version>
   </parent>
   <groupId>info.magnolia</groupId>
   <artifactId>magnolia-integration-tests</artifactId>
@@ -111,8 +111,8 @@
             <output>${project.build.directory}/${containerId}.log</output>
             <log>${project.build.directory}/cargo.log</log>
             specifying empty values for output and log should result in everything being printed in the console -->
-            <output></output>
-            <log></log>
+            <output />
+            <log />
             <!-- 5 minutes timeout IS long, but the default 2 minutes is sometimes not enough... ?? -->
             <timeout>300000</timeout>
             <zipUrlInstaller>
