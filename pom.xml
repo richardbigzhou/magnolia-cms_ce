@@ -19,7 +19,7 @@
 
   <properties>
     <magnoliaEdition>Community Edition</magnoliaEdition>
-    <magnoliaVersion>4.3-SNAPSHOT</magnoliaVersion>
+    <magnoliaVersion>4.3-rc1</magnoliaVersion>
     <documentationURL>http://documentation.magnolia-cms.com/releases/4-3.html</documentationURL>
   </properties>
 
@@ -60,7 +60,7 @@
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-groovy</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <version>1.0-rc1</version>
         <classifier>bundle</classifier>
         <type>tar.gz</type>
       </dependency>
