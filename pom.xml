@@ -19,7 +19,7 @@
 
   <properties>
     <magnoliaEdition>Community Edition</magnoliaEdition>
-    <magnoliaVersion>4.3.1-SNAPSHOT</magnoliaVersion>
+    <magnoliaVersion>4.3.1</magnoliaVersion>
     <documentationURL>http://documentation.magnolia-cms.com/releases/4-3-1.html</documentationURL>
   </properties>
 
