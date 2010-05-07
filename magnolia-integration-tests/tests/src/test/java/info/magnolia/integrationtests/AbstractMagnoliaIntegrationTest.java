@@ -130,7 +130,7 @@ public abstract class AbstractMagnoliaIntegrationTest {
         webClient.setThrowExceptionOnFailingStatusCode(false);
 
         // can't test with css for now: (css import not supported)
-        webClient.setCssEnabled(false);
+        webClient.setCssEnabled(true);
 
         if (user != null) {
             final String authValue = getAuthValue(user.name());
@@ -157,7 +157,7 @@ public abstract class AbstractMagnoliaIntegrationTest {
      */
     protected void saveToFile(Page page, StackTraceElement stackTraceElement) throws IOException {
         final WebResponse res = page.getWebResponse();
-        final byte[] body = res.getResponseBody();
+        final byte[] body = res.getContentAsBytes();
         // TODO : configure the output directory / get it from system properties ?
         final String path = "target/" + stackTraceElement.getClassName() + "-" + stackTraceElement.getMethodName() + "-" + stackTraceElement.getLineNumber() + ".out";
         IOUtils.write(body, new FileOutputStream(path));
