@@ -113,8 +113,8 @@
             specifying empty values for output and log should result in everything being printed in the console -->
             <output />
             <log />
-            <!-- 5 minutes timeout IS long, but the default 2 minutes is sometimes not enough... ?? -->
-            <timeout>300000</timeout>
+            <!-- 10 minutes timeout IS long, but the default 2 minutes is sometimes not enough... ?? -->
+            <timeout>600000</timeout>
             <zipUrlInstaller>
               <url>${url}</url>
               <installDir>${basedir}/tmp/cargo-install</installDir>
