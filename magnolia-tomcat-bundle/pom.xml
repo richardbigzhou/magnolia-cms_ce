@@ -17,7 +17,7 @@
       <plugin>
         <groupId>info.magnolia</groupId>
         <artifactId>maven-bundle-plugin</artifactId>
-        <!-- this configuration is currently in the parent poms but should probably not be -->
+        <version>1.0.4</version>
         <executions>
           <execution>
             <id>get-tomcat</id>
@@ -26,8 +26,16 @@
               <goal>download</goal>
             </goals>
             <configuration>
-              <url>http://www.apache.org/dist/tomcat/tomcat-5/v5.5.27/bin/apache-tomcat-5.5.27.tar.gz</url>
+              <url>http://archive.apache.org/dist/tomcat/tomcat-5/v5.5.27/bin/apache-tomcat-5.5.27.tar.gz</url>
+              <downloadDir>tmp</downloadDir>
               <destDir>${basedir}/target/extracted-tomcat</destDir>
+            </configuration>
+          </execution>
+          <execution>
+            <!-- this is needed until we update to parent pom v16 -->
+            <id>get-tomcat-compat-package</id>
+            <configuration>
+              <skip>true</skip>
             </configuration>
           </execution>
         </executions>
