@@ -129,7 +129,6 @@ public abstract class AbstractMagnoliaIntegrationTest {
         // we also want to test error code handling:
         webClient.setThrowExceptionOnFailingStatusCode(false);
 
-        // can't test with css for now: (css import not supported)
         webClient.setCssEnabled(true);
 
         if (user != null) {
