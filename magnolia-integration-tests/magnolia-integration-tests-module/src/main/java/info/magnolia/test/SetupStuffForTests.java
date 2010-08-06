@@ -58,6 +58,8 @@ import java.util.List;
 import static info.magnolia.nodebuilder.Ops.*;
 
 /**
+ * A version handler setting up pages, templates, paragraphs, dialogs, based on properties files and archetypes.
+ *
  * @author gjoseph
  * @version $Revision: $ ($Author: $)
  */

@@ -40,6 +40,7 @@ import info.magnolia.module.templating.RenderingModel;
 import info.magnolia.module.templating.RenderingModelImpl;
 
 /**
+ * A simple model used in tests which exposes Magnolia version info.
  *
  * @author gjoseph
  * @version $Revision: $ ($Author: $)

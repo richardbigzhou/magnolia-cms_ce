@@ -42,6 +42,8 @@ import java.util.List;
 import java.util.Random;
 
 /**
+ * Dummy model used in tests, exposing an execution counter and hardcoded arbitrary properties.
+ * 
  * @author gjoseph
  * @version $Revision: $ ($Author: $)
  */

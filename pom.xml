@@ -4,7 +4,7 @@
   <parent>
     <artifactId>magnolia-parent-pom-ce</artifactId>
     <groupId>info.magnolia</groupId>
-    <version>15</version>
+    <version>16</version>
   </parent>
   <artifactId>magnolia-bundle-parent</artifactId>
   <packaging>pom</packaging>
