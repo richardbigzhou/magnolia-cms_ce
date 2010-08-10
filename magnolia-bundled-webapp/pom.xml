@@ -18,6 +18,11 @@
     </dependency>
     <dependency>
       <groupId>info.magnolia</groupId>
+      <artifactId>magnolia-empty-webapp</artifactId>
+      <type>pom</type>
+    </dependency>
+    <dependency>
+      <groupId>info.magnolia</groupId>
       <artifactId>magnolia-module-dms</artifactId>
       <type>jar</type>
     </dependency>
@@ -28,8 +33,8 @@
     </dependency>
   </dependencies>
 
-  <!-- copied from magnolia-empty-webapp, in order to override its txt files : -->
   <build>
+    <!-- copied from magnolia-empty-webapp, in order to override its txt files : -->
     <resources>
       <resource>
         <!-- these are the resources copied by the remote-resources-plugin -->
@@ -44,6 +49,7 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-war-plugin</artifactId>
         <configuration>
+          <dependentWarExcludes>WEB-INF/lib/*.jar</dependentWarExcludes>
           <webResources>
             <resource>
               <!-- these are the resources copied by the remote-resources-plugin -->

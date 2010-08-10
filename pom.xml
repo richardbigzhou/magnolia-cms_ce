@@ -33,6 +33,12 @@
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
+        <artifactId>magnolia-empty-webapp</artifactId>
+        <version>${magnoliaVersion}</version>
+        <type>pom</type>
+      </dependency>
+      <dependency>
+        <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-dms</artifactId>
         <version>1.4.4</version>
       </dependency>
