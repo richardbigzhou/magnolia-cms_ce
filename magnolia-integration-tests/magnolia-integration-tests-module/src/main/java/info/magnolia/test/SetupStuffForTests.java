@@ -33,15 +33,18 @@
  */
 package info.magnolia.test;
 
+import info.magnolia.cms.beans.config.ContentRepository;
 import info.magnolia.cms.core.Content;
 import info.magnolia.module.AbstractModuleVersionHandler;
 import info.magnolia.module.InstallContext;
 import info.magnolia.module.ModuleLifecycle;
 import info.magnolia.module.ModuleLifecycleContext;
 import info.magnolia.module.delta.ArrayDelegateTask;
+import info.magnolia.module.delta.BootstrapSingleResource;
 import info.magnolia.module.delta.CheckAndModifyPropertyValueTask;
 import info.magnolia.module.delta.CopyNodeTask;
 import info.magnolia.module.delta.Delta;
+import info.magnolia.module.delta.IsAuthorInstanceDelegateTask;
 import info.magnolia.module.delta.ModuleFilesExtraction;
 import info.magnolia.module.delta.PropertiesImportTask;
 import info.magnolia.module.delta.Task;
@@ -123,6 +126,9 @@ public class SetupStuffForTests extends AbstractModuleVersionHandler implements 
 
         list.add(newTestPageForUiComponents("test_freemarker_ui", "test_freemarker_ui"));
         list.add(newTestPageForUiComponents("test_jsp_ui", "test_jsp_ui"));
+
+        list.add(new IsAuthorInstanceDelegateTask("Bootstrap", "Bootstrap new web to author instance for PageAccessTest purposes", new BootstrapSingleResource("", "", "/info/magnolia/test/website.newtestpages.newplain.xml")));
+        list.add(new CheckAndModifyPropertyValueTask("Activation", "Changes public URL", ContentRepository.CONFIG, "/server/activation/subscribers/magnoliaPublic8080", "URL", "http://localhost:8080/magnoliaPublic", "http://localhost:8088/magnoliaTestPublic"));
 
         return list;
     }
