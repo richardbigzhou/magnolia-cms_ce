@@ -34,13 +34,17 @@
 package info.magnolia.integrationtests;
 
 import com.gargoylesoftware.htmlunit.Page;
-import static org.junit.Assert.assertEquals;
-
+import com.gargoylesoftware.htmlunit.html.HtmlElement;
+import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import info.magnolia.testframework.htmlunit.AbstractMagnoliaIntegrationTest;
 import org.junit.Test;
 
+import static org.junit.Assert.*;
+import static org.junit.matchers.JUnitMatchers.*;
+
 /**
- * We're just checking if the container started and the application is reachable.
+ * We're just checking if the container started and the application is reachable, plus some simple assertions, checking
+ * we're on the expected type of instance, for example.
  *
  * @author gjoseph
  * @version $Revision: $ ($Author: $)
@@ -55,8 +59,15 @@ public class MostBasicTest extends AbstractMagnoliaIntegrationTest {
 
     @Test
     public void seeIfWeLoginOnAuthorInstanceWithSuperuser() throws Exception {
-        final Page page = openPage(Instance.AUTHOR, "", User.superuser);
+        final HtmlPage page = openHtmlPage(Instance.AUTHOR, "", User.superuser);
         assertEquals(200, page.getWebResponse().getStatusCode());
+
+        final String allContents = page.getWebResponse().getContentAsString();
+        assertThat("We're not on a CE instance!?", allContents, containsString("Community Edition"));
+
+        final HtmlElement footerDiv = page.getElementById("mgnlAdminCentralFooterDiv");
+        assertNotNull(footerDiv);
+        assertThat("We're not on a CE instance!?", footerDiv.getTextContent(), containsString("Community Edition"));
     }
 
     @Test
