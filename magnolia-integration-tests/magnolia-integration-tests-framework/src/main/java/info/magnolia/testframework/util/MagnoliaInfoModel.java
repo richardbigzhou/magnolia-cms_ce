@@ -1,5 +1,5 @@
 /**
- * This file Copyright (c) 2003-2010 Magnolia International
+ * This file Copyright (c) 2010-2010 Magnolia International
  * Ltd.  (http://www.magnolia-cms.com). All rights reserved.
  *
  *
@@ -31,54 +31,31 @@
  * intact.
  *
  */
-package info.magnolia.test;
+package info.magnolia.testframework.util;
 
+import info.magnolia.cms.core.Content;
+import info.magnolia.cms.license.LicenseFileExtractor;
 import info.magnolia.module.templating.RenderableDefinition;
 import info.magnolia.module.templating.RenderingModel;
-import info.magnolia.cms.core.Content;
-
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
+import info.magnolia.module.templating.RenderingModelImpl;
 
 /**
- * Dummy model used in tests, exposing an execution counter and hardcoded arbitrary properties.
- * 
+ * A simple model used in tests which exposes Magnolia version info.
+ *
  * @author gjoseph
  * @version $Revision: $ ($Author: $)
  */
-public class ParagraphModelForTests implements RenderingModel {
-    private static int executionCount;
-    public ParagraphModelForTests(Content content, RenderableDefinition renderable, RenderingModel parent) {
+public class MagnoliaInfoModel extends RenderingModelImpl {
+    public MagnoliaInfoModel(Content content, RenderableDefinition renderable, RenderingModel parent) {
+        super(content, renderable, parent);
     }
 
-    public RenderingModel getParent() {
-        return null;
+    public String getMagnoliaVersion() {
+        final LicenseFileExtractor license = LicenseFileExtractor.getInstance();
+        final StringBuilder info = new StringBuilder();
+        info.append(license.get(LicenseFileExtractor.EDITION)).append(" ");
+        info.append(license.get(LicenseFileExtractor.VERSION_NUMBER)).append(" ");
+        info.append("(").append(license.get(LicenseFileExtractor.BUILD_NUMBER)).append(")");
+        return info.toString();
     }
-
-    public Content getContent() {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
-    }
-
-    public RenderableDefinition getDefinition() {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
-    }
-
-    public String execute() {
-        executionCount++;
-        return "foobar";
-    }
-
-    public String getCount() {
-        return "This class was executed " + executionCount + " times.";
-    }
-
-    public int getRandomInt() {
-        return new Random().nextInt(100);
-    }
-
-    public List<String> getAllowedParagraphs(Content content) {
-        return Arrays.asList("foo", "bar");
-    }
-
 }

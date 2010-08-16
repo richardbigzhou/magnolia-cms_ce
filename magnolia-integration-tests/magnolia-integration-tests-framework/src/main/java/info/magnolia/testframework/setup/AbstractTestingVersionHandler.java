@@ -1,5 +1,5 @@
 /**
- * This file Copyright (c) 2003-2010 Magnolia International
+ * This file Copyright (c) 2010 Magnolia International
  * Ltd.  (http://www.magnolia-cms.com). All rights reserved.
  *
  *
@@ -31,26 +31,19 @@
  * intact.
  *
  */
-package info.magnolia.test;
+package info.magnolia.testframework.setup;
 
 import info.magnolia.cms.beans.config.ContentRepository;
-import info.magnolia.cms.core.Content;
 import info.magnolia.module.AbstractModuleVersionHandler;
 import info.magnolia.module.InstallContext;
-import info.magnolia.module.ModuleLifecycle;
-import info.magnolia.module.ModuleLifecycleContext;
 import info.magnolia.module.delta.ArrayDelegateTask;
-import info.magnolia.module.delta.BootstrapSingleResource;
 import info.magnolia.module.delta.CheckAndModifyPropertyValueTask;
 import info.magnolia.module.delta.CopyNodeTask;
 import info.magnolia.module.delta.Delta;
-import info.magnolia.module.delta.IsAuthorInstanceDelegateTask;
 import info.magnolia.module.delta.ModuleFilesExtraction;
 import info.magnolia.module.delta.PropertiesImportTask;
 import info.magnolia.module.delta.Task;
 import info.magnolia.module.model.Version;
-import info.magnolia.nodebuilder.ErrorHandler;
-import info.magnolia.nodebuilder.NodeOperation;
 import info.magnolia.nodebuilder.task.ErrorHandling;
 import info.magnolia.nodebuilder.task.ModuleNodeBuilderTask;
 import info.magnolia.nodebuilder.task.NodeBuilderTask;
@@ -61,32 +54,30 @@ import java.util.List;
 import static info.magnolia.nodebuilder.Ops.*;
 
 /**
- * A version handler setting up pages, templates, paragraphs, dialogs, based on properties files and archetypes.
+ * A version handler which will only work on installs, to ensure we're working with a well-known setup,
+ * and provides a few utility methods to create templates, dialogs, pages, ...
+ *
+ * By default, it imports content into the website and config workspace using the properties file returned by
+ * {@link #getWebsiteImportPropertiesFile()} and {@link #getConfigImportPropertiesFile()} respectively.
  *
  * @author gjoseph
  * @version $Revision: $ ($Author: $)
  */
-public class SetupStuffForTests extends AbstractModuleVersionHandler implements ModuleLifecycle {
+public abstract class AbstractTestingVersionHandler extends AbstractModuleVersionHandler {
     @Override
     public List<Delta> getDeltas(InstallContext installContext, Version from) {
-//        if (from != null) {
-//            final String s = "Updates are not supported - please do a fresh install !";
-//            final IllegalStateException e = new IllegalStateException(s);
-//            installContext.error(s, e);
-//            throw e;
-//        }
+        if (from != null) {
+            final String s = "Updates are not supported - please do a fresh install !";
+            final IllegalStateException e = new IllegalStateException(s);
+            installContext.error(s, e);
+            throw e;
+        }
 
         // force re-install ..
         return super.getDeltas(installContext, null);
     }
 
-
-    public void start(ModuleLifecycleContext moduleLifecycleContext) {
-    }
-
-    public void stop(ModuleLifecycleContext moduleLifecycleContext) {
-    }
-
+    @Override
     protected List<Task> getBasicInstallTasks(InstallContext installContext) {
         final ArrayList<Task> list = new ArrayList<Task>();
         list.add(new ModuleFilesExtraction());
@@ -95,45 +86,22 @@ public class SetupStuffForTests extends AbstractModuleVersionHandler implements 
                 addNode("paragraphs", "mgnl:content"),
                 addNode("dialogs", "mgnl:content")
         ));
-        list.add(new PropertiesImportTask("Test config content", "Imports content in the config workspace", "config", "/info/magnolia/test/config.properties"));
-        list.add(new PropertiesImportTask("Test website content", "Imports content in the website workspace", "website", "/info/magnolia/test/website.properties"));
+        list.add(new PropertiesImportTask("Test config content", "Imports content in the config workspace", "config", getConfigImportPropertiesFile()));
+        list.add(new PropertiesImportTask("Test website content", "Imports content in the website workspace", "website", getWebsiteImportPropertiesFile()));
 
-        list.add(newTemplateDefinition("test_jsp_tagsonly", "/templates/test/templating_test_tagsonly.jsp", "jsp"));
-        list.add(newTemplateDefinition("test_jsp", "/templates/test/templating_test.jsp", "jsp"));
-        list.add(newTemplateDefinition("test_freemarker", "/templates/test/templating_test.ftl", "freemarker"));
-        list.add(newTemplateDefinition("test_freemarker_ui", "/templates/test/templating_test_ui.ftl", "freemarker"));
-        list.add(newTemplateDefinition("test_jsp_ui", "/templates/test/templating_test_ui.jsp", "jsp"));
-
-        list.add(newParagraphDefinition("ftl_static", "/templates/test/para_static.ftl", "freemarker", null));
-        list.add(newParagraphDefinition("ftl_dynamic", "/templates/test/para_dynamic.ftl", "freemarker", null));
-        list.add(newParagraphDefinition("ftl_model", "/templates/test/para_with_model.ftl", "freemarker", ParagraphModelForTests.class));
-        list.add(newParagraphDefinition("ftl_templating_ui", "/templates/test/para_with_templating_ui_components.ftl", "freemarker", null));
-
-        list.add(newParagraphDefinition("jsp_static", "/templates/test/para_static.jsp", "jsp", null));
-        list.add(newParagraphDefinition("jsp_dynamic", "/templates/test/para_dynamic.jsp", "jsp", null));
-        list.add(newParagraphDefinition("jsp_model", "/templates/test/para_with_model.jsp", "jsp", ParagraphModelForTests.class));
-        list.add(newParagraphDefinition("jspx_dynamic", "/templates/test/para_dynamic.jspx", "jsp", null));
-        list.add(newParagraphDefinition("jsp_templating_ui", "/templates/test/para_with_templating_ui_components.jsp", "jsp", null));
-
-        list.add(copyArchetypeDialog("title_and_text_archetype", "mainProperties"));
-        list.add(copyArchetypeDialog("title_and_text_archetype", "dialog1"));
-        list.add(copyArchetypeDialog("title_and_text_archetype", "dialog2"));
-        list.add(copyArchetypeDialog("title_and_text_archetype", "dialog3"));
-
-        list.add(copyArchetypePageAndChangeTemplate("Freemarker sample page", "test_freemarker", "test_freemarker", "Test page for Freemarker rendering"));
-        list.add(copyArchetypePageAndChangeTemplate("JSP (tags only) sample page", "test_jsp_tagsonly", "test_jsp_tagsonly", "Test page for JSP rendering using tags only"));
-        list.add(copyArchetypePageAndChangeTemplate("JSP sample page", "test_jsp", "test_jsp", "Test page for JSP rendering"));
-
-        list.add(newTestPageForUiComponents("test_freemarker_ui", "test_freemarker_ui"));
-        list.add(newTestPageForUiComponents("test_jsp_ui", "test_jsp_ui"));
-
-        list.add(new IsAuthorInstanceDelegateTask("Bootstrap", "Bootstrap new web to author instance for PageAccessTest purposes", new BootstrapSingleResource("", "", "/info/magnolia/test/website.newtestpages.newplain.xml")));
         list.add(new CheckAndModifyPropertyValueTask("Activation", "Changes public URL", ContentRepository.CONFIG, "/server/activation/subscribers/magnoliaPublic8080", "URL", "http://localhost:8080/magnoliaPublic", "http://localhost:8088/magnoliaTestPublic"));
 
         return list;
     }
 
-    private ModuleNodeBuilderTask newTemplateDefinition(String name, String templatePath, String type) {
+    protected abstract String getWebsiteImportPropertiesFile();
+
+    protected abstract String getConfigImportPropertiesFile();
+
+    @Override
+    protected abstract List<Task> getExtraInstallTasks(InstallContext installContext);
+
+    protected ModuleNodeBuilderTask newTemplateDefinition(String name, String templatePath, String type) {
         return new ModuleNodeBuilderTask("test template", "", ErrorHandling.strict,
                 getNode("templates").then(
                         addNode(name, "mgnl:contentNode").then(
@@ -147,26 +115,26 @@ public class SetupStuffForTests extends AbstractModuleVersionHandler implements 
         );
     }
 
-    private ModuleNodeBuilderTask newParagraphDefinition(String name, String templatePath, String type, Class modelClass) {
+    protected ModuleNodeBuilderTask newParagraphDefinition(String name, String templatePath, String type, Class modelClass) {
         return new ModuleNodeBuilderTask("test paragraph", "", ErrorHandling.strict,
                 getNode("paragraphs").then(
                         addNode(name, "mgnl:contentNode").then(
                                 addProperty("templatePath", templatePath),
                                 addProperty("type", type),
-                                modelClass != null ? addProperty("modelClass", modelClass.getName()) : new NullOperation()
+                                modelClass != null ? addProperty("modelClass", modelClass.getName()) : noop()
                         )
                 )
         );
     }
 
-    private Task copyArchetypeDialog(final String archetypeName, final String newName) {
+    protected Task copyArchetypeDialog(final String archetypeName, final String newName) {
         final String pathPrefix = "/modules/test/dialogs/";
         final String archetypePath = pathPrefix + archetypeName;
         final String copyPath = pathPrefix + newName;
         return new CopyNodeTask("Copy " + archetypeName + " dialog to " + newName, "", "config", archetypePath, copyPath, false);
     }
 
-    private ArrayDelegateTask copyArchetypePageAndChangeTemplate(final String name, final String newPageName, final String newTemplate, final String newTitle) {
+    protected ArrayDelegateTask copyArchetypePageAndChangeTemplate(final String name, final String newPageName, final String newTemplate, final String newTitle) {
         return new ArrayDelegateTask(name, "",
                 new CopyNodeTask(null, null, "website", "/testpages/test_template_archetype", "/testpages/" + newPageName, false),
                 new CheckAndModifyPropertyValueTask(null, null, "website", "/testpages/" + newPageName + "/MetaData", "mgnl:template", "test_template_archetype", newTemplate),
@@ -174,7 +142,7 @@ public class SetupStuffForTests extends AbstractModuleVersionHandler implements 
         );
     }
 
-    private NodeBuilderTask newTestPageForUiComponents(String pageName, String pageTemplateName) {
+    protected NodeBuilderTask newTestPageForUiComponents(String pageName, String pageTemplateName) {
         return new NodeBuilderTask("Test page for UI components", "", ErrorHandling.strict, "website",
                 getNode("testpages").then(
                         addNode(pageName, "mgnl:content").then(
@@ -200,12 +168,4 @@ public class SetupStuffForTests extends AbstractModuleVersionHandler implements 
         );
     }
 
-    private static class NullOperation implements NodeOperation {
-        public NodeOperation then(NodeOperation... childrenOps) {
-            return null;
-        }
-
-        public void exec(Content context, ErrorHandler errorHandler) {
-        }
-    }
 }

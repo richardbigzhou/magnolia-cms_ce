@@ -3,7 +3,6 @@
 <module>
   <name>test</name>
   <displayName>Integration tests</displayName>
-  <class>info.magnolia.test.SetupStuffForTests</class>
   <versionHandler>info.magnolia.test.SetupStuffForTests</versionHandler>
   <version>${project.version}</version>
 

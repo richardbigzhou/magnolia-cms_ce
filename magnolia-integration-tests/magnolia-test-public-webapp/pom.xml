@@ -35,7 +35,7 @@
     </dependency>
     <dependency>
       <groupId>info.magnolia</groupId>
-      <artifactId>magnolia-integration-tests-module</artifactId>
+      <artifactId>magnolia-integration-tests-fixture-module</artifactId>
       <version>${project.version}</version>
       <type>jar</type>
     </dependency>
