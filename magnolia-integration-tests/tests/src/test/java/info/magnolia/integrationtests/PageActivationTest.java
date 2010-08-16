@@ -1,4 +1,4 @@
-/** 
+/**
  * This file Copyright (c) 2010 Magnolia International
  * Ltd.  (http://www.magnolia-cms.com). All rights reserved.
  *
@@ -34,7 +34,6 @@
 package info.magnolia.integrationtests;
 
 import static org.junit.Assert.*;
-import info.magnolia.integrationtests.AbstractMagnoliaIntegrationTest;
 
 import org.junit.Test;
 
@@ -47,10 +46,10 @@ import com.gargoylesoftware.htmlunit.Page;
  * @author ochytil
  * @version $Revision: $ ($Author: $)
  */
-public class PageActivationTest extends AbstractMagnoliaIntegrationTest{
+public class PageActivationTest extends AbstractMagnoliaIntegrationTest {
 
     @Test
-    public void publicPageCheckWithActivation() throws Exception{
+    public void publicPageCheckWithActivation() throws Exception {
         //Tests if page exists on author instance
         Page page = openPage(Instance.AUTHOR, "/newtestpages/newplain.html", User.superuser);
         assertEquals(200, page.getWebResponse().getStatusCode());
