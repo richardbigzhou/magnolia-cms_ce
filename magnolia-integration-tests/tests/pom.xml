@@ -26,6 +26,11 @@
       <artifactId>magnolia-integration-tests-framework</artifactId>
       <version>${project.version}</version>
     </dependency>
+    <dependency>
+      <groupId>info.magnolia</groupId>
+      <artifactId>magnolia-core</artifactId>
+      <version>${magnoliaVersion}</version>
+    </dependency>
 
     <!-- ensure build older -->
     <dependency>
