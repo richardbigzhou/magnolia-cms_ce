@@ -66,16 +66,16 @@ public abstract class AbstractMagnoliaIntegrationTest {
     public enum Instance implements InstanceProperties {
         AUTHOR {
             public String getContextPath() {
-                return "/magnoliaTest";
+                return "magnoliaTest";
             }
         }, PUBLIC {
             public String getContextPath() {
-                return "/magnoliaTestPublic";
+                return "magnoliaTestPublic/";
             }
         };
 
         public String getURL() {
-            return "http://localhost:8088" + getContextPath();
+            return "http://localhost:8088/" + getContextPath();
         }
     }
 
@@ -180,6 +180,9 @@ public abstract class AbstractMagnoliaIntegrationTest {
     }
 
     private URL getUrl(Instance instance, String path) throws MalformedURLException {
+        if (path.startsWith("/")) {
+            path = path.substring(1);
+        }
         return new URL(instance.getURL() + path);
     }
 
