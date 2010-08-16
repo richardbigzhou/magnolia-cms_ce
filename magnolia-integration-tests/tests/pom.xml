@@ -8,8 +8,12 @@
   <groupId>info.magnolia</groupId>
   <artifactId>magnolia-integration-tests</artifactId>
   <name>magnolia-integration-tests</name>
-  <packaging>pom</packaging>
+  <packaging>jar</packaging>
 
+  <prerequisites>
+    <maven>2.2.1</maven>
+  </prerequisites>
+  
   <!--
   This pom (and most of this project, for that matter), has been copied to
   http://svn.magnolia-cms.com/svn/enterprise/bundle/trunk/magnolia-ee-integration-tests/tests
@@ -32,7 +36,7 @@
       <version>${magnoliaVersion}</version>
     </dependency>
 
-    <!-- ensure build older -->
+    <!-- ensure build order -->
     <dependency>
       <groupId>info.magnolia</groupId>
       <artifactId>magnolia-test-webapp</artifactId>
@@ -66,28 +70,28 @@
       <groupId>org.slf4j</groupId>
       <artifactId>jcl-over-slf4j</artifactId>
     </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-log4j12</artifactId>
+    </dependency>
   </dependencies>
 
   <build>
     <plugins>
-      <!-- tell the compiler to compile the tests, which it does not do by default because this project has a packaging of type pom  -->
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <executions>
-          <execution>
-            <goals>
-              <goal>testCompile</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-      <!-- let surefire be executed in the integration-test phase -->
+      <!-- let surefire be executed only in the integration-test phase -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
         <executions>
           <execution>
+            <id>default-test</id>
+            <phase>test</phase>
+            <configuration>
+              <skipTests>true</skipTests>
+            </configuration>
+          </execution>
+          <execution>
+            <id>tests-integration</id>
             <phase>integration-test</phase>
             <goals>
               <goal>test</goal>
