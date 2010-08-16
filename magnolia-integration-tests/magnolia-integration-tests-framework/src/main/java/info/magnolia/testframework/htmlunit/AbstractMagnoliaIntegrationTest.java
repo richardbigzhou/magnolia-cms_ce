@@ -46,7 +46,6 @@ import org.apache.commons.io.IOUtils;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Collections;
 import java.util.Map;
@@ -77,12 +76,21 @@ public abstract class AbstractMagnoliaIntegrationTest {
         public String getURL() {
             return "http://localhost:8088/" + getContextPath();
         }
+
+        public String getURL(String path) {
+            if (path.startsWith("/")) {
+                path = path.substring(1);
+            }
+            return getURL() + path;
+        }
     }
 
     private interface InstanceProperties {
         String getContextPath();
 
         String getURL();
+
+        String getURL(String path);
     }
 
     /**
@@ -110,7 +118,7 @@ public abstract class AbstractMagnoliaIntegrationTest {
      * Use this method when you need low-level access to the connection headers and content.
      */
     protected HttpURLConnection openConnection(Instance instance, String path, User user, Map<String, String> headers) throws IOException {
-        final URL url = getUrl(instance, path);
+        final URL url = new URL(instance.getURL(path));
         final HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         if (user != null) {
             final String authValue = getAuthValue(user.name());
@@ -127,20 +135,50 @@ public abstract class AbstractMagnoliaIntegrationTest {
 
     /**
      * Just a shortcut method to avoid a cast to HtmlPage.
-     * @see #openHtmlPage(info.magnolia.testframework.htmlunit.AbstractMagnoliaIntegrationTest.Instance, String, info.magnolia.testframework.htmlunit.AbstractMagnoliaIntegrationTest.User)
+     * @see #openPage(info.magnolia.testframework.htmlunit.AbstractMagnoliaIntegrationTest.Instance, String, info.magnolia.testframework.htmlunit.AbstractMagnoliaIntegrationTest.User, boolean)
+     * @deprecated openPage now uses generics, so use that instead.
      */
     protected HtmlPage openHtmlPage(Instance instance, String path, User user) throws IOException {
-        return (HtmlPage) openPage(instance, path, user);
+        return openHtmlPage(instance, path, user, false);
     }
 
     /**
-     * This use htmlunit, simulates a browser and does all kind of fancy stuff for you.
+     * @deprecated openPage now uses generics, so use that instead.
+     */
+    protected HtmlPage openHtmlPage(Instance instance, String path, User user, boolean followRedirects) throws IOException {
+        return (HtmlPage) openPage(instance, path, user, followRedirects);
+    }
+
+    /**
+     * @deprecated use {@link #openPage(String, info.magnolia.testframework.htmlunit.AbstractMagnoliaIntegrationTest.User, boolean)}
+     * with {@link AbstractMagnoliaIntegrationTest.Instance.AUTHOR.getURL()}
      */
     protected Page openPage(Instance instance, String path, User user) throws IOException {
+        return openPage(instance, path, user, false);
+    }
+
+    /**
+     * @deprecated use {@link #openPage(String, info.magnolia.testframework.htmlunit.AbstractMagnoliaIntegrationTest.User, boolean)}
+     * with {@link AbstractMagnoliaIntegrationTest.Instance.AUTHOR.getURL()}
+     */
+    protected <P extends Page> P openPage(Instance instance, String path, User user, boolean followRedirects) throws IOException {
+        return (P) openPage(instance.getURL(path), user, followRedirects);
+    }
+
+    protected <P extends Page> P openPage(String url, User user) throws IOException {
+        return (P) openPage(url, user, false);
+    }
+
+    /**
+     * This uses htmlunit, simulates a browser and does all kind of fancy stuff for you.
+     */
+    protected <P extends Page> P openPage(String url, User user, boolean followRedirects) throws IOException {
         final WebClient webClient = new WebClient(BrowserVersion.getDefault());
         // this writes files to /tmp - the most interesting one probably being magnolia-test_<random>.js, which lists headers for all requests 
         final WebConnection connection = new DebuggingWebConnection(webClient.getWebConnection(), "magnolia-test_");
         webClient.setWebConnection(connection);
+
+        webClient.setRedirectEnabled(followRedirects);
 
         // we also want to test error code handling:
         webClient.setThrowExceptionOnFailingStatusCode(false);
@@ -152,8 +190,7 @@ public abstract class AbstractMagnoliaIntegrationTest {
             webClient.addRequestHeader("Authorization", authValue);
         }
 
-        final URL url = getUrl(instance, path);
-        return webClient.getPage(url);
+        return (P) webClient.getPage(new URL(url));
     }
 
     /**
@@ -177,13 +214,6 @@ public abstract class AbstractMagnoliaIntegrationTest {
         // TODO : configure the output directory / get it from system properties ?
         final String path = "target/" + stackTraceElement.getClassName() + "-" + stackTraceElement.getMethodName() + "-" + stackTraceElement.getLineNumber() + ".out";
         IOUtils.write(body, new FileOutputStream(path));
-    }
-
-    private URL getUrl(Instance instance, String path) throws MalformedURLException {
-        if (path.startsWith("/")) {
-            path = path.substring(1);
-        }
-        return new URL(instance.getURL() + path);
     }
 
     /**
