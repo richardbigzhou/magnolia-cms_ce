@@ -79,7 +79,7 @@ public abstract class AbstractMagnoliaIntegrationTest {
         }
     }
 
-    protected interface InstanceProperties {
+    private interface InstanceProperties {
         String getContextPath();
 
         String getURL();
