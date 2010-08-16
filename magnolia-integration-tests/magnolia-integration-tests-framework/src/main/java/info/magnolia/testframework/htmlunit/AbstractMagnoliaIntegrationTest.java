@@ -36,25 +36,25 @@ package info.magnolia.testframework.htmlunit;
 import com.gargoylesoftware.htmlunit.BrowserVersion;
 import com.gargoylesoftware.htmlunit.Page;
 import com.gargoylesoftware.htmlunit.WebClient;
-import com.gargoylesoftware.htmlunit.WebResponse;
 import com.gargoylesoftware.htmlunit.WebConnection;
+import com.gargoylesoftware.htmlunit.WebResponse;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.util.DebuggingWebConnection;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.io.IOUtils;
 
-import java.io.IOException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Collections;
-import java.util.EnumMap;
 import java.util.Map;
 
 /**
  * A base class for Magnolia integration tests. Might be split into util class/methods;
  * since we use JUnit4, inheritance isn't really mandatory.
- * 
+ *
  * @author gjoseph
  * @version $Revision: $ ($Author: $)
  */
@@ -63,8 +63,26 @@ public abstract class AbstractMagnoliaIntegrationTest {
     /**
      * A simple way of referring to one of the two test instances deployed during ITs.
      */
-    protected enum Instance {
-        AUTHOR, PUBLIC
+    public enum Instance implements InstanceProperties {
+        AUTHOR {
+            public String getContextPath() {
+                return "/magnoliaTest";
+            }
+        }, PUBLIC {
+            public String getContextPath() {
+                return "/magnoliaTestPublic";
+            }
+        };
+
+        public String getURL() {
+            return "http://localhost:8088" + getContextPath();
+        }
+    }
+
+    protected interface InstanceProperties {
+        String getContextPath();
+
+        String getURL();
     }
 
     /**
@@ -74,12 +92,6 @@ public abstract class AbstractMagnoliaIntegrationTest {
         superuser
     }
 
-    // TODO : this c/should be configured
-    private EnumMap<Instance, String> instanceURLs = new EnumMap<Instance, String>(Instance.class) {{
-        put(Instance.AUTHOR, "http://localhost:8088/magnoliaTest");
-        put(Instance.PUBLIC, "http://localhost:8088/magnoliaTestPublic");
-    }};
-
     /*
     @After
     public void afterEachTest() {
@@ -88,7 +100,7 @@ public abstract class AbstractMagnoliaIntegrationTest {
     */
 
     /**
-     * @see #openConnection(AbstractMagnoliaIntegrationTest.Instance, String, AbstractMagnoliaIntegrationTest.User, java.util.Map)
+     * @see #openConnection(info.magnolia.testframework.htmlunit.AbstractMagnoliaIntegrationTest.Instance, String, info.magnolia.testframework.htmlunit.AbstractMagnoliaIntegrationTest.User, java.util.Map)
      */
     protected HttpURLConnection openConnection(Instance instance, String path, User user) throws IOException {
         return openConnection(instance, path, user, Collections.<String, String>emptyMap());
@@ -98,7 +110,7 @@ public abstract class AbstractMagnoliaIntegrationTest {
      * Use this method when you need low-level access to the connection headers and content.
      */
     protected HttpURLConnection openConnection(Instance instance, String path, User user, Map<String, String> headers) throws IOException {
-        final URL url = new URL(getUrl(instance, path));
+        final URL url = getUrl(instance, path);
         final HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         if (user != null) {
             final String authValue = getAuthValue(user.name());
@@ -115,7 +127,7 @@ public abstract class AbstractMagnoliaIntegrationTest {
 
     /**
      * Just a shortcut method to avoid a cast to HtmlPage.
-     * @see #openPage(AbstractMagnoliaIntegrationTest.Instance, String, AbstractMagnoliaIntegrationTest.User)
+     * @see #openHtmlPage(info.magnolia.testframework.htmlunit.AbstractMagnoliaIntegrationTest.Instance, String, info.magnolia.testframework.htmlunit.AbstractMagnoliaIntegrationTest.User)
      */
     protected HtmlPage openHtmlPage(Instance instance, String path, User user) throws IOException {
         return (HtmlPage) openPage(instance, path, user);
@@ -125,8 +137,6 @@ public abstract class AbstractMagnoliaIntegrationTest {
      * This use htmlunit, simulates a browser and does all kind of fancy stuff for you.
      */
     protected Page openPage(Instance instance, String path, User user) throws IOException {
-        final String urlStr = getUrl(instance, path);
-
         final WebClient webClient = new WebClient(BrowserVersion.getDefault());
         // this writes files to /tmp - the most interesting one probably being magnolia-test_<random>.js, which lists headers for all requests 
         final WebConnection connection = new DebuggingWebConnection(webClient.getWebConnection(), "magnolia-test_");
@@ -142,7 +152,8 @@ public abstract class AbstractMagnoliaIntegrationTest {
             webClient.addRequestHeader("Authorization", authValue);
         }
 
-        return webClient.getPage(urlStr);
+        final URL url = getUrl(instance, path);
+        return webClient.getPage(url);
     }
 
     /**
@@ -167,9 +178,9 @@ public abstract class AbstractMagnoliaIntegrationTest {
         final String path = "target/" + stackTraceElement.getClassName() + "-" + stackTraceElement.getMethodName() + "-" + stackTraceElement.getLineNumber() + ".out";
         IOUtils.write(body, new FileOutputStream(path));
     }
-    
-    private String getUrl(Instance instance, String path) {
-        return instanceURLs.get(instance) + path;
+
+    private URL getUrl(Instance instance, String path) throws MalformedURLException {
+        return new URL(instance.getURL() + path);
     }
 
     /**

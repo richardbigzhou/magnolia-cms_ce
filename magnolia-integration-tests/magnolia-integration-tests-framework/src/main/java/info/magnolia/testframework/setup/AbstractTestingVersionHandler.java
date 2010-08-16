@@ -47,6 +47,7 @@ import info.magnolia.module.model.Version;
 import info.magnolia.nodebuilder.task.ErrorHandling;
 import info.magnolia.nodebuilder.task.ModuleNodeBuilderTask;
 import info.magnolia.nodebuilder.task.NodeBuilderTask;
+import info.magnolia.testframework.htmlunit.AbstractMagnoliaIntegrationTest;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -89,7 +90,8 @@ public abstract class AbstractTestingVersionHandler extends AbstractModuleVersio
         list.add(new PropertiesImportTask("Test config content", "Imports content in the config workspace", "config", getConfigImportPropertiesFile()));
         list.add(new PropertiesImportTask("Test website content", "Imports content in the website workspace", "website", getWebsiteImportPropertiesFile()));
 
-        list.add(new CheckAndModifyPropertyValueTask("Activation", "Changes public URL", ContentRepository.CONFIG, "/server/activation/subscribers/magnoliaPublic8080", "URL", "http://localhost:8080/magnoliaPublic", "http://localhost:8088/magnoliaTestPublic"));
+        list.add(new CheckAndModifyPropertyValueTask("Activation", "Changes public URL", ContentRepository.CONFIG,
+                "/server/activation/subscribers/magnoliaPublic8080", "URL", "http://localhost:8080/magnoliaPublic", AbstractMagnoliaIntegrationTest.Instance.PUBLIC.getURL()));
 
         return list;
     }
