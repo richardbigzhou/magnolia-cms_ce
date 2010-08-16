@@ -10,9 +10,11 @@
   <name>magnolia-integration-tests-framework</name>
   <packaging>jar</packaging>
 
-  <description>Provides a little framework for Magnolia integration tests. Provides utility classes and tools
-  for both fixture modules (i.e fixture modules installed in the Magnolia instance under test),
-    and test packages (i.e abstract classes to make test writing simpler)</description>
+  <description>
+    Provides a little framework for Magnolia integration tests. Provides utility classes and tools
+    for both fixture modules (i.e fixture modules installed in the Magnolia instance under test),
+    and test packages (i.e abstract classes to make test writing simpler)
+  </description>
 
   <dependencies>
     <dependency>
@@ -25,6 +27,17 @@
       <groupId>info.magnolia</groupId>
       <artifactId>magnolia-module-templating</artifactId>
       <version>${magnoliaVersion}</version>
+      <scope>provided</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>net.sourceforge.htmlunit</groupId>
+      <artifactId>htmlunit</artifactId>
       <scope>provided</scope>
     </dependency>
   </dependencies>

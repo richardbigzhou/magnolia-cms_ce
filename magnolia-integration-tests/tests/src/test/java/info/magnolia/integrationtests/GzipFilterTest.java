@@ -34,6 +34,8 @@
 package info.magnolia.integrationtests;
 
 import static org.junit.Assert.*;
+
+import info.magnolia.testframework.htmlunit.AbstractMagnoliaIntegrationTest;
 import org.junit.Test;
 
 import java.io.FileNotFoundException;

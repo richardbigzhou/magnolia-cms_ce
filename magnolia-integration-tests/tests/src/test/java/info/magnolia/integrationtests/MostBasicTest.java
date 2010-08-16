@@ -35,6 +35,8 @@ package info.magnolia.integrationtests;
 
 import com.gargoylesoftware.htmlunit.Page;
 import static org.junit.Assert.assertEquals;
+
+import info.magnolia.testframework.htmlunit.AbstractMagnoliaIntegrationTest;
 import org.junit.Test;
 
 /**

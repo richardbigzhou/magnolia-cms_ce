@@ -37,7 +37,7 @@ import com.gargoylesoftware.htmlunit.Page;
 import com.gargoylesoftware.htmlunit.WebResponse;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import info.magnolia.cms.util.ClasspathResourcesUtil;
-import info.magnolia.integrationtests.AbstractMagnoliaIntegrationTest;
+import info.magnolia.testframework.htmlunit.AbstractMagnoliaIntegrationTest;
 import org.apache.commons.io.IOUtils;
 import static org.junit.Assert.*;
 import org.junit.Test;

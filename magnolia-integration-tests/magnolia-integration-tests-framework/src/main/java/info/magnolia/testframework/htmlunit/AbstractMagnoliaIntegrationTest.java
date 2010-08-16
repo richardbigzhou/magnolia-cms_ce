@@ -31,7 +31,7 @@
  * intact.
  *
  */
-package info.magnolia.integrationtests;
+package info.magnolia.testframework.htmlunit;
 
 import com.gargoylesoftware.htmlunit.BrowserVersion;
 import com.gargoylesoftware.htmlunit.Page;
@@ -60,10 +60,16 @@ import java.util.Map;
  */
 public abstract class AbstractMagnoliaIntegrationTest {
 
+    /**
+     * A simple way of referring to one of the two test instances deployed during ITs.
+     */
     protected enum Instance {
         AUTHOR, PUBLIC
     }
 
+    /**
+     * Pre-configured users available for tests.
+     */
     protected enum User {
         superuser
     }
@@ -82,7 +88,7 @@ public abstract class AbstractMagnoliaIntegrationTest {
     */
 
     /**
-     * @see #openConnection(info.magnolia.integrationtests.AbstractMagnoliaIntegrationTest.Instance, String, info.magnolia.integrationtests.AbstractMagnoliaIntegrationTest.User, java.util.Map)
+     * @see #openConnection(AbstractMagnoliaIntegrationTest.Instance, String, AbstractMagnoliaIntegrationTest.User, java.util.Map)
      */
     protected HttpURLConnection openConnection(Instance instance, String path, User user) throws IOException {
         return openConnection(instance, path, user, Collections.<String, String>emptyMap());
@@ -109,7 +115,7 @@ public abstract class AbstractMagnoliaIntegrationTest {
 
     /**
      * Just a shortcut method to avoid a cast to HtmlPage.
-     * @see #openPage(info.magnolia.integrationtests.AbstractMagnoliaIntegrationTest.Instance, String, info.magnolia.integrationtests.AbstractMagnoliaIntegrationTest.User)
+     * @see #openPage(AbstractMagnoliaIntegrationTest.Instance, String, AbstractMagnoliaIntegrationTest.User)
      */
     protected HtmlPage openHtmlPage(Instance instance, String path, User user) throws IOException {
         return (HtmlPage) openPage(instance, path, user);
