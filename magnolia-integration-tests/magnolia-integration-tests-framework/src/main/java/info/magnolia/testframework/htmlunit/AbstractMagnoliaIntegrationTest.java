@@ -50,6 +50,8 @@ import java.net.URL;
 import java.util.Collections;
 import java.util.Map;
 
+import static org.junit.Assert.*;
+
 /**
  * A base class for Magnolia integration tests. Might be split into util class/methods;
  * since we use JUnit4, inheritance isn't really mandatory.
@@ -65,7 +67,7 @@ public abstract class AbstractMagnoliaIntegrationTest {
     public enum Instance implements InstanceProperties {
         AUTHOR {
             public String getContextPath() {
-                return "magnoliaTest";
+                return "magnoliaTest/";
             }
         }, PUBLIC {
             public String getContextPath() {
@@ -191,6 +193,15 @@ public abstract class AbstractMagnoliaIntegrationTest {
         }
 
         return (P) webClient.getPage(new URL(url));
+    }
+
+    protected <P extends Page> P assertRedirected(String reason, String expectedTargetURL, Page page, User user) throws IOException {
+        assertEquals(302, page.getWebResponse().getStatusCode());
+        final String redirectURL = page.getWebResponse().getResponseHeaderValue("Location");
+        assertEquals(reason, expectedTargetURL, redirectURL);
+
+        // TODO - keep cookies per test method so we don't need to pass credentials ?
+        return openPage(redirectURL, user);
     }
 
     /**

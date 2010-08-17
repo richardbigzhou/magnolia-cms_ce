@@ -40,7 +40,7 @@ import info.magnolia.testframework.htmlunit.AbstractMagnoliaIntegrationTest;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
-import static org.junit.matchers.JUnitMatchers.*;
+import static org.junit.matchers.JUnitMatchers.containsString;
 
 /**
  * We're just checking if the container started and the application is reachable, plus some simple assertions, checking
@@ -53,19 +53,19 @@ public class MostBasicTest extends AbstractMagnoliaIntegrationTest {
 
     @Test
     public void authorInstanceShouldBePasswordProtected() throws Exception {
-        final Page page = openPage(Instance.AUTHOR, "", null);
-        assertEquals(401, page.getWebResponse().getStatusCode());
+        final Page root = openPage(Instance.AUTHOR.getURL(""), null);
+        assertEquals(401, root.getWebResponse().getStatusCode());
     }
 
     @Test
     public void loginOnAuthorInstanceWithSuperuser() throws Exception {
-        final HtmlPage page = openHtmlPage(Instance.AUTHOR, "", User.superuser);
-        assertEquals(200, page.getWebResponse().getStatusCode());
-
-        final String allContents = page.getWebResponse().getContentAsString();
+        final HtmlPage root = openPage(Instance.AUTHOR.getURL(""), User.superuser);
+        final HtmlPage adminCentralPage = assertRedirected("adminCentral redirect is not setup?", Instance.AUTHOR.getURL("/.magnolia/pages/adminCentral.html"), root, User.superuser);
+        assertEquals(200, adminCentralPage.getWebResponse().getStatusCode());
+        final String allContents = adminCentralPage.getWebResponse().getContentAsString();
         assertThat("We're not on a CE instance!?", allContents, containsString("Community Edition"));
 
-        final HtmlElement footerDiv = page.getElementById("mgnlAdminCentralFooterDiv");
+        final HtmlElement footerDiv = adminCentralPage.getElementById("mgnlAdminCentralFooterDiv");
         assertNotNull(footerDiv);
         assertThat("We're not on a CE instance!?", footerDiv.getTextContent(), containsString("Community Edition"));
     }
@@ -74,7 +74,7 @@ public class MostBasicTest extends AbstractMagnoliaIntegrationTest {
     public void reachThePublicInstanceWithoutCredentials() throws Exception {
         // can't get to root of since samples-module currently does not provide a working default redirect - if it did, this test would also check that
         // final Page page = openPage(Instance.PUBLIC, "", null);
-        final Page page = openPage(Instance.PUBLIC, "/testpages/test_freemarker.html", null);
+        final Page page = openPage(Instance.PUBLIC.getURL("/testpages/test_freemarker.html"), null);
         assertEquals(200, page.getWebResponse().getStatusCode());
     }
 
