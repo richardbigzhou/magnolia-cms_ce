@@ -201,7 +201,7 @@ public abstract class AbstractMagnoliaIntegrationTest {
         assertEquals(reason, expectedTargetURL, redirectURL);
 
         // TODO - keep cookies per test method so we don't need to pass credentials ?
-        return openPage(redirectURL, user);
+        return (P) openPage(redirectURL, user);
     }
 
     /**
