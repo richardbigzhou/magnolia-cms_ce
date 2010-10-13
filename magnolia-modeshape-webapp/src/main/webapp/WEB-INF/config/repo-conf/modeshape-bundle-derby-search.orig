@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration xmlns:mode="http://www.modeshape.org/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0">
+
+    <mode:sources jcr:primaryType="nt:unstructured">
+
+        <mode:source jcr:name="magnolia" mode:classname="org.modeshape.connector.store.jpa.JpaSource"
+                mode:model="Simple"
+                mode:dialect="org.hibernate.dialect.MySQL5Dialect"
+                mode:driverClassName="com.mysql.jdbc.Driver"
+                mode:url="jdbc:mysql://localhost/mgnl01?autoReconnect=true"
+                mode:username="mgnl"
+                mode:password="mgnl"
+                mode:compressData="false"
+                mode:autoGenerateSchema="create"
+                mode:showSql="true"
+                
+                mode:defaultworkspaceName="config"
+                mode:predefinedWorkspaceNames="config,website,users,userroles,usergroups,mgnlSystem,mgnlVersion"
+                mode:creatingWorkspaceAllowed="true"
+                mode:updatesAllowed="true"
+                
+            />
+
+        <!--         
+        <mode:source jcr:name="magnolia" mode:classname="org.modeshape.connector.store.jpa.JpaSource"
+                mode:model="Simple"
+                mode:dialect="org.hibernate.dialect.DerbyDialect"
+                mode:driverClassName="org.apache.derby.jdbc.EmbeddedDriver"
+                mode:url="jdbc:derby:/tmp/mgnl-repo/db;create=true"
+                mode:username="sa"
+                mode:password=""
+                mode:compressData="false"
+                mode:autoGenerateSchema="create"
+                mode:showSql="true"
+            />
+         -->
+        <!--                 mode:url="jdbc:derby:${wsp.home}/db;create=true"         -->
+    </mode:sources>
+
+    <mode:repositories>
+    
+        <mode:repository jcr:name="magnolia">
+        
+            <mode:source>magnolia</mode:source>
+            
+            <mode:options jcr:primaryType="mode:options">
+                <jaasLoginConfigName jcr:primaryType="mode:option" mode:value="modeshape-jcr"/>
+            </mode:options>
+        
+        </mode:repository>
+    
+    </mode:repositories>
+
+</configuration>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration xmlns:mode="http://www.modeshape.org/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0">
+
+    <mode:sources jcr:primaryType="nt:unstructured">
+        
+        <mode:source jcr:name="magnolia" 
+            mode:classname="org.modeshape.graph.connector.inmemory.InMemoryRepositorySource"
+            mode:defaultWorkspaceName="config"
+            mode:predefinedWorkspaceNames="config,website,users,userroles,usergroups,mgnlSystem,mgnlVersion"
+            mode:creatingWorkspaceAllowed="true"
+            />
+
+        <!-- 
+        <mode:source jcr:name="magnolia" 
+            mode:classname="org.modeshape.connector.infinispan.InfinispanSource" 
+            mode:description="The repository for our content"
+            mode:defaultworkspaceName="config"
+            mode:predefinedWorkspaceNames="config,website,users,userroles,usergroups,mgnlSystem,mgnlVersion"
+            mode:creatingWorkspaceAllowed="true"
+            />
+        -->
+
+    </mode:sources>
+
+    <mode:repositories>
+    
+        <mode:repository jcr:name="magnolia">
+        
+            <mode:source>magnolia</mode:source>
+            
+            <mode:options jcr:primaryType="mode:options">
+                <jaasLoginConfigName jcr:primaryType="mode:option" mode:value="modeshape-jcr"/>
+            </mode:options>
+        
+        </mode:repository>
+    
+    </mode:repositories>
+
+</configuration>
