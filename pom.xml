@@ -70,11 +70,6 @@
         <classifier>bundle</classifier>
         <type>tar.gz</type>
       </dependency>
-      <dependency>
-        <groupId>javax.jcr</groupId>
-        <artifactId>jcr</artifactId>
-        <version>2.0</version>
-      </dependency>
     </dependencies>
   </dependencyManagement>
 
