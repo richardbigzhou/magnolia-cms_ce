@@ -10,11 +10,15 @@
   <packaging>war</packaging>
   <version>4.4-SNAPSHOT</version>
   <description>Magnolia pre-installed with JBoss ModeShape as JCR repository.</description>
+  <properties>
+    <modeshapeVersion>2.2.0.Final</modeshapeVersion>
+    <magnoliaVersion>4.4-m1</magnoliaVersion>
+  </properties>
   <dependencies>
     <dependency>
       <groupId>info.magnolia</groupId>
       <artifactId>magnolia-empty-webapp</artifactId>
-      <version>${project.version}</version>
+      <version>${magnoliaVersion}</version>
       <type>war</type>
       <exclusions>
         <exclusion>
@@ -26,7 +30,7 @@
     <dependency>
       <groupId>info.magnolia</groupId>
       <artifactId>magnolia-empty-webapp</artifactId>
-      <version>${project.version}</version>
+      <version>${magnoliaVersion}</version>
       <type>pom</type>
       <exclusions>
         <exclusion>
@@ -38,7 +42,7 @@
     <dependency>
       <groupId>info.magnolia</groupId>
       <artifactId>magnolia-provider-modeshape</artifactId>
-      <version>1.0-SNAPSHOT</version>
+      <version>1.0-m1</version>
     </dependency>
     <!-- this dep should be resolved from magnolia-provider-modeshape but is not ... TODO: why? -->
     <dependency>
@@ -49,7 +53,7 @@
     <dependency>
       <groupId>org.modeshape</groupId>
       <artifactId>modeshape-jcr</artifactId>
-      <version>2.2.0.Final</version>
+      <version>${modeshapeVersion}</version>
     </dependency>
     <dependency>
       <groupId>javax.servlet</groupId>
@@ -104,27 +108,27 @@
     <dependency>
       <groupId>org.modeshape</groupId>
       <artifactId>modeshape-sequencer-ddl</artifactId>
-      <version>2.2.0.Final</version>
+      <version>${modeshapeVersion}</version>
     </dependency>
     <dependency>
       <groupId>org.modeshape</groupId>
       <artifactId>modeshape-sequencer-images</artifactId>
-      <version>2.2.0.Final</version>
+      <version>${modeshapeVersion}</version>
     </dependency>
     <dependency>
       <groupId>org.modeshape</groupId>
       <artifactId>modeshape-sequencer-java</artifactId>
-      <version>2.2.0.Final</version>
+      <version>${modeshapeVersion}</version>
     </dependency>
     <dependency>
       <groupId>org.modeshape</groupId>
       <artifactId>modeshape-sequencer-mp3</artifactId>
-      <version>2.2.0.Final</version>
+      <version>${modeshapeVersion}</version>
     </dependency>
     <dependency>
       <groupId>org.modeshape</groupId>
       <artifactId>modeshape-sequencer-msoffice</artifactId>
-      <version>2.2.0.Final</version>
+      <version>${modeshapeVersion}</version>
       <exclusions>
         <exclusion>
           <groupId>commons-logging</groupId>
@@ -135,22 +139,22 @@
     <dependency>
       <groupId>org.modeshape</groupId>
       <artifactId>modeshape-sequencer-xml</artifactId>
-      <version>2.2.0.Final</version>
+      <version>${modeshapeVersion}</version>
     </dependency>
     <dependency>
       <groupId>org.modeshape</groupId>
       <artifactId>modeshape-sequencer-teiid</artifactId>
-      <version>2.2.0.Final</version>
+      <version>${modeshapeVersion}</version>
     </dependency>
     <dependency>
       <groupId>org.modeshape</groupId>
       <artifactId>modeshape-sequencer-text</artifactId>
-      <version>2.2.0.Final</version>
+      <version>${modeshapeVersion}</version>
     </dependency>
     <dependency>
       <groupId>org.modeshape</groupId>
       <artifactId>modeshape-sequencer-zip</artifactId>
-      <version>2.2.0.Final</version>
+      <version>${modeshapeVersion}</version>
     </dependency>
   </dependencies>
   <build>
