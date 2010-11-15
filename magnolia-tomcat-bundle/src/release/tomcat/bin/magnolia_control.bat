@@ -1,14 +1,9 @@
 @echo off
-rem -- the $JDKPath variable can be replaced in this script by external tools such as an installer
-if exist "$JDKPath" set JAVA_HOME=$JDKPath
-
 if ""%1"" == ""start"" goto doStart
 if ""%1"" == ""stop"" goto doStop
 goto noCommand
 
 :doStart
-rem Magnolia needs extra memory
-set CATALINA_OPTS=%CATALINA_OPTS% -XX:MaxPermSize=256m -Xms64M -Xmx512M -Djava.awt.headless=true
 call startup.bat
 goto end
 
