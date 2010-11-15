@@ -1,4 +1,4 @@
-# the $JDKPath variable can be replaced in this script by external tools such as an installer
+# Check for the existence of $JDKPath (which might be a variable that was substituted by an external script, i.e installer)
 if [ -d "$JDKPath" ] ; then
   export JAVA_HOME="$JDKPath"
 fi

@@ -1,5 +1,5 @@
 @echo off
-rem -- the $JDKPath variable can be replaced in this script by external tools such as an installer
+rem Check for the existence of $JDKPath (which might be a variable that was substituted by an external script, i.e installer)
 if exist "$JDKPath" set JAVA_HOME=$JDKPath
 
 rem Magnolia needs extra memory
