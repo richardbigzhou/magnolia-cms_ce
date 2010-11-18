@@ -3,7 +3,7 @@
   <parent>
     <artifactId>magnolia-parent-pom-community-module</artifactId>
     <groupId>info.magnolia</groupId>
-    <version>17</version>
+    <version>18-SNAPSHOT</version>
   </parent>
   <artifactId>magnolia-modeshape-webapp</artifactId>
   <name>magnolia-modeshape-webapp</name>
@@ -167,7 +167,7 @@
           <webResources>
             <resource>
               <!-- these are the resources copied by the remote-resources-plugin -->
-              <directory>${basedir}/target/maven-shared-archive-resources</directory>
+              <directory>${basedir}/target/magnolia-build-tools-resources</directory>
             </resource>
           </webResources>
         </configuration>

@@ -57,7 +57,7 @@
       <lineEnding>crlf</lineEnding>
     </fileSet>
     <fileSet>
-      <directory>target/maven-shared-archive-resources</directory>
+      <directory>target/magnolia-build-tools-resources</directory>
       <outputDirectory></outputDirectory>
       <!-- filtering here is probably redundant -->
       <filtered>true</filtered>
