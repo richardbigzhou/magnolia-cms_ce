@@ -10,7 +10,12 @@
   <artifactId>magnolia-tomcat-bundle</artifactId>
   <packaging>pom</packaging>
   <name>magnolia-tomcat-bundle</name>
-  <description>Magnolia bundled with Tomcat 5.5</description>
+  <description>Magnolia bundled with Apache Tomcat</description>
+  <properties>
+    <tomcatVersion>6.0.29</tomcatVersion>
+    <tomcatDownloadUrl>http://archive.apache.org/dist/tomcat/tomcat-6/v${tomcatVersion}/bin/apache-tomcat-${tomcatVersion}.tar.gz</tomcatDownloadUrl>
+    <magnoliaProjectBundleType>tomcat-bundle</magnoliaProjectBundleType>
+  </properties>
 
   <build>
     <plugins>
@@ -26,7 +31,7 @@
               <goal>download</goal>
             </goals>
             <configuration>
-              <url>http://archive.apache.org/dist/tomcat/tomcat-5/v5.5.27/bin/apache-tomcat-5.5.27.tar.gz</url>
+              <url>${tomcatDownloadUrl}</url>
               <downloadDir>tmp</downloadDir>
               <destDir>${basedir}/target/extracted-tomcat</destDir>
             </configuration>
@@ -71,6 +76,14 @@
   </build>
 
   <dependencies>
+    <dependency>
+      <groupId>org.apache.tomcat</groupId>
+      <artifactId>catalina</artifactId>
+      <version>${tomcatVersion}</version>
+      <!-- we're only cheating here, to give a hint to the readme -->
+      <type>pom</type>
+      <scope>provided</scope>
+    </dependency>
     <dependency>
       <groupId>info.magnolia</groupId>
       <artifactId>magnolia-bundled-webapp</artifactId>

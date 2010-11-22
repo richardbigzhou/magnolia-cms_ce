@@ -9,8 +9,8 @@
   <fileSets>
     <!-- unpacked tomcat -->
     <fileSet>
-      <directory>target/extracted-tomcat/apache-tomcat-5.5.27</directory>
-      <outputDirectory>apache-tomcat-5.5.27</outputDirectory>
+      <directory>target/extracted-tomcat/apache-tomcat-${project.properties.tomcatVersion}</directory>
+      <outputDirectory>apache-tomcat-${project.properties.tomcatVersion}</outputDirectory>
       <excludes>
         <!-- if we wanted to only exclude specific default webapps, the trailing slash is needed :
         <exclude>webapps/balancer/</exclude>
@@ -28,13 +28,13 @@
     <!-- our tomcat customisations -->
     <fileSet>
       <directory>src/release/tomcat</directory>
-      <outputDirectory>apache-tomcat-5.5.27</outputDirectory>
+      <outputDirectory>apache-tomcat-${project.properties.tomcatVersion}</outputDirectory>
     </fileSet>
 
     <!-- making all .sh files executable : -->
     <fileSet>
-      <directory>target/extracted-tomcat/apache-tomcat-5.5.27/bin/</directory>
-      <outputDirectory>apache-tomcat-5.5.27/bin</outputDirectory>
+      <directory>target/extracted-tomcat/apache-tomcat-${project.properties.tomcatVersion}/bin/</directory>
+      <outputDirectory>apache-tomcat-${project.properties.tomcatVersion}/bin</outputDirectory>
       <includes>
         <include>*.sh</include>
       </includes>
@@ -42,7 +42,7 @@
     </fileSet>
     <fileSet>
       <directory>src/release/tomcat/bin</directory>
-      <outputDirectory>apache-tomcat-5.5.27/bin</outputDirectory>
+      <outputDirectory>apache-tomcat-${project.properties.tomcatVersion}/bin</outputDirectory>
       <includes>
         <include>*.sh</include>
       </includes>
@@ -62,13 +62,17 @@
       <!-- filtering here is probably redundant -->
       <filtered>true</filtered>
       <lineEnding>crlf</lineEnding>
+      <!-- only include .txt files, otherwise we end up with all include files from the build-tools -->
+      <includes>
+        <include>*.txt</include>
+      </includes>
     </fileSet>
   </fileSets>
 
   <dependencySets>
     <!-- two copies of the webapp -->
     <dependencySet>
-      <outputDirectory>apache-tomcat-5.5.27/webapps/magnoliaAuthor</outputDirectory>
+      <outputDirectory>apache-tomcat-${project.properties.tomcatVersion}/webapps/magnoliaAuthor</outputDirectory>
       <includes>
         <include>info.magnolia:magnolia-bundled-webapp</include>
       </includes>
@@ -77,7 +81,7 @@
     </dependencySet>
 
     <dependencySet>
-      <outputDirectory>apache-tomcat-5.5.27/webapps/magnoliaPublic</outputDirectory>
+      <outputDirectory>apache-tomcat-${project.properties.tomcatVersion}/webapps/magnoliaPublic</outputDirectory>
       <includes>
         <include>info.magnolia:magnolia-bundled-webapp</include>
       </includes>
