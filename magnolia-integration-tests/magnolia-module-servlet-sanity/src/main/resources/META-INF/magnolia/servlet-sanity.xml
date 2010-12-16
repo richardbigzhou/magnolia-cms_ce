@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE module SYSTEM "module.dtd">
+<module>
+  <name>servlet-sanity</name>
+  <displayName>${project.name}</displayName>
+  <description>${project.description}</description>
+  <class>info.magnolia.module.servletsanity.ServletSanityModule</class>
+  <versionHandler>info.magnolia.module.servletsanity.setup.ServletSanityModuleVersionHandler</versionHandler>
+  <version>${project.version}</version>
+  <properties>
+    <property>
+      <name>magnolia.utf8.enabled</name>
+      <value>true</value>
+    </property>
+  </properties>
+  <dependencies>
+    <dependency>
+      <name>core</name>
+      <version>4.4/*</version>
+    </dependency>
+    <dependency>
+      <name>adminInterface</name>
+      <version>4.4/*</version>
+    </dependency>
+    <dependency>
+      <name>templating</name>
+      <version>4.4/*</version>
+    </dependency>
+  </dependencies>
+  <servlets>
+    <servlet>
+      <name>ServletDispatchingFilterTestServlet</name>
+      <class>info.magnolia.module.servletsanity.servlets.ServletDispatchingFilterTestServlet</class>
+      <mappings>
+        <mapping>/.magnolia/dispatcherfiltertest/*</mapping>
+      </mappings>
+    </servlet>
+    <servlet>
+      <name>UnicodeNormalizatonFilterTestServlet</name>
+      <class>info.magnolia.module.servletsanity.servlets.UnicodeNormalizatonFilterTestServlet</class>
+      <mappings>
+        <mapping>/.magnolia/normalizationfiltertest/*</mapping>
+      </mappings>
+    </servlet>
+    <servlet>
+      <name>MultipartFilterTestServlet</name>
+      <class>info.magnolia.module.servletsanity.servlets.MultipartFilterTestServlet</class>
+      <mappings>
+        <mapping>/.magnolia/multipartfiltertest/*</mapping>
+      </mappings>
+    </servlet>
+  </servlets>
+</module>

@@ -44,6 +44,7 @@ li {
     margin: 0 0 5px 0;
     padding-left: 0;
     font-size: 9pt;
+    width: 270px;
 }
 
 .page {
@@ -145,7 +146,7 @@ ul.links {
 
 p.note {
     margin: 15px 0pt 10px 65px;
-    position: absolute;
+    position: relative;
     bottom: 0;
     font-size: 0.95em;
     line-height: 1.3em;

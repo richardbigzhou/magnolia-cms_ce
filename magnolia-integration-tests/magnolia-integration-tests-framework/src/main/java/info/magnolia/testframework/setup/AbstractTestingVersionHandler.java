@@ -42,6 +42,7 @@ import info.magnolia.module.delta.CopyNodeTask;
 import info.magnolia.module.delta.Delta;
 import info.magnolia.module.delta.ModuleFilesExtraction;
 import info.magnolia.module.delta.PropertiesImportTask;
+import info.magnolia.module.delta.RegisterModuleServletsTask;
 import info.magnolia.module.delta.Task;
 import info.magnolia.module.model.Version;
 import info.magnolia.nodebuilder.task.ErrorHandling;
@@ -82,6 +83,7 @@ public abstract class AbstractTestingVersionHandler extends AbstractModuleVersio
     protected List<Task> getBasicInstallTasks(InstallContext installContext) {
         final ArrayList<Task> list = new ArrayList<Task>();
         list.add(new ModuleFilesExtraction());
+        list.add(new RegisterModuleServletsTask());
         list.add(new ModuleNodeBuilderTask("", "", ErrorHandling.strict,
                 addNode("templates", "mgnl:content"),
                 addNode("paragraphs", "mgnl:content"),

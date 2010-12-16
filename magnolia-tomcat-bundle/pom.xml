@@ -11,6 +11,7 @@
   <packaging>pom</packaging>
   <name>magnolia-tomcat-bundle</name>
   <description>Magnolia bundled with Apache Tomcat</description>
+
   <properties>
     <tomcatVersion>6.0.29</tomcatVersion>
     <tomcatDownloadUrl>http://archive.apache.org/dist/tomcat/tomcat-6/v${tomcatVersion}/bin/apache-tomcat-${tomcatVersion}.tar.gz</tomcatDownloadUrl>

@@ -107,7 +107,7 @@ public abstract class AbstractMagnoliaIntegrationTest {
     public void afterEachTest() {
      ...
     }
-    */
+     */
 
     /**
      * @see #openConnection(info.magnolia.testframework.htmlunit.AbstractMagnoliaIntegrationTest.Instance, String, info.magnolia.testframework.htmlunit.AbstractMagnoliaIntegrationTest.User, java.util.Map)
@@ -140,6 +140,7 @@ public abstract class AbstractMagnoliaIntegrationTest {
      * @see #openPage(info.magnolia.testframework.htmlunit.AbstractMagnoliaIntegrationTest.Instance, String, info.magnolia.testframework.htmlunit.AbstractMagnoliaIntegrationTest.User, boolean)
      * @deprecated openPage now uses generics, so use that instead.
      */
+    @Deprecated
     protected HtmlPage openHtmlPage(Instance instance, String path, User user) throws IOException {
         return openHtmlPage(instance, path, user, false);
     }
@@ -147,6 +148,7 @@ public abstract class AbstractMagnoliaIntegrationTest {
     /**
      * @deprecated openPage now uses generics, so use that instead.
      */
+    @Deprecated
     protected HtmlPage openHtmlPage(Instance instance, String path, User user, boolean followRedirects) throws IOException {
         return (HtmlPage) openPage(instance, path, user, followRedirects);
     }
@@ -155,6 +157,7 @@ public abstract class AbstractMagnoliaIntegrationTest {
      * @deprecated use {@link #openPage(String, info.magnolia.testframework.htmlunit.AbstractMagnoliaIntegrationTest.User, boolean)}
      * with {@link AbstractMagnoliaIntegrationTest.Instance.AUTHOR.getURL()}
      */
+    @Deprecated
     protected Page openPage(Instance instance, String path, User user) throws IOException {
         return openPage(instance, path, user, false);
     }
@@ -163,20 +166,24 @@ public abstract class AbstractMagnoliaIntegrationTest {
      * @deprecated use {@link #openPage(String, info.magnolia.testframework.htmlunit.AbstractMagnoliaIntegrationTest.User, boolean)}
      * with {@link AbstractMagnoliaIntegrationTest.Instance.AUTHOR.getURL()}
      */
+    @Deprecated
     protected <P extends Page> P openPage(Instance instance, String path, User user, boolean followRedirects) throws IOException {
-        return (P) openPage(instance.getURL(path), user, followRedirects);
+        return (P) openPage(instance.getURL(path), user, followRedirects, true);
     }
 
     protected <P extends Page> P openPage(String url, User user) throws IOException {
-        return (P) openPage(url, user, false);
+        return (P) openPage(url, user, false, true);
     }
 
+    protected <P extends Page> P openPage(String url, User user, boolean followRedirects) throws IOException {
+        return (P) openPage(url, user, false, true);
+    }
     /**
      * This uses htmlunit, simulates a browser and does all kind of fancy stuff for you.
      */
-    protected <P extends Page> P openPage(String url, User user, boolean followRedirects) throws IOException {
+    protected <P extends Page> P openPage(String url, User user, boolean followRedirects, boolean enableJsvascript) throws IOException {
         final WebClient webClient = new WebClient(BrowserVersion.getDefault());
-        // this writes files to /tmp - the most interesting one probably being magnolia-test_<random>.js, which lists headers for all requests 
+        // this writes files to /tmp - the most interesting one probably being magnolia-test_<random>.js, which lists headers for all requests
         final WebConnection connection = new DebuggingWebConnection(webClient.getWebConnection(), "magnolia-test_");
         webClient.setWebConnection(connection);
 
@@ -186,6 +193,7 @@ public abstract class AbstractMagnoliaIntegrationTest {
         webClient.setThrowExceptionOnFailingStatusCode(false);
 
         webClient.setCssEnabled(true);
+        webClient.setJavaScriptEnabled(enableJsvascript);
 
         if (user != null) {
             final String authValue = getAuthValue(user.name());
@@ -201,7 +209,9 @@ public abstract class AbstractMagnoliaIntegrationTest {
         assertEquals(reason, expectedTargetURL, redirectURL);
 
         // TODO - keep cookies per test method so we don't need to pass credentials ?
-        return (P) openPage(redirectURL, user);
+        // since this is already redirected do not follow more redirects
+        // also do not execute javascript on the target page - at least not until https://sourceforge.net/tracker/?func=detail&aid=3110090&group_id=47038&atid=448266 is solved
+        return (P) openPage(redirectURL, user, false, false);
     }
 
     /**

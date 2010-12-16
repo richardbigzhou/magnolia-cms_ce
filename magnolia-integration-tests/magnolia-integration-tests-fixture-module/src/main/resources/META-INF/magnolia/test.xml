@@ -37,4 +37,13 @@
       <optional>true</optional>
     </dependency>
   </dependencies>
+  <servlets>
+    <servlet>
+      <name>SystemPropertyServlet</name>
+      <class>info.magnolia.test.SystemPropertyServlet</class>
+      <mappings>
+        <mapping>/.magnolia/sysprop/*</mapping>
+      </mappings>
+    </servlet>
+  </servlets>
 </module>
