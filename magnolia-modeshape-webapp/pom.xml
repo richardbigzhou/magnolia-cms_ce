@@ -3,7 +3,7 @@
   <parent>
     <artifactId>magnolia-parent-pom-community-module</artifactId>
     <groupId>info.magnolia</groupId>
-    <version>18-SNAPSHOT</version>
+    <version>19</version>
   </parent>
   <artifactId>magnolia-modeshape-webapp</artifactId>
   <name>magnolia-modeshape-webapp</name>
