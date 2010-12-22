@@ -158,17 +158,7 @@
             </mode:options>
         
         </mode:repository> 
-        
-        <!-- mode:repository jcr:name="disk">
-        
-            <mode:source>disk</mode:source>
-
-            <mode:options jcr:primaryType="mode:options">
-                <jaasLoginConfigName jcr:primaryType="mode:option" mode:value="modeshape-jcr"/>
-            </mode:options>
-        
-        </mode:repository -->
-    
+            
     </mode:repositories>
 
 </configuration>
