@@ -76,12 +76,12 @@
         <dependency>
             <groupId>org.modeshape</groupId>
             <artifactId>modeshape-clustering</artifactId>
-            <version>${project.version}</version>
+            <version>${modeshapeVersion}</version>
         </dependency>
         <dependency>
             <groupId>org.modeshape</groupId>
             <artifactId>modeshape-connector-jbosscache</artifactId>
-            <version>${project.version}</version>
+            <version>${modeshapeVersion}</version>
             <exclusions>
                 <exclusion>
                     <groupId>jgroups</groupId>
@@ -92,22 +92,22 @@
         <dependency>
             <groupId>org.modeshape</groupId>
             <artifactId>modeshape-connector-filesystem</artifactId>
-            <version>${project.version}</version>
+            <version>${modeshapeVersion}</version>
         </dependency>
         <dependency>
             <groupId>org.modeshape</groupId>
             <artifactId>modeshape-connector-infinispan</artifactId>
-            <version>${project.version}</version>
+            <version>${modeshapeVersion}</version>
         </dependency>
         <dependency>
             <groupId>org.modeshape</groupId>
             <artifactId>modeshape-connector-svn</artifactId>
-            <version>${project.version}</version>
+            <version>${modeshapeVersion}</version>
         </dependency>
         <dependency>
             <groupId>org.modeshape</groupId>
             <artifactId>modeshape-connector-jdbc-metadata</artifactId>
-            <version>${project.version}</version>
+            <version>${modeshapeVersion}</version>
         </dependency>
 -->
     <dependency>
