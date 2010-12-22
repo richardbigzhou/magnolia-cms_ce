@@ -8,31 +8,29 @@
   <artifactId>magnolia-modeshape-webapp</artifactId>
   <name>magnolia-modeshape-webapp</name>
   <packaging>war</packaging>
-  <version>4.4-SNAPSHOT</version>
+  <version>4.4.2-SNAPSHOT</version>
   <description>Magnolia pre-installed with JBoss ModeShape as JCR repository.</description>
   <properties>
-    <modeshapeVersion>2.2.0.Final</modeshapeVersion>
-    <magnoliaVersion>4.4-m1</magnoliaVersion>
+    <modeshapeVersion>2.4-SNAPSHOT</modeshapeVersion>
+    <magnoliaVersion>4.4.1</magnoliaVersion>
   </properties>
   <dependencies>
     <dependency>
       <groupId>info.magnolia</groupId>
-      <artifactId>magnolia-empty-webapp</artifactId>
+      <artifactId>magnolia-core</artifactId>
+      <version>4.4.1-ms-SNAPSHOT</version>
+      <type>jar</type>
+    </dependency>
+    <dependency>
+      <groupId>info.magnolia</groupId>
+      <artifactId>magnolia-bundled-webapp</artifactId>
       <version>${magnoliaVersion}</version>
       <type>war</type>
       <exclusions>
         <exclusion>
-          <groupId>org.apache.jackrabbit</groupId>
-          <artifactId>jackrabbit-core</artifactId>
+          <groupId>info.magnolia</groupId>
+          <artifactId>magnolia-core</artifactId>
         </exclusion>
-      </exclusions>
-    </dependency>
-    <dependency>
-      <groupId>info.magnolia</groupId>
-      <artifactId>magnolia-empty-webapp</artifactId>
-      <version>${magnoliaVersion}</version>
-      <type>pom</type>
-      <exclusions>
         <exclusion>
           <groupId>org.apache.jackrabbit</groupId>
           <artifactId>jackrabbit-core</artifactId>
@@ -41,8 +39,81 @@
     </dependency>
     <dependency>
       <groupId>info.magnolia</groupId>
+      <artifactId>magnolia-bundled-webapp</artifactId>
+      <version>${magnoliaVersion}</version>
+      <type>pom</type>
+      <exclusions>
+        <exclusion>
+          <groupId>info.magnolia</groupId>
+          <artifactId>magnolia-core</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.apache.jackrabbit</groupId>
+          <artifactId>jackrabbit-core</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <!-- DB connector -->
+    <dependency>
+      <groupId>org.modeshape</groupId>
+      <artifactId>modeshape-connector-store-jpa</artifactId>
+      <version>${modeshapeVersion}</version>
+      <exclusions>
+        <exclusion>
+          <groupId>xml-apis</groupId>
+          <artifactId>xml-apis</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <!-- not sure why we needed the ddl-gen originally ... document it if the need ever arise again -->
+    <!--dependency>
+      <groupId>org.modeshape</groupId>
+      <artifactId>modeshape-jpa-ddl-gen</artifactId>
+      <version>1.1.0.Final</version>
+    </dependency-->
+    <!-- cluster anybody? -->
+<!--
+        <dependency>
+            <groupId>org.modeshape</groupId>
+            <artifactId>modeshape-clustering</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+		<dependency>
+			<groupId>org.modeshape</groupId>
+			<artifactId>modeshape-connector-jbosscache</artifactId>
+			<version>${project.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>jgroups</groupId>
+					<artifactId>jgroups</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.modeshape</groupId>
+			<artifactId>modeshape-connector-filesystem</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.modeshape</groupId>
+			<artifactId>modeshape-connector-infinispan</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.modeshape</groupId>
+			<artifactId>modeshape-connector-svn</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.modeshape</groupId>
+			<artifactId>modeshape-connector-jdbc-metadata</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+-->
+    <dependency>
+      <groupId>info.magnolia</groupId>
       <artifactId>magnolia-provider-modeshape</artifactId>
-      <version>1.0-m1</version>
+      <version>1.0-SNAPSHOT</version>
     </dependency>
     <!-- this dep should be resolved from magnolia-provider-modeshape but is not ... TODO: why? -->
     <dependency>
@@ -65,11 +136,17 @@
       <artifactId>jsp-api</artifactId>
       <scope>provided</scope>
     </dependency>
-    <!-- default DB -->
-    <dependency>
+    <!-- can't use derby DB until HHH-3434 is fixed in hibernate -->
+    <!--dependency>
       <groupId>org.apache.derby</groupId>
       <artifactId>derby</artifactId>
       <version>10.4.2.0</version>
+    </dependency-->
+    <!-- use HSQLDB instead (also embedded) -->
+    <dependency>
+      <groupId>hsqldb</groupId>
+      <artifactId>hsqldb</artifactId>
+      <version>1.8.0.7</version>
     </dependency>
     <!-- jaas login -->
     <dependency>
@@ -80,6 +157,18 @@
         <exclusion>
           <groupId>apache-xalan</groupId>
           <artifactId>xalan</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>apache-xalan</groupId>
+          <artifactId>serializer</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.hibernate</groupId>
+          <artifactId>hibernate</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.jboss.security</groupId>
+          <artifactId>jboss-xacml</artifactId>
         </exclusion>
       </exclusions>
     </dependency>
@@ -101,6 +190,22 @@
         <exclusion>
           <groupId>commons-logging</groupId>
           <artifactId>commons-logging</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>apache-xalan</groupId>
+          <artifactId>serializer</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.hibernate</groupId>
+          <artifactId>hibernate</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.hibernate</groupId>
+          <artifactId>hibernate-annotations</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.jboss.security</groupId>
+          <artifactId>jboss-xacml</artifactId>
         </exclusion>
       </exclusions>
     </dependency>
