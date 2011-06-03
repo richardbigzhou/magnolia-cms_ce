@@ -10,6 +10,6 @@ export CATALINA_OPTS="$CATALINA_OPTS -XX:MaxPermSize=256m -Xms64M -Xmx512M -Djav
 # export JPDA_OPTS="-Xdebug -Xnoagent -Djava.compiler=NONE -Xrunjdwp:transport=dt_socket,address=54455,suspend=n,server=y"
 
 CURDIR=`dirname "$0"`
-if [ -a "${CURDIR}/magnolia_banner.txt" ] ; then
+if [ -e "${CURDIR}/magnolia_banner.txt" ] ; then
   cat ${CURDIR}/magnolia_banner.txt
 fi
