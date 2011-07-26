@@ -33,14 +33,16 @@
  */
 package info.magnolia.integrationtests;
 
+import static org.junit.Assert.*;
+import info.magnolia.testframework.htmlunit.AbstractMagnoliaIntegrationTest;
+
 import java.io.IOException;
 
 import org.junit.Test;
 
 import com.gargoylesoftware.htmlunit.html.HtmlForm;
+import com.gargoylesoftware.htmlunit.html.HtmlInput;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import info.magnolia.testframework.htmlunit.AbstractMagnoliaIntegrationTest;
-import static org.junit.Assert.*;
 
 /**
  * Runs tests for the pages in servlet sanity module.
@@ -63,8 +65,7 @@ public class ServletSanityTest extends AbstractMagnoliaIntegrationTest {
     public void testMultipartFilter() throws Exception {
         final HtmlPage page = openPage(Instance.AUTHOR.getURL(".magnolia/multipartfiltertest/form"), User.superuser);
         HtmlForm form = page.getForms().get(0);
-        HtmlPage root = form.getInputByName("submit").click();
-
+        HtmlPage root = form.<HtmlInput>getInputByName("submit").click();
         assertPageResult(root);
     }
 
