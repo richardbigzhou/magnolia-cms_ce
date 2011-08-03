@@ -203,15 +203,15 @@ public abstract class AbstractMagnoliaIntegrationTest {
         return (P) webClient.getPage(new URL(url));
     }
 
-    protected <P extends Page> P assertRedirected(String reason, String expectedTargetURL, Page page, User user) throws IOException {
+    protected <P extends Page> P assertRedirected(String reason, String expectedTargetURLPattern, Page page, User user) throws IOException {
         assertEquals(302, page.getWebResponse().getStatusCode());
-        final String redirectURL = page.getWebResponse().getResponseHeaderValue("Location");
-        assertEquals(reason, expectedTargetURL, redirectURL);
+        final String location = page.getWebResponse().getResponseHeaderValue("Location");
+        // only test whether it has the proper start in order to ignore e.g. attached sessionIds
+        assertTrue(reason, location.matches(expectedTargetURLPattern));
 
-        // TODO - keep cookies per test method so we don't need to pass credentials ?
         // since this is already redirected do not follow more redirects
         // also do not execute javascript on the target page - at least not until https://sourceforge.net/tracker/?func=detail&aid=3110090&group_id=47038&atid=448266 is solved
-        return (P) openPage(redirectURL, user, false, false);
+        return (P) openPage(location, user, false, false);
     }
 
     /**
