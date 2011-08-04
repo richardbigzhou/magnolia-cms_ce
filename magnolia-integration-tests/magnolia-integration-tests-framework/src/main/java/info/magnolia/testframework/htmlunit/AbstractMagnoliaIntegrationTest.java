@@ -207,7 +207,7 @@ public abstract class AbstractMagnoliaIntegrationTest {
         assertEquals(302, page.getWebResponse().getStatusCode());
         final String location = page.getWebResponse().getResponseHeaderValue("Location");
         // only test whether it has the proper start in order to ignore e.g. attached sessionIds
-        assertTrue(reason, location.matches(expectedTargetURLPattern));
+        assertTrue(reason + " Or is " + location + " not matching the expected pattern" + expectedTargetURLPattern + "?", location.matches(expectedTargetURLPattern));
 
         // since this is already redirected do not follow more redirects
         // also do not execute javascript on the target page - at least not until https://sourceforge.net/tracker/?func=detail&aid=3110090&group_id=47038&atid=448266 is solved

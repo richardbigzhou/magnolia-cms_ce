@@ -60,7 +60,7 @@ public class MostBasicTest extends AbstractMagnoliaIntegrationTest {
     @Test
     public void loginOnAuthorInstanceWithSuperuser() throws Exception {
         final HtmlPage root = openPage(Instance.AUTHOR.getURL(""), User.superuser);
-        final HtmlPage adminCentralPage = assertRedirected("adminCentral redirect is not setup?", Instance.AUTHOR.getURL("/\\.magnolia/pages/adminCentral\\.html;jsessionid=[0-9A-Z]+"), root, User.superuser);
+        final HtmlPage adminCentralPage = assertRedirected("adminCentral redirect is not setup?", Instance.AUTHOR.getURL("/\\.magnolia/pages/adminCentral\\.html;jsessionid=[a-zA-Z0-9]+"), root, User.superuser);
         assertEquals(200, adminCentralPage.getWebResponse().getStatusCode());
         final String allContents = adminCentralPage.getWebResponse().getContentAsString();
         assertThat("We're not on a CE instance!?", allContents, containsString("Community Edition"));
