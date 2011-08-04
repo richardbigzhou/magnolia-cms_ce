@@ -62,6 +62,11 @@ import static org.junit.Assert.*;
 public abstract class AbstractMagnoliaIntegrationTest {
 
     /**
+     * Session id's can consist of any digit and letter (lower or upper case).
+     */
+    protected static final String SESSION_ID_REGEXP = ";jsessionid=[a-zA-Z0-9]+";
+
+    /**
      * A simple way of referring to one of the two test instances deployed during ITs.
      */
     public enum Instance implements InstanceProperties {
@@ -207,7 +212,7 @@ public abstract class AbstractMagnoliaIntegrationTest {
         assertEquals(302, page.getWebResponse().getStatusCode());
         final String location = page.getWebResponse().getResponseHeaderValue("Location");
         // only test whether it has the proper start in order to ignore e.g. attached sessionIds
-        assertTrue(reason + " Or is " + location + " not matching the expected pattern" + expectedTargetURLPattern + "?", location.matches(expectedTargetURLPattern));
+        assertTrue("Redirect location " + location + " does not match the expected pattern: " + expectedTargetURLPattern + " ("+reason+")", location.matches(expectedTargetURLPattern));
 
         // since this is already redirected do not follow more redirects
         // also do not execute javascript on the target page - at least not until https://sourceforge.net/tracker/?func=detail&aid=3110090&group_id=47038&atid=448266 is solved
