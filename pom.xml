@@ -8,7 +8,7 @@
   </parent>
   <artifactId>magnolia-bundle-parent</artifactId>
   <packaging>pom</packaging>
-  <version>5.0-SNAPSHOT</version>
+  <version>4.5-SNAPSHOT</version>
   <name>magnolia-bundle-parent</name>
   <inceptionYear>2003</inceptionYear>
   <scm>
@@ -19,8 +19,8 @@
 
   <properties>
     <magnoliaEdition>Community Edition</magnoliaEdition>
-    <magnoliaVersion>5.0-SNAPSHOT</magnoliaVersion>
-    <documentationURL>http://documentation.magnolia-cms.com/releases/5-0.html</documentationURL>
+    <magnoliaVersion>4.5-SNAPSHOT</magnoliaVersion>
+    <documentationURL>http://documentation.magnolia-cms.com/releases/4-5.html</documentationURL>
   </properties>
 
   <dependencyManagement>
