@@ -30,6 +30,12 @@
       <version>${magnoliaVersion}</version>
       <scope>provided</scope>
     </dependency>
+    <dependency>
+        <groupId>info.magnolia</groupId>
+        <artifactId>magnolia-templating-compatibility</artifactId>
+      <version>${magnoliaVersion}</version>
+      <scope>provided</scope>
+    </dependency>
 
     <dependency>
       <groupId>junit</groupId>

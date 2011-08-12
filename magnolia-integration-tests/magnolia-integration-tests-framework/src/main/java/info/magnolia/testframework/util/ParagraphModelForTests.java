@@ -33,17 +33,19 @@
  */
 package info.magnolia.testframework.util;
 
+import info.magnolia.cms.core.Content;
 import info.magnolia.module.templating.RenderableDefinition;
 import info.magnolia.module.templating.RenderingModel;
-import info.magnolia.cms.core.Content;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
+import javax.jcr.Node;
+
 /**
  * Dummy model used in tests, exposing an execution counter and hardcoded arbitrary properties.
- * 
+ *
  * @author gjoseph
  * @version $Revision: $ ($Author: $)
  */
@@ -56,7 +58,7 @@ public class ParagraphModelForTests implements RenderingModel {
         return null;
     }
 
-    public Content getContent() {
+    public Node getContent() {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 

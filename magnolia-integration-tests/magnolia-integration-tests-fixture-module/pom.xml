@@ -18,13 +18,13 @@
     </dependency>
     <dependency>
       <groupId>info.magnolia</groupId>
-      <artifactId>magnolia-taglib-cms</artifactId>
+      <artifactId>magnolia-templating-compatibility-taglib-cms</artifactId>
       <version>${magnoliaVersion}</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>info.magnolia</groupId>
-      <artifactId>magnolia-taglib-utility</artifactId>
+      <artifactId>magnolia-templating-compatibility-taglib-utility</artifactId>
       <version>${magnoliaVersion}</version>
       <scope>provided</scope>
     </dependency>
