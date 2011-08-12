@@ -29,13 +29,13 @@ See README.txt for details.
     </dependency>
     <dependency>
       <groupId>info.magnolia</groupId>
-      <artifactId>magnolia-module-templating</artifactId>
+      <artifactId>magnolia-templating</artifactId>
       <version>${magnoliaVersion}</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>info.magnolia</groupId>
-      <artifactId>magnolia-taglib-cms</artifactId>
+      <artifactId>magnolia-templating-compatibility-taglib-cms</artifactId>
       <version>${magnoliaVersion}</version>
       <scope>provided</scope>
     </dependency>
