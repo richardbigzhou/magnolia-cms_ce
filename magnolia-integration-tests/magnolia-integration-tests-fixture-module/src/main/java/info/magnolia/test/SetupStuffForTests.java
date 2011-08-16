@@ -65,11 +65,11 @@ public class SetupStuffForTests extends AbstractTestingVersionHandler {
     protected List<Task> getExtraInstallTasks(InstallContext installContext) {
         final ArrayList<Task> list = new ArrayList<Task>();
 
-        list.add(newTemplateDefinition("test_jsp_tagsonly", "/templates/test/templating_test_tagsonly.jsp", "jsp"));
-        list.add(newTemplateDefinition("test_jsp", "/templates/test/templating_test.jsp", "jsp"));
-        list.add(newTemplateDefinition("test_freemarker", "/templates/test/templating_test.ftl", "freemarker"));
-        list.add(newTemplateDefinition("test_freemarker_ui", "/templates/test/templating_test_ui.ftl", "freemarker"));
-        list.add(newTemplateDefinition("test_jsp_ui", "/templates/test/templating_test_ui.jsp", "jsp"));
+        list.add(newTemplateDefinition("test:test_jsp_tagsonly", "/templates/test/templating_test_tagsonly.jsp", "jsp"));
+        list.add(newTemplateDefinition("test:test_jsp", "/templates/test/templating_test.jsp", "jsp"));
+        list.add(newTemplateDefinition("test:test_freemarker", "/templates/test/templating_test.ftl", "freemarker"));
+        list.add(newTemplateDefinition("test:test_freemarker_ui", "/templates/test/templating_test_ui.ftl", "freemarker"));
+        list.add(newTemplateDefinition("test:test_jsp_ui", "/templates/test/templating_test_ui.jsp", "jsp"));
 
         list.add(newParagraphDefinition("ftl_static", "/templates/test/para_static.ftl", "freemarker", null));
         list.add(newParagraphDefinition("ftl_dynamic", "/templates/test/para_dynamic.ftl", "freemarker", null));
@@ -87,12 +87,12 @@ public class SetupStuffForTests extends AbstractTestingVersionHandler {
         list.add(copyArchetypeDialog("title_and_text_archetype", "dialog2"));
         list.add(copyArchetypeDialog("title_and_text_archetype", "dialog3"));
 
-        list.add(copyArchetypePageAndChangeTemplate("Freemarker sample page", "test_freemarker", "test_freemarker", "Test page for Freemarker rendering"));
-        list.add(copyArchetypePageAndChangeTemplate("JSP (tags only) sample page", "test_jsp_tagsonly", "test_jsp_tagsonly", "Test page for JSP rendering using tags only"));
-        list.add(copyArchetypePageAndChangeTemplate("JSP sample page", "test_jsp", "test_jsp", "Test page for JSP rendering"));
+        list.add(copyArchetypePageAndChangeTemplate("Freemarker sample page", "test_freemarker", "test:test_freemarker", "Test page for Freemarker rendering"));
+        list.add(copyArchetypePageAndChangeTemplate("JSP (tags only) sample page", "test_jsp_tagsonly", "test:test_jsp_tagsonly", "Test page for JSP rendering using tags only"));
+        list.add(copyArchetypePageAndChangeTemplate("JSP sample page", "test_jsp", "test:test_jsp", "Test page for JSP rendering"));
 
-        list.add(newTestPageForUiComponents("test_freemarker_ui", "test_freemarker_ui"));
-        list.add(newTestPageForUiComponents("test_jsp_ui", "test_jsp_ui"));
+        list.add(newTestPageForUiComponents("test_freemarker_ui", "test:test_freemarker_ui"));
+        list.add(newTestPageForUiComponents("test_jsp_ui", "test:test_jsp_ui"));
 
         list.add(new IsAuthorInstanceDelegateTask("Bootstrap", "Bootstrap new web to author instance for PageAccessTest purposes", new BootstrapSingleResource("", "", "/info/magnolia/test/website.newtestpages.newplain.xml")));
 
