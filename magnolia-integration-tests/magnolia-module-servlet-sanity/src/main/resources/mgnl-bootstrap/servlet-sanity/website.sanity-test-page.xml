@@ -74,7 +74,7 @@
           <sv:value>2010-11-02T18:30:01.352+01:00</sv:value>
         </sv:property>
         <sv:property sv:name="mgnl:template" sv:type="String">
-          <sv:value>sanity-paragraph</sv:value>
+          <sv:value>servlet-sanity:sanity-paragraph</sv:value>
         </sv:property>
       </sv:node>
       <sv:node sv:name="main">
@@ -125,7 +125,7 @@
               <sv:value>2010-11-02T18:30:01.352+01:00</sv:value>
             </sv:property>
             <sv:property sv:name="mgnl:template" sv:type="String">
-              <sv:value>sanity-nested-paragraph</sv:value>
+              <sv:value>servlet-sanity:sanity-nested-paragraph</sv:value>
             </sv:property>
           </sv:node>
         </sv:node>
