@@ -1,5 +1,5 @@
 /**
- * This file Copyright (c) 2003-2011 Magnolia International
+ * This file Copyright (c) 2011 Magnolia International
  * Ltd.  (http://www.magnolia-cms.com). All rights reserved.
  *
  *
@@ -34,9 +34,8 @@
 package info.magnolia.testframework.util;
 
 import info.magnolia.cms.core.Content;
-import info.magnolia.module.templating.RenderableDefinition;
-import info.magnolia.module.templating.RenderingModel;
-
+import info.magnolia.rendering.template.RenderableDefinition;
+import info.magnolia.rendering.model.RenderingModel;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
@@ -46,15 +45,12 @@ import javax.jcr.Node;
 /**
  * Dummy model used in tests, exposing an execution counter and hardcoded arbitrary properties.
  *
- * @author gjoseph
- * @version $Revision: $ ($Author: $)
- *
- * @deprecated use {@link ComponentModelForTests} instead.
+ * @version $Id$
  */
-@Deprecated
-public class ParagraphModelForTests implements RenderingModel {
+public class ComponentModelForTests implements RenderingModel {
     private static int executionCount;
-    public ParagraphModelForTests(Content content, RenderableDefinition renderable, RenderingModel parent) {
+
+    public ComponentModelForTests(Node node, RenderableDefinition renderable, RenderingModel parent) {
     }
 
     public RenderingModel getParent() {
@@ -62,11 +58,11 @@ public class ParagraphModelForTests implements RenderingModel {
     }
 
     public Node getContent() {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        return null;
     }
 
     public RenderableDefinition getDefinition() {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        return null;
     }
 
     public String execute() {

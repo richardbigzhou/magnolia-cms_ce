@@ -105,7 +105,7 @@ public abstract class AbstractTestingVersionHandler extends AbstractModuleVersio
     @Override
     protected abstract List<Task> getExtraInstallTasks(InstallContext installContext);
 
-    protected ModuleNodeBuilderTask newTemplateDefinition(String name, String templatePath, String type) {
+    protected ModuleNodeBuilderTask newTemplateDefinition(String name, String templateScript, String renderType) {
         return new ModuleNodeBuilderTask("test template", "", ErrorHandling.strict,
                 getNode("templates").then(
                         addNode(name, "mgnl:contentNode").then(
@@ -113,8 +113,8 @@ public abstract class AbstractTestingVersionHandler extends AbstractModuleVersio
                                         addProperty("mgnl:template", "test:" + name)
                                 ),
                                 addProperty("dialog", "sampleDialog"),
-                                addProperty("templatePath", templatePath),
-                                addProperty("type", type),
+                                addProperty("templateScript", templateScript),
+                                addProperty("renderType", renderType),
                                 addProperty("title", name),
                                 addProperty("visible", "true")
                         )
@@ -122,12 +122,15 @@ public abstract class AbstractTestingVersionHandler extends AbstractModuleVersio
         );
     }
 
-    protected ModuleNodeBuilderTask newParagraphDefinition(String name, String templatePath, String type, Class modelClass) {
-        return new ModuleNodeBuilderTask("test paragraph", "", ErrorHandling.strict,
-                getNode("paragraphs").then(
+    protected ModuleNodeBuilderTask newComponentDefinition(String name, String templateScript, String renderType, Class modelClass) {
+        return new ModuleNodeBuilderTask("test component", "", ErrorHandling.strict,
+                getNode("templates").then(
                         addNode(name, "mgnl:contentNode").then(
-                                addProperty("templatePath", templatePath),
-                                addProperty("type", type),
+                                 getNode("MetaData").then(
+                                         addProperty("mgnl:template", "test:" + name)
+                                 ),
+                                addProperty("templateScript", templateScript),
+                                addProperty("renderType", renderType),
                                 modelClass != null ? addProperty("modelClass", modelClass.getName()) : noop()
                         )
                 )
@@ -141,11 +144,13 @@ public abstract class AbstractTestingVersionHandler extends AbstractModuleVersio
         return new CopyNodeTask("Copy " + archetypeName + " dialog to " + newName, "", "config", archetypePath, copyPath, false);
     }
 
-    protected ArrayDelegateTask copyArchetypePageAndChangeTemplate(final String name, final String newPageName, final String newTemplate, final String newTitle) {
+    protected ArrayDelegateTask copyArchetypePageAndChangeTemplate(final String name, final String newPageName, final String newTemplate, final String newTitle, String renderType, String templateScript) {
         return new ArrayDelegateTask(name, "",
                 new CopyNodeTask(null, null, "website", "/testpages/test_template_archetype", "/testpages/" + newPageName, false),
-                new CheckAndModifyPropertyValueTask(null, null, "website", "/testpages/" + newPageName + "/MetaData", "mgnl:template", "test_template_archetype", "test:"+newTemplate),
-                new CheckAndModifyPropertyValueTask(null, null, "website", "/testpages/" + newPageName + "/MetaData", "mgnl:title", "Archetype test page for rendering", newTitle)
+                new CheckAndModifyPropertyValueTask(null, null, "website", "/testpages/" + newPageName + "/MetaData", "mgnl:template", "test:test_template_archetype", "test:"+newTemplate),
+                new CheckAndModifyPropertyValueTask(null, null, "website", "/testpages/" + newPageName + "/MetaData", "mgnl:title", "Archetype test page for rendering", newTitle),
+                new CheckAndModifyPropertyValueTask(null, null, "website", "/testpages/" + newPageName, "renderType", "foo", renderType),
+                new CheckAndModifyPropertyValueTask(null, null, "website", "/testpages/" + newPageName, "templateScript", "bar", templateScript)
         );
     }
 
@@ -158,7 +163,7 @@ public abstract class AbstractTestingVersionHandler extends AbstractModuleVersio
                                         addProperty("mgnl:title", "Testing UI components")
                                 ),
                                 addProperty("someProperty", "someValue"),
-                                addNode("paragraphs", "mgnl:contentNode").then(
+                                addNode("templates", "mgnl:contentNode").then(
                                         addNode("1", "mgnl:contentNode").then(
                                                 getNode("MetaData").then(
                                                         addProperty("mgnl:template", "test:ftl_templating_ui")
