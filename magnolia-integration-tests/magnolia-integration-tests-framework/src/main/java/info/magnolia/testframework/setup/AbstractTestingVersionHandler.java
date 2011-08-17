@@ -109,6 +109,9 @@ public abstract class AbstractTestingVersionHandler extends AbstractModuleVersio
         return new ModuleNodeBuilderTask("test template", "", ErrorHandling.strict,
                 getNode("templates").then(
                         addNode(name, "mgnl:contentNode").then(
+                                getNode("MetaData").then(
+                                        addProperty("mgnl:template", "test:" + name)
+                                ),
                                 addProperty("dialog", "sampleDialog"),
                                 addProperty("templatePath", templatePath),
                                 addProperty("type", type),
@@ -141,7 +144,7 @@ public abstract class AbstractTestingVersionHandler extends AbstractModuleVersio
     protected ArrayDelegateTask copyArchetypePageAndChangeTemplate(final String name, final String newPageName, final String newTemplate, final String newTitle) {
         return new ArrayDelegateTask(name, "",
                 new CopyNodeTask(null, null, "website", "/testpages/test_template_archetype", "/testpages/" + newPageName, false),
-                new CheckAndModifyPropertyValueTask(null, null, "website", "/testpages/" + newPageName + "/MetaData", "mgnl:template", "test_template_archetype", newTemplate),
+                new CheckAndModifyPropertyValueTask(null, null, "website", "/testpages/" + newPageName + "/MetaData", "mgnl:template", "test_template_archetype", "test:"+newTemplate),
                 new CheckAndModifyPropertyValueTask(null, null, "website", "/testpages/" + newPageName + "/MetaData", "mgnl:title", "Archetype test page for rendering", newTitle)
         );
     }
@@ -158,12 +161,12 @@ public abstract class AbstractTestingVersionHandler extends AbstractModuleVersio
                                 addNode("paragraphs", "mgnl:contentNode").then(
                                         addNode("1", "mgnl:contentNode").then(
                                                 getNode("MetaData").then(
-                                                        addProperty("mgnl:template", "ftl_templating_ui")
+                                                        addProperty("mgnl:template", "test:ftl_templating_ui")
                                                 )
                                         ),
                                         addNode("2", "mgnl:contentNode").then(
                                                 getNode("MetaData").then(
-                                                        addProperty("mgnl:template", "jsp_templating_ui")
+                                                        addProperty("mgnl:template", "test:jsp_templating_ui")
                                                 )
                                         )
                                 )

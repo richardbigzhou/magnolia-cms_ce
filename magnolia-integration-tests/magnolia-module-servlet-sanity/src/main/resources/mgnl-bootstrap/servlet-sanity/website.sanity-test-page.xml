@@ -23,7 +23,7 @@
       <sv:value>2010-11-02T18:30:01.353+01:00</sv:value>
     </sv:property>
     <sv:property sv:name="mgnl:template" sv:type="String">
-      <sv:value>sanity-template</sv:value>
+      <sv:value>servlet-sanity:sanity-template</sv:value>
     </sv:property>
   </sv:node>
   <sv:node sv:name="main">
