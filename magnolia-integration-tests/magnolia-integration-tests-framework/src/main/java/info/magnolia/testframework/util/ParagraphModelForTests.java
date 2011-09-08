@@ -41,8 +41,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-import javax.jcr.Node;
-
 /**
  * Dummy model used in tests, exposing an execution counter and hardcoded arbitrary properties.
  *
@@ -61,7 +59,7 @@ public class ParagraphModelForTests implements RenderingModel {
         return null;
     }
 
-    public Node getContent() {
+    public Content getContent() {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
