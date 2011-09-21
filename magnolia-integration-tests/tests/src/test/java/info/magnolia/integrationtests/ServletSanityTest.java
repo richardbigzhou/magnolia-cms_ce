@@ -33,7 +33,9 @@
  */
 package info.magnolia.integrationtests;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import info.magnolia.testframework.htmlunit.AbstractMagnoliaIntegrationTest;
 
 import java.io.IOException;
@@ -64,6 +66,7 @@ public class ServletSanityTest extends AbstractMagnoliaIntegrationTest {
     @Test
     public void testMultipartFilter() throws Exception {
         final HtmlPage page = openPage(Instance.AUTHOR.getURL(".magnolia/multipartfiltertest/form"), User.superuser);
+        assertFalse(page.getForms().isEmpty());
         HtmlForm form = page.getForms().get(0);
         HtmlPage root = form.<HtmlInput>getInputByName("submit").click();
         assertPageResult(root);
