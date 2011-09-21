@@ -26,7 +26,7 @@
       <sv:value>superuser</sv:value>
     </sv:property>
     <sv:property sv:name="mgnl:template" sv:type="String">
-      <sv:value>test:plaintext</sv:value>
+      <sv:value>templating:plaintext</sv:value>
     </sv:property>
   </sv:node>
 </sv:node>

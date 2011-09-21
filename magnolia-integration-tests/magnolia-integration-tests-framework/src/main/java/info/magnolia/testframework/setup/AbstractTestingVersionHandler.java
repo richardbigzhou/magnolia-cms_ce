@@ -159,7 +159,7 @@ public abstract class AbstractTestingVersionHandler extends AbstractModuleVersio
                 getNode("testpages").then(
                         addNode(pageName, "mgnl:content").then(
                                 getNode("MetaData").then(
-                                        addProperty("mgnl:template", pageTemplateName),
+                                        addProperty("mgnl:template", "test:" + pageTemplateName),
                                         addProperty("mgnl:title", "Testing UI components")
                                 ),
                                 addProperty("someProperty", "someValue"),
