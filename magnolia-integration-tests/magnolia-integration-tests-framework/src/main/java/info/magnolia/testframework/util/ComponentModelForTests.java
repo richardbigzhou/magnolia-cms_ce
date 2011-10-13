@@ -82,4 +82,7 @@ public class ComponentModelForTests implements RenderingModel {
         return Arrays.asList("foo", "bar");
     }
 
+    public RenderingModel<?> getRoot() {
+        return null;
+    }
 }
