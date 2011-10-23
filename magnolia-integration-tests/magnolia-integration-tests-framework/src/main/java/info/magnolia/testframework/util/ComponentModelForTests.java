@@ -34,6 +34,7 @@
 package info.magnolia.testframework.util;
 
 import info.magnolia.cms.core.Content;
+import info.magnolia.jcr.util.ContentMap;
 import info.magnolia.rendering.template.RenderableDefinition;
 import info.magnolia.rendering.model.RenderingModel;
 import java.util.Arrays;
@@ -83,6 +84,11 @@ public class ComponentModelForTests implements RenderingModel {
     }
 
     public RenderingModel<?> getRoot() {
+        return null;
+    }
+
+    public ContentMap getContentMap() {
+        // TODO Auto-generated method stub
         return null;
     }
 }
