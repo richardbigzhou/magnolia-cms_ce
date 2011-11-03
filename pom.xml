@@ -21,6 +21,7 @@
     <magnoliaEdition>Community Edition</magnoliaEdition>
     <magnoliaVersion>4.5-SNAPSHOT</magnoliaVersion>
     <documentationURL>http://documentation.magnolia-cms.com/releases/4-5.html</documentationURL>
+    <stkVersion>2.0-SNAPSHOT</stkVersion>
   </properties>
 
   <dependencyManagement>
@@ -41,6 +42,21 @@
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-dms</artifactId>
         <version>1.5.1</version>
+      </dependency>
+      <dependency>
+        <groupId>info.magnolia</groupId>
+        <artifactId>magnolia-module-standard-templating-kit</artifactId>
+        <version>${stkVersion}</version>
+      </dependency>
+      <dependency>
+        <groupId>info.magnolia</groupId>
+        <artifactId>magnolia-demo-project</artifactId>
+        <version>${stkVersion}</version>
+      </dependency>
+      <dependency>
+        <groupId>info.magnolia</groupId>
+        <artifactId>magnolia-theme-pop</artifactId>
+        <version>${stkVersion}</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
