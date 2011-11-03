@@ -50,6 +50,11 @@
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
+        <artifactId>magnolia-standard-templating-kit-migration</artifactId>
+        <version>${stkVersion}</version>
+      </dependency>
+      <dependency>
+        <groupId>info.magnolia</groupId>
         <artifactId>magnolia-demo-project</artifactId>
         <version>${stkVersion}</version>
       </dependency>
