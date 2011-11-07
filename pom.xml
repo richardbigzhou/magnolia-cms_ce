@@ -19,9 +19,9 @@
 
   <properties>
     <magnoliaEdition>Community Edition</magnoliaEdition>
-    <magnoliaVersion>4.5-SNAPSHOT</magnoliaVersion>
+    <magnoliaVersion>4.5-beta1</magnoliaVersion>
     <documentationURL>http://documentation.magnolia-cms.com/releases/4-5.html</documentationURL>
-    <stkVersion>2.0-SNAPSHOT</stkVersion>
+    <stkVersion>2.0-beta1</stkVersion>
   </properties>
 
   <dependencyManagement>
@@ -87,7 +87,7 @@
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-groovy</artifactId>
-        <version>1.1</version>
+        <version>1.2-beta1</version>
         <classifier>bundle</classifier>
         <type>tar.gz</type>
       </dependency>
