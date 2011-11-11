@@ -33,22 +33,25 @@
  */
 package info.magnolia.integrationtests.rendering;
 
-import com.gargoylesoftware.htmlunit.Page;
-import com.gargoylesoftware.htmlunit.WebResponse;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import static org.hamcrest.CoreMatchers.not;
+import static org.junit.Assert.*;
+import static org.junit.matchers.JUnitMatchers.containsString;
 import info.magnolia.cms.util.ClasspathResourcesUtil;
 import info.magnolia.testframework.htmlunit.AbstractMagnoliaIntegrationTest;
-import org.apache.commons.io.IOUtils;
-import static org.junit.Assert.*;
-import org.junit.Test;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 
+import org.apache.commons.io.IOUtils;
+import org.junit.Test;
+
+import com.gargoylesoftware.htmlunit.Page;
+import com.gargoylesoftware.htmlunit.WebResponse;
+import com.gargoylesoftware.htmlunit.html.HtmlPage;
+
 /**
- * @author gjoseph
- * @version $Revision: $ ($Author: $)
+ * @version $Id$
  */
 public class SimpleRenderingTest extends AbstractMagnoliaIntegrationTest {
 
@@ -59,7 +62,7 @@ public class SimpleRenderingTest extends AbstractMagnoliaIntegrationTest {
         final InputStream stream = resource.openStream();
         assertNotNull(stream);
         final String allContents = IOUtils.toString(stream);
-        assertTrue("Where is all the content gone ?", allContents.contains("This file is currently not used !"));
+        assertThat(allContents, containsString("This file is currently not used !"));
     }
 
     @Test
@@ -90,10 +93,8 @@ public class SimpleRenderingTest extends AbstractMagnoliaIntegrationTest {
         final String allContents = webResponse.getContentAsString();
 
         // TODO : the following won't be valid if we change the freemarker error handler
-        assertFalse("There was a freemarker error", allContents.contains("<!-- FREEMARKER ERROR MESSAGE STARTS HERE -->"));
-
-        final String expected = "no action result here";
-        assertTrue("Result " + allContents + " doesn't contain: " + expected, allContents.contains(expected));
+        assertThat(allContents, not(containsString("<!-- FREEMARKER ERROR MESSAGE STARTS HERE -->")));
+        assertThat(allContents, containsString("no action result here"));
     }
 
 
@@ -102,13 +103,13 @@ public class SimpleRenderingTest extends AbstractMagnoliaIntegrationTest {
         final HtmlPage page = openHtmlPage(Instance.AUTHOR, "/testpages/plain.txt", User.superuser);
         final String allContents = page.getWebResponse().getContentAsString();
         // see MAGNOLIA-2393
-        assertTrue(allContents.contains("This is just one plain text page."));
+        assertThat(allContents, containsString("This is just one plain text page."));
     }
 
     @Test
     public void ensureTheSimplePlainTextTestPageIsReachableAndCorrrectOnAPublicInstance() throws IOException {
         final Page page = openPage(Instance.PUBLIC, "/testpages/plain.txt", User.superuser);
         final String allContents = page.getWebResponse().getContentAsString();
-        assertEquals("This is just one plain text page.", allContents);
+        assertThat(allContents, containsString("This is just one plain text page."));
     }
 }
