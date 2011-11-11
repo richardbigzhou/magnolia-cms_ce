@@ -89,6 +89,7 @@ public class GzipFilterTest extends AbstractMagnoliaIntegrationTest {
     private void assertGzipped(Boolean expected, final InputStream stream) throws IOException {
         byte[] firstBytes = new byte[2];
 
+        assertNotNull("Stream should not be null", stream);
         assertTrue("Not even enough bytes to read", stream.read(firstBytes) >= 2);
         assertEquals("Should " + (expected ? "" : "not ") + "be gzipped", expected, isGZipped(firstBytes));
     }
@@ -100,9 +101,7 @@ public class GzipFilterTest extends AbstractMagnoliaIntegrationTest {
     public static Boolean isGZipped(byte[] candidate) {
         if (candidate == null || candidate.length < 2) {
             return Boolean.FALSE;
-        } else {
-            return Boolean.valueOf(candidate[0] == GZIP_MAGIC_NUMBER_BYTE_1 && candidate[1] == GZIP_MAGIC_NUMBER_BYTE_2);
         }
+        return Boolean.valueOf(candidate[0] == GZIP_MAGIC_NUMBER_BYTE_1 && candidate[1] == GZIP_MAGIC_NUMBER_BYTE_2);
     }
-
 }

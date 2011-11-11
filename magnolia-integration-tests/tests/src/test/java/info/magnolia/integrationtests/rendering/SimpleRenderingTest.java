@@ -92,8 +92,8 @@ public class SimpleRenderingTest extends AbstractMagnoliaIntegrationTest {
         // TODO : the following won't be valid if we change the freemarker error handler
         assertFalse("There was a freemarker error", allContents.contains("<!-- FREEMARKER ERROR MESSAGE STARTS HERE -->"));
 
-        // TODO : better assert of contents !
-        assertTrue(allContents.contains("no action result here"));
+        final String expected = "no action result here";
+        assertTrue("Result " + allContents + " doesn't contain: " + expected, allContents.contains(expected));
     }
 
 
