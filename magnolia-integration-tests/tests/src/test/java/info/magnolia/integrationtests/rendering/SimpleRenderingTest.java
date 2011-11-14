@@ -44,6 +44,7 @@ import java.io.InputStream;
 import java.net.URL;
 
 import org.apache.commons.io.IOUtils;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.gargoylesoftware.htmlunit.Page;
@@ -65,6 +66,7 @@ public class SimpleRenderingTest extends AbstractMagnoliaIntegrationTest {
         assertThat(allContents, containsString("This file is currently not used !"));
     }
 
+    @Ignore("Should be reactivated when fixing SCRUM-325")
     @Test
     public void renderFreemarker() throws Exception {
         simpleRenderingTests("/testpages/test_freemarker.html");
@@ -73,11 +75,13 @@ public class SimpleRenderingTest extends AbstractMagnoliaIntegrationTest {
     /**
      * Tests rendering with new "style" introduced in Magnolia 4.0
      */
+    @Ignore("Should be reactivated when fixing SCRUM-325")
     @Test
     public void renderJsp() throws Exception {
         simpleRenderingTests("/testpages/test_jsp.html");
     }
 
+    @Ignore("Should be reactivated when fixing SCRUM-325")
     @Test
     public void renderJspTagsOnly() throws Exception {
         simpleRenderingTests("/testpages/test_jsp_tagsonly.html");
