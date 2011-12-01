@@ -10,6 +10,10 @@
   <name>magnolia-integration-tests-parent</name>
   <packaging>pom</packaging>
 
+  <properties>
+    <javaVersion>1.6</javaVersion>
+  </properties>
+
   <modules>
     <module>magnolia-integration-tests-framework</module>
     <module>magnolia-integration-tests-fixture-module</module>
