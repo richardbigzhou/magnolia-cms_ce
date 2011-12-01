@@ -10,10 +10,6 @@
   <name>magnolia-integration-tests-parent</name>
   <packaging>pom</packaging>
 
-  <properties>
-    <javaVersion>1.5</javaVersion>
-  </properties>
-
   <modules>
     <module>magnolia-integration-tests-framework</module>
     <module>magnolia-integration-tests-fixture-module</module>
@@ -34,7 +30,7 @@
       <dependency>
         <groupId>junit</groupId>
         <artifactId>junit</artifactId>
-        <version>4.8.1</version>
+        <version>4.10</version>
         <scope>test</scope>
       </dependency>
       <dependency>
