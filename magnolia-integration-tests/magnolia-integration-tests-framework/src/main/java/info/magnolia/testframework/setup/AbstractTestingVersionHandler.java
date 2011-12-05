@@ -40,6 +40,7 @@ import info.magnolia.module.delta.CheckAndModifyPropertyValueTask;
 import info.magnolia.module.delta.CopyNodeTask;
 import info.magnolia.module.delta.Delta;
 import info.magnolia.module.delta.ModuleFilesExtraction;
+import info.magnolia.module.delta.NodeExistsDelegateTask;
 import info.magnolia.module.delta.PropertiesImportTask;
 import info.magnolia.module.delta.RegisterModuleServletsTask;
 import info.magnolia.module.delta.Task;
@@ -92,8 +93,9 @@ public abstract class AbstractTestingVersionHandler extends AbstractModuleVersio
         list.add(new PropertiesImportTask("Test config content", "Imports content in the config workspace", "config", getConfigImportPropertiesFile()));
         list.add(new PropertiesImportTask("Test website content", "Imports content in the website workspace", "website", getWebsiteImportPropertiesFile()));
 
-        list.add(new CheckAndModifyPropertyValueTask("Activation", "Changes public URL", RepositoryConstants.CONFIG,
-                "/server/activation/subscribers/magnoliaPublic8080", "URL", "http://localhost:8080/magnoliaPublic", AbstractMagnoliaIntegrationTest.Instance.PUBLIC.getURL()));
+        list.add(new NodeExistsDelegateTask("Activation", "Changes public URL",  RepositoryConstants.CONFIG,
+                "/server/activation/subscribers/magnoliaPublic8080", new CheckAndModifyPropertyValueTask("Activation", "Changes public URL", RepositoryConstants.CONFIG,
+                "/server/activation/subscribers/magnoliaPublic8080", "URL", "http://localhost:8080/magnoliaPublic", AbstractMagnoliaIntegrationTest.Instance.PUBLIC.getURL())));
 
         return list;
     }
