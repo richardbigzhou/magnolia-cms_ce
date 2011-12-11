@@ -33,9 +33,9 @@
  */
 package info.magnolia.integrationtests;
 
-import static org.junit.Assert.*;
-
+import static org.junit.Assert.assertEquals;
 import info.magnolia.testframework.htmlunit.AbstractMagnoliaIntegrationTest;
+
 import org.junit.Test;
 
 import com.gargoylesoftware.htmlunit.Page;
@@ -62,7 +62,7 @@ public class PageActivationTest extends AbstractMagnoliaIntegrationTest {
         //Activates page, then checks if is accessible on public instance and deactivates page
         openPage(Instance.AUTHOR, "/.magnolia/trees/website.html?path=/&treeAction=2&pathSelected=%2Fnewtestpages", User.superuser);
         openPage(Instance.AUTHOR, "/.magnolia/trees/website.html?path=/newtestpages&treeAction=2&pathSelected=%2Fnewtestpages%2Fnewplain", User.superuser);
-        Thread.sleep(6000);
+        Thread.sleep(10000);
         Page page1 = openPage(Instance.PUBLIC, "/newtestpages/newplain.html", null);
         assertEquals(200, page1.getWebResponse().getStatusCode());
         openPage(Instance.AUTHOR, "/.magnolia/trees/website.html?path=/newtestpages&treeAction=3&pathSelected=%2Fnewtestpages%2Fnewplain", User.superuser);
