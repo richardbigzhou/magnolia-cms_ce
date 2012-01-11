@@ -19,9 +19,9 @@
 
   <properties>
     <magnoliaEdition>Community Edition</magnoliaEdition>
-    <magnoliaVersion>4.5-SNAPSHOT</magnoliaVersion>
+    <magnoliaVersion>4.5-beta4</magnoliaVersion>
     <documentationURL>http://documentation.magnolia-cms.com/releases/4-5.html</documentationURL>
-    <stkVersion>2.0-SNAPSHOT</stkVersion>
+    <stkVersion>2.0-beta4</stkVersion>
   </properties>
 
   <dependencyManagement>
@@ -41,12 +41,12 @@
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-dms</artifactId>
-        <version>1.6.0-SNAPSHOT</version>
+        <version>1.6-beta4</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-categorization</artifactId>
-        <version>1.2-SNAPSHOT</version>
+        <version>1.2-beta4</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
@@ -92,9 +92,14 @@
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-groovy</artifactId>
-        <version>1.2-SNAPSHOT</version>
+        <version>1.2-beta4</version>
         <classifier>bundle</classifier>
         <type>tar.gz</type>
+      </dependency>
+      <dependency>
+        <groupId>info.magnolia</groupId>
+        <artifactId>magnolia-module-data</artifactId>
+        <version>1.6.5-beta4</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
