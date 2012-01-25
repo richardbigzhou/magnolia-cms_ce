@@ -14,7 +14,7 @@
     <!-- the Surefire and Cargo configuration below depends on the default-IDs for default plugin executions introduced in Maven 2.2 -->
     <maven>2.2.1</maven>
   </prerequisites>
-  
+
   <!--
   This pom (and most of this project, for that matter), has been copied to
   http://svn.magnolia-cms.com/svn/enterprise/bundle/trunk/magnolia-ee-integration-tests/tests
@@ -50,13 +50,13 @@
       <version>${project.version}</version>
       <type>war</type>
     </dependency>
-    <dependency>	 
-      <groupId>info.magnolia</groupId>	 
-      <artifactId>magnolia-integration-tests-fixture-module</artifactId>	 
-      <version>${project.version}</version>	 
-      <scope>test</scope>	 
+    <dependency>
+      <groupId>info.magnolia</groupId>
+      <artifactId>magnolia-integration-tests-fixture-module</artifactId>
+      <version>${project.version}</version>
+      <scope>test</scope>
     </dependency>
-    
+
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
@@ -117,7 +117,8 @@
             <output />
             <log />
             <!-- 10 minutes timeout IS long, but the default 2 minutes is sometimes not enough... ?? -->
-            <timeout>600000</timeout>
+            <!-- temporarily set to 15 minutes as right now lots of migration scripts (groovy) will be executed - this takes some time -->
+            <timeout>900000</timeout>
             <zipUrlInstaller>
               <url>${url}</url>
               <installDir>${basedir}/tmp/cargo-install</installDir>
