@@ -48,29 +48,29 @@ import info.magnolia.testframework.htmlunit.AbstractMagnoliaIntegrationTest;
 
 /**
  * Test to confirm, that the temp files used by cache for streaming large files are deleted.
- * @author milan
  *
  */
 public class CacheLargeFileTest extends AbstractMagnoliaIntegrationTest {
-    
+
     @Test
     public void cacheLargeFileTest() throws IOException{
-                
+
         final HtmlPage largeFile = openPage(Instance.PUBLIC.getURL("docroot/cachetest.html"), null);
         assertEquals(200, largeFile.getWebResponse().getStatusCode());
-              
+
         //It is path for temp directory for running in debug mode
         //File tmpDir = new File("tmp/cargo-home/webapps/magnoliaTestPublic/tmp/");
-        
+
+        // TODO dlipp - used directory is only valid for specific cargo/jetty version - integration test should be independent from any container
         File tmpDir = new File("target/java-io-tmpdir/Jetty_0_0_0_0_8088_magnoliaTestPublic.war__magnoliaTestPublic__.93bofv/webapp/tmp");
         assertTrue(tmpDir.exists());
-        
+
         String list[] = tmpDir.list(new FilenameFilter() {
             public boolean accept(File dir, String name) {
                 return name.startsWith("cacheStream");
             }
         });
-            
-        assertEquals(0, list.length);  
+
+        assertEquals(0, list.length);
     }
 }
