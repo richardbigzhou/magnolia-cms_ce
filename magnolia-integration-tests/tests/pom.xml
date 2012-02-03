@@ -117,8 +117,7 @@
             <output />
             <log />
             <!-- 10 minutes timeout IS long, but the default 2 minutes is sometimes not enough... ?? -->
-            <!-- temporarily set to 15 minutes as right now lots of migration scripts (groovy) will be executed - this takes some time -->
-            <timeout>900000</timeout>
+            <timeout>600000</timeout>
             <zipUrlInstaller>
               <url>${url}</url>
               <installDir>${basedir}/tmp/cargo-install</installDir>
