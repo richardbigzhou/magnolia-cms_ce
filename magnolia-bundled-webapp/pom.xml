@@ -42,10 +42,6 @@
       <groupId>info.magnolia</groupId>
       <artifactId>magnolia-theme-pop</artifactId>
     </dependency>
-    <dependency>
-      <groupId>info.magnolia</groupId>
-      <artifactId>magnolia-standard-templating-kit-migration</artifactId>
-    </dependency>
   </dependencies>
 
   <build>
