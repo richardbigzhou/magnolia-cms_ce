@@ -19,9 +19,9 @@
 
   <properties>
     <magnoliaEdition>Community Edition</magnoliaEdition>
-    <magnoliaVersion>4.5-SNAPSHOT</magnoliaVersion>
+    <magnoliaVersion>4.5-RC2</magnoliaVersion>
     <documentationURL>http://documentation.magnolia-cms.com/releases/4-5.html</documentationURL>
-    <stkVersion>2.0-SNAPSHOT</stkVersion>
+    <stkVersion>2.0-RC2</stkVersion>
     <scmTagPrefix>magnolia-bundle</scmTagPrefix>
   </properties>
 
@@ -42,12 +42,12 @@
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-dms</artifactId>
-        <version>1.6-SNAPSHOT</version>
+        <version>1.6-RC2</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-categorization</artifactId>
-        <version>1.2-SNAPSHOT</version>
+        <version>1.2-RC2</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
@@ -93,14 +93,14 @@
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-groovy</artifactId>
-        <version>1.2-SNAPSHOT</version>
+        <version>1.2-RC2</version>
         <classifier>bundle</classifier>
         <type>tar.gz</type>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-scheduler</artifactId>
-        <version>1.5-SNAPSHOT</version>
+        <version>1.5-RC2</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
