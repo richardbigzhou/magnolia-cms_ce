@@ -19,9 +19,9 @@
 
   <properties>
     <magnoliaEdition>Community Edition</magnoliaEdition>
-    <magnoliaVersion>4.5-RC2</magnoliaVersion>
+    <magnoliaVersion>4.5-SNAPSHOT</magnoliaVersion>
     <documentationURL>http://documentation.magnolia-cms.com/releases/4-5.html</documentationURL>
-    <stkVersion>2.0-RC2</stkVersion>
+    <stkVersion>2.0-SNAPSHOT</stkVersion>
     <scmTagPrefix>magnolia-bundle</scmTagPrefix>
   </properties>
 
@@ -43,11 +43,6 @@
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-dms</artifactId>
         <version>1.6-RC2</version>
-      </dependency>
-      <dependency>
-        <groupId>info.magnolia</groupId>
-        <artifactId>magnolia-module-categorization</artifactId>
-        <version>1.2-RC2</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
