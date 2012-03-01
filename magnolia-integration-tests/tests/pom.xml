@@ -200,7 +200,7 @@
             <configuration>
               <executable>bash</executable>
               <arguments>
-                <argument>./check-for-errors.sh</argument>
+                <argument>./src/main/check-for-errors.sh</argument>
               </arguments>
             </configuration>
           </execution>
