@@ -1,8 +1,7 @@
 #!/bin/bash
 
-
 CheckForErrors() {
-    LOGIN=$1
+    URL=$1
     
     TMPDIR='/tmp/magnolia-test-download'
     rm -Rf $TMPDIR
@@ -13,14 +12,14 @@ CheckForErrors() {
 
     pushd $TMPDIR
 
-    echo "Downloading site..." 
+    echo "--------------"
+    echo "Downloading $1"
+    echo "--------------"
     
     HTTP_ERROR=$(
-    wget -r -p --keep-session-cookies -e robots=off \
-    $MAGNOLIA_URL/demo-features.html$LOGIN \
-    $MAGNOLIA_URL/demo-project.html$LOGIN \
-    $MAGNOLIA_URL/ftl-sample-site.html$LOGIN \
-    $MAGNOLIA_URL/jsp-sample-site.html$LOGIN 2>&1 | { while read line; do 
+    wget -r -p -U Mozilla -e robots=off \
+         --keep-session-cookies \
+    $URL 2>&1 | { while read line; do 
         echo $line | grep -q "^--"
 
         if [ $? -eq "0" ]; then
@@ -29,7 +28,7 @@ CheckForErrors() {
 
         echo $line | grep -q "HTTP request"
         if [ $? -eq "0" ]; then
-            echo $line | grep -q "40[14]" # 404 Not found, 401 Unauthorized
+            echo $line | grep -q "\(404\|401\|403\)" # 404 Not found, 401 Unauthorized, 403 Forbidden
             if [ $? -eq "0" ]; then
                 echo >&2 $url
                 echo >&2 $line
@@ -56,20 +55,21 @@ CheckForErrors() {
     rm -Rf $TMPDIR
 }
 
-MAGNOLIA_URL="http://localhost:8088/magnoliaTest"
-USER=superuser
-PASS=superuser
+while [ $# -gt 0 ]; do # Loop through all arguments
+    PAGE=$1
+    shift
 
-CheckForErrors ?mgnlUserId=$USER\&mgnlUserPSWD=$PASS
+    ROOTURL="http://localhost:8088/magnoliaTestPublic"
+    USER=superuser
+    PASS=superuser
 
-#MAGNOLIA_URL="http://localhost:8088/magnoliaTestPublic"
-#USER=superuser
-#PASS=superuser
-#
-#CheckForErrors ?mgnlUserId=$USER\&mgnlUserPSWD=$PASS
-#CheckForErrors
+    CheckForErrors $ROOTURL/$PAGE
+    CheckForErrors $ROOTURL/$PAGE?mgnlUserId=$USER\&mgnlUserPSWD=$PASS
 
+    ROOTURL="http://localhost:8088/magnoliaTest"
 
+    CheckForErrors $ROOTURL/$PAGE?mgnlUserId=$USER\&mgnlUserPSWD=$PASS
+done
 
 if [ $HTTP_ERROR -gt "0" ]; then
     exit 1
@@ -78,3 +78,4 @@ fi
 if [ $FREEM_ERROR -gt "0" ]; then
     exit 2
 fi
+

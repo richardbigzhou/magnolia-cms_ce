@@ -186,14 +186,14 @@
           </execution>
         </executions>
       </plugin>
-<!--
+
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>exec-maven-plugin</artifactId>
         <executions>
           <execution>
             <id>bash</id>
-            <phase>pre-integration-test</phase>
+            <phase>integration-test</phase>
             <goals>
               <goal>exec</goal>
             </goals>
@@ -201,12 +201,14 @@
               <executable>bash</executable>
               <arguments>
                 <argument>./src/main/check-for-errors.sh</argument>
+                <argument>ftl-sample-site.html</argument>
+                <argument>jsp-sample-site.html</argument>
               </arguments>
             </configuration>
           </execution>
         </executions>
       </plugin>
--->
+
     </plugins>
   </build>
   <profiles>
