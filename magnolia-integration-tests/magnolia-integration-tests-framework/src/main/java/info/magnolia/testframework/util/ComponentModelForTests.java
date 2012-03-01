@@ -58,7 +58,11 @@ public class ComponentModelForTests implements RenderingModel {
         return null;
     }
 
-    public Node getContent() {
+    public Node getNode() {
+        return null;
+    }
+
+    public ContentMap getContent() {
         return null;
     }
 
