@@ -188,22 +188,23 @@
       </plugin>
 
       <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>exec-maven-plugin</artifactId>
+        <groupId>org.codehaus.gmaven</groupId>
+        <artifactId>gmaven-plugin</artifactId>
         <executions>
           <execution>
-            <id>bash</id>
+            <id>web-crawler</id>
             <phase>integration-test</phase>
             <goals>
-              <goal>exec</goal>
+              <goal>execute</goal>
             </goals>
             <configuration>
-              <executable>bash</executable>
-              <arguments>
-                <argument>./src/main/check-for-errors.sh</argument>
-                <argument>ftl-sample-site.html</argument>
-                <argument>jsp-sample-site.html</argument>
-              </arguments>
+              <properties>
+                <geturl1>http://localhost:8088/magnoliaTestPublic/ftl-sample-site/</geturl1>
+                <geturl2>http://localhost:8088/magnoliaTestPublic/jsp-sample-site/</geturl2>
+                <geturlauth3>http://localhost:8088/magnoliaTest/ftl-sample-site/</geturlauth3>
+                <geturlauth4>http://localhost:8088/magnoliaTest/jsp-sample-site/</geturlauth4>
+             </properties>
+            <source>${project.basedir}/src/main/groovy/crawl.groovy</source>
             </configuration>
           </execution>
         </executions>
