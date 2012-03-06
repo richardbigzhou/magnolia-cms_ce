@@ -19,9 +19,9 @@
 
   <properties>
     <magnoliaEdition>Community Edition</magnoliaEdition>
-    <magnoliaVersion>4.5</magnoliaVersion>
-    <documentationURL>http://documentation.magnolia-cms.com/releases/4-5.html</documentationURL>
-    <stkVersion>2.0</stkVersion>
+    <magnoliaVersion>4.5.1-SNAPSHOT</magnoliaVersion>
+    <documentationURL>http://documentation.magnolia-cms.com/releases/4-5-1.html</documentationURL>
+    <stkVersion>2.0.1-SNAPSHOT</stkVersion>
   </properties>
 
   <dependencyManagement>
