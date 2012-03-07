@@ -1,4 +1,4 @@
-/**
+/*
  * This file Copyright (c) 2010-2011 Magnolia International
  * Ltd.  (http://www.magnolia-cms.com). All rights reserved.
  *
@@ -46,6 +46,8 @@ class Constants {
     static final GET_IMAGES = true
     static final GET_SCRIPTS = true
     static final blacklist = ["?mgnlLogout", ".imaging"]
+
+    static final DEBUG_MODE = false
 }
 import static Constants.*
 
@@ -66,7 +68,7 @@ class WebCrawler {
     private gotErrors    //Number of all errors
     private gotResources //Number of all downloaded resources
 
-    private downloadThread
+    private downloadedAll
     private endedThreads
     
     WebCrawler(start_on) {
@@ -85,13 +87,13 @@ class WebCrawler {
         cookies = []
         gotErrors = 0
         gotResources = 0
-        downloadThread = false
+        downloadedAll = false
         endedThreads = 0
 
         // Let's start crawling
-        debugMessage("="*40)
-        debugMessage("Crawling ${startURL}")
-        debugMessage("="*40)
+        println "="*40
+        println "Crawling ${startURL}"
+        println "="*40
 
         startMillis = System.currentTimeMillis()
         
@@ -129,7 +131,7 @@ class WebCrawler {
                 
                 def response = connection.getResponseCode()
                 
-                if (response != 200)
+                if (rejectCode(response))
                     announceError(response, url)
  
                 def newCookies = connection.getHeaderFields().get("Set-Cookie");
@@ -138,18 +140,10 @@ class WebCrawler {
                 }
                 
                 def content = connection.content.text
-                checkFreemarkerErrors(content, url)
+                checkTemplatingErrors(content, url)
 
                 def page = new XmlParser(parser).parseText(content)
                 def links = page.depthFirst().A.grep { it.@href }.'@href'
-
-                if (depth == 0 && links.empty) {
-                    announceError("No links found", url)
-                    endedThreads += 1
-                    return
-                }
-                
-                gotResources += 1
                 
                 links.each { link ->
                     def linkURL = [:]
@@ -184,24 +178,24 @@ class WebCrawler {
                     }
                 }
 
-//                debugMessage("${Thread.currentThread().getName()} : Analyzing \"${url}\" (depth ${depth}): Found ${links.size()} links")
+                debugMessage("${Thread.currentThread().getName()} : Analyzing \"${url}\" (depth ${depth}): Found ${links.size()} links")
             } catch (ConnectException ex) {
                 announceError("Connection Refused", startURL)
                 endedThreads += 1
                 return
             }
             catch (Exception ex) {
-//                debugMessage("Unexpected Error: ${ex}")
-                endedThreads += 1
-                return
+                debugMessage("Unexpected Error: ${ex}")
             }
         }}}
-
+        
+        //Resources downloading thread
         Thread.start {
-        while (true && endedThreads < NUM_THREADS - 1) {
+        while (true && endedThreads < NUM_THREADS) {
             try {
                 def url = nextData()
-                
+                if (url == null)
+                    continue
  
                 def page = new URL(url)
                 def connection = page.openConnection()
@@ -212,21 +206,22 @@ class WebCrawler {
 
                 connection.connect()
                 def response = connection.getResponseCode()
-                if (response != 200)
+                if (rejectCode(response))
                     announceError(response, url)
             } catch (Exception ex) {
-//                debugMessage("Download failed: ${ex.getMessage()}")
+                debugMessage("Download failed: ${ex.getMessage()}")
             }
         }
+        downloadedAll = true
         }
 
 
         // wait for threads to die
-        while (endedThreads < NUM_THREADS - 1) {
+        while (!downloadedAll) {
             sleep 100
         }
         def elapsedTime = System.currentTimeMillis() - startMillis
-        debugMessage("Elapsed time: ${elapsedTime/1000.0}ms, ~${gotResources} resources downloaded.")
+        println "Elapsed time: ${elapsedTime/1000.0}ms, ~${gotResources} resources downloaded."
     } //END OF CONSTRUCTOR
 
 
@@ -235,11 +230,12 @@ class WebCrawler {
 
 
     def debugMessage(message) {
-        System.err.println("DEBUG: ${message}")
+        if (DEBUG_MODE)
+            System.err.println("DEBUG: ${message}")
     }
 
     def announceError(code, url) {
-        System.err.println("${code} Error on ${url}")
+        System.err.println("${code} Error - ${url}")
         gotErrors += 1
     }
 
@@ -247,12 +243,18 @@ class WebCrawler {
         return gotErrors
     }
 
-    def checkFreemarkerErrors(content, url) {
-        if (content =~ /FreeMarker template error/) {
-            announceError("Freemarker", url)
-        } else if (content =~ /RenderException/) {
-            announceError("Freemarker", url)
+    def checkTemplatingErrors(content, url) {
+        if ((content ==~ /^\s*$/) || (content ==~ /FreeMarker template error/) ||
+            (content ==~ /RenderException/)) {
+           announceError("Templating", url)
         }
+    }
+
+    def rejectCode(statusCode) {
+        if (statusCode >= 400)
+            return true
+        else
+            return false
     }
 
     def rebuildURL(host, base, rawUrl) {
