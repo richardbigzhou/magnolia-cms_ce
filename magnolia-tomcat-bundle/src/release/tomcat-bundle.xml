@@ -60,6 +60,8 @@
       <outputDirectory></outputDirectory>
       <filtered>true</filtered>
       <lineEnding>crlf</lineEnding>
+      <fileMode>644</fileMode>
+      <directoryMode>755</directoryMode>
     </fileSet>
     <fileSet>
       <directory>target/magnolia-build-tools-resources</directory>
@@ -71,6 +73,8 @@
       <includes>
         <include>*.txt</include>
       </includes>
+      <fileMode>644</fileMode>
+      <directoryMode>755</directoryMode>
     </fileSet>
   </fileSets>
 
