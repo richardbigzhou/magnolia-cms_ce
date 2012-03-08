@@ -107,7 +107,7 @@
       <outputDirectory>add-ons</outputDirectory>
       <includes>
         <!-- we only include (and unpack) dependencies of type tar.gz -->
-        <include>info.magnolia:*:tar.gz</include>
+        <include>info.magnolia*:*:tar.gz</include>
       </includes>
       <useTransitiveDependencies>false</useTransitiveDependencies>
       <useStrictFiltering>true</useStrictFiltering>
@@ -119,7 +119,7 @@
     <dependencySet>
       <outputDirectory>add-ons</outputDirectory>
       <includes>
-        <include>info.magnolia:*:jar</include>
+        <include>info.magnolia*:*:jar</include>
       </includes>
       <useTransitiveDependencies>false</useTransitiveDependencies>
       <useStrictFiltering>true</useStrictFiltering>
