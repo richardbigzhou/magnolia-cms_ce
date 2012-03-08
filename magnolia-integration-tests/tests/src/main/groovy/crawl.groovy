@@ -45,7 +45,7 @@ class Constants {
 
     static final GET_IMAGES = true
     static final GET_SCRIPTS = true
-    static final blacklist = ["?mgnlLogout", ".imaging"]
+    static final blacklist = ["?mgnlLogout"]
 
     static final DEBUG_MODE = false
 }
@@ -70,6 +70,8 @@ class WebCrawler {
 
     private downloadedAll
     private endedThreads
+
+    private threadPool
     
     WebCrawler(start_on) {
         startURL = start_on
@@ -88,7 +90,10 @@ class WebCrawler {
         gotErrors = 0
         gotResources = 0
         downloadedAll = false
-        endedThreads = 0
+        endedThreads = false
+
+        threadPool = []
+
 
         // Let's start crawling
         println "="*40
@@ -97,10 +102,11 @@ class WebCrawler {
 
         startMillis = System.currentTimeMillis()
         
+        threadPool = []
         //Links finding threads
         NUM_THREADS.times {
             sleep 100
-            Thread.start {
+            threadPool << Thread.start {
         def parser = new SAXParser()
         parser.setFeature('http://xml.org/sax/features/namespaces', false)
 
@@ -108,7 +114,6 @@ class WebCrawler {
             try {
                 def newLink = nextPage()
                 if ((newLink == null) || (newLink["url"] == null )) {
-                    endedThreads += 1
                     return
                 }
 
@@ -116,7 +121,6 @@ class WebCrawler {
                 def depth = newLink["depth"]
 
                 if (depth > DEPTH_LEVEL) {
-                    endedThreads += 1
                     return
                 }
 
@@ -141,6 +145,8 @@ class WebCrawler {
                 
                 def content = connection.content.text
                 checkTemplatingErrors(content, url)
+                
+                gotResources += 1
 
                 def page = new XmlParser(parser).parseText(content)
                 def links = page.depthFirst().A.grep { it.@href }.'@href'
@@ -178,20 +184,25 @@ class WebCrawler {
                     }
                 }
 
-                debugMessage("${Thread.currentThread().getName()} : Analyzing \"${url}\" (depth ${depth}): Found ${links.size()} links")
+                debugMessage("Analyzing \"${url}\" (depth ${depth}): Found ${links.size()} links")
             } catch (ConnectException ex) {
-                announceError("Connection Refused", startURL)
-                endedThreads += 1
-                return
+              announceError("Connection Refused", startURL)
             }
             catch (Exception ex) {
-                debugMessage("Unexpected Error: ${ex}")
+              debugMessage("Unexpected Error: ${ex}")
             }
         }}}
         
+        Thread.start {
+            threadPool.each {
+                it.join()
+            }
+            endedThreads = true
+        }       
+        
         //Resources downloading thread
         Thread.start {
-        while (true && endedThreads < NUM_THREADS) {
+        while (true && !endedThreads) {
             try {
                 def url = nextData()
                 if (url == null)
@@ -205,6 +216,10 @@ class WebCrawler {
                 }
 
                 connection.connect()
+                gotResources += 1
+
+                debugMessage("Fetching resource ${url}")
+
                 def response = connection.getResponseCode()
                 if (rejectCode(response))
                     announceError(response, url)
@@ -213,13 +228,13 @@ class WebCrawler {
             }
         }
         downloadedAll = true
-        }
-
+        }.join()
 
         // wait for threads to die
         while (!downloadedAll) {
             sleep 100
         }
+
         def elapsedTime = System.currentTimeMillis() - startMillis
         println "Elapsed time: ${elapsedTime/1000.0}ms, ~${gotResources} resources downloaded."
     } //END OF CONSTRUCTOR
@@ -244,8 +259,9 @@ class WebCrawler {
     }
 
     def checkTemplatingErrors(content, url) {
-        if ((content ==~ /^\s*$/) || (content ==~ /FreeMarker template error/) ||
-            (content ==~ /RenderException/)) {
+        content = content.replaceAll(/\n/," ")
+        if ((content ==~ /^\s*$/) || (content ==~ /.*[Tt]emplate [Ee]rror.*/) ||
+            (content ==~ /.*RenderException.*/)) {
            announceError("Templating", url)
         }
     }
@@ -260,9 +276,11 @@ class WebCrawler {
     def rebuildURL(host, base, rawUrl) {
         def url = rawUrl
 
-        if (rawUrl ==~ /.*#.*/) // ignore URL fragments
-            url = (rawUrl =~ /(.*)#.*/)[0][1]
+        if (url ==~ /.*#.*/) // ignore URL fragments
+            url = (url =~ /(.*)#.*/)[0][1]
 
+        url = url.replaceAll(/ /,"%20")
+        
         def newURL
     
         if (url.startsWith('http://') || url.startsWith('https://')) {
@@ -301,7 +319,6 @@ class WebCrawler {
         def url = unvisitedURLs.first()
         unvisitedURLs.remove(url)
         visitedURLs << url["url"]
-        gotResources += 1
 
         return url
     }
@@ -340,7 +357,6 @@ class WebCrawler {
         def url = unvisitedData.first()
         unvisitedData.remove(url)
         visitedData << url
-        gotResources += 1
 
         return url
     }
@@ -351,7 +367,6 @@ class WebCrawler {
                 newURL.contains(it)
             }
             if (!blacklisted) {
-                gotResources += 1
                 unvisitedData << newURL
             }
             notifyAll()
