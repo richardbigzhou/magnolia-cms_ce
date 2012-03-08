@@ -84,7 +84,7 @@
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
-        <artifactId>magnolia-templating</artifactId>
+        <artifactId>magnolia-templating-compatibility</artifactId>
         <version>${magnoliaVersion}</version>
         <classifier>bundle</classifier>
         <type>tar.gz</type>
