@@ -28,15 +28,7 @@
       <directoryMode>755</directoryMode>
     </fileSet>
 
-    <!-- our tomcat customisations -->
-    <fileSet>
-      <directory>src/release/tomcat</directory>
-      <outputDirectory>apache-tomcat-${project.properties.tomcatVersion}</outputDirectory>
-      <fileMode>644</fileMode>
-      <directoryMode>755</directoryMode>
-    </fileSet>
-
-    <!-- making all .sh files executable : -->
+    <!-- making sure all .sh files shipped with Tomcat are executable : -->
     <fileSet>
       <directory>target/extracted-tomcat/apache-tomcat-${project.properties.tomcatVersion}/bin/</directory>
       <outputDirectory>apache-tomcat-${project.properties.tomcatVersion}/bin</outputDirectory>
@@ -45,11 +37,23 @@
       </includes>
       <fileMode>754</fileMode>
     </fileSet>
+
+    <!-- our tomcat customisations -->
     <fileSet>
-      <directory>src/release/tomcat/bin</directory>
-      <outputDirectory>apache-tomcat-${project.properties.tomcatVersion}/bin</outputDirectory>
+      <directory>src/release/tomcat</directory>
+      <outputDirectory>apache-tomcat-${project.properties.tomcatVersion}</outputDirectory>
+      <fileMode>644</fileMode>
+      <directoryMode>755</directoryMode>
+      <excludes>
+        <exclude>**/*.sh</exclude>
+      </excludes>
+    </fileSet>
+
+    <fileSet>
+      <directory>src/release/tomcat</directory>
+      <outputDirectory>apache-tomcat-${project.properties.tomcatVersion}</outputDirectory>
       <includes>
-        <include>*.sh</include>
+        <include>**/*.sh</include>
       </includes>
       <fileMode>754</fileMode>
     </fileSet>
@@ -108,7 +112,8 @@
       <includes>
         <!-- we only include (and unpack) dependencies of type tar.gz -->
         <include>info.magnolia:*:tar.gz</include>
-        <include>info.magnolia.*:*tar.gz</include>
+        <!-- If we want to include other info.magnolia.<anything> groupIds :
+        <include>info.magnolia.*:*tar.gz</include>-->
       </includes>
       <useTransitiveDependencies>false</useTransitiveDependencies>
       <useStrictFiltering>true</useStrictFiltering>
