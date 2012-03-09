@@ -191,6 +191,7 @@
         <groupId>org.codehaus.gmaven</groupId>
         <artifactId>gmaven-plugin</artifactId>
         <executions>
+          
           <execution>
             <id>web-crawler</id>
             <phase>integration-test</phase>
@@ -199,12 +200,14 @@
             </goals>
             <configuration>
               <properties>
+                <login>superuser</login>
+                <password>superuser</password>
                 <geturl1>http://localhost:8088/magnoliaTestPublic/ftl-sample-site/</geturl1>
                 <geturl2>http://localhost:8088/magnoliaTestPublic/jsp-sample-site/</geturl2>
                 <geturlauth3>http://localhost:8088/magnoliaTest/ftl-sample-site/</geturlauth3>
                 <geturlauth4>http://localhost:8088/magnoliaTest/jsp-sample-site/</geturlauth4>
-             </properties>
-            <source>${project.basedir}/src/main/groovy/crawl.groovy</source>
+              </properties>
+              <source>${project.basedir}/src/main/groovy/crawl.groovy</source>
             </configuration>
           </execution>
         </executions>

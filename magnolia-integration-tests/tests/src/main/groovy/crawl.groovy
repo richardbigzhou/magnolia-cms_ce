@@ -386,8 +386,8 @@ try{
     project.properties.keySet().each {
         if (it.contains("geturl")) {
             if (it.contains("geturlauth")) {
-                pages << project.properties[it] + "?mgnlUserId=superuser&mgnlUserPSWD=superuser"
-                //property value can't contain '=' character :(
+                pages << project.properties[it] + "?mgnlUserId=${project.properties["login"]}&mgnlUserPSWD=${project.properties["password"]}"
+                //property value can't contain '=' character, nor '%' for url encoding...
             } else {
                 pages << project.properties[it]
             }
@@ -396,8 +396,6 @@ try{
 }
 
 def exitCode = 0
-
-//pages = ["http://localhost:8088/magnoliaTestPublic/jsp-sample-site/","http://localhost:8088/magnoliaTestPublic/ftl-sample-site/"]
 
 pages.each{ page ->
     crawler = new WebCrawler(page)
