@@ -115,5 +115,11 @@
       <classifier>bundle</classifier>
       <type>tar.gz</type>
     </dependency>
+    <dependency>
+      <groupId>info.magnolia</groupId>
+      <artifactId>magnolia-4-5-migration</artifactId>
+      <classifier>bundle</classifier>
+      <type>tar.gz</type>
+    </dependency>
   </dependencies>
 </project>

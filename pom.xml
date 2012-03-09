@@ -60,11 +60,6 @@
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
-        <artifactId>magnolia-standard-templating-kit-migration</artifactId>
-        <version>${stkVersion}</version>
-      </dependency>
-      <dependency>
-        <groupId>info.magnolia</groupId>
         <artifactId>magnolia-demo-project</artifactId>
         <version>${stkVersion}</version>
       </dependency>
@@ -98,6 +93,13 @@
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-groovy</artifactId>
         <version>1.2</version>
+        <classifier>bundle</classifier>
+        <type>tar.gz</type>
+      </dependency>
+      <dependency>
+        <groupId>info.magnolia</groupId>
+        <artifactId>magnolia-4-5-migration</artifactId>
+        <version>1.0.1-SNAPSHOT</version>
         <classifier>bundle</classifier>
         <type>tar.gz</type>
       </dependency>
