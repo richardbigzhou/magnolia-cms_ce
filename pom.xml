@@ -22,6 +22,7 @@
     <magnoliaVersion>4.5.1</magnoliaVersion>
     <documentationURL>http://documentation.magnolia-cms.com/releases/4-5-1.html</documentationURL>
     <stkVersion>2.0.1</stkVersion>
+    <scmTagPrefix>magnolia-bundle</scmTagPrefix>
   </properties>
 
   <dependencyManagement>
