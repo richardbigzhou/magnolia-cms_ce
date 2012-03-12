@@ -19,9 +19,9 @@
 
   <properties>
     <magnoliaEdition>Community Edition</magnoliaEdition>
-    <magnoliaVersion>4.5.1-SNAPSHOT</magnoliaVersion>
+    <magnoliaVersion>4.5.1</magnoliaVersion>
     <documentationURL>http://documentation.magnolia-cms.com/releases/4-5-1.html</documentationURL>
-    <stkVersion>2.0.1-SNAPSHOT</stkVersion>
+    <stkVersion>2.0.1</stkVersion>
   </properties>
 
   <dependencyManagement>
@@ -41,17 +41,17 @@
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-dms</artifactId>
-        <version>1.6.1-SNAPSHOT</version>
+        <version>1.6.1</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-categorization</artifactId>
-        <version>1.2.1-SNAPSHOT</version>
+        <version>1.2.1</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-groovy</artifactId>
-        <version>1.2.1-SNAPSHOT</version>
+        <version>1.2.1</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
@@ -92,21 +92,21 @@
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-groovy</artifactId>
-        <version>1.2.1-SNAPSHOT</version>
+        <version>1.2.1</version>
         <classifier>bundle</classifier>
         <type>tar.gz</type>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-4-5-migration</artifactId>
-        <version>1.0.1-SNAPSHOT</version>
+        <version>1.0.1</version>
         <classifier>bundle</classifier>
         <type>tar.gz</type>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-scheduler</artifactId>
-        <version>1.5.1-SNAPSHOT</version>
+        <version>1.5.1</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
