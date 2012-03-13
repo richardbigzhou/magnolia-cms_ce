@@ -34,6 +34,7 @@
 
 //@Grab(group='net.sourceforge.nekohtml', module='nekohtml', version='1.9.14')
 import org.cyberneko.html.parsers.SAXParser
+import java.util.zip.GZIPInputStream
 
 class Constants {
     static final NUM_THREADS = 10
@@ -73,7 +74,7 @@ class WebCrawler {
 
     private threadPool
     
-    WebCrawler(start_on) {
+    WebCrawler(start_on, defEncoding = "deflated, gzip") {
         startURL = start_on
 
         visitedURLs = new HashSet()
@@ -132,18 +133,26 @@ class WebCrawler {
                 cookies.each { cookie ->
                     connection.addRequestProperty("Cookie", cookie.split(";", 2)[0]);
                 }
+                connection.addRequestProperty("Accept-Encoding", defEncoding)
+                connection.connect()
                 
                 def response = connection.getResponseCode()
-                
                 if (rejectCode(response))
                     announceError(response, url)
- 
+
+                InputStream inputstream = connection.getInputStream()
+                def encoding = connection.getContentEncoding()
+                if (encoding == "gzip") {
+                    inputstream = new GZIPInputStream(inputstream)
+                }
+                def content = inputstream.text
+                
+                
                 def newCookies = connection.getHeaderFields().get("Set-Cookie");
                 if (newCookies != null) {
                     cookies = newCookies
                 }
                 
-                def content = connection.content.text
                 checkTemplatingErrors(content, url)
                 
                 gotResources += 1
@@ -214,15 +223,25 @@ class WebCrawler {
                 cookies.each { cookie ->
                     connection.addRequestProperty("Cookie", cookie.split(";", 2)[0]);
                 }
-
+                connection.addRequestProperty("Accept-Encoding", defEncoding)
                 connection.connect()
+                
+                def response = connection.getResponseCode()
+                if (rejectCode(response))
+                    announceError(response, url)
+                
+                InputStream inputstream = connection.getInputStream()
+                def encoding = connection.getContentEncoding()
+                if (encoding == "gzip") {
+                    inputstream = new GZIPInputStream(inputstream)
+                }
+                def content = inputstream.text
+
                 gotResources += 1
 
                 debugMessage("Fetching resource ${url}")
 
-                def response = connection.getResponseCode()
-                if (rejectCode(response))
-                    announceError(response, url)
+                
             } catch (Exception ex) {
                 debugMessage("Download failed: ${ex.getMessage()}")
             }
@@ -376,8 +395,11 @@ class WebCrawler {
 //_CLASS_WEBCRAWLER
 
 
+System.setProperty("http.keepAlive", "true")
 
 
+
+def encoding = null
 def pages
 try{
     pages = args
@@ -392,13 +414,19 @@ try{
                 pages << project.properties[it]
             }
         }
+        if (it.contains("encoding")) {
+            encoding = project.properties[it]
+        }
     }
 }
 
 def exitCode = 0
 
 pages.each{ page ->
-    crawler = new WebCrawler(page)
+    if (encoding)
+        crawler = new WebCrawler(page, encoding)
+    else
+        crawler = new WebCrawler(page)
     exitCode += crawler.getErrorStatus()
 }
 
