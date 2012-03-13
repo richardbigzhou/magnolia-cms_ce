@@ -210,6 +210,21 @@
               <source>${project.basedir}/src/main/groovy/crawl.groovy</source>
             </configuration>
           </execution>
+
+          <execution>
+            <id>log-parser</id>
+            <phase>integration-test</phase>
+            <goals>
+              <goal>execute</goal>
+            </goals>
+            <configuration>
+              <properties>
+                <logspath>${project.build.directory}/java-io-tmpdir/</logspath>
+              </properties>
+              <source>${project.basedir}/src/main/groovy/parselogs.groovy</source>
+            </configuration>
+          </execution>
+
         </executions>
       </plugin>
 
