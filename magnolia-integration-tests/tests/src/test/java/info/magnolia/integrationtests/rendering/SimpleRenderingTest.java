@@ -33,8 +33,8 @@
  */
 package info.magnolia.integrationtests.rendering;
 
-import static org.hamcrest.CoreMatchers.not;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThat;
 import static org.junit.matchers.JUnitMatchers.containsString;
 import info.magnolia.cms.util.ClasspathResourcesUtil;
 import info.magnolia.testframework.htmlunit.AbstractMagnoliaIntegrationTest;
@@ -44,11 +44,9 @@ import java.io.InputStream;
 import java.net.URL;
 
 import org.apache.commons.io.IOUtils;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import com.gargoylesoftware.htmlunit.Page;
-import com.gargoylesoftware.htmlunit.WebResponse;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 /**
@@ -65,42 +63,6 @@ public class SimpleRenderingTest extends AbstractMagnoliaIntegrationTest {
         final String allContents = IOUtils.toString(stream);
         assertThat(allContents, containsString("This file is currently not used !"));
     }
-
-    @Ignore("Should be reactivated when fixing SCRUM-325")
-    @Test
-    public void renderFreemarker() throws Exception {
-        simpleRenderingTests("/testpages/test_freemarker.html");
-    }
-
-    /**
-     * Tests rendering with new "style" introduced in Magnolia 4.0
-     */
-    @Ignore("Should be reactivated when fixing SCRUM-325")
-    @Test
-    public void renderJsp() throws Exception {
-        simpleRenderingTests("/testpages/test_jsp.html");
-    }
-
-    @Ignore("Should be reactivated when fixing SCRUM-325")
-    @Test
-    public void renderJspTagsOnly() throws Exception {
-        simpleRenderingTests("/testpages/test_jsp_tagsonly.html");
-    }
-
-    private void simpleRenderingTests(String path) throws IOException {
-        final HtmlPage page = openHtmlPage(Instance.AUTHOR, path, User.superuser);
-        saveToFile(page, new Throwable().getStackTrace()[1]);
-
-        final WebResponse webResponse = page.getWebResponse();
-        assertEquals(200, webResponse.getStatusCode());
-
-        final String allContents = webResponse.getContentAsString();
-
-        // TODO : the following won't be valid if we change the freemarker error handler
-        assertThat(allContents, not(containsString("<!-- FREEMARKER ERROR MESSAGE STARTS HERE -->")));
-        assertThat(allContents, containsString("no action result here"));
-    }
-
 
     @Test
     public void ensureTheSimplePlainTextTestPageIsReachable() throws IOException {

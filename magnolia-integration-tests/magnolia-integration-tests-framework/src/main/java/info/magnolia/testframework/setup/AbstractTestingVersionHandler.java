@@ -33,6 +33,10 @@
  */
 package info.magnolia.testframework.setup;
 
+import static info.magnolia.nodebuilder.Ops.addNode;
+import static info.magnolia.nodebuilder.Ops.addProperty;
+import static info.magnolia.nodebuilder.Ops.getNode;
+import static info.magnolia.nodebuilder.Ops.noop;
 import info.magnolia.module.AbstractModuleVersionHandler;
 import info.magnolia.module.InstallContext;
 import info.magnolia.module.delta.ArrayDelegateTask;
@@ -47,14 +51,11 @@ import info.magnolia.module.delta.Task;
 import info.magnolia.module.model.Version;
 import info.magnolia.nodebuilder.task.ErrorHandling;
 import info.magnolia.nodebuilder.task.ModuleNodeBuilderTask;
-import info.magnolia.nodebuilder.task.NodeBuilderTask;
 import info.magnolia.repository.RepositoryConstants;
 import info.magnolia.testframework.htmlunit.AbstractMagnoliaIntegrationTest;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static info.magnolia.nodebuilder.Ops.*;
 
 /**
  * A version handler which will only work on installs, to ensure we're working with a well-known setup,
@@ -63,7 +64,6 @@ import static info.magnolia.nodebuilder.Ops.*;
  * By default, it imports content into the website and config workspace using the properties file returned by
  * {@link #getWebsiteImportPropertiesFile()} and {@link #getConfigImportPropertiesFile()} respectively.
  *
- * @author gjoseph
  * @version $Revision: $ ($Author: $)
  */
 public abstract class AbstractTestingVersionHandler extends AbstractModuleVersionHandler {
@@ -87,7 +87,7 @@ public abstract class AbstractTestingVersionHandler extends AbstractModuleVersio
         list.add(new RegisterModuleServletsTask());
         list.add(new ModuleNodeBuilderTask("", "", ErrorHandling.strict,
                 addNode("templates", "mgnl:content"),
-                addNode("paragraphs", "mgnl:content"),
+                addNode("components", "mgnl:content"),
                 addNode("dialogs", "mgnl:content")
         ));
         list.add(new PropertiesImportTask("Test config content", "Imports content in the config workspace", "config", getConfigImportPropertiesFile()));
@@ -111,9 +111,6 @@ public abstract class AbstractTestingVersionHandler extends AbstractModuleVersio
         return new ModuleNodeBuilderTask("test template", "", ErrorHandling.strict,
                 getNode("templates").then(
                         addNode(name, "mgnl:contentNode").then(
-                                getNode("MetaData").then(
-                                        addProperty("mgnl:template", "test:" + name)
-                                ),
                                 addProperty("dialog", "sampleDialog"),
                                 addProperty("templateScript", templateScript),
                                 addProperty("renderType", renderType),
@@ -128,9 +125,6 @@ public abstract class AbstractTestingVersionHandler extends AbstractModuleVersio
         return new ModuleNodeBuilderTask("test component", "", ErrorHandling.strict,
                 getNode("templates").then(
                         addNode(name, "mgnl:contentNode").then(
-                                 getNode("MetaData").then(
-                                         addProperty("mgnl:template", "test:" + name)
-                                 ),
                                 addProperty("templateScript", templateScript),
                                 addProperty("renderType", renderType),
                                 modelClass != null ? addProperty("modelClass", modelClass.getName()) : noop()
@@ -153,32 +147,6 @@ public abstract class AbstractTestingVersionHandler extends AbstractModuleVersio
                 new CheckAndModifyPropertyValueTask(null, null, "website", "/testpages/" + newPageName + "/MetaData", "mgnl:title", "Archetype test page for rendering", newTitle),
                 new CheckAndModifyPropertyValueTask(null, null, "website", "/testpages/" + newPageName, "renderType", "foo", renderType),
                 new CheckAndModifyPropertyValueTask(null, null, "website", "/testpages/" + newPageName, "templateScript", "bar", templateScript)
-        );
-    }
-
-    protected NodeBuilderTask newTestPageForUiComponents(String pageName, String pageTemplateName) {
-        return new NodeBuilderTask("Test page for UI components", "", ErrorHandling.strict, "website",
-                getNode("testpages").then(
-                        addNode(pageName, "mgnl:content").then(
-                                getNode("MetaData").then(
-                                        addProperty("mgnl:template", "test:" + pageTemplateName),
-                                        addProperty("mgnl:title", "Testing UI components")
-                                ),
-                                addProperty("someProperty", "someValue"),
-                                addNode("templates", "mgnl:contentNode").then(
-                                        addNode("1", "mgnl:contentNode").then(
-                                                getNode("MetaData").then(
-                                                        addProperty("mgnl:template", "test:ftl_templating_ui")
-                                                )
-                                        ),
-                                        addNode("2", "mgnl:contentNode").then(
-                                                getNode("MetaData").then(
-                                                        addProperty("mgnl:template", "test:jsp_templating_ui")
-                                                )
-                                        )
-                                )
-                        )
-                )
         );
     }
 

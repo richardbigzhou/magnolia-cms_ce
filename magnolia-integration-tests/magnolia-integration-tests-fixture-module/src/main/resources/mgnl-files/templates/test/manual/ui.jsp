@@ -1,17 +1,14 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="ui" uri="http://magnolia-cms.com/taglib/templating-components" %>
-<%@ taglib prefix="cms" uri="cms-taglib" %>
-<%@ taglib prefix="cmsfn" uri="http://www.magnolia.info/tlds/cmsfn-taglib.tld" %>
+<%@ taglib prefix="cms" uri="http://magnolia-cms.com/taglib/templating-components/cms"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <html>
 <head>
     <title>${content.title}</title>
-    <cms:links/>
     <link href="<%=request.getContextPath()%>/docroot/test/style.css" type="text/css" rel="stylesheet"/>
+    <cms:init />
 </head>
 <body>
-<ui:page dialog="mainProperties" />
 
 <div id="test-description">
     <h1>Manual test for Templating UI Components - JSP</h1>
@@ -38,7 +35,6 @@
 
 <h1>Page properties:</h1>
 <div style="position:relative; float:left;">
-  <ui:edit dialog="otherPageProperties" editLabel="Other page properties" move="false" delete="false" />
 </div>
 <ul>
     <li>Title: ${content.title}</li>
@@ -48,25 +44,16 @@
 </ul>
 
 <h1>Singleton paragraph:</h1>
-<ui:singleton content="stage" paragraphs="test_1_jsp,test_2_ftl" >
-    <!-- the edit bar is in the rendered paragraph -->
-    <cms:includeTemplate contentNodeName="stage"/>
-</ui:singleton>
+<c:if test="${not empty stage}">
+  <cms:component content="${stage}"/>
+</c:if>
 
 <h1>Regular paragraphs:</h1>
 ${content.children}
-<cms:contentNodeIterator contentNodeCollectionName="myParagraphs">
-    <!-- edit bar are supposed to be in rendered paragraphs -->
-    <cms:includeTemplate/>
-</cms:contentNodeIterator>
 
-<h2>${content.untitled}</h2>
-<h2>New bar for the above:</h2>
-<%
-pageContext.setAttribute("paras", new String[]{"test_2_ftl", "test_3_ftl"});
-%>
-<ui:new container="myParagraphs" paragraphs="test_1_jsp,test_2_ftl"/>
-<ui:new container="myParagraphs" paragraphs="${paras}" newLabel="Add new content - custom label"/>
+<c:forEach items="${myParagraphs}" var="component">
+    <cms:component content="${component}" />
+</c:forEach>
 
 
 </body>

@@ -33,20 +33,20 @@
  */
 package info.magnolia.testframework.util;
 
-import info.magnolia.cms.core.Content;
+import javax.jcr.Node;
+
 import info.magnolia.cms.license.LicenseFileExtractor;
-import info.magnolia.module.templating.RenderableDefinition;
-import info.magnolia.module.templating.RenderingModel;
-import info.magnolia.module.templating.RenderingModelImpl;
+import info.magnolia.rendering.model.RenderingModel;
+import info.magnolia.rendering.model.RenderingModelImpl;
+import info.magnolia.rendering.template.RenderableDefinition;
 
 /**
  * A simple model used in tests which exposes Magnolia version info.
  *
- * @author gjoseph
  * @version $Revision: $ ($Author: $)
  */
-public class MagnoliaInfoModel extends RenderingModelImpl {
-    public MagnoliaInfoModel(Content content, RenderableDefinition renderable, RenderingModel parent) {
+public class MagnoliaInfoModel extends RenderingModelImpl<RenderableDefinition> {
+    public MagnoliaInfoModel(Node content, RenderableDefinition renderable, RenderingModel parent) {
         super(content, renderable, parent);
     }
 

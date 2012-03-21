@@ -210,7 +210,6 @@
               <source>${project.basedir}/src/main/groovy/crawl.groovy</source>
             </configuration>
           </execution>
-          <!--  TODO uncomment once MAGNOLIA-4047 is solved
           <execution>
             <id>log-parser</id>
             <phase>integration-test</phase>
@@ -224,7 +223,6 @@
               <source>${project.basedir}/src/main/groovy/parselogs.groovy</source>
             </configuration>
           </execution>
-          -->
         </executions>
       </plugin>
 

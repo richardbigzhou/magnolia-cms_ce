@@ -38,7 +38,6 @@ import info.magnolia.module.delta.BootstrapSingleResource;
 import info.magnolia.module.delta.IsAuthorInstanceDelegateTask;
 import info.magnolia.module.delta.Task;
 import info.magnolia.testframework.setup.AbstractTestingVersionHandler;
-import info.magnolia.testframework.util.ComponentModelForTests;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,7 +45,6 @@ import java.util.List;
 /**
  * A version handler setting up pages, templates, paragraphs, dialogs, based on properties files and archetypes.
  *
- * @author gjoseph
  * @version $Revision: $ ($Author: $)
  */
 public class SetupStuffForTests extends AbstractTestingVersionHandler {
@@ -65,34 +63,8 @@ public class SetupStuffForTests extends AbstractTestingVersionHandler {
     protected List<Task> getExtraInstallTasks(InstallContext installContext) {
         final ArrayList<Task> list = new ArrayList<Task>();
 
-        list.add(newTemplateDefinition("test_jsp_tagsonly", "/templates/test/templating_test_tagsonly.jsp", "jsp"));
-        list.add(newTemplateDefinition("test_jsp", "/templates/test/templating_test.jsp", "jsp"));
-        list.add(newTemplateDefinition("test_freemarker", "/templates/test/templating_test.ftl", "freemarker"));
-        list.add(newTemplateDefinition("test_freemarker_ui", "/templates/test/templating_test_ui.ftl", "freemarker"));
-        list.add(newTemplateDefinition("test_jsp_ui", "/templates/test/templating_test_ui.jsp", "jsp"));
-
-        list.add(newComponentDefinition("ftl_static", "/templates/test/para_static.ftl", "freemarker", null));
-        list.add(newComponentDefinition("ftl_dynamic", "/templates/test/para_dynamic.ftl", "freemarker", null));
-        list.add(newComponentDefinition("ftl_model", "/templates/test/para_with_model.ftl", "freemarker", ComponentModelForTests.class));
-        list.add(newComponentDefinition("ftl_templating_ui", "/templates/test/para_with_templating_ui_components.ftl", "freemarker", null));
-
-        list.add(newComponentDefinition("jsp_static", "/templates/test/para_static.jsp", "jsp", null));
-        list.add(newComponentDefinition("jsp_dynamic", "/templates/test/para_dynamic.jsp", "jsp", null));
-        list.add(newComponentDefinition("jsp_model", "/templates/test/para_with_model.jsp", "jsp", ComponentModelForTests.class));
-        list.add(newComponentDefinition("jspx_dynamic", "/templates/test/para_dynamic.jspx", "jsp", null));
-        list.add(newComponentDefinition("jsp_templating_ui", "/templates/test/para_with_templating_ui_components.jsp", "jsp", null));
-
-        list.add(copyArchetypeDialog("title_and_text_archetype", "mainProperties"));
-        list.add(copyArchetypeDialog("title_and_text_archetype", "dialog1"));
-        list.add(copyArchetypeDialog("title_and_text_archetype", "dialog2"));
-        list.add(copyArchetypeDialog("title_and_text_archetype", "dialog3"));
-
         list.add(copyArchetypePageAndChangeTemplate("Freemarker sample page", "test_freemarker", "test_freemarker", "Test page for Freemarker rendering", "freemarker", "/templates/test/dummy_test.ftl"));
-        list.add(copyArchetypePageAndChangeTemplate("JSP (tags only) sample page", "test_jsp_tagsonly", "test_jsp_tagsonly", "Test page for JSP rendering using tags only", "jsp", "/templates/test/dummy_test.jsp"));
         list.add(copyArchetypePageAndChangeTemplate("JSP sample page", "test_jsp", "test_jsp", "Test page for JSP rendering", "jsp", "/templates/test/dummy_test.jsp"));
-
-        list.add(newTestPageForUiComponents("test_freemarker_ui", "test_freemarker_ui"));
-        list.add(newTestPageForUiComponents("test_jsp_ui", "test_jsp_ui"));
 
         list.add(new IsAuthorInstanceDelegateTask("Bootstrap", "Bootstrap new web to author instance for PageAccessTest purposes", new BootstrapSingleResource("", "", "/info/magnolia/test/website.newtestpages.newplain.xml")));
 
