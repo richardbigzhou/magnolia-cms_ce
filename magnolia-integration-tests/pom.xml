@@ -53,6 +53,13 @@
           </exclusion>
         </exclusions>
       </dependency>
+      <!-- This is needed to run selenium tests for the magnolia-templating-editor -->
+      <dependency>
+        <groupId>org.seleniumhq.selenium.client-drivers</groupId>
+        <artifactId>selenium-java-client-driver</artifactId>
+        <version>1.0.1</version>
+        <scope>test</scope>
+      </dependency>
       <dependency>
         <groupId>org.slf4j</groupId>
         <artifactId>jcl-over-slf4j</artifactId>
