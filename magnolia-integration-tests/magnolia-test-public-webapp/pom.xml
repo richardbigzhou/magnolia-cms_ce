@@ -4,7 +4,7 @@
   <parent>
     <groupId>info.magnolia</groupId>
     <artifactId>magnolia-integration-tests-parent</artifactId>
-    <version>4.5.3-SNAPSHOT</version>
+    <version>4.5.2-SNAPSHOT</version>
   </parent>
   <artifactId>magnolia-test-public-webapp</artifactId>
   <packaging>war</packaging>
