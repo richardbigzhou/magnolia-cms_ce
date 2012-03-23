@@ -44,7 +44,7 @@ import org.junit.Test;
 import com.thoughtworks.selenium.DefaultSelenium;
 
 /**
- *
+ * FIXME fgrilli: do not depend on samples module as styles and page structure there might change.
  * @version $Id$
  *
  */
