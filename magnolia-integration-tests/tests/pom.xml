@@ -21,10 +21,6 @@
   Try to keep both in synch !
   -->
 
-  <properties>
-    <leaveContainerRunningAndDontExecuteTests>false</leaveContainerRunningAndDontExecuteTests>
-  </properties>
-
   <dependencies>
     <dependency>
       <groupId>info.magnolia</groupId>
