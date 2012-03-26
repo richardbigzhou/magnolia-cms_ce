@@ -84,6 +84,7 @@
 
   <build>
     <plugins>
+
       <!-- let surefire be executed only in the integration-test phase -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -230,39 +231,6 @@
           </execution>
         </executions>
       </plugin>
-      <!-- This is needed to run magnolia-templating-module integration tests which use Selenium. See info.magnolia.integrationtests.PageEditorTest.java -->
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>selenium-maven-plugin</artifactId>
-        <version>2.2</version>
-        <executions>
-         <!-- run in headless mode. See http://mojo.codehaus.org/selenium-maven-plugin/examples/headless-with-xvfb.html
-          <execution>
-           <id>xvfb</id>
-           <phase>pre-integration-test</phase>
-           <goals>
-             <goal>xvfb</goal>
-           </goals>
-          </execution>
-          -->
-          <execution>
-            <phase>pre-integration-test</phase>
-            <goals>
-              <goal>start-server</goal>
-            </goals>
-            <configuration>
-              <background>true</background>
-            </configuration>
-          </execution>
-          <execution>
-            <id>stop</id>
-            <phase>post-integration-test</phase>
-            <goals>
-               <goal>stop-server</goal>
-            </goals>
-        </execution>
-        </executions>
-       </plugin>
     </plugins>
   </build>
   <profiles>
@@ -337,7 +305,53 @@
         </jvmargs>
       </properties>
     </profile>
-
+    <!-- This profile will run magnolia-templating-module integration tests which use Selenium (see info.magnolia.integrationtests.PageEditorTest.java).
+         They have to be run on a separate VM as Selenium server needs a special configuration with Xvfb installed to run in headless mode.-->
+    <profile>
+      <id>selenium</id>
+      <properties>
+        <containerId>jetty6x</containerId>
+        <containerType>installed</containerType>
+        <configType>standalone</configType>
+        <url>http://dist.codehaus.org/jetty/jetty-6.1.22/jetty-6.1.22.zip</url>
+      </properties>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>selenium-maven-plugin</artifactId>
+            <version>2.2</version>
+            <executions>
+              <!-- run in headless mode. See http://mojo.codehaus.org/selenium-maven-plugin/examples/headless-with-xvfb.html -->
+              <execution>
+                <id>xvfb</id>
+                <phase>pre-integration-test</phase>
+                <goals>
+                  <goal>xvfb</goal>
+                </goals>
+              </execution>
+              <execution>
+                <id>start-selenium</id>
+                <phase>pre-integration-test</phase>
+                <goals>
+                  <goal>start-server</goal>
+                </goals>
+                <configuration>
+                  <background>true</background>
+                </configuration>
+              </execution>
+              <execution>
+                <id>stop-selenium</id>
+                <phase>post-integration-test</phase>
+                <goals>
+                  <goal>stop-server</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
     <!-- unfortunately doesn't work since JBoss doesn't recognize the java.security.auth.login.config property -->
     <!--
     <profile>
