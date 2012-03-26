@@ -84,7 +84,6 @@
 
   <build>
     <plugins>
-
       <!-- let surefire be executed only in the integration-test phase -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -112,7 +111,6 @@
         <artifactId>cargo-maven2-plugin</artifactId>
         <version>1.1.4</version>
         <configuration>
-          <wait>${leaveContainerRunningAndDontExecuteTests}</wait>
           <container>
             <containerId>${containerId}</containerId>
             <type>${containerType}</type>
@@ -234,12 +232,6 @@
     </plugins>
   </build>
   <profiles>
-    <profile>
-      <id>manual-tests</id>
-      <properties>
-        <leaveContainerRunningAndDontExecuteTests>true</leaveContainerRunningAndDontExecuteTests>
-      </properties>
-    </profile>
     <profile>
       <id>tomcat60</id>
       <properties>
