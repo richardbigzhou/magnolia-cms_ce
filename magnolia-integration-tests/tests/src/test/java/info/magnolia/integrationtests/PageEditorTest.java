@@ -45,11 +45,11 @@ import org.junit.Test;
 import com.thoughtworks.selenium.DefaultSelenium;
 
 /**
- * FIXME fgrilli: do not depend on samples module as styles and page structure there might change.
+ * FIXME fgrilli: see MAGNOLIA-4350.
  * @version $Id$
  *
  */
-@Ignore("We need to find a way not to execute these tests on display-less machines. See MAGNOLIA-4138")
+@Ignore("We need to find a way not to execute these tests on display-less machines. See MAGNOLIA-4349")
 public class PageEditorTest extends AbstractMagnoliaIntegrationTest {
     private static DefaultSelenium selenium;
     /**
