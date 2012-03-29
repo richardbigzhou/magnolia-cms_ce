@@ -14,7 +14,10 @@
     <!-- the Surefire and Cargo configuration below depends on the default-IDs for default plugin executions introduced in Maven 2.2 -->
     <maven>2.2.1</maven>
   </prerequisites>
-
+  
+  <properties>
+	<leaveContainerRunningAndDontExecuteTests>false</leaveContainerRunningAndDontExecuteTests>
+  </properties>
   <!--
   This pom (and most of this project, for that matter), has been copied to
   http://svn.magnolia-cms.com/svn/enterprise/bundle/trunk/magnolia-ee-integration-tests/tests
@@ -107,6 +110,7 @@
         <artifactId>cargo-maven2-plugin</artifactId>
         <version>1.1.4</version>
         <configuration>
+          <wait>${leaveContainerRunningAndDontExecuteTests}</wait>
           <container>
             <containerId>${containerId}</containerId>
             <type>${containerType}</type>
@@ -339,6 +343,12 @@
           </plugin>
         </plugins>
       </build>
+    </profile>
+    <profile>
+      <id>manual-tests</id>	 
+      <properties>	 
+        <leaveContainerRunningAndDontExecuteTests>true</leaveContainerRunningAndDontExecuteTests>	 
+      </properties>	 
     </profile>
     <!-- unfortunately doesn't work since JBoss doesn't recognize the java.security.auth.login.config property -->
     <!--
