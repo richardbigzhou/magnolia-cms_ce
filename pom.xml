@@ -19,9 +19,9 @@
 
   <properties>
     <magnoliaEdition>Community Edition</magnoliaEdition>
-    <magnoliaVersion>4.5.1</magnoliaVersion>
+    <magnoliaVersion>4.5.2-SNAPSHOT</magnoliaVersion>
     <documentationURL>http://documentation.magnolia-cms.com/releases/4-5-1.html</documentationURL>
-    <stkVersion>2.0.1</stkVersion>
+    <stkVersion>2.0.2-SNAPSHOT</stkVersion>
     <scmTagPrefix>magnolia-bundle</scmTagPrefix>
   </properties>
 
@@ -38,6 +38,11 @@
         <artifactId>magnolia-empty-webapp</artifactId>
         <version>${magnoliaVersion}</version>
         <type>pom</type>
+      </dependency>
+      <dependency>
+        <groupId>info.magnolia</groupId>
+        <artifactId>magnolia-templating-jsp</artifactId>
+        <version>${magnoliaVersion}</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
