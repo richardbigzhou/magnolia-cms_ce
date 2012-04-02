@@ -28,6 +28,7 @@
     <dependency>
       <groupId>info.magnolia</groupId>
       <artifactId>magnolia-module-dms</artifactId>
+      <type>jar</type>
     </dependency>
     <dependency>
       <groupId>info.magnolia</groupId>
