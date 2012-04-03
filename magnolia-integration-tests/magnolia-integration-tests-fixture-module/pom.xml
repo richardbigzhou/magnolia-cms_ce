@@ -3,7 +3,7 @@
   <parent>
     <groupId>info.magnolia</groupId>
     <artifactId>magnolia-integration-tests-parent</artifactId>
-    <version>4.5.2-SNAPSHOT</version>
+    <version>4.5.2</version>
   </parent>
   <groupId>info.magnolia</groupId>
   <artifactId>magnolia-integration-tests-fixture-module</artifactId>
@@ -14,7 +14,7 @@
     <dependency>
       <groupId>info.magnolia</groupId>
       <artifactId>magnolia-integration-tests-framework</artifactId>
-      <version>4.5.2-SNAPSHOT</version>
+      <version>4.5.2</version>
     </dependency>
     <dependency>
       <groupId>info.magnolia</groupId>
