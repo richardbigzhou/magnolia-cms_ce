@@ -19,9 +19,9 @@
 
   <properties>
     <magnoliaEdition>Community Edition</magnoliaEdition>
-    <magnoliaVersion>4.5.2</magnoliaVersion>
+    <magnoliaVersion>4.5.3-SNAPSHOT</magnoliaVersion>
     <documentationURL>http://documentation.magnolia-cms.com/releases/4-5-2.html</documentationURL>
-    <stkVersion>2.0.2</stkVersion>
+    <stkVersion>2.0.3-SNAPSHOT</stkVersion>
     <scmTagPrefix>magnolia-bundle</scmTagPrefix>
   </properties>
 
