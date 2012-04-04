@@ -31,7 +31,7 @@
  * intact.
  *
  */
-package info.magnolia.integrationtests;
+package info.magnolia.integrationtests.selenium;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -39,7 +39,6 @@ import info.magnolia.testframework.htmlunit.AbstractMagnoliaIntegrationTest;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import com.thoughtworks.selenium.DefaultSelenium;
@@ -49,7 +48,6 @@ import com.thoughtworks.selenium.DefaultSelenium;
  * @version $Id$
  *
  */
-@Ignore("We need to find a way not to execute these tests on display-less machines. See MAGNOLIA-4349")
 public class PageEditorTest extends AbstractMagnoliaIntegrationTest {
     private static DefaultSelenium selenium;
     /**

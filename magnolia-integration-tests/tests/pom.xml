@@ -14,7 +14,7 @@
     <!-- the Surefire and Cargo configuration below depends on the default-IDs for default plugin executions introduced in Maven 2.2 -->
     <maven>2.2.1</maven>
   </prerequisites>
-  
+
   <properties>
 	<leaveContainerRunningAndDontExecuteTests>false</leaveContainerRunningAndDontExecuteTests>
   </properties>
@@ -103,6 +103,12 @@
             </goals>
           </execution>
         </executions>
+        <configuration>
+          <!-- by default we exclude selenium tests as they need a special configuration. See also selenium profile below -->
+          <excludes>
+            <exclude>**/selenium/*Test.java</exclude>
+          </excludes>
+        </configuration>
       </plugin>
 
       <plugin>
@@ -309,6 +315,18 @@
       </properties>
       <build>
         <plugins>
+        <plugin>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <configuration>
+              <!-- here we can enable all tests. See also default plugin definition above -->
+              <includes>
+                <include>**/*Test.java</include>
+              </includes>
+              <excludes>
+                <exclude>-apparently-we-really-need-to-override-the-exclude-oh-well-</exclude>
+              </excludes>
+            </configuration>
+          </plugin>
           <plugin>
             <groupId>org.codehaus.mojo</groupId>
             <artifactId>selenium-maven-plugin</artifactId>
@@ -345,10 +363,10 @@
       </build>
     </profile>
     <profile>
-      <id>manual-tests</id>	 
-      <properties>	 
-        <leaveContainerRunningAndDontExecuteTests>true</leaveContainerRunningAndDontExecuteTests>	 
-      </properties>	 
+      <id>manual-tests</id>
+      <properties>
+        <leaveContainerRunningAndDontExecuteTests>true</leaveContainerRunningAndDontExecuteTests>
+      </properties>
     </profile>
     <!-- unfortunately doesn't work since JBoss doesn't recognize the java.security.auth.login.config property -->
     <!--
