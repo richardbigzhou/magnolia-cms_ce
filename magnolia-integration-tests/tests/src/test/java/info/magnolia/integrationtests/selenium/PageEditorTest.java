@@ -39,6 +39,7 @@ import info.magnolia.testframework.htmlunit.AbstractMagnoliaIntegrationTest;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.thoughtworks.selenium.DefaultSelenium;
@@ -48,6 +49,7 @@ import com.thoughtworks.selenium.DefaultSelenium;
  * @version $Id$
  *
  */
+@Ignore("Will be re-enabled once SYS-79 is solved.")
 public class PageEditorTest extends AbstractMagnoliaIntegrationTest {
     private static DefaultSelenium selenium;
     /**
