@@ -51,6 +51,9 @@ import com.thoughtworks.selenium.DefaultSelenium;
  */
 public class PageEditorTest extends AbstractMagnoliaIntegrationTest {
     private static DefaultSelenium selenium;
+
+    protected String timeoutInMillis = "3000";
+
     /**
      * @return the running Selenium server instance at <code>localhost:4444</code>.
      */
@@ -84,9 +87,27 @@ public class PageEditorTest extends AbstractMagnoliaIntegrationTest {
         assertTrue(selenium.isVisible("css=html body div#wrapper div#footer div#footer-element div.linkList ul div li div#__00.mgnlEditor div.mgnlEditorBarLabel"));
     }
 
+    @Test
+    public void testPreviewButtonTogglePreviewWithESCKey() throws Exception {
+        selenium.open(getTestPage() + "?mgnlUserId=superuser&mgnlUserPSWD=superuser&mgnlIntercept=PREVIEW&mgnlPreview=false");
+        //switch to preview mode
+        pressEscAndWait("css=div.mgnlEditorPreviewButton > button.mgnlEditorButton");
+        assertTrue(selenium.getLocation().contains("mgnlPreview=true"));
+        assertTrue(selenium.getLocation().contains("mgnlChannel=desktop"));
+
+        //back to edit mode
+        pressEscAndWait("css=button.mgnlEditorButton");
+        assertTrue(selenium.getLocation().contains("mgnlPreview=false"));
+    }
+
     @AfterClass
     public static void afterClassTearDown() throws Exception {
         selenium.stop();
+    }
+
+    protected void pressEscAndWait(final String locator) {
+        selenium.keyPress(locator, "\\13");
+        selenium.waitForPageToLoad(timeoutInMillis);
     }
 }
 
