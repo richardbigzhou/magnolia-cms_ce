@@ -41,11 +41,6 @@
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
-        <artifactId>magnolia-templating-jsp</artifactId>
-        <version>${magnoliaVersion}</version>
-      </dependency>
-      <dependency>
-        <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-dms</artifactId>
         <version>1.6.2-SNAPSHOT</version>
       </dependency>

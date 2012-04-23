@@ -23,10 +23,6 @@
     </dependency>
     <dependency>
       <groupId>info.magnolia</groupId>
-      <artifactId>magnolia-templating-jsp</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>info.magnolia</groupId>
       <artifactId>magnolia-module-dms</artifactId>
       <type>jar</type>
     </dependency>
