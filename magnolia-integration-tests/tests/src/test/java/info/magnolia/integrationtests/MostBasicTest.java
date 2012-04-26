@@ -54,7 +54,7 @@ public class MostBasicTest extends AbstractMagnoliaIntegrationTest {
     @Test
     public void authorInstanceShouldBePasswordProtected() throws Exception {
         final Page root = openPage(Instance.AUTHOR.getURL(""), null);
-        assertEquals(403, root.getWebResponse().getStatusCode());
+        assertEquals(401, root.getWebResponse().getStatusCode());
     }
 
     @Test
