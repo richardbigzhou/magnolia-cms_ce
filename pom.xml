@@ -128,10 +128,25 @@
     </plugins>
   </build>
 
-  <modules>
-    <module>magnolia-bundled-webapp</module>
-    <module>magnolia-integration-tests</module>
-    <module>magnolia-tomcat-bundle</module>
-  </modules>
+  <profiles>
+    <profile>
+      <id>tests-only</id>
+      <modules>
+        <module>magnolia-integration-tests</module>
+      </modules>
+    </profile>
+    <profile>
+      <id>all-modules</id>
+      <activation>
+        <!-- active only if no other profile is activated -->
+        <activeByDefault>true</activeByDefault>
+      </activation>
+      <modules>
+        <module>magnolia-bundled-webapp</module>
+        <module>magnolia-integration-tests</module>
+        <module>magnolia-tomcat-bundle</module>
+      </modules>
+    </profile>
+  </profiles>
 
 </project>
