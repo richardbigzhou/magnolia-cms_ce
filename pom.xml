@@ -12,9 +12,9 @@
   <name>magnolia-bundle-parent</name>
   <inceptionYear>2003</inceptionYear>
   <scm>
-    <connection>scm:svn:http://svn.magnolia-cms.com/svn/community/bundle/trunk</connection>
-    <developerConnection>scm:svn:http://svn.magnolia-cms.com/svn/community/bundle/trunk</developerConnection>
-    <url>http://svn.magnolia-cms.com/view/community/bundle/trunk</url>
+    <connection>scm:git:http://git.magnolia-cms.com/ce-bundle</connection>
+    <developerConnection>scm:git:https://git.magnolia-cms.com/ce-bundle</developerConnection>
+    <url>http://git.magnolia-cms.com/gitweb/?p=ce-bundle.git</url>
   </scm>
 
   <properties>
