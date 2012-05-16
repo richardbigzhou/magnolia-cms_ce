@@ -1,0 +1,121 @@
+
+# /
+/target
+/*.iml
+/*.ipr
+/*.iws
+/*.log
+/.idea
+/.project
+/.classpath
+/.settings
+
+# /magnolia-bundled-webapp/
+/magnolia-bundled-webapp/target
+/magnolia-bundled-webapp/overlays
+/magnolia-bundled-webapp/*.iml
+/magnolia-bundled-webapp/*.ipr
+/magnolia-bundled-webapp/*.iws
+/magnolia-bundled-webapp/*.log
+/magnolia-bundled-webapp/.project
+/magnolia-bundled-webapp/.classpath
+/magnolia-bundled-webapp/.settings
+/magnolia-bundled-webapp/src
+
+# /magnolia-integration-tests/
+/magnolia-integration-tests/target
+/magnolia-integration-tests/*.iml
+/magnolia-integration-tests/*.ipr
+/magnolia-integration-tests/*.iws
+/magnolia-integration-tests/*.log
+/magnolia-integration-tests/.project
+/magnolia-integration-tests/.classpath
+/magnolia-integration-tests/.settings
+
+# /magnolia-integration-tests/magnolia-integration-tests-fixture-module/
+/magnolia-integration-tests/magnolia-integration-tests-fixture-module/target
+/magnolia-integration-tests/magnolia-integration-tests-fixture-module/overlays
+/magnolia-integration-tests/magnolia-integration-tests-fixture-module/*.iml
+/magnolia-integration-tests/magnolia-integration-tests-fixture-module/*.ipr
+/magnolia-integration-tests/magnolia-integration-tests-fixture-module/*.iws
+/magnolia-integration-tests/magnolia-integration-tests-fixture-module/*.log
+/magnolia-integration-tests/magnolia-integration-tests-fixture-module/.project
+/magnolia-integration-tests/magnolia-integration-tests-fixture-module/.classpath
+/magnolia-integration-tests/magnolia-integration-tests-fixture-module/.settings
+
+# /magnolia-integration-tests/magnolia-integration-tests-framework/
+/magnolia-integration-tests/magnolia-integration-tests-framework/target
+/magnolia-integration-tests/magnolia-integration-tests-framework/overlays
+/magnolia-integration-tests/magnolia-integration-tests-framework/*.iml
+/magnolia-integration-tests/magnolia-integration-tests-framework/*.ipr
+/magnolia-integration-tests/magnolia-integration-tests-framework/*.iws
+/magnolia-integration-tests/magnolia-integration-tests-framework/*.log
+/magnolia-integration-tests/magnolia-integration-tests-framework/.project
+/magnolia-integration-tests/magnolia-integration-tests-framework/.classpath
+/magnolia-integration-tests/magnolia-integration-tests-framework/.settings
+
+# /magnolia-integration-tests/magnolia-module-servlet-sanity/
+/magnolia-integration-tests/magnolia-module-servlet-sanity/target
+/magnolia-integration-tests/magnolia-module-servlet-sanity/*.log
+/magnolia-integration-tests/magnolia-module-servlet-sanity/*.iml
+/magnolia-integration-tests/magnolia-module-servlet-sanity/*.ipr
+/magnolia-integration-tests/magnolia-module-servlet-sanity/*.iws
+/magnolia-integration-tests/magnolia-module-servlet-sanity/.idea
+/magnolia-integration-tests/magnolia-module-servlet-sanity/.project
+/magnolia-integration-tests/magnolia-module-servlet-sanity/.classpath
+/magnolia-integration-tests/magnolia-module-servlet-sanity/.settings
+
+# /magnolia-integration-tests/magnolia-test-public-webapp/
+/magnolia-integration-tests/magnolia-test-public-webapp/target
+/magnolia-integration-tests/magnolia-test-public-webapp/overlays
+/magnolia-integration-tests/magnolia-test-public-webapp/*.iml
+/magnolia-integration-tests/magnolia-test-public-webapp/*.ipr
+/magnolia-integration-tests/magnolia-test-public-webapp/*.iws
+/magnolia-integration-tests/magnolia-test-public-webapp/*.log
+/magnolia-integration-tests/magnolia-test-public-webapp/.project
+/magnolia-integration-tests/magnolia-test-public-webapp/.classpath
+/magnolia-integration-tests/magnolia-test-public-webapp/.settings
+
+# /magnolia-integration-tests/magnolia-test-webapp/
+/magnolia-integration-tests/magnolia-test-webapp/target
+/magnolia-integration-tests/magnolia-test-webapp/overlays
+/magnolia-integration-tests/magnolia-test-webapp/*.iml
+/magnolia-integration-tests/magnolia-test-webapp/*.ipr
+/magnolia-integration-tests/magnolia-test-webapp/*.iws
+/magnolia-integration-tests/magnolia-test-webapp/*.log
+/magnolia-integration-tests/magnolia-test-webapp/.project
+/magnolia-integration-tests/magnolia-test-webapp/.classpath
+/magnolia-integration-tests/magnolia-test-webapp/.settings
+
+# /magnolia-integration-tests/tests/
+/magnolia-integration-tests/tests/tmp
+/magnolia-integration-tests/tests/target
+/magnolia-integration-tests/tests/*.iml
+/magnolia-integration-tests/tests/*.ipr
+/magnolia-integration-tests/tests/*.iws
+/magnolia-integration-tests/tests/*.log
+/magnolia-integration-tests/tests/.project
+/magnolia-integration-tests/tests/.classpath
+/magnolia-integration-tests/tests/.settings
+/magnolia-integration-tests/tests/magnolia-integration-tests-fixture-module
+/magnolia-integration-tests/tests/magnolia-integration-tests-framework
+/magnolia-integration-tests/tests/magnolia-module-servlet-sanity
+/magnolia-integration-tests/tests/magnolia-test-public-webapp
+/magnolia-integration-tests/tests/magnolia-test-webapp
+/magnolia-integration-tests/tests/tests
+/magnolia-integration-tests/tests/WEB-INF
+
+# /magnolia-tomcat-bundle/
+/magnolia-tomcat-bundle/tmp
+/magnolia-tomcat-bundle/target
+/magnolia-tomcat-bundle/bin
+/magnolia-tomcat-bundle/.settings
+/magnolia-tomcat-bundle/.classpath
+/magnolia-tomcat-bundle/.project
+/magnolia-tomcat-bundle/.wtpmodules
+/magnolia-tomcat-bundle/*.iml
+/magnolia-tomcat-bundle/*.ipr
+/magnolia-tomcat-bundle/*.iws
+
+# /magnolia-tomcat-bundle/src/release/tomcat/
+/magnolia-tomcat-bundle/src/release/tomcat/
