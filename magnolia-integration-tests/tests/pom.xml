@@ -139,6 +139,12 @@
           <configuration>
             <type>${configType}</type>
             <home>${basedir}/tmp/cargo-home</home>
+            <configfiles>
+              <configfile>
+                <file>${basedir}/src/test/resources/jetty.xml</file>
+                <todir>/etc</todir>
+              </configfile>
+            </configfiles>
             <properties>
               <!-- TODO :
                Not all containers support passing args: http://cargo.codehaus.org/Jetty+6.x

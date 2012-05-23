@@ -49,7 +49,6 @@ import com.gargoylesoftware.htmlunit.Page;
  */
 public class PageActivationTest extends AbstractMagnoliaIntegrationTest {
 
-    @Ignore("Ignored until we solved MAGNOLIA-3912")
     @Test
     public void publicPageCheckWithActivation() throws Exception {
         //Tests if page exists on author instance
