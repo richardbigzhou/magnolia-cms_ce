@@ -4,7 +4,7 @@
   <parent>
     <groupId>info.magnolia</groupId>
     <artifactId>magnolia-parent-pom-ce</artifactId>
-    <version>23</version>
+    <version>22</version>
   </parent>
   <artifactId>magnolia-bundle-parent</artifactId>
   <packaging>pom</packaging>
@@ -12,9 +12,9 @@
   <name>magnolia-bundle-parent</name>
   <inceptionYear>2003</inceptionYear>
   <scm>
-    <connection>scm:git:http://git.magnolia-cms.com/ce-bundle</connection>
-    <developerConnection>scm:git:https://git.magnolia-cms.com/ce-bundle</developerConnection>
-    <url>http://git.magnolia-cms.com/gitweb/?p=ce-bundle.git</url>
+    <connection>scm:svn:http://svn.magnolia-cms.com/svn/community/bundle/trunk</connection>
+    <developerConnection>scm:svn:http://svn.magnolia-cms.com/svn/community/bundle/trunk</developerConnection>
+    <url>http://svn.magnolia-cms.com/view/community/bundle/trunk</url>
   </scm>
 
   <properties>
@@ -90,13 +90,6 @@
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
-        <artifactId>magnolia-templating-compatibility</artifactId>
-        <version>${magnoliaVersion}</version>
-        <classifier>bundle</classifier>
-        <type>tar.gz</type>
-      </dependency>
-      <dependency>
-        <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-groovy</artifactId>
         <version>1.2.2</version>
         <classifier>bundle</classifier>
@@ -128,25 +121,10 @@
     </plugins>
   </build>
 
-  <profiles>
-    <profile>
-      <id>tests-only</id>
-      <modules>
-        <module>magnolia-integration-tests</module>
-      </modules>
-    </profile>
-    <profile>
-      <id>all-modules</id>
-      <activation>
-        <!-- active only if no other profile is activated -->
-        <activeByDefault>true</activeByDefault>
-      </activation>
-      <modules>
-        <module>magnolia-bundled-webapp</module>
-        <module>magnolia-integration-tests</module>
-        <module>magnolia-tomcat-bundle</module>
-      </modules>
-    </profile>
-  </profiles>
+  <modules>
+    <module>magnolia-bundled-webapp</module>
+    <module>magnolia-integration-tests</module>
+    <module>magnolia-tomcat-bundle</module>
+  </modules>
 
 </project>

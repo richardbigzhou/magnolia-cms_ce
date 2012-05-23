@@ -93,12 +93,6 @@
     </dependency>
     <dependency>
       <groupId>info.magnolia</groupId>
-      <artifactId>magnolia-templating-compatibility</artifactId>
-      <classifier>bundle</classifier>
-      <type>tar.gz</type>
-    </dependency>
-    <dependency>
-      <groupId>info.magnolia</groupId>
       <artifactId>magnolia-templating-samples</artifactId>
       <classifier>bundle</classifier>
       <type>tar.gz</type>
