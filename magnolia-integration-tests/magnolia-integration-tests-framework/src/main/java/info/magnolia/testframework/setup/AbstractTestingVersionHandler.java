@@ -42,6 +42,7 @@ import info.magnolia.module.InstallContext;
 import info.magnolia.module.delta.ArrayDelegateTask;
 import info.magnolia.module.delta.CheckAndModifyPropertyValueTask;
 import info.magnolia.module.delta.CopyNodeTask;
+import info.magnolia.module.delta.RemoveNodeTask;
 import info.magnolia.module.delta.Delta;
 import info.magnolia.module.delta.ModuleFilesExtraction;
 import info.magnolia.module.delta.NodeExistsDelegateTask;
@@ -150,4 +151,7 @@ public abstract class AbstractTestingVersionHandler extends AbstractModuleVersio
         );
     }
 
+    protected Task removeArchetypePage() {
+        return new RemoveNodeTask("", "Remove archetype testpage", "website", "/testpages/test_template_archetype");
+    }
 }

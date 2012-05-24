@@ -66,7 +66,9 @@ public class SetupStuffForTests extends AbstractTestingVersionHandler {
         list.add(copyArchetypePageAndChangeTemplate("Freemarker sample page", "test_freemarker", "test_freemarker", "Test page for Freemarker rendering", "freemarker", "/templates/test/dummy_test.ftl"));
         list.add(copyArchetypePageAndChangeTemplate("JSP sample page", "test_jsp", "test_jsp", "Test page for JSP rendering", "jsp", "/templates/test/dummy_test.jsp"));
 
-        list.add(new IsAuthorInstanceDelegateTask("Bootstrap", "Bootstrap new web to author instance for PageAccessTest purposes", new BootstrapSingleResource("", "", "/info/magnolia/test/website.newtestpages.newplain.xml")));
+        list.add(removeArchetypePage());
+
+        list.add(new IsAuthorInstanceDelegateTask("Bootstrap", "Bootstrap new web to author instance for PageAccessTest purposes", new BootstrapSingleResource("", "", "/info/magnolia/test/website.newtestpages.xml")));
 
         return list;
     }
