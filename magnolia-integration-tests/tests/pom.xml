@@ -226,6 +226,28 @@
               <source>${project.basedir}/src/main/groovy/crawl.groovy</source>
             </configuration>
           </execution>
+          
+          <execution>
+            <id>activation-test</id>
+            <phase>integration-test</phase>
+            <goals>
+              <goal>execute</goal>
+            </goals>
+            <configuration>
+              <properties>
+                <login>superuser</login>
+                <password>superuser</password>
+                <inbox>false</inbox>
+                <authorUrl>http://localhost:8088/magnoliaTest/</authorUrl>
+                <publicUrl>http://localhost:8088/magnoliaTestPublic/</publicUrl>
+                <activatePage1>/ftl-sample-site</activatePage1>
+                <activatePage2>/jsp-sample-site</activatePage2>
+                <activatePage3>/sanity-test-page</activatePage3>
+              </properties>
+              <source>${project.basedir}/src/main/groovy/activationTest.groovy</source>
+            </configuration>
+          </execution>
+         
           <execution>
             <id>log-parser</id>
             <phase>integration-test</phase>
@@ -239,6 +261,7 @@
               <source>${project.basedir}/src/main/groovy/parselogs.groovy</source>
             </configuration>
           </execution>
+
         </executions>
       </plugin>
     </plugins>

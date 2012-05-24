@@ -1,5 +1,6 @@
+#!/usr/bin/env groovy
 /*
- * This file Copyright (c) 2010-2011 Magnolia International
+ * This file Copyright (c) 2012 Magnolia International
  * Ltd.  (http://www.magnolia-cms.com). All rights reserved.
  *
  *
@@ -41,7 +42,7 @@ class ActivationTest {
     private inbox
 
     static final DEBUG_MODE = true
-    static final WAIT_TIME = 5 * 1000 //in ms
+    def WAIT_TIME =  6 * 1000 //in ms
     
     ActivationTest(root, login) {
         this.login = login
@@ -58,8 +59,19 @@ class ActivationTest {
         this.inbox = "/.magnolia/pages/inbox.html"
     }
     
-    def setPublicInstance(url) {
-        this.publicRoot = url
+    def setPublicInstance(url, number = 0) {
+        this.publicRoot = []
+        if (number == 0)
+            this.publicRoot.add(url)
+        else { 
+            for (i in 1..number) {
+                this.publicRoot.add(url + i.toString())
+            }
+        }
+    }
+
+    def setWaitTime(time) {
+        WAIT_TIME = time
     }
 
 
@@ -106,6 +118,7 @@ class ActivationTest {
 
     def activate(path, comment) {
         def data = login + "&pathSelected=" + path + "&comment=" + comment + "&treeAction=2"
+        debugMsg(root + website + "?" + data)
         
         return sendrequest(data)
     }
@@ -157,9 +170,11 @@ class ActivationTest {
         
         //parse id
         def lines = r.split("\\r?\\n")
-        def id
+        def id = null
         lines.each {
-            if (it.contains(path)) {
+            if (it.contains(path + "'")) {
+                if (id != null)
+                    debugMsg("More instances of this page found in inbox. Activating the last one.")
                 def start_token = "{id : '"
                 def start = it.indexOf(start_token)
                 def end = it.indexOf("'", start + start_token.size())
@@ -177,11 +192,15 @@ class ActivationTest {
 
 
 
-    //----------
-    //Test cases
-    //----------
+    /**
+      * Test case for simple activation.
+      *
+      * Creates copy, checks it on public instances, 
+      * deletes copy, and checks that it's not on publics
+      *
+      */
     def testCase(page) {
-        def r = copyNode(page, page) // page -> page0
+        def r = copyNode(page, page)
         if (!r) {
             return null
         }
@@ -194,11 +213,15 @@ class ActivationTest {
         debugMsg("Copy created. Waiting ${WAIT_TIME/1000.0}s for activation.")
         sleep(WAIT_TIME)
 
-        debugMsg("GET: " + publicRoot + page + "0/")
-        r = httpRequest("GET", publicRoot + page + "0/")
-        if (!r) {
-            return null
+        this.publicRoot.each {
+            debugMsg("GET: " + it + page + "0/")
+            r = httpRequest("GET", it + page + "0/")
+            if (!r) {
+                throw new RuntimeException()
+                return null
+            }
         }
+
 
         r = deleteNode(page + "0")
         if (!r) {
@@ -213,18 +236,22 @@ class ActivationTest {
         debugMsg("Copy deleted. Waiting ${WAIT_TIME/1000.0}s for activation.")
         sleep(WAIT_TIME)
 
-        debugMsg("GET: " + publicRoot + page + "0/")
-        r = httpRequest("GET", publicRoot + page + "0/")
-        if (r != null) {
-            return null
+        this.publicRoot.each {
+            debugMsg("GET: " + it + page + "0/")
+            r = httpRequest("GET", it + page + "0/")
+            if (r != null) {
+                throw new RuntimeException()
+                return null
+            }
         }
 
         debugMsg("Success.")
         return 1
     }
 
+   
     def testCaseInbox(page) {
-        def r = copyNode(page, page) // page -> page0
+        def r = copyNode(page, page) // page -> page0, check copy, delete copy, check orig
         if (!r) {
             return null
         }
@@ -248,13 +275,16 @@ class ActivationTest {
             return null
         }
 
-        debugMsg("Accepted from inbox. Waiting ${WAIT_TIME/1000.0}s for activation.")
+        debugMsg("Proceed from inbox. Waiting ${WAIT_TIME/1000.0}s for activation.")
         sleep(WAIT_TIME)
 
-        debugMsg("GET: " + publicRoot + page + "0/")
-        r = httpRequest("GET", publicRoot + page + "0/")
-        if (!r) {
-            return null
+        this.publicRoot.each {
+            debugMsg("GET: " + it + page + "0/")
+            r = httpRequest("GET", it + page + "0/")
+            if (!r) {
+                throw new RuntimeException()
+                return null
+            }
         }
         
         r = deleteNode(page + "0")
@@ -280,22 +310,63 @@ class ActivationTest {
             return null
         }
 
-        debugMsg("Accepted from inbox. Waiting ${WAIT_TIME/1000.0}s for activation.")
+        debugMsg("Proceed from inbox. Waiting ${WAIT_TIME/1000.0}s for activation.")
         sleep(WAIT_TIME)
 
-        //debugMsg("GET: " + publicRoot + page + "0/")
-        r = httpRequest("GET", publicRoot + page + "0/")
-        if (r != null) {
-            return null
+        this.publicRoot.each {
+            debugMsg("GET: " + it + page)
+            r = httpRequest("GET", it + page)
+            if (!r) {
+                throw new RuntimeException()
+                return null // can't return from closure :(
+            }
         }
 
         debugMsg("Success.") 
         return 1
     }
 
+    def testCaseInbox2(page) { // just activate without changes & check
+        def r = activate(page, "Activating")
+        
+        if (!r)
+            return null
+
+        debugMsg("Page activated. Waiting ${WAIT_TIME/1000.0}s for activation.")
+        sleep(WAIT_TIME)
+        
+        def id
+        debugMsg("Searching inbox.html for id of the page.")
+        id = getInboxId(page)
+        println ">>>>>" + id
+        if (id) {
+            r = inboxProceed(id)
+            if (!r) {
+                return null
+            }
+            debugMsg("Proceed from inbox. Waiting ${WAIT_TIME/1000.0}s for activation.")
+            sleep(WAIT_TIME)
+        } else
+            debugMsg("Item not found in inbox!")
+            return null
+                
+        this.publicRoot.each {
+            debugMsg("GET: " + it + page)
+            r = httpRequest("GET", it + page)
+            if (!r) {
+                throw new RuntimeException()
+                return null // can't return from closure :(
+            }
+        }
+
+        debugMsg("="*20)
+        return 1
+    }
+ 
+
     def debugMsg(message) {
         if (DEBUG_MODE)
-            System.err.println "DEBUG: " + message
+            System.out.println "DEBUG: " + message
     }
 }
 
@@ -306,9 +377,12 @@ def root
 def publicRoot
 def login
 def password
-def pages
+def pages = null
 
 def inbox = false
+
+def numOfPublics = 0
+def wait = 6 * 1000
 
 try {
     def cli = new CliBuilder()
@@ -318,8 +392,10 @@ try {
         i longOpt:'inbox', 'Activation through inbox'
         a longOpt:'author', 'Set url of author instance', args:1
         p longOpt:'public', 'Set url of public instance', args:1
+        n longOpt:'num', 'Number of public instances', args:1
         l longOpt:'login', 'Set login', args:1
         s longOpt:'pass', 'Set password', args:1
+        t longOpt:'time', 'How long to wait after activation', args:1
     }
     def opt = cli.parse(args)
 
@@ -337,6 +413,13 @@ try {
 
     login = opt.l
     password = opt.s
+
+    if (opt.n)
+        numOfPublics = opt.n.toInteger()
+
+    if (opt.t)
+        wait = opt.t.toInteger()
+
 
     pages = opt.arguments()
 } catch (MissingPropertyException ex) {
@@ -369,17 +452,34 @@ if (!root || !login || !password) {
     return
 }
 
-
 def activator = new ActivationTest(root, "mgnlUserId=${login}&mgnlUserPSWD=${password}")
 if (publicRoot)
-    activator.setPublicInstance(publicRoot) 
+    activator.setPublicInstance(publicRoot, numOfPublics)
     //otherwise it just replaces 'Author' to 'Public' from author url
 
+activator.setWaitTime(wait)
 
-pages.each { page ->
+
+
+if (pages != null) {
+    pages.each { page ->
+        def result
+        if (page)
+            if (!inbox)
+                result = activator.testCase(page)
+            else
+                result = activator.testCaseInbox(page)
+
+        if (!result)
+            throw new RuntimeException("Activation didn't succeed.")
+    }
+} else System.in.eachLine() { page ->
     def result
     if (page)
-        result = activator.testCaseInbox(page)
+        if (!inbox)
+            result = activator.testCase(page)
+        else
+            result = activator.testCaseInbox(page)
 
     if (!result)
         throw new RuntimeException("Activation didn't succeed.")
