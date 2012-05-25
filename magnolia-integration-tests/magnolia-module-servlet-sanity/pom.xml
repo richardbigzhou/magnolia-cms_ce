@@ -37,7 +37,6 @@ See README.txt for details.
       <groupId>info.magnolia</groupId>
       <artifactId>magnolia-templating-compatibility-taglib-cms</artifactId>
       <version>${magnoliaVersion}</version>
-      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>javax.servlet</groupId>
