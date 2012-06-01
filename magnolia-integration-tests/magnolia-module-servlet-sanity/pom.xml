@@ -3,7 +3,7 @@
   <parent>
     <groupId>info.magnolia</groupId>
     <artifactId>magnolia-integration-tests-parent</artifactId>
-    <version>4.5.4-SNAPSHOT</version>
+    <version>4.5.3-SNAPSHOT</version>
   </parent>
   <groupId>info.magnolia</groupId>
   <artifactId>magnolia-module-servlet-sanity</artifactId>
@@ -32,11 +32,6 @@ See README.txt for details.
       <artifactId>magnolia-templating</artifactId>
       <version>${magnoliaVersion}</version>
       <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>info.magnolia</groupId>
-      <artifactId>magnolia-templating-compatibility-taglib-cms</artifactId>
-      <version>${magnoliaVersion}</version>
     </dependency>
     <dependency>
       <groupId>javax.servlet</groupId>

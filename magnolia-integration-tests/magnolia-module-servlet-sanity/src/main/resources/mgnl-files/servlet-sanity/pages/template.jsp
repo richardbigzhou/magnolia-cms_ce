@@ -1,9 +1,12 @@
+<%@ page language="java" contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page import="info.magnolia.module.servletsanity.support.ServletAssert" %>
-<%@ taglib uri="cms-taglib" prefix="cms" %>
+<%@ taglib prefix="cms" uri="http://magnolia-cms.com/taglib/templating-components/cms"%>
 
 <html>
+<head>
+<cms:init />
+</head>
 <body>
-<cms:mainBar adminButtonVisible="true" />
 
 <%
     try {
@@ -11,8 +14,8 @@
 
         ServletAssert.printRequestInfo(request, response, "template.jsp");
         ServletAssert.assertIsForward(request);
-        ServletAssert.assertRequestUri(request, "/servlet-sanity/template.jsp");
-        ServletAssert.assertServletPath(request, "/servlet-sanity/template.jsp");
+        ServletAssert.assertRequestUri(request, "/servlet-sanity/pages/template.jsp");
+        ServletAssert.assertServletPath(request, "/servlet-sanity/pages/template.jsp");
         ServletAssert.assertPathInfo(request, null);
 //        ServletAssert.assertQueryString(request, "p=12");
 
@@ -27,10 +30,7 @@
 
 <div style="border:1px solid black;padding:30px">
     <p>Template</p>
-    <cms:contentNodeIterator contentNodeCollectionName="main">
-        <cms:includeTemplate/>
-    </cms:contentNodeIterator>
-    <cms:newBar contentNodeCollectionName="main" paragraph="sanity-paragraph"/>
+    <cms:area name="main" />
 </div>
 
 <pre>
