@@ -100,6 +100,20 @@ public class PageEditorTest extends AbstractMagnoliaIntegrationTest {
         assertTrue(selenium.getLocation().contains("mgnlPreview=false"));
     }
 
+    @Test
+    public void testPreviewInTablet() {
+        selenium.open(getTestPage() + "?mgnlUserId=superuser&mgnlUserPSWD=superuser&mgnlIntercept=PREVIEW&mgnlPreview=false");
+        // preview drop-down list
+        selenium.click("css=button.mgnlEditorButton.mgnlEditorButton-previewMenuButton");
+        // tablet
+        selenium.click("id=gwt-uid-3");
+        // focus frame
+        selenium.selectFrame("class=mobilePreviewIframe");
+        selenium.waitForFrameToLoad("class=mobilePreviewIframe", timeoutInMillis);
+                
+        assertTrue(selenium.getLocation().contains("mgnlPreview=true"));
+    }
+
     @AfterClass
     public static void afterClassTearDown() throws Exception {
         selenium.stop();
