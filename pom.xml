@@ -123,6 +123,7 @@
 
   <modules>
     <module>magnolia-bundled-webapp</module>
+    <module>magnolia-empty-webapp</module>
     <module>magnolia-integration-tests</module>
     <module>magnolia-tomcat-bundle</module>
   </modules>
