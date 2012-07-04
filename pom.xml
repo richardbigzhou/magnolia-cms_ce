@@ -65,14 +65,14 @@
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-templating-samples</artifactId>
-        <version>${magnoliaVersion}</version>
+        <version>5.0-m5-s3</version>
         <classifier>bundle</classifier>
         <type>tar.gz</type>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-workflow</artifactId>
-        <version>${magnoliaVersion}</version>
+        <version>5.0-m5-s3</version>
         <classifier>bundle</classifier>
         <type>tar.gz</type>
       </dependency>
