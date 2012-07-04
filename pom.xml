@@ -4,7 +4,7 @@
   <parent>
     <groupId>info.magnolia</groupId>
     <artifactId>magnolia-parent-pom-ce</artifactId>
-    <version>23</version>
+    <version>24</version>
   </parent>
   <artifactId>magnolia-bundle-parent</artifactId>
   <packaging>pom</packaging>
@@ -19,26 +19,14 @@
 
   <properties>
     <magnoliaEdition>Community Edition</magnoliaEdition>
-    <magnoliaVersion>5.0-SNAPSHOT</magnoliaVersion>
+    <magnoliaVersion>5.0-m5-s3</magnoliaVersion>
     <documentationURL>http://documentation.magnolia-cms.com/releases/4-5-3.html</documentationURL>
-    <stkVersion>2.0.4-SNAPSHOT</stkVersion>
+    <stkVersion>2.0.3</stkVersion>
     <scmTagPrefix>magnolia-bundle</scmTagPrefix>
   </properties>
 
   <dependencyManagement>
     <dependencies>
-      <dependency>
-        <groupId>info.magnolia</groupId>
-        <artifactId>magnolia-empty-webapp</artifactId>
-        <version>${magnoliaVersion}</version>
-        <type>war</type>
-      </dependency>
-      <dependency>
-        <groupId>info.magnolia</groupId>
-        <artifactId>magnolia-empty-webapp</artifactId>
-        <version>${magnoliaVersion}</version>
-        <type>pom</type>
-      </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-dms</artifactId>
