@@ -103,15 +103,36 @@ public class PageEditorTest extends AbstractMagnoliaIntegrationTest {
     @Test
     public void testPreviewInTablet() {
         selenium.open(getTestPage() + "?mgnlUserId=superuser&mgnlUserPSWD=superuser&mgnlIntercept=PREVIEW&mgnlPreview=false");
-        // preview drop-down list
+        //preview drop-down list
         selenium.click("css=button.mgnlEditorButton.mgnlEditorButton-previewMenuButton");
-        // tablet
+        //tablet
         selenium.click("id=gwt-uid-3");
-        // focus frame
+        //focus frame
         selenium.selectFrame("class=mobilePreviewIframe");
         selenium.waitForFrameToLoad("class=mobilePreviewIframe", timeoutInMillis);
                 
         assertTrue(selenium.getLocation().contains("mgnlPreview=true"));
+    }
+
+    @Test
+    public void testAddAreaOpensEditDialogOnOneAvailableComponent() {
+        selenium.open(getTestPage() + "/ftl-howTo.html?mgnlUserId=superuser&mgnlUserPSWD=superuser");
+
+        //stage area has only one available component
+        //GWT button click workaround
+        selenium.mouseOver("//div[@id=\"stage\"]//div[@class=\"mgnlEditorPushButton add mgnlEditorPushButton-up\"]");
+        selenium.mouseDown("//div[@id=\"stage\"]//div[@class=\"mgnlEditorPushButton add mgnlEditorPushButton-up-hovering\"]");
+        selenium.mouseUp("//div[@id=\"stage\"]//div[@class=\"mgnlEditorPushButton add mgnlEditorPushButton-down-hovering\"]");
+        selenium.waitForPageToLoad(timeoutInMillis);
+    
+        //click at Add Area Box
+        selenium.clickAt("//div[@id='stage']//div[@class='mgnlEditorPlaceholderElements']", "");
+        selenium.waitForPopUp("", timeoutInMillis);
+        selenium.selectPopUp("");
+        String url = selenium.getLocation();
+        
+        assertTrue(selenium.getLocation().contains("editParagraph.html"));
+        selenium.close();
     }
 
     @AfterClass
