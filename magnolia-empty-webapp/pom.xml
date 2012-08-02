@@ -11,7 +11,7 @@
   <name>magnolia-empty-webapp</name>
   <description>The basic Magnolia webapp on which projects can depend.</description>
   <properties>
-    <magnoliaVersion>5.0-SNAPSHOT</magnoliaVersion>
+    <magnoliaVersion>5.0-m5-s5</magnoliaVersion>
   </properties>
   <profiles>
     <profile>
