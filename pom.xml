@@ -29,6 +29,18 @@
   <dependencyManagement>
     <dependencies>
       <dependency>
+         <groupId>info.magnolia.ui</groupId>
+         <artifactId>magnolia-ui-webapp</artifactId>
+         <version>${magnoliaVersion}</version>
+         <type>pom</type>
+      </dependency>
+      <dependency>
+         <groupId>info.magnolia.ui</groupId>
+         <artifactId>magnolia-ui-webapp</artifactId>
+         <version>${magnoliaVersion}</version>
+         <type>war</type>
+      </dependency>
+      <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-dms</artifactId>
         <version>1.6.2</version>
@@ -111,7 +123,6 @@
   </build>
 
   <modules>
-    <module>magnolia-empty-webapp</module>
     <module>magnolia-bundled-webapp</module>
     <module>magnolia-integration-tests</module>
     <module>magnolia-tomcat-bundle</module>
