@@ -67,11 +67,16 @@
       <version>${magnoliaVersion}</version>
     </dependency>
     <dependency>
+      <groupId>info.magnolia.ui</groupId>
+      <artifactId>magnolia-ui-app-instant-preview</artifactId>
+      <version>${magnoliaVersion}</version>
+    </dependency>
+
+    <dependency>
       <groupId>info.magnolia</groupId>
       <artifactId>magnolia-templating-samples</artifactId>
       <version>${magnoliaVersion}</version>
     </dependency>
-
     <dependency>
       <groupId>info.magnolia</groupId>
       <artifactId>magnolia-rendering</artifactId>
