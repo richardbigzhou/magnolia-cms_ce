@@ -22,6 +22,17 @@
 /magnolia-bundled-webapp/.settings
 /magnolia-bundled-webapp/src
 
+# /magnolia-empty-webapp/
+/magnolia-empty-webapp/target
+/magnolia-empty-webapp/*.iml
+/magnolia-empty-webapp/*.ipr
+/magnolia-empty-webapp/*.iws
+/magnolia-empty-webapp/*.log
+/magnolia-empty-webapp/.project
+/magnolia-empty-webapp/.classpath
+/magnolia-empty-webapp/.settings
+/magnolia-empty-webapp/src
+
 # /magnolia-integration-tests/
 /magnolia-integration-tests/target
 /magnolia-integration-tests/*.iml

@@ -2,6 +2,9 @@
 <%@ taglib prefix="cms" uri="http://magnolia-cms.com/taglib/templating-components/cms"%>
 
 <%
+    // We don't test the query strings here because Tomcat and Jetty disagrees on what their values should be. Jetty
+    // combines them making it p=12&a=2 while Tomcat simply uses the part given to the forward which is p=12
+
     ServletAssert.printRequestInfo(request, response, "paragraph.jsp");
     ServletAssert.assertIsInclude(request);
     ServletAssert.assertRequestUri(request, "/servlet-sanity/pages/template.jsp");

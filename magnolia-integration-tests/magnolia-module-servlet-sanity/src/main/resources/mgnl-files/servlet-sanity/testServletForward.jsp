@@ -1,6 +1,9 @@
 <%@ page import="info.magnolia.module.servletsanity.support.ServletAssert" %>
 
 <%
+    // We don't test the query strings here because Tomcat and Jetty disagrees on what their values should be. Jetty
+    // combines them making it p=12&a=2 while Tomcat simply uses the part given to the forward which is p=12
+
     ServletAssert.printRequestInfo(request, response, "testServletForward.jsp");
     ServletAssert.assertIsForward(request);
     ServletAssert.assertRequestUri(request, "/servlet-sanity/testServletForward.jsp");

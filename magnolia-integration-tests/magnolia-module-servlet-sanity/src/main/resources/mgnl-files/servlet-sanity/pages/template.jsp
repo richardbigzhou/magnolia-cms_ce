@@ -9,6 +9,9 @@
 <body>
 
 <%
+    // We don't test the query strings here because Tomcat and Jetty disagrees on what their values should be. Jetty
+    // combines them making it p=12&a=2 while Tomcat simply uses the part given to the forward which is p=12
+
     try {
         ServletAssert.begin();
 

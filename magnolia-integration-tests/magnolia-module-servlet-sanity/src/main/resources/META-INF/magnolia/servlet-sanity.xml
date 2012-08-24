@@ -16,15 +16,15 @@
   <dependencies>
     <dependency>
       <name>core</name>
-      <version>4.5/*</version>
+      <version>5.0/*</version>
     </dependency>
     <dependency>
       <name>adminInterface</name>
-      <version>4.5/*</version>
+      <version>5.0/*</version>
     </dependency>
     <dependency>
       <name>templating</name>
-      <version>4.5/*</version>
+      <version>5.0/*</version>
     </dependency>
   </dependencies>
   <servlets>
