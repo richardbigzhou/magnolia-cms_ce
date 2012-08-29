@@ -66,12 +66,13 @@
       <artifactId>magnolia-ui-app-messages</artifactId>
       <version>${magnoliaVersion}</version>
     </dependency>
+    <!-- temporarily disabled see SCRUM-1670 
     <dependency>
       <groupId>info.magnolia.ui</groupId>
       <artifactId>magnolia-ui-app-instant-preview</artifactId>
       <version>${magnoliaVersion}</version>
     </dependency>
-
+	-->	
     <dependency>
       <groupId>info.magnolia</groupId>
       <artifactId>magnolia-templating-samples</artifactId>
