@@ -21,7 +21,7 @@
   <properties>
     <magnoliaEdition>Community Edition</magnoliaEdition>
     <magnoliaVersion>5.0-prev1-rc1</magnoliaVersion>
-    <magnoliaUiVersion>5.0-prev1-rc1</magnoliaUiVersion>
+    <magnoliaUiVersion>5.0-prev1-rc2</magnoliaUiVersion>
     <documentationURL>http://documentation.magnolia-cms.com/releases/4-5-3.html</documentationURL>
     <stkVersion>2.5-prev1-rc1</stkVersion>
     <scmTagPrefix>magnolia-bundle</scmTagPrefix>
