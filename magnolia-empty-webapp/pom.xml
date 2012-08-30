@@ -19,11 +19,6 @@
       <dependencies>
         <dependency>
           <groupId>info.magnolia</groupId>
-          <artifactId>magnolia-module-workflow</artifactId>
-          <version>5.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-          <groupId>info.magnolia</groupId>
           <artifactId>magnolia-module-dms</artifactId>
           <version>1.6.1</version>
         </dependency>
@@ -39,32 +34,32 @@
     <dependency>
       <groupId>info.magnolia.ui</groupId>
       <artifactId>magnolia-ui-admincentral</artifactId>
-      <version>${magnoliaVersion}</version>
+      <version>${magnoliaUiVersion}</version>
     </dependency>
     <dependency>
       <groupId>info.magnolia.ui</groupId>
       <artifactId>magnolia-ui-vaadin-widgetset</artifactId>
-      <version>${magnoliaVersion}</version>
+      <version>${magnoliaUiVersion}</version>
     </dependency>
     <dependency>
       <groupId>info.magnolia.ui</groupId>
       <artifactId>magnolia-ui-app-sample</artifactId>
-      <version>${magnoliaVersion}</version>
+      <version>${magnoliaUiVersion}</version>
     </dependency>
     <dependency>
       <groupId>info.magnolia.ui</groupId>
       <artifactId>magnolia-ui-app-pages</artifactId>
-      <version>${magnoliaVersion}</version>
+      <version>${magnoliaUiVersion}</version>
     </dependency>
     <dependency>
       <groupId>info.magnolia.ui</groupId>
       <artifactId>magnolia-ui-app-contacts</artifactId>
-      <version>${magnoliaVersion}</version>
+      <version>${magnoliaUiVersion}</version>
     </dependency>
     <dependency>
       <groupId>info.magnolia.ui</groupId>
       <artifactId>magnolia-ui-app-messages</artifactId>
-      <version>${magnoliaVersion}</version>
+      <version>${magnoliaUiVersion}</version>
     </dependency>
     <!-- temporarily disabled see SCRUM-1670
     <dependency>
@@ -131,7 +126,6 @@
     <dependency>
       <groupId>info.magnolia</groupId>
       <artifactId>magnolia-module-mail</artifactId>
-      <version>5.0-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>info.magnolia</groupId>
