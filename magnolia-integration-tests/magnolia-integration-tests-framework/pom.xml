@@ -32,8 +32,6 @@
     <dependency>
       <groupId>info.magnolia</groupId>
       <artifactId>magnolia-templating-compatibility</artifactId>
-      <version>5.0-SNAPSHOT</version>
-      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>junit</groupId>

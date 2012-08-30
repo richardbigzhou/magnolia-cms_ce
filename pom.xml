@@ -20,10 +20,10 @@
 
   <properties>
     <magnoliaEdition>Community Edition</magnoliaEdition>
-    <magnoliaVersion>5.0-SNAPSHOT</magnoliaVersion>
-    <magnoliaUiVersion>5.0-SNAPSHOT</magnoliaUiVersion>
+    <magnoliaVersion>5.0-prev1-rc1</magnoliaVersion>
+    <magnoliaUiVersion>5.0-prev1-rc1</magnoliaUiVersion>
     <documentationURL>http://documentation.magnolia-cms.com/releases/4-5-3.html</documentationURL>
-    <stkVersion>2.5-SNAPSHOT</stkVersion>
+    <stkVersion>2.5-prev1-rc1</stkVersion>
     <scmTagPrefix>magnolia-bundle</scmTagPrefix>
   </properties>
 
@@ -42,7 +42,12 @@
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-groovy</artifactId>
-        <version>1.2.4-SNAPSHOT</version>
+        <version>1.2.3</version>
+      </dependency>
+      <dependency>
+        <groupId>info.magnolia</groupId>
+        <artifactId>magnolia-module-mail</artifactId>
+        <version>5.0-prev1-rc1</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
@@ -70,6 +75,24 @@
         <version>${magnoliaVersion}</version>
         <classifier>bundle</classifier>
         <type>tar.gz</type>
+      </dependency>
+      <dependency>
+        <groupId>info.magnolia</groupId>
+        <artifactId>magnolia-templating-compatibility</artifactId>
+        <version>4.5.3</version>
+        <scope>provided</scope>
+      </dependency>
+      <dependency>
+        <groupId>info.magnolia</groupId>
+        <artifactId>magnolia-templating-compatibility-taglib-cms</artifactId>
+        <version>4.5.3</version>
+        <scope>provided</scope>
+      </dependency>
+      <dependency>
+        <groupId>info.magnolia</groupId>
+        <artifactId>magnolia-templating-compatibility-taglib-utility</artifactId>
+        <version>4.5.3</version>
+        <scope>provided</scope>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>

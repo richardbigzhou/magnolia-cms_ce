@@ -32,7 +32,6 @@
     <dependency>
       <groupId>info.magnolia</groupId>
       <artifactId>magnolia-templating-compatibility-taglib-cms</artifactId>
-      <version>${magnoliaVersion}</version>
     </dependency>
     <dependency>
       <groupId>info.magnolia</groupId>
