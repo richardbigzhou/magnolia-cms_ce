@@ -22,11 +22,11 @@
      <include primaryType="mgnl:component">*/*/*</include>
      <include primaryType="mgnl:component">*/*/*/*</include>
    </aggregate>
+
   <!-- To sort pages by metadata properties avoiding joins -->
   <aggregate primaryType="mgnl:page">
     <include>mgnl:metaData</include>
     <include>mgnl:metaData/mgnl:lastmodified</include>
-    <include>mgnl:metaData/mgnl:activated</include>
   </aggregate>
 
 </configuration>
