@@ -269,9 +269,6 @@
   <profiles>
     <profile>
       <id>tomcat60</id>
-      <activation>
-        <activeByDefault>true</activeByDefault>
-      </activation>
       <properties>
         <containerId>tomcat6x</containerId>
         <containerType>installed</containerType>
@@ -282,6 +279,9 @@
     <profile>
       <!-- memory issues with jsp - cargo.jvmargs not supported -->
       <id>jetty6-standalone</id>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
       <properties>
         <containerId>jetty6x</containerId>
         <containerType>installed</containerType>
