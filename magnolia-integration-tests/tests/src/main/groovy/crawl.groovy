@@ -49,6 +49,9 @@ class Constants {
     static final blacklist = ["?mgnlLogout"]
 
     static final DEBUG_MODE = false
+
+    // on author instance, get pages in preview mode
+    static final PREVIEW_MODE = true
 }
 import static Constants.*
 
@@ -85,6 +88,9 @@ class WebCrawler {
 
         // start on this URL:
         unvisitedURLs << ["url" : startURL, "depth" : 0]
+        if (PREVIEW_MODE) {
+            unvisitedURLs << ["url" : startURL + "&mgnlInterept=PREVIEW&mgnlPreview=true", "depth" : 0]
+        }
         topBase = startURL[0..startURL.lastIndexOf('/')]
 
         cookies = []
@@ -163,9 +169,21 @@ class WebCrawler {
                 links.each { link ->
                     def linkURL = [:]
                     linkURL["url"] = rebuildURL(host, base, link)
+                    if (link.contains("?"))
+                        linkURL["url"] += "&mgnlIntercept=PREVIEW&mgnlPreview=false"
+                    else
+                         linkURL["url"] += "?mgnlIntercept=PREVIEW&mgnlPreview=false"
                     linkURL["depth"] = depth + 1
-
                     addPage(linkURL)
+                   
+
+                    if (PREVIEW_MODE) {
+                        def linkURLPreview = [:]
+                        linkURLPreview["url"] = linkURL["url"].replaceAll(/false$/,"true")
+                        linkURLPreview["depth"] = depth + 1
+                        
+                        addPage(linkURLPreview)
+                    }
                 }
                
                 if (GET_IMAGES) {
@@ -218,6 +236,7 @@ class WebCrawler {
                     continue
  
                 def page = new URL(url)
+
                 def connection = page.openConnection()
              
                 cookies.each { cookie ->
@@ -279,8 +298,8 @@ class WebCrawler {
 
     def checkTemplatingErrors(content, url) {
         content = content.replaceAll(/\n/," ")
-        if ((content ==~ /^\s*$/) || (content ==~ /.*[Tt]emplate [Ee]rror.*/) ||
-            (content ==~ /.*RenderException.*/)) {
+        if ((content ==~ /^\s*$/) || (content ==~ /(?s).*[Tt]emplate [Ee]rror.*/) ||
+            (content ==~ /(?s).*RenderException.*/)) {
            announceError("Templating", url)
         }
     }
@@ -345,10 +364,10 @@ class WebCrawler {
     synchronized addPage(newURL) {
         if ( newURL != null && newURL["url"] != null && 
               newURL["url"].contains(topBase) && !visitedURLs.contains(newURL["url"])) {
+
             def contains = unvisitedURLs.any {
                 it["url"] == newURL["url"]
             }
-
             def blacklisted = blacklist.any {
                 newURL["url"].contains(it)
             }
@@ -408,8 +427,9 @@ try{
     project.properties.keySet().each {
         if (it.contains("geturl")) {
             if (it.contains("geturlauth")) {
+                //property value in maven can't contain '=' character, nor '%' for url encoding.
+        		//hence, we need to construct URI here.
                 pages << project.properties[it] + "?mgnlUserId=${project.properties["login"]}&mgnlUserPSWD=${project.properties["password"]}"
-                //property value can't contain '=' character, nor '%' for url encoding...
             } else {
                 pages << project.properties[it]
             }
