@@ -20,10 +20,10 @@
 
   <properties>
     <magnoliaEdition>Community Edition</magnoliaEdition>
-    <magnoliaVersion>5.0-SNAPSHOT</magnoliaVersion>
-    <magnoliaUiVersion>5.0-SNAPSHOT</magnoliaUiVersion>
+    <magnoliaVersion>5.0-alpha1-s7</magnoliaVersion>
+    <magnoliaUiVersion>5.0-alpha1-s7</magnoliaUiVersion>
     <documentationURL>http://documentation.magnolia-cms.com/releases/5.0.html</documentationURL>
-    <stkVersion>2.5-SNAPSHOT</stkVersion>
+    <stkVersion>2.5-alpha1-s7</stkVersion>
     <scmTagPrefix>magnolia-bundle</scmTagPrefix>
   </properties>
 
@@ -72,9 +72,15 @@
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-templating-samples</artifactId>
-        <version>${magnoliaVersion}</version>
+        <version>5.0-alpha1-s7</version>
         <classifier>bundle</classifier>
         <type>tar.gz</type>
+      </dependency>
+      <dependency>
+        <groupId>info.magnolia</groupId>
+        <artifactId>magnolia-templating-samples</artifactId>
+        <version>5.0-alpha1-s7</version>
+        <type>jar</type>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>

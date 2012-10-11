@@ -273,7 +273,7 @@
         <containerId>tomcat6x</containerId>
         <containerType>installed</containerType>
         <configType>standalone</configType>
-        <url>http://archive.apache.org/dist/tomcat/tomcat-6/v6.0.24/bin/apache-tomcat-6.0.24.tar.gz</url>
+        <url>http://archive.apache.org/dist/tomcat/tomcat-6/v6.0.32/bin/apache-tomcat-6.0.32.tar.gz</url>
       </properties>
     </profile>
     <profile>
