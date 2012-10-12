@@ -14,3 +14,4 @@ magnolia.initialization.file context parameter in WEB.xml);
  *      WEB-INF/config/${webapp}/magnolia.properties,
  *      WEB-INF/config/default/magnolia.properties,
  *      WEB-INF/config/magnolia.properties
+
