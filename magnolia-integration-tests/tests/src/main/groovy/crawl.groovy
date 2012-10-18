@@ -87,9 +87,15 @@ class WebCrawler {
         unvisitedData = new LinkedList()
 
         // start on this URL:
+        if (startURL.contains("?"))
+                startURL += "&"
+            else
+                startURL += "?"
+        startURL += "mgnlIntercept=PREVIEW&mgnlPreview=false"
         unvisitedURLs << ["url" : startURL, "depth" : 0]
+
         if (PREVIEW_MODE) {
-            unvisitedURLs << ["url" : startURL + "&mgnlIntercept=PREVIEW&mgnlPreview=true", "depth" : 0]
+            unvisitedURLs << ["url" : startURL.replaceAll(/false$/,"true"), "depth" : 0]
         }
         topBase = startURL[0..startURL.lastIndexOf('/')]
 
@@ -170,9 +176,11 @@ class WebCrawler {
                     def linkURL = [:]
                     linkURL["url"] = rebuildURL(host, base, link)
                     if (link.contains("?"))
-                        linkURL["url"] += "&mgnlIntercept=PREVIEW&mgnlPreview=false"
+                        linkURL["url"] += "&"
                     else
-                         linkURL["url"] += "?mgnlIntercept=PREVIEW&mgnlPreview=false"
+                         linkURL["url"] += "?"
+                    linkURL["url"] += "mgnlIntercept=PREVIEW&mgnlPreview=false"
+
                     linkURL["depth"] = depth + 1
                     addPage(linkURL)
                    
