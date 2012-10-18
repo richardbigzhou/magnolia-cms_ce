@@ -89,7 +89,7 @@ class WebCrawler {
         // start on this URL:
         unvisitedURLs << ["url" : startURL, "depth" : 0]
         if (PREVIEW_MODE) {
-            unvisitedURLs << ["url" : startURL + "&mgnlInterept=PREVIEW&mgnlPreview=true", "depth" : 0]
+            unvisitedURLs << ["url" : startURL + "&mgnlIntercept=PREVIEW&mgnlPreview=true", "depth" : 0]
         }
         topBase = startURL[0..startURL.lastIndexOf('/')]
 
