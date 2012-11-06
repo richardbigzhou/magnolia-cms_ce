@@ -20,10 +20,10 @@
 
   <properties>
     <magnoliaEdition>Community Edition</magnoliaEdition>
-    <magnoliaVersion>5.0-prev1-rc1</magnoliaVersion>
-    <magnoliaUiVersion>5.0-prev1-rc2</magnoliaUiVersion>
-    <documentationURL>http://documentation.magnolia-cms.com/releases/4-5-3.html</documentationURL>
-    <stkVersion>2.5-prev1-rc1</stkVersion>
+    <magnoliaVersion>5.0-SNAPSHOT</magnoliaVersion>
+    <magnoliaUiVersion>5.0-SNAPSHOT</magnoliaUiVersion>
+    <documentationURL>http://documentation.magnolia-cms.com/releases/5.0.html</documentationURL>
+    <stkVersion>2.5-SNAPSHOT</stkVersion>
     <scmTagPrefix>magnolia-bundle</scmTagPrefix>
   </properties>
 
@@ -32,17 +32,27 @@
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-dms</artifactId>
-        <version>1.6.2</version>
+        <version>1.6.4</version>
       </dependency>
+      <dependency>
+        <groupId>info.magnolia.dam</groupId>
+        <artifactId>magnolia-module-dam</artifactId>
+        <version>1.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>info.magnolia.dam</groupId>
+        <artifactId>magnolia-module-dam-app-assets</artifactId>
+        <version>1.0-SNAPSHOT</version>
+      </dependency>      
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-categorization</artifactId>
-        <version>1.2.1</version>
+        <version>1.2.3</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-groovy</artifactId>
-        <version>1.3-rc1/version>
+        <version>1.3-rc1</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
@@ -72,9 +82,15 @@
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-templating-samples</artifactId>
-        <version>${magnoliaVersion}</version>
+        <version>5.0-SNAPSHOT</version>
         <classifier>bundle</classifier>
         <type>tar.gz</type>
+      </dependency>
+      <dependency>
+        <groupId>info.magnolia</groupId>
+        <artifactId>magnolia-templating-samples</artifactId>
+        <version>5.0-SNAPSHOT</version>
+        <type>jar</type>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
@@ -97,21 +113,21 @@
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-groovy</artifactId>
-        <version>1.2.3</version>
+        <version>1.3-rc1</version>
         <classifier>bundle</classifier>
         <type>tar.gz</type>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-4-5-migration</artifactId>
-        <version>1.1.1</version>
+        <version>1.2.0-SNAPSHOT</version>
         <classifier>bundle</classifier>
         <type>tar.gz</type>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-scheduler</artifactId>
-        <version>1.5.2</version>
+        <version>1.5.4-SNAPSHOT</version>
       </dependency>
     </dependencies>
   </dependencyManagement>

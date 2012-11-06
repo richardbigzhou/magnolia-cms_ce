@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<!DOCTYPE configuration SYSTEM "http://jackrabbit.apache.org/dtd/indexing-configuration-1.0.dtd">
+<configuration  xmlns:nt="http://www.jcp.org/jcr/nt/1.0" xmlns:mgnl="http://www.magnolia.info/jcr/mgnl" xmlns:jcr="http://www.jcp.org/jcr/1.0">
+
+  <!-- Index content found in page sub-nodes thus avoiding using slow JCR2 SQL queries for fulltext searches in AdminCentral.
+       By default it aggregates content found down to four levels depth. I.e. assume a structure like this
+
+       /demo-project[mgnl:page]
+        /about[mgnl:page]
+         /subsection-articles[mgnl:page]
+          /article[mgnl:page]
+           /extras[mgnl:area]
+            /extras1[mgnl:area]
+             /0[mgnl:component]
+
+      The contents found at page level will be indexed together with those found in the nested component at /article/extras/extras1.
+      This because we have four levels depth, so starting from page 'article', the [mgnl:component] has depth 3.
+  -->
+  <aggregate primaryType="mgnl:page">
+     <include primaryType="mgnl:component">*</include>
+     <include primaryType="mgnl:component">*/*</include>
+     <include primaryType="mgnl:component">*/*/*</include>
+     <include primaryType="mgnl:component">*/*/*/*</include>
+   </aggregate>
+
+  <!-- To sort pages by metadata properties avoiding joins.
+       FIXME Need to check syntax
+  <aggregate primaryType="mgnl:page">
+    <include>mgnl:metaData</include>
+    <include>mgnl:metaData/mgnl:lastmodified</include>
+  </aggregate>
+  -->
+
+</configuration>
