@@ -83,20 +83,9 @@
   </fileSets>
 
   <dependencySets>
-    <!-- two copies of the webapp -->
+    <!-- only one copies of the webapp, magnoliaPublic will be created from magnoliaAuthor webapp during first run -->
     <dependencySet>
       <outputDirectory>apache-tomcat-${project.properties.tomcatVersion}/webapps/magnoliaAuthor</outputDirectory>
-      <includes>
-        <include>info.magnolia:magnolia-bundled-webapp</include>
-      </includes>
-      <useStrictFiltering>true</useStrictFiltering>
-      <unpack>true</unpack>
-      <fileMode>644</fileMode>
-      <directoryMode>755</directoryMode>
-    </dependencySet>
-
-    <dependencySet>
-      <outputDirectory>apache-tomcat-${project.properties.tomcatVersion}/webapps/magnoliaPublic</outputDirectory>
       <includes>
         <include>info.magnolia:magnolia-bundled-webapp</include>
       </includes>
