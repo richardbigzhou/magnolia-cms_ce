@@ -144,8 +144,8 @@ public abstract class AbstractTestingVersionHandler extends AbstractModuleVersio
     protected ArrayDelegateTask copyArchetypePageAndChangeTemplate(final String name, final String newPageName, final String newTemplate, final String newTitle, String renderType, String templateScript) {
         return new ArrayDelegateTask(name, "",
                 new CopyNodeTask(null, null, "website", "/testpages/test_template_archetype", "/testpages/" + newPageName, false),
-                new CheckAndModifyPropertyValueTask(null, null, "website", "/testpages/" + newPageName, "mgnl:template", "test:test_template_archetype", "test:"+newTemplate),
-                new CheckAndModifyPropertyValueTask(null, null, "website", "/testpages/" + newPageName, "mgnl:title", "Archetype test page for rendering", newTitle),
+                new CheckAndModifyPropertyValueTask(null, null, "website", "/testpages/" + newPageName + "/MetaData", "mgnl:template", "test:test_template_archetype", "test:"+newTemplate),
+                new CheckAndModifyPropertyValueTask(null, null, "website", "/testpages/" + newPageName + "/MetaData", "mgnl:title", "Archetype test page for rendering", newTitle),
                 new CheckAndModifyPropertyValueTask(null, null, "website", "/testpages/" + newPageName, "renderType", "foo", renderType),
                 new CheckAndModifyPropertyValueTask(null, null, "website", "/testpages/" + newPageName, "templateScript", "bar", templateScript)
         );
