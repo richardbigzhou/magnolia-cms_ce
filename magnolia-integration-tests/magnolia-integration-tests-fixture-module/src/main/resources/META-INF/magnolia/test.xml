@@ -14,7 +14,7 @@
     </dependency>
     <dependency>
       <name>adminInterface</name>
-      <version>${magnoliaVersion}</version>
+      <version>4.5/*</version>
     </dependency>
     <dependency>
       <name>templating</name>
@@ -25,7 +25,7 @@
       <optional>true</optional>
     </dependency>
     <dependency>
-      <name>exchange-simple</name>
+      <name>activation</name>
       <optional>true</optional>
     </dependency>
     <dependency>

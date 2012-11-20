@@ -16,11 +16,6 @@
       <dependencies>
         <dependency>
           <groupId>info.magnolia</groupId>
-          <artifactId>magnolia-module-dms</artifactId>
-          <version>1.6.1</version>
-        </dependency>
-        <dependency>
-          <groupId>info.magnolia</groupId>
           <artifactId>magnolia-templating-samples</artifactId>
         </dependency>
       </dependencies>
@@ -88,25 +83,15 @@
       <groupId>info.magnolia</groupId>
       <artifactId>magnolia-core</artifactId>
       <version>${magnoliaVersion}</version>
-    </dependency>
+    </dependency>   
     <dependency>
-      <groupId>info.magnolia</groupId>
-      <artifactId>magnolia-module-admininterface</artifactId>
-      <version>${magnoliaVersion}</version>
-    </dependency>
-    <dependency>
-      <groupId>info.magnolia</groupId>
+      <groupId>info.magnolia.cache</groupId>
       <artifactId>magnolia-module-cache</artifactId>
       <version>${magnoliaVersion}</version>
     </dependency>
     <dependency>
-      <groupId>info.magnolia</groupId>
-      <artifactId>magnolia-module-exchange-simple</artifactId>
-      <version>${magnoliaVersion}</version>
-    </dependency>
-    <dependency>
-      <groupId>info.magnolia</groupId>
-      <artifactId>magnolia-gui</artifactId>
+      <groupId>info.magnolia.activation</groupId>
+      <artifactId>magnolia-module-activation</artifactId>
       <version>${magnoliaVersion}</version>
     </dependency>
     <dependency>
@@ -116,17 +101,7 @@
     </dependency>
     <dependency>
       <groupId>info.magnolia</groupId>
-      <artifactId>magnolia-module-fckeditor</artifactId>
-      <version>${magnoliaVersion}</version>
-    </dependency>
-    <dependency>
-      <groupId>info.magnolia</groupId>
       <artifactId>magnolia-module-mail</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>info.magnolia</groupId>
-      <artifactId>magnolia-module-store-client</artifactId>
-      <version>${magnoliaVersion}</version>
     </dependency>
     <!-- JCR-3158, MAGNOLIA-3892 -->
     <dependency>
