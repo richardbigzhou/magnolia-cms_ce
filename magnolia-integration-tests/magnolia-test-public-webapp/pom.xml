@@ -30,7 +30,6 @@
     <dependency>
       <groupId>info.magnolia</groupId>
       <artifactId>magnolia-templating-samples</artifactId>
-      <version>${magnoliaVersion}</version>
       <type>jar</type>
     </dependency>
     <dependency>

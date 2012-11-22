@@ -21,10 +21,11 @@ See README.txt for details.
       <version>${magnoliaVersion}</version>
       <scope>provided</scope>
     </dependency>
+    <!-- temporary deps as old UI will be dropped soon -->
     <dependency>
       <groupId>info.magnolia</groupId>
       <artifactId>magnolia-module-admininterface</artifactId>
-      <version>${magnoliaVersion}</version>
+      <version>4.5.6</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
