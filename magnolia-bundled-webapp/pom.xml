@@ -9,7 +9,7 @@
   <artifactId>magnolia-bundled-webapp</artifactId>
   <packaging>war</packaging>
   <name>magnolia-bundled-webapp</name>
-  <description>Magnolia pre-installed with DMS and samples.</description>
+  <description>Magnolia pre-installed with DAM and STK.</description>
   <dependencies>
     <dependency>
       <groupId>info.magnolia</groupId>
@@ -23,6 +23,7 @@
       <version>5.0-SNAPSHOT</version>
       <type>pom</type>
     </dependency>
+    <!-- temporary dependency. Should be removed with Alpha1 release -->
     <dependency>
       <groupId>info.magnolia</groupId>
       <artifactId>magnolia-module-dms</artifactId>
