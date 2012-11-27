@@ -19,7 +19,7 @@ if [ "$1" = "start" ] ; then
     # create public webapp when "installed" file and "magnoiaPublic" directory doesn't exist
     if [ ! -e "$PRGDIR/.installed" ] && [ ! -d "$PRGDIR/../webapps/magnoliaPublic" ] ; then
       echo "First run -> create magnoliaPublic webapp from magnoliaAuthor webapp."
-      cp -a $PRGDIR/../webapps/magnoliaAuthor $PRGDIR/../webapps/magnoliaPublic
+      cp -r $PRGDIR/../webapps/magnoliaAuthor $PRGDIR/../webapps/magnoliaPublic
       echo "This file indicates that the public webapp was created. The file is created during first run." > $PRGDIR/.installed
     fi
     # to start with jpda (debugging):
