@@ -32,7 +32,7 @@
        <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-dms</artifactId>
-        <version>1.6.5-SNAPSHOT</version>
+        <version>1.7-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia.dam</groupId>
