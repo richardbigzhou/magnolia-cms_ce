@@ -138,7 +138,7 @@ Number of occurrences: %o%n
     <priority value="INFO" />
     <appender-ref ref="log-activation" />
   </category>
-  <category name="info.magnolia.module.exchangesimple" additivity="true">
+  <category name="info.magnolia.module.activation" additivity="true">
     <priority value="INFO" />
     <appender-ref ref="log-activation" />
   </category>
