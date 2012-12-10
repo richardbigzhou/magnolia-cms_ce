@@ -130,7 +130,7 @@
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-4-5-migration</artifactId>
-        <version>1.2.0-SNAPSHOT</version>
+        <version>1.2</version>
         <classifier>bundle</classifier>
         <type>tar.gz</type>
       </dependency>
