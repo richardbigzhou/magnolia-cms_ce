@@ -20,10 +20,10 @@
 
   <properties>
     <magnoliaEdition>Community Edition</magnoliaEdition>
-    <magnoliaVersion>5.0-SNAPSHOT</magnoliaVersion>
-    <magnoliaUiVersion>5.0-SNAPSHOT</magnoliaUiVersion>
+    <magnoliaVersion>5.0-alpha1</magnoliaVersion>
+    <magnoliaUiVersion>5.0-alpha1</magnoliaUiVersion>
     <documentationURL>http://documentation.magnolia-cms.com/releases/5.0.html</documentationURL>
-    <stkVersion>2.5-SNAPSHOT</stkVersion>
+    <stkVersion>2.5-alpha1</stkVersion>
     <scmTagPrefix>magnolia-bundle</scmTagPrefix>
   </properties>
 
@@ -32,17 +32,17 @@
        <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-dms</artifactId>
-        <version>1.7-SNAPSHOT</version>
+        <version>1.7-alpha1</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia.dam</groupId>
         <artifactId>magnolia-module-dam</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <version>1.0-alpha1</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia.dam</groupId>
         <artifactId>magnolia-module-dam-app-assets</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <version>1.0-alpha1</version>
       </dependency>      
       <dependency>
         <groupId>info.magnolia</groupId>
@@ -52,22 +52,22 @@
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-groovy</artifactId>
-        <version>1.3-SNAPSHOT</version>
+        <version>1.3-alpha1</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia.activation</groupId>
         <artifactId>magnolia-module-activation</artifactId>
-        <version>5.0-SNAPSHOT</version>
+        <version>5.0-alpha1</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia.cache</groupId>
         <artifactId>magnolia-module-cache</artifactId>
-        <version>5.0-SNAPSHOT</version>
+        <version>5.0-alpha1</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-mail</artifactId>
-        <version>5.0-SNAPSHOT</version>
+        <version>5.0-alpha1</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
@@ -92,14 +92,14 @@
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-templating-samples</artifactId>
-        <version>5.0-SNAPSHOT</version>
+        <version>5.0-alpha1</version>
         <classifier>bundle</classifier>
         <type>tar.gz</type>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-templating-samples</artifactId>
-        <version>5.0-SNAPSHOT</version>
+        <version>5.0-alpha1</version>
         <type>jar</type>
       </dependency>
       <dependency>
@@ -119,13 +119,6 @@
         <artifactId>magnolia-templating-compatibility-taglib-utility</artifactId>
         <version>4.5.3</version>
         <scope>provided</scope>
-      </dependency>
-      <dependency>
-        <groupId>info.magnolia</groupId>
-        <artifactId>magnolia-module-groovy</artifactId>
-        <version>1.3-SNAPSHOT</version>
-        <classifier>bundle</classifier>
-        <type>tar.gz</type>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
