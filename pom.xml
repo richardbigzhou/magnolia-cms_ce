@@ -22,6 +22,7 @@
     <magnoliaEdition>Community Edition</magnoliaEdition>
     <magnoliaVersion>5.0-SNAPSHOT</magnoliaVersion>
     <magnoliaUiVersion>5.0-SNAPSHOT</magnoliaUiVersion>
+    <javaVersion>1.6</javaVersion>
     <documentationURL>http://documentation.magnolia-cms.com/releases/5.0.html</documentationURL>
     <stkVersion>2.5-SNAPSHOT</stkVersion>
     <scmTagPrefix>magnolia-bundle</scmTagPrefix>
