@@ -30,11 +30,6 @@
 
   <dependencyManagement>
     <dependencies>
-       <dependency>
-        <groupId>info.magnolia</groupId>
-        <artifactId>magnolia-module-dms</artifactId>
-        <version>1.7-alpha1</version>
-      </dependency>
       <dependency>
         <groupId>info.magnolia.dam</groupId>
         <artifactId>magnolia-module-dam</artifactId>

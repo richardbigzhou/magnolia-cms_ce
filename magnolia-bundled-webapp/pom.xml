@@ -23,12 +23,6 @@
       <version>5.0-SNAPSHOT</version>
       <type>pom</type>
     </dependency>
-    <!-- temporary dependency. Should be removed with Alpha1 release -->
-    <dependency>
-      <groupId>info.magnolia</groupId>
-      <artifactId>magnolia-module-dms</artifactId>
-      <type>jar</type>
-    </dependency>
     <dependency>
       <groupId>info.magnolia.dam</groupId>
       <artifactId>magnolia-module-dam</artifactId>
@@ -56,6 +50,10 @@
     <dependency>
       <groupId>info.magnolia</groupId>
       <artifactId>magnolia-theme-pop</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>info.magnolia.activation</groupId>
+      <artifactId>magnolia-module-activation</artifactId>
     </dependency>
     <dependency>
     	<groupId>info.magnolia</groupId>
