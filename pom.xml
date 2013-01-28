@@ -8,7 +8,7 @@
   </parent>
   <artifactId>magnolia-bundle-parent</artifactId>
   <packaging>pom</packaging>
-  <version>5.0-SNAPSHOT</version>
+  <version>5.0-INTEGRATION-SNAPSHOT</version>
   <name>magnolia-bundle-parent</name>
   <inceptionYear>2003</inceptionYear>
   <scm>
