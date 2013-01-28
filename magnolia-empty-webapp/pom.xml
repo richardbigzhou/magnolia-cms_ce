@@ -93,21 +93,19 @@
       <groupId>info.magnolia</groupId>
       <artifactId>magnolia-core</artifactId>
       <version>${magnoliaVersion}</version>
-    </dependency>   
-    <dependency>
-      <groupId>info.magnolia.cache</groupId>
-      <artifactId>magnolia-module-cache</artifactId>
-      <version>${magnoliaVersion}</version>
-    </dependency>
-    <dependency>
-      <groupId>info.magnolia.activation</groupId>
-      <artifactId>magnolia-module-activation</artifactId>
-      <version>${magnoliaVersion}</version>
     </dependency>
     <dependency>
       <groupId>info.magnolia</groupId>
       <artifactId>magnolia-jaas</artifactId>
       <version>${magnoliaVersion}</version>
+    </dependency>
+    <dependency>
+      <groupId>info.magnolia.cache</groupId>
+      <artifactId>magnolia-module-cache</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>info.magnolia.activation</groupId>
+      <artifactId>magnolia-module-activation</artifactId>
     </dependency>
     <dependency>
       <groupId>info.magnolia</groupId>
