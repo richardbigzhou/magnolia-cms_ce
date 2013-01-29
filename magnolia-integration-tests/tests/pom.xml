@@ -226,7 +226,7 @@
               <source>${project.basedir}/src/main/groovy/crawl.groovy</source>
             </configuration>
           </execution>
-          
+          <!-- commented out due to MAGNOLIA-4804
           <execution>
             <id>activation-test</id>
             <phase>integration-test</phase>
@@ -247,7 +247,7 @@
               <source>${project.basedir}/src/main/groovy/activationTest.groovy</source>
             </configuration>
           </execution>
-         
+          -->
           <execution>
             <id>log-parser</id>
             <phase>integration-test</phase>

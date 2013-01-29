@@ -34,6 +34,7 @@
 package info.magnolia.integrationtests;
 
 import static org.junit.Assert.assertEquals;
+
 import info.magnolia.testframework.htmlunit.AbstractMagnoliaIntegrationTest;
 
 import org.junit.Ignore;
@@ -48,7 +49,7 @@ import com.gargoylesoftware.htmlunit.Page;
  * @version $Id$
  */
 public class PageActivationTest extends AbstractMagnoliaIntegrationTest {
-
+    @Ignore("See MAGNOLIA-4804")
     @Test
     public void publicPageCheckWithActivation() throws Exception {
         //Tests if page exists on author instance
