@@ -88,32 +88,32 @@
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-templating-samples</artifactId>
-        <version>${magnoliaVersion}</version>
+        <version>5.0-alpha1</version>
         <classifier>bundle</classifier>
         <type>tar.gz</type>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-templating-samples</artifactId>
-        <version>${magnoliaVersion}</version>
+        <version>5.0-alpha1</version>
         <type>jar</type>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-templating-compatibility</artifactId>
-        <version>4.5.7</version>
+        <version>4.5.3</version>
         <scope>provided</scope>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-templating-compatibility-taglib-cms</artifactId>
-        <version>4.5.7</version>
+        <version>4.5.3</version>
         <scope>provided</scope>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-templating-compatibility-taglib-utility</artifactId>
-        <version>4.5.7</version>
+        <version>4.5.3</version>
         <scope>provided</scope>
       </dependency>
       <dependency>
