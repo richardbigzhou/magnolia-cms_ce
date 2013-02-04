@@ -8,7 +8,7 @@
   </parent>
   <artifactId>magnolia-bundle-parent</artifactId>
   <packaging>pom</packaging>
-  <version>5.0-SNAPSHOT</version>
+  <version>5.0-INTEGRATION-SNAPSHOT</version>
   <name>magnolia-bundle-parent</name>
   <inceptionYear>2003</inceptionYear>
   <scm>
@@ -20,11 +20,11 @@
 
   <properties>
     <magnoliaEdition>Community Edition</magnoliaEdition>
-    <magnoliaVersion>5.0-SNAPSHOT</magnoliaVersion>
-    <magnoliaUiVersion>5.0-SNAPSHOT</magnoliaUiVersion>
+    <magnoliaVersion>5.0-alpha2-2</magnoliaVersion>
+    <magnoliaUiVersion>5.0-alpha2-4</magnoliaUiVersion>
     <javaVersion>1.6</javaVersion>
     <documentationURL>http://documentation.magnolia-cms.com/releases/5.0.html</documentationURL>
-    <stkVersion>2.5-SNAPSHOT</stkVersion>
+    <stkVersion>2.5-alpha2-1</stkVersion>
     <scmTagPrefix>magnolia-bundle</scmTagPrefix>
   </properties>
 
@@ -33,12 +33,12 @@
       <dependency>
         <groupId>info.magnolia.dam</groupId>
         <artifactId>magnolia-module-dam</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <version>1.0-alpha2-2</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia.dam</groupId>
         <artifactId>magnolia-module-dam-app-assets</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <version>1.0-alpha2-2</version>
       </dependency>      
       <dependency>
         <groupId>info.magnolia</groupId>
@@ -53,12 +53,12 @@
       <dependency>
         <groupId>info.magnolia.activation</groupId>
         <artifactId>magnolia-module-activation</artifactId>
-        <version>5.0-SNAPSHOT</version>
+        <version>5.0-alpha2-2</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia.cache</groupId>
         <artifactId>magnolia-module-cache</artifactId>
-        <version>5.0-alpha1</version>
+        <version>5.0-alpha2-2</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
