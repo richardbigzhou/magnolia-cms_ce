@@ -62,11 +62,6 @@
       <artifactId>magnolia-ui-app-messages</artifactId>
       <version>${magnoliaUiVersion}</version>
     </dependency>
-    <dependency>
-      <groupId>info.magnolia.ui</groupId>
-      <artifactId>magnolia-ui-app-showcase</artifactId>
-      <version>${magnoliaUiVersion}</version>
-    </dependency>
     <!-- temporarily disabled see SCRUM-1670
      <dependency>
       <groupId>info.magnolia.ui</groupId>
@@ -93,7 +88,7 @@
       <groupId>info.magnolia</groupId>
       <artifactId>magnolia-core</artifactId>
       <version>${magnoliaVersion}</version>
-    </dependency>   
+    </dependency>
     <dependency>
       <groupId>info.magnolia.cache</groupId>
       <artifactId>magnolia-module-cache</artifactId>
