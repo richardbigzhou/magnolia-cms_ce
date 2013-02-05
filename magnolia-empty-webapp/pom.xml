@@ -63,18 +63,6 @@
       <version>${magnoliaUiVersion}</version>
     </dependency>
     <dependency>
-      <groupId>info.magnolia.ui</groupId>
-      <artifactId>magnolia-ui-app-showcase</artifactId>
-      <version>${magnoliaUiVersion}</version>
-    </dependency>
-    <!-- temporarily disabled see SCRUM-1670
-     <dependency>
-      <groupId>info.magnolia.ui</groupId>
-      <artifactId>magnolia-ui-app-instant-preview</artifactId>
-      <version>${magnoliaVersion}</version>
-      </dependency>
-      -->
-    <dependency>
       <groupId>info.magnolia</groupId>
       <artifactId>magnolia-rendering</artifactId>
       <version>${magnoliaVersion}</version>
