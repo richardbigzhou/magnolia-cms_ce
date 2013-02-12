@@ -79,7 +79,7 @@
   <dependencies>
     <dependency>
       <groupId>org.apache.tomcat</groupId>
-      <artifactId>catalina</artifactId>
+      <artifactId>tomcat</artifactId>
       <version>${tomcatVersion}</version>
       <!-- we're only cheating here, to give a hint to the readme -->
       <type>pom</type>
