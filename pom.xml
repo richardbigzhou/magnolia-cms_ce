@@ -20,11 +20,11 @@
 
   <properties>
     <magnoliaEdition>Community Edition</magnoliaEdition>
-    <magnoliaVersion>5.0-alpha3-4</magnoliaVersion>
-    <magnoliaUiVersion>5.0-alpha3-3</magnoliaUiVersion>
+    <magnoliaVersion>5.0-alpha3-5</magnoliaVersion>
+    <magnoliaUiVersion>5.0-alpha3-5</magnoliaUiVersion>
     <javaVersion>1.6</javaVersion>
     <documentationURL>http://documentation.magnolia-cms.com/releases/5.0.html</documentationURL>
-    <stkVersion>2.5-alpha3-1</stkVersion>
+    <stkVersion>2.5-alpha3-2</stkVersion>
     <scmTagPrefix>magnolia-bundle</scmTagPrefix>
   </properties>
 
@@ -33,12 +33,12 @@
       <dependency>
         <groupId>info.magnolia.dam</groupId>
         <artifactId>magnolia-module-dam</artifactId>
-        <version>1.0-alpha3-2</version>
+        <version>1.0-alpha3-3</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia.dam</groupId>
         <artifactId>magnolia-module-dam-app-assets</artifactId>
-        <version>1.0-alpha3-2</version>
+        <version>1.0-alpha3-3</version>
       </dependency>      
       <dependency>
         <groupId>info.magnolia</groupId>
