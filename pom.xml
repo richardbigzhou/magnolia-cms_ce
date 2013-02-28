@@ -38,7 +38,7 @@
       <dependency>
         <groupId>info.magnolia.dam</groupId>
         <artifactId>magnolia-module-dam-app-assets</artifactId>
-        <version>1.0-alpha3-3</version>
+        <version>1.0-alpha3-4</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
