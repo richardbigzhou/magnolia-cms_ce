@@ -25,6 +25,7 @@
     <javaVersion>1.6</javaVersion>
     <documentationURL>http://documentation.magnolia-cms.com/releases/5.0.html</documentationURL>
     <stkVersion>2.5-alpha3-3</stkVersion>
+    <damVersion>1.0-alpha3-5</damVersion>
     <scmTagPrefix>magnolia-bundle</scmTagPrefix>
   </properties>
 
@@ -33,12 +34,12 @@
       <dependency>
         <groupId>info.magnolia.dam</groupId>
         <artifactId>magnolia-module-dam</artifactId>
-        <version>1.0-alpha3-4</version>
+        <version>${damVersion}</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia.dam</groupId>
         <artifactId>magnolia-module-dam-app-assets</artifactId>
-        <version>1.0-alpha3-4</version>
+        <version>${damVersion}</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
