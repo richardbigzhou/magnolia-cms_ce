@@ -20,6 +20,9 @@
   <listener>
     <listener-class>info.magnolia.init.MagnoliaServletContextListener</listener-class>
   </listener>
+  <session-config>
+    <tracking-mode>COOKIE</tracking-mode>
+  </session-config>
   <!-- These are the default paths searched for magnolia configuration. Uncomment if you need to customize these.
        Your container might also do its own variables substitution here. Tomcat, for instance, allows you to use
        system properties, such as ${user.home}.
