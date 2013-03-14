@@ -34,10 +34,6 @@
     </dependency>
     <dependency>
       <groupId>info.magnolia</groupId>
-      <artifactId>magnolia-templating-compatibility</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>info.magnolia</groupId>
       <artifactId>magnolia-module-servlet-sanity</artifactId>
       <version>${project.version}</version>
     </dependency>

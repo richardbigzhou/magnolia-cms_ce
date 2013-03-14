@@ -31,7 +31,8 @@
     </dependency>
     <dependency>
       <groupId>info.magnolia</groupId>
-      <artifactId>magnolia-templating-compatibility</artifactId>
+      <artifactId>magnolia-rendering</artifactId>
+      <version>${magnoliaVersion}</version>
     </dependency>
     <dependency>
       <groupId>junit</groupId>
