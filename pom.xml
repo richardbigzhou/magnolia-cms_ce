@@ -68,12 +68,12 @@
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-rendering</artifactId>
-        <version>5.0-SNAPSHOT</version>
+        <version>${magnoliaVersion}</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-templating</artifactId>
-        <version>5.0-SNAPSHOT</version>
+        <version>${magnoliaVersion}</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
