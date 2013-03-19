@@ -102,6 +102,20 @@
       <groupId>info.magnolia</groupId>
       <artifactId>magnolia-module-mail</artifactId>
     </dependency>
+
+    <!-- Temporarily add commons-chain as it's required by old adminInterface definitions -->
+    <dependency>
+      <groupId>commons-chain</groupId>
+      <artifactId>commons-chain</artifactId>
+      <version>1.2</version>
+      <exclusions>
+        <exclusion>
+          <groupId>commons-logging</groupId>
+          <artifactId>commons-logging</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+
     <!-- JCR-3158, MAGNOLIA-3892 -->
     <dependency>
       <groupId>commons-dbcp</groupId>
