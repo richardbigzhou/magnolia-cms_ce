@@ -48,7 +48,6 @@ import org.openqa.selenium.By;
 public class ContentAppUITest extends AbstractMagnoliaUITest {
     @Before
     public void navigateToAppLauncher() {
-        // GIVEN
         toLandingPage();
     }
 
@@ -99,6 +98,8 @@ public class ContentAppUITest extends AbstractMagnoliaUITest {
 
     @Test
     public void navigateToNonDefaultSubappAlsoOpensTheDefaultOne() {
+        // GIVEN
+
         // WHEN - navigate directly to Edit Subapp
         driver.navigate().to(ADMINCENTRAL_URL + ".magnolia/admincentral#app:contacts:item;/mmonroe:edit");
 

@@ -49,7 +49,6 @@ import org.openqa.selenium.WebElement;
 public class ActivationUITest extends AbstractMagnoliaUITest {
     @Before
     public void navigateToAppLauncher() {
-        // GIVEN
         toLandingPage();
     }
 
@@ -57,17 +56,6 @@ public class ActivationUITest extends AbstractMagnoliaUITest {
     public void tearDown() {
         closeApp();
         assertEquals(0, driver.findElements(By.className("v-app-close")).size());
-    }
-
-    @Test
-    public void whenActivatinPageThenStatusChanges() {
-        getAppIcon("Pages").click();
-        getTreeTableItemExpander("jsp-sample-site").click();
-        getTreeTableItem("jsp-multimedia-flash").click();
-        getActionBarItem("Publish").click();
-        assertTrue(getSelectedIcon("color-green").isDisplayed());
-        getActionBarItem("Unpublish").click();
-        assertTrue(getSelectedIcon("color-red").isDisplayed());
     }
 
     @Test

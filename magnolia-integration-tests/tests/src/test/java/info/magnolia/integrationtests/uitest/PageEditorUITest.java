@@ -47,7 +47,6 @@ public class PageEditorUITest extends AbstractMagnoliaUITest {
 
     @Before
     public void navigateToAppLauncher() {
-        // given
         toLandingPage();
     }
 
@@ -70,6 +69,8 @@ public class PageEditorUITest extends AbstractMagnoliaUITest {
 
     @Test
     public void whenEditFieldThenEditComponentDialogShown() {
+        // GIVEN
+
         // WHEN
         getAppIcon("Pages").click();
         getTreeTableItem("ftl-sample-site").click();
@@ -88,7 +89,9 @@ public class PageEditorUITest extends AbstractMagnoliaUITest {
     // to edit any field in any page.
     // @Test
     public void whenEditPageThenRichTextEditor() {
-        // when
+        // GIVEN
+
+        // WHEN
         getAppIcon("Pages").click();
         assertAppOpen("Pages");
         getTreeTableItemExpander("demo-project").click();
@@ -102,7 +105,7 @@ public class PageEditorUITest extends AbstractMagnoliaUITest {
         getElementByPath(By.xpath("//*[contains(@class, 'focus')]//*[contains(@class, 'icon-edit')]")).click();
         switchToDefaultContent();
 
-        // then
+        // THEN
         assertTrue(driver.findElement(By.xpath("//*[contains(@class, 'cke_chrome')]")).isDisplayed());
         clickDialogCancelButton();
     }

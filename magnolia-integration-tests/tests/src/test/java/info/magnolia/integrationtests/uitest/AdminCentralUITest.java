@@ -48,7 +48,6 @@ public class AdminCentralUITest extends AbstractMagnoliaUITest {
 
     @Before
     public void navigateToAppLauncher() {
-        // GIVEN
         toLandingPage();
     }
 
@@ -65,7 +64,7 @@ public class AdminCentralUITest extends AbstractMagnoliaUITest {
         delay();
         toLandingPage();
 
-        // THEN
+        // WHEN / THEN
         try {
             assertFalse(getElementByPath(By.xpath("//label[text() ='group by type']")).isDisplayed());
         } catch (Exception e) {
