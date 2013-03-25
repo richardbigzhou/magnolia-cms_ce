@@ -387,11 +387,6 @@
               <excludes>
                 <exclude>-apparently-we-really-need-to-override-the-exclude-oh-well-</exclude>
               </excludes>
-              <environmentVariables>
-                <magnolia_url>http://localhost:8088/magnoliaTest/</magnolia_url>
-                <magnolia_username>superuser</magnolia_username>
-                <magnolia_password>superuser</magnolia_password>
-              </environmentVariables>
             </configuration>
 
           </plugin>

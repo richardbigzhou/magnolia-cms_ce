@@ -37,7 +37,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 import static org.junit.matchers.JUnitMatchers.containsString;
 import info.magnolia.cms.util.ClasspathResourcesUtil;
-import info.magnolia.testframework.htmlunit.AbstractMagnoliaIntegrationTest;
+import info.magnolia.testframework.htmlunit.AbstractMagnoliaHtmlUnitTest;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -50,9 +50,9 @@ import com.gargoylesoftware.htmlunit.Page;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 /**
- * @version $Id$
+ * Tests.
  */
-public class SimpleRenderingTest extends AbstractMagnoliaIntegrationTest {
+public class SimpleRenderingTest extends AbstractMagnoliaHtmlUnitTest {
 
     @Test
     public void ensureWeCanReachResourcesFromTheTestModule() throws IOException {

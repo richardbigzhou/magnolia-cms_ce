@@ -36,7 +36,9 @@ package info.magnolia.integrationtests;
 import com.gargoylesoftware.htmlunit.Page;
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import info.magnolia.testframework.htmlunit.AbstractMagnoliaIntegrationTest;
+
+import info.magnolia.testframework.htmlunit.AbstractMagnoliaHtmlUnitTest;
+
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -45,11 +47,8 @@ import static org.junit.matchers.JUnitMatchers.containsString;
 /**
  * We're just checking if the container started and the application is reachable, plus some simple assertions, checking
  * we're on the expected type of instance, for example.
- *
- * @author gjoseph
- * @version $Revision: $ ($Author: $)
  */
-public class MostBasicTest extends AbstractMagnoliaIntegrationTest {
+public class MostBasicTest extends AbstractMagnoliaHtmlUnitTest {
 
     @Test
     public void authorInstanceShouldBePasswordProtected() throws Exception {

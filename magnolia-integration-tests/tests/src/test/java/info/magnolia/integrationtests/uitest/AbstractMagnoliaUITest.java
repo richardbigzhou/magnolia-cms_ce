@@ -36,6 +36,9 @@ package info.magnolia.integrationtests.uitest;
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.Assert.*;
 
+import info.magnolia.testframework.AbstractMagnoliaIntegrationTest;
+import info.magnolia.testframework.htmlunit.AbstractMagnoliaHtmlUnitTest;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
@@ -59,10 +62,7 @@ import org.slf4j.LoggerFactory;
 /**
  * Base class for Magnolia UI tests. Provides convenience methods for Magnolia Apps.
  */
-public abstract class AbstractMagnoliaUITest {
-    protected static final String ADMINCENTRAL_PASSWORD = System.getenv("magnolia_username");
-    protected static final String ADMINCENTRAL_USERNAME = System.getenv("magnolia_password");
-    protected static final String ADMINCENTRAL_URL = System.getenv("magnolia_url");
+public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegrationTest {
     protected static final String SCREENSHOT_DIR = "target/surefire-reports/";
 
     protected static WebDriver driver = null;
@@ -86,15 +86,16 @@ public abstract class AbstractMagnoliaUITest {
     protected static void login() {
         driver = new FirefoxDriver();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        driver.navigate().to(ADMINCENTRAL_URL);
+        driver.navigate().to(Instance.AUTHOR.getURL());
 
         assertThat(driver.getTitle(), equalTo("Magnolia 5.0"));
 
         WebElement username = driver.findElement(By.xpath("//input[@id = 'login-username']"));
-        username.sendKeys(ADMINCENTRAL_USERNAME);
+        username.sendKeys(User.superuser.name());
 
         WebElement password = driver.findElement(By.xpath("//input[@type = 'password']"));
-        password.sendKeys(ADMINCENTRAL_PASSWORD);
+        // sample users have pwd = username
+        password.sendKeys(User.superuser.name());
 
         driver.findElement(By.xpath("//button[@id = 'login-button']")).click();
         workaroundJsessionIdInUrl();
@@ -108,7 +109,7 @@ public abstract class AbstractMagnoliaUITest {
      */
     private static void workaroundJsessionIdInUrl() {
         if (driver.findElements(By.xpath("//h2[contains(text(), '404')]")).size() > 0) {
-            driver.navigate().to(ADMINCENTRAL_URL);
+            driver.navigate().to(AbstractMagnoliaHtmlUnitTest.Instance.AUTHOR.getURL());
         }
     }
 
@@ -167,7 +168,7 @@ public abstract class AbstractMagnoliaUITest {
     }
 
     protected void toLandingPage() {
-        driver.navigate().to(ADMINCENTRAL_URL);
+        driver.navigate().to(Instance.AUTHOR.getURL());
         driver.findElement(By.xpath("//*[@id = 'btn-appslauncher']"));
     }
 
