@@ -16,14 +16,13 @@
   </prerequisites>
 
   <properties>
-	<leaveContainerRunningAndDontExecuteTests>false</leaveContainerRunningAndDontExecuteTests>
+    <leaveContainerRunningAndDontExecuteTests>false</leaveContainerRunningAndDontExecuteTests>
   </properties>
   <!--
   This pom (and most of this project, for that matter), has been copied to
   http://svn.magnolia-cms.com/svn/enterprise/bundle/trunk/magnolia-ee-integration-tests/tests
   Try to keep both in sync !
   -->
-
   <dependencies>
     <dependency>
       <groupId>info.magnolia</groupId>
@@ -59,25 +58,34 @@
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>net.sourceforge.htmlunit</groupId>
       <artifactId>htmlunit</artifactId>
-      <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>org.seleniumhq.selenium.client-drivers</groupId>
-      <artifactId>selenium-java-client-driver</artifactId>
-      <scope>test</scope>
+      <groupId>org.seleniumhq.selenium</groupId>
+      <artifactId>selenium-java</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.httpcomponents</groupId>
+      <artifactId>httpclient</artifactId>
+      <version>4.1.2</version>
+      <exclusions>
+        <exclusion>
+          <groupId>commons-logging</groupId>
+          <artifactId>commons-logging</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.httpcomponents</groupId>
+      <artifactId>httpcore</artifactId>
+      <version>4.2.3</version>
     </dependency>
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>jcl-over-slf4j</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-log4j12</artifactId>
     </dependency>
   </dependencies>
 
@@ -106,7 +114,7 @@
         <configuration>
           <!-- by default we exclude selenium tests as they need a special configuration. See also selenium profile below -->
           <excludes>
-            <exclude>**/selenium/*Test.java</exclude>
+            <exclude>**/uitest/*Test.java</exclude>
           </excludes>
         </configuration>
       </plugin>
@@ -340,29 +348,52 @@
         </jvmargs>
       </properties>
     </profile>
-    <!-- This profile will run magnolia-templating-module integration tests which use Selenium (see info.magnolia.integrationtests.PageEditorTest.java).
-         They have to be run on a separate VM as Selenium server needs a special configuration with Xvfb installed to run in headless mode.-->
+    <!-- This profile will run uitests tests on a real browser - use to run them on your machine -->
     <profile>
-      <id>selenium</id>
-      <properties>
-        <containerId>jetty6x</containerId>
-        <containerType>installed</containerType>
-        <configType>standalone</configType>
-        <url>http://dist.codehaus.org/jetty/jetty-6.1.22/jetty-6.1.22.zip</url>
-      </properties>
+      <id>uitest</id>
       <build>
         <plugins>
-        <plugin>
+          <plugin>
             <artifactId>maven-surefire-plugin</artifactId>
             <configuration>
-              <!-- here we can enable all tests. See also default plugin definition above -->
               <includes>
-                <include>**/*Test.java</include>
+                <include>**/uitest/*Test.java</include>
               </includes>
               <excludes>
                 <exclude>-apparently-we-really-need-to-override-the-exclude-oh-well-</exclude>
               </excludes>
+              <environmentVariables>
+                <magnolia_url>http://localhost:8088/magnoliaTest/</magnolia_url>
+                <magnolia_username>superuser</magnolia_username>
+                <magnolia_password>superuser</magnolia_password>
+              </environmentVariables>
             </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+
+    <!-- This profile will run uitests tests - they have to be run on a separate VM as Selenium server needs a special configuration with Xvfb installed to run in headless mode.-->
+    <profile>
+      <id>uitest-remote</id>
+      <build>
+        <plugins>
+          <plugin>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <configuration>
+              <includes>
+                <include>**/uitest/*Test.java</include>
+              </includes>
+              <excludes>
+                <exclude>-apparently-we-really-need-to-override-the-exclude-oh-well-</exclude>
+              </excludes>
+              <environmentVariables>
+                <magnolia_url>http://localhost:8088/magnoliaTest/</magnolia_url>
+                <magnolia_username>superuser</magnolia_username>
+                <magnolia_password>superuser</magnolia_password>
+              </environmentVariables>
+            </configuration>
+
           </plugin>
           <plugin>
             <groupId>org.codehaus.mojo</groupId>
