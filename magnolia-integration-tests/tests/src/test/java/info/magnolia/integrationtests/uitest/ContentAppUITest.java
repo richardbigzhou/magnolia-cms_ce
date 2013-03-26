@@ -39,6 +39,7 @@ import java.util.Date;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.openqa.selenium.By;
 
@@ -57,6 +58,7 @@ public class ContentAppUITest extends AbstractMagnoliaUITest {
         assertEquals(0, driver.findElements(By.className("v-app-close")).size());
     }
 
+    @Ignore("This test sometimes fails although there's no known bug - this behavior is tracked as MAGNOLIA-4928")
     @Test
     public void editContact() {
         // GIVEN
