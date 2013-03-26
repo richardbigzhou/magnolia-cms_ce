@@ -33,10 +33,28 @@
  */
 package info.magnolia.testframework;
 
+import org.apache.commons.lang.StringUtils;
+
 /**
- * A base class for Magnolia integration tests.
+ * A base class for Magnolia integration tests. Allows to overwrite context paths and domain via system properties in case
+ * you want to run them e.g. against webapps served from your IDE.
  */
 public abstract class AbstractMagnoliaIntegrationTest {
+
+    /**
+     * Name of the property that can be used to overwrite the context path for the author instance.
+     */
+    public static final String AUTHOR_CONTEXT_PATH_PROPERTY = "authorContextPath";
+
+    /**
+     * Name of the property that can be used to overwrite the context path for the public instance.
+     */
+    public static final String PUBLIC_CONTEXT_PATH_PROPERTY = "publicContextPath";
+
+    /**
+     * Name of the property that can be used to overwrite the domain for the webapps.
+     */
+    public static final String DOMAIN_PROPERTY = "domain";
 
     /**
      * A simple way of referring to one of the two test instances deployed during ITs.
@@ -45,19 +63,23 @@ public abstract class AbstractMagnoliaIntegrationTest {
         AUTHOR {
             @Override
             public String getContextPath() {
-                return "magnoliaTest/";
+                final String authorContextPath = System.getProperty(AUTHOR_CONTEXT_PATH_PROPERTY);
+                return StringUtils.isEmpty(authorContextPath) ? "magnoliaTest/" : authorContextPath;
             }
         },
         PUBLIC {
             @Override
             public String getContextPath() {
-                return "magnoliaTestPublic/";
+                final String authorContextPath = System.getProperty(PUBLIC_CONTEXT_PATH_PROPERTY);
+                return StringUtils.isEmpty(authorContextPath) ? "magnoliaTestPublic/" : authorContextPath;
             }
         };
 
         @Override
         public String getURL() {
-            return "http://localhost:8088/" + getContextPath();
+            final String domainFromProperty = System.getProperty(DOMAIN_PROPERTY);
+            final String domain =  StringUtils.isEmpty(domainFromProperty) ? "http://localhost:8088/" : domainFromProperty;
+            return domain + getContextPath();
         }
 
         @Override
