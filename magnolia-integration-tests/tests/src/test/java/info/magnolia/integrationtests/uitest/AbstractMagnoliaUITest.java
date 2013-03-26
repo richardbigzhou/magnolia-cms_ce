@@ -127,8 +127,9 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
             File file = screenshotter.getScreenshotAs(OutputType.FILE);
             try {
                 FileUtils.copyFile(file, new File(
-                        String.format("%s/screen_%s_%s%d.png",
+                        String.format("%s/%s_%s_%s%d.png",
                                 SCREENSHOT_DIR,
+                                this.getClass().getName(),
                                 testName.getMethodName(),
                                 suffix,
                                 screenshotIndex++)
