@@ -35,7 +35,8 @@ package info.magnolia.integrationtests;
 
 import static org.junit.Assert.*;
 
-import info.magnolia.testframework.htmlunit.AbstractMagnoliaIntegrationTest;
+import info.magnolia.testframework.htmlunit.AbstractMagnoliaHtmlUnitTest;
+
 import org.junit.Test;
 
 import java.io.FileNotFoundException;
@@ -47,11 +48,8 @@ import java.util.HashMap;
 /**
  * These tests use a plain java.net.HttpURLConnection because we don't want
  * HtmlUnit to interfere with content (gzipped or not) returned by the server.
- *
- * @author gjoseph
- * @version $Revision: $ ($Author: $)
  */
-public class GzipFilterTest extends AbstractMagnoliaIntegrationTest {
+public class GzipFilterTest extends AbstractMagnoliaHtmlUnitTest {
     @Test
     public void pageShouldNotBeGZippedIfClientDoesNotSupportIt() throws Exception {
         HttpURLConnection connection = openConnection(Instance.PUBLIC, "/testpages/test_freemarker.html", null);

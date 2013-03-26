@@ -35,7 +35,7 @@ package info.magnolia.integrationtests;
 
 import static org.junit.Assert.assertEquals;
 
-import info.magnolia.testframework.htmlunit.AbstractMagnoliaIntegrationTest;
+import info.magnolia.testframework.htmlunit.AbstractMagnoliaHtmlUnitTest;
 
 import org.junit.Ignore;
 import org.junit.Test;
@@ -45,10 +45,8 @@ import com.gargoylesoftware.htmlunit.Page;
 /**
  * Checks if page can be accessed on public before and after activation.
  * Plus some basic tests for accessibility of application.
- *
- * @version $Id$
  */
-public class PageActivationTest extends AbstractMagnoliaIntegrationTest {
+public class PageActivationTest extends AbstractMagnoliaHtmlUnitTest {
     @Ignore("See MAGNOLIA-4804")
     @Test
     public void publicPageCheckWithActivation() throws Exception {

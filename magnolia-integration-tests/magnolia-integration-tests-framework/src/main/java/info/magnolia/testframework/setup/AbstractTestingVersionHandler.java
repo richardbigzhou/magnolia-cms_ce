@@ -53,7 +53,7 @@ import info.magnolia.module.model.Version;
 import info.magnolia.nodebuilder.task.ErrorHandling;
 import info.magnolia.nodebuilder.task.ModuleNodeBuilderTask;
 import info.magnolia.repository.RepositoryConstants;
-import info.magnolia.testframework.htmlunit.AbstractMagnoliaIntegrationTest;
+import info.magnolia.testframework.htmlunit.AbstractMagnoliaHtmlUnitTest;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -96,7 +96,7 @@ public abstract class AbstractTestingVersionHandler extends AbstractModuleVersio
 
         list.add(new NodeExistsDelegateTask("Activation", "Changes public URL",  RepositoryConstants.CONFIG,
                 "/server/activation/subscribers/magnoliaPublic8080", new CheckAndModifyPropertyValueTask("Activation", "Changes public URL", RepositoryConstants.CONFIG,
-                "/server/activation/subscribers/magnoliaPublic8080", "URL", "http://localhost:8080/magnoliaPublic", AbstractMagnoliaIntegrationTest.Instance.PUBLIC.getURL())));
+                "/server/activation/subscribers/magnoliaPublic8080", "URL", "http://localhost:8080/magnoliaPublic", AbstractMagnoliaHtmlUnitTest.Instance.PUBLIC.getURL())));
 
         return list;
     }

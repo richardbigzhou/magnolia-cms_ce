@@ -52,14 +52,13 @@ import java.util.Map;
 
 import static org.junit.Assert.*;
 
+import info.magnolia.testframework.AbstractMagnoliaIntegrationTest;
+
 /**
  * A base class for Magnolia integration tests. Might be split into util class/methods;
  * since we use JUnit4, inheritance isn't really mandatory.
- *
- * @author gjoseph
- * @version $Revision: $ ($Author: $)
  */
-public abstract class AbstractMagnoliaIntegrationTest {
+public abstract class AbstractMagnoliaHtmlUnitTest extends AbstractMagnoliaIntegrationTest{
 
     /**
      * Session id's can consist of any digit and letter (lower or upper case).
@@ -67,55 +66,7 @@ public abstract class AbstractMagnoliaIntegrationTest {
     protected static final String SESSION_ID_REGEXP = ";jsessionid=[a-zA-Z0-9]+";
 
     /**
-     * A simple way of referring to one of the two test instances deployed during ITs.
-     */
-    public enum Instance implements InstanceProperties {
-        AUTHOR {
-            public String getContextPath() {
-                return "magnoliaTest/";
-            }
-        }, PUBLIC {
-            public String getContextPath() {
-                return "magnoliaTestPublic/";
-            }
-        };
-
-        public String getURL() {
-            return "http://localhost:8088/" + getContextPath();
-        }
-
-        public String getURL(String path) {
-            if (path.startsWith("/")) {
-                path = path.substring(1);
-            }
-            return getURL() + path;
-        }
-    }
-
-    private interface InstanceProperties {
-        String getContextPath();
-
-        String getURL();
-
-        String getURL(String path);
-    }
-
-    /**
-     * Pre-configured users available for tests.
-     */
-    protected enum User {
-        superuser
-    }
-
-    /*
-    @After
-    public void afterEachTest() {
-     ...
-    }
-     */
-
-    /**
-     * @see #openConnection(info.magnolia.testframework.htmlunit.AbstractMagnoliaIntegrationTest.Instance, String, info.magnolia.testframework.htmlunit.AbstractMagnoliaIntegrationTest.User, java.util.Map)
+     * @see #openConnection(AbstractMagnoliaHtmlUnitTest.Instance, String, AbstractMagnoliaHtmlUnitTest.User, java.util.Map)
      */
     protected HttpURLConnection openConnection(Instance instance, String path, User user) throws IOException {
         return openConnection(instance, path, user, Collections.<String, String>emptyMap());
@@ -142,7 +93,7 @@ public abstract class AbstractMagnoliaIntegrationTest {
 
     /**
      * Just a shortcut method to avoid a cast to HtmlPage.
-     * @see #openPage(info.magnolia.testframework.htmlunit.AbstractMagnoliaIntegrationTest.Instance, String, info.magnolia.testframework.htmlunit.AbstractMagnoliaIntegrationTest.User, boolean)
+     * @see #openPage(AbstractMagnoliaHtmlUnitTest.Instance, String, AbstractMagnoliaHtmlUnitTest.User, boolean)
      * @deprecated openPage now uses generics, so use that instead.
      */
     @Deprecated
@@ -159,8 +110,8 @@ public abstract class AbstractMagnoliaIntegrationTest {
     }
 
     /**
-     * @deprecated use {@link #openPage(String, info.magnolia.testframework.htmlunit.AbstractMagnoliaIntegrationTest.User, boolean)}
-     * with {@link AbstractMagnoliaIntegrationTest.Instance.AUTHOR.getURL()}
+     * @deprecated use {@link #openPage(String, AbstractMagnoliaHtmlUnitTest.User, boolean)}
+     * with {@link AbstractMagnoliaHtmlUnitTest.Instance.AUTHOR.getURL()}
      */
     @Deprecated
     protected Page openPage(Instance instance, String path, User user) throws IOException {
@@ -168,7 +119,7 @@ public abstract class AbstractMagnoliaIntegrationTest {
     }
 
     /**
-     * @deprecated use {@link #openPage(String, info.magnolia.testframework.htmlunit.AbstractMagnoliaIntegrationTest.User, boolean)}
+     * @deprecated use {@link #openPage(String, AbstractMagnoliaHtmlUnitTest.User, boolean)}
      * with {@link AbstractMagnoliaIntegrationTest.Instance.AUTHOR.getURL()}
      */
     @Deprecated

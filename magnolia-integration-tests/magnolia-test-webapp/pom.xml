@@ -4,7 +4,7 @@
   <parent>
     <groupId>info.magnolia</groupId>
     <artifactId>magnolia-integration-tests-parent</artifactId>
-    <version>5.0-STABLE-SNAPSHOT</version>
+    <version>5.0-SNAPSHOT</version>
   </parent>
   <artifactId>magnolia-test-webapp</artifactId>
   <packaging>war</packaging>
@@ -23,14 +23,34 @@
       <version>${project.version}</version>
       <type>pom</type>
     </dependency>
+    <!-- Prepare for MAGNOLIA-4728: replace both dependencies to empty-webapp with the ones beyond to get demo-project added to the webapp
+    <dependency>
+      <groupId>info.magnolia</groupId>
+      <artifactId>magnolia-bundled-webapp</artifactId>
+      <version>5.0-SNAPSHOT</version>
+      <type>war</type>
+    </dependency>
+    <dependency>
+      <groupId>info.magnolia</groupId>
+      <artifactId>magnolia-bundled-webapp</artifactId>
+      <version>5.0-SNAPSHOT</version>
+      <type>pom</type>
+      <scope>import</scope>
+    </dependency>
+    -->
+    <dependency>
+      <groupId>info.magnolia.dam</groupId>
+      <artifactId>magnolia-module-dam</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>info.magnolia.dam</groupId>
+      <artifactId>magnolia-module-dam-app-assets</artifactId>
+    </dependency>
+
     <dependency>
       <groupId>info.magnolia</groupId>
       <artifactId>magnolia-templating-samples</artifactId>
       <type>jar</type>
-    </dependency>
-    <dependency>
-      <groupId>info.magnolia</groupId>
-      <artifactId>magnolia-templating-compatibility-taglib-cms</artifactId>
     </dependency>
     <dependency>
       <groupId>info.magnolia</groupId>

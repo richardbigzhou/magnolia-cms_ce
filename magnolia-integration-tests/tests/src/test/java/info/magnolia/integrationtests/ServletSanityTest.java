@@ -36,7 +36,8 @@ package info.magnolia.integrationtests;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import info.magnolia.testframework.htmlunit.AbstractMagnoliaIntegrationTest;
+
+import info.magnolia.testframework.htmlunit.AbstractMagnoliaHtmlUnitTest;
 
 import java.io.IOException;
 
@@ -49,7 +50,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
 /**
  * Runs tests for the pages in servlet sanity module.
  */
-public class ServletSanityTest extends AbstractMagnoliaIntegrationTest {
+public class ServletSanityTest extends AbstractMagnoliaHtmlUnitTest {
 
     @Test
     public void testServletDispatchingFilter() throws Exception {

@@ -34,20 +34,20 @@
 package info.magnolia.testframework.util;
 
 import info.magnolia.cms.core.Content;
-import info.magnolia.module.templating.RenderableDefinition;
-import info.magnolia.module.templating.RenderingModel;
+import info.magnolia.jcr.util.ContentMap;
+import info.magnolia.rendering.model.RenderingModel;
+import info.magnolia.rendering.template.RenderableDefinition;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
+import javax.jcr.Node;
+
 /**
  * Dummy model used in tests, exposing an execution counter and hardcoded arbitrary properties.
  *
- * @author gjoseph
- * @version $Revision: $ ($Author: $)
- *
- * @deprecated use {@link ComponentModelForTests} instead.
+ * @deprecated since 5.0 use {@link ComponentModelForTests} instead.
  */
 @Deprecated
 public class ParagraphModelForTests implements RenderingModel {
@@ -55,21 +55,35 @@ public class ParagraphModelForTests implements RenderingModel {
     public ParagraphModelForTests(Content content, RenderableDefinition renderable, RenderingModel parent) {
     }
 
+    @Override
     public RenderingModel getParent() {
         return null;
     }
 
-    public Content getContent() {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+    @Override
+    public Node getNode() {
+        return null;
     }
 
+    @Override
+    public ContentMap getContent() {
+        return null;
+    }
+
+    @Override
     public RenderableDefinition getDefinition() {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        return null;
     }
 
+    @Override
     public String execute() {
         executionCount++;
         return "foobar";
+    }
+
+    @Override
+    public RenderingModel<?> getRoot() {
+        return null;
     }
 
     public String getCount() {

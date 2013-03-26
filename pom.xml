@@ -20,8 +20,8 @@
 
   <properties>
     <magnoliaEdition>Community Edition</magnoliaEdition>
-    <magnoliaVersion>5.0-alpha4-1</magnoliaVersion>
-    <magnoliaUiVersion>5.0-alpha4-1</magnoliaUiVersion>
+    <magnoliaVersion>5.0-alpha3-5</magnoliaVersion>
+    <magnoliaUiVersion>5.0-alpha3-9</magnoliaUiVersion>
     <javaVersion>1.6</javaVersion>
     <documentationURL>http://documentation.magnolia-cms.com/releases/5.0.html</documentationURL>
     <stkVersion>2.5-alpha3-4</stkVersion>
@@ -68,6 +68,16 @@
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
+        <artifactId>magnolia-rendering</artifactId>
+        <version>${magnoliaVersion}</version>
+      </dependency>
+      <dependency>
+        <groupId>info.magnolia</groupId>
+        <artifactId>magnolia-templating</artifactId>
+        <version>${magnoliaVersion}</version>
+      </dependency>
+      <dependency>
+        <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-standard-templating-kit</artifactId>
         <version>${stkVersion}</version>
       </dependency>
@@ -98,24 +108,6 @@
         <artifactId>magnolia-templating-samples</artifactId>
         <version>5.0-alpha1</version>
         <type>jar</type>
-      </dependency>
-      <dependency>
-        <groupId>info.magnolia</groupId>
-        <artifactId>magnolia-templating-compatibility</artifactId>
-        <version>4.5.3</version>
-        <scope>provided</scope>
-      </dependency>
-      <dependency>
-        <groupId>info.magnolia</groupId>
-        <artifactId>magnolia-templating-compatibility-taglib-cms</artifactId>
-        <version>4.5.3</version>
-        <scope>provided</scope>
-      </dependency>
-      <dependency>
-        <groupId>info.magnolia</groupId>
-        <artifactId>magnolia-templating-compatibility-taglib-utility</artifactId>
-        <version>4.5.3</version>
-        <scope>provided</scope>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
