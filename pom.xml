@@ -20,12 +20,12 @@
 
   <properties>
     <magnoliaEdition>Community Edition</magnoliaEdition>
-    <magnoliaVersion>5.0-alpha3-5</magnoliaVersion>
-    <magnoliaUiVersion>5.0-alpha3-9</magnoliaUiVersion>
+    <magnoliaVersion>5.0-alpha4-1</magnoliaVersion>
+    <magnoliaUiVersion>5.0-alpha4-2</magnoliaUiVersion>
     <javaVersion>1.6</javaVersion>
     <documentationURL>http://documentation.magnolia-cms.com/releases/5.0.html</documentationURL>
     <stkVersion>2.5-alpha3-4</stkVersion>
-    <damVersion>1.0-alpha3-7</damVersion>
+    <damVersion>1.0-alpha4-1</damVersion>
     <scmTagPrefix>magnolia-bundle</scmTagPrefix>
   </properties>
 
