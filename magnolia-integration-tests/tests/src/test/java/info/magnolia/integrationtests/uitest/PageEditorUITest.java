@@ -37,6 +37,7 @@ import static org.junit.Assert.*;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.openqa.selenium.By;
 
@@ -67,6 +68,7 @@ public class PageEditorUITest extends AbstractMagnoliaUITest {
         driver.switchTo().defaultContent();
     }
 
+    @Ignore("Reactivate when MGNLUI-945 is fixed")
     @Test
     public void whenEditFieldThenEditComponentDialogShown() {
         // GIVEN

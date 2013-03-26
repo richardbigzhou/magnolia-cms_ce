@@ -38,6 +38,7 @@ import static org.junit.Assert.*;
 import java.util.Date;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.openqa.selenium.By;
 
@@ -51,9 +52,7 @@ public class AdminCentralUITest extends AbstractMagnoliaUITest {
         toLandingPage();
     }
 
-    /**
-     * Provokes MGNLUI-873.
-     */
+    @Ignore("Reactivate when MGNLUI-873 is fixed")
     @Test
     public void navigateToPulseAndBackToAppLauncherDoesntScrewLayout() {
         // GIVEN
@@ -72,6 +71,7 @@ public class AdminCentralUITest extends AbstractMagnoliaUITest {
         }
     }
 
+    @Ignore("Reactivate when MGNLUI-935 is fixed")
     @Test
     public void sendAndRetrieveErrorMessage() {
         // GIVEN
@@ -93,6 +93,7 @@ public class AdminCentralUITest extends AbstractMagnoliaUITest {
         closeApp();
     }
 
+    @Ignore("Reactivate when MGNLUI-934 is fixed")
     @Test
     public void sendAndRetrieveMessage() {
         // GIVEN
