@@ -24,7 +24,7 @@
     <magnoliaUiVersion>5.0-alpha4-3</magnoliaUiVersion>
     <javaVersion>1.6</javaVersion>
     <documentationURL>http://documentation.magnolia-cms.com/releases/5.0.html</documentationURL>
-    <stkVersion>2.5-alpha3-4</stkVersion>
+    <stkVersion>2.5-alpha4-1</stkVersion>
     <damVersion>1.0-alpha4-1</damVersion>
     <scmTagPrefix>magnolia-bundle</scmTagPrefix>
   </properties>
