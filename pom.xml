@@ -64,7 +64,7 @@
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-mail</artifactId>
-        <version>5.0-alpha1</version>
+        <version>5.0-alpha4-1</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
