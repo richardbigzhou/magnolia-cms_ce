@@ -16,7 +16,7 @@ PRGDIR=`dirname "$PRG"`
 #---
 
 if [ "$1" = "start" ] ; then
-    # create public webapp when "installed" file and "magnoiaPublic" directory doesn't exist
+    # create public webapp when "installed" file and "magnoiaPublic/WEB-INF" directory doesn't exist
     if [ ! -e "$PRGDIR/.installed" ] && [ ! -d "$PRGDIR/../webapps/magnoliaPublic/WEB-INF" ] ; then
       echo "First run -> create magnoliaPublic webapp from magnoliaAuthor webapp."
       if [ -d "$PRGDIR/../webapps/magnoliaPublic" ] ; then
