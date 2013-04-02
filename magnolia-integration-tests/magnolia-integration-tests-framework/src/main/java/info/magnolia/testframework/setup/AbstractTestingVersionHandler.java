@@ -33,27 +33,25 @@
  */
 package info.magnolia.testframework.setup;
 
-import static info.magnolia.nodebuilder.Ops.addNode;
-import static info.magnolia.nodebuilder.Ops.addProperty;
-import static info.magnolia.nodebuilder.Ops.getNode;
-import static info.magnolia.nodebuilder.Ops.noop;
+import static info.magnolia.nodebuilder.Ops.*;
+
 import info.magnolia.module.AbstractModuleVersionHandler;
 import info.magnolia.module.InstallContext;
 import info.magnolia.module.delta.ArrayDelegateTask;
 import info.magnolia.module.delta.CheckAndModifyPropertyValueTask;
 import info.magnolia.module.delta.CopyNodeTask;
-import info.magnolia.module.delta.RemoveNodeTask;
 import info.magnolia.module.delta.Delta;
 import info.magnolia.module.delta.ModuleFilesExtraction;
 import info.magnolia.module.delta.NodeExistsDelegateTask;
 import info.magnolia.module.delta.PropertiesImportTask;
 import info.magnolia.module.delta.RegisterModuleServletsTask;
+import info.magnolia.module.delta.RemoveNodeTask;
 import info.magnolia.module.delta.Task;
 import info.magnolia.module.model.Version;
 import info.magnolia.nodebuilder.task.ErrorHandling;
 import info.magnolia.nodebuilder.task.ModuleNodeBuilderTask;
 import info.magnolia.repository.RepositoryConstants;
-import info.magnolia.testframework.htmlunit.AbstractMagnoliaHtmlUnitTest;
+import info.magnolia.testframework.AbstractMagnoliaIntegrationTest;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -96,7 +94,7 @@ public abstract class AbstractTestingVersionHandler extends AbstractModuleVersio
 
         list.add(new NodeExistsDelegateTask("Activation", "Changes public URL",  RepositoryConstants.CONFIG,
                 "/server/activation/subscribers/magnoliaPublic8080", new CheckAndModifyPropertyValueTask("Activation", "Changes public URL", RepositoryConstants.CONFIG,
-                "/server/activation/subscribers/magnoliaPublic8080", "URL", "http://localhost:8080/magnoliaPublic", AbstractMagnoliaHtmlUnitTest.Instance.PUBLIC.getURL())));
+                "/server/activation/subscribers/magnoliaPublic8080", "URL", "http://localhost:8080/magnoliaPublic", AbstractMagnoliaIntegrationTest.Instance.PUBLIC.getURL())));
 
         return list;
     }

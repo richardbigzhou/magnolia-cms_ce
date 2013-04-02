@@ -62,7 +62,6 @@
       <artifactId>magnolia-ui-app-messages</artifactId>
       <version>${magnoliaUiVersion}</version>
     </dependency>
-
     <dependency>
       <groupId>info.magnolia</groupId>
       <artifactId>magnolia-rendering</artifactId>
@@ -86,17 +85,10 @@
     <dependency>
       <groupId>info.magnolia.cache</groupId>
       <artifactId>magnolia-module-cache</artifactId>
-      <version>${magnoliaVersion}</version>
     </dependency>
     <dependency>
       <groupId>info.magnolia.activation</groupId>
       <artifactId>magnolia-module-activation</artifactId>
-      <version>${magnoliaVersion}</version>
-    </dependency>
-    <dependency>
-      <groupId>info.magnolia</groupId>
-      <artifactId>magnolia-jaas</artifactId>
-      <version>${magnoliaVersion}</version>
     </dependency>
     <dependency>
       <groupId>info.magnolia</groupId>
