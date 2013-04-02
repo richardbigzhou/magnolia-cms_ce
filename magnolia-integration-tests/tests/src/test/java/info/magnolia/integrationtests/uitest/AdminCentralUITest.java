@@ -93,6 +93,20 @@ public class AdminCentralUITest extends AbstractMagnoliaUITest {
         closeApp();
     }
 
+    @Test
+    public void startAppTwiceReloadingBetween() {
+        // WHEN
+        getAppIcon("Pages").click();
+        closeApp();
+        toLandingPage();
+        getAppIcon("Pages").click();
+        closeApp();
+
+        // THEN
+        getAppIcon("Pages").click();
+        closeApp();
+    }
+
     @Ignore("Reactivate when MGNLUI-934 is fixed")
     @Test
     public void sendAndRetrieveMessage() {
