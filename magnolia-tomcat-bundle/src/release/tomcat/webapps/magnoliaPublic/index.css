@@ -1,0 +1,155 @@
+html {
+    background: #FAFBF4;
+}
+
+body {
+    background: #FAFBF4;
+    color: #000;
+    font-family: Georgia, "Times New Roman", Times, serif;
+    margin: 0 15%;
+    padding: 20px;
+    font-size: 9pt;
+}
+
+a, a:visited{
+    color: #669900 !important;
+    text-decoration:underline !important;
+}
+
+a img {
+    margin: 0 0 -2px 0;
+    padding: 0;
+    border: 0;
+}
+
+h2 {
+    padding: 0;
+    margin: 0;
+    font-weight: normal;
+    color: #669900;
+    font-size: 14pt;
+}
+
+h3 {
+    padding: 0;
+    margin: 40px 0 0 0;
+    font-weight: normal;
+    color: #669900;
+    font-size: 12pt;
+}
+
+li {
+    list-style-type: none;
+    list-style-position: outside;
+    list-style-image: url(images/listItem.gif);
+    margin: 0 0 5px 0;
+    padding-left: 0;
+    font-size: 9pt;
+    width: 270px;
+}
+
+.page {
+    margin-top: 15px;
+    border: 1px solid #adbc61;
+    background: white;
+}
+
+#header {
+    margin: 0;
+    padding: 20px;
+    height: 40px;
+    background: white url(images/backgroundBar.gif) repeat-x;
+}
+
+#footer {
+    margin: 0;
+    padding: 0;
+}
+
+#signpost {
+    float: left;
+    margin-right: 20px;
+}
+
+#header h1 {
+    margin: 3px 0 0 0;
+    padding: 0;
+    font-size: 26pt;
+    font-weight: normal;
+    color: #4d4d4d;
+}
+
+#footer,#footer a {
+    margin-top: 3px;
+    text-align: center;
+    font-size: 9px;
+    font-family: Verdana;
+    color: #aaa;
+}
+
+#content {
+    padding: 30px 20px 20px 20px;
+    margin: auto;
+    font-weight: normal;
+    width:90%;
+}
+
+div.box {
+    background-color: #F6F6F6;
+    float: left;
+    margin: 15px 0 0 15px;
+    padding: 10px;
+}
+
+div.instances {
+    margin: 15px 0 0 15px;
+    padding: 0;
+    float: left;
+}
+
+div.instance {
+    background-color: #F6F6F6;
+    padding: 10px;
+    margin-bottom: 20px;
+    width: 44%;
+    height: 200px;
+    position: relative;
+}
+
+div#authorInstance {
+    float: left;
+}
+
+div#publicInstance {
+    float: right;
+}
+
+div.instance h3 {
+    margin: 10px 0 10px 0;
+    color: black;
+    font-weight: bold;
+    font-size: 10pt;
+}
+
+ul.links {
+    margin: 10px 0pt 10px 50px;
+}
+
+.instanceLogo {
+    float: left;
+    margin-right: 20px;
+    margin-bottom: 100px;
+}
+
+p.note {
+    margin: 15px 0pt 10px 65px;
+    position: relative;
+    bottom: 0;
+    font-size: 0.95em;
+    line-height: 1.3em;
+    color: grey;
+}
+
+span#moreInfo {
+    font-weight: bold;
+}
