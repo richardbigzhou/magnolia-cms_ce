@@ -13,8 +13,8 @@
       <version>${magnoliaVersion}</version>
     </dependency>
     <dependency>
-      <name>adminInterface</name>
-      <version>4.5/*</version>
+      <name>admininterface-legacy</name>
+      <version>1.0/*</version>
     </dependency>
     <dependency>
       <name>templating</name>

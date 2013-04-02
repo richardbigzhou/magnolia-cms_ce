@@ -24,8 +24,8 @@ See README.txt for details.
     <!-- temporary deps as old UI will be dropped soon -->
     <dependency>
       <groupId>info.magnolia</groupId>
-      <artifactId>magnolia-module-admininterface</artifactId>
-      <version>4.5.7</version>
+      <artifactId>magnolia-module-legacy-admininterface</artifactId>
+      <version>1.0-SNAPSHOT</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
