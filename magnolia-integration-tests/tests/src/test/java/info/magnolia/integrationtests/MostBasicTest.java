@@ -33,16 +33,17 @@
  */
 package info.magnolia.integrationtests;
 
-import com.gargoylesoftware.htmlunit.Page;
-import com.gargoylesoftware.htmlunit.html.HtmlElement;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import static org.junit.Assert.*;
+import static org.junit.matchers.JUnitMatchers.containsString;
 
 import info.magnolia.testframework.htmlunit.AbstractMagnoliaHtmlUnitTest;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
-import static org.junit.matchers.JUnitMatchers.containsString;
+import com.gargoylesoftware.htmlunit.Page;
+import com.gargoylesoftware.htmlunit.html.HtmlElement;
+import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 /**
  * We're just checking if the container started and the application is reachable, plus some simple assertions, checking
@@ -57,9 +58,10 @@ public class MostBasicTest extends AbstractMagnoliaHtmlUnitTest {
     }
 
     @Test
+    @Ignore("See MAGNOLIA-4942")
     public void loginOnAuthorInstanceWithSuperuser() throws Exception {
-        final HtmlPage root = openPage(Instance.AUTHOR.getURL("/.magnolia/adminCentral.html"), User.superuser);
-        final HtmlPage adminCentralPage = assertRedirected("Old adminCentral redirect is not setup?", Instance.AUTHOR.getURL("/\\.magnolia/pages/adminCentral\\.html" + SESSION_ID_REGEXP), root, User.superuser);
+        final HtmlPage root = openPage(Instance.AUTHOR.getURL(""), User.superuser);
+        final HtmlPage adminCentralPage = assertRedirected("adminCentral redirect is not setup?", Instance.AUTHOR.getURL("/\\.magnolia/admincentral" + SESSION_ID_REGEXP), root, User.superuser);
         assertEquals(200, adminCentralPage.getWebResponse().getStatusCode());
         final String allContents = adminCentralPage.getWebResponse().getContentAsString();
         assertThat("We're not on a CE instance!?", allContents, containsString("Community Edition"));
