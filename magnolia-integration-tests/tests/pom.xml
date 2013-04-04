@@ -429,6 +429,10 @@
       <id>manual-tests</id>
       <properties>
         <leaveContainerRunningAndDontExecuteTests>true</leaveContainerRunningAndDontExecuteTests>
+        <containerId>jetty6x</containerId>
+        <containerType>installed</containerType>
+        <configType>standalone</configType>
+        <url>http://dist.codehaus.org/jetty/jetty-6.1.22/jetty-6.1.22.zip</url>
       </properties>
     </profile>
     <!-- unfortunately doesn't work since JBoss doesn't recognize the java.security.auth.login.config property -->

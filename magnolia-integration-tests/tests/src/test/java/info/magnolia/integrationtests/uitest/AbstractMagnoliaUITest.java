@@ -80,7 +80,11 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
 
     @AfterClass
     public static void teardown() {
-        driver.quit();
+        if (driver == null) {
+            log.warn("Driver is set to null.");
+        } else {
+            driver.quit();
+        }
     }
 
     protected static void login() {
