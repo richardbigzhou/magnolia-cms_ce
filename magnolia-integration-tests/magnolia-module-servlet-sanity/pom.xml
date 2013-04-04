@@ -21,13 +21,6 @@ See README.txt for details.
       <version>${magnoliaVersion}</version>
       <scope>provided</scope>
     </dependency>
-    <!-- temporary deps as old UI will be dropped soon -->
-    <dependency>
-      <groupId>info.magnolia</groupId>
-      <artifactId>magnolia-module-legacy-admininterface</artifactId>
-      <version>5.0-SNAPSHOT</version>
-      <scope>provided</scope>
-    </dependency>
     <dependency>
       <groupId>info.magnolia</groupId>
       <artifactId>magnolia-templating</artifactId>
