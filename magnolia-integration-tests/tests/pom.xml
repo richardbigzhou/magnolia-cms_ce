@@ -161,7 +161,7 @@
             <home>${basedir}/tmp/cargo-home</home>
             <configfiles>
               <configfile>
-                <file>${basedir}/src/main/resources/jetty.xml</file>
+                <file>${basedir}/src/test/resources/jetty.xml</file>
                 <todir>/etc</todir>
               </configfile>
             </configfiles>
