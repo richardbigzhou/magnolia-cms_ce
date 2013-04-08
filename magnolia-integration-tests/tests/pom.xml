@@ -68,6 +68,18 @@
       <artifactId>selenium-java</artifactId>
     </dependency>
     <dependency>
+      <groupId>net.sourceforge.nekohtml</groupId>
+      <artifactId>nekohtml</artifactId>
+      <version>1.9.14</version>
+    </dependency>
+    <!-- Intellij requires to have groovy in the classpath in order to compile .groovy files -->
+    <dependency>
+      <groupId>org.codehaus.groovy</groupId>
+      <artifactId>groovy-all</artifactId>
+      <!-- have to use the same version as the gmaven plugin-->
+      <version>1.6.9</version>
+    </dependency>
+    <dependency>
       <groupId>org.apache.httpcomponents</groupId>
       <artifactId>httpclient</artifactId>
       <version>4.1.2</version>
