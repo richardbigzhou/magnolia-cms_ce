@@ -17,31 +17,17 @@
   <dependencies>
     <dependency>
       <groupId>info.magnolia</groupId>
-      <artifactId>magnolia-empty-webapp</artifactId>
+      <artifactId>magnolia-bundled-webapp</artifactId>
       <version>${project.version}</version>
       <type>war</type>
     </dependency>
     <dependency>
       <groupId>info.magnolia</groupId>
-      <artifactId>magnolia-empty-webapp</artifactId>
+      <artifactId>magnolia-bundled-webapp</artifactId>
       <version>${project.version}</version>
-      <type>pom</type>
-    </dependency>
-    <!-- Prepare for MAGNOLIA-4728: replace both dependencies to empty-webapp with the ones beyond to get demo-project added to the webapp
-    <dependency>
-      <groupId>info.magnolia</groupId>
-      <artifactId>magnolia-bundled-webapp</artifactId>
-      <version>5.0-SNAPSHOT</version>
-      <type>war</type>
-    </dependency>
-    <dependency>
-      <groupId>info.magnolia</groupId>
-      <artifactId>magnolia-bundled-webapp</artifactId>
-      <version>5.0-SNAPSHOT</version>
       <type>pom</type>
       <scope>import</scope>
     </dependency>
-    -->
     <dependency>
       <groupId>info.magnolia.dam</groupId>
       <artifactId>magnolia-module-dam</artifactId>

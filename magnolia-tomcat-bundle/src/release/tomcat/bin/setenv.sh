@@ -3,7 +3,7 @@ if [ -d "$JDKPath" ] ; then
   export JAVA_HOME="$JDKPath"
 fi
 
-export CATALINA_OPTS="$CATALINA_OPTS -XX:MaxPermSize=256m -Xms64M -Xmx512M -Djava.awt.headless=false"
+export CATALINA_OPTS="$CATALINA_OPTS -XX:MaxPermSize=256m -Xms64M -Xmx512M -Djava.awt.headless=true"
 # to enable jmx:
 # export CATALINA_OPTS="$CATALINA_OPTS -Dcom.sun.management.jmxremote.port=12345 -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false"
 # to enable debugging:

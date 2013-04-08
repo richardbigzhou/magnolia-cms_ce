@@ -32,7 +32,6 @@
  *
  */
 
-//@Grab(group='net.sourceforge.nekohtml', module='nekohtml', version='1.9.14')
 import org.cyberneko.html.parsers.SAXParser
 import java.util.zip.GZIPInputStream
 
