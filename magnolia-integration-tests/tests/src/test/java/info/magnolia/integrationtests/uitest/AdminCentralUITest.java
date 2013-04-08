@@ -93,6 +93,7 @@ public class AdminCentralUITest extends AbstractMagnoliaUITest {
         closeApp();
     }
 
+    @Ignore("Reactivate when MGNLUI-1018 is fixed")
     @Test
     public void startAppTwiceReloadingBetween() {
         // WHEN
