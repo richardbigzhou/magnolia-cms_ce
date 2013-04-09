@@ -27,6 +27,8 @@
     <stkVersion>2.5-SNAPSHOT</stkVersion>
     <damVersion>1.0-SNAPSHOT</damVersion>
     <scmTagPrefix>magnolia-bundle</scmTagPrefix>
+    <!-- Disable clover during releases: -->
+    <additionalReleaseProfiles />
   </properties>
 
   <dependencyManagement>
@@ -116,17 +118,6 @@
       </dependency>
     </dependencies>
   </dependencyManagement>
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>com.atlassian.maven.plugins</groupId>
-        <artifactId>maven-clover2-plugin</artifactId>
-        <configuration>
-          <skip>true</skip>
-        </configuration>
-      </plugin>
-    </plugins>
-  </build>
 
   <modules>
     <module>magnolia-empty-webapp</module>
