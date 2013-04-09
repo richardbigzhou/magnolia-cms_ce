@@ -37,7 +37,6 @@ import static org.junit.Assert.*;
 
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.openqa.selenium.By;
 
@@ -56,7 +55,6 @@ public class ImageEditorUITest extends AbstractMagnoliaUITest {
         assertEquals(0, driver.findElements(By.className("v-app-close")).size());
     }
 
-    @Ignore("Activate when MGNLUI-974 is fixed")
     @Test
     public void canExecuteTwoImagingOperationsInARow() {
         // GIVEN
