@@ -315,11 +315,11 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
     }
 
     protected void clickDialogCommitButton() {
-        getDialogButton("btn-form-commit").click();
+        getDialogButton("btn-dialog-commit").click();
     }
 
     protected void clickDialogCancelButton() {
-        getDialogButton("btn-form-cancel").click();
+        getDialogButton("btn-dialog-cancel").click();
     }
 
     protected void closeErrorNotification() {
