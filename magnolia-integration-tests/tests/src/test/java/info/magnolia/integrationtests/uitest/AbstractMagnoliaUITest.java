@@ -41,6 +41,7 @@ import info.magnolia.testframework.htmlunit.AbstractMagnoliaHtmlUnitTest;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.io.FileUtils;
@@ -49,8 +50,11 @@ import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.rules.TestName;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.OutputType;
+import org.openqa.selenium.Point;
 import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -63,6 +67,79 @@ import org.slf4j.LoggerFactory;
  * Base class for Magnolia UI tests. Provides convenience methods for Magnolia Apps.
  */
 public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegrationTest {
+
+    /**
+     * Special implementation representing an not existing WebElement.
+     */
+    public class NonExistingWebElement implements WebElement {
+        private String path;
+
+        public NonExistingWebElement(String path) {
+            this.path = path;
+        }
+
+        @Override
+        public void click() {
+            fail("Cannot execute click on non existing WebElement: " + path);
+        }
+
+        @Override
+        public void submit() {
+            fail("Cannot execute submit on non existing WebElement: " + path);
+        }
+
+        @Override
+        public void sendKeys(CharSequence... keysToSend) {
+        }
+
+        @Override
+        public void clear() {
+        }
+        @Override
+        public String getTagName() {
+            return null;
+        }
+        @Override
+        public String getAttribute(String name) {
+            return null;
+        }
+        @Override
+        public boolean isSelected() {
+            return false;
+        }
+        @Override
+        public boolean isEnabled() {
+            return false;
+        }
+        @Override
+        public String getText() {
+            return null;
+        }
+        @Override
+        public List<WebElement> findElements(By by) {
+            return null;
+        }
+        @Override
+        public WebElement findElement(By by) {
+            return null;
+        }
+        @Override
+        public boolean isDisplayed() {
+            return false;
+        }
+        @Override
+        public Point getLocation() {
+            return null;
+        }
+        @Override
+        public Dimension getSize() {
+            return null;
+        }
+        @Override
+        public String getCssValue(String propertyName) {
+            return null;
+        }
+    }
     protected static final String SCREENSHOT_DIR = "target/surefire-reports/";
 
     protected static WebDriver driver = null;
@@ -137,7 +214,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
                                 testName.getMethodName(),
                                 suffix,
                                 screenshotIndex++)
-                        ));
+                ));
             } catch (IOException e) {
                 log.error(e.getMessage());
                 fail("failed to take a screenshot");
@@ -146,38 +223,47 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
     }
 
     /**
-     * Click element and poll until element is found or timeout.
+     * @path path to search the element at
+     * @return the searched specified element or a NonExistingWebElement in case it couldn't be found.
      */
     protected WebElement getElementByPath(final By path) {
-        return new WebDriverWait(driver, 20).until(
-                new ExpectedCondition<WebElement>() {
+        WebElement element = null;
+        try {
+            // will loop and try to retrieve the specified element until found or it times out.
+            element = new WebDriverWait(driver, 20).until(
+                    new ExpectedCondition<WebElement>() {
 
-                    @Override
-                    public WebElement apply(WebDriver d) {
-                        try {
-                            WebElement element = d.findElement(path);
-                            if (element.isDisplayed()) {
-                                takeScreenshot("");
-                                return element;
+                        @Override
+                        public WebElement apply(WebDriver d) {
+                            try {
+                                WebElement element = d.findElement(path);
+                                if (element.isDisplayed()) {
+                                    takeScreenshot("");
+                                    return element;
+                                }
+                                takeScreenshot("notDisplayed");
+                                // Element is there but not displayed. Return null, so another attempt will be done until we hit the timeout.
+                                return null;
+                            } catch (Exception e) {
+                                takeScreenshot("notFound");
+                                // Element is not there. Return null, so another attempt will be done until we hit the timeout.
+                                return null;
                             }
-                            takeScreenshot("notfound");
-                            return null;
-                        } catch (Exception e) {
-                            log.warn("Could not retrieve element with path {}: Exception message: {}",  path, e.getMessage());
-                            takeScreenshot("exception");
-                            return null;
                         }
                     }
-                }
-        );
+            );
+        } catch (TimeoutException e) {
+            // element could not be found within the time limit - we consider it to be non-existing
+            element = new NonExistingWebElement(path.toString());
+        }
+        return element;
     }
 
-    protected void toLandingPage() {
-        driver.navigate().to(Instance.AUTHOR.getURL());
-        driver.findElement(By.xpath("//*[@id = 'btn-appslauncher']"));
+    protected boolean isNotExisting(WebElement element) {
+        return element instanceof NonExistingWebElement;
     }
 
-    private WebElement getElementByXpath(String path, Object... param) {
+    protected WebElement getElementByXpath(String path, Object... param) {
         String xpath = String.format(path, param);
         return getElementByPath(By.xpath(xpath));
     }
@@ -221,6 +307,11 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
     protected void assertAppOpen(String appName) {
         String path = String.format("//*[contains(@class, 'v-viewport-apps')]//*[contains(@class, 'tab-title') and text() = '%s']", appName);
         assertTrue(driver.findElement(By.xpath(path)).isDisplayed());
+    }
+
+    protected void toLandingPage() {
+        driver.navigate().to(Instance.AUTHOR.getURL());
+        driver.findElement(By.xpath("//*[@id = 'btn-appslauncher']"));
     }
 
     protected void clickDialogCommitButton() {

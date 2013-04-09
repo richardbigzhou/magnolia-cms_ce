@@ -77,11 +77,16 @@ public class ImageEditorUITest extends AbstractMagnoliaUITest {
 
         getActionBarItem("Rotate").click();
 
+        // save after imaging operation
         getDialogButton("btn-dialog-save").click();
+
+        // save editing contact - editor subapp should be closing...
+        getDialogButton("btn-dialog-commit").click();
 
         // THEN
         assertTrue(getDialogTab("Contacts").isDisplayed());
-        assertFalse("Editor should have been closed after click on commit button", getDialogTab("/mmonroe").isDisplayed());
+
+        assertTrue("DialogTab /mmonroe should no longer be existing", isNotExisting(getDialogTab("/mmonroe")));
     }
 
 }
