@@ -34,11 +34,8 @@
 package info.magnolia.integrationtests.uitest;
 
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -47,16 +44,6 @@ import org.openqa.selenium.WebElement;
  * UI tests for activation of pages.
  */
 public class ActivationUITest extends AbstractMagnoliaUITest {
-    @Before
-    public void navigateToAppLauncher() {
-        toLandingPage();
-    }
-
-    @After
-    public void tearDown() {
-        closeApp();
-        assertEquals(0, driver.findElements(By.className("v-app-close")).size());
-    }
 
     @Test
     public void activateAndDeactivatePageResultInStatusChange() {

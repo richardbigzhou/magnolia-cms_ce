@@ -45,7 +45,9 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.io.FileUtils;
+import org.junit.After;
 import org.junit.AfterClass;
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.rules.TestName;
@@ -201,6 +203,18 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
             fail(e.getMessage());
         }
     }
+
+    @Before
+    public void setUp() {
+        toLandingPage();
+    }
+
+    @After
+    public void tearDown() {
+        closeApp();
+        assertEquals(0, driver.findElements(By.className("v-app-close")).size());
+    }
+
 
     protected void takeScreenshot(String suffix) {
         if (driver instanceof TakesScreenshot) {

@@ -33,11 +33,10 @@
  */
 package info.magnolia.integrationtests.uitest;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Date;
 
-import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.openqa.selenium.By;
@@ -47,11 +46,6 @@ import org.openqa.selenium.WebElement;
  * Generic UI tests for admincentral.
  */
 public class AdminCentralUITest extends AbstractMagnoliaUITest {
-
-    @Before
-    public void navigateToAppLauncher() {
-        toLandingPage();
-    }
 
     @Ignore("Reactivate when MGNLUI-873 is fixed")
     @Test

@@ -33,27 +33,14 @@
  */
 package info.magnolia.integrationtests.uitest;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
-import org.openqa.selenium.By;
 
 /**
  * UI tests for Image Editor.
  */
 public class ImageEditorUITest extends AbstractMagnoliaUITest {
-    @Before
-    public void navigateToAppLauncher() {
-        toLandingPage();
-    }
-
-    @After
-    public void tearDown() {
-        closeApp();
-        assertEquals(0, driver.findElements(By.className("v-app-close")).size());
-    }
 
     @Test
     public void canExecuteTwoImagingOperationsInARow() {
