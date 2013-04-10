@@ -41,6 +41,7 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
 /**
  * Generic UI tests for admincentral.
@@ -63,12 +64,11 @@ public class AdminCentralUITest extends AbstractMagnoliaUITest {
         delay();
         toLandingPage();
 
-        // WHEN / THEN
-        try {
-            assertFalse(getElementByPath(By.xpath("//label[text() ='group by type']")).isDisplayed());
-        } catch (Exception e) {
-            // good
-        }
+        // WHEN
+        final WebElement element = getElementByPath(By.xpath("//label[text() ='group by type']"));
+
+        // THEN
+        assertTrue(isNotExisting(element));
     }
 
     @Ignore("Reactivate when MGNLUI-935 is fixed")
