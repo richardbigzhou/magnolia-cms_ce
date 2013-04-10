@@ -360,16 +360,16 @@
         </jvmargs>
       </properties>
     </profile>
-    <!-- This profile will run uitests tests on a real browser - use to run them on your machine -->
+    <!-- This profile will run ui-tests on a real browser - use to run them on your machine -->
     <profile>
-      <id>uitest</id>
+      <id>ui-tests</id>
       <build>
         <plugins>
           <plugin>
             <artifactId>maven-surefire-plugin</artifactId>
             <configuration>
               <includes>
-                <include>**/uitest/*Test.java</include>
+                <include>**/*Test.java</include>
               </includes>
               <excludes>
                 <exclude>-apparently-we-really-need-to-override-the-exclude-oh-well-</exclude>
@@ -385,23 +385,11 @@
       </build>
     </profile>
 
-    <!-- This profile will run uitests tests - they have to be run on a separate VM as Selenium server needs a special configuration with Xvfb installed to run in headless mode.-->
+    <!-- enabled xvfb to be able to run on a separate VM in headless mode.-->
     <profile>
-      <id>uitest-remote</id>
+      <id>start-xvfb</id>
       <build>
         <plugins>
-          <plugin>
-            <artifactId>maven-surefire-plugin</artifactId>
-            <configuration>
-              <includes>
-                <include>**/uitest/*Test.java</include>
-              </includes>
-              <excludes>
-                <exclude>-apparently-we-really-need-to-override-the-exclude-oh-well-</exclude>
-              </excludes>
-            </configuration>
-
-          </plugin>
           <plugin>
             <groupId>org.codehaus.mojo</groupId>
             <artifactId>selenium-maven-plugin</artifactId>
@@ -415,23 +403,6 @@
                   <goal>xvfb</goal>
                 </goals>
               </execution>
-              <execution>
-                <id>start-selenium</id>
-                <phase>pre-integration-test</phase>
-                <goals>
-                  <goal>start-server</goal>
-                </goals>
-                <configuration>
-                  <background>true</background>
-                </configuration>
-              </execution>
-              <execution>
-                <id>stop-selenium</id>
-                <phase>post-integration-test</phase>
-                <goals>
-                  <goal>stop-server</goal>
-                </goals>
-              </execution>
             </executions>
           </plugin>
         </plugins>
@@ -441,12 +412,9 @@
       <id>manual-tests</id>
       <properties>
         <leaveContainerRunningAndDontExecuteTests>true</leaveContainerRunningAndDontExecuteTests>
-        <containerId>jetty6x</containerId>
-        <containerType>installed</containerType>
-        <configType>standalone</configType>
-        <url>http://dist.codehaus.org/jetty/jetty-6.1.22/jetty-6.1.22.zip</url>
       </properties>
     </profile>
+
     <!-- unfortunately doesn't work since JBoss doesn't recognize the java.security.auth.login.config property -->
     <!--
     <profile>
