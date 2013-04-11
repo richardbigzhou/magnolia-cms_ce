@@ -153,12 +153,12 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
     public TestName testName = new TestName();
 
     @BeforeClass
-    public static void setup() {
+    public static void setUpBeforeClass() {
         login();
     }
 
     @AfterClass
-    public static void teardown() {
+    public static void tearDownAfterClass() {
         if (driver == null) {
             log.warn("Driver is set to null.");
         } else {
@@ -211,7 +211,12 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
 
     @After
     public void tearDown() {
-        closeApp();
+        // close app if there's still an open one
+        final WebElement closeAppButton = getElementByPath(By.className("m-closebutton-app"));
+        if (isExisting(closeAppButton)) {
+            closeApp();
+        }
+
         assertEquals(0, driver.findElements(By.className("v-app-close")).size());
     }
 
@@ -273,8 +278,11 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         return element;
     }
 
-    protected boolean isNotExisting(WebElement element) {
-        return element instanceof NonExistingWebElement;
+    /**
+     * @return true in case the provided WebElement is existing - false else.
+     */
+    protected boolean isExisting(WebElement element) {
+        return !(element instanceof NonExistingWebElement);
     }
 
     protected WebElement getElementByXpath(String path, Object... param) {

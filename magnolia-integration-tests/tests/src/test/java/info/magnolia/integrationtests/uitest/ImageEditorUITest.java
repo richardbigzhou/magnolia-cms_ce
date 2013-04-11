@@ -33,6 +33,7 @@
  */
 package info.magnolia.integrationtests.uitest;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
@@ -71,7 +72,6 @@ public class ImageEditorUITest extends AbstractMagnoliaUITest {
         // THEN
         assertTrue(getDialogTab("Contacts").isDisplayed());
 
-        assertTrue("DialogTab /mmonroe should no longer be existing", isNotExisting(getDialogTab("/mmonroe")));
+        assertFalse("DialogTab /mmonroe should no longer be existing", isExisting(getDialogTab("/mmonroe")));
     }
-
 }

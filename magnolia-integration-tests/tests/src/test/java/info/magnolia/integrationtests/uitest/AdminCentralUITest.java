@@ -33,6 +33,7 @@
  */
 package info.magnolia.integrationtests.uitest;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Date;
@@ -62,7 +63,7 @@ public class AdminCentralUITest extends AbstractMagnoliaUITest {
         final WebElement element = getElementByPath(By.xpath("//label[text() ='group by type']"));
 
         // THEN
-        assertTrue(isNotExisting(element));
+        assertFalse(isExisting(element));
     }
 
     @Ignore("Reactivate when MGNLUI-935 is fixed")
