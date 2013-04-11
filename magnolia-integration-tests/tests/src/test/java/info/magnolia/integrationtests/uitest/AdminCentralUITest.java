@@ -88,19 +88,19 @@ public class AdminCentralUITest extends AbstractMagnoliaUITest {
         closeApp();
     }
 
-    @Ignore("Reactivate when MGNLUI-1018 is fixed")
     @Test
-    public void startAppTwiceReloadingBetween() {
-        // WHEN
+    public void assureAppLauncherDoesNotGoBlank() {
+        // GIVEN
         getAppIcon("Pages").click();
         closeApp();
         toLandingPage();
+
+        // WHEN
         getAppIcon("Pages").click();
         closeApp();
 
         // THEN
-        getAppIcon("Pages").click();
-        closeApp();
+        assertTrue("App Launcher should not be blank so e.g. Pages tile should be around", isExisting(getAppIcon("Pages")));
     }
 
     @Ignore("Reactivate when MGNLUI-934 is fixed")
