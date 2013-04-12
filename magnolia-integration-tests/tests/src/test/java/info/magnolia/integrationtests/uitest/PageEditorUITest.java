@@ -33,10 +33,8 @@
  */
 package info.magnolia.integrationtests.uitest;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.openqa.selenium.By;
@@ -45,17 +43,6 @@ import org.openqa.selenium.By;
  * UI tests for Page Editor.
  */
 public class PageEditorUITest extends AbstractMagnoliaUITest {
-
-    @Before
-    public void navigateToAppLauncher() {
-        toLandingPage();
-    }
-
-    @After
-    public void tearDown() {
-        closeApp();
-        assertEquals(0, driver.findElements(By.className("v-app-close")).size());
-    }
 
     /**
      * Selenium has problems handling iframes. Frame needs to be switched explicitly.
@@ -87,10 +74,9 @@ public class PageEditorUITest extends AbstractMagnoliaUITest {
         clickDialogCancelButton();
     }
 
-    // This test cannot currently ported into integration tests because page editor fails
-    // to edit any field in any page.
-    // @Test
-    public void whenEditPageThenRichTextEditor() {
+    @Ignore("Reactivate when MGNLUI-1076 is fixed")
+    @Test
+    public void editingTextImageParagraphBringsUpRichTextEditor() {
         // GIVEN
 
         // WHEN
@@ -111,5 +97,4 @@ public class PageEditorUITest extends AbstractMagnoliaUITest {
         assertTrue(driver.findElement(By.xpath("//*[contains(@class, 'cke_chrome')]")).isDisplayed());
         clickDialogCancelButton();
     }
-
 }

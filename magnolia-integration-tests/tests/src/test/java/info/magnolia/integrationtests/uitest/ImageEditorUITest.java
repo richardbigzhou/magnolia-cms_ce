@@ -33,30 +33,16 @@
  */
 package info.magnolia.integrationtests.uitest;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
-import org.openqa.selenium.By;
 
 /**
  * UI tests for Image Editor.
  */
 public class ImageEditorUITest extends AbstractMagnoliaUITest {
-    @Before
-    public void navigateToAppLauncher() {
-        toLandingPage();
-    }
 
-    @After
-    public void tearDown() {
-        closeApp();
-        assertEquals(0, driver.findElements(By.className("v-app-close")).size());
-    }
-
-    @Ignore("Activate when MGNLUI-974 is fixed")
     @Test
     public void canExecuteTwoImagingOperationsInARow() {
         // GIVEN
@@ -77,11 +63,15 @@ public class ImageEditorUITest extends AbstractMagnoliaUITest {
 
         getActionBarItem("Rotate").click();
 
+        // save after imaging operation
         getDialogButton("btn-dialog-save").click();
+
+        // save editing contact - editor subapp should be closing...
+        getDialogButton("btn-dialog-commit").click();
 
         // THEN
         assertTrue(getDialogTab("Contacts").isDisplayed());
-        assertFalse("Editor should have been closed after click on commit button", getDialogTab("/mmonroe").isDisplayed());
-    }
 
+        assertFalse("DialogTab /mmonroe should no longer be existing", isExisting(getDialogTab("/mmonroe")));
+    }
 }

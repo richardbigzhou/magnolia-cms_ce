@@ -33,24 +33,20 @@
  */
 package info.magnolia.integrationtests.uitest;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Date;
 
-import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
 /**
  * Generic UI tests for admincentral.
  */
 public class AdminCentralUITest extends AbstractMagnoliaUITest {
-
-    @Before
-    public void navigateToAppLauncher() {
-        toLandingPage();
-    }
 
     @Ignore("Reactivate when MGNLUI-873 is fixed")
     @Test
@@ -63,12 +59,11 @@ public class AdminCentralUITest extends AbstractMagnoliaUITest {
         delay();
         toLandingPage();
 
-        // WHEN / THEN
-        try {
-            assertFalse(getElementByPath(By.xpath("//label[text() ='group by type']")).isDisplayed());
-        } catch (Exception e) {
-            // good
-        }
+        // WHEN
+        final WebElement element = getElementByPath(By.xpath("//label[text() ='group by type']"));
+
+        // THEN
+        assertFalse(isExisting(element));
     }
 
     @Ignore("Reactivate when MGNLUI-935 is fixed")
@@ -91,6 +86,21 @@ public class AdminCentralUITest extends AbstractMagnoliaUITest {
         assertTrue(getElementByPath(By.xpath(String.format("//span[text() = '%s']", messageTitle))).isDisplayed());
         closeErrorNotification();
         closeApp();
+    }
+
+    @Test
+    public void assureAppLauncherDoesNotGoBlank() {
+        // GIVEN
+        getAppIcon("Pages").click();
+        closeApp();
+        toLandingPage();
+
+        // WHEN
+        getAppIcon("Pages").click();
+        closeApp();
+
+        // THEN
+        assertTrue("App Launcher should not be blank so e.g. Pages tile should be around", isExisting(getAppIcon("Pages")));
     }
 
     @Ignore("Reactivate when MGNLUI-934 is fixed")

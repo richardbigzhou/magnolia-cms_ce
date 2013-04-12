@@ -33,31 +33,17 @@
  */
 package info.magnolia.integrationtests.uitest;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Date;
 
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
-import org.openqa.selenium.By;
 
 /**
  * UI tests for content app.
  */
 public class ContentAppUITest extends AbstractMagnoliaUITest {
-    @Before
-    public void navigateToAppLauncher() {
-        toLandingPage();
-    }
-
-    @After
-    public void tearDown() {
-        closeApp();
-        assertEquals(0, driver.findElements(By.className("v-app-close")).size());
-    }
-
     @Ignore("This test sometimes fails although there's no known bug - this behavior is tracked as MAGNOLIA-4928")
     @Test
     public void editContact() {
