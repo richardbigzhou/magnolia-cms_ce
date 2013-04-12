@@ -48,7 +48,6 @@ import org.openqa.selenium.WebElement;
  */
 public class AdminCentralUITest extends AbstractMagnoliaUITest {
 
-    @Ignore("Reactivate when MGNLUI-873 is fixed")
     @Test
     public void navigateToPulseAndBackToAppLauncherDoesntScrewLayout() {
         // GIVEN
