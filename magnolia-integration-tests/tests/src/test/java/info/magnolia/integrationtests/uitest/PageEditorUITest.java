@@ -55,7 +55,6 @@ public class PageEditorUITest extends AbstractMagnoliaUITest {
         driver.switchTo().defaultContent();
     }
 
-    @Ignore("Reactivate when MGNLUI-945 is fixed")
     @Test
     public void whenEditFieldThenEditComponentDialogShown() {
         // GIVEN
