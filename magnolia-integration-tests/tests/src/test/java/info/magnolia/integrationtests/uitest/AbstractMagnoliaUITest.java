@@ -261,11 +261,11 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
                                     takeScreenshot(path.toString());
                                     return element;
                                 }
-                                takeScreenshot(path.toString() + "_notDisplayed");
+                                takeScreenshot(path.toString() + "_notDisplayed_");
                                 // Element is there but not displayed. Return null, so another attempt will be done until we hit the timeout.
                                 return null;
                             } catch (Exception e) {
-                                takeScreenshot(path.toString() + "_notFound");
+                                takeScreenshot(path.toString() + "_notFound_");
                                 // Element is not there. Return null, so another attempt will be done until we hit the timeout.
                                 return null;
                             }
