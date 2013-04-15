@@ -213,14 +213,17 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
     @After
     public void tearDown() {
         // close app if there's still an open one
-        final WebElement closeAppButton = getElementByPath(By.className("m-closebutton-app"));
-        if (isExisting(closeAppButton)) {
-            closeApp();
-        }
-
-        assertEquals(0, driver.findElements(By.className("v-app-close")).size());
+        boolean hasUnclosedApps;
+        do {
+            List<WebElement> closeAppButtons = driver.findElements(By.className("m-closebutton-app"));
+            hasUnclosedApps = !closeAppButtons.isEmpty();
+            for (WebElement current : closeAppButtons) {
+                current.click();
+            }
+            // gain some time in case there's animations
+            delay();
+        } while (hasUnclosedApps);
     }
-
 
     protected void takeScreenshot(String suffix) {
         if (driver instanceof TakesScreenshot) {
@@ -228,12 +231,12 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
             File file = screenshotter.getScreenshotAs(OutputType.FILE);
             try {
                 FileUtils.copyFile(file, new File(
-                        String.format("%s/%s_%s_%s_%d.png",
+                        String.format("%s/%s_%s_%d_%s.png",
                                 SCREENSHOT_DIR,
                                 this.getClass().getSimpleName(),
                                 testName.getMethodName(),
-                                URLEncoder.encode(suffix, "UTF-8"),
-                                screenshotIndex++)
+                                screenshotIndex++,
+                                URLEncoder.encode(suffix, "UTF-8"))
                 ));
             } catch (IOException e) {
                 log.error(e.getMessage());
