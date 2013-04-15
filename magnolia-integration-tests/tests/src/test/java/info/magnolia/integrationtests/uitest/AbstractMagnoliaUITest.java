@@ -228,7 +228,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
             File file = screenshotter.getScreenshotAs(OutputType.FILE);
             try {
                 FileUtils.copyFile(file, new File(
-                        String.format("%s/%s_%s_%s%d.png",
+                        String.format("%s/%s_%s_%s_%d.png",
                                 SCREENSHOT_DIR,
                                 this.getClass().getSimpleName(),
                                 testName.getMethodName(),
@@ -261,11 +261,11 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
                                     takeScreenshot(path.toString());
                                     return element;
                                 }
-                                takeScreenshot(path.toString() + "_notDisplayed_");
+                                takeScreenshot(path.toString() + "_notDisplayed");
                                 // Element is there but not displayed. Return null, so another attempt will be done until we hit the timeout.
                                 return null;
                             } catch (Exception e) {
-                                takeScreenshot(path.toString() + "_notFound_");
+                                takeScreenshot(path.toString() + "_notFound");
                                 // Element is not there. Return null, so another attempt will be done until we hit the timeout.
                                 return null;
                             }
