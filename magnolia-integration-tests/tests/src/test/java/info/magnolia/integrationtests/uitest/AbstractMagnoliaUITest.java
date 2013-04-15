@@ -41,6 +41,7 @@ import info.magnolia.testframework.htmlunit.AbstractMagnoliaHtmlUnitTest;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -229,9 +230,9 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
                 FileUtils.copyFile(file, new File(
                         String.format("%s/%s_%s_%s%d.png",
                                 SCREENSHOT_DIR,
-                                this.getClass().getName(),
+                                this.getClass().getSimpleName(),
                                 testName.getMethodName(),
-                                suffix,
+                                URLEncoder.encode(suffix, "UTF-8"),
                                 screenshotIndex++)
                 ));
             } catch (IOException e) {
@@ -257,14 +258,14 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
                             try {
                                 WebElement element = d.findElement(path);
                                 if (element.isDisplayed()) {
-                                    takeScreenshot("");
+                                    takeScreenshot(path.toString());
                                     return element;
                                 }
-                                takeScreenshot("notDisplayed");
+                                takeScreenshot(path.toString() + "_notDisplayed");
                                 // Element is there but not displayed. Return null, so another attempt will be done until we hit the timeout.
                                 return null;
                             } catch (Exception e) {
-                                takeScreenshot("notFound");
+                                takeScreenshot(path.toString() + "_notFound");
                                 // Element is not there. Return null, so another attempt will be done until we hit the timeout.
                                 return null;
                             }
