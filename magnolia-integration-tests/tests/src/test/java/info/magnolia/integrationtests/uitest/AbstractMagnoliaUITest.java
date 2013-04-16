@@ -157,6 +157,11 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
     @BeforeClass
     public static void setUpBeforeClass() {
         login();
+        try {
+            driver.findElements(By.xpath(String.format("//div[contains(@class, 'item')]/*[@class = 'label' and text() = '%s']", "Pages")));
+        } catch (NoSuchElementException e) {
+            fail("Expected Pages app tile being present after login but got: " + e.getMessage());
+        }
     }
 
     @AfterClass
