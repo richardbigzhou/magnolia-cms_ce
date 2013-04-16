@@ -35,7 +35,6 @@ package info.magnolia.integrationtests.uitest;
 
 import static org.junit.Assert.assertTrue;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.openqa.selenium.By;
 
@@ -73,7 +72,6 @@ public class PageEditorUITest extends AbstractMagnoliaUITest {
         clickDialogCancelButton();
     }
 
-    @Ignore("Reactivate when MGNLUI-1076 is fixed")
     @Test
     public void editingTextImageParagraphBringsUpRichTextEditor() {
         // GIVEN
