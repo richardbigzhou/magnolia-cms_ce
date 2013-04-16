@@ -208,7 +208,8 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
 
     @Before
     public void setUp() {
-        toLandingPage();
+        driver.navigate().to(Instance.AUTHOR.getURL()+ ".magnolia/admincentral?restartApplication");
+        delay();
     }
 
     @After
