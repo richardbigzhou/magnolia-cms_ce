@@ -43,7 +43,7 @@
       <version>${magnoliaUiVersion}</version>
     </dependency>
     <dependency>
-      <groupId>info.magnolia.ui</groupId>
+      <groupId>info.magnolia.app.contacts</groupId>
       <artifactId>magnolia-ui-app-contacts</artifactId>
       <version>${magnoliaUiVersion}</version>
     </dependency>
