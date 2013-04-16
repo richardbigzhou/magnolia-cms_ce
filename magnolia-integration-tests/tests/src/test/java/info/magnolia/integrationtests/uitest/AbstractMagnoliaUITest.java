@@ -54,6 +54,7 @@ import org.junit.Rule;
 import org.junit.rules.TestName;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.TakesScreenshot;
@@ -213,16 +214,16 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
     @After
     public void tearDown() {
         // close app if there's still an open one
-        boolean hasUnclosedApps;
-        do {
+        boolean hasUnclosedApps = true;
+        while (hasUnclosedApps) {
             List<WebElement> closeAppButtons = driver.findElements(By.className("m-closebutton-app"));
             hasUnclosedApps = !closeAppButtons.isEmpty();
             for (WebElement current : closeAppButtons) {
                 current.click();
+                // gain some time in case there's animations
+                delay();
             }
-            // gain some time in case there's animations
-            delay();
-        } while (hasUnclosedApps);
+        }
     }
 
     protected void takeScreenshot(String suffix) {
@@ -265,11 +266,13 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
                                     return element;
                                 }
                                 takeScreenshot(path.toString() + "_notDisplayed");
-                                // Element is there but not displayed. Return null, so another attempt will be done until we hit the timeout.
+                                // Element is there but not displayed. Return null after a delay, so another attempt will be done.
+                                delay();
                                 return null;
-                            } catch (Exception e) {
+                            } catch (NoSuchElementException e) {
                                 takeScreenshot(path.toString() + "_notFound");
-                                // Element is not there. Return null, so another attempt will be done until we hit the timeout.
+                                // Element is not there. Return null after a delay, so another attempt will be done.
+                                delay();
                                 return null;
                             }
                         }
@@ -337,7 +340,6 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
 
     protected void toLandingPage() {
         driver.navigate().to(Instance.AUTHOR.getURL());
-        driver.findElement(By.xpath("//*[@id = 'btn-appslauncher']"));
     }
 
     protected void clickDialogCommitButton() {
