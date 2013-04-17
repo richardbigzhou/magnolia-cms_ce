@@ -87,6 +87,7 @@ public class AdminCentralUITest extends AbstractMagnoliaUITest {
         closeApp();
     }
 
+    @Ignore("Reactivate when MAGNOLIA-4979 is fixed")
     @Test
     public void assureAppLauncherDoesNotGoBlank() {
         // GIVEN
