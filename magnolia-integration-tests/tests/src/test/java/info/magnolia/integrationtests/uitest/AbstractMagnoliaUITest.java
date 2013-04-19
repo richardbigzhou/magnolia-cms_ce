@@ -46,7 +46,6 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.io.FileUtils;
-import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -73,7 +72,7 @@ import org.slf4j.LoggerFactory;
 public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegrationTest {
 
     /**
-     * Special implementation representing an not existing WebElement.
+     * Special implementation representing an not existing WebElement. Will fail if you try to interact with him.
      */
     public class NonExistingWebElement implements WebElement {
         private String path;
@@ -94,53 +93,66 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
 
         @Override
         public void sendKeys(CharSequence... keysToSend) {
+            fail("Cannot sendKeys to non existing WebElement: " + keysToSend);
         }
 
         @Override
         public void clear() {
+            fail("Cannot clean non existing WebElement");
         }
         @Override
         public String getTagName() {
+            fail("Cannot get tagNam for non existing WebElement");
             return null;
         }
         @Override
         public String getAttribute(String name) {
+            fail("Cannot get attribute for non existing WebElement");
             return null;
         }
         @Override
         public boolean isSelected() {
+            fail("Cannot get selected for non existing WebElement");
             return false;
         }
         @Override
         public boolean isEnabled() {
+            fail("Cannot get enabled for non existing WebElement");
             return false;
         }
         @Override
         public String getText() {
+            fail("Cannot get text for non existing WebElement");
             return null;
         }
         @Override
         public List<WebElement> findElements(By by) {
+            fail("Cannot find elements for non existing WebElement. By: " + by);
             return null;
         }
         @Override
         public WebElement findElement(By by) {
+            fail("Cannot find element for non existing WebElement. By: " + by);
             return null;
         }
         @Override
         public boolean isDisplayed() {
+            fail("Cannot get displayed for non existing WebElement");
             return false;
         }
         @Override
         public Point getLocation() {
+            fail("Cannot get location for non existing WebElement");
             return null;
         }
         @Override
         public Dimension getSize() {
+            fail("Cannot get dimension for non existing WebElement");
             return null;
         }
         @Override
         public String getCssValue(String propertyName) {
+            fail("Cannot get cssValue for non existing WebElement. PropertyName: " + propertyName);
             return null;
         }
     }
@@ -215,21 +227,6 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
     public void setUp() {
         driver.navigate().to(Instance.AUTHOR.getURL()+ ".magnolia/admincentral?restartApplication");
         delay();
-    }
-
-    @After
-    public void tearDown() {
-        // close app if there's still an open one
-        boolean hasUnclosedApps = true;
-        while (hasUnclosedApps) {
-            List<WebElement> closeAppButtons = driver.findElements(By.className("m-closebutton-app"));
-            hasUnclosedApps = !closeAppButtons.isEmpty();
-            for (WebElement current : closeAppButtons) {
-                current.click();
-                // gain some time in case there's animations
-                delay();
-            }
-        }
     }
 
     protected void takeScreenshot(String suffix) {
