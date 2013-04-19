@@ -73,6 +73,24 @@ public class PageEditorUITest extends AbstractMagnoliaUITest {
     }
 
     @Test
+    public void whenEditFieldThenEditComponentDialogShownJsp() {
+        // GIVEN
+
+        // WHEN
+        getAppIcon("Pages").click();
+        getTreeTableItem("jsp-sample-site").click();
+        getActionBarItem("Edit page").click();
+
+        switchToPageEditorContent();
+        getElementByPath(By.xpath("//h3[text() = 'Main - Component One']")).click();
+        getElementByPath(By.xpath("//*[contains(@class, 'focus')]//*[contains(@class, 'icon-edit')]")).click();
+        switchToDefaultContent();
+
+        // THEN
+        clickDialogCancelButton();
+    }
+
+    @Test
     public void editingTextImageParagraphBringsUpRichTextEditor() {
         // GIVEN
 
