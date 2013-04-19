@@ -46,7 +46,7 @@ import org.openqa.selenium.WebElement;
 /**
  * Generic UI tests for admincentral.
  */
-public class AdminCentralUITest extends AbstractMagnoliaUITest {
+public class AdmincentralUITest extends AbstractMagnoliaUITest {
 
     @Test
     public void navigateToPulseAndBackToAppLauncherDoesntScrewLayout() {
