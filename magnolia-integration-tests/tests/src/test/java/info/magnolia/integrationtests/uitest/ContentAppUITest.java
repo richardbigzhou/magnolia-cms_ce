@@ -79,6 +79,7 @@ public class ContentAppUITest extends AbstractMagnoliaUITest {
 
         // WHEN
         driver.navigate().refresh();
+        delay();
 
         // THEN
         assertTrue(getDialogTab("Contacts").isDisplayed());
