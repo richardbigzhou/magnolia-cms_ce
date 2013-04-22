@@ -70,7 +70,6 @@ public class ContentAppUITest extends AbstractMagnoliaUITest {
         // GIVEN
         getAppIcon("Contacts").click();
         assertAppOpen("Contacts");
-        driver.navigate().refresh();
 
         getTreeTableItem("Marilyn Monroe").click();
         getActionBarItem("Edit contact").click();
@@ -80,6 +79,9 @@ public class ContentAppUITest extends AbstractMagnoliaUITest {
 
         // WHEN
         driver.navigate().refresh();
+        delay();
+
+        // THEN
         assertTrue(getDialogTab("Contacts").isDisplayed());
         assertTrue(getDialogTab("/mmonroe").isDisplayed());
     }

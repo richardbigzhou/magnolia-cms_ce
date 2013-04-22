@@ -35,7 +35,6 @@ package info.magnolia.integrationtests.uitest;
 
 import static org.junit.Assert.assertTrue;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.openqa.selenium.By;
 
@@ -55,7 +54,6 @@ public class PageEditorUITest extends AbstractMagnoliaUITest {
         driver.switchTo().defaultContent();
     }
 
-    @Ignore("Reactivate when MGNLUI-945 is fixed")
     @Test
     public void whenEditFieldThenEditComponentDialogShown() {
         // GIVEN
@@ -74,7 +72,24 @@ public class PageEditorUITest extends AbstractMagnoliaUITest {
         clickDialogCancelButton();
     }
 
-    @Ignore("Reactivate when MGNLUI-1076 is fixed")
+    @Test
+    public void whenEditFieldThenEditComponentDialogShownJsp() {
+        // GIVEN
+
+        // WHEN
+        getAppIcon("Pages").click();
+        getTreeTableItem("jsp-sample-site").click();
+        getActionBarItem("Edit page").click();
+
+        switchToPageEditorContent();
+        getElementByPath(By.xpath("//h3[text() = 'Main - Component One']")).click();
+        getElementByPath(By.xpath("//*[contains(@class, 'focus')]//*[contains(@class, 'icon-edit')]")).click();
+        switchToDefaultContent();
+
+        // THEN
+        clickDialogCancelButton();
+    }
+
     @Test
     public void editingTextImageParagraphBringsUpRichTextEditor() {
         // GIVEN

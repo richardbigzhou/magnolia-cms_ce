@@ -41,11 +41,11 @@ import info.magnolia.testframework.htmlunit.AbstractMagnoliaHtmlUnitTest;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.io.FileUtils;
-import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -53,6 +53,7 @@ import org.junit.Rule;
 import org.junit.rules.TestName;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.TakesScreenshot;
@@ -71,7 +72,7 @@ import org.slf4j.LoggerFactory;
 public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegrationTest {
 
     /**
-     * Special implementation representing an not existing WebElement.
+     * Special implementation representing an not existing WebElement. Will fail if you try to interact with him.
      */
     public class NonExistingWebElement implements WebElement {
         private String path;
@@ -92,53 +93,66 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
 
         @Override
         public void sendKeys(CharSequence... keysToSend) {
+            fail("Cannot sendKeys to non existing WebElement: " + keysToSend);
         }
 
         @Override
         public void clear() {
+            fail("Cannot clean non existing WebElement");
         }
         @Override
         public String getTagName() {
+            fail("Cannot get tagNam for non existing WebElement");
             return null;
         }
         @Override
         public String getAttribute(String name) {
+            fail("Cannot get attribute for non existing WebElement");
             return null;
         }
         @Override
         public boolean isSelected() {
+            fail("Cannot get selected for non existing WebElement");
             return false;
         }
         @Override
         public boolean isEnabled() {
+            fail("Cannot get enabled for non existing WebElement");
             return false;
         }
         @Override
         public String getText() {
+            fail("Cannot get text for non existing WebElement");
             return null;
         }
         @Override
         public List<WebElement> findElements(By by) {
+            fail("Cannot find elements for non existing WebElement. By: " + by);
             return null;
         }
         @Override
         public WebElement findElement(By by) {
+            fail("Cannot find element for non existing WebElement. By: " + by);
             return null;
         }
         @Override
         public boolean isDisplayed() {
+            fail("Cannot get displayed for non existing WebElement");
             return false;
         }
         @Override
         public Point getLocation() {
+            fail("Cannot get location for non existing WebElement");
             return null;
         }
         @Override
         public Dimension getSize() {
+            fail("Cannot get dimension for non existing WebElement");
             return null;
         }
         @Override
         public String getCssValue(String propertyName) {
+            fail("Cannot get cssValue for non existing WebElement. PropertyName: " + propertyName);
             return null;
         }
     }
@@ -155,6 +169,11 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
     @BeforeClass
     public static void setUpBeforeClass() {
         login();
+        try {
+            driver.findElements(By.xpath(String.format("//div[contains(@class, 'item')]/*[@class = 'label' and text() = '%s']", "Pages")));
+        } catch (NoSuchElementException e) {
+            fail("Expected Pages app tile being present after login but got: " + e.getMessage());
+        }
     }
 
     @AfterClass
@@ -206,20 +225,9 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
 
     @Before
     public void setUp() {
-        toLandingPage();
+        driver.navigate().to(Instance.AUTHOR.getURL()+ ".magnolia/admincentral?restartApplication");
+        delay();
     }
-
-    @After
-    public void tearDown() {
-        // close app if there's still an open one
-        final WebElement closeAppButton = getElementByPath(By.className("m-closebutton-app"));
-        if (isExisting(closeAppButton)) {
-            closeApp();
-        }
-
-        assertEquals(0, driver.findElements(By.className("v-app-close")).size());
-    }
-
 
     protected void takeScreenshot(String suffix) {
         if (driver instanceof TakesScreenshot) {
@@ -227,12 +235,12 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
             File file = screenshotter.getScreenshotAs(OutputType.FILE);
             try {
                 FileUtils.copyFile(file, new File(
-                        String.format("%s/%s_%s_%s%d.png",
+                        String.format("%s/%s_%s_%d_%s.png",
                                 SCREENSHOT_DIR,
-                                this.getClass().getName(),
+                                this.getClass().getSimpleName(),
                                 testName.getMethodName(),
-                                suffix,
-                                screenshotIndex++)
+                                screenshotIndex++,
+                                URLEncoder.encode(suffix, "UTF-8"))
                 ));
             } catch (IOException e) {
                 log.error(e.getMessage());
@@ -257,15 +265,17 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
                             try {
                                 WebElement element = d.findElement(path);
                                 if (element.isDisplayed()) {
-                                    takeScreenshot("");
+                                    takeScreenshot(path.toString());
                                     return element;
                                 }
-                                takeScreenshot("notDisplayed");
-                                // Element is there but not displayed. Return null, so another attempt will be done until we hit the timeout.
+                                takeScreenshot(path.toString() + "_notDisplayed");
+                                // Element is there but not displayed. Return null after a delay, so another attempt will be done.
+                                delay();
                                 return null;
-                            } catch (Exception e) {
-                                takeScreenshot("notFound");
-                                // Element is not there. Return null, so another attempt will be done until we hit the timeout.
+                            } catch (NoSuchElementException e) {
+                                takeScreenshot(path.toString() + "_notFound");
+                                // Element is not there. Return null after a delay, so another attempt will be done.
+                                delay();
                                 return null;
                             }
                         }
@@ -333,7 +343,6 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
 
     protected void toLandingPage() {
         driver.navigate().to(Instance.AUTHOR.getURL());
-        driver.findElement(By.xpath("//*[@id = 'btn-appslauncher']"));
     }
 
     protected void clickDialogCommitButton() {

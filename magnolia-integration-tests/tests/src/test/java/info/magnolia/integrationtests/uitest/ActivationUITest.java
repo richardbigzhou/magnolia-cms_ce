@@ -54,27 +54,19 @@ public class ActivationUITest extends AbstractMagnoliaUITest {
 
         // WHEN
         getActionBarItem("Publish").click();
-        workaround();
+        // activation takes some time so wait before checking the updated icon
+        delay();
 
         // THEN
         assertTrue(getSelectedIcon("color-green").isDisplayed());
 
-        // WHEN - now unpublish
+        // WHEN
         getActionBarItem("Unpublish").click();
-        workaround();
+        // de-activation takes some time so wait before checking the updated icon
+        delay();
 
-        // TEST
+        // THEN
         assertTrue(getSelectedIcon("color-red").isDisplayed());
-    }
-
-    /**
-     * Workarounds MGNLUI-940 to test that activation itself works.
-     */
-    private void workaround() {
-        closeApp();
-        getAppIcon("Pages").click();
-        getTreeTableItemExpander("jsp-sample-site").click();
-        getTreeTableItem("jsp-multimedia-flash").click();
     }
 
     private WebElement getSelectedIcon(String iconStyle) {

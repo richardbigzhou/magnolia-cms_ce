@@ -46,9 +46,8 @@ import org.openqa.selenium.WebElement;
 /**
  * Generic UI tests for admincentral.
  */
-public class AdminCentralUITest extends AbstractMagnoliaUITest {
+public class AdmincentralUITest extends AbstractMagnoliaUITest {
 
-    @Ignore("Reactivate when MGNLUI-873 is fixed")
     @Test
     public void navigateToPulseAndBackToAppLauncherDoesntScrewLayout() {
         // GIVEN
@@ -88,6 +87,7 @@ public class AdminCentralUITest extends AbstractMagnoliaUITest {
         closeApp();
     }
 
+    @Ignore("Reactivate when MAGNOLIA-4979 is fixed")
     @Test
     public void assureAppLauncherDoesNotGoBlank() {
         // GIVEN

@@ -97,5 +97,11 @@
       <classifier>bundle</classifier>
       <type>tar.gz</type>
     </dependency>
+    <dependency>
+      <groupId>info.magnolia</groupId>
+      <artifactId>magnolia-module-data</artifactId>
+      <classifier>bundle</classifier>
+      <type>tar.gz</type>
+    </dependency>
   </dependencies>
 </project>
