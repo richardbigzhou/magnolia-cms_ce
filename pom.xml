@@ -21,9 +21,9 @@
   <properties>
     <magnoliaEdition>Community Edition</magnoliaEdition>
     <magnoliaVersion>5.0-beta1-2</magnoliaVersion>
-    <magnoliaUiVersion>5.0-beta1-3</magnoliaUiVersion>
+    <magnoliaUiVersion>5.0-beta1-4</magnoliaUiVersion>
     <stkVersion>2.5-beta1-1</stkVersion>
-    <damVersion>1.0-beta1-3</damVersion>
+    <damVersion>1.0-beta1-4</damVersion>
     <javaVersion>1.6</javaVersion>
     <documentationURL>http://documentation.magnolia-cms.com/releases/5.0.html</documentationURL>
     <scmTagPrefix>magnolia-bundle</scmTagPrefix>
