@@ -93,7 +93,6 @@
     <dependency>
       <groupId>info.magnolia.app.contacts</groupId>
       <artifactId>magnolia-app-contacts</artifactId>
-      <version>1.0-SNAPSHOT</version>
     </dependency>
 
     <!-- Temporarily add commons-chain as it's required by old adminInterface definitions -->
