@@ -52,19 +52,21 @@ public class ImageEditorUITest extends AbstractMagnoliaUITest {
         getTreeTableItem("Marilyn Monroe").click();
         getActionBarItem("Edit contact").click();
 
-        getButton("v-button-edit", "Edit image...").click();
+        getButton("v-button-edit", "Edit Image...").click();
 
         getActionBarItem("Rotate").click();
 
         getDialogButton("btn-dialog-save").click();
 
         // WHEN - now try a second imaging operation
-        getButton("v-button-edit", "Edit image...").click();
+        getButton("v-button-edit", "Edit Image...").click();
 
         getActionBarItem("Rotate").click();
+        delay();
 
         // save after imaging operation
         getDialogButton("btn-dialog-save").click();
+        delay();
 
         // save editing contact - editor subapp should be closing...
         getDialogButton("btn-dialog-commit").click();
