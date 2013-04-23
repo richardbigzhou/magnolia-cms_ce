@@ -312,6 +312,10 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         return getElementByXpath("//*[contains(@class, 'v-table-cell-wrapper') and text() = '%s']", itemCaption);
     }
 
+    protected WebElement getTreeTableItemRow(String itemCaption) {
+        return getElementByXpath("//*[contains(@class, 'v-table-cell-wrapper') and text() = '%s']/parent::*/parent::*", itemCaption);
+    }
+
     protected WebElement getActionBarItem(String itemCaption) {
         return getElementByXpath("//*[contains(@class, 'v-actionbar')]//*[text() = '%s']", itemCaption);
     }
@@ -365,5 +369,9 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         getElementByPath(By.className("m-closebutton-app")).click();
         // sleeping sucks but need to wait to let the animation clear app from the viewport.
         delay();
+    }
+
+    protected boolean hasCssClass(WebElement webElement, String cssClass) {
+        return webElement.getAttribute("class").contains(cssClass);
     }
 }
