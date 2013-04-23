@@ -20,7 +20,7 @@
 
   <properties>
     <magnoliaEdition>Community Edition</magnoliaEdition>
-    <magnoliaVersion>5.0-beta1-1</magnoliaVersion>
+    <magnoliaVersion>5.0-beta1-2</magnoliaVersion>
     <magnoliaUiVersion>5.0-beta1-2</magnoliaUiVersion>
     <stkVersion>2.5-beta1-1</stkVersion>
     <damVersion>1.0-beta1-2</damVersion>
