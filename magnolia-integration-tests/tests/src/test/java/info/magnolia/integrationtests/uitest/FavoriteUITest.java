@@ -47,7 +47,8 @@ public class FavoriteUITest extends AbstractMagnoliaUITest {
     public void addAndRemoveFavorite() {
         // GIVEN
         getAppIcon("Pages").click();
-        delay();
+        delay("Make sure Pages aoo is open before we navigate to favorites");
+
         getShellAppIcon("icon-favorites").click();
 
         // WHEN
@@ -58,7 +59,7 @@ public class FavoriteUITest extends AbstractMagnoliaUITest {
 
         // WHEN
         getButton("v-nativebutton", "Remove").click();
-        delay();
+        delay("Remove is not always super fast...");
 
         // THEN
         assertFalse("Entry 'Pages /' should have been removed", isExisting(getElementByXpath("//*[contains(@class, 'v-label-text') and text() = '%s']", "Pages /")));

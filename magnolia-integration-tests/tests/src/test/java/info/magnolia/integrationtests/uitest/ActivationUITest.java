@@ -54,16 +54,14 @@ public class ActivationUITest extends AbstractMagnoliaUITest {
 
         // WHEN
         getActionBarItem("Publish").click();
-        // activation takes some time so wait before checking the updated icon
-        delay();
+        delay("activation takes some time so wait before checking the updated icon");
 
         // THEN
         assertTrue(getSelectedIcon("color-green").isDisplayed());
 
         // WHEN
         getActionBarItem("Unpublish").click();
-        // de-activation takes some time so wait before checking the updated icon
-        delay();
+        delay("de-activation takes some time so wait before checking the updated icon");
 
         // THEN
         assertTrue(getSelectedIcon("color-red").isDisplayed());

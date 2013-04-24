@@ -54,8 +54,7 @@ public class AdmincentralUITest extends AbstractMagnoliaUITest {
         getShellAppIcon("icon-pulse").click();
         assertTrue(getElementByPath(By.xpath("//label[text() ='group by type']")).isDisplayed());
         getShellAppIcon("icon-appslauncher").click();
-        // give time so that main page wont show up as pulse messages.
-        delay();
+        delay("Give time so that main page wont show up as pulse messages.");
         toLandingPage();
 
         // WHEN

@@ -71,6 +71,16 @@ import org.slf4j.LoggerFactory;
  */
 public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegrationTest {
 
+    public static final int DEFAULT_DELAY_IN_SECONDS = 2;
+    public static final int DRIVER_WAIT_IN_SECONDS = 5;
+
+    protected static final String SCREENSHOT_DIR = "target/surefire-reports/";
+
+    protected static WebDriver driver = null;
+    private static int screenshotIndex = 1;
+
+    private static final Logger log = LoggerFactory.getLogger(AbstractMagnoliaUITest.class);
+
     /**
      * Special implementation representing an not existing WebElement. Will fail if you try to interact with him.
      */
@@ -156,12 +166,6 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
             return null;
         }
     }
-    protected static final String SCREENSHOT_DIR = "target/surefire-reports/";
-
-    protected static WebDriver driver = null;
-    private static int screenshotIndex = 1;
-
-    private static final Logger log = LoggerFactory.getLogger(AbstractMagnoliaUITest.class);
 
     @Rule
     public TestName testName = new TestName();
@@ -187,7 +191,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
 
     protected static void login() {
         driver = new FirefoxDriver();
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(DRIVER_WAIT_IN_SECONDS, TimeUnit.SECONDS);
         driver.navigate().to(Instance.AUTHOR.getURL());
 
         assertThat(driver.getTitle(), equalTo("Magnolia 5.0"));
@@ -215,9 +219,10 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         }
     }
 
-    protected static void delay() {
+    protected static void delay(final String motivation) {
+        log.debug("Delaying for {}s. Motivation: {}", DEFAULT_DELAY_IN_SECONDS, motivation);
         try {
-            Thread.sleep(2000);
+            Thread.sleep(DEFAULT_DELAY_IN_SECONDS * 1000);
         } catch (InterruptedException e) {
             fail(e.getMessage());
         }
@@ -226,7 +231,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
     @Before
     public void setUp() {
         driver.navigate().to(Instance.AUTHOR.getURL()+ ".magnolia/admincentral?restartApplication");
-        delay();
+        delay("Give some time to restart magnolia");
     }
 
     protected void takeScreenshot(String suffix) {
@@ -257,7 +262,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         WebElement element = null;
         try {
             // will loop and try to retrieve the specified element until found or it times out.
-            element = new WebDriverWait(driver, 20).until(
+            element = new WebDriverWait(driver, DRIVER_WAIT_IN_SECONDS).until(
                     new ExpectedCondition<WebElement>() {
 
                         @Override
@@ -269,20 +274,17 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
                                     return element;
                                 }
                                 takeScreenshot(path.toString() + "_notDisplayed");
-                                // Element is there but not displayed. Return null after a delay, so another attempt will be done.
-                                delay();
                                 return null;
                             } catch (NoSuchElementException e) {
                                 takeScreenshot(path.toString() + "_notFound");
-                                // Element is not there. Return null after a delay, so another attempt will be done.
-                                delay();
                                 return null;
                             }
                         }
                     }
             );
-        } catch (TimeoutException e) {
-            // element could not be found within the time limit - we consider it to be non-existing
+        } catch (TimeoutException t) {
+            log.debug("Could not retrieve element by path {}. Got: {}", path, t);
+            // not found within the time limit - assume that element is not existing
             element = new NonExistingWebElement(path.toString());
         }
         return element;
@@ -367,8 +369,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
 
     protected void closeApp() {
         getElementByPath(By.className("m-closebutton-app")).click();
-        // sleeping sucks but need to wait to let the animation clear app from the viewport.
-        delay();
+        delay("Wait to et the animation clear app from the viewport");
     }
 
     protected boolean hasCssClass(WebElement webElement, String cssClass) {

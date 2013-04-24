@@ -68,9 +68,7 @@ public class OverlayUITest extends AbstractMagnoliaUITest {
         assertAppOpen("Contacts");
 
         getTreeTableItem("Marilyn Monroe").click();
-        delay();
         getActionBarItem("Delete contact").click();
-        delay();
 
         // THEN
         assertTrue(isExisting(getConfirmationOverlay()));
@@ -87,11 +85,9 @@ public class OverlayUITest extends AbstractMagnoliaUITest {
         assertAppOpen("Contacts");
 
         getTreeTableItem("Marilyn Monroe").click();
-        delay();
         getActionBarItem("Delete contact").click();
 
         clickConfirmationDialogCancelButton();
-        delay();
 
         // THEN
         assertFalse(isExisting(getConfirmationOverlay()));
@@ -120,7 +116,7 @@ public class OverlayUITest extends AbstractMagnoliaUITest {
         getActionBarItem("Delete folder").click();
 
         clickConfirmationDialogConfirmButton();
-        delay();
+        delay("Give dialog some time to fade away...");
 
         // THEN
         assertFalse(isExisting(getConfirmationOverlay()));
