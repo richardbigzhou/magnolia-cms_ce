@@ -58,6 +58,7 @@ public class FavoriteUITest extends AbstractMagnoliaUITest {
 
         // WHEN
         getButton("v-nativebutton", "Remove").click();
+        delay();
 
         // THEN
         assertFalse("Entry 'Pages /' should have been removed", isExisting(getElementByXpath("//*[contains(@class, 'v-label-text') and text() = '%s']", "Pages /")));
