@@ -62,11 +62,9 @@ public class ImageEditorUITest extends AbstractMagnoliaUITest {
         getButton("v-button-edit", "Edit image...").click();
 
         getActionBarItem("Rotate").click();
-        delay("Make sure rotation is done");
 
         // save after imaging operation
         getDialogButton("btn-dialog-save").click();
-        delay("Make sure save is done");
 
         // save editing contact - editor subapp should be closing...
         getDialogButton("btn-dialog-commit").click();

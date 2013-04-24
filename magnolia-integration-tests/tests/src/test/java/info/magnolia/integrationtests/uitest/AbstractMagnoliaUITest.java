@@ -56,6 +56,7 @@ import org.openqa.selenium.Dimension;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.Point;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
@@ -255,6 +256,8 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
     }
 
     /**
+     * Tries to retrieve requested element.
+     *
      * @path path to search the element at
      * @return the searched specified element or a NonExistingWebElement in case it couldn't be found.
      */
@@ -282,10 +285,14 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
                         }
                     }
             );
-        } catch (TimeoutException t) {
-            log.debug("Could not retrieve element by path {}. Got: {}", path, t);
+        } catch (TimeoutException e) {
+            log.debug("Could not retrieve element by path {}. Got: {}", path, e);
             // not found within the time limit - assume that element is not existing
             element = new NonExistingWebElement(path.toString());
+        } catch (StaleElementReferenceException s) {
+            // re-trying on StaleElementReferenceExceptions: see http://docs.seleniumhq.org/exceptions/stale_element_reference.jsp
+            log.info("{} when accessing element {} - trying again", s.toString(), path);
+            element = getElementByPath(path);
         }
         return element;
     }
