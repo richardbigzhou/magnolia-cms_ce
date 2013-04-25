@@ -221,9 +221,13 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
     }
 
     protected static void delay(final String motivation) {
-        log.debug("Delaying for {}s. Motivation: {}", DEFAULT_DELAY_IN_SECONDS, motivation);
+        delay(DEFAULT_DELAY_IN_SECONDS, motivation);
+    }
+
+    protected static void delay(final int delayInSeconds, final String motivation) {
+        log.debug("Delaying for {}s. Motivation: {}", delayInSeconds, motivation);
         try {
-            Thread.sleep(DEFAULT_DELAY_IN_SECONDS * 1000);
+            Thread.sleep(delayInSeconds * 1000);
         } catch (InterruptedException e) {
             fail(e.getMessage());
         }
