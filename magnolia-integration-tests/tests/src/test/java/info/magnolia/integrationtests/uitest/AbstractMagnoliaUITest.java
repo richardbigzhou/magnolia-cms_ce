@@ -205,18 +205,18 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         password.sendKeys(User.superuser.name());
 
         driver.findElement(By.xpath("//button[@id = 'login-button']")).click();
-        workaroundJsessionIdInUrl();
+        workaroundJsessionIdInUrl(driver);
 
-        driver.findElement(By.xpath("//*[@id = 'btn-appslauncher']"));
+        assertTrue("If login succeeded, user should get a screen containing the appslauncher",  isExisting(driver.findElement(By.xpath("//*[@id = 'btn-appslauncher']"))));
     }
 
     /**
      * Containers (e.g. Tomcat 6, 7, Jetty 6) can append unwanted jsessionId to the url.
      * We work around by reloading page.
      */
-    private static void workaroundJsessionIdInUrl() {
-        if (driver.findElements(By.xpath("//h2[contains(text(), '404')]")).size() > 0) {
-            driver.navigate().to(AbstractMagnoliaHtmlUnitTest.Instance.AUTHOR.getURL());
+    protected static void workaroundJsessionIdInUrl(final WebDriver webDriver) {
+        if (webDriver.findElements(By.xpath("//h2[contains(text(), '404')]")).size() > 0) {
+            webDriver.navigate().to(AbstractMagnoliaHtmlUnitTest.Instance.AUTHOR.getURL());
         }
     }
 
@@ -231,6 +231,13 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         } catch (InterruptedException e) {
             fail(e.getMessage());
         }
+    }
+
+    /**
+     * @return true in case the provided WebElement is existing - false else.
+     */
+    protected static boolean isExisting(WebElement element) {
+        return !(element instanceof NonExistingWebElement);
     }
 
     @Before
@@ -299,13 +306,6 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
             element = getElementByPath(path);
         }
         return element;
-    }
-
-    /**
-     * @return true in case the provided WebElement is existing - false else.
-     */
-    protected boolean isExisting(WebElement element) {
-        return !(element instanceof NonExistingWebElement);
     }
 
     protected WebElement getElementByXpath(String path, Object... param) {
