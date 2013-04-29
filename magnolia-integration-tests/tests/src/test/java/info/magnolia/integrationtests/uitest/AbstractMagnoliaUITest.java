@@ -56,6 +56,7 @@ import org.openqa.selenium.Dimension;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.Point;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
@@ -70,6 +71,16 @@ import org.slf4j.LoggerFactory;
  * Base class for Magnolia UI tests. Provides convenience methods for Magnolia Apps.
  */
 public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegrationTest {
+
+    public static final int DEFAULT_DELAY_IN_SECONDS = 2;
+    public static final int DRIVER_WAIT_IN_SECONDS = 5;
+
+    protected static final String SCREENSHOT_DIR = "target/surefire-reports/";
+
+    protected static WebDriver driver = null;
+    private static int screenshotIndex = 1;
+
+    private static final Logger log = LoggerFactory.getLogger(AbstractMagnoliaUITest.class);
 
     /**
      * Special implementation representing an not existing WebElement. Will fail if you try to interact with him.
@@ -156,12 +167,6 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
             return null;
         }
     }
-    protected static final String SCREENSHOT_DIR = "target/surefire-reports/";
-
-    protected static WebDriver driver = null;
-    private static int screenshotIndex = 1;
-
-    private static final Logger log = LoggerFactory.getLogger(AbstractMagnoliaUITest.class);
 
     @Rule
     public TestName testName = new TestName();
@@ -187,7 +192,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
 
     protected static void login() {
         driver = new FirefoxDriver();
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(DRIVER_WAIT_IN_SECONDS, TimeUnit.SECONDS);
         driver.navigate().to(Instance.AUTHOR.getURL());
 
         assertThat(driver.getTitle(), equalTo("Magnolia 5.0"));
@@ -200,33 +205,45 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         password.sendKeys(User.superuser.name());
 
         driver.findElement(By.xpath("//button[@id = 'login-button']")).click();
-        workaroundJsessionIdInUrl();
+        workaroundJsessionIdInUrl(driver);
 
-        driver.findElement(By.xpath("//*[@id = 'btn-appslauncher']"));
+        assertTrue("If login succeeded, user should get a screen containing the appslauncher",  isExisting(driver.findElement(By.xpath("//*[@id = 'btn-appslauncher']"))));
     }
 
     /**
      * Containers (e.g. Tomcat 6, 7, Jetty 6) can append unwanted jsessionId to the url.
      * We work around by reloading page.
      */
-    private static void workaroundJsessionIdInUrl() {
-        if (driver.findElements(By.xpath("//h2[contains(text(), '404')]")).size() > 0) {
-            driver.navigate().to(AbstractMagnoliaHtmlUnitTest.Instance.AUTHOR.getURL());
+    protected static void workaroundJsessionIdInUrl(final WebDriver webDriver) {
+        if (webDriver.findElements(By.xpath("//h2[contains(text(), '404')]")).size() > 0) {
+            webDriver.navigate().to(AbstractMagnoliaHtmlUnitTest.Instance.AUTHOR.getURL());
         }
     }
 
-    protected static void delay() {
+    protected static void delay(final String motivation) {
+        delay(DEFAULT_DELAY_IN_SECONDS, motivation);
+    }
+
+    protected static void delay(final int delayInSeconds, final String motivation) {
+        log.debug("Delaying for {}s. Motivation: {}", delayInSeconds, motivation);
         try {
-            Thread.sleep(2000);
+            Thread.sleep(delayInSeconds * 1000);
         } catch (InterruptedException e) {
             fail(e.getMessage());
         }
     }
 
+    /**
+     * @return true in case the provided WebElement is existing - false else.
+     */
+    protected static boolean isExisting(WebElement element) {
+        return !(element instanceof NonExistingWebElement);
+    }
+
     @Before
     public void setUp() {
         driver.navigate().to(Instance.AUTHOR.getURL()+ ".magnolia/admincentral?restartApplication");
-        delay();
+        delay("Give some time to restart magnolia");
     }
 
     protected void takeScreenshot(String suffix) {
@@ -250,6 +267,8 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
     }
 
     /**
+     * Tries to retrieve requested element.
+     *
      * @path path to search the element at
      * @return the searched specified element or a NonExistingWebElement in case it couldn't be found.
      */
@@ -257,7 +276,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         WebElement element = null;
         try {
             // will loop and try to retrieve the specified element until found or it times out.
-            element = new WebDriverWait(driver, 20).until(
+            element = new WebDriverWait(driver, DRIVER_WAIT_IN_SECONDS).until(
                     new ExpectedCondition<WebElement>() {
 
                         @Override
@@ -269,30 +288,24 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
                                     return element;
                                 }
                                 takeScreenshot(path.toString() + "_notDisplayed");
-                                // Element is there but not displayed. Return null after a delay, so another attempt will be done.
-                                delay();
                                 return null;
                             } catch (NoSuchElementException e) {
                                 takeScreenshot(path.toString() + "_notFound");
-                                // Element is not there. Return null after a delay, so another attempt will be done.
-                                delay();
                                 return null;
                             }
                         }
                     }
             );
         } catch (TimeoutException e) {
-            // element could not be found within the time limit - we consider it to be non-existing
+            log.debug("Could not retrieve element by path {}. Got: {}", path, e);
+            // not found within the time limit - assume that element is not existing
             element = new NonExistingWebElement(path.toString());
+        } catch (StaleElementReferenceException s) {
+            // re-trying on StaleElementReferenceExceptions: see http://docs.seleniumhq.org/exceptions/stale_element_reference.jsp
+            log.info("{} when accessing element {} - trying again", s.toString(), path);
+            element = getElementByPath(path);
         }
         return element;
-    }
-
-    /**
-     * @return true in case the provided WebElement is existing - false else.
-     */
-    protected boolean isExisting(WebElement element) {
-        return !(element instanceof NonExistingWebElement);
     }
 
     protected WebElement getElementByXpath(String path, Object... param) {
@@ -367,8 +380,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
 
     protected void closeApp() {
         getElementByPath(By.className("m-closebutton-app")).click();
-        // sleeping sucks but need to wait to let the animation clear app from the viewport.
-        delay();
+        delay("Wait to et the animation clear app from the viewport");
     }
 
     protected boolean hasCssClass(WebElement webElement, String cssClass) {

@@ -33,45 +33,35 @@
  */
 package info.magnolia.integrationtests.uitest;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import org.junit.Test;
 
 /**
- * UI tests for Image Editor.
+ * UI tests for Favorites.
+ * Should be rewritten/expanded as soon as MGNLUI-1189 is fixed - right now it can easily fail e.g. if for any reason there's a several favorites and hence several remove buttons.
  */
-public class ImageEditorUITest extends AbstractMagnoliaUITest {
+public class FavoriteUITest extends AbstractMagnoliaUITest {
 
     @Test
-    public void canExecuteTwoImagingOperationsInARow() {
+    public void addAndRemoveFavorite() {
         // GIVEN
-        getAppIcon("Contacts").click();
-        assertAppOpen("Contacts");
+        getAppIcon("Pages").click();
+        delay("Make sure Pages aoo is open before we navigate to favorites");
 
-        getTreeTableItem("Marilyn Monroe").click();
-        getActionBarItem("Edit contact").click();
+        getShellAppIcon("icon-favorites").click();
 
-        getButton("v-button-edit", "Edit image...").click();
-
-        getActionBarItem("Rotate").click();
-
-        getDialogButton("btn-dialog-save").click();
-
-        // WHEN - now try a second imaging operation
-        getButton("v-button-edit", "Edit image...").click();
-
-        getActionBarItem("Rotate").click();
-
-        // save after imaging operation
-        getDialogButton("btn-dialog-save").click();
-
-        // save editing contact - editor subapp should be closing...
-        getDialogButton("btn-dialog-commit").click();
+        // WHEN
+        getButton("v-button-btn-dialog-commit", "Add").click();
 
         // THEN
-        assertTrue(getDialogTab("Contacts").isDisplayed());
+        assertTrue("Expected new entry 'Pages /' ", isExisting(getElementByXpath("//*[contains(@class, 'v-label-text') and text() = '%s']", "Pages /")));
 
-        assertFalse("DialogTab /mmonroe should no longer be existing", isExisting(getDialogTab("/mmonroe")));
+        // WHEN
+        getButton("v-nativebutton", "Remove").click();
+        delay("Remove is not always super fast...");
+
+        // THEN
+        assertFalse("Entry 'Pages /' should have been removed", isExisting(getElementByXpath("//*[contains(@class, 'v-label-text') and text() = '%s']", "Pages /")));
     }
 }
