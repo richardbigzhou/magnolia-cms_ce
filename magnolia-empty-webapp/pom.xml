@@ -24,6 +24,21 @@
   <dependencies>
     <dependency>
       <groupId>info.magnolia.ui</groupId>
+      <artifactId>magnolia-ui-api</artifactId>
+      <version>${magnoliaUiVersion}</version>
+    </dependency>
+    <dependency>
+      <groupId>info.magnolia.ui</groupId>
+      <artifactId>magnolia-ui-framework</artifactId>
+      <version>${magnoliaUiVersion}</version>
+    </dependency>
+    <dependency>
+      <groupId>info.magnolia.ui</groupId>
+      <artifactId>magnolia-ui-contentapp</artifactId>
+      <version>${magnoliaUiVersion}</version>
+    </dependency>
+    <dependency>
+      <groupId>info.magnolia.ui</groupId>
       <artifactId>magnolia-ui-admincentral</artifactId>
       <version>${magnoliaUiVersion}</version>
     </dependency>
@@ -88,11 +103,6 @@
     <dependency>
       <groupId>info.magnolia</groupId>
       <artifactId>magnolia-module-mail</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>info.magnolia.app.contacts</groupId>
-      <artifactId>magnolia-app-contacts</artifactId>
     </dependency>
 
     <!-- Temporarily add commons-chain as it's required by old adminInterface definitions -->

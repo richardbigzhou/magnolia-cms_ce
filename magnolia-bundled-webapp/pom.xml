@@ -24,6 +24,10 @@
       <type>pom</type>
     </dependency>
     <dependency>
+      <groupId>info.magnolia.app.contacts</groupId>
+      <artifactId>magnolia-app-contacts</artifactId>
+    </dependency>
+    <dependency>
       <groupId>info.magnolia.dam</groupId>
       <artifactId>magnolia-module-dam</artifactId>
     </dependency>
