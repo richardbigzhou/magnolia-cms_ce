@@ -36,6 +36,7 @@ package info.magnolia.integrationtests.uitest;
 import static org.junit.Assert.*;
 
 import org.junit.Test;
+import org.openqa.selenium.By;
 
 /**
  * UI tests for Favorites.
@@ -47,21 +48,23 @@ public class FavoriteUITest extends AbstractMagnoliaUITest {
     public void addAndRemoveFavorite() {
         // GIVEN
         getAppIcon("Pages").click();
-        delay("Make sure Pages aoo is open before we navigate to favorites");
+        delay("Make sure Pages app is open before we navigate to favorites");
 
         getShellAppIcon("icon-favorites").click();
 
         // WHEN
-        getButton("v-button-btn-dialog-commit", "Add").click();
+        getButton("dialog-header", "Add new").click();
+        getButton("btn-dialog-commit", "Add").click();
 
         // THEN
-        assertTrue("Expected new entry 'Pages /' ", isExisting(getElementByXpath("//*[contains(@class, 'v-label-text') and text() = '%s']", "Pages /")));
+        assertEquals("Pages /", getElementByXpath("//input[contains(@class, 'v-textfield-readonly')]").getAttribute("value"));
 
         // WHEN
-        getButton("v-nativebutton", "Remove").click();
+        getElementByPath(By.xpath("//*[contains(@class, 'v-label-icon')]/*[@class = 'icon-webpages-app']")).click();
+        getElementByPath(By.xpath("//*[@class = 'icon-trash']")).click();
         delay("Remove is not always super fast...");
 
         // THEN
-        assertFalse("Entry 'Pages /' should have been removed", isExisting(getElementByXpath("//*[contains(@class, 'v-label-text') and text() = '%s']", "Pages /")));
+        assertFalse("Entry 'Pages /' should have been removed", isExisting(getElementByXpath("//input[contains(@class, 'v-textfield-readonly')]")));
     }
 }
