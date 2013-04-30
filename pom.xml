@@ -51,7 +51,7 @@
       <dependency>
         <groupId>info.magnolia.app.contacts</groupId>
         <artifactId>magnolia-app-contacts</artifactId>
-        <version>1.0-beta1-3</version>
+        <version>1.0-beta1-4</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
