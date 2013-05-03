@@ -39,6 +39,7 @@ import static org.junit.Assert.assertTrue;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
+import org.junit.After;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.openqa.selenium.By;
@@ -50,11 +51,20 @@ import org.openqa.selenium.firefox.FirefoxDriver;
  */
 public class AdmincentralUITest extends AbstractMagnoliaUITest {
 
+    private FirefoxDriver ericsDriver;
+
+    @After
+    public void tearDown() {
+        if (ericsDriver != null) {
+            ericsDriver.quit();
+        }
+    }
+
     @Test
     public void nonSuperuserCanLoginAsWell() {
         // GIVEN
         final String ordinaryUser = "eric";
-        FirefoxDriver ericsDriver = new FirefoxDriver();
+        ericsDriver = new FirefoxDriver();
         ericsDriver.manage().timeouts().implicitlyWait(DRIVER_WAIT_IN_SECONDS, TimeUnit.DAYS.SECONDS);
         ericsDriver.navigate().to(Instance.AUTHOR.getURL());
 
