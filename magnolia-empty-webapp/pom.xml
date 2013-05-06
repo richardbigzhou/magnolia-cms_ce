@@ -24,53 +24,35 @@
   <dependencies>
     <dependency>
       <groupId>info.magnolia.ui</groupId>
-      <artifactId>magnolia-ui-api</artifactId>
-      <version>${magnoliaUiVersion}</version>
-    </dependency>
-    <dependency>
-      <groupId>info.magnolia.ui</groupId>
-      <artifactId>magnolia-ui-framework</artifactId>
-      <version>${magnoliaUiVersion}</version>
-    </dependency>
-    <dependency>
-      <groupId>info.magnolia.ui</groupId>
-      <artifactId>magnolia-ui-contentapp</artifactId>
-      <version>${magnoliaUiVersion}</version>
-    </dependency>
-    <dependency>
-      <groupId>info.magnolia.ui</groupId>
       <artifactId>magnolia-ui-admincentral</artifactId>
-      <version>${magnoliaUiVersion}</version>
     </dependency>
     <dependency>
       <groupId>info.magnolia.ui</groupId>
       <artifactId>magnolia-ui-vaadin-widgetset</artifactId>
-      <version>${magnoliaUiVersion}</version>
     </dependency>
     <dependency>
       <groupId>info.magnolia.ui</groupId>
       <artifactId>magnolia-ui-app-sample</artifactId>
-      <version>${magnoliaUiVersion}</version>
     </dependency>
     <dependency>
       <groupId>info.magnolia.ui</groupId>
       <artifactId>magnolia-ui-app-pages</artifactId>
-      <version>${magnoliaUiVersion}</version>
     </dependency>
     <dependency>
       <groupId>info.magnolia.ui</groupId>
       <artifactId>magnolia-ui-app-config</artifactId>
-      <version>${magnoliaUiVersion}</version>
     </dependency>
     <dependency>
       <groupId>info.magnolia.ui</groupId>
       <artifactId>magnolia-ui-app-security</artifactId>
-      <version>${magnoliaUiVersion}</version>
     </dependency>
     <dependency>
       <groupId>info.magnolia.ui</groupId>
       <artifactId>magnolia-ui-app-messages</artifactId>
-      <version>${magnoliaUiVersion}</version>
+    </dependency>
+    <dependency>
+      <groupId>info.magnolia.app.contacts</groupId>
+      <artifactId>magnolia-app-contacts</artifactId>
     </dependency>
     <dependency>
       <groupId>info.magnolia</groupId>
