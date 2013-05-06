@@ -57,8 +57,8 @@ public class ContentAppUITest extends AbstractMagnoliaUITest {
         getTreeTableItem("Albert Einstein").click();
         getActionBarItem("Edit contact").click();
         getDialogTab("Contact details").click();
-        getFormField("E-Mail address").clear();
-        getFormField("E-Mail address").sendKeys(testEmailAddr);
+        getFormTextField("E-Mail address").clear();
+        getFormTextField("E-Mail address").sendKeys(testEmailAddr);
         clickDialogCommitButton();
 
         // THEN

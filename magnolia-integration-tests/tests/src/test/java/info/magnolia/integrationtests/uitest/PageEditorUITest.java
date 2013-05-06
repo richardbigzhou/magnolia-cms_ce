@@ -43,17 +43,6 @@ import org.openqa.selenium.By;
  */
 public class PageEditorUITest extends AbstractMagnoliaUITest {
 
-    /**
-     * Selenium has problems handling iframes. Frame needs to be switched explicitly.
-     */
-    private void switchToPageEditorContent() {
-        driver.switchTo().frame(driver.findElement(By.xpath("//iframe[@class = 'gwt-Frame']")));
-    }
-
-    private void switchToDefaultContent() {
-        driver.switchTo().defaultContent();
-    }
-
     @Test
     public void whenEditFieldThenEditComponentDialogShown() {
         // GIVEN
