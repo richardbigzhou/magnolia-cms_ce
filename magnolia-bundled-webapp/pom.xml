@@ -24,14 +24,6 @@
       <type>pom</type>
     </dependency>
     <dependency>
-      <groupId>info.magnolia.dam</groupId>
-      <artifactId>magnolia-module-dam</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>info.magnolia.dam</groupId>
-      <artifactId>magnolia-module-dam-app-assets</artifactId>
-    </dependency>
-    <dependency>
       <groupId>info.magnolia</groupId>
       <artifactId>magnolia-module-standard-templating-kit</artifactId>
     </dependency>
@@ -58,6 +50,26 @@
     <dependency>
     	<groupId>info.magnolia</groupId>
     	<artifactId>magnolia-module-groovy</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>info.magnolia.ui</groupId>
+      <artifactId>magnolia-ui-app-sample</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>info.magnolia.ui</groupId>
+      <artifactId>magnolia-ui-app-messages</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>info.magnolia.app.contacts</groupId>
+      <artifactId>magnolia-app-contacts</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>info.magnolia.dam</groupId>
+      <artifactId>magnolia-module-dam</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>info.magnolia.dam</groupId>
+      <artifactId>magnolia-module-dam-app-assets</artifactId>
     </dependency>
   </dependencies>
 

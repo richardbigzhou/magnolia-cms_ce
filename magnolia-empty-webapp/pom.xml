@@ -32,10 +32,6 @@
     </dependency>
     <dependency>
       <groupId>info.magnolia.ui</groupId>
-      <artifactId>magnolia-ui-app-sample</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>info.magnolia.ui</groupId>
       <artifactId>magnolia-ui-app-pages</artifactId>
     </dependency>
     <dependency>
@@ -45,14 +41,6 @@
     <dependency>
       <groupId>info.magnolia.ui</groupId>
       <artifactId>magnolia-ui-app-security</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>info.magnolia.ui</groupId>
-      <artifactId>magnolia-ui-app-messages</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>info.magnolia.app.contacts</groupId>
-      <artifactId>magnolia-app-contacts</artifactId>
     </dependency>
     <dependency>
       <groupId>info.magnolia</groupId>
