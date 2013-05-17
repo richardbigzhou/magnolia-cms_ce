@@ -3,7 +3,7 @@
   <parent>
     <groupId>info.magnolia</groupId>
     <artifactId>magnolia-integration-tests-parent</artifactId>
-    <version>5.0-SNAPSHOT</version>
+    <version>5.0-beta2</version>
   </parent>
   <groupId>info.magnolia</groupId>
   <artifactId>magnolia-integration-tests</artifactId>
@@ -244,7 +244,7 @@
                 <geturl4>http://localhost:8088/magnoliaTestPublic/demo-features/</geturl4>
                 <geturlauth5>http://localhost:8088/magnoliaTest/ftl-sample-site/</geturlauth5>
                 <geturlauth6>http://localhost:8088/magnoliaTest/jsp-sample-site/</geturlauth6>
-                <geturlauth7>http://localhost:8088/magnoliaTestPublic/demo-project/</geturlauth7>3>
+                <geturlauth7>http://localhost:8088/magnoliaTestPublic/demo-project/</geturlauth7>3&gt;
                 <geturlauth8>http://localhost:8088/magnoliaTestPublic/demo-features/</geturlauth8>
               </properties>
               <source>${project.basedir}/src/main/groovy/crawl.groovy</source>
