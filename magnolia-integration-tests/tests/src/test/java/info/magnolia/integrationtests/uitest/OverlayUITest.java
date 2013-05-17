@@ -45,17 +45,7 @@ import org.openqa.selenium.WebElement;
 public class OverlayUITest extends AbstractMagnoliaUITest {
 
 
-    protected WebElement getConfirmationOverlay() {
-        return getElementByXpath("//*[contains(@class, 'light-dialog-panel-confirmation')]");
-    }
 
-    protected void clickConfirmationDialogConfirmButton() {
-        getDialogButton("btn-dialog-confirm").click();
-    }
-
-    protected void clickConfirmationDialogCancelButton() {
-        getDialogButton("btn-dialog-cancel").click();
-    }
 
     @Test
     /**
