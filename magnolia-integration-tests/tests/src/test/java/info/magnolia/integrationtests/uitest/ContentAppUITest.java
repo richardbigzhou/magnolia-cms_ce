@@ -91,6 +91,7 @@ public class ContentAppUITest extends AbstractMagnoliaUITest {
 
         // WHEN - navigate directly to Edit Subapp
         driver.navigate().to(Instance.AUTHOR.getURL() + ".magnolia/admincentral#app:contacts:detail;/mmonroe:edit");
+        delay(5, "Can take some time, until subapps are open...");
 
         // THEN
         assertTrue(getDialogTab("Contacts").isDisplayed());
