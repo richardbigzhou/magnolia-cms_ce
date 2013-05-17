@@ -434,4 +434,18 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
     protected void switchToDefaultContent() {
         driver.switchTo().defaultContent();
     }
+
+    // Helpers for Overlay
+
+    protected WebElement getConfirmationOverlay() {
+        return getElementByXpath("//*[contains(@class, 'light-dialog-panel-confirmation')]");
+    }
+
+    protected void clickConfirmationDialogConfirmButton() {
+        getDialogButton("btn-dialog-confirm").click();
+    }
+
+    protected void clickConfirmationDialogCancelButton() {
+        getDialogButton("btn-dialog-cancel").click();
+    }
 }

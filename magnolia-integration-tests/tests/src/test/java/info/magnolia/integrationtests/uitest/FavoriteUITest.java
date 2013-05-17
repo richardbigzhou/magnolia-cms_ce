@@ -63,6 +63,9 @@ public class FavoriteUITest extends AbstractMagnoliaUITest {
         // WHEN
         getElementByPath(By.xpath("//*[contains(@class, 'v-label-icon')]/*[@class = 'icon-webpages-app']")).click();
         getElementByPath(By.xpath("//*[@class = 'icon-trash']")).click();
+        delay("Wait for Confirmation Dialog.");
+
+        clickConfirmationDialogConfirmButton();
         delay("Remove is not always super fast...");
 
         // THEN
