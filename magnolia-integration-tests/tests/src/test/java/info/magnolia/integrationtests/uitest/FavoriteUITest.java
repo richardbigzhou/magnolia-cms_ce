@@ -51,6 +51,7 @@ public class FavoriteUITest extends AbstractMagnoliaUITest {
         delay("Make sure Pages app is open before we navigate to favorites");
 
         getShellAppIcon("icon-favorites").click();
+        delay("Give some time to fill in values from previous location.");
 
         // WHEN
         getButton("dialog-header", "Add new").click();
