@@ -313,8 +313,16 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         return getElementByPath(By.xpath(xpath));
     }
 
-    protected WebElement getFormField(String caption) {
+    protected WebElement getFormTextField(String caption) {
         return getElementByXpath("//*[@class = 'v-form-field-label' and text() = '%s']/following-sibling::input[@type = 'text']", caption);
+    }
+
+    protected WebElement getFormTextAreaField(String caption) {
+        return getElementByXpath("//*[@class = 'v-form-field-label' and text() = '%s']/following-sibling::input[@rows = ]", caption);
+    }
+
+    protected WebElement getFormRichTextField() {
+        return getElementByXpath("//*[contains(@class, 'cke_chrome')]");
     }
 
     protected WebElement getTreeTableItemExpander(String itemCaption) {
@@ -385,5 +393,45 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
 
     protected boolean hasCssClass(WebElement webElement, String cssClass) {
         return webElement.getAttribute("class").contains(cssClass);
+    }
+
+    protected void clickDialogSelectCommitButton() {
+        getDialogSelectButton("btn-dialog-commit").click();
+    }
+
+    protected WebElement getDialogSelectButton(String className) {
+        return getElementByXpath("//div[contains(@class, 'choose-dialog')]//*[contains(@class, '%s')]", className);
+    }
+
+    protected WebElement getCustomField(String caption) {
+        return getElementByXpath("//*[@class = 'v-form-field-section']//*[@class = 'v-form-field-label' and text() = '%s']", caption);
+    }
+
+    protected WebElement getCustomFieldInputElement(String caption) {
+        WebElement main = getCustomField(caption);
+        return main.findElement(By.xpath("//input[contains(@class, 'v-textfield')]"));
+    }
+
+    protected WebElement getFormErrorHeader() {
+        return getElementByXpath("//*[contains(@class, 'form-error')]");
+    }
+
+    protected void clickFormErrorJumpToNextError() {
+        getFormErrorHeader().findElement(By.xpath("//*[contains(@class, 'action-jump-to-next-error')]")).click();
+    }
+
+    protected WebElement getFormFieldError() {
+        return getElementByXpath("//*[contains(@class, 'validation-message')]");
+    }
+
+    /**
+     * Selenium has problems handling iframes. Frame needs to be switched explicitly.
+     */
+    protected void switchToPageEditorContent() {
+        driver.switchTo().frame(driver.findElement(By.xpath("//iframe[@class = 'gwt-Frame']")));
+    }
+
+    protected void switchToDefaultContent() {
+        driver.switchTo().defaultContent();
     }
 }

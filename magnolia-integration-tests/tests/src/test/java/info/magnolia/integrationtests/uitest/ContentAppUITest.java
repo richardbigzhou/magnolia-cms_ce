@@ -57,8 +57,8 @@ public class ContentAppUITest extends AbstractMagnoliaUITest {
         getTreeTableItem("Albert Einstein").click();
         getActionBarItem("Edit contact").click();
         getDialogTab("Contact details").click();
-        getFormField("E-Mail address").clear();
-        getFormField("E-Mail address").sendKeys(testEmailAddr);
+        getFormTextField("E-Mail address").clear();
+        getFormTextField("E-Mail address").sendKeys(testEmailAddr);
         clickDialogCommitButton();
 
         // THEN
@@ -91,6 +91,7 @@ public class ContentAppUITest extends AbstractMagnoliaUITest {
 
         // WHEN - navigate directly to Edit Subapp
         driver.navigate().to(Instance.AUTHOR.getURL() + ".magnolia/admincentral#app:contacts:detail;/mmonroe:edit");
+        delay(5, "Can take some time, until subapps are open...");
 
         // THEN
         assertTrue(getDialogTab("Contacts").isDisplayed());

@@ -108,7 +108,7 @@ public class OverlayUITest extends AbstractMagnoliaUITest {
 
         // Determine if untitled is selected - it might not be if someone else created a folder.
         WebElement row = getTreeTableItemRow("untitled");
-        if (hasCssClass(row, "v-selected")) {
+        if (!hasCssClass(row, "v-selected")) {
             // If not selected - then selected it.
             row.click();
         }

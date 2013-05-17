@@ -54,22 +54,27 @@ public class ComponentModelForTests implements RenderingModel {
     public ComponentModelForTests(Node node, RenderableDefinition renderable, RenderingModel parent) {
     }
 
+    @Override
     public RenderingModel getParent() {
         return null;
     }
 
+    @Override
     public Node getNode() {
         return null;
     }
 
+    @Override
     public ContentMap getContent() {
         return null;
     }
 
+    @Override
     public RenderableDefinition getDefinition() {
         return null;
     }
 
+    @Override
     public String execute() {
         executionCount++;
         return "foobar";
@@ -87,6 +92,7 @@ public class ComponentModelForTests implements RenderingModel {
         return Arrays.asList("foo", "bar");
     }
 
+    @Override
     public RenderingModel<?> getRoot() {
         return null;
     }
