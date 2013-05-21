@@ -60,7 +60,7 @@ public class ContentAppUITest extends AbstractMagnoliaUITest {
         getDialogTab("Contact details").click();
         getFormTextField("E-Mail address").clear();
         getFormTextField("E-Mail address").sendKeys(testEmailAddr);
-        clickDialogCommitButton();
+        getDialogCommitButton().click();
 
         // THEN
         assertTrue(getTreeTableItem(testEmailAddr).isDisplayed());

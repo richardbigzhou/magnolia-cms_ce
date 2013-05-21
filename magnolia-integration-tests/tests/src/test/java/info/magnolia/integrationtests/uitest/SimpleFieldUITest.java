@@ -64,7 +64,7 @@ public class SimpleFieldUITest extends AbstractMagnoliaUITest {
         getFormTextField("Number double").clear();
         getFormTextField("Number double").sendKeys("10.22");
         // Save Dialog
-        clickDialogCommitButton();
+        getDialogCommitButton().click();
         openDialogComponent();
 
         // THEN
@@ -83,11 +83,11 @@ public class SimpleFieldUITest extends AbstractMagnoliaUITest {
         getFormTextField("Number long").sendKeys("true");
         getFormTextField("Number double").clear();
         getFormTextField("Number double").sendKeys("10.22");
-        clickDialogCommitButton();
+        getDialogCommitButton().click();
 
         // THEN
         assertEquals("Please correct the 1 errors in this form [Jump to next error]", getFormErrorHeader().getText());
-        clickFormErrorJumpToNextError();
+        getFormErrorJumpToNextError().click();
         assertEquals("Could not convert value to Number", getFormFieldError().getText());
     }
 
@@ -100,7 +100,7 @@ public class SimpleFieldUITest extends AbstractMagnoliaUITest {
         getTreeTableItem("demo-project").click();
 
         // WHEN
-        clickDialogSelectCommitButton();
+        getDialogCommitButton().click();
 
         // THEN
         assertEquals("/demo-project", getCustomFieldInputElement("Link").getAttribute("value"));

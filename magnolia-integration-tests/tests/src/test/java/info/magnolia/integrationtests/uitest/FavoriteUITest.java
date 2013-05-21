@@ -65,7 +65,7 @@ public class FavoriteUITest extends AbstractMagnoliaUITest {
         getElementByPath(By.xpath("//*[@class = 'icon-trash']")).click();
         delay("Wait for Confirmation Dialog.");
 
-        clickConfirmationDialogConfirmButton();
+        getDialogConfirmButton().click();
         delay("Remove is not always super fast...");
 
         // THEN
