@@ -33,6 +33,7 @@
  */
 package info.magnolia.integrationtests.uitest;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Date;
@@ -96,5 +97,18 @@ public class ContentAppUITest extends AbstractMagnoliaUITest {
         // THEN
         assertTrue(getDialogTab("Contacts").isDisplayed());
         assertTrue(getDialogTab("/mmonroe").isDisplayed());
+    }
+
+    @Test
+    public void navigateToTreeItemExpandsTree() {
+        // GIVEN
+
+        // WHEN - navigate directly to Edit Subapp
+        driver.navigate().to(Instance.AUTHOR.getURL() + ".magnolia/admincentral#app:pages:browser;/demo-project/about:treeview:");
+        delay(5, "Can take some time, until subapps are open...");
+
+        // THEN
+        assertTrue("The about page should be expanded after navigating to it.", getTreeTableItem("subsection-articles").isDisplayed());
+        assertFalse("The subpages fo subsection-articles should not be visible.", isExisting(getTreeTableItem("large-article")));
     }
 }
