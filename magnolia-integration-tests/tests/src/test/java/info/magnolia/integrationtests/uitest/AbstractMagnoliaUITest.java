@@ -53,6 +53,8 @@ import org.junit.Rule;
 import org.junit.rules.TestName;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.Point;
@@ -436,9 +438,16 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         driver.switchTo().defaultContent();
     }
 
-    // Helpers for Overlay
-
     protected WebElement getConfirmationOverlay() {
         return getElementByXpath("//*[contains(@class, 'light-dialog-panel-confirmation')]");
+    }
+
+    protected WebElement getFocusedElement() {
+        // As there's no native WebDriver support to get focused element, we have to use js
+        return (WebElement) ((JavascriptExecutor) driver).executeScript("return document.activeElement;");
+    }
+
+    protected void simulateKeyPress(final Keys key) {
+        getFocusedElement().sendKeys(key);
     }
 }
