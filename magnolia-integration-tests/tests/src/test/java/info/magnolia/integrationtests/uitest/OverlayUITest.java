@@ -77,7 +77,7 @@ public class OverlayUITest extends AbstractMagnoliaUITest {
         getTreeTableItem("Marilyn Monroe").click();
         getActionBarItem("Delete contact").click();
 
-        clickConfirmationDialogCancelButton();
+        getDialogCancelButton().click();
 
         // THEN
         assertFalse(isExisting(getConfirmationOverlay()));
@@ -105,7 +105,7 @@ public class OverlayUITest extends AbstractMagnoliaUITest {
 
         getActionBarItem("Delete folder").click();
 
-        clickConfirmationDialogConfirmButton();
+        getDialogConfirmButton().click();
         delay("Give dialog some time to fade away...");
 
         // THEN

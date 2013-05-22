@@ -58,7 +58,7 @@ public class PageEditorUITest extends AbstractMagnoliaUITest {
         switchToDefaultContent();
 
         // THEN
-        clickDialogCancelButton();
+        getDialogCancelButton().click();
     }
 
     @Test
@@ -76,7 +76,7 @@ public class PageEditorUITest extends AbstractMagnoliaUITest {
         switchToDefaultContent();
 
         // THEN
-        clickDialogCancelButton();
+        getDialogCancelButton().click();
     }
 
     @Test
@@ -99,6 +99,6 @@ public class PageEditorUITest extends AbstractMagnoliaUITest {
 
         // THEN
         assertTrue(driver.findElement(By.xpath("//*[contains(@class, 'cke_chrome')]")).isDisplayed());
-        clickDialogCancelButton();
+        getDialogCancelButton().click();
     }
 }

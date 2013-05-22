@@ -53,6 +53,8 @@ import org.junit.Rule;
 import org.junit.rules.TestName;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.Point;
@@ -345,6 +347,10 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         return getElementByXpath("//button[contains(@class, '%s')]", classname);
     }
 
+    protected WebElement getDialogButtonWithCaption(final String caption) {
+        return getElementByXpath("//button[.='%s']", caption);
+    }
+
     protected WebElement getButton(String classname, String caption) {
         return getElementByXpath("//*[contains(@class, '%s')]//*[text() = '%s']", classname, caption);
     }
@@ -361,6 +367,18 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         return getElementByXpath("//*[contains(@class, 'v-shell-tabsheet')]//*[@class = 'tab-title' and text() = '%s']", tabCaption);
     }
 
+    protected WebElement getDialogCommitButton() {
+        return getDialogButton("btn-dialog-commit");
+    }
+
+    protected WebElement getDialogConfirmButton() {
+        return getDialogButton("btn-dialog-confirm");
+    }
+
+    protected WebElement getDialogCancelButton() {
+        return getDialogButton("btn-dialog-cancel");
+    }
+
     protected void assertAppOpen(String appName) {
         String path = String.format("//*[contains(@class, 'v-viewport-apps')]//*[contains(@class, 'tab-title') and text() = '%s']", appName);
         assertTrue(driver.findElement(By.xpath(path)).isDisplayed());
@@ -368,14 +386,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
 
     protected void toLandingPage() {
         driver.navigate().to(Instance.AUTHOR.getURL());
-    }
-
-    protected void clickDialogCommitButton() {
-        getDialogButton("btn-dialog-commit").click();
-    }
-
-    protected void clickDialogCancelButton() {
-        getDialogButton("btn-dialog-cancel").click();
+        delay("Give some time to let animation finish");
     }
 
     protected void closeErrorNotification() {
@@ -388,15 +399,11 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
 
     protected void closeApp() {
         getElementByPath(By.className("m-closebutton-app")).click();
-        delay("Wait to et the animation clear app from the viewport");
+        delay("Wait to let the animation clear app from the viewport");
     }
 
     protected boolean hasCssClass(WebElement webElement, String cssClass) {
         return webElement.getAttribute("class").contains(cssClass);
-    }
-
-    protected void clickDialogSelectCommitButton() {
-        getDialogSelectButton("btn-dialog-commit").click();
     }
 
     protected WebElement getDialogSelectButton(String className) {
@@ -416,8 +423,8 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         return getElementByXpath("//*[contains(@class, 'form-error')]");
     }
 
-    protected void clickFormErrorJumpToNextError() {
-        getFormErrorHeader().findElement(By.xpath("//*[contains(@class, 'action-jump-to-next-error')]")).click();
+    protected WebElement getFormErrorJumpToNextError() {
+        return getFormErrorHeader().findElement(By.xpath("//*[contains(@class, 'action-jump-to-next-error')]"));
     }
 
     protected WebElement getFormFieldError() {
@@ -435,17 +442,24 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         driver.switchTo().defaultContent();
     }
 
-    // Helpers for Overlay
-
     protected WebElement getConfirmationOverlay() {
         return getElementByXpath("//*[contains(@class, 'light-dialog-panel-confirmation')]");
     }
 
-    protected void clickConfirmationDialogConfirmButton() {
-        getDialogButton("btn-dialog-confirm").click();
+    protected WebElement getFocusedElement() {
+        // As there's no native WebDriver support to get focused element, we have to use js
+        return (WebElement) ((JavascriptExecutor) driver).executeScript("return document.activeElement;");
     }
 
-    protected void clickConfirmationDialogCancelButton() {
-        getDialogButton("btn-dialog-cancel").click();
+    protected void simulateKeyPress(final Keys key) {
+        getFocusedElement().sendKeys(key);
+    }
+
+    /**
+     * Set the provided text to the formTextField with the provided caption.
+     */
+    protected void setFormTextFieldText(final String caption, final String text) {
+        getFormTextField(caption).clear();
+        getFormTextField(caption).sendKeys(text);
     }
 }

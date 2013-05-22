@@ -50,21 +50,17 @@ import org.openqa.selenium.WebElement;
  */
 public class SimpleFieldUITest extends AbstractMagnoliaUITest {
 
-
     @Test
     public void setTextFieldValue() {
         // GIVEN
         goToDialogShowRoomAndOpenDialogComponent("ftl");
         // WHEN
         // Set input values
-        getFormTextField("Text 1").clear();
-        getFormTextField("Text 1").sendKeys("test");
-        getFormTextField("Number long").clear();
-        getFormTextField("Number long").sendKeys("10");
-        getFormTextField("Number double").clear();
-        getFormTextField("Number double").sendKeys("10.22");
+        setFormTextFieldText("Text 1", "test");
+        setFormTextFieldText("Number long", "10");
+        setFormTextFieldText("Number double", "10.22");
         // Save Dialog
-        clickDialogCommitButton();
+        getDialogCommitButton().click();
         openDialogComponent();
 
         // THEN
@@ -73,21 +69,19 @@ public class SimpleFieldUITest extends AbstractMagnoliaUITest {
         assertEquals("10.22", getFormTextField("Number double").getAttribute("value"));
     }
 
-
     @Test
     public void checkSetTextFieldValueValidationError() {
         // GIVEN
         goToDialogShowRoomAndOpenDialogComponent("ftl");
+
         // WHEN
-        getFormTextField("Number long").clear();
-        getFormTextField("Number long").sendKeys("true");
-        getFormTextField("Number double").clear();
-        getFormTextField("Number double").sendKeys("10.22");
-        clickDialogCommitButton();
+        setFormTextFieldText("Number long", "true");
+        setFormTextFieldText("Number double", "10.22");
+        getDialogCommitButton().click();
 
         // THEN
         assertEquals("Please correct the 1 errors in this form [Jump to next error]", getFormErrorHeader().getText());
-        clickFormErrorJumpToNextError();
+        getFormErrorJumpToNextError().click();
         assertEquals("Could not convert value to Number", getFormFieldError().getText());
     }
 
@@ -100,7 +94,7 @@ public class SimpleFieldUITest extends AbstractMagnoliaUITest {
         getTreeTableItem("demo-project").click();
 
         // WHEN
-        clickDialogSelectCommitButton();
+        getDialogButtonWithCaption("Choose").click();
 
         // THEN
         assertEquals("/demo-project", getCustomFieldInputElement("Link").getAttribute("value"));
@@ -116,8 +110,8 @@ public class SimpleFieldUITest extends AbstractMagnoliaUITest {
 
         // THEN
         WebElement uploadElement = getCustomField("Upload a file");
-        assertNotNull(uploadElement);
-        assertNotNull(uploadElement.findElement(By.xpath("//div[contains(@class, 'no-vertical-drag-hints')]")));
+        assertTrue(isExisting(uploadElement));
+        assertTrue(isExisting(uploadElement.findElement(By.xpath("//div[contains(@class, 'no-vertical-drag-hints')]"))));
     }
 
     @Test
@@ -131,10 +125,10 @@ public class SimpleFieldUITest extends AbstractMagnoliaUITest {
         WebElement uploadElement = getCustomField("Upload a file");
         // Get Upload Form
         WebElement uploadForm = uploadElement.findElement(By.xpath("//div[contains(@class, 'v-csslayout v-layout v-widget')]//form[contains(@class, 'v-upload v-widget v-upload-immediate')]"));
-        assertNotNull(uploadForm);
+        assertTrue(isExisting(uploadForm));
         // Get Upload Field
         WebElement uploadFormInput = uploadForm.findElement(By.xpath("//input[contains(@class, 'gwt-FileUpload')]"));
-        assertNotNull(uploadFormInput);
+        assertTrue(isExisting(uploadFormInput));
         // Make Upload Field Visible
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("document.getElementsByClassName('gwt-FileUpload')[0].style.display = 'block';");
@@ -146,9 +140,9 @@ public class SimpleFieldUITest extends AbstractMagnoliaUITest {
         // THEN
         assertNotNull(uploadElement);
         // Contains Upload Button
-        assertNotNull(uploadElement.findElement(By.xpath("//div[contains(@class, 'no-vertical-drag-hints')]")));
+        assertTrue(isExisting(uploadElement.findElement(By.xpath("//div[contains(@class, 'no-vertical-drag-hints')]"))));
         // Contains Image icon
-        assertNotNull(uploadElement.findElement(By.xpath("//div[contains(@class, ' preview-image v-label-preview-image')]")));
+        assertTrue(isExisting(uploadElement.findElement(By.xpath("//div[contains(@class, ' preview-image v-label-preview-image')]"))));
     }
 
     /**

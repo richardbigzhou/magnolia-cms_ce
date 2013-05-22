@@ -33,36 +33,73 @@
  */
 package info.magnolia.integrationtests.uitest;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.util.Date;
 
-import org.junit.Ignore;
 import org.junit.Test;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebElement;
 
 /**
  * UI tests for content app.
  */
 public class ContentAppUITest extends AbstractMagnoliaUITest {
-    @Ignore("This test sometimes fails although there's no known bug - this behavior is tracked as MAGNOLIA-4928")
+
     @Test
     public void editContact() {
         // GIVEN
         String testEmailAddr = String.format("testemail%d@random.ch", new Date().getTime());
 
-        // WHEN
         getAppIcon("Contacts").click();
         assertAppOpen("Contacts");
 
         getTreeTableItem("Albert Einstein").click();
         getActionBarItem("Edit contact").click();
         getDialogTab("Contact details").click();
-        getFormTextField("E-Mail address").clear();
-        getFormTextField("E-Mail address").sendKeys(testEmailAddr);
-        clickDialogCommitButton();
+
+        setFormTextFieldText("E-Mail address", testEmailAddr);
+        getDialogCommitButton().click();
 
         // THEN
         assertTrue(getTreeTableItem(testEmailAddr).isDisplayed());
+    }
+
+    @Test
+    public void tabNavigatesToNextField() {
+        // GIVEN
+        getAppIcon("Contacts").click();
+        assertAppOpen("Contacts");
+
+        getTreeTableItem("Albert Einstein").click();
+        getActionBarItem("Edit contact").click();
+        getFormTextField("Salutation").click();
+
+        WebElement currentlyFocussedElement = getFocusedElement();
+        assertEquals(currentlyFocussedElement, getFormTextField("Salutation"));
+
+        // WHEN
+        simulateKeyPress(Keys.TAB);
+
+        // THEN
+        currentlyFocussedElement = getFocusedElement();
+        assertEquals("Pressing tab should have passed focuss to next field.", currentlyFocussedElement, getFormTextField("First name"));
+    }
+
+    @Test
+    public void escapeClosesDetailSubapp() {
+        // GIVEN
+        getAppIcon("Contacts").click();
+
+        getTreeTableItem("Albert Einstein").click();
+        getActionBarItem("Edit contact").click();
+        assertTrue(isExisting(getDialogTab("/aeinstein")));
+
+        // WHEN
+        simulateKeyPress(Keys.ESCAPE);
+
+        // THEN
+        assertFalse(isExisting(getDialogTab("/aeinstein")));
     }
 
     @Test
@@ -96,5 +133,18 @@ public class ContentAppUITest extends AbstractMagnoliaUITest {
         // THEN
         assertTrue(getDialogTab("Contacts").isDisplayed());
         assertTrue(getDialogTab("/mmonroe").isDisplayed());
+    }
+
+    @Test
+    public void navigateToTreeItemExpandsTree() {
+        // GIVEN
+
+        // WHEN - navigate directly to Edit Subapp
+        driver.navigate().to(Instance.AUTHOR.getURL() + ".magnolia/admincentral#app:pages:browser;/demo-project/about:treeview:");
+        delay(5, "Can take some time, until subapps are open...");
+
+        // THEN
+        assertTrue("The about page should be expanded after navigating to it.", getTreeTableItem("subsection-articles").isDisplayed());
+        assertFalse("The subpages fo subsection-articles should not be visible.", isExisting(getTreeTableItem("large-article")));
     }
 }
