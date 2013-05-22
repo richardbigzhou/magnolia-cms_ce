@@ -56,12 +56,9 @@ public class SimpleFieldUITest extends AbstractMagnoliaUITest {
         goToDialogShowRoomAndOpenDialogComponent("ftl");
         // WHEN
         // Set input values
-        getFormTextField("Text 1").clear();
-        getFormTextField("Text 1").sendKeys("test");
-        getFormTextField("Number long").clear();
-        getFormTextField("Number long").sendKeys("10");
-        getFormTextField("Number double").clear();
-        getFormTextField("Number double").sendKeys("10.22");
+        setFormTextFieldText("Text 1", "test");
+        setFormTextFieldText("Number long", "10");
+        setFormTextFieldText("Number double", "10.22");
         // Save Dialog
         getDialogCommitButton().click();
         openDialogComponent();
@@ -72,17 +69,14 @@ public class SimpleFieldUITest extends AbstractMagnoliaUITest {
         assertEquals("10.22", getFormTextField("Number double").getAttribute("value"));
     }
 
-
     @Test
     public void checkSetTextFieldValueValidationError() {
         // GIVEN
         goToDialogShowRoomAndOpenDialogComponent("ftl");
 
         // WHEN
-        getFormTextField("Number long").clear();
-        getFormTextField("Number long").sendKeys("true");
-        getFormTextField("Number double").clear();
-        getFormTextField("Number double").sendKeys("10.22");
+        setFormTextFieldText("Number long", "true");
+        setFormTextFieldText("Number double", "10.22");
         getDialogCommitButton().click();
 
         // THEN

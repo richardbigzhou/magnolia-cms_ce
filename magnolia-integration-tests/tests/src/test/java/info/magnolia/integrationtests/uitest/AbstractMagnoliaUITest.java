@@ -450,4 +450,12 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
     protected void simulateKeyPress(final Keys key) {
         getFocusedElement().sendKeys(key);
     }
+
+    /**
+     * Set the provided text to the formTextField with the provided caption.
+     */
+    protected void setFormTextFieldText(final String caption, final String text) {
+        getFormTextField(caption).clear();
+        getFormTextField(caption).sendKeys(text);
+    }
 }

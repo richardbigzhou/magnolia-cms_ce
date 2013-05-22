@@ -58,8 +58,7 @@ public class ContentAppUITest extends AbstractMagnoliaUITest {
         getActionBarItem("Edit contact").click();
         getDialogTab("Contact details").click();
 
-        getFormTextField("E-Mail address").clear();
-        getFormTextField("E-Mail address").sendKeys(testEmailAddr);
+        setFormTextFieldText("E-Mail address", testEmailAddr);
         getDialogCommitButton().click();
 
         // THEN
