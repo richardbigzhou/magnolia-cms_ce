@@ -94,7 +94,7 @@ public class SimpleFieldUITest extends AbstractMagnoliaUITest {
         getTreeTableItem("demo-project").click();
 
         // WHEN
-        getDialogCommitButton().click();
+        getDialogButtonWithCaption("Choose").click();
 
         // THEN
         assertEquals("/demo-project", getCustomFieldInputElement("Link").getAttribute("value"));

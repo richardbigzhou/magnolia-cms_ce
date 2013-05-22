@@ -347,6 +347,10 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         return getElementByXpath("//button[contains(@class, '%s')]", classname);
     }
 
+    protected WebElement getDialogButtonWithCaption(final String caption) {
+        return getElementByXpath("//button[.='%s']", caption);
+    }
+
     protected WebElement getButton(String classname, String caption) {
         return getElementByXpath("//*[contains(@class, '%s')]//*[text() = '%s']", classname, caption);
     }
