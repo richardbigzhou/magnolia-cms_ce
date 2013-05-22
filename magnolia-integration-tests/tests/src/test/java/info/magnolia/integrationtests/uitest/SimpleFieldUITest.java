@@ -50,7 +50,6 @@ import org.openqa.selenium.WebElement;
  */
 public class SimpleFieldUITest extends AbstractMagnoliaUITest {
 
-
     @Test
     public void setTextFieldValue() {
         // GIVEN
@@ -78,6 +77,7 @@ public class SimpleFieldUITest extends AbstractMagnoliaUITest {
     public void checkSetTextFieldValueValidationError() {
         // GIVEN
         goToDialogShowRoomAndOpenDialogComponent("ftl");
+
         // WHEN
         getFormTextField("Number long").clear();
         getFormTextField("Number long").sendKeys("true");
@@ -116,8 +116,8 @@ public class SimpleFieldUITest extends AbstractMagnoliaUITest {
 
         // THEN
         WebElement uploadElement = getCustomField("Upload a file");
-        assertNotNull(uploadElement);
-        assertNotNull(uploadElement.findElement(By.xpath("//div[contains(@class, 'no-vertical-drag-hints')]")));
+        assertTrue(isExisting(uploadElement));
+        assertTrue(isExisting(uploadElement.findElement(By.xpath("//div[contains(@class, 'no-vertical-drag-hints')]"))));
     }
 
     @Test
@@ -131,10 +131,10 @@ public class SimpleFieldUITest extends AbstractMagnoliaUITest {
         WebElement uploadElement = getCustomField("Upload a file");
         // Get Upload Form
         WebElement uploadForm = uploadElement.findElement(By.xpath("//div[contains(@class, 'v-csslayout v-layout v-widget')]//form[contains(@class, 'v-upload v-widget v-upload-immediate')]"));
-        assertNotNull(uploadForm);
+        assertTrue(isExisting(uploadForm));
         // Get Upload Field
         WebElement uploadFormInput = uploadForm.findElement(By.xpath("//input[contains(@class, 'gwt-FileUpload')]"));
-        assertNotNull(uploadFormInput);
+        assertTrue(isExisting(uploadFormInput));
         // Make Upload Field Visible
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("document.getElementsByClassName('gwt-FileUpload')[0].style.display = 'block';");
@@ -146,9 +146,9 @@ public class SimpleFieldUITest extends AbstractMagnoliaUITest {
         // THEN
         assertNotNull(uploadElement);
         // Contains Upload Button
-        assertNotNull(uploadElement.findElement(By.xpath("//div[contains(@class, 'no-vertical-drag-hints')]")));
+        assertTrue(isExisting(uploadElement.findElement(By.xpath("//div[contains(@class, 'no-vertical-drag-hints')]"))));
         // Contains Image icon
-        assertNotNull(uploadElement.findElement(By.xpath("//div[contains(@class, ' preview-image v-label-preview-image')]")));
+        assertTrue(isExisting(uploadElement.findElement(By.xpath("//div[contains(@class, ' preview-image v-label-preview-image')]"))));
     }
 
     /**
