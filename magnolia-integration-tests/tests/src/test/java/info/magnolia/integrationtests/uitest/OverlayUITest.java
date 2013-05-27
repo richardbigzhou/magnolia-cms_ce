@@ -44,53 +44,53 @@ import org.openqa.selenium.WebElement;
  */
 public class OverlayUITest extends AbstractMagnoliaUITest {
 
-
-
-
-    @Test
     /**
      * Test that the confirmation overlay appears when you delete a contact
      */
+    @Test
     public void deleteItemConfirmationDisplayed() {
 
-        // WHEN
+        // GIVEN
         getAppIcon("Contacts").click();
         assertAppOpen("Contacts");
 
         getTreeTableItem("Marilyn Monroe").click();
+
+        // WHEN
         getActionBarItem("Delete contact").click();
 
         // THEN
         assertTrue(isExisting(getConfirmationOverlay()));
     }
 
-    @Test
     /**
      * Test that the confirmation overlay disappears when canceled.
      */
+    @Test
     public void deleteItemConfirmationCancel() {
 
-        // WHEN
+        // GIVEN
         getAppIcon("Contacts").click();
         assertAppOpen("Contacts");
 
         getTreeTableItem("Marilyn Monroe").click();
         getActionBarItem("Delete contact").click();
 
+        // WHEN
         getDialogCancelButton().click();
-        delay("Give it enough time to fade away.");
 
         // THEN
+        delay("Give it enough time to fade away.");
         assertFalse("Confirmation overlay should have gone now", isExisting(getConfirmationOverlay()));
     }
 
-    @Test
     /**
      * Test that an item is deleted and the confirmation overlay is closed when the confirmation overlay is confirmed.
      */
+    @Test
     public void deleteItemConfirmationConfirm() {
 
-        // WHEN
+        // GIVEN
         getAppIcon("Contacts").click();
         assertAppOpen("Contacts");
 
@@ -106,6 +106,7 @@ public class OverlayUITest extends AbstractMagnoliaUITest {
 
         getActionBarItem("Delete folder").click();
 
+        // WHEN
         getDialogConfirmButton().click();
         delay("Give dialog some time to fade away...");
 
