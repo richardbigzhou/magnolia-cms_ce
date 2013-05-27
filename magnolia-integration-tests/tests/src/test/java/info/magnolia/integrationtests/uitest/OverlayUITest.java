@@ -78,9 +78,10 @@ public class OverlayUITest extends AbstractMagnoliaUITest {
         getActionBarItem("Delete contact").click();
 
         getDialogCancelButton().click();
+        delay("Give it enough time to fade away.");
 
         // THEN
-        assertFalse(isExisting(getConfirmationOverlay()));
+        assertFalse("Confirmation overlay should have gone now", isExisting(getConfirmationOverlay()));
     }
 
     @Test
