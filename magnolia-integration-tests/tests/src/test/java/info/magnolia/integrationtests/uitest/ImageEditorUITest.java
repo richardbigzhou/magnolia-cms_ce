@@ -54,14 +54,14 @@ public class ImageEditorUITest extends AbstractMagnoliaUITest {
 
         getButton("v-button-edit", "Edit image...").click();
 
-        getActionBarItem("Rotate").click();
+        getActionBarItem("Rotate 90° to right").click();
 
         getDialogButton("btn-dialog-save").click();
 
         // WHEN - now try a second imaging operation
         getButton("v-button-edit", "Edit image...").click();
 
-        getActionBarItem("Rotate").click();
+        getActionBarItem("Rotate 90° to right").click();
 
         // save after imaging operation
         getDialogButton("btn-dialog-save").click();
