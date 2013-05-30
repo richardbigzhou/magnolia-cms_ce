@@ -75,7 +75,7 @@ import org.slf4j.LoggerFactory;
 public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegrationTest {
 
     public static final int DEFAULT_DELAY_IN_SECONDS = 2;
-    public static final int DRIVER_WAIT_IN_SECONDS = 5;
+    public static final int DRIVER_WAIT_IN_SECONDS = 10;
 
     protected static final String SCREENSHOT_DIR = "target/surefire-reports/";
 
@@ -340,7 +340,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
     }
 
     protected WebElement getActionBarItem(String itemCaption) {
-        return getElementByXpath("//*[contains(@class, 'v-actionbar')]//*[@aria-hidden = 'false']//*[text() = '%s']", itemCaption);
+        return getElementByXpath("//*[contains(@class, 'v-actionbar')]//*[text() = '%s']", itemCaption);
     }
 
     protected WebElement getDialogButton(String classname) {
