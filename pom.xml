@@ -21,9 +21,9 @@
   <properties>
     <magnoliaEdition>Community Edition</magnoliaEdition>
     <magnoliaVersion>5.0-beta3-1</magnoliaVersion>
-    <magnoliaUiVersion>5.0-beta3-2</magnoliaUiVersion>
+    <magnoliaUiVersion>5.0-beta3-3</magnoliaUiVersion>
     <stkVersion>2.5-beta3-1</stkVersion>
-    <damVersion>1.0-beta3-1</damVersion>
+    <damVersion>1.0-beta3-2</damVersion>
     <javaVersion>1.6</javaVersion>
     <documentationURL>http://documentation.magnolia-cms.com/releases/5.0.html</documentationURL>
     <scmTagPrefix>magnolia-bundle</scmTagPrefix>
@@ -229,11 +229,6 @@
         <version>${magnoliaUiVersion}</version>
       </dependency>
       <dependency>
-        <groupId>info.magnolia.app.contacts</groupId>
-        <artifactId>magnolia-app-contacts</artifactId>
-        <version>1.0-beta3-1</version>
-      </dependency>
-      <dependency>
         <groupId>info.magnolia.ui</groupId>
         <artifactId>magnolia-ui-actionbar</artifactId>
         <version>${magnoliaUiVersion}</version>
@@ -341,7 +336,7 @@
       <dependency>
         <groupId>info.magnolia.app.contacts</groupId>
         <artifactId>magnolia-app-contacts</artifactId>
-        <version>1.0-beta3-1</version>
+        <version>1.0-beta3-2</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
