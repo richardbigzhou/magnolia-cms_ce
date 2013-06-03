@@ -244,6 +244,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
 
     @Before
     public void setUp() {
+        delay("let UIDL time to settle");
         driver.navigate().to(Instance.AUTHOR.getURL()+ ".magnolia/admincentral?restartApplication");
         delay("Give some time to restart magnolia");
     }
