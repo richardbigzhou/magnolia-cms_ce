@@ -46,9 +46,8 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.io.FileUtils;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
+import org.junit.After;
 import org.junit.Rule;
 import org.junit.rules.TestName;
 import org.openqa.selenium.By;
@@ -79,7 +78,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
 
     protected static final String SCREENSHOT_DIR = "target/surefire-reports/";
 
-    protected static WebDriver driver = null;
+    protected WebDriver driver = null;
     private static int screenshotIndex = 1;
 
     private static final Logger log = LoggerFactory.getLogger(AbstractMagnoliaUITest.class);
@@ -173,9 +172,10 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
     @Rule
     public TestName testName = new TestName();
 
-    @BeforeClass
-    public static void setUpBeforeClass() {
+    @Before
+    public void setUp() {
         login();
+        delay(5, "Login might take some time...");
         try {
             driver.findElements(By.xpath(String.format("//div[contains(@class, 'item')]/*[@class = 'label' and text() = '%s']", "Pages")));
         } catch (NoSuchElementException e) {
@@ -183,16 +183,18 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         }
     }
 
-    @AfterClass
-    public static void tearDownAfterClass() {
+    @After
+    public void tearDown() {
         if (driver == null) {
             log.warn("Driver is set to null.");
         } else {
+            driver.navigate().to(Instance.AUTHOR.getURL()+ ".magnolia/admincentral?mgnlLogout");
             driver.quit();
+            driver = null;
         }
     }
 
-    protected static void login() {
+    protected void login() {
         driver = new FirefoxDriver();
         driver.manage().timeouts().implicitlyWait(DRIVER_WAIT_IN_SECONDS, TimeUnit.SECONDS);
         driver.navigate().to(Instance.AUTHOR.getURL());
@@ -240,13 +242,6 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
      */
     protected static boolean isExisting(WebElement element) {
         return !(element instanceof NonExistingWebElement);
-    }
-
-    @Before
-    public void setUp() {
-        delay("let UIDL time to settle");
-        driver.navigate().to(Instance.AUTHOR.getURL()+ ".magnolia/admincentral?restartApplication");
-        delay("Give some time to restart magnolia");
     }
 
     protected void takeScreenshot(String suffix) {

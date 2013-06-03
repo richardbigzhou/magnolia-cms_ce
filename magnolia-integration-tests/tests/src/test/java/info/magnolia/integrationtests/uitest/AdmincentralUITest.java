@@ -53,8 +53,10 @@ public class AdmincentralUITest extends AbstractMagnoliaUITest {
 
     private FirefoxDriver ericsDriver;
 
+    @Override
     @After
     public void tearDown() {
+        super.tearDown();
         if (ericsDriver != null) {
             ericsDriver.quit();
         }
