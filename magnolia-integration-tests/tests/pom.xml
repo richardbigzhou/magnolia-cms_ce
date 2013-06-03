@@ -300,7 +300,8 @@
             <artifactId>maven-surefire-plugin</artifactId>
             <configuration>
               <includes>
-                <include>**/*Test.java</include>
+                <!-- dlipp: temporary for investigating ui-test failures-->
+                <include>**/*EditorUITest.java</include>
               </includes>
               <excludes>
                 <exclude>-apparently-we-really-need-to-override-the-exclude-oh-well-</exclude>
