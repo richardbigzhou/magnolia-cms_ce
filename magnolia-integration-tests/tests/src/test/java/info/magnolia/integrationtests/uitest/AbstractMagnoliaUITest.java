@@ -174,7 +174,13 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
 
     @Before
     public void setUp() {
-        login();
+        driver = new FirefoxDriver();
+        driver.manage().timeouts().implicitlyWait(DRIVER_WAIT_IN_SECONDS, TimeUnit.SECONDS);
+        driver.navigate().to(Instance.AUTHOR.getURL());
+
+        assertThat(driver.getTitle(), equalTo("Magnolia 5.0"));
+
+        login(getTestUserName());
         delay(5, "Login might take some time...");
         try {
             driver.findElements(By.xpath(String.format("//div[contains(@class, 'item')]/*[@class = 'label' and text() = '%s']", "Pages")));
@@ -183,30 +189,33 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         }
     }
 
+    protected String getTestUserName() {
+        return User.superuser.name();
+    }
+
     @After
     public void tearDown() {
         if (driver == null) {
             log.warn("Driver is set to null.");
         } else {
-            driver.navigate().to(Instance.AUTHOR.getURL()+ ".magnolia/admincentral?mgnlLogout");
+            logout();
             driver.quit();
             driver = null;
         }
     }
 
-    protected void login() {
-        driver = new FirefoxDriver();
-        driver.manage().timeouts().implicitlyWait(DRIVER_WAIT_IN_SECONDS, TimeUnit.SECONDS);
-        driver.navigate().to(Instance.AUTHOR.getURL());
+    protected void logout() {
+        driver.navigate().to(Instance.AUTHOR.getURL()+ ".magnolia/admincentral?mgnlLogout");
+    }
 
-        assertThat(driver.getTitle(), equalTo("Magnolia 5.0"));
+    protected void login(final String userName) {
 
         WebElement username = driver.findElement(By.xpath("//input[@id = 'login-username']"));
-        username.sendKeys(User.superuser.name());
+        username.sendKeys(userName);
 
         WebElement password = driver.findElement(By.xpath("//input[@type = 'password']"));
         // sample users have pwd = username
-        password.sendKeys(User.superuser.name());
+        password.sendKeys(userName);
 
         driver.findElement(By.xpath("//button[@id = 'login-button']")).click();
         workaroundJsessionIdInUrl(driver);
