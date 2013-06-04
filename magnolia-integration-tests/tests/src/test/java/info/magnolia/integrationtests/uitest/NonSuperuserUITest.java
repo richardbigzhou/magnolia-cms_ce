@@ -33,46 +33,29 @@
  */
 package info.magnolia.integrationtests.uitest;
 
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
+import org.openqa.selenium.By;
 
 /**
- * UI tests for Image Editor.
+ * UITests executed for a non-superuser.
  */
-public class ImageEditorUITest extends AbstractMagnoliaUITest {
+public class NonSuperuserUITest extends AbstractMagnoliaUITest {
+
+    @Override
+    public String getTestUserName() {
+        return "eric";
+    }
 
     @Test
-    public void canExecuteTwoImagingOperationsInARow() {
+    public void nonSuperuserCanLogin() {
         // GIVEN
-        getAppIcon("Contacts").click();
-        assertAppOpen("Contacts");
 
-        getTreeTableItem("Marilyn Monroe").click();
-        getActionBarItem("Edit contact").click();
-
-        getButton("v-button-edit", "Edit image...").click();
-
-        getActionBarItemWithContains("Rotate 90").click();
-
-        getDialogButton("btn-dialog-save").click();
-
-        // WHEN - now try a second imaging operation
-        delay("Give UI time to settle");
-        getButton("v-button-edit", "Edit image...").click();
-
-        getActionBarItemWithContains("Rotate 90").click();
-
-        // save after imaging operation
-        getDialogButton("btn-dialog-save").click();
-
-        // save editing contact - editor subapp should be closing...
-        getDialogButton("btn-dialog-commit").click();
+        // WHEN - everything should be done in setUp already
 
         // THEN
-        assertTrue(getDialogTab("Contacts").isDisplayed());
-
-        assertFalse("DialogTab /mmonroe should no longer be existing", isExisting(getDialogTab("/mmonroe")));
+        assertTrue("If user " + getTestUserName() + " was logged in, appslauncher should be around", isExisting(driver.findElement(By.xpath("//*[@id = 'btn-appslauncher']"))));
     }
+
 }

@@ -46,7 +46,7 @@ import org.openqa.selenium.WebElement;
 public class ActivationUITest extends AbstractMagnoliaUITest {
 
     @Test
-    public void activateAndDeactivatePageResultInStatusChange() {
+    public void activatePageResultInStatusChange() {
         // GIVEN
         getAppIcon("Pages").click();
         getTreeTableItemExpander("jsp-sample-site").click();
@@ -58,10 +58,19 @@ public class ActivationUITest extends AbstractMagnoliaUITest {
 
         // THEN
         assertTrue(getSelectedIcon("color-green").isDisplayed());
+    }
+
+    @Test
+    public void deactivatePageResultsInStatusChange() {
+        // GIVEN
+        getAppIcon("Pages").click();
+        getTreeTableItemExpander("demo-project").click();
+        getTreeTableItemExpander("about").click();
+        getTreeTableItem("history").click();
 
         // WHEN
         getActionBarItem("Unpublish").click();
-        delay("de-activation takes some time so wait before checking the updated icon");
+        delay(10, "de-activation takes some time so wait before checking the updated icon");
 
         // THEN
         assertTrue(getSelectedIcon("color-red").isDisplayed());

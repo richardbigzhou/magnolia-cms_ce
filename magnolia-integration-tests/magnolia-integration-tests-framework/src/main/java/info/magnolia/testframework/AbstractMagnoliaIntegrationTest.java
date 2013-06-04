@@ -103,7 +103,8 @@ public abstract class AbstractMagnoliaIntegrationTest {
      * Pre-configured users available for tests.
      */
     public enum User {
-        superuser
+        superuser,
+        eric
     }
 
 }

@@ -33,56 +33,19 @@
  */
 package info.magnolia.integrationtests.uitest;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.util.Date;
-import java.util.concurrent.TimeUnit;
 
-import org.junit.After;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.firefox.FirefoxDriver;
 
 /**
  * Basic UI tests for admincentral.
  */
 public class AdmincentralUITest extends AbstractMagnoliaUITest {
-
-    private FirefoxDriver ericsDriver;
-
-    @After
-    public void tearDown() {
-        if (ericsDriver != null) {
-            ericsDriver.quit();
-        }
-    }
-
-    @Test
-    public void nonSuperuserCanLoginAsWell() {
-        // GIVEN
-        final String ordinaryUser = "eric";
-        ericsDriver = new FirefoxDriver();
-        ericsDriver.manage().timeouts().implicitlyWait(DRIVER_WAIT_IN_SECONDS, TimeUnit.DAYS.SECONDS);
-        ericsDriver.navigate().to(Instance.AUTHOR.getURL());
-
-        // WHEN
-        WebElement username = ericsDriver.findElement(By.xpath("//input[@id = 'login-username']"));
-        username.sendKeys(ordinaryUser);
-
-        WebElement password = ericsDriver.findElement(By.xpath("//input[@type = 'password']"));
-        // sample users have pwd = username
-        password.sendKeys(ordinaryUser);
-
-        ericsDriver.findElement(By.xpath("//button[@id = 'login-button']")).click();
-        workaroundJsessionIdInUrl(ericsDriver);
-
-        // THEN
-        assertTrue("If user " + ordinaryUser + " was logged in, appslauncher should be around", isExisting(ericsDriver.findElement(By.xpath("//*[@id = 'btn-appslauncher']"))));
-    }
-
 
     @Test
     public void navigateToPulseAndBackToAppLauncherDoesntScrewLayout() {

@@ -46,9 +46,8 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.io.FileUtils;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
+import org.junit.After;
 import org.junit.Rule;
 import org.junit.rules.TestName;
 import org.openqa.selenium.By;
@@ -75,11 +74,11 @@ import org.slf4j.LoggerFactory;
 public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegrationTest {
 
     public static final int DEFAULT_DELAY_IN_SECONDS = 2;
-    public static final int DRIVER_WAIT_IN_SECONDS = 5;
+    public static final int DRIVER_WAIT_IN_SECONDS = 10;
 
     protected static final String SCREENSHOT_DIR = "target/surefire-reports/";
 
-    protected static WebDriver driver = null;
+    protected WebDriver driver = null;
     private static int screenshotIndex = 1;
 
     private static final Logger log = LoggerFactory.getLogger(AbstractMagnoliaUITest.class);
@@ -173,9 +172,16 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
     @Rule
     public TestName testName = new TestName();
 
-    @BeforeClass
-    public static void setUpBeforeClass() {
-        login();
+    @Before
+    public void setUp() {
+        driver = new FirefoxDriver();
+        driver.manage().timeouts().implicitlyWait(DRIVER_WAIT_IN_SECONDS, TimeUnit.SECONDS);
+        driver.navigate().to(Instance.AUTHOR.getURL());
+
+        assertThat(driver.getTitle(), equalTo("Magnolia 5.0"));
+
+        login(getTestUserName());
+        delay(5, "Login might take some time...");
         try {
             driver.findElements(By.xpath(String.format("//div[contains(@class, 'item')]/*[@class = 'label' and text() = '%s']", "Pages")));
         } catch (NoSuchElementException e) {
@@ -183,28 +189,33 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         }
     }
 
-    @AfterClass
-    public static void tearDownAfterClass() {
+    protected String getTestUserName() {
+        return User.superuser.name();
+    }
+
+    @After
+    public void tearDown() {
         if (driver == null) {
             log.warn("Driver is set to null.");
         } else {
+            logout();
             driver.quit();
+            driver = null;
         }
     }
 
-    protected static void login() {
-        driver = new FirefoxDriver();
-        driver.manage().timeouts().implicitlyWait(DRIVER_WAIT_IN_SECONDS, TimeUnit.SECONDS);
-        driver.navigate().to(Instance.AUTHOR.getURL());
+    protected void logout() {
+        driver.navigate().to(Instance.AUTHOR.getURL()+ ".magnolia/admincentral?mgnlLogout");
+    }
 
-        assertThat(driver.getTitle(), equalTo("Magnolia 5.0"));
+    protected void login(final String userName) {
 
         WebElement username = driver.findElement(By.xpath("//input[@id = 'login-username']"));
-        username.sendKeys(User.superuser.name());
+        username.sendKeys(userName);
 
         WebElement password = driver.findElement(By.xpath("//input[@type = 'password']"));
         // sample users have pwd = username
-        password.sendKeys(User.superuser.name());
+        password.sendKeys(userName);
 
         driver.findElement(By.xpath("//button[@id = 'login-button']")).click();
         workaroundJsessionIdInUrl(driver);
@@ -240,12 +251,6 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
      */
     protected static boolean isExisting(WebElement element) {
         return !(element instanceof NonExistingWebElement);
-    }
-
-    @Before
-    public void setUp() {
-        driver.navigate().to(Instance.AUTHOR.getURL()+ ".magnolia/admincentral?restartApplication");
-        delay("Give some time to restart magnolia");
     }
 
     protected void takeScreenshot(String suffix) {
@@ -340,7 +345,11 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
     }
 
     protected WebElement getActionBarItem(String itemCaption) {
-        return getElementByXpath("//*[contains(@class, 'v-actionbar')]//*[text() = '%s']", itemCaption);
+        return getElementByXpath("//*[contains(@class, 'v-actionbar')]//*[@aria-hidden = 'false']//*[text() = '%s']", itemCaption);
+    }
+
+    protected WebElement getActionBarItemWithContains(String itemCaption) {
+        return getElementByXpath("//*[contains(@class, 'v-actionbar')]//*[@aria-hidden = 'false']//*[contains(text(), '%s')]", itemCaption);
     }
 
     protected WebElement getDialogButton(String classname) {
