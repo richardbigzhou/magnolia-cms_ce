@@ -13,7 +13,7 @@
   <description>Magnolia bundled with Apache Tomcat</description>
 
   <properties>
-    <tomcatVersion>7.0.35</tomcatVersion>
+    <tomcatVersion>7.0.40</tomcatVersion>
     <tomcatDownloadUrl>http://archive.apache.org/dist/tomcat/tomcat-7/v${tomcatVersion}/bin/apache-tomcat-${tomcatVersion}.tar.gz</tomcatDownloadUrl>
     <magnoliaProjectBundleType>tomcat-bundle</magnoliaProjectBundleType>
   </properties>
