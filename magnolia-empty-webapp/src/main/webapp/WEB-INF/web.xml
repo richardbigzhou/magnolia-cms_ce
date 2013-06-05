@@ -23,6 +23,11 @@
   <session-config>
     <tracking-mode>COOKIE</tracking-mode>
   </session-config>
+  <context-param>
+    <description>Vaadin production mode</description>
+    <param-name>productionMode</param-name>
+    <param-value>true</param-value>
+  </context-param>
   <!-- These are the default paths searched for magnolia configuration. Uncomment if you need to customize these.
        Your container might also do its own variables substitution here. Tomcat, for instance, allows you to use
        system properties, such as ${user.home}.
