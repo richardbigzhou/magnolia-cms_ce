@@ -35,6 +35,7 @@ package info.magnolia.integrationtests.uitest;
 
 import static org.junit.Assert.assertTrue;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.openqa.selenium.By;
 
@@ -100,5 +101,24 @@ public class PageEditorUITest extends AbstractMagnoliaUITest {
         // THEN
         assertTrue(driver.findElement(By.xpath("//*[contains(@class, 'cke_chrome')]")).isDisplayed());
         getDialogCancelButton().click();
+    }
+
+    /**
+     * Test if page browser loads properly if non-existing path is given.
+     *
+     * See {@link: http://jira.magnolia-cms.com/browse/MGNLUI-1475}.
+     */
+    @Ignore("Reactivate when MGNLUI-1475 fix is available in master")
+    @Test
+    public void loadPageBrowserWhenNonExistingPathGiven() {
+        // GIVEN
+        final String nonExistingPathURL = Instance.AUTHOR.getURL() + ".magnolia/admincentral#app:pages:browser;/this-does-not-exist:treeview:";
+
+        // WHEN
+        driver.navigate().to(nonExistingPathURL);
+        delay("Give some time to go to URL");
+
+        // THEN
+        assertAppOpen("Pages");
     }
 }
