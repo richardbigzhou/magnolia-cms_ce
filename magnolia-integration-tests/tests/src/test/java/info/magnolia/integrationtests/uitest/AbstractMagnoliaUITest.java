@@ -388,6 +388,10 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         return getDialogButton("btn-dialog-cancel");
     }
 
+    protected WebElement getColumnHeader(final String columnName) {
+        return getElementByXpath("//*[contains(@class, 'v-table-caption-container')]/span[text() = '%s']", columnName);
+    }
+
     protected void assertAppOpen(String appName) {
         String path = String.format("//*[contains(@class, 'v-viewport-apps')]//*[contains(@class, 'tab-title') and text() = '%s']", appName);
         assertTrue(driver.findElement(By.xpath(path)).isDisplayed());
