@@ -195,11 +195,6 @@
       </dependency>
       <dependency>
         <groupId>info.magnolia.ui</groupId>
-        <artifactId>magnolia-ui-statusbar</artifactId>
-        <version>${magnoliaUiVersion}</version>
-      </dependency>
-      <dependency>
-        <groupId>info.magnolia.ui</groupId>
         <artifactId>magnolia-ui-vaadin-common-widgets</artifactId>
         <version>${magnoliaUiVersion}</version>
       </dependency>
