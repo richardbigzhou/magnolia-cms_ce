@@ -37,6 +37,7 @@ import static org.junit.Assert.*;
 
 import java.util.Date;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
@@ -161,6 +162,7 @@ public class ContentAppUITest extends AbstractMagnoliaUITest {
         assertTrue("There should be a status column as we're testing on a author instance.", isExisting(statusColumn));
     }
 
+    @Ignore("temporarily ignore until MGNLUI-1573 has been re-applied")
     @Test
     public void statusColumnIsNotRenderedOnPublic() {
         // GIVEN
