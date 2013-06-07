@@ -52,7 +52,7 @@ public class URIEncodingUITest extends AbstractMagnoliaUITest {
     private static final String CONTACT_APP_PREFIX = ".magnolia/admincentral#app:contacts:browser;";
     private static final String AUTHOR_URL = Instance.AUTHOR.getURL() + CONTACT_APP_PREFIX;
 
-    @Ignore("Temporarily ignoring error, as RepositoryException is thrown (Invalid path:'/vvangogh ')")
+    @Ignore("Temporarily ignoring test, as RepositoryException is thrown (Invalid path:'/vvangogh ')")
     @Test
     public void navigateToUnencodedURLContentAppStillFunctional() throws Exception {
         // GIVEN
@@ -66,6 +66,7 @@ public class URIEncodingUITest extends AbstractMagnoliaUITest {
         assertEquals("Expected to find encoded URI", AUTHOR_URL + "/vvangogh%20:treeview:", driver.getCurrentUrl());
     }
 
+    @Ignore("Ignoring error until MGNLUI-1600 is solved")
     @Test
     public void doUnencodedSearchByURIContentAppStillFunctional() {
         // GIVEN
@@ -76,10 +77,11 @@ public class URIEncodingUITest extends AbstractMagnoliaUITest {
         delay("Give some time to go to URL");
 
         // THEN
-        assertEquals("Expected to find encoded URI", AUTHOR_URL + "/:searchview:Vincent%2520Va*", driver.getCurrentUrl());
+        assertEquals("Expected to find encoded URI", AUTHOR_URL + "/:searchview:Vincent%20Va*", driver.getCurrentUrl());
         assertTrue("Expected search result: Vincent Van Gogh", getTreeTableItem("Vincent Van Gogh").isDisplayed());
     }
 
+    @Ignore("Ignoring error until MGNLUI-1600 is solved")
     @Test
     public void doUnencodedSearchBySearchFieldContentAppStillFunctional() {
         // GIVEN
@@ -97,7 +99,7 @@ public class URIEncodingUITest extends AbstractMagnoliaUITest {
         delay("Give some time for the results to appear");
 
         // THEN
-        assertEquals("Expected to find encoded URI", AUTHOR_URL + "/:searchview:Vincent%2520Va*", driver.getCurrentUrl());
+        assertEquals("Expected to find encoded URI", AUTHOR_URL + "/:searchview:Vincent%20Va*", driver.getCurrentUrl());
         assertTrue("Expected search result: Vincent Van Gogh", getTreeTableItem("Vincent Van Gogh").isDisplayed());
     }
 
