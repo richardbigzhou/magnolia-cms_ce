@@ -36,10 +36,6 @@
     </dependency>
     <dependency>
       <groupId>info.magnolia.ui</groupId>
-      <artifactId>magnolia-ui-app-config</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>info.magnolia.ui</groupId>
       <artifactId>magnolia-ui-app-security</artifactId>
     </dependency>
     <dependency>

@@ -140,11 +140,6 @@
       </dependency>
       <dependency>
         <groupId>info.magnolia.ui</groupId>
-        <artifactId>magnolia-ui-app-config</artifactId>
-        <version>${magnoliaUiVersion}</version>
-      </dependency>
-      <dependency>
-        <groupId>info.magnolia.ui</groupId>
         <artifactId>magnolia-ui-app-messages</artifactId>
         <version>${magnoliaUiVersion}</version>
       </dependency>
