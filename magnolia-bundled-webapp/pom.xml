@@ -52,8 +52,8 @@
     	<artifactId>magnolia-module-groovy</artifactId>
     </dependency>
     <dependency>
-      <groupId>info.magnolia.ui</groupId>
-      <artifactId>magnolia-ui-app-sample</artifactId>
+      <groupId>info.magnolia.sample</groupId>
+      <artifactId>magnolia-sample-app</artifactId>
     </dependency>
     <dependency>
       <groupId>info.magnolia.ui</groupId>
