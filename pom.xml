@@ -154,8 +154,8 @@
         <version>${magnoliaUiVersion}</version>
       </dependency>
       <dependency>
-        <groupId>info.magnolia.ui</groupId>
-        <artifactId>magnolia-ui-app-security</artifactId>
+        <groupId>info.magnolia.security</groupId>
+        <artifactId>magnolia-security-app</artifactId>
         <version>${magnoliaUiVersion}</version>
       </dependency>
       <dependency>
