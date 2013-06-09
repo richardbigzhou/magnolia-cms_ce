@@ -144,8 +144,8 @@
         <version>${magnoliaUiVersion}</version>
       </dependency>
       <dependency>
-        <groupId>info.magnolia.ui</groupId>
-        <artifactId>magnolia-ui-app-pages</artifactId>
+        <groupId>info.magnolia.pages</groupId>
+        <artifactId>magnolia-pages</artifactId>
         <version>${magnoliaUiVersion}</version>
       </dependency>
       <dependency>

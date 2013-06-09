@@ -31,8 +31,8 @@
       <artifactId>magnolia-ui-vaadin-widgetset</artifactId>
     </dependency>
     <dependency>
-      <groupId>info.magnolia.ui</groupId>
-      <artifactId>magnolia-ui-app-pages</artifactId>
+      <groupId>info.magnolia.pages</groupId>
+      <artifactId>magnolia-pages</artifactId>
     </dependency>
     <dependency>
       <groupId>info.magnolia.ui</groupId>
