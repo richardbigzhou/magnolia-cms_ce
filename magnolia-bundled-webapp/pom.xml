@@ -60,8 +60,8 @@
       <artifactId>magnolia-ui-app-messages</artifactId>
     </dependency>
     <dependency>
-      <groupId>info.magnolia.app.contacts</groupId>
-      <artifactId>magnolia-app-contacts</artifactId>
+      <groupId>info.magnolia.contacts</groupId>
+      <artifactId>magnolia-contacts-app</artifactId>
     </dependency>
     <dependency>
       <groupId>info.magnolia.dam</groupId>
