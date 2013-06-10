@@ -56,8 +56,8 @@
       <artifactId>magnolia-sample-app</artifactId>
     </dependency>
     <dependency>
-      <groupId>info.magnolia.ui</groupId>
-      <artifactId>magnolia-ui-app-messages</artifactId>
+      <groupId>info.magnolia.messages</groupId>
+      <artifactId>magnolia-messages-app</artifactId>
     </dependency>
     <dependency>
       <groupId>info.magnolia.contacts</groupId>
