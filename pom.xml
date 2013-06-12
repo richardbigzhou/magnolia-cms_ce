@@ -214,7 +214,7 @@
       </dependency>
       <dependency>
         <groupId>info.magnolia.contacts</groupId>
-        <artifactId>magnolia-contacts-app</artifactId>
+        <artifactId>magnolia-contacts</artifactId>
         <version>1.0-SNAPSHOT</version>
       </dependency>
     </dependencies>
