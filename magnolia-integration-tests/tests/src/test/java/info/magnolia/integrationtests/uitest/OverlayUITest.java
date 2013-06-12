@@ -45,7 +45,7 @@ import org.openqa.selenium.WebElement;
 public class OverlayUITest extends AbstractMagnoliaUITest {
 
     /**
-     * Test that the confirmation overlay appears when you delete a contact
+     * Test that the confirmation overlay appears when you delete a contact.
      */
     @Test
     public void deleteItemConfirmationDisplayed() {
@@ -112,7 +112,7 @@ public class OverlayUITest extends AbstractMagnoliaUITest {
 
         // THEN
         assertFalse(isExisting(getConfirmationOverlay()));
-        assertFalse(isExisting(getTreeTableItem("untitled")));
+        assertTrue(hasCssClass(getTreeTableItem("untitled"), "icon-trash"));
     }
 
 }
