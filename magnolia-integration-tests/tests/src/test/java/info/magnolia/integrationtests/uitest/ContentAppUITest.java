@@ -87,22 +87,6 @@ public class ContentAppUITest extends AbstractMagnoliaUITest {
     }
 
     @Test
-    public void escapeClosesDetailSubapp() {
-        // GIVEN
-        getAppIcon("Contacts").click();
-
-        getTreeTableItem("Albert Einstein").click();
-        getActionBarItem("Edit contact").click();
-        assertTrue(isExisting(getDialogTab("/aeinstein")));
-
-        // WHEN
-        simulateKeyPress(Keys.ESCAPE);
-
-        // THEN
-        assertFalse(isExisting(getDialogTab("/aeinstein")));
-    }
-
-    @Test
     public void subAppsStayOpenAfterRefresh() {
         // GIVEN
         getAppIcon("Contacts").click();
