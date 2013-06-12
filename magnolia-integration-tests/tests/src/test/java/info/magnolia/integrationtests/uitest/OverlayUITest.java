@@ -112,7 +112,7 @@ public class OverlayUITest extends AbstractMagnoliaUITest {
 
         // THEN
         assertFalse(isExisting(getConfirmationOverlay()));
-        assertTrue(hasCssClass(getTreeTableItem("untitled"), "icon-trash"));
+        assertTrue(hasCssClass(getTreeTableItemRow("untitled"), "v-table-row-icon-trash"));
     }
 
 }
