@@ -21,7 +21,7 @@
   <properties>
     <magnoliaEdition>Community Edition</magnoliaEdition>
     <magnoliaVersion>5.0-rc1</magnoliaVersion>
-    <magnoliaUiVersion>5.0-rc1</magnoliaUiVersion>
+    <magnoliaUiVersion>5.0-rc2</magnoliaUiVersion>
     <javaVersion>1.6</javaVersion>
     <documentationURL>http://documentation.magnolia-cms.com/releases/5.0.html</documentationURL>
     <stkVersion>2.5-rc1</stkVersion>
@@ -35,7 +35,7 @@
       <dependency>
         <groupId>info.magnolia.dam</groupId>
         <artifactId>magnolia-dam</artifactId>
-        <version>1.0-rc1</version>
+        <version>1.0-rc2</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
