@@ -20,12 +20,11 @@
 
   <properties>
     <magnoliaEdition>Community Edition</magnoliaEdition>
-    <magnoliaVersion>5.0-beta3-2</magnoliaVersion>
-    <magnoliaUiVersion>5.0-beta3-5</magnoliaUiVersion>
-    <stkVersion>2.5-beta3-2</stkVersion>
-    <damVersion>1.0-beta3-3</damVersion>
+    <magnoliaVersion>5.0-rc1</magnoliaVersion>
+    <magnoliaUiVersion>5.0-rc1</magnoliaUiVersion>
     <javaVersion>1.6</javaVersion>
     <documentationURL>http://documentation.magnolia-cms.com/releases/5.0.html</documentationURL>
+    <stkVersion>2.5-rc1</stkVersion>
     <scmTagPrefix>magnolia-bundle</scmTagPrefix>
     <!-- Disable clover during releases: -->
     <additionalReleaseProfiles />
@@ -35,38 +34,33 @@
     <dependencies>
       <dependency>
         <groupId>info.magnolia.dam</groupId>
-        <artifactId>magnolia-module-dam</artifactId>
-        <version>${damVersion}</version>
-      </dependency>
-      <dependency>
-        <groupId>info.magnolia.dam</groupId>
-        <artifactId>magnolia-module-dam-app-assets</artifactId>
-        <version>${damVersion}</version>
+        <artifactId>magnolia-dam</artifactId>
+        <version>1.0-rc1</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-categorization</artifactId>
-        <version>2.0-beta3-2</version>
+        <version>2.0-rc1</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-groovy</artifactId>
-        <version>2.0-beta3-2</version>
+        <version>2.0-rc1</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia.activation</groupId>
         <artifactId>magnolia-module-activation</artifactId>
-        <version>5.0-beta3-2</version>
+        <version>5.0-rc1</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia.cache</groupId>
         <artifactId>magnolia-module-cache</artifactId>
-        <version>5.0-beta3-2</version>
+        <version>5.0-rc1</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-mail</artifactId>
-        <version>5.0-beta3-2</version>
+        <version>5.0-rc1</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
@@ -96,32 +90,32 @@
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-commenting</artifactId>
-        <version>2.0-beta3-2</version>
+        <version>2.0-rc1</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-templating-samples</artifactId>
-        <version>5.0-beta3-2</version>
+        <version>5.0-rc1</version>
         <classifier>bundle</classifier>
         <type>tar.gz</type>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-data</artifactId>
-        <version>2.0-beta3-2</version>
+        <version>2.0-rc1</version>
         <classifier>bundle</classifier>
         <type>tar.gz</type>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-templating-samples</artifactId>
-        <version>5.0-beta3-2</version>
+        <version>5.0-rc1</version>
         <type>jar</type>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-scheduler</artifactId>
-        <version>2.0-beta3-3</version>
+        <version>2.0-rc1</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia.ui</groupId>
@@ -139,28 +133,23 @@
         <version>${magnoliaUiVersion}</version>
       </dependency>
       <dependency>
-        <groupId>info.magnolia.ui</groupId>
-        <artifactId>magnolia-ui-app-config</artifactId>
+        <groupId>info.magnolia.messages</groupId>
+        <artifactId>magnolia-messages-app</artifactId>
         <version>${magnoliaUiVersion}</version>
       </dependency>
       <dependency>
-        <groupId>info.magnolia.ui</groupId>
-        <artifactId>magnolia-ui-app-messages</artifactId>
+        <groupId>info.magnolia.pages</groupId>
+        <artifactId>magnolia-pages</artifactId>
         <version>${magnoliaUiVersion}</version>
       </dependency>
       <dependency>
-        <groupId>info.magnolia.ui</groupId>
-        <artifactId>magnolia-ui-app-pages</artifactId>
+        <groupId>info.magnolia.sample</groupId>
+        <artifactId>magnolia-sample-app</artifactId>
         <version>${magnoliaUiVersion}</version>
       </dependency>
       <dependency>
-        <groupId>info.magnolia.ui</groupId>
-        <artifactId>magnolia-ui-app-sample</artifactId>
-        <version>${magnoliaUiVersion}</version>
-      </dependency>
-      <dependency>
-        <groupId>info.magnolia.ui</groupId>
-        <artifactId>magnolia-ui-app-security</artifactId>
+        <groupId>info.magnolia.security</groupId>
+        <artifactId>magnolia-security-app</artifactId>
         <version>${magnoliaUiVersion}</version>
       </dependency>
       <dependency>
@@ -195,11 +184,6 @@
       </dependency>
       <dependency>
         <groupId>info.magnolia.ui</groupId>
-        <artifactId>magnolia-ui-statusbar</artifactId>
-        <version>${magnoliaUiVersion}</version>
-      </dependency>
-      <dependency>
-        <groupId>info.magnolia.ui</groupId>
         <artifactId>magnolia-ui-vaadin-common-widgets</artifactId>
         <version>${magnoliaUiVersion}</version>
       </dependency>
@@ -229,114 +213,9 @@
         <version>${magnoliaUiVersion}</version>
       </dependency>
       <dependency>
-        <groupId>info.magnolia.ui</groupId>
-        <artifactId>magnolia-ui-actionbar</artifactId>
-        <version>${magnoliaUiVersion}</version>
-      </dependency>
-      <dependency>
-        <groupId>info.magnolia.ui</groupId>
-        <artifactId>magnolia-ui-admincentral</artifactId>
-        <version>${magnoliaUiVersion}</version>
-      </dependency>
-      <dependency>
-        <groupId>info.magnolia.ui</groupId>
-        <artifactId>magnolia-ui-api</artifactId>
-        <version>${magnoliaUiVersion}</version>
-      </dependency>
-      <dependency>
-        <groupId>info.magnolia.ui</groupId>
-        <artifactId>magnolia-ui-app-config</artifactId>
-        <version>${magnoliaUiVersion}</version>
-      </dependency>
-      <dependency>
-        <groupId>info.magnolia.ui</groupId>
-        <artifactId>magnolia-ui-app-messages</artifactId>
-        <version>${magnoliaUiVersion}</version>
-      </dependency>
-      <dependency>
-        <groupId>info.magnolia.ui</groupId>
-        <artifactId>magnolia-ui-app-pages</artifactId>
-        <version>${magnoliaUiVersion}</version>
-      </dependency>
-      <dependency>
-        <groupId>info.magnolia.ui</groupId>
-        <artifactId>magnolia-ui-app-sample</artifactId>
-        <version>${magnoliaUiVersion}</version>
-      </dependency>
-      <dependency>
-        <groupId>info.magnolia.ui</groupId>
-        <artifactId>magnolia-ui-app-security</artifactId>
-        <version>${magnoliaUiVersion}</version>
-      </dependency>
-      <dependency>
-        <groupId>info.magnolia.ui</groupId>
-        <artifactId>magnolia-ui-contentapp</artifactId>
-        <version>${magnoliaUiVersion}</version>
-      </dependency>
-      <dependency>
-        <groupId>info.magnolia.ui</groupId>
-        <artifactId>magnolia-ui-dialog</artifactId>
-        <version>${magnoliaUiVersion}</version>
-      </dependency>
-      <dependency>
-        <groupId>info.magnolia.ui</groupId>
-        <artifactId>magnolia-ui-form</artifactId>
-        <version>${magnoliaUiVersion}</version>
-      </dependency>
-      <dependency>
-        <groupId>info.magnolia.ui</groupId>
-        <artifactId>magnolia-ui-framework</artifactId>
-        <version>${magnoliaUiVersion}</version>
-      </dependency>
-      <dependency>
-        <groupId>info.magnolia.ui</groupId>
-        <artifactId>magnolia-ui-imageprovider</artifactId>
-        <version>${magnoliaUiVersion}</version>
-      </dependency>
-      <dependency>
-        <groupId>info.magnolia.ui</groupId>
-        <artifactId>magnolia-ui-mediaeditor</artifactId>
-        <version>${magnoliaUiVersion}</version>
-      </dependency>
-      <dependency>
-        <groupId>info.magnolia.ui</groupId>
-        <artifactId>magnolia-ui-statusbar</artifactId>
-        <version>${magnoliaUiVersion}</version>
-      </dependency>
-      <dependency>
-        <groupId>info.magnolia.ui</groupId>
-        <artifactId>magnolia-ui-vaadin-common-widgets</artifactId>
-        <version>${magnoliaUiVersion}</version>
-      </dependency>
-      <dependency>
-        <groupId>info.magnolia.ui</groupId>
-        <artifactId>magnolia-ui-vaadin-integration</artifactId>
-        <version>${magnoliaUiVersion}</version>
-      </dependency>
-      <dependency>
-        <groupId>info.magnolia.ui</groupId>
-        <artifactId>magnolia-ui-vaadin-theme</artifactId>
-        <version>${magnoliaUiVersion}</version>
-      </dependency>
-      <dependency>
-        <groupId>info.magnolia.ui</groupId>
-        <artifactId>magnolia-ui-vaadin-widgetset</artifactId>
-        <version>${magnoliaUiVersion}</version>
-      </dependency>
-      <dependency>
-        <groupId>info.magnolia.ui</groupId>
-        <artifactId>magnolia-ui-widget-editor</artifactId>
-        <version>${magnoliaUiVersion}</version>
-      </dependency>
-      <dependency>
-        <groupId>info.magnolia.ui</groupId>
-        <artifactId>magnolia-ui-workbench</artifactId>
-        <version>${magnoliaUiVersion}</version>
-      </dependency>
-      <dependency>
-        <groupId>info.magnolia.app.contacts</groupId>
-        <artifactId>magnolia-app-contacts</artifactId>
-        <version>1.0-beta3-3</version>
+        <groupId>info.magnolia.contacts</groupId>
+        <artifactId>magnolia-contacts</artifactId>
+        <version>1.0-rc1</version>
       </dependency>
     </dependencies>
   </dependencyManagement>

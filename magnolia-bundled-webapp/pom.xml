@@ -52,24 +52,20 @@
     	<artifactId>magnolia-module-groovy</artifactId>
     </dependency>
     <dependency>
-      <groupId>info.magnolia.ui</groupId>
-      <artifactId>magnolia-ui-app-sample</artifactId>
+      <groupId>info.magnolia.sample</groupId>
+      <artifactId>magnolia-sample-app</artifactId>
     </dependency>
     <dependency>
-      <groupId>info.magnolia.ui</groupId>
-      <artifactId>magnolia-ui-app-messages</artifactId>
+      <groupId>info.magnolia.messages</groupId>
+      <artifactId>magnolia-messages-app</artifactId>
     </dependency>
     <dependency>
-      <groupId>info.magnolia.app.contacts</groupId>
-      <artifactId>magnolia-app-contacts</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>info.magnolia.dam</groupId>
-      <artifactId>magnolia-module-dam</artifactId>
+      <groupId>info.magnolia.contacts</groupId>
+      <artifactId>magnolia-contacts</artifactId>
     </dependency>
     <dependency>
       <groupId>info.magnolia.dam</groupId>
-      <artifactId>magnolia-module-dam-app-assets</artifactId>
+      <artifactId>magnolia-dam</artifactId>
     </dependency>
   </dependencies>
 

@@ -87,22 +87,6 @@ public class ContentAppUITest extends AbstractMagnoliaUITest {
     }
 
     @Test
-    public void escapeClosesDetailSubapp() {
-        // GIVEN
-        getAppIcon("Contacts").click();
-
-        getTreeTableItem("Albert Einstein").click();
-        getActionBarItem("Edit contact").click();
-        assertTrue(isExisting(getDialogTab("/aeinstein")));
-
-        // WHEN
-        simulateKeyPress(Keys.ESCAPE);
-
-        // THEN
-        assertFalse(isExisting(getDialogTab("/aeinstein")));
-    }
-
-    @Test
     public void subAppsStayOpenAfterRefresh() {
         // GIVEN
         getAppIcon("Contacts").click();
@@ -146,5 +130,33 @@ public class ContentAppUITest extends AbstractMagnoliaUITest {
         // THEN
         assertTrue("The about page should be expanded after navigating to it.", getTreeTableItem("subsection-articles").isDisplayed());
         assertFalse("The subpages fo subsection-articles should not be visible.", isExisting(getTreeTableItem("large-article")));
+    }
+
+    @Test
+    public void statusColumnIsRenderedOnAuthor() {
+        // GIVEN
+
+        // WHEN
+        getAppIcon("Pages").click();
+        delay(5, "Can take some time, until subapps are open...");
+
+        // THEN
+        final WebElement statusColumn = getColumnHeader("Status");
+        assertTrue("There should be a status column as we're testing on a author instance.", isExisting(statusColumn));
+    }
+
+    @Test
+    public void statusColumnIsNotRenderedOnPublic() {
+        // GIVEN
+
+        // WHEN
+        driver.navigate().to(Instance.PUBLIC.getURL() + ".magnolia/admincentral#app:pages");
+        // on setup we only login to author instance - now we need to login to public...
+        login(getTestUserName());
+        delay(5, "Can take some time, until subapps are open...");
+
+        // THEN
+        final WebElement statusColumn = getColumnHeader("Status");
+        assertFalse("There should be no status column as we're testing on a public instance with no subscribers.", isExisting(statusColumn));
     }
 }
