@@ -1,6 +1,6 @@
 #!/usr/bin/env groovy
 /*
- * This file Copyright (c) 2012 Magnolia International
+ * This file Copyright (c) 2012-2013 Magnolia International
  * Ltd.  (http://www.magnolia-cms.com). All rights reserved.
  *
  *
