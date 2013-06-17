@@ -40,15 +40,14 @@ class Constants {
     static final MAX_URLS = 2000
     static final DEPTH_LEVEL = 6
 
-    static final ONLY_RELATIVE = false
+    static final ONLY_RELATIVE = true
     static final NO_PARENTS = true
 
     static final GET_IMAGES = true
     static final GET_SCRIPTS = true
-    static final GET_EXTERNAL_LINKS = false
     static final blacklist = ["?mgnlLogout"]
 
-    static final DEBUG_MODE = true
+    static final DEBUG_MODE = false
 
     // on author instance, get pages in preview mode
     static final PREVIEW_MODE = true
@@ -57,10 +56,10 @@ import static Constants.*
 
 class WebCrawler {
     private startURL
-
+    
     private visitedURLs
     private unvisitedURLs
-
+    
     private visitedData
     private unvisitedData
 
@@ -76,7 +75,7 @@ class WebCrawler {
     private endedThreads
 
     private threadPool
-
+    
     WebCrawler(start_on, defEncoding = "deflated, gzip") {
         startURL = start_on
 
@@ -114,7 +113,7 @@ class WebCrawler {
         println "="*40
 
         startMillis = System.currentTimeMillis()
-
+        
         threadPool = []
         //Links finding threads
         NUM_THREADS.times {
@@ -147,7 +146,7 @@ class WebCrawler {
                 }
                 connection.addRequestProperty("Accept-Encoding", defEncoding)
                 connection.connect()
-
+                
                 def response = connection.getResponseCode()
                 if (rejectCode(response))
                     announceError(response, url)
@@ -158,46 +157,42 @@ class WebCrawler {
                     inputstream = new GZIPInputStream(inputstream)
                 }
                 def content = inputstream.text
-
-
+                
+                
                 def newCookies = connection.getHeaderFields().get("Set-Cookie");
                 if (newCookies != null) {
                     cookies = newCookies
                 }
-
+                
                 checkTemplatingErrors(content, url)
-
+                
                 gotResources += 1
 
                 def page = new XmlParser(parser).parseText(content)
                 def links = page.depthFirst().A.grep { it.@href }.'@href'
-
+                
                 links.each { link ->
                     def linkURL = [:]
                     linkURL["url"] = rebuildURL(host, base, link)
-                    if (linkURL["url"] != null) {
-                        if (linkURL["url"].contains(host)) {
-                            if (link.contains("?"))
-                                linkURL["url"] += "&"
-                            else
-                                linkURL["url"] += "?"
-                            linkURL["url"] += "mgnlIntercept=PREVIEW&mgnlPreview=false"
-                        }
-                        linkURL["depth"] = depth + 1
+                    if (link.contains("?"))
+                        linkURL["url"] += "&"
+                    else
+                         linkURL["url"] += "?"
+                    linkURL["url"] += "mgnlIntercept=PREVIEW&mgnlPreview=false"
 
-                        addPage(linkURL)
+                    linkURL["depth"] = depth + 1
+                    addPage(linkURL)
+                   
 
-
-                        if (PREVIEW_MODE) {
-                            def linkURLPreview = [:]
-                            linkURLPreview["url"] = linkURL["url"].replaceAll(/false$/,"true")
-                            linkURLPreview["depth"] = depth + 1
-
-                            addPage(linkURLPreview)
-                        }
+                    if (PREVIEW_MODE) {
+                        def linkURLPreview = [:]
+                        linkURLPreview["url"] = linkURL["url"].replaceAll(/false$/,"true")
+                        linkURLPreview["depth"] = depth + 1
+                        
+                        addPage(linkURLPreview)
                     }
                 }
-
+               
                 if (GET_IMAGES) {
                     def images = page.depthFirst().IMG.grep { it.@src }.'@src'
                     images.each { link ->
@@ -231,14 +226,14 @@ class WebCrawler {
               debugMessage("Unexpected Error: ${ex}")
             }
         }}}
-
+        
         Thread.start {
             threadPool.each {
                 it.join()
             }
             endedThreads = true
-        }
-
+        }       
+        
         //Resources downloading thread
         Thread.start {
         while (true && !endedThreads) {
@@ -246,21 +241,21 @@ class WebCrawler {
                 def url = nextData()
                 if (url == null)
                     continue
-
+ 
                 def page = new URL(url)
 
                 def connection = page.openConnection()
-
+             
                 cookies.each { cookie ->
                     connection.addRequestProperty("Cookie", cookie.split(";", 2)[0]);
                 }
                 connection.addRequestProperty("Accept-Encoding", defEncoding)
                 connection.connect()
-
+                
                 def response = connection.getResponseCode()
                 if (rejectCode(response))
                     announceError(response, url)
-
+                
                 InputStream inputstream = connection.getInputStream()
                 def encoding = connection.getContentEncoding()
                 if (encoding == "gzip") {
@@ -272,7 +267,7 @@ class WebCrawler {
 
                 debugMessage("Fetching resource ${url}")
 
-
+                
             } catch (Exception ex) {
                 debugMessage("Download failed: ${ex.getMessage()}")
             }
@@ -291,7 +286,7 @@ class WebCrawler {
 
 
 
-
+    
 
 
     def debugMessage(message) {
@@ -330,14 +325,14 @@ class WebCrawler {
             url = (url =~ /(.*)#.*/)[0][1]
 
         url = url.replaceAll(/ /,"%20")
-
+        
         def newURL
+    
         if (url.startsWith('http://') || url.startsWith('https://')) {
-            if (ONLY_RELATIVE) {
+            if (ONLY_RELATIVE)
                 newURL = null
-            } else {
+            else
                 newURL = url
-            }
         }
         else if (url.startsWith('/'))
             newURL = host + url
@@ -348,11 +343,6 @@ class WebCrawler {
             newURL = null
         else
             newURL = base + url
-
-        if (newURL != null && !GET_EXTERNAL_LINKS && !newURL.contains(host)) {
-            newURL = null
-        }
-
         return newURL
     }
 
