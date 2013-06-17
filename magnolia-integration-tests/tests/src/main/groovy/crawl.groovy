@@ -148,6 +148,10 @@ class WebCrawler {
                 connection.connect()
                 
                 def response = connection.getResponseCode()
+                if (!connection.getURL().getHost().contains(host)) {
+                    debugMessage("Skipping crawling of external url: " + connection.getURL())
+                    break;
+                }
                 if (rejectCode(response))
                     announceError(response, url)
 
