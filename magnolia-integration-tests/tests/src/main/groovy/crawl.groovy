@@ -32,6 +32,7 @@
  *
  */
 
+//@Grab(group='net.sourceforge.nekohtml', module='nekohtml', version='1.9.14')
 import org.cyberneko.html.parsers.SAXParser
 import java.util.zip.GZIPInputStream
 
@@ -45,7 +46,9 @@ class Constants {
 
     static final GET_IMAGES = true
     static final GET_SCRIPTS = true
-    static final blacklist = ["?mgnlLogout"]
+    // should we check for existence of external links
+    static final GET_EXTERNAL_LINKS = false
+    static final blacklist = ["?mgnlLogout", "/.sources/"]
 
     static final DEBUG_MODE = false
 
@@ -93,6 +96,8 @@ class WebCrawler {
         startURL += "mgnlIntercept=PREVIEW&mgnlPreview=false"
         unvisitedURLs << ["url" : startURL, "depth" : 0]
 
+        def startHost = (startURL =~ /(http:\/\/[^\/?]+)\/?.*/)[0][1]
+
         if (PREVIEW_MODE) {
             unvisitedURLs << ["url" : startURL.replaceAll(/false$/,"true"), "depth" : 0]
         }
@@ -132,21 +137,36 @@ class WebCrawler {
                 def url = newLink["url"]
                 def depth = newLink["depth"]
 
-                if (depth > DEPTH_LEVEL) {
+                if (depth >= DEPTH_LEVEL) {
                     return
                 }
 
-                def host = (url =~ /(http:\/\/[^\/]+)\/?.*/)[0][1]
+                def host = (url =~ /(http:\/\/[^\/?]+)\/?.*/)[0][1]
                 def base = url[0..url.lastIndexOf('/')]
+
+                def external = false
+                if (!host.contains(startHost)) {
+                    if (!GET_EXTERNAL_LINKS) {
+                        debugMessage("Skipping crawling of external url: " + url)
+                        break
+                    } else { // request external link, but don't follow its links
+                        external = true
+                    }
+                }
 
                 def connection = new URL(url).openConnection()
 
                 cookies.each { cookie ->
                     connection.addRequestProperty("Cookie", cookie.split(";", 2)[0]);
                 }
-                connection.addRequestProperty("Accept-Encoding", defEncoding)
-                connection.connect()
-                
+                try {
+                    connection.addRequestProperty("Accept-Encoding", defEncoding)
+                    connection.connect()
+                } catch (UnknownHostException ex) {
+                    announceError("Unknown Host",url)
+                    break
+                }
+
                 def response = connection.getResponseCode()
                 if (!connection.getURL().getHost().contains(host)) {
                     debugMessage("Skipping crawling of external url: " + connection.getURL())
@@ -172,23 +192,30 @@ class WebCrawler {
                 
                 gotResources += 1
 
+                if (external) {
+                    return // don't follow deeper links on external links
+                }
+
                 def page = new XmlParser(parser).parseText(content)
                 def links = page.depthFirst().A.grep { it.@href }.'@href'
                 
                 links.each { link ->
                     def linkURL = [:]
                     linkURL["url"] = rebuildURL(host, base, link)
-                    if (link.contains("?"))
-                        linkURL["url"] += "&"
-                    else
-                         linkURL["url"] += "?"
-                    linkURL["url"] += "mgnlIntercept=PREVIEW&mgnlPreview=false"
+                    if (linkURL["url"].contains(startHost)) { 
+                        // add magnolia parameters only to URLs on host we started on
+                        if (link.contains("?"))
+                            linkURL["url"] += "&"
+                        else
+                             linkURL["url"] += "?"
+                        linkURL["url"] += "mgnlIntercept=PREVIEW&mgnlPreview=false"
+                    }
 
                     linkURL["depth"] = depth + 1
                     addPage(linkURL)
-                   
 
-                    if (PREVIEW_MODE) {
+
+                    if (PREVIEW_MODE && host.contains(startHost)) {
                         def linkURLPreview = [:]
                         linkURLPreview["url"] = linkURL["url"].replaceAll(/false$/,"true")
                         linkURLPreview["depth"] = depth + 1
@@ -374,7 +401,7 @@ class WebCrawler {
 
     synchronized addPage(newURL) {
         if ( newURL != null && newURL["url"] != null && 
-              newURL["url"].contains(topBase) && !visitedURLs.contains(newURL["url"])) {
+              !visitedURLs.contains(newURL["url"])) {
 
             def contains = unvisitedURLs.any {
                 it["url"] == newURL["url"]
