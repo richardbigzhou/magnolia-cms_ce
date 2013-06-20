@@ -97,7 +97,7 @@ class WebCrawler {
         startURL += "mgnlIntercept=PREVIEW&mgnlPreview=false"
         unvisitedURLs << ["url" : startURL, "depth" : 0]
 
-        def startHost = (startURL =~ /(https?:\/\/[^\/]+)\/?.*/)[0][1]  // e.g. http://localhost/
+        def startHost = getHost(startURL)  // e.g. http://localhost:8080/
         def startBase = (startURL =~ /https?:\/\/[^\/]+\/([^\/]+)/)[0][1]  // e.g. magnoliaAuthor
 
         if (PREVIEW_MODE) {
@@ -142,14 +142,14 @@ class WebCrawler {
                     break
                 }
 
-                def host = (url =~ /(https?:\/\/[^\/]+)\/?.*/)[0][1]
+                def host = getHost(url)
                 def base = url[0..url.lastIndexOf('/')]
 
                 def external = false
                 if (!host.contains(startHost)) {
                     if (!GET_EXTERNAL_LINKS) {
                         debugMessage("Skipping crawling of external url: " + url)
-                        next
+                        continue
                     } else { // request external link, but don't follow its links
                         external = true
                     }
@@ -161,15 +161,32 @@ class WebCrawler {
                 }
                 try {
                     connection.addRequestProperty("Accept-Encoding", defEncoding)
+                    connection.setFollowRedirects(false)
                     connection.connect()
                     def response = connection.getResponseCode()
+                    def location = connection.getHeaderField("Location")
+
                     if (rejectCode(response)) {
                         announceError(response, url)
                         break
                     }
+
+                    if (redirected(response)) {
+                        def origHost = getHost(url)
+                        def redirHost = getHost(location)
+                        if (!origHost.equalsIgnoreCase(redirHost)) {
+                            debugMessage("Redirected to different host (" + location + ").")
+                        } else {
+                            def redirect = ["url" : location, "depth" : depth]
+                            redirect["depth"] = depth
+                            debugMessage("Redirected from ${url} to ${location}")
+                            addPage(redirect)
+                        }
+                        break
+                    }
                 } catch (Exception ex) {
                     announceError("Unknown Host",url)
-                    next
+                    continue
                 }
 
                 InputStream inputstream = connection.getInputStream()
@@ -279,40 +296,49 @@ class WebCrawler {
         while (true && !endedThreads) {
             try {
                 def url = nextData()
-                if (url == null)
-                    next
- 
-                def page = new URL(url)
+                if (url != null) {
+                    def page = new URL(url)
 
-                def connection = page.openConnection()
+                    def connection = page.openConnection()
 
-                cookies.each { cookie ->
-                    connection.addRequestProperty("Cookie", cookie.split(";", 2)[0]);
+                    cookies.each { cookie ->
+                        connection.addRequestProperty("Cookie", cookie.split(";", 2)[0]);
+                    }
+                    connection.addRequestProperty("Accept-Encoding", defEncoding)
+                    connection.setFollowRedirects(false)
+                    connection.connect()
+
+                    def response = connection.getResponseCode()
+                    if (rejectCode(response))
+                        announceError(response, url)
+
+                    if (redirected(response)) {
+                        def origHost = getHost(url)
+                        def redirHost = getHost(location)
+                        if (!origHost.equalsIgnoreCase(redirHost)) {
+                            debugMessage("Redirected to different host ( " + location + ").")
+                        } else {
+                            debugMessage("Redirected from ${url} to ${location}")
+                            addData(location)
+                        }
+                        break
+                    }
+                    InputStream inputstream = connection.getInputStream()
+                    def encoding = connection.getContentEncoding()
+                    if (encoding == "gzip") {
+                        inputstream = new GZIPInputStream(inputstream)
+                    }
+                    def content = inputstream.text
+
+                    def newCookies = connection.getHeaderFields().get("Set-Cookie")
+                    if (newCookies != null) {
+                        cookies = newCookies
+                    }
+
+                    gotResources += 1
+
+                    debugMessage("Fetching resource ${url}")
                 }
-                connection.addRequestProperty("Accept-Encoding", defEncoding)
-                connection.connect()
-                
-                def response = connection.getResponseCode()
-                if (rejectCode(response))
-                    announceError(response, url)
-                
-                InputStream inputstream = connection.getInputStream()
-                def encoding = connection.getContentEncoding()
-                if (encoding == "gzip") {
-                    inputstream = new GZIPInputStream(inputstream)
-                }
-                def content = inputstream.text
-
-                def newCookies = connection.getHeaderFields().get("Set-Cookie")
-                if (newCookies != null) {
-                    cookies = newCookies
-                }
-
-                gotResources += 1
-
-                debugMessage("Fetching resource ${url}")
-
-                
             } catch (Exception ex) {
                 debugMessage("Download failed: ${ex.getMessage()}")
             }
@@ -383,6 +409,22 @@ class WebCrawler {
             return false
     }
 
+    /** 
+     * If we were redirected, compare hosts and skip crawling
+     * when different.
+     */
+    def redirected(statusCode) {
+        if (statusCode == 302) {
+            return true
+        } else {
+            return false
+        }
+    }
+
+    def getHost(url) {
+        return (url =~ /(https?:\/\/[^\/]+)\/?.*/)[0][1]  // e.g. http://localhost:8080/
+    }
+
     /**
      * Request dump from JCR Queries tool to get child areas.
      */
@@ -434,7 +476,7 @@ class WebCrawler {
 
     def getAreas(url, root) {
         // strip url of the host and context
-        def host = (url =~ /(https?:\/\/[^\/]+)\/?.*/)[0][1]
+        def host = getHost(url)
         def end = url.lastIndexOf('?') < 0 ? url.length() : url.lastIndexOf('?')
         def contextPath = url.substring(host.length() + 1, end)
         def pagePath = contextPath.substring(contextPath.indexOf('/')).replaceAll(/\.html?/,"")
