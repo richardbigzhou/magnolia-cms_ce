@@ -220,7 +220,8 @@ class WebCrawler {
                     }
                 }
 
-                if (!url.contains("~mgnlArea=") && DIRECTAREA_RENDERING) {
+                if (!url.contains("~mgnlArea=") && DIRECTAREA_RENDERING &&
+                    !url.contains("jsp-")) { // Disabled until MAGNOLIA-5126 is resolved
                     def root = startHost + "/" + startBase
                     def areaURLs = getAreas(url, root)
                     areaURLs.each { directUrl ->
