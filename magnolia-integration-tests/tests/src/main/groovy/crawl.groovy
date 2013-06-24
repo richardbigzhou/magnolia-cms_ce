@@ -58,6 +58,7 @@ class Constants {
     static final DIRECTAREA_RENDERING = true
 }
 import static Constants.*
+import org.apache.commons.lang.StringUtils
 
 class WebCrawler {
     private startURL
@@ -133,6 +134,12 @@ class WebCrawler {
                 def newLink = nextPage()
                 if ((newLink == null) || (newLink["url"] == null )) {
                     break
+                }
+
+                // Prevent crawling of links with wrong ? count
+                if (StringUtils.countMatches(newLink["url"], "?") > 1) {
+                    println "Skipping crawling of invalid url: " + newLink["url"]
+                    continue
                 }
 
                 def url = newLink["url"]
