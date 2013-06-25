@@ -62,10 +62,10 @@ import org.apache.commons.lang.StringUtils
 
 class WebCrawler {
     private startURL
-    
+
     private visitedURLs
     private unvisitedURLs
-    
+
     private visitedData
     private unvisitedData
 
@@ -80,7 +80,7 @@ class WebCrawler {
     private endedThreads
 
     private threadPool
-    
+
     WebCrawler(start_on, defEncoding = "deflated, gzip") {
         startURL = start_on
 
@@ -120,7 +120,7 @@ class WebCrawler {
         println "="*40
 
         startMillis = System.currentTimeMillis()
-        
+
         threadPool = []
         //Links finding threads
         NUM_THREADS.times {
@@ -162,7 +162,7 @@ class WebCrawler {
                     }
                 }
 
-                def connection = new URL(url).openConnection()
+                def connection = normalizedURL(url).openConnection()
                 cookies.each { cookie ->
                     connection.addRequestProperty("Cookie", cookie.split(";", 2)[0]);
                 }
@@ -207,9 +207,9 @@ class WebCrawler {
                 if (newCookies != null && !external) {
                     cookies = newCookies
                 }
-                
+
                 checkTemplatingErrors(content, url)
-                
+
                 gotResources += 1
 
                 if (external) {
@@ -218,7 +218,7 @@ class WebCrawler {
 
                 def page = new XmlParser(parser).parseText(content)
                 def links = page.depthFirst().A.grep { it.@href }.'@href'
-                
+
                 if (!url.contains("~mgnlArea=")) links.each { link ->
                     def linkURL = [:]
                     linkURL["url"] = rebuildURL(host, base, link)
@@ -239,7 +239,7 @@ class WebCrawler {
                         def linkURLPreview = [:]
                         linkURLPreview["url"] = linkURL["url"].replaceAll(/false$/,"true")
                         linkURLPreview["depth"] = depth + 1
-                        
+
                         addPage(linkURLPreview)
                     }
                 }
@@ -290,21 +290,21 @@ class WebCrawler {
               debugMessage("Unexpected Error: ${ex}")
             }
         }}}
-        
+
         Thread.start {
             threadPool.each {
                 it.join()
             }
             endedThreads = true
-        }       
-        
+        }
+
         //Resources downloading thread
         Thread.start {
         while (true && !endedThreads) {
             try {
                 def url = nextData()
                 if (url != null) {
-                    def page = new URL(url)
+                    def page = normalizedURL(url)
 
                     def connection = page.openConnection()
 
@@ -364,7 +364,7 @@ class WebCrawler {
 
 
 
-    
+
 
 
     def debugMessage(message) {
@@ -416,7 +416,7 @@ class WebCrawler {
             return false
     }
 
-    /** 
+    /**
      * If we were redirected, compare hosts and skip crawling
      * when different.
      */
@@ -439,7 +439,7 @@ class WebCrawler {
         def jcrUrl = rootContext + "/.magnolia/pages/jcrUtils.html"
         def queryString = "path=" + path + "&repository=" + repository + "&command=dump&level=1"
 
-        def connection = new URL(jcrUrl).openConnection()
+        def connection = normalizedURL(jcrUrl).openConnection()
         connection.setRequestMethod("POST")
         connection.setDoOutput(true)
         connection.setDoInput(true)
@@ -507,9 +507,9 @@ class WebCrawler {
             url = (url =~ /(.*)#.*/)[0][1]
 
         url = url.replaceAll(/ /,"%20")
-        
+
         def newURL
-    
+
         if (url.startsWith('http://') || url.startsWith('https://')) {
             newURL = url
         }
@@ -548,7 +548,7 @@ class WebCrawler {
     }
 
     synchronized addPage(newURL) {
-        if ( newURL != null && newURL["url"] != null && 
+        if ( newURL != null && newURL["url"] != null &&
               !visitedURLs.contains(newURL["url"])) {
 
             def contains = unvisitedURLs.any {
@@ -571,10 +571,10 @@ class WebCrawler {
         while (tries < 10 && unvisitedData.empty) {
             try {
                 tries += 1
-                wait(100) 
+                wait(100)
             } catch (InterruptedException ex) {}
         }
-    
+
         if (unvisitedData.empty)
             return null
 
@@ -596,6 +596,10 @@ class WebCrawler {
             notifyAll()
         }
     }
+
+    def normalizedURL(url) {
+        return (new URL(url)).toURI().normalize().toURL()
+    }
 }
 //_CLASS_WEBCRAWLER
 
@@ -614,7 +618,7 @@ try{
         if (it.contains("geturl")) {
             if (it.contains("geturlauth")) {
                 //property value in maven can't contain '=' character, nor '%' for url encoding.
-        		//hence, we need to construct URI here.
+                //hence, we need to construct URI here.
                 pages << project.properties[it] + "?mgnlUserId=${project.properties["login"]}&mgnlUserPSWD=${project.properties["password"]}"
             } else {
                 pages << project.properties[it]
