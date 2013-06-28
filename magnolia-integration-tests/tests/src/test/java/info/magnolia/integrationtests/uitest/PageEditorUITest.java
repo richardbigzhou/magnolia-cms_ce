@@ -33,6 +33,7 @@
  */
 package info.magnolia.integrationtests.uitest;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Ignore;
@@ -102,6 +103,30 @@ public class PageEditorUITest extends AbstractMagnoliaUITest {
         assertTrue(driver.findElement(By.xpath("//*[contains(@class, 'cke_chrome')]")).isDisplayed());
         getDialogCancelButton().click();
     }
+
+    @Test
+    public void inheritedComponentsAreNotEditable() {
+        // GIVEN
+
+        // WHEN
+        getAppIcon("Pages").click();
+        getTreeTableItemExpander("demo-project").click();
+        getTreeTableItem("about").click();
+        getActionBarItem("Edit page").click();
+
+        switchToPageEditorContent();
+        getElementByPath(By.id("promo-1")).click();
+
+        // THEN
+        assertFalse("Inherited components should not have edit bars.", isExisting(getElementByPath(By.xpath("//*[contains(@class, 'focus')]//*[contains(@class, 'icon-edit')]"))));
+
+        switchToDefaultContent();
+        assertTrue("'Edit Component' action should be disabled on inherited elements", isExisting(getDisabledActionBarItem("Edit component")));
+        assertTrue("'Delete Component' action should be disabled on inherited elements", isExisting(getDisabledActionBarItem("Delete component")));
+        assertTrue("'Move Component' action should be disabled on inherited elements", isExisting(getDisabledActionBarItem("Move component")));
+    }
+
+
 
     /**
      * Test if page browser loads properly if non-existing path is given.

@@ -46,8 +46,8 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.io.FileUtils;
-import org.junit.Before;
 import org.junit.After;
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.rules.TestName;
 import org.openqa.selenium.By;
@@ -258,17 +258,16 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
             TakesScreenshot screenshotter = (TakesScreenshot) driver;
             File file = screenshotter.getScreenshotAs(OutputType.FILE);
             try {
-                FileUtils.copyFile(file, new File(
-                        String.format("%s/%s_%s_%d_%s.png",
-                                SCREENSHOT_DIR,
-                                this.getClass().getSimpleName(),
-                                testName.getMethodName(),
-                                screenshotIndex++,
-                                URLEncoder.encode(suffix, "UTF-8"))
-                ));
+                String filename =  String.format("%s/%s_%s_%d_%s.png",
+                        SCREENSHOT_DIR,
+                        this.getClass().getSimpleName(),
+                        testName.getMethodName(),
+                        screenshotIndex++,
+                        URLEncoder.encode(suffix, "UTF-8"));
+
+                FileUtils.copyFile(file, new File(filename));
             } catch (IOException e) {
-                log.error(e.getMessage());
-                fail("failed to take a screenshot");
+                log.error("failed to take a screenshot", e.getMessage());
             }
         }
     }
@@ -346,6 +345,10 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
 
     protected WebElement getActionBarItem(String itemCaption) {
         return getElementByXpath("//*[contains(@class, 'v-actionbar')]//*[@aria-hidden = 'false']//*[text() = '%s']", itemCaption);
+    }
+
+    protected WebElement getDisabledActionBarItem(String itemCaption) {
+        return getElementByXpath("//*[contains(@class,'v-actionbar')]//*[@aria-hidden ='false']//*[contains(@class,'v-disabled')]//*[text()='%s']", itemCaption);
     }
 
     protected WebElement getActionBarItemWithContains(String itemCaption) {
