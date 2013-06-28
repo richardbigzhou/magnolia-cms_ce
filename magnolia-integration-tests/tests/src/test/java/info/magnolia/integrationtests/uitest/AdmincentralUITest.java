@@ -37,7 +37,6 @@ import static org.junit.Assert.*;
 
 import java.util.Date;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -63,7 +62,6 @@ public class AdmincentralUITest extends AbstractMagnoliaUITest {
         assertFalse(isExisting(element));
     }
 
-    @Ignore("Reactivate when MGNLUI-935 is fixed")
     @Test
     public void sendAndRetrieveErrorMessage() {
         // GIVEN
@@ -100,7 +98,6 @@ public class AdmincentralUITest extends AbstractMagnoliaUITest {
         assertTrue("App Launcher should not be blank so e.g. Pages tile should be around", isExisting(getAppIcon("Pages")));
     }
 
-    @Ignore("Reactivate when MGNLUI-934 is fixed")
     @Test
     public void sendAndRetrieveMessage() {
         // GIVEN
