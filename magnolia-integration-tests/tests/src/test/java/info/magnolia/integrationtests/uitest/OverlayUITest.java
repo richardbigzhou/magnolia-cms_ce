@@ -94,7 +94,7 @@ public class OverlayUITest extends AbstractMagnoliaUITest {
         getAppIcon("Contacts").click();
         assertAppOpen("Contacts");
 
-        getActionBarItem("New folder").click();
+        getActionBarItem("Add folder").click();
         assertTrue(getTreeTableItem("untitled").isDisplayed());
 
         // Determine if untitled is selected - it might not be if someone else created a folder.
