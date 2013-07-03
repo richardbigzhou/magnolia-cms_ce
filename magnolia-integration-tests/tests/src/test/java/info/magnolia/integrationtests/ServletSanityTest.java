@@ -59,8 +59,15 @@ public class ServletSanityTest extends AbstractMagnoliaHtmlUnitTest {
 
     @Test
     public void testNormalizationFilter() throws Exception {
-        final HtmlPage root = openPage(Instance.AUTHOR.getURL(".magnolia/normalizationfiltertest/dispatch"), User.superuser);
-        assertPageResult(root);
+        String previousValue = setUtfEnabled("true");
+        try {
+            final HtmlPage root = openPage(Instance.AUTHOR.getURL(".magnolia/normalizationfiltertest/dispatch"), User.superuser);
+            assertPageResult(root);
+        } finally {
+            try {
+                setUtfEnabled(previousValue);
+            } catch (Exception e) {}
+        }
     }
 
     @Test

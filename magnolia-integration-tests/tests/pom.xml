@@ -223,15 +223,9 @@
                   <context>magnoliaTest</context>
                 </properties>
               </deployable>
-              <!-- TODO : to get rid of this specific second webapp, we'd need to be able to configure
-              jetty/cargo's expanded war directory, which currently looks like
-              /private/tmp/Jetty_0_0_0_0_8080_magnolia-test-webapp-3.6.1-SNAPSHOT.war__magnoliaTestPublic__-5xy1qx/webapp
-              so Magnolia can't determine that it's a public instance, it consider the webapp name to be "webapp" and
-              not "magnoliaTestPublic" like the context name.
-              -->
               <deployable>
                 <groupId>info.magnolia</groupId>
-                <artifactId>magnolia-test-public-webapp</artifactId>
+                <artifactId>magnolia-test-webapp</artifactId>
                 <type>war</type>
                 <properties>
                   <context>magnoliaTestPublic</context>
