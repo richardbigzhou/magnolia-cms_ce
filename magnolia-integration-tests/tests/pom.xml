@@ -376,37 +376,37 @@
     </profile>
     <!-- Custom profile which generates random container http port numbers for running tests.
          Only used in CI when property BUILD_NUMBER is set. -->
-    <profile>
-      <id>random-ports-on-ci</id>
-      <activation>
-        <property>
-          <name>BUILD_NUMBER</name>
-        </property>
-      </activation>
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>org.codehaus.mojo</groupId>
-            <artifactId>build-helper-maven-plugin</artifactId>
-            <version>1.8</version>
-            <executions>
-              <execution>
-                <id>reserve-network-port</id>
-                <goals>
-                  <goal>reserve-network-port</goal>
-                </goals>
-                <phase>process-resources</phase>
-                <configuration>
-                  <portNames>
-                    <portName>containerHttpPort</portName>
-                  </portNames>
-                </configuration>
-              </execution>
-            </executions>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
+    <!--<profile>-->
+      <!--<id>random-ports-on-ci</id>-->
+      <!--<activation>-->
+        <!--<property>-->
+          <!--<name>BUILD_NUMBER</name>-->
+        <!--</property>-->
+      <!--</activation>-->
+      <!--<build>-->
+        <!--<plugins>-->
+          <!--<plugin>-->
+            <!--<groupId>org.codehaus.mojo</groupId>-->
+            <!--<artifactId>build-helper-maven-plugin</artifactId>-->
+            <!--<version>1.8</version>-->
+            <!--<executions>-->
+              <!--<execution>-->
+                <!--<id>reserve-network-port</id>-->
+                <!--<goals>-->
+                  <!--<goal>reserve-network-port</goal>-->
+                <!--</goals>-->
+                <!--<phase>process-resources</phase>-->
+                <!--<configuration>-->
+                  <!--<portNames>-->
+                    <!--<portName>containerHttpPort</portName>-->
+                  <!--</portNames>-->
+                <!--</configuration>-->
+              <!--</execution>-->
+            <!--</executions>-->
+          <!--</plugin>-->
+        <!--</plugins>-->
+      <!--</build>-->
+    <!--</profile>-->
 
     <profile>
       <id>tomcat60</id>
