@@ -37,6 +37,7 @@ import static org.junit.Assert.*;
 
 import java.util.Date;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
@@ -96,14 +97,14 @@ public class ContentAppUITest extends AbstractMagnoliaUITest {
         getActionBarItem("Edit contact").click();
 
         assertTrue(getDialogTab("Contacts").isDisplayed());
-        assertTrue(getDialogTab("/mmonroe").isDisplayed());
+        assertTrue(getDialogTab("Marilyn Monroe").isDisplayed());
 
         // WHEN
         driver.navigate().refresh();
 
         // THEN
         assertTrue(getDialogTab("Contacts").isDisplayed());
-        assertTrue(getDialogTab("/mmonroe").isDisplayed());
+        assertTrue(getDialogTab("Marilyn Monroe").isDisplayed());
     }
 
     @Test
@@ -116,9 +117,10 @@ public class ContentAppUITest extends AbstractMagnoliaUITest {
 
         // THEN
         assertTrue(getDialogTab("Contacts").isDisplayed());
-        assertTrue(getDialogTab("/mmonroe").isDisplayed());
+        assertTrue(getDialogTab("Marilyn Monroe").isDisplayed());
     }
 
+    @Ignore("MGNLUI-1805: We no longer expand selected node itself because of inline editing.")
     @Test
     public void navigateToTreeItemExpandsTree() {
         // GIVEN
