@@ -54,7 +54,12 @@ public abstract class AbstractMagnoliaIntegrationTest {
     /**
      * Name of the property that can be used to overwrite the domain for the webapps.
      */
-    public static final String DOMAIN_PROPERTY = "domain";
+    public static final String DOMAIN_PROPERTY = "containerRootURL";
+
+    /**
+     * Default domain, should never be used.
+     */
+    public static final String DEFAULT_DOMAIN = "http://localhost:8088/";
 
     /**
      * A simple way of referring to one of the two test instances deployed during ITs.
@@ -78,7 +83,7 @@ public abstract class AbstractMagnoliaIntegrationTest {
         @Override
         public String getURL() {
             final String domainFromProperty = System.getProperty(DOMAIN_PROPERTY);
-            final String domain =  StringUtils.isEmpty(domainFromProperty) ? "http://localhost:8088/" : domainFromProperty;
+            final String domain =  StringUtils.isEmpty(domainFromProperty) ? DEFAULT_DOMAIN : domainFromProperty;
             return domain + getContextPath();
         }
 
