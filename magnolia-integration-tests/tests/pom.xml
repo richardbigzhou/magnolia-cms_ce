@@ -371,6 +371,8 @@
     </profile>
     <!-- Custom profile which generates random container http port numbers for running tests.
          Only used in CI when property BUILD_NUMBER is set. -->
+    <!-- Deactivating this profile because of issues with CI: PermGen OutOfMemory
+         See: http://jira.magnolia-cms.com/browse/MAGNOLIA-5141 -->
     <!--<profile>-->
       <!--<id>random-ports-on-ci</id>-->
       <!--<activation>-->
