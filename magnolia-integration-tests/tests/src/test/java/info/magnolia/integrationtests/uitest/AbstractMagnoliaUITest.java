@@ -180,6 +180,9 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         driver.manage().timeouts().implicitlyWait(DRIVER_WAIT_IN_SECONDS, TimeUnit.SECONDS);
         driver.navigate().to(Instance.AUTHOR.getURL());
 
+        // Check license, relevant for EE tests
+        enterLicense();
+
         assertThat(driver.getTitle(), equalTo("Magnolia 5.0"));
 
         login(getTestUserName());
@@ -189,6 +192,12 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         } catch (NoSuchElementException e) {
             fail("Expected Pages app tile being present after login but got: " + e.getMessage());
         }
+    }
+
+    /**
+     * License check is not required for CE bundle.
+     */
+    protected void enterLicense() {
     }
 
     protected String getTestUserName() {
@@ -222,7 +231,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         driver.findElement(By.xpath("//button[@id = 'login-button']")).click();
         workaroundJsessionIdInUrl(driver);
 
-        assertTrue("If login succeeded, user should get a screen containing the appslauncher",  isExisting(driver.findElement(By.xpath("//*[@id = 'btn-appslauncher']"))));
+        assertTrue("If login succeeded, user should get a screen containing the appslauncher", isExisting(driver.findElement(By.xpath("//*[@id = 'btn-appslauncher']"))));
     }
 
     /**
