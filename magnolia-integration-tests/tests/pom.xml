@@ -17,6 +17,8 @@
 
   <properties>
     <leaveContainerRunningAndDontExecuteTests>false</leaveContainerRunningAndDontExecuteTests>
+    <!-- The default container http port used for tests. In CI this will be a random port. -->
+    <containerHttpPort>8099</containerHttpPort>
   </properties>
   <!--
   This pom (and most of this project, for that matter), has been copied to
@@ -39,12 +41,6 @@
     <dependency>
       <groupId>info.magnolia</groupId>
       <artifactId>magnolia-test-webapp</artifactId>
-      <version>${project.version}</version>
-      <type>war</type>
-    </dependency>
-    <dependency>
-      <groupId>info.magnolia</groupId>
-      <artifactId>magnolia-test-public-webapp</artifactId>
       <version>${project.version}</version>
       <type>war</type>
     </dependency>
@@ -103,6 +99,29 @@
 
   <build>
     <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <executions>
+          <execution>
+            <goals>
+              <goal>test-jar</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <!-- let's also attach the test sources -->
+      <plugin>
+        <artifactId>maven-source-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>attach-test-sources</id>
+            <goals>
+              <goal>test-jar-no-fork</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
       <!-- let surefire be executed only in the integration-test phase -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -128,6 +147,12 @@
           <excludes>
             <exclude>**/uitest/*Test.java</exclude>
           </excludes>
+          <systemPropertyVariables>
+            <containerHttpPort>${containerHttpPort}</containerHttpPort>
+            <containerRootURL>http://localhost:${containerHttpPort}/</containerRootURL>
+            <authorContextPath>magnoliaTest/</authorContextPath>
+            <publicContextPath>magnoliaTestPublic/</publicContextPath>
+          </systemPropertyVariables>
         </configuration>
       </plugin>
 
@@ -154,6 +179,11 @@
             </zipUrlInstaller>
             <systemProperties>
               <java.io.tmpdir>${project.build.directory}/java-io-tmpdir</java.io.tmpdir>
+              <!-- The surefire variables are not exposed to container, we need these props: -->
+              <containerHttpPort>${containerHttpPort}</containerHttpPort>
+              <containerRootURL>http://localhost:${containerHttpPort}/</containerRootURL>
+              <authorContextPath>magnoliaTest/</authorContextPath>
+              <publicContextPath>magnoliaTestPublic/</publicContextPath>
             </systemProperties>
           </container>
           <configuration>
@@ -166,16 +196,16 @@
               </configfile>
             </configfiles>
             <properties>
-              <!-- TODO :
-               Not all containers support passing args: http://cargo.codehaus.org/Jetty+6.x
-               If they would, we could remove the magnolia.properties from the test-webapp - thus staying closer to the default one
+              <!--
+               Containers support for system properties: See "Passing system properties" and "cargo.jvmargs" on Cargo's container pages: http://cargo.codehaus.org/Jetty+6.x
+               This might require an update of Cargo to work with all contains, since it was noted here before that not all containers supported this.
+               This allowed us to remove most of the content of test-webapp, which is now essentially just a pom file.
                TODO : <jvmargs> used by some profiles is not passed anymore - caused issues with Tomcat
                Setting debug options causes problems at shutdown -Xdebug -Xrunjdwp:transport=dt_socket,address=8000,server=y,suspend=n
               -->
               <cargo.jvmargs>-Dmagnolia.update.auto=true -Xmx1024M  -Djava.awt.headless=true -XX:MaxPermSize=256m</cargo.jvmargs>
-              <cargo.servlet.port>8088</cargo.servlet.port>
+              <cargo.servlet.port>${containerHttpPort}</cargo.servlet.port>
               <cargo.logging>medium</cargo.logging>
-
               <cargo.tomcat.ajp.port>8099</cargo.tomcat.ajp.port>
             </properties>
 
@@ -188,15 +218,9 @@
                   <context>magnoliaTest</context>
                 </properties>
               </deployable>
-              <!-- TODO : to get rid of this specific second webapp, we'd need to be able to configure
-              jetty/cargo's expanded war directory, which currently looks like
-              /private/tmp/Jetty_0_0_0_0_8080_magnolia-test-webapp-3.6.1-SNAPSHOT.war__magnoliaTestPublic__-5xy1qx/webapp
-              so Magnolia can't determine that it's a public instance, it consider the webapp name to be "webapp" and
-              not "magnoliaTestPublic" like the context name.
-              -->
               <deployable>
                 <groupId>info.magnolia</groupId>
-                <artifactId>magnolia-test-public-webapp</artifactId>
+                <artifactId>magnolia-test-webapp</artifactId>
                 <type>war</type>
                 <properties>
                   <context>magnoliaTestPublic</context>
@@ -238,14 +262,14 @@
               <properties>
                 <login>superuser</login>
                 <password>superuser</password>
-                <geturl1>http://localhost:8088/magnoliaTestPublic/ftl-sample-site/</geturl1>
-                <geturl2>http://localhost:8088/magnoliaTestPublic/jsp-sample-site/</geturl2>
-                <geturl3>http://localhost:8088/magnoliaTestPublic/demo-project/</geturl3>
-                <geturl4>http://localhost:8088/magnoliaTestPublic/demo-features/</geturl4>
-                <geturlauth5>http://localhost:8088/magnoliaTest/ftl-sample-site/</geturlauth5>
-                <geturlauth6>http://localhost:8088/magnoliaTest/jsp-sample-site/</geturlauth6>
-                <geturlauth7>http://localhost:8088/magnoliaTestPublic/demo-project/</geturlauth7>
-                <geturlauth8>http://localhost:8088/magnoliaTestPublic/demo-features/</geturlauth8>
+                <geturl1>http://localhost:${containerHttpPort}/magnoliaTestPublic/ftl-sample-site/</geturl1>
+                <geturl2>http://localhost:${containerHttpPort}/magnoliaTestPublic/jsp-sample-site/</geturl2>
+                <geturl3>http://localhost:${containerHttpPort}/magnoliaTestPublic/demo-project/</geturl3>
+                <geturl4>http://localhost:${containerHttpPort}/magnoliaTestPublic/demo-features/</geturl4>
+                <geturlauth5>http://localhost:${containerHttpPort}/magnoliaTest/ftl-sample-site/</geturlauth5>
+                <geturlauth6>http://localhost:${containerHttpPort}/magnoliaTest/jsp-sample-site/</geturlauth6>
+                <geturlauth7>http://localhost:${containerHttpPort}/magnoliaTestPublic/demo-project/</geturlauth7>
+                <geturlauth8>http://localhost:${containerHttpPort}/magnoliaTestPublic/demo-features/</geturlauth8>
               </properties>
               <source>${project.basedir}/src/main/groovy/crawl.groovy</source>
             </configuration>
@@ -305,11 +329,6 @@
               <excludes>
                 <exclude>-apparently-we-really-need-to-override-the-exclude-oh-well-</exclude>
               </excludes>
-              <environmentVariables>
-                <magnolia_url>http://localhost:8088/magnoliaTest/</magnolia_url>
-                <magnolia_username>superuser</magnolia_username>
-                <magnolia_password>superuser</magnolia_password>
-              </environmentVariables>
             </configuration>
           </plugin>
         </plugins>
@@ -344,7 +363,41 @@
         <leaveContainerRunningAndDontExecuteTests>true</leaveContainerRunningAndDontExecuteTests>
       </properties>
     </profile>
-
+    <!-- Custom profile which generates random container http port numbers for running tests.
+         Only used in CI when property BUILD_NUMBER is set. -->
+    <!-- Deactivating this profile because of issues with CI: PermGen OutOfMemory
+         See: http://jira.magnolia-cms.com/browse/MAGNOLIA-5141 -->
+    <!--<profile>-->
+      <!--<id>random-ports-on-ci</id>-->
+      <!--<activation>-->
+        <!--<property>-->
+          <!--<name>BUILD_NUMBER</name>-->
+        <!--</property>-->
+      <!--</activation>-->
+      <!--<build>-->
+        <!--<plugins>-->
+          <!--<plugin>-->
+            <!--<groupId>org.codehaus.mojo</groupId>-->
+            <!--<artifactId>build-helper-maven-plugin</artifactId>-->
+            <!--<version>1.8</version>-->
+            <!--<executions>-->
+              <!--<execution>-->
+                <!--<id>reserve-network-port</id>-->
+                <!--<goals>-->
+                  <!--<goal>reserve-network-port</goal>-->
+                <!--</goals>-->
+                <!--<phase>process-resources</phase>-->
+                <!--<configuration>-->
+                  <!--<portNames>-->
+                    <!--<portName>containerHttpPort</portName>-->
+                  <!--</portNames>-->
+                <!--</configuration>-->
+              <!--</execution>-->
+            <!--</executions>-->
+          <!--</plugin>-->
+        <!--</plugins>-->
+      <!--</build>-->
+    <!--</profile>-->
     <profile>
       <id>tomcat60</id>
       <properties>

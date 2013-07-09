@@ -45,6 +45,7 @@ import info.magnolia.cms.core.SystemProperty;
  * Servlet used to toggle system properties.
  */
 public class SystemPropertyServlet extends HttpServlet {
+    private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(SystemPropertyServlet.class);
 
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -53,6 +54,7 @@ public class SystemPropertyServlet extends HttpServlet {
         String value = req.getParameter("value");
 
         String previousValue = SystemProperty.getProperty(name);
+        log.info("Changing value of: " + name + " from [" + previousValue + "] to [" + value + "]");
 
         SystemProperty.setProperty(name, value);
 

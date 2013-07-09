@@ -46,8 +46,8 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.io.FileUtils;
-import org.junit.Before;
 import org.junit.After;
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.rules.TestName;
 import org.openqa.selenium.By;
@@ -75,6 +75,8 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
 
     public static final int DEFAULT_DELAY_IN_SECONDS = 2;
     public static final int DRIVER_WAIT_IN_SECONDS = 10;
+    public static final String FILE_NAME_ENDING = ".png";
+    public static final int MAX_FILE_NAME_LENGHT_WITHOUT_EXTENSION = 256 - FILE_NAME_ENDING.length();
 
     protected static final String SCREENSHOT_DIR = "target/surefire-reports/";
 
@@ -178,6 +180,9 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         driver.manage().timeouts().implicitlyWait(DRIVER_WAIT_IN_SECONDS, TimeUnit.SECONDS);
         driver.navigate().to(Instance.AUTHOR.getURL());
 
+        // Check license, relevant for EE tests
+        enterLicense();
+
         assertThat(driver.getTitle(), equalTo("Magnolia 5.0"));
 
         login(getTestUserName());
@@ -187,6 +192,12 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         } catch (NoSuchElementException e) {
             fail("Expected Pages app tile being present after login but got: " + e.getMessage());
         }
+    }
+
+    /**
+     * License check is not required for CE bundle.
+     */
+    protected void enterLicense() {
     }
 
     protected String getTestUserName() {
@@ -220,7 +231,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         driver.findElement(By.xpath("//button[@id = 'login-button']")).click();
         workaroundJsessionIdInUrl(driver);
 
-        assertTrue("If login succeeded, user should get a screen containing the appslauncher",  isExisting(driver.findElement(By.xpath("//*[@id = 'btn-appslauncher']"))));
+        assertTrue("If login succeeded, user should get a screen containing the appslauncher", isExisting(driver.findElement(By.xpath("//*[@id = 'btn-appslauncher']"))));
     }
 
     /**
@@ -258,16 +269,13 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
             TakesScreenshot screenshotter = (TakesScreenshot) driver;
             File file = screenshotter.getScreenshotAs(OutputType.FILE);
             try {
-                FileUtils.copyFile(file, new File(
-                        String.format("%s/%s_%s_%d_%s.png",
-                                SCREENSHOT_DIR,
-                                this.getClass().getSimpleName(),
-                                testName.getMethodName(),
-                                screenshotIndex++,
-                                URLEncoder.encode(suffix, "UTF-8"))
-                ));
+                String fullFileName = String.format("%s/%s_%s_%d_%s", SCREENSHOT_DIR, this.getClass().getSimpleName(), testName.getMethodName(), screenshotIndex++, URLEncoder.encode(suffix, "UTF-8"));
+                // cut if required - fileNames lengths are normally restricted
+                fullFileName = fullFileName.length() > MAX_FILE_NAME_LENGHT_WITHOUT_EXTENSION ? fullFileName.substring(0, MAX_FILE_NAME_LENGHT_WITHOUT_EXTENSION) : fullFileName;
+                FileUtils.copyFile(file, new File(fullFileName + ".png"));
             } catch (IOException e) {
                 log.error(e.getMessage());
+                // error message might be overlooked so we explicitly fail here. Should assures ppl will immediately realize and fix asap.
                 fail("failed to take a screenshot");
             }
         }
@@ -346,6 +354,10 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
 
     protected WebElement getActionBarItem(String itemCaption) {
         return getElementByXpath("//*[contains(@class, 'v-actionbar')]//*[@aria-hidden = 'false']//*[text() = '%s']", itemCaption);
+    }
+
+    protected WebElement getDisabledActionBarItem(String itemCaption) {
+        return getElementByXpath("//*[contains(@class,'v-actionbar')]//*[@aria-hidden ='false']//*[contains(@class,'v-disabled')]//*[text()='%s']", itemCaption);
     }
 
     protected WebElement getActionBarItemWithContains(String itemCaption) {

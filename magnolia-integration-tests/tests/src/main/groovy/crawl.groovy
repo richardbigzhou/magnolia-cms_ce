@@ -41,7 +41,6 @@ class Constants {
     static final MAX_URLS = 2000
     static final DEPTH_LEVEL = 6
 
-    static final ONLY_RELATIVE = true
     static final NO_PARENTS = true
 
     static final GET_IMAGES = true
@@ -54,19 +53,22 @@ class Constants {
 
     // on author instance, get pages in preview mode
     static final PREVIEW_MODE = true
+
+    // try to display areas directly
+    static final DIRECTAREA_RENDERING = true
 }
 import static Constants.*
+import org.apache.commons.lang.StringUtils
 
 class WebCrawler {
     private startURL
-    
+
     private visitedURLs
     private unvisitedURLs
-    
+
     private visitedData
     private unvisitedData
 
-    private topBase
     private cookies
 
     private startMillis
@@ -78,7 +80,7 @@ class WebCrawler {
     private endedThreads
 
     private threadPool
-    
+
     WebCrawler(start_on, defEncoding = "deflated, gzip") {
         startURL = start_on
 
@@ -96,12 +98,12 @@ class WebCrawler {
         startURL += "mgnlIntercept=PREVIEW&mgnlPreview=false"
         unvisitedURLs << ["url" : startURL, "depth" : 0]
 
-        def startHost = (startURL =~ /(http:\/\/[^\/?]+)\/?.*/)[0][1]
+        def startHost = getHost(startURL)  // e.g. http://localhost:8080/
+        def startBase = (startURL =~ /https?:\/\/[^\/]+\/([^\/]+)/)[0][1]  // e.g. magnoliaAuthor
 
         if (PREVIEW_MODE) {
             unvisitedURLs << ["url" : startURL.replaceAll(/false$/,"true"), "depth" : 0]
         }
-        topBase = startURL[0..startURL.lastIndexOf('/')]
 
         cookies = []
         gotErrors = 0
@@ -118,7 +120,7 @@ class WebCrawler {
         println "="*40
 
         startMillis = System.currentTimeMillis()
-        
+
         threadPool = []
         //Links finding threads
         NUM_THREADS.times {
@@ -131,49 +133,68 @@ class WebCrawler {
             try {
                 def newLink = nextPage()
                 if ((newLink == null) || (newLink["url"] == null )) {
-                    return
+                    break
+                }
+
+                // Prevent crawling of links with wrong ? count
+                if (StringUtils.countMatches(newLink["url"], "?") > 1) {
+                    println "Skipping crawling of invalid url: " + newLink["url"]
+                    continue
                 }
 
                 def url = newLink["url"]
                 def depth = newLink["depth"]
 
-                if (depth >= DEPTH_LEVEL) {
-                    return
+                if (depth > DEPTH_LEVEL) {
+                    break
                 }
 
-                def host = (url =~ /(http:\/\/[^\/?]+)\/?.*/)[0][1]
+                def host = getHost(url)
                 def base = url[0..url.lastIndexOf('/')]
 
                 def external = false
                 if (!host.contains(startHost)) {
                     if (!GET_EXTERNAL_LINKS) {
                         debugMessage("Skipping crawling of external url: " + url)
-                        break
+                        continue
                     } else { // request external link, but don't follow its links
                         external = true
                     }
                 }
 
-                def connection = new URL(url).openConnection()
-
+                def connection = normalizedURL(url).openConnection()
                 cookies.each { cookie ->
                     connection.addRequestProperty("Cookie", cookie.split(";", 2)[0]);
                 }
                 try {
                     connection.addRequestProperty("Accept-Encoding", defEncoding)
+                    connection.setFollowRedirects(false)
                     connection.connect()
-                } catch (UnknownHostException ex) {
-                    announceError("Unknown Host",url)
-                    break
-                }
+                    def response = connection.getResponseCode()
+                    def location = connection.getHeaderField("Location")
 
-                def response = connection.getResponseCode()
-                if (!connection.getURL().getHost().contains(host)) {
-                    debugMessage("Skipping crawling of external url: " + connection.getURL())
-                    break;
+                    if (rejectCode(response)) {
+                        announceError(response, url)
+                        break
+                    }
+
+                    if (redirected(response)) {
+                        def origHost = getHost(url)
+                        def redirHost = getHost(location)
+                        if (!origHost.equalsIgnoreCase(redirHost)) {
+                            debugMessage("Redirected to different host (" + location + ").")
+                        } else {
+                            def redirect = ["url" : location, "depth" : depth]
+                            redirect["depth"] = depth
+                            debugMessage("Redirected from ${url} to ${location}")
+                            addPage(redirect)
+                        }
+                        break
+                    }
+                } catch (Exception ex) {
+                    announceError("Unknown Host",url)
+                    continue
                 }
-                if (rejectCode(response))
-                    announceError(response, url)
 
                 InputStream inputstream = connection.getInputStream()
                 def encoding = connection.getContentEncoding()
@@ -181,15 +202,14 @@ class WebCrawler {
                     inputstream = new GZIPInputStream(inputstream)
                 }
                 def content = inputstream.text
-                
-                
+
                 def newCookies = connection.getHeaderFields().get("Set-Cookie");
-                if (newCookies != null) {
+                if (newCookies != null && !external) {
                     cookies = newCookies
                 }
-                
+
                 checkTemplatingErrors(content, url)
-                
+
                 gotResources += 1
 
                 if (external) {
@@ -198,11 +218,11 @@ class WebCrawler {
 
                 def page = new XmlParser(parser).parseText(content)
                 def links = page.depthFirst().A.grep { it.@href }.'@href'
-                
-                links.each { link ->
+
+                if (!url.contains("~mgnlArea=")) links.each { link ->
                     def linkURL = [:]
                     linkURL["url"] = rebuildURL(host, base, link)
-                    if (linkURL["url"].contains(startHost)) { 
+                    if (linkURL["url"] != null && linkURL["url"].contains(startHost)) {
                         // add magnolia parameters only to URLs on host we started on
                         if (link.contains("?"))
                             linkURL["url"] += "&"
@@ -215,16 +235,29 @@ class WebCrawler {
                     addPage(linkURL)
 
 
-                    if (PREVIEW_MODE && host.contains(startHost)) {
+                    if (PREVIEW_MODE && linkURL["url"] != null && host.contains(startHost)) {
                         def linkURLPreview = [:]
                         linkURLPreview["url"] = linkURL["url"].replaceAll(/false$/,"true")
                         linkURLPreview["depth"] = depth + 1
-                        
+
                         addPage(linkURLPreview)
                     }
                 }
-               
-                if (GET_IMAGES) {
+
+                if (!url.contains("~mgnlArea=") && DIRECTAREA_RENDERING &&
+                    !url.contains("jsp-")) { // Disabled until MAGNOLIA-5126 is resolved
+                    def root = startHost + "/" + startBase
+                    def areaURLs = getAreas(url, root)
+                    areaURLs.each { directUrl ->
+                        def areaURL = [:]
+                        areaURL["url"] = directUrl
+                        areaURL["depth"] = depth
+
+                        addPage(areaURL)
+                    }
+                }
+
+                if (!url.contains("~mgnlArea=") && GET_IMAGES) {
                     def images = page.depthFirst().IMG.grep { it.@src }.'@src'
                     images.each { link ->
                         def imgURL = rebuildURL(host, base, link)
@@ -232,7 +265,7 @@ class WebCrawler {
                     }
                 }
 
-                if (GET_SCRIPTS) { // JavaScripts and CSS definitions
+                if (!url.contains("~mgnlArea=") && GET_SCRIPTS) { // JavaScripts and CSS definitions
                     def scripts = []
                     page.depthFirst().LINK.grep { it.@href }.'@href'.each {
                         if (it)
@@ -257,48 +290,62 @@ class WebCrawler {
               debugMessage("Unexpected Error: ${ex}")
             }
         }}}
-        
+
         Thread.start {
             threadPool.each {
                 it.join()
             }
             endedThreads = true
-        }       
-        
+        }
+
         //Resources downloading thread
         Thread.start {
         while (true && !endedThreads) {
             try {
                 def url = nextData()
-                if (url == null)
-                    continue
- 
-                def page = new URL(url)
+                if (url != null) {
+                    def page = normalizedURL(url)
 
-                def connection = page.openConnection()
-             
-                cookies.each { cookie ->
-                    connection.addRequestProperty("Cookie", cookie.split(";", 2)[0]);
+                    def connection = page.openConnection()
+
+                    cookies.each { cookie ->
+                        connection.addRequestProperty("Cookie", cookie.split(";", 2)[0]);
+                    }
+                    connection.addRequestProperty("Accept-Encoding", defEncoding)
+                    connection.setFollowRedirects(false)
+                    connection.connect()
+
+                    def response = connection.getResponseCode()
+                    if (rejectCode(response))
+                        announceError(response, url)
+
+                    if (redirected(response)) {
+                        def origHost = getHost(url)
+                        def redirHost = getHost(location)
+                        if (!origHost.equalsIgnoreCase(redirHost)) {
+                            debugMessage("Redirected to different host ( " + location + ").")
+                        } else {
+                            debugMessage("Redirected from ${url} to ${location}")
+                            addData(location)
+                        }
+                        break
+                    }
+                    InputStream inputstream = connection.getInputStream()
+                    def encoding = connection.getContentEncoding()
+                    if (encoding == "gzip") {
+                        inputstream = new GZIPInputStream(inputstream)
+                    }
+                    def content = inputstream.text
+
+                    def newCookies = connection.getHeaderFields().get("Set-Cookie")
+                    if (newCookies != null) {
+                        cookies = newCookies
+                    }
+
+                    gotResources += 1
+
+                    debugMessage("Fetching resource ${url}")
                 }
-                connection.addRequestProperty("Accept-Encoding", defEncoding)
-                connection.connect()
-                
-                def response = connection.getResponseCode()
-                if (rejectCode(response))
-                    announceError(response, url)
-                
-                InputStream inputstream = connection.getInputStream()
-                def encoding = connection.getContentEncoding()
-                if (encoding == "gzip") {
-                    inputstream = new GZIPInputStream(inputstream)
-                }
-                def content = inputstream.text
-
-                gotResources += 1
-
-                debugMessage("Fetching resource ${url}")
-
-                
             } catch (Exception ex) {
                 debugMessage("Download failed: ${ex.getMessage()}")
             }
@@ -317,7 +364,7 @@ class WebCrawler {
 
 
 
-    
+
 
 
     def debugMessage(message) {
@@ -325,9 +372,17 @@ class WebCrawler {
             System.err.println("DEBUG: ${message}")
     }
 
-    def announceError(code, url) {
-        System.err.println("${code} Error - ${url}")
+    def announceError(code, url, message = "") {
+        if (!message.empty)
+            message = "\n    " + message
+        System.err.println("${code} Error - ${url}" + message)
         gotErrors += 1
+    }
+
+    def announceWarning(code, url, message = "") {
+        if (!message.empty)
+            message = "\n    " + message
+        System.err.println("${code} Warning - ${url}" + message)
     }
 
     def getErrorStatus() {
@@ -336,9 +391,21 @@ class WebCrawler {
 
     def checkTemplatingErrors(content, url) {
         content = content.replaceAll(/\n/," ")
-        if ((content ==~ /^\s*$/) || (content ==~ /(?s).*[Tt]emplate [Ee]rror.*/) ||
+        if ((content ==~ /(?s).*[Tt]emplate [Ee]rror.*/) ||
             (content ==~ /(?s).*RenderException.*/)) {
            announceError("Templating", url)
+        }
+
+        if (content ==~ /^\s*$/) {
+            if (url.contains("~mgnlArea=")) {
+                announceWarning("Templating", url, "Nothing rendered. The area node is probably empty.")
+            } else {
+                announceError("Templating", url, "Nothing rendered.")
+            }
+        }
+
+        if (url.contains("~mgnlArea=") && content ==~ /(?s).*<html.*/) {
+            announceError("Templating", url, "The whole page was rendered instead of single area.")
         }
     }
 
@@ -349,6 +416,90 @@ class WebCrawler {
             return false
     }
 
+    /**
+     * If we were redirected, compare hosts and skip crawling
+     * when different.
+     */
+    def redirected(statusCode) {
+        if (statusCode == 302) {
+            return true
+        } else {
+            return false
+        }
+    }
+
+    def getHost(url) {
+        return (url =~ /(https?:\/\/[^\/]+)\/?.*/)[0][1]  // e.g. http://localhost:8080/
+    }
+
+    /**
+     * Request dump from JCR Queries tool to get child areas.
+     */
+    def getAreaNodes(path, rootContext, repository="website") {
+        def jcrUrl = rootContext + "/.magnolia/pages/jcrUtils.html"
+        def queryString = "path=" + path + "&repository=" + repository + "&command=dump&level=1"
+
+        def connection = normalizedURL(jcrUrl).openConnection()
+        connection.setRequestMethod("POST")
+        connection.setDoOutput(true)
+        connection.setDoInput(true)
+
+        cookies.each { cookie ->
+            connection.addRequestProperty("Cookie", cookie.split(";", 2)[0])
+        }
+        connection.connect()
+
+        OutputStreamWriter wr = new OutputStreamWriter(connection.getOutputStream())
+        wr.write(queryString)
+        wr.flush()
+        wr.close()
+
+        def response = connection.getResponseCode()
+        if (rejectCode(response)) {
+            return []
+        }
+
+        InputStream result = connection.getInputStream()
+
+        def newCookies = connection.getHeaderFields().get("Set-Cookie");
+        if (newCookies != null) {
+            cookies = newCookies
+        }
+
+        def encoding = connection.getContentEncoding()
+        if (encoding == "gzip") {
+            result = new GZIPInputStream(result)
+        }
+
+        def areaNodes = new ArrayList()
+        if (result != null) result.eachLine { line ->
+            if (line.contains("[mgnl:area]")) {
+                areaNodes.add(line.substring(line.lastIndexOf('/') + 1, line.indexOf('[')))
+            }
+        }
+
+        return areaNodes
+    }
+
+    def getAreas(url, root) {
+        // strip url of the host and context
+        def host = getHost(url)
+        def end = url.lastIndexOf('?') < 0 ? url.length() : url.lastIndexOf('?')
+        def contextPath = url.substring(host.length() + 1, end)
+        def pagePath = contextPath.substring(contextPath.indexOf('/')).replaceAll(/\.html?/,"")
+
+        def context = contextPath.substring(0, contextPath.indexOf('/'))
+        def parameters = url.substring(end)
+
+        def areaNodes = getAreaNodes(pagePath, root, "website")
+
+        for (def x = 0; x < areaNodes.size; x++) {
+            def directUrl = host + "/" + context + pagePath + "~mgnlArea=" + areaNodes.get(x) + "~"// + parameters
+            areaNodes.set(x, directUrl)
+        }
+        return areaNodes
+    }
+
     def rebuildURL(host, base, rawUrl) {
         def url = rawUrl
 
@@ -356,21 +507,18 @@ class WebCrawler {
             url = (url =~ /(.*)#.*/)[0][1]
 
         url = url.replaceAll(/ /,"%20")
-        
+
         def newURL
-    
+
         if (url.startsWith('http://') || url.startsWith('https://')) {
-            if (ONLY_RELATIVE)
-                newURL = null
-            else
-                newURL = url
+            newURL = url
         }
         else if (url.startsWith('/'))
             newURL = host + url
         else if (url.startsWith('..')) {
             newURL = new URL(base.toURL(), url.toString()).toString()
         }
-        else if (url.startsWith('mailto:')) //ignore mail links
+        else if (url.startsWith('mailto:') || url.startsWith('ftp:') || url.startsWith('ftps:/')) //ignore mail and ftp links
             newURL = null
         else
             newURL = base + url
@@ -400,7 +548,7 @@ class WebCrawler {
     }
 
     synchronized addPage(newURL) {
-        if ( newURL != null && newURL["url"] != null && 
+        if ( newURL != null && newURL["url"] != null &&
               !visitedURLs.contains(newURL["url"])) {
 
             def contains = unvisitedURLs.any {
@@ -423,10 +571,10 @@ class WebCrawler {
         while (tries < 10 && unvisitedData.empty) {
             try {
                 tries += 1
-                wait(100) 
+                wait(100)
             } catch (InterruptedException ex) {}
         }
-    
+
         if (unvisitedData.empty)
             return null
 
@@ -448,6 +596,10 @@ class WebCrawler {
             notifyAll()
         }
     }
+
+    def normalizedURL(url) {
+        return (new URL(url)).toURI().normalize().toURL()
+    }
 }
 //_CLASS_WEBCRAWLER
 
@@ -466,13 +618,13 @@ try{
         if (it.contains("geturl")) {
             if (it.contains("geturlauth")) {
                 //property value in maven can't contain '=' character, nor '%' for url encoding.
-        		//hence, we need to construct URI here.
+                //hence, we need to construct URI here.
                 pages << project.properties[it] + "?mgnlUserId=${project.properties["login"]}&mgnlUserPSWD=${project.properties["password"]}"
             } else {
                 pages << project.properties[it]
             }
         }
-        if (it.contains("encoding")) {
+        if (it.contains("httpencoding")) {
             encoding = project.properties[it]
         }
     }

@@ -96,14 +96,14 @@ public class ContentAppUITest extends AbstractMagnoliaUITest {
         getActionBarItem("Edit contact").click();
 
         assertTrue(getDialogTab("Contacts").isDisplayed());
-        assertTrue(getDialogTab("/mmonroe").isDisplayed());
+        assertTrue(getDialogTab("Marilyn Monroe").isDisplayed());
 
         // WHEN
         driver.navigate().refresh();
 
         // THEN
         assertTrue(getDialogTab("Contacts").isDisplayed());
-        assertTrue(getDialogTab("/mmonroe").isDisplayed());
+        assertTrue(getDialogTab("Marilyn Monroe").isDisplayed());
     }
 
     @Test
@@ -116,7 +116,7 @@ public class ContentAppUITest extends AbstractMagnoliaUITest {
 
         // THEN
         assertTrue(getDialogTab("Contacts").isDisplayed());
-        assertTrue(getDialogTab("/mmonroe").isDisplayed());
+        assertTrue(getDialogTab("Marilyn Monroe").isDisplayed());
     }
 
     @Test

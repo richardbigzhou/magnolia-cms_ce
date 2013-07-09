@@ -33,9 +33,8 @@
  */
 package info.magnolia.integrationtests;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.hamcrest.CoreMatchers.*;
+import static org.junit.Assert.*;
 
 import info.magnolia.testframework.htmlunit.AbstractMagnoliaHtmlUnitTest;
 
@@ -60,8 +59,15 @@ public class ServletSanityTest extends AbstractMagnoliaHtmlUnitTest {
 
     @Test
     public void testNormalizationFilter() throws Exception {
-        final HtmlPage root = openPage(Instance.AUTHOR.getURL(".magnolia/normalizationfiltertest/dispatch"), User.superuser);
-        assertPageResult(root);
+        String previousValue = setUtfEnabled("true");
+        try {
+            final HtmlPage root = openPage(Instance.AUTHOR.getURL(".magnolia/normalizationfiltertest/dispatch"), User.superuser);
+            assertPageResult(root);
+        } finally {
+            try {
+                setUtfEnabled(previousValue);
+            } catch (Exception e) {}
+        }
     }
 
     @Test
@@ -102,9 +108,12 @@ public class ServletSanityTest extends AbstractMagnoliaHtmlUnitTest {
     }
 
     private void assertPageResult(HtmlPage root) {
-        assertEquals(200, root.getWebResponse().getStatusCode());
-        assertFalse(root.asText().contains("ERROR"));
-        assertTrue(root.asText().contains("TEST COMPLETED"));
+        final int statusCode = root.getWebResponse().getStatusCode();
+        assertEquals("Expected status code 200 but got: " + statusCode, 200, statusCode);
+        
+        final String rootAsText = root.asText();
+        assertThat(rootAsText, not(containsString("ERROR")));
+        assertThat(rootAsText, containsString("TEST COMPLETED"));
     }
 
     private String setUtfEnabled(String value) throws IOException {

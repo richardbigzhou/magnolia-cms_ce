@@ -37,13 +37,6 @@
               <destDir>${basedir}/target/extracted-tomcat</destDir>
             </configuration>
           </execution>
-          <execution>
-            <!-- this is needed until we update to parent pom v16 -->
-            <id>get-tomcat-compat-package</id>
-            <configuration>
-              <skip>true</skip>
-            </configuration>
-          </execution>
         </executions>
       </plugin>
       <plugin>
