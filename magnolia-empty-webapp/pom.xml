@@ -151,15 +151,6 @@
     </dependency>
   </dependencies>
   <build>
-    <resources>
-      <resource>
-        <!-- these are the resources copied by the remote-resources-plugin -->
-        <directory>${basedir}/target/magnolia-build-tools-resources</directory>
-        <excludes>
-          <exclude>**/*</exclude>
-        </excludes>
-      </resource>
-    </resources>
     <plugins>
       <plugin>
         <artifactId>maven-clean-plugin</artifactId>
@@ -181,18 +172,6 @@
               <directory>src/main/webapp/tmp</directory>
             </fileset>
           </filesets>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-war-plugin</artifactId>
-        <configuration>
-          <webResources>
-            <resource>
-              <!-- these are the resources copied by the remote-resources-plugin -->
-              <directory>${basedir}/target/magnolia-build-tools-resources</directory>
-            </resource>
-          </webResources>
         </configuration>
       </plugin>
       <plugin>
