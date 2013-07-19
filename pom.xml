@@ -23,7 +23,7 @@
     <magnoliaVersion>5.1-SNAPSHOT</magnoliaVersion>
     <magnoliaUiVersion>5.1-SNAPSHOT</magnoliaUiVersion>
     <javaVersion>1.6</javaVersion>
-    <documentationURL>http://documentation.magnolia-cms.com/releases/5-0-1.html</documentationURL>
+    <documentationURL>http://documentation.magnolia-cms.com/releases/${project.version}.html</documentationURL>
     <stkVersion>2.5.2-SNAPSHOT</stkVersion>
     <scmTagPrefix>magnolia-bundle</scmTagPrefix>
     <!-- Disable clover during releases: -->
