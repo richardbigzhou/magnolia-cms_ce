@@ -67,5 +67,9 @@
       <groupId>info.magnolia.dam</groupId>
       <artifactId>magnolia-dam</artifactId>
     </dependency>
+    <dependency>
+      <groupId>info.magnolia</groupId>
+      <artifactId>magnolia-4-5-migration</artifactId>
+    </dependency>
   </dependencies>
 </project>

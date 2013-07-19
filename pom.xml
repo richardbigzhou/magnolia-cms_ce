@@ -217,6 +217,11 @@
         <artifactId>magnolia-contacts</artifactId>
         <version>1.0.2-SNAPSHOT</version>
       </dependency>
+      <dependency>
+        <groupId>info.magnolia</groupId>
+        <artifactId>magnolia-4-5-migration</artifactId>
+        <version>1.2.4-SNAPSHOT</version>
+      </dependency>
     </dependencies>
   </dependencyManagement>
 
