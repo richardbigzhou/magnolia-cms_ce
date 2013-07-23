@@ -82,7 +82,7 @@ public class SimpleFieldUITest extends AbstractMagnoliaUITest {
         // THEN
         assertEquals("Please correct the 1 errors in this form [Jump to next error]", getFormErrorHeader().getText());
         getFormErrorJumpToNextError().click();
-        assertEquals("Could not convert value to Number", getFormFieldError().getText());
+        assertEquals("Could not convert value to Long", getFormFieldError().getText());
     }
 
     @Test
