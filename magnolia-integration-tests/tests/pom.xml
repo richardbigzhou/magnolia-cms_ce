@@ -18,7 +18,7 @@
   <properties>
     <leaveContainerRunningAndDontExecuteTests>false</leaveContainerRunningAndDontExecuteTests>
     <!-- The default container http port used for tests. In CI this will be a random port. -->
-    <containerHttpPort>8099</containerHttpPort>
+    <containerHttpPort>8077</containerHttpPort>
   </properties>
   <!--
   This pom (and most of this project, for that matter), has been copied to
