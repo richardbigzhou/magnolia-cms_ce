@@ -54,7 +54,7 @@ public class OverlayUITest extends AbstractMagnoliaUITest {
         getAppIcon("Contacts").click();
         assertAppOpen("Contacts");
 
-        getTreeTableItem("Marilyn Monroe").click();
+        getTreeTableItem("Pablo Picasso").click();
 
         // WHEN
         getActionBarItem("Delete contact").click();
