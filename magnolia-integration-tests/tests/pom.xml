@@ -19,6 +19,9 @@
     <leaveContainerRunningAndDontExecuteTests>false</leaveContainerRunningAndDontExecuteTests>
     <!-- The default container http port used for tests. In CI this will be a random port. -->
     <containerHttpPort>8077</containerHttpPort>
+    <!-- The port to use when communicating with this server, for example to start and stop it. -->
+    <!-- This was probably causing builds to fail, as the default port was used. -->
+    <cargoRmiPort>8076</cargoRmiPort>
   </properties>
   <!--
   This pom (and most of this project, for that matter), has been copied to
@@ -207,6 +210,7 @@
               <cargo.servlet.port>${containerHttpPort}</cargo.servlet.port>
               <cargo.logging>medium</cargo.logging>
               <cargo.tomcat.ajp.port>8099</cargo.tomcat.ajp.port>
+              <cargo.rmi.port>${cargoRmiPort}</cargo.rmi.port>
             </properties>
 
             <deployables>
