@@ -362,7 +362,64 @@ class ActivationTest {
         debugMsg("="*20)
         return 1
     }
- 
+
+    /**
+     * Activate page,
+     * change title of carousel, then
+     * proceed from inbox.
+     * Check, that carousel is not changed on publics.
+     *
+     * note: this test needs workflow enabled.
+     * note: this test is meant only for /demo-project/ page and
+     *       doesn't work for other pages.
+     */
+    def testActivateVersionedState(page, workflow=true) {
+        // only send to inbox
+        page = "/demo-project"
+        def r = activate(page, "Activating.", false)
+        if (!r)
+            return null
+
+        def newTitle = "newTitle" + (random.nextInt(900) + 100)
+        r = changeNodeProperty("/demo-project/stage/component/carouselItems/0/teaserTitle", newTitle, "website")
+        if (!r)
+            return null
+
+        debugMsg("Title of carousel changed.")
+
+        def found = false
+        def index = 1
+        def id = null
+        def tryString = ""
+        while (!found && index < ATTEMPTS) {
+            if (index > 1)
+                tryString = " Try #" + index
+
+            debugMsg("Searching inbox.html for id of the page." + tryString)
+            id = getInboxId(page)
+
+            if (id != null) {
+                found = true;
+            }
+            sleep(WAIT_TIME);
+            index += 1
+        }
+
+        r = inboxProceed(id)
+        if (!r)
+            return null
+        debugMsg("Proceed from inbox.")
+
+        try {
+            checkPublicsContain(page, newTitle)
+        } catch (RuntimeException e) {
+            // the new title didn't appear on public in even after ATTEMPTS tries.
+            debugMsg("Success.")
+            return 1
+        }
+
+        return null
+    }
 
     def debugMsg(message) {
         if (DEBUG_MODE)
