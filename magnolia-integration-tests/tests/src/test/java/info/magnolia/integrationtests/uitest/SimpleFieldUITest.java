@@ -39,6 +39,7 @@ import info.magnolia.cms.util.ClasspathResourcesUtil;
 
 import java.awt.AWTException;
 import java.net.URL;
+import java.text.NumberFormat;
 
 import org.junit.Test;
 import org.openqa.selenium.By;
@@ -46,27 +47,35 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 
 /**
- * UI tests for Fields .
+ * UI tests for Fields.
  */
 public class SimpleFieldUITest extends AbstractMagnoliaUITest {
+
+    private static final String VALUE_DOUBLE = NumberFormat.getInstance().format(10.22);
 
     @Test
     public void setTextFieldValue() {
         // GIVEN
         goToDialogShowRoomAndOpenDialogComponent("ftl");
+
         // WHEN
         // Set input values
         setFormTextFieldText("Text 1", "test");
         setFormTextFieldText("Number long", "10");
-        setFormTextFieldText("Number double", "10.22");
+        setFormTextFieldText("Number double", VALUE_DOUBLE);
         // Save Dialog
         getDialogCommitButton().click();
+
+        // make sure dialog is closed
+        delay("Dialog may take some time to close");
+        assertFalse(isExisting(getElementByXpath("//div[contains(concat(' ',normalize-space(@class),' '),' overlay ')]")));
+
         openDialogComponent();
 
         // THEN
         assertEquals("test", getFormTextField("Text 1").getAttribute("value"));
         assertEquals("10", getFormTextField("Number long").getAttribute("value"));
-        assertEquals("10.22", getFormTextField("Number double").getAttribute("value"));
+        assertEquals(VALUE_DOUBLE, getFormTextField("Number double").getAttribute("value"));
     }
 
     @Test
@@ -76,13 +85,18 @@ public class SimpleFieldUITest extends AbstractMagnoliaUITest {
 
         // WHEN
         setFormTextFieldText("Number long", "true");
-        setFormTextFieldText("Number double", "10.22");
+
+        // make sure field is blurred and changed to avoid duplicate error message (test-only)
+        getFormTextField("Number double").click();
+        delay(1, "make sure there is enough time to process change event");
+
         getDialogCommitButton().click();
 
         // THEN
         assertEquals("Please correct the 1 errors in this form [Jump to next error]", getFormErrorHeader().getText());
         getFormErrorJumpToNextError().click();
-        assertEquals("Could not convert value to Number", getFormFieldError().getText());
+        String text = getFormFieldError().getText();
+        assertEquals("Could not convert value to Number", text);
     }
 
     @Test
@@ -147,7 +161,7 @@ public class SimpleFieldUITest extends AbstractMagnoliaUITest {
 
     /**
      * Open the Dialog Show Room of the sample demo site.
-     * 
+     *
      * @param templateImpl ftl or jsp. refer to the samples type.
      */
     private void goToDialogShowRoomAndOpenDialogComponent(String templateImpl) {
