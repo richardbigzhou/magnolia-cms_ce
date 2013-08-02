@@ -484,7 +484,8 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
      * Set the provided text to the formTextField with the provided caption.
      */
     protected void setFormTextFieldText(final String caption, final String text) {
-        getFormTextField(caption).clear();
-        getFormTextField(caption).sendKeys(text);
+        WebElement input = getFormTextField(caption);
+        input.clear();
+        input.sendKeys(text);
     }
 }
