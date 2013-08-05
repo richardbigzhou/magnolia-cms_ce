@@ -24,6 +24,34 @@
 
   <dependencyManagement>
     <dependencies>
+      <!-- Dependencies to reactor module (self) -->
+      <dependency>
+        <groupId>info.magnolia</groupId>
+        <artifactId>magnolia-integration-tests-framework</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>info.magnolia</groupId>
+        <artifactId>magnolia-integration-tests-fixture-module</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>info.magnolia</groupId>
+        <artifactId>magnolia-module-servlet-sanity</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>info.magnolia</groupId>
+        <artifactId>magnolia-test-webapp</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>info.magnolia</groupId>
+        <artifactId>tests</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <!-- Other dependencies -->
       <dependency>
         <groupId>net.sourceforge.htmlunit</groupId>
         <artifactId>htmlunit</artifactId>
