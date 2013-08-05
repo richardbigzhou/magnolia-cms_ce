@@ -43,6 +43,7 @@
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-test-webapp</artifactId>
+        <type>war</type>
         <version>${project.version}</version>
       </dependency>
       <dependency>
