@@ -18,13 +18,11 @@ See README.txt for details.
     <dependency>
       <groupId>info.magnolia</groupId>
       <artifactId>magnolia-core</artifactId>
-      <version>${magnoliaVersion}</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>info.magnolia</groupId>
       <artifactId>magnolia-templating</artifactId>
-      <version>${magnoliaVersion}</version>
       <scope>provided</scope>
     </dependency>
     <dependency>

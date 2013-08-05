@@ -41,22 +41,18 @@
     <dependency>
       <groupId>info.magnolia</groupId>
       <artifactId>magnolia-rendering</artifactId>
-      <version>${magnoliaVersion}</version>
     </dependency>
     <dependency>
       <groupId>info.magnolia</groupId>
       <artifactId>magnolia-templating</artifactId>
-      <version>${magnoliaVersion}</version>
     </dependency>
     <dependency>
       <groupId>info.magnolia</groupId>
       <artifactId>magnolia-templating-jsp</artifactId>
-      <version>${magnoliaVersion}</version>
     </dependency>
     <dependency>
       <groupId>info.magnolia</groupId>
       <artifactId>magnolia-core</artifactId>
-      <version>${magnoliaVersion}</version>
     </dependency>
     <dependency>
       <groupId>info.magnolia.cache</groupId>
@@ -70,84 +66,23 @@
       <groupId>info.magnolia</groupId>
       <artifactId>magnolia-module-mail</artifactId>
     </dependency>
-
-    <!-- Temporarily add commons-chain as it's required by old adminInterface definitions -->
     <dependency>
-      <groupId>commons-chain</groupId>
-      <artifactId>commons-chain</artifactId>
-      <version>1.2</version>
-      <exclusions>
-        <exclusion>
-          <groupId>commons-logging</groupId>
-          <artifactId>commons-logging</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-
-    <!-- JCR-3158, MAGNOLIA-3892 -->
-    <dependency>
-      <groupId>commons-dbcp</groupId>
-      <artifactId>commons-dbcp</artifactId>
-      <version>1.4</version>
-    </dependency>
-    <!-- https://issues.apache.org/jira/browse/JCR-2885 -->
-    <dependency>
+      <!-- JackRabbit doesn't bring tika-parsers transitively by default, but we want it -->
       <groupId>org.apache.tika</groupId>
       <artifactId>tika-parsers</artifactId>
-      <version>0.9</version>
-      <exclusions>
-        <exclusion>
-          <groupId>log4j</groupId>
-          <artifactId>log4j</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>commons-logging</groupId>
-          <artifactId>commons-logging</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>org.bouncycastle</groupId>
-          <artifactId>bcprov-jdk15</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>org.bouncycastle</groupId>
-          <artifactId>bcmail-jdk15</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>rome</groupId>
-          <artifactId>rome</artifactId>
-        </exclusion>
-      </exclusions>
     </dependency>
-    <!-- to compensate for removed java 1.5 dep from tika and to keep all BC
-      deps at same version -->
+    <!-- We excluded bouncycastle deps from Tika because they include jdk15 version - we want the jdk16 versions -->
+    <dependency>
+      <groupId>org.bouncycastle</groupId>
+      <artifactId>bcprov-jdk16</artifactId>
+    </dependency>
     <dependency>
       <groupId>org.bouncycastle</groupId>
       <artifactId>bcmail-jdk16</artifactId>
-      <version>1.46</version>
     </dependency>
     <dependency>
       <groupId>net.sourceforge.openutils</groupId>
       <artifactId>openutils-log4j</artifactId>
-      <version>2.0.5</version>
-    </dependency>
-    <!-- tika brings in rome-0.9 that doesn't work with rome-fetcher-1.0 required
-      for rss-aggregator-moudle. Hence we enforce rome-1.0 already here. -->
-    <dependency>
-      <groupId>rome</groupId>
-      <artifactId>rome</artifactId>
-      <version>1.0</version>
-      <exclusions>
-        <exclusion>
-          <groupId>jdom</groupId>
-          <artifactId>jdom</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.11</version>
-      <scope>test</scope>
     </dependency>
   </dependencies>
   <build>
