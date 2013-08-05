@@ -59,7 +59,7 @@ public abstract class AbstractMagnoliaIntegrationTest {
     /**
      * Default domain, should never be used.
      */
-    public static final String DEFAULT_DOMAIN = "http://localhost:8088/";
+    public static final String DEFAULT_DOMAIN = "http://localhost:8099/";
 
     /**
      * A simple way of referring to one of the two test instances deployed during ITs.
