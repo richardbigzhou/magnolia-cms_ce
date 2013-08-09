@@ -25,7 +25,5 @@ tmp
 !/magnolia-tomcat-bundle/src/release/tomcat/webapps/ROOT/
 !/magnolia-tomcat-bundle/src/release/tomcat/webapps/magnoliaPublic/
 
-
-# These webapps should not have sources, so let's avoid committing them accidentally after a war:inplace
-/magnolia-empty-webapp/src
+# This webapp should not have sources, so let's avoid committing them accidentally after a war:inplace
 /magnolia-bundled-webapp/src
