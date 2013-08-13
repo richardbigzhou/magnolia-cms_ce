@@ -33,6 +33,8 @@
  */
 package info.magnolia.integrationtests.uitest;
 
+import static org.junit.Assert.fail;
+
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.awt.image.RasterFormatException;
@@ -49,6 +51,7 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 import org.junit.AfterClass;
 import org.junit.Test;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.slf4j.Logger;
@@ -63,6 +66,7 @@ import com.thoughtworks.selenium.SeleniumException;
  */
 public class ComparingScreenshotsUITest extends AbstractMagnoliaUITest {
 
+    private final String[] supportedUserAgents = new String[] { "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:11.0) Gecko/20100101 Firefox/11.0" };
     private final int tolerance = 5; // % of wrong pixels tolerance
 
     private static final boolean deleteScreenshotsAfterTests = true; // set to false to check the screenshots visually in 'currentScreenshots' directory
@@ -82,6 +86,10 @@ public class ComparingScreenshotsUITest extends AbstractMagnoliaUITest {
 
     @Test
     public void testComparePagesOnAuthor() throws Exception {
+        if (!this.isUserAgentSupported()) {
+            return;
+        }
+
         // GIVEN
         different = new HashMap<String, Float>();
         instance = Instance.AUTHOR;
@@ -94,12 +102,16 @@ public class ComparingScreenshotsUITest extends AbstractMagnoliaUITest {
         // THEN
         log.info("{} average error: {}%\n", instance, averageError / website.size());
         if (different.size() != 0) {
-            // fail(different.size() + " screenshots from " + instance + " differ from original:" + this.different + ". Average pixel error is: " + averageError / website.size() + "%.");
+            fail(different.size() + " screenshots from " + instance + " differ from original:" + this.different + ". Average pixel error is: " + averageError / website.size() + "%.");
         }
     }
 
     @Test
     public void testComparePagesOnPublic() throws Exception {
+        if (!this.isUserAgentSupported()) {
+            return;
+        }
+
         // GIVEN
         different = new HashMap<String, Float>();
         instance = Instance.PUBLIC;
@@ -112,7 +124,7 @@ public class ComparingScreenshotsUITest extends AbstractMagnoliaUITest {
         // THEN
         log.info("{} average error: {}%\n", instance, averageError / website.size());
         if (different.size() != 0) {
-            // fail(different.size() + " screenshots from " + instance + " differ from original:" + this.different + ". Average pixel error is: " + averageError / website.size() + "%.");
+            fail(different.size() + " screenshots from " + instance + " differ from original:" + this.different + ". Average pixel error is: " + averageError / website.size() + "%.");
         }
     }
 
@@ -159,7 +171,7 @@ public class ComparingScreenshotsUITest extends AbstractMagnoliaUITest {
 
     private void compareScreenshots(String pageName) {
         pageName = StringUtils.substringBefore(pageName, "?");
-        final String originalFilePath = "src/test/resources/screenshots/" + pageName + ".png";
+        final String originalFilePath = "src/test/resources/screenshots/" + StringUtils.substringAfter(pageName, "/") + ".png";
         final String currentFilePath = "currentScreenshots/" + pageName + ".png";
 
         File original = new File(originalFilePath);
@@ -278,5 +290,17 @@ public class ComparingScreenshotsUITest extends AbstractMagnoliaUITest {
         for (final String directory : directories) {
             FileUtils.copyDirectory(new File("currentScreenshots/" + directory), new File("src/test/resources/screenshots/" + directory), filter, false);
         }
+    }
+
+    private boolean isUserAgentSupported() {
+        String userAgent = (String) ((JavascriptExecutor) driver).executeScript("return navigator.userAgent;");
+
+        for (String browserVersion : this.supportedUserAgents) {
+            if (userAgent.contains(browserVersion)) {
+                return true;
+            }
+        }
+        log.warn("Skipping test: yout user agent is {}, but this test currently runs only on {}\n", userAgent, supportedUserAgents);
+        return false;
     }
 }
