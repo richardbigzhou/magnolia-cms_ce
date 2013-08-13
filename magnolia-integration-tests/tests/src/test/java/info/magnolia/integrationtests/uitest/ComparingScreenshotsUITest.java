@@ -171,7 +171,7 @@ public class ComparingScreenshotsUITest extends AbstractMagnoliaUITest {
 
     private void compareScreenshots(String pageName) {
         pageName = StringUtils.substringBefore(pageName, "?");
-        final String originalFilePath = "src/test/resources/screenshots/" + StringUtils.substringAfter(pageName, "/") + ".png";
+        final String originalFilePath = "src/test/resources/screenshots/" + pageName + ".png";
         final String currentFilePath = "currentScreenshots/" + pageName + ".png";
 
         File original = new File(originalFilePath);
@@ -266,7 +266,7 @@ public class ComparingScreenshotsUITest extends AbstractMagnoliaUITest {
     @AfterClass
     public static void afterClassTearDown() throws Exception {
         /**
-         * uncomment this to take new screenshots of pages if the layout was intentionally changed
+         * uncomment this to take new screenshots of pages as original samples for test
          */
         // ComparingScreenshotsUITest.takeCurrentScreenshotAsOriginalSamples();
     }
