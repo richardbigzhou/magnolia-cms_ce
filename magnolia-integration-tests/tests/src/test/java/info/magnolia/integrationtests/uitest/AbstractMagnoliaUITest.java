@@ -329,11 +329,11 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
     }
 
     protected WebElement getFormTextField(String caption) {
-        return getElementByXpath("//*[@class = 'v-form-field-label' and text() = '%s']/following-sibling::input[@type = 'text']", caption);
+        return getElementByXpath("//*[@class = 'v-form-field-label' and text() = '%s']/following-sibling::div/input[@type = 'text']", caption);
     }
 
     protected WebElement getFormTextAreaField(String caption) {
-        return getElementByXpath("//*[@class = 'v-form-field-label' and text() = '%s']/following-sibling::input[@rows = ]", caption);
+        return getElementByXpath("//*[@class = 'v-form-field-label' and text() = '%s']/following-sibling::div/input[@rows = ]", caption);
     }
 
     protected WebElement getFormRichTextField() {
