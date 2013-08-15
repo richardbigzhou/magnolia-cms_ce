@@ -20,11 +20,11 @@
 
   <properties>
     <magnoliaEdition>Community Edition</magnoliaEdition>
-    <magnoliaVersion>5.0.2-SNAPSHOT</magnoliaVersion>
-    <magnoliaUiVersion>5.0.2-SNAPSHOT</magnoliaUiVersion>
+    <magnoliaVersion>5.0.2</magnoliaVersion>
+    <magnoliaUiVersion>5.0.2</magnoliaUiVersion>
     <javaVersion>1.6</javaVersion>
     <documentationURL>http://documentation.magnolia-cms.com/releases/${project.version}.html</documentationURL>
-    <stkVersion>2.5.2-SNAPSHOT</stkVersion>
+    <stkVersion>2.5.2</stkVersion>
     <scmTagPrefix>magnolia-bundle</scmTagPrefix>
     <!-- Disable clover during releases: -->
     <additionalReleaseProfiles />
@@ -66,12 +66,12 @@
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-legacy-admininterface</artifactId>
-        <version>5.0.2-SNAPSHOT</version>
+        <version>5.0.1</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia.dam</groupId>
         <artifactId>magnolia-dam</artifactId>
-        <version>1.0.2-SNAPSHOT</version>
+        <version>1.0.2</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
@@ -241,7 +241,7 @@
       <dependency>
         <groupId>info.magnolia.contacts</groupId>
         <artifactId>magnolia-contacts</artifactId>
-        <version>1.0.2-SNAPSHOT</version>
+        <version>1.0.2</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
