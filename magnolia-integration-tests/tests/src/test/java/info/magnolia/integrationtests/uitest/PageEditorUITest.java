@@ -82,6 +82,7 @@ public class PageEditorUITest extends AbstractMagnoliaUITest {
     }
 
     @Test
+    @Ignore("Reactivate when MGNLUI-1924 fix is available in master")
     public void editingTextImageParagraphBringsUpRichTextEditor() {
         // GIVEN
 
