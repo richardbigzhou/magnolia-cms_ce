@@ -50,6 +50,7 @@ import javax.imageio.ImageIO;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 import org.junit.AfterClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.OutputType;
@@ -64,6 +65,7 @@ import com.thoughtworks.selenium.SeleniumException;
  * If the layout will change intentionally, download screenshots from {@link http://hudson.magnolia-cms.com/job/X/ws/magnolia-ee-integration-tests/tests/currentScreenshots},
  * check them visually and copy them to src/test/resources/screenshots/
  */
+@Ignore
 public class ComparingScreenshotsUITest extends AbstractMagnoliaUITest {
 
     private final String[] supportedUserAgents = new String[] { "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:11.0) Gecko/20100101 Firefox/11.0" };
