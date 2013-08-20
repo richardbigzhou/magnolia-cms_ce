@@ -33,9 +33,9 @@
  */
 package info.magnolia.integrationtests.rendering;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.*;
 import static org.junit.matchers.JUnitMatchers.containsString;
+
 import info.magnolia.cms.util.ClasspathResourcesUtil;
 import info.magnolia.testframework.htmlunit.AbstractMagnoliaHtmlUnitTest;
 
@@ -47,7 +47,6 @@ import org.apache.commons.io.IOUtils;
 import org.junit.Test;
 
 import com.gargoylesoftware.htmlunit.Page;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 /**
  * Tests.
@@ -66,7 +65,7 @@ public class SimpleRenderingTest extends AbstractMagnoliaHtmlUnitTest {
 
     @Test
     public void ensureTheSimplePlainTextTestPageIsReachable() throws IOException {
-        final HtmlPage page = openHtmlPage(Instance.AUTHOR, "/testpages/plain.txt", User.superuser);
+        final Page page = openPage(Instance.AUTHOR, "/testpages/plain.txt", User.superuser);
         final String allContents = page.getWebResponse().getContentAsString();
         // see MAGNOLIA-2393
         assertThat(allContents, containsString("This is just one plain text page."));
