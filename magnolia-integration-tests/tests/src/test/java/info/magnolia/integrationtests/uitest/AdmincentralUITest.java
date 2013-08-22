@@ -119,4 +119,30 @@ public class AdmincentralUITest extends AbstractMagnoliaUITest {
         WebElement message = getElementByPath(By.xpath(String.format("//*[text() = '%s']", messageContent)));
         assertTrue(message.isDisplayed());
     }
+
+    @Test
+    public void ensureClickingOnMoreInErrorNotificationOpensMessageDetail() {
+        // GIVEN
+        String messageContent = String.format("iam an error %d", new Date().getTime());
+        String messageTitle = "iam an error";
+        getAppIcon("Dev").click();
+        getAppIcon("Messages").click();
+        assertAppOpen("Messages");
+
+        // WHEN
+        driver.findElements(By.xpath("//input[@type = 'text']")).get(0).sendKeys(messageTitle);
+        getElementByPath(By.xpath("//textarea")).sendKeys(messageContent);
+        getElementByPath(By.xpath("//label[text() = 'Error']")).click();
+        getDialogButton("btn-dialog-commit").click();
+        // Click on the MORE link
+        getElementByPath(By.className("link")).click();
+
+        // THEN
+        delay(2, "make sure pulse switch to message detail view");
+        WebElement title = getElementByPath(By.cssSelector(".v-pulse .message-title"));
+        assertEquals(messageTitle, title.getText());
+        WebElement actionbar = getElementByPath(By.cssSelector(".v-actionbar"));
+        assertTrue(actionbar.isDisplayed());
+
+    }
 }
