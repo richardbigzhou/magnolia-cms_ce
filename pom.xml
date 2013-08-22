@@ -24,7 +24,7 @@
     <magnoliaUiVersion>5.1-SNAPSHOT</magnoliaUiVersion>
     <javaVersion>1.6</javaVersion>
     <documentationURL>http://documentation.magnolia-cms.com/releases/${project.version}.html</documentationURL>
-    <stkVersion>2.5.2</stkVersion>
+    <stkVersion>2.5.3</stkVersion>
     <scmTagPrefix>magnolia-bundle</scmTagPrefix>
     <!-- Disable clover during releases: -->
     <additionalReleaseProfiles />
@@ -66,7 +66,7 @@
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-legacy-admininterface</artifactId>
-        <version>5.0.2-SNAPSHOT</version>
+        <version>5.0.2</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia.dam</groupId>
@@ -91,7 +91,7 @@
       <dependency>
         <groupId>info.magnolia.cache</groupId>
         <artifactId>magnolia-module-cache</artifactId>
-        <version>5.0.1</version>
+        <version>5.0.2</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
