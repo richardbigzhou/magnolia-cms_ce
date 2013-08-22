@@ -112,10 +112,11 @@ public class AdmincentralUITest extends AbstractMagnoliaUITest {
         getDialogButton("btn-dialog-commit").click();
         closeInfoNotification();
         closeApp();
+        getShellAppIcon("icon-pulse").click();
 
         // THEN
-        getShellAppIcon("icon-pulse").click();
-        assertTrue(getElementByPath(By.xpath(String.format("//*[text() = '%s']", messageContent))).isDisplayed());
-        getShellAppIcon("icon-appslauncher").click();
+        delay(1, "make sure pulse table is updated");
+        WebElement message = getElementByPath(By.xpath(String.format("//*[text() = '%s']", messageContent)));
+        assertTrue(message.isDisplayed());
     }
 }
