@@ -8,14 +8,14 @@
   </parent>
   <artifactId>magnolia-bundle-parent</artifactId>
   <packaging>pom</packaging>
-  <version>5.1-alpha1</version>
+  <version>5.1-SNAPSHOT</version>
   <name>magnolia-bundle-parent</name>
   <inceptionYear>2003</inceptionYear>
   <scm>
     <connection>scm:git:http://git.magnolia-cms.com/ce-bundle</connection>
     <developerConnection>scm:git:https://git.magnolia-cms.com/ce-bundle</developerConnection>
     <url>http://git.magnolia-cms.com/gitweb/?p=ce-bundle</url>
-    <tag>magnolia-bundle-5.1-alpha1</tag>
+    <tag>HEAD</tag>
   </scm>
 
   <properties>
@@ -96,7 +96,7 @@
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-mail</artifactId>
-        <version>5.0.1</version>
+        <version>5.0.2</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
