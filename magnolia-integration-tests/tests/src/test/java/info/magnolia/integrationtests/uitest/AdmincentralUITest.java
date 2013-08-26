@@ -138,7 +138,7 @@ public class AdmincentralUITest extends AbstractMagnoliaUITest {
         getElementByPath(By.className("link")).click();
 
         // THEN
-        delay(3, "make sure pulse switch to message detail view");
+        delay(2, "make sure pulse switch to message detail view");
         WebElement title = getElementByPath(By.cssSelector(".v-pulse .message-title"));
         assertEquals(messageTitle, title.getText());
         WebElement actionbar = getElementByPath(By.cssSelector(".v-actionbar"));
