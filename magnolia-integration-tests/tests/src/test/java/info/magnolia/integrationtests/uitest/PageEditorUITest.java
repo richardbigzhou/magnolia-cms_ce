@@ -33,8 +33,7 @@
  */
 package info.magnolia.integrationtests.uitest;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import org.junit.Ignore;
 import org.junit.Test;
@@ -127,11 +126,28 @@ public class PageEditorUITest extends AbstractMagnoliaUITest {
         assertTrue("'Move Component' action should be disabled on inherited elements", isExisting(getDisabledActionBarItem("Move component")));
     }
 
+    @Test
+    public void followingLinksKeepsTheCurrentMode() {
+        // GIVEN
 
+        // WHEN
+        getAppIcon("Pages").click();
+        getTreeTableItem("demo-project").click();
+        getActionBarItem("Edit page").click();
+        delay(3, "Give some time to load the page");
+        assertTrue("We should be in edit mode.", driver.getCurrentUrl().contains("demo-project:edit"));
+
+        switchToPageEditorContent();
+
+        getElementByPath(By.linkText("About")).click();
+
+        // THEN
+        assertTrue("Edit bars should be around.", isExisting(getElementByPath(By.cssSelector("div.mgnlEditorBar"))));
+        assertTrue("We should still be in edit mode.", driver.getCurrentUrl().contains("about:edit"));
+    }
 
     /**
      * Test if page browser loads properly if non-existing path is given.
-     *
      * See {@link: http://jira.magnolia-cms.com/browse/MGNLUI-1475}.
      */
     @Ignore("Reactivate when MGNLUI-1475 fix is available in master")
