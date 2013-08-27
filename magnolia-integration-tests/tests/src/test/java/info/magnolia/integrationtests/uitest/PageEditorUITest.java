@@ -142,6 +142,7 @@ public class PageEditorUITest extends AbstractMagnoliaUITest {
 
         // THEN
         assertTrue("Edit bars should be around.", isExisting(getElementByPath(By.cssSelector("div.mgnlEditorBar"))));
+        switchToDefaultContent();
         assertTrue("We should still be in edit mode.", driver.getCurrentUrl().contains("about:edit"));
     }
 
