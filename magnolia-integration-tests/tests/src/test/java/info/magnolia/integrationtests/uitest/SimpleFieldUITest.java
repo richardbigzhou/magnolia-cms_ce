@@ -57,6 +57,7 @@ public class SimpleFieldUITest extends AbstractMagnoliaUITest {
     public void setTextFieldValue() {
         // GIVEN
         goToDialogShowRoomAndOpenDialogComponent("ftl");
+        getDialogTab("Edit controls").click();
 
         // WHEN
         // Set input values
@@ -71,6 +72,7 @@ public class SimpleFieldUITest extends AbstractMagnoliaUITest {
         assertFalse(isExisting(getElementByXpath("//div[contains(concat(' ',normalize-space(@class),' '),' overlay ')]")));
 
         openDialogComponent();
+        getDialogTab("Edit controls").click();
 
         // THEN
         assertEquals("test", getFormTextField("Text 1").getAttribute("value"));
@@ -82,7 +84,7 @@ public class SimpleFieldUITest extends AbstractMagnoliaUITest {
     public void checkSetTextFieldValueValidationError() {
         // GIVEN
         goToDialogShowRoomAndOpenDialogComponent("ftl");
-
+        getDialogTab("Edit controls").click();
         // WHEN
         setFormTextFieldText("Number long", "true");
 
