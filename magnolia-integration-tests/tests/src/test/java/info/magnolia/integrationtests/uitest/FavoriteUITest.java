@@ -58,14 +58,15 @@ public class FavoriteUITest extends AbstractMagnoliaUITest {
     public void addAndRemoveFavorite() {
         // GIVEN
         getAppIcon("Pages").click();
-        delay("Make sure Pages app is open before we navigate to favorites");
+        delay(3, "Make sure Pages app is open before we navigate to favorites");
 
         getShellAppIcon("icon-favorites").click();
-        delay("Give some time to fill in values from previous location.");
+        delay(3, "Give some time to fill in values from previous location.");
 
         // WHEN
         getButton("dialog-header", "Add new").click();
         getButton("btn-dialog-commit", "Add").click();
+        delay(3, "Give some time to ensure favorite is created");
 
         // THEN
         assertEquals("Pages /", getElementByXpath("//input[contains(@class, 'v-textfield-readonly')]").getAttribute("value"));
@@ -73,10 +74,10 @@ public class FavoriteUITest extends AbstractMagnoliaUITest {
         // WHEN
         getElementByPath(By.xpath("//*[contains(@class, 'v-label-icon')]/*[@class = 'icon-webpages-app']")).click();
         getElementByPath(By.xpath("//*[@class = 'icon-trash']")).click();
-        delay("Wait for Confirmation Dialog.");
+        delay(3, "Wait for Confirmation Dialog.");
 
         getDialogConfirmButton().click();
-        delay("Remove is not always super fast...");
+        delay(3, "Remove is not always super fast...");
 
         // THEN
         assertFalse("Entry 'Pages /' should have been removed", isExisting(getElementByXpath("//input[contains(@class, 'v-textfield-readonly')]")));
@@ -86,10 +87,10 @@ public class FavoriteUITest extends AbstractMagnoliaUITest {
     public void ensureOnlyOneFavoriteIsSelected() {
         // GIVEN
         getAppIcon("Pages").click();
-        delay("Make sure Pages app is open before we navigate to favorites");
+        delay(3, "Make sure Pages app is open before we navigate to favorites");
 
         getShellAppIcon("icon-favorites").click();
-        delay("Give some time to fill in values from previous location.");
+        delay(3, "Give some time to fill in values from previous location.");
 
         getButton("dialog-header", "Add new").click();
         getButton("btn-dialog-commit", "Add").click();
@@ -101,11 +102,11 @@ public class FavoriteUITest extends AbstractMagnoliaUITest {
         delay("Make sure Contacts app is open before we navigate to favorites");
 
         getShellAppIcon("icon-favorites").click();
-        delay("Give some time to fill in values from previous location.");
+        delay(3, "Give some time to fill in values from previous location.");
 
         getButton("dialog-header", "Add new").click();
         getButton("btn-dialog-commit", "Add").click();
-        delay("Give some time to complete favorite adding.");
+        delay(3, "Give some time to complete favorite adding.");
 
         // WHEN
         List<WebElement> favs = getElementsByPath(By.cssSelector(".favorites-entry .icon"));
@@ -133,9 +134,9 @@ public class FavoriteUITest extends AbstractMagnoliaUITest {
 
         favs.get(0).click();
         getElementByPath(By.cssSelector(".icon-trash")).click();
-        delay("Wait for Confirmation Dialog.");
+        delay(3, "Wait for Confirmation Dialog.");
         getDialogConfirmButton().click();
-        delay("Remove is not always super fast...");
+        delay(3, "Remove is not always super fast...");
         // we use recursion here instead of a iterating over the favs list because otherwise on second iteration, after removing the first element, we get a stale element exception.
         clearAllFavorites();
     }
