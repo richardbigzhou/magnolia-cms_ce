@@ -45,5 +45,12 @@
         <mapping>/.magnolia/sysprop/*</mapping>
       </mappings>
     </servlet>
+    <servlet>
+      <name>JcrPropertyServlet</name>
+      <class>info.magnolia.test.JcrPropertyServlet</class>
+      <mappings>
+        <mapping>/.magnolia/jcrprop/*</mapping>
+      </mappings>
+    </servlet>
   </servlets>
 </module>
