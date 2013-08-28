@@ -130,8 +130,8 @@ public class FavoriteUITest extends AbstractMagnoliaUITest {
             getShellAppIcon("icon-appslauncher").click();
             return;
         }
-        WebElement element = favs.get(0);
-        element.click();
+
+        favs.get(0).click();
         getElementByPath(By.cssSelector(".icon-trash")).click();
         delay("Wait for Confirmation Dialog.");
         getDialogConfirmButton().click();
