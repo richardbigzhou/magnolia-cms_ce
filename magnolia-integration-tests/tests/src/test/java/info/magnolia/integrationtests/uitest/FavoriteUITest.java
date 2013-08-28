@@ -35,14 +35,24 @@ package info.magnolia.integrationtests.uitest;
 
 import static org.junit.Assert.*;
 
+import java.util.List;
+
+import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
 /**
  * UI tests for Favorites.
  * Should be rewritten/expanded as soon as MGNLUI-1189 is fixed - right now it can easily fail e.g. if for any reason there's a several favorites and hence several remove buttons.
  */
 public class FavoriteUITest extends AbstractMagnoliaUITest {
+    @Before
+    @Override
+    public void setUp() {
+        super.setUp();
+        clearAllFavorites();
+    }
 
     @Test
     public void addAndRemoveFavorite() {
@@ -70,5 +80,63 @@ public class FavoriteUITest extends AbstractMagnoliaUITest {
 
         // THEN
         assertFalse("Entry 'Pages /' should have been removed", isExisting(getElementByXpath("//input[contains(@class, 'v-textfield-readonly')]")));
+    }
+
+    @Test
+    public void ensureOnlyOneFavoriteIsSelected() {
+        // GIVEN
+        getAppIcon("Pages").click();
+        delay("Make sure Pages app is open before we navigate to favorites");
+
+        getShellAppIcon("icon-favorites").click();
+        delay("Give some time to fill in values from previous location.");
+
+        getButton("dialog-header", "Add new").click();
+        getButton("btn-dialog-commit", "Add").click();
+
+        // back to app launcher
+        getShellAppIcon("icon-appslauncher").click();
+
+        getAppIcon("Contacts").click();
+        delay("Make sure Contacts app is open before we navigate to favorites");
+
+        getShellAppIcon("icon-favorites").click();
+        delay("Give some time to fill in values from previous location.");
+
+        getButton("dialog-header", "Add new").click();
+        getButton("btn-dialog-commit", "Add").click();
+        delay("Give some time to complete favorite adding.");
+
+        // WHEN
+        List<WebElement> favs = getElementsByPath(By.cssSelector(".favorites-entry .icon"));
+
+        // THEN
+        assertNotNull(favs);
+        assertEquals(2, favs.size());
+        for (WebElement element : favs) {
+            element.click();
+        }
+        List<WebElement> selected = getElementsByPath(By.cssSelector(".favorites-entry.selected"));
+        assertEquals(1, selected.size());
+    }
+
+    private void clearAllFavorites() {
+        if (!driver.getCurrentUrl().contains("shell:favorite")) {
+            getShellAppIcon("icon-favorites").click();
+        }
+        List<WebElement> favs = getElementsByPath(By.cssSelector(".favorites-entry .icon"));
+        if (favs == null || favs.isEmpty()) {
+            // back to app launcher
+            getShellAppIcon("icon-appslauncher").click();
+            return;
+        }
+        WebElement element = favs.get(0);
+        element.click();
+        getElementByPath(By.cssSelector(".icon-trash")).click();
+        delay("Wait for Confirmation Dialog.");
+        getDialogConfirmButton().click();
+        delay("Remove is not always super fast...");
+        // we use recursion here instead of a iterating over the favs list because otherwise on second iteration, after removing the first element, we get a stale element exception.
+        clearAllFavorites();
     }
 }

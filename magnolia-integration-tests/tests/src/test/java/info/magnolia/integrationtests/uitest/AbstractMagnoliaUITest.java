@@ -114,56 +114,67 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         public void clear() {
             fail("Cannot clean non existing WebElement");
         }
+
         @Override
         public String getTagName() {
             fail("Cannot get tagNam for non existing WebElement");
             return null;
         }
+
         @Override
         public String getAttribute(String name) {
             fail("Cannot get attribute for non existing WebElement");
             return null;
         }
+
         @Override
         public boolean isSelected() {
             fail("Cannot get selected for non existing WebElement");
             return false;
         }
+
         @Override
         public boolean isEnabled() {
             fail("Cannot get enabled for non existing WebElement");
             return false;
         }
+
         @Override
         public String getText() {
             fail("Cannot get text for non existing WebElement");
             return null;
         }
+
         @Override
         public List<WebElement> findElements(By by) {
             fail("Cannot find elements for non existing WebElement. By: " + by);
             return null;
         }
+
         @Override
         public WebElement findElement(By by) {
             fail("Cannot find element for non existing WebElement. By: " + by);
             return null;
         }
+
         @Override
         public boolean isDisplayed() {
             fail("Cannot get displayed for non existing WebElement");
             return false;
         }
+
         @Override
         public Point getLocation() {
             fail("Cannot get location for non existing WebElement");
             return null;
         }
+
         @Override
         public Dimension getSize() {
             fail("Cannot get dimension for non existing WebElement");
             return null;
         }
+
         @Override
         public String getCssValue(String propertyName) {
             fail("Cannot get cssValue for non existing WebElement. PropertyName: " + propertyName);
@@ -216,7 +227,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
     }
 
     protected void logout() {
-        driver.navigate().to(Instance.AUTHOR.getURL()+ ".magnolia/admincentral?mgnlLogout");
+        driver.navigate().to(Instance.AUTHOR.getURL() + ".magnolia/admincentral?mgnlLogout");
     }
 
     protected void login(final String userName) {
@@ -283,7 +294,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
 
     /**
      * Tries to retrieve requested element.
-     *
+     * 
      * @path path to search the element at
      * @return the searched specified element or a NonExistingWebElement in case it couldn't be found.
      */
@@ -310,7 +321,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
                             }
                         }
                     }
-            );
+                    );
         } catch (TimeoutException e) {
             log.debug("Could not retrieve element by path {}. Got: {}", path, e);
             // not found within the time limit - assume that element is not existing
@@ -321,6 +332,42 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
             element = getElementByPath(path);
         }
         return element;
+    }
+
+    /**
+     * Tries to retrieve requested elements.
+     * 
+     * @path path to search the element at
+     * @return a list matching the searched specified element or <code>null</code> in case it couldn't be found.
+     */
+    protected List<WebElement> getElementsByPath(final By path) {
+        List<WebElement> elements = null;
+        try {
+            // will loop and try to retrieve the specified element until found or it times out.
+            elements = new WebDriverWait(driver, DRIVER_WAIT_IN_SECONDS).until(
+                    new ExpectedCondition<List<WebElement>>() {
+
+                        @Override
+                        public List<WebElement> apply(WebDriver d) {
+                            try {
+                                return d.findElements(path);
+
+                            } catch (NoSuchElementException e) {
+                                takeScreenshot(path.toString() + "_notFound");
+                                return null;
+                            }
+                        }
+                    }
+                    );
+        } catch (TimeoutException e) {
+            log.debug("Could not retrieve element by path {}. Got: {}", path, e);
+            // not found within the time limit - assume that element is not existing
+        } catch (StaleElementReferenceException s) {
+            // re-trying on StaleElementReferenceExceptions: see http://docs.seleniumhq.org/exceptions/stale_element_reference.jsp
+            log.info("{} when accessing element {} - trying again", s.toString(), path);
+            elements = getElementsByPath(path);
+        }
+        return elements;
     }
 
     protected WebElement getElementByXpath(String path, Object... param) {
