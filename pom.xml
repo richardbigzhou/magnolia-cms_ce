@@ -20,8 +20,8 @@
 
   <properties>
     <magnoliaEdition>Community Edition</magnoliaEdition>
-    <magnoliaVersion>5.0.4</magnoliaVersion>
-    <magnoliaUiVersion>5.0.4</magnoliaUiVersion>
+    <magnoliaVersion>5.0.5-SNAPSHOT</magnoliaVersion>
+    <magnoliaUiVersion>5.0.5-SNAPSHOT</magnoliaUiVersion>
     <javaVersion>1.6</javaVersion>
     <documentationURL>http://documentation.magnolia-cms.com/releases/${project.version}.html</documentationURL>
     <stkVersion>2.5.4</stkVersion>
