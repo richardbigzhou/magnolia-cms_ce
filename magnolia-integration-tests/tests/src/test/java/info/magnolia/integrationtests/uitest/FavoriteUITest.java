@@ -89,6 +89,7 @@ public class FavoriteUITest extends AbstractMagnoliaUITest {
 
         // back to app launcher
         getShellAppIcon("icon-appslauncher").click();
+        delay("Give some time to transition to app launcher");
 
         getAppIcon("Contacts").click();
         delay("Make sure Contacts app is open before we navigate to favorites");
