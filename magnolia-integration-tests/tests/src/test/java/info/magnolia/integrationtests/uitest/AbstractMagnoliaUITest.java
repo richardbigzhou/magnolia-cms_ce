@@ -194,7 +194,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         // Check license, relevant for EE tests
         enterLicense();
 
-        assertThat(driver.getTitle(), equalTo("Magnolia 5.0"));
+        assertThat(driver.getTitle(), equalTo("Magnolia 5"));
 
         login(getTestUserName());
         delay(5, "Login might take some time...");
