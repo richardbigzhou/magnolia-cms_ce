@@ -33,6 +33,7 @@
       <param name="forceConsistencyCheck" value="false" />
       <param name="autoRepair" value="true" />
       <param name="queryClass" value="org.apache.jackrabbit.core.query.QueryImpl" />
+      <param name="respectDocumentOrder" value="true" />
       <param name="resultFetchSize" value="100" />
       <param name="extractorPoolSize" value="3" />
       <param name="extractorTimeout" value="100" />
