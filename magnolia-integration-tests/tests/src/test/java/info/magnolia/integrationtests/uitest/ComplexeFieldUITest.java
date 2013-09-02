@@ -37,6 +37,7 @@ import static org.junit.Assert.assertEquals;
 
 import static org.junit.Assert.assertFalse;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -147,7 +148,7 @@ public class ComplexeFieldUITest extends AbstractMagnoliaUITest {
         assertEquals("text 3", getFromMultiFieldElementValueAt(fieldName, 3).getAttribute("value"));
     }
 
-    @Test
+    @Ignore
     public void testCompositeFieldWithDefaultPropertyBuilder() {
         // GIVEN
         String fieldName = "Simple Composite";
@@ -198,7 +199,7 @@ public class ComplexeFieldUITest extends AbstractMagnoliaUITest {
         // FIXME for MGNLUI-1979: Get an easy way to set configuration values (direct settings, not using UI).
     }
 
-    @Test
+    @Ignore
     public void testCompositeFieldWithCustomPropertyBuilder() {
         // GIVEN
         String fieldName = "Simple Composite";
