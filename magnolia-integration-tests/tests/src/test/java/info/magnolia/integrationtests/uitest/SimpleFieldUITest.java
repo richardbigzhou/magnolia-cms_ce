@@ -161,27 +161,4 @@ public class SimpleFieldUITest extends AbstractMagnoliaUITest {
         assertTrue(isExisting(uploadElement.findElement(By.xpath("//div[contains(@class, ' preview-image v-label-preview-image')]"))));
     }
 
-    /**
-     * Open the Dialog Show Room of the sample demo site.
-     *
-     * @param templateImpl ftl or jsp. refer to the samples type.
-     */
-    private void goToDialogShowRoomAndOpenDialogComponent(String templateImpl) {
-        getAppIcon("Pages").click();
-        getTreeTableItemExpander(templateImpl + "-sample-site").click();
-        getTreeTableItem(templateImpl + "-dialog-showroom").click();
-        getActionBarItem("Edit page").click();
-        openDialogComponent();
-    }
-
-    /**
-     * Open the Dialog Show Room.
-     */
-    private void openDialogComponent() {
-        switchToPageEditorContent();
-        getElementByPath(By.xpath("//h3[text() = 'Fields Show-Room Component']")).click();
-        getElementByPath(By.xpath("//*[contains(@class, 'focus')]//*[contains(@class, 'icon-edit')]")).click();
-        switchToDefaultContent();
-    }
-
 }

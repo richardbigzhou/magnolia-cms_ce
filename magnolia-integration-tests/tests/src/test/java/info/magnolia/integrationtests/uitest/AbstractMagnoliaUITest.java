@@ -535,4 +535,27 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         input.clear();
         input.sendKeys(text);
     }
+
+    /**
+     * Open the Dialog Show Room of the sample demo site.
+     * 
+     * @param templateImpl ftl or jsp. refer to the samples type.
+     */
+    protected void goToDialogShowRoomAndOpenDialogComponent(String templateImpl) {
+        getAppIcon("Pages").click();
+        getTreeTableItemExpander(templateImpl + "-sample-site").click();
+        getTreeTableItem(templateImpl + "-dialog-showroom").click();
+        getActionBarItem("Edit page").click();
+        openDialogComponent();
+    }
+
+    /**
+     * Open the Dialog Show Room.
+     */
+    protected void openDialogComponent() {
+        switchToPageEditorContent();
+        getElementByPath(By.xpath("//h3[text() = 'Fields Show-Room Component']")).click();
+        getElementByPath(By.xpath("//*[contains(@class, 'focus')]//*[contains(@class, 'icon-edit')]")).click();
+        switchToDefaultContent();
+    }
 }
