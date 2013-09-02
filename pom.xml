@@ -32,6 +32,7 @@
 
   <dependencyManagement>
     <dependencies>
+
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-project</artifactId>
@@ -39,6 +40,14 @@
         <type>pom</type>
         <scope>import</scope>
       </dependency>
+      <dependency>
+        <groupId>info.magnolia.ui</groupId>
+        <artifactId>magnolia-ui-project</artifactId>
+        <version>${magnoliaUiVersion}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-empty-webapp</artifactId>
@@ -86,7 +95,7 @@
       <dependency>
         <groupId>info.magnolia.activation</groupId>
         <artifactId>magnolia-module-activation</artifactId>
-        <version>5.0.1</version>
+        <version>5.0.2-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia.cache</groupId>
@@ -143,101 +152,7 @@
         <artifactId>magnolia-module-scheduler</artifactId>
         <version>2.0</version>
       </dependency>
-      <dependency>
-        <groupId>info.magnolia.ui</groupId>
-        <artifactId>magnolia-ui-actionbar</artifactId>
-        <version>${magnoliaUiVersion}</version>
-      </dependency>
-      <dependency>
-        <groupId>info.magnolia.ui</groupId>
-        <artifactId>magnolia-ui-admincentral</artifactId>
-        <version>${magnoliaUiVersion}</version>
-      </dependency>
-      <dependency>
-        <groupId>info.magnolia.ui</groupId>
-        <artifactId>magnolia-ui-api</artifactId>
-        <version>${magnoliaUiVersion}</version>
-      </dependency>
-      <dependency>
-        <groupId>info.magnolia.messages</groupId>
-        <artifactId>magnolia-messages-app</artifactId>
-        <version>${magnoliaUiVersion}</version>
-      </dependency>
-      <dependency>
-        <groupId>info.magnolia.pages</groupId>
-        <artifactId>magnolia-pages</artifactId>
-        <version>${magnoliaUiVersion}</version>
-      </dependency>
-      <dependency>
-        <groupId>info.magnolia.sample</groupId>
-        <artifactId>magnolia-sample-app</artifactId>
-        <version>${magnoliaUiVersion}</version>
-      </dependency>
-      <dependency>
-        <groupId>info.magnolia.security</groupId>
-        <artifactId>magnolia-security-app</artifactId>
-        <version>${magnoliaUiVersion}</version>
-      </dependency>
-      <dependency>
-        <groupId>info.magnolia.ui</groupId>
-        <artifactId>magnolia-ui-contentapp</artifactId>
-        <version>${magnoliaUiVersion}</version>
-      </dependency>
-      <dependency>
-        <groupId>info.magnolia.ui</groupId>
-        <artifactId>magnolia-ui-dialog</artifactId>
-        <version>${magnoliaUiVersion}</version>
-      </dependency>
-      <dependency>
-        <groupId>info.magnolia.ui</groupId>
-        <artifactId>magnolia-ui-form</artifactId>
-        <version>${magnoliaUiVersion}</version>
-      </dependency>
-      <dependency>
-        <groupId>info.magnolia.ui</groupId>
-        <artifactId>magnolia-ui-framework</artifactId>
-        <version>${magnoliaUiVersion}</version>
-      </dependency>
-      <dependency>
-        <groupId>info.magnolia.ui</groupId>
-        <artifactId>magnolia-ui-imageprovider</artifactId>
-        <version>${magnoliaUiVersion}</version>
-      </dependency>
-      <dependency>
-        <groupId>info.magnolia.ui</groupId>
-        <artifactId>magnolia-ui-mediaeditor</artifactId>
-        <version>${magnoliaUiVersion}</version>
-      </dependency>
-      <dependency>
-        <groupId>info.magnolia.ui</groupId>
-        <artifactId>magnolia-ui-vaadin-common-widgets</artifactId>
-        <version>${magnoliaUiVersion}</version>
-      </dependency>
-      <dependency>
-        <groupId>info.magnolia.ui</groupId>
-        <artifactId>magnolia-ui-vaadin-integration</artifactId>
-        <version>${magnoliaUiVersion}</version>
-      </dependency>
-      <dependency>
-        <groupId>info.magnolia.ui</groupId>
-        <artifactId>magnolia-ui-vaadin-theme</artifactId>
-        <version>${magnoliaUiVersion}</version>
-      </dependency>
-      <dependency>
-        <groupId>info.magnolia.ui</groupId>
-        <artifactId>magnolia-ui-vaadin-widgetset</artifactId>
-        <version>${magnoliaUiVersion}</version>
-      </dependency>
-      <dependency>
-        <groupId>info.magnolia.ui</groupId>
-        <artifactId>magnolia-ui-widget-editor</artifactId>
-        <version>${magnoliaUiVersion}</version>
-      </dependency>
-      <dependency>
-        <groupId>info.magnolia.ui</groupId>
-        <artifactId>magnolia-ui-workbench</artifactId>
-        <version>${magnoliaUiVersion}</version>
-      </dependency>
+
       <dependency>
         <groupId>info.magnolia.contacts</groupId>
         <artifactId>magnolia-contacts</artifactId>
