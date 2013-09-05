@@ -33,15 +33,9 @@
  */
 package info.magnolia.testframework.htmlunit;
 
-import com.gargoylesoftware.htmlunit.BrowserVersion;
-import com.gargoylesoftware.htmlunit.Page;
-import com.gargoylesoftware.htmlunit.WebClient;
-import com.gargoylesoftware.htmlunit.WebConnection;
-import com.gargoylesoftware.htmlunit.WebResponse;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import com.gargoylesoftware.htmlunit.util.DebuggingWebConnection;
-import org.apache.commons.codec.binary.Base64;
-import org.apache.commons.io.IOUtils;
+import static org.junit.Assert.*;
+
+import info.magnolia.testframework.AbstractMagnoliaIntegrationTest;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -50,9 +44,16 @@ import java.net.URL;
 import java.util.Collections;
 import java.util.Map;
 
-import static org.junit.Assert.*;
+import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.io.IOUtils;
 
-import info.magnolia.testframework.AbstractMagnoliaIntegrationTest;
+import com.gargoylesoftware.htmlunit.BrowserVersion;
+import com.gargoylesoftware.htmlunit.Page;
+import com.gargoylesoftware.htmlunit.WebClient;
+import com.gargoylesoftware.htmlunit.WebConnection;
+import com.gargoylesoftware.htmlunit.WebResponse;
+import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import com.gargoylesoftware.htmlunit.util.DebuggingWebConnection;
 
 /**
  * A base class for Magnolia integration tests. Might be split into util class/methods;
@@ -138,7 +139,7 @@ public abstract class AbstractMagnoliaHtmlUnitTest extends AbstractMagnoliaInteg
      * This uses htmlunit, simulates a browser and does all kind of fancy stuff for you.
      */
     protected <P extends Page> P openPage(String url, User user, boolean followRedirects, boolean enableJsvascript) throws IOException {
-        final WebClient webClient = new WebClient(BrowserVersion.getDefault());
+        final WebClient webClient = new WebClient(BrowserVersion.FIREFOX_3_6);
         // this writes files to /tmp - the most interesting one probably being magnolia-test_<random>.js, which lists headers for all requests
         final WebConnection connection = new DebuggingWebConnection(webClient.getWebConnection(), "magnolia-test_");
         webClient.setWebConnection(connection);
