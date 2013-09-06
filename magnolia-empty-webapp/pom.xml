@@ -39,6 +39,10 @@
       <artifactId>magnolia-security-app</artifactId>
     </dependency>
     <dependency>
+      <groupId>info.magnolia.about</groupId>
+      <artifactId>magnolia-about-app</artifactId>
+    </dependency>
+    <dependency>
       <groupId>info.magnolia</groupId>
       <artifactId>magnolia-rendering</artifactId>
     </dependency>
