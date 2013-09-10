@@ -439,7 +439,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
     }
 
     protected WebElement getDialogConfirmButton() {
-        return getDialogButton("btn-dialog-confirm");
+        return getDialogButton("v-button-confirm");
     }
 
     protected WebElement getDialogCancelButton() {
