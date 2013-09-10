@@ -33,18 +33,8 @@
  */
 package info.magnolia.integrationtests.uitest;
 
-import static org.hamcrest.core.IsEqual.equalTo;
-import static org.junit.Assert.*;
-
 import info.magnolia.testframework.AbstractMagnoliaIntegrationTest;
 import info.magnolia.testframework.htmlunit.AbstractMagnoliaHtmlUnitTest;
-
-import java.io.File;
-import java.io.IOException;
-import java.net.URLEncoder;
-import java.util.List;
-import java.util.concurrent.TimeUnit;
-
 import org.apache.commons.io.FileUtils;
 import org.junit.After;
 import org.junit.Before;
@@ -67,6 +57,15 @@ import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.io.File;
+import java.io.IOException;
+import java.net.URLEncoder;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import static org.hamcrest.core.IsEqual.equalTo;
+import static org.junit.Assert.*;
 
 /**
  * Base class for Magnolia UI tests. Provides convenience methods for Magnolia Apps.
@@ -436,7 +435,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
     }
 
     protected WebElement getDialogCommitButton() {
-        return getDialogButton("btn-dialog-commit");
+        return getDialogButton("v-button-commit");
     }
 
     protected WebElement getDialogConfirmButton() {
@@ -444,7 +443,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
     }
 
     protected WebElement getDialogCancelButton() {
-        return getDialogButton("btn-dialog-cancel");
+        return getDialogButton("v-button-cancel");
     }
 
     protected WebElement getColumnHeader(final String columnName) {

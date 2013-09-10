@@ -58,7 +58,7 @@ public class FavoriteUITest extends AbstractMagnoliaUITest {
 
         // WHEN
         getButton("dialog-header", "Add new").click();
-        getButton("btn-dialog-commit", "Add").click();
+        getButton("v-button-commit", "Add").click();
 
         // THEN
         assertEquals("Pages /", getElementByXpath("//input[contains(@class, 'v-textfield-readonly')]").getAttribute("value"));
@@ -85,7 +85,7 @@ public class FavoriteUITest extends AbstractMagnoliaUITest {
         delay("Give some time to fill in values from previous location.");
 
         getButton("dialog-header", "Add new").click();
-        getButton("btn-dialog-commit", "Add").click();
+        getButton("v-button-commit", "Add").click();
 
         // back to app launcher
         getShellAppIcon("icon-appslauncher").click();
@@ -98,7 +98,7 @@ public class FavoriteUITest extends AbstractMagnoliaUITest {
         delay("Give some time to fill in values from previous location.");
 
         getButton("dialog-header", "Add new").click();
-        getButton("btn-dialog-commit", "Add").click();
+        getButton("v-button-commit", "Add").click();
         delay("Give some time to complete favorite creation.");
 
         // WHEN

@@ -68,7 +68,7 @@ public class ImageEditorUITest extends AbstractMagnoliaUITest {
         getDialogButton("btn-dialog-save").click();
 
         // save editing contact - editor subapp should be closing...
-        getDialogButton("btn-dialog-commit").click();
+        getDialogButton("v-button-commit").click();
 
         // THEN
         assertTrue(getDialogTab("Contacts").isDisplayed());
