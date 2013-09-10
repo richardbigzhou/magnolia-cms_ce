@@ -33,18 +33,17 @@
  */
 package info.magnolia.integrationtests.uitest;
 
-import static org.junit.Assert.*;
-
 import info.magnolia.cms.util.ClasspathResourcesUtil;
-
-import java.awt.AWTException;
-import java.net.URL;
-import java.text.NumberFormat;
-
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
+
+import java.awt.*;
+import java.net.URL;
+import java.text.NumberFormat;
+
+import static org.junit.Assert.*;
 
 /**
  * UI tests for Fields.
@@ -106,7 +105,7 @@ public class SimpleFieldUITest extends AbstractMagnoliaUITest {
         // GIVEN
         goToDialogShowRoomAndOpenDialogComponent("ftl");
         getDialogTab("Link and Date").click();
-        getDialogButton("magnoliabutton v-nativebutton-magnoliabutton").click();
+        getNativeButton("magnoliabutton v-nativebutton-magnoliabutton").click();
         getTreeTableItem("demo-project").click();
 
         // WHEN

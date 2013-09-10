@@ -42,7 +42,6 @@ import org.junit.Rule;
 import org.junit.rules.TestName;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.OutputType;
@@ -411,11 +410,15 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
     }
 
     protected WebElement getDialogButton(String classname) {
+        return getElementByXpath("//div[contains(@class, '%s')]", classname);
+    }
+
+    protected WebElement getNativeButton(String classname) {
         return getElementByXpath("//button[contains(@class, '%s')]", classname);
     }
 
     protected WebElement getDialogButtonWithCaption(final String caption) {
-        return getElementByXpath("//button[.='%s']", caption);
+        return getElementByXpath("//div[.='%s']", caption);
     }
 
     protected WebElement getButton(String classname, String caption) {
@@ -514,12 +517,12 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
     }
 
     protected WebElement getConfirmationOverlay() {
-        return getElementByXpath("//*[contains(@class, 'light-dialog-panel-confirmation')]");
+        return getElementByXpath("//*[contains(@class, 'dialog-root-confirmation')]");
     }
 
     protected WebElement getFocusedElement() {
         // As there's no native WebDriver support to get focused element, we have to use js
-        return (WebElement) ((JavascriptExecutor) driver).executeScript("return document.activeElement;");
+        return driver.switchTo().activeElement();
     }
 
     protected void simulateKeyPress(final Keys key) {

@@ -33,13 +33,13 @@
  */
 package info.magnolia.integrationtests.uitest;
 
-import static org.junit.Assert.*;
-
-import java.util.Date;
-
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+
+import java.util.Date;
+
+import static org.junit.Assert.*;
 
 /**
  * Basic UI tests for admincentral.
@@ -75,7 +75,7 @@ public class AdmincentralUITest extends AbstractMagnoliaUITest {
         driver.findElements(By.xpath("//input[@type = 'text']")).get(0).sendKeys(messageTitle);
         getElementByPath(By.xpath("//textarea")).sendKeys(messageContent);
         getElementByPath(By.xpath("//label[text() = 'Error']")).click();
-        getDialogButton("v-button-commit").click();
+        getNativeButton("commit").click();
 
         // THEN
         assertTrue(getElementByPath(By.xpath(String.format("//span[text() = '%s']", messageTitle))).isDisplayed());
@@ -109,7 +109,7 @@ public class AdmincentralUITest extends AbstractMagnoliaUITest {
         // WHEN
         driver.findElements(By.xpath("//input[@type = 'text']")).get(0).sendKeys("iam a message");
         getElementByPath(By.xpath("//textarea")).sendKeys(messageContent);
-        getDialogButton("v-button-commit").click();
+        getNativeButton("commit").click();
         closeInfoNotification();
         closeApp();
         getShellAppIcon("icon-pulse").click();
@@ -133,7 +133,7 @@ public class AdmincentralUITest extends AbstractMagnoliaUITest {
         driver.findElements(By.xpath("//input[@type = 'text']")).get(0).sendKeys(messageTitle);
         getElementByPath(By.xpath("//textarea")).sendKeys(messageContent);
         getElementByPath(By.xpath("//label[text() = 'Error']")).click();
-        getDialogButton("v-button-commit").click();
+        getNativeButton("commit").click();
         // Click on the MORE link
         getElementByPath(By.className("link")).click();
 
