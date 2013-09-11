@@ -33,9 +33,9 @@
  */
 package info.magnolia.integrationtests.uitest;
 
-import org.junit.Test;
-
 import static org.junit.Assert.*;
+
+import org.junit.Test;
 
 /**
  * UI tests for Image Editor.
@@ -55,6 +55,7 @@ public class ImageEditorUITest extends AbstractMagnoliaUITest {
 
         getActionBarItemWithContains("Rotate 90").click();
 
+        delay(6, "Give UI time to settle");
         getDialogButton("v-button-save").click();
 
         // WHEN - now try a second imaging operation
@@ -64,6 +65,7 @@ public class ImageEditorUITest extends AbstractMagnoliaUITest {
         getActionBarItemWithContains("Rotate 90").click();
 
         // save after imaging operation
+        delay(6, "Give UI time to settle");
         getDialogButton("v-button-save").click();
 
         // save editing contact - editor subapp should be closing...
