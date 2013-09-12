@@ -80,6 +80,7 @@ public class ContentAppUITest extends AbstractMagnoliaUITest {
 
         // WHEN
         simulateKeyPress(Keys.TAB);
+        delay(2, "Can take some time, until tab is responded to.");
 
         // THEN
         currentlyFocussedElement = getFocusedElement();
@@ -120,16 +121,16 @@ public class ContentAppUITest extends AbstractMagnoliaUITest {
     }
 
     @Test
-    public void navigateToTreeItemExpandsTree() {
+    public void navigateToTreeItemExpandsTreeToThatItem() {
         // GIVEN
 
         // WHEN - navigate directly to Edit Subapp
-        driver.navigate().to(Instance.AUTHOR.getURL() + ".magnolia/admincentral#app:pages:browser;/demo-project/about:treeview:");
+        driver.navigate().to(Instance.AUTHOR.getURL() + ".magnolia/admincentral#app:pages:browser;/demo-project/about/subsection-articles:treeview:");
         delay(5, "Can take some time, until subapps are open...");
 
         // THEN
-        assertTrue("The about page should be expanded after navigating to it.", getTreeTableItem("subsection-articles").isDisplayed());
-        assertFalse("The subpages fo subsection-articles should not be visible.", isExisting(getTreeTableItem("large-article")));
+        assertTrue("The subsection-articles page should be visible after navigating to it.", getTreeTableItem("subsection-articles").isDisplayed());
+        assertFalse("The subpages for subsection-articles should not be visible.", isExisting(getTreeTableItem("large-article")));
     }
 
     @Test
