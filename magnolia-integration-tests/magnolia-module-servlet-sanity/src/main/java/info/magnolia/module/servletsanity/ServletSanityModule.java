@@ -41,9 +41,11 @@ import info.magnolia.module.ModuleLifecycleContext;
  */
 public class ServletSanityModule implements ModuleLifecycle {
 
+    @Override
     public void start(ModuleLifecycleContext moduleLifecycleContext) {
     }
 
+    @Override
     public void stop(ModuleLifecycleContext moduleLifecycleContext) {
     }
 }
