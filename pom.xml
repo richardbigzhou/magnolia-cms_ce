@@ -158,6 +158,11 @@
         <artifactId>magnolia-module-rssaggregator</artifactId>
         <version>2.0.3-rc1</version>
       </dependency>
+      <dependency>
+        <groupId>info.magnolia</groupId>
+        <artifactId>magnolia-module-inplace-templating</artifactId>
+        <version>2.0.2-rc1</version>
+      </dependency>
 
       <dependency>
         <groupId>info.magnolia.contacts</groupId>
