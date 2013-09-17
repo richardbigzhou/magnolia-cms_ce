@@ -20,11 +20,11 @@
 
     <properties>
         <magnoliaEdition>Community Edition</magnoliaEdition>
-        <magnoliaVersion>5.1-SNAPSHOT</magnoliaVersion>
-        <magnoliaUiVersion>5.1-SNAPSHOT</magnoliaUiVersion>
+        <magnoliaVersion>5.1-rc1</magnoliaVersion>
+        <magnoliaUiVersion>5.1-rc1</magnoliaUiVersion>
         <javaVersion>1.6</javaVersion>
         <documentationURL>http://documentation.magnolia-cms.com/releases/${project.version}.html</documentationURL>
-        <stkVersion>2.6-SNAPSHOT</stkVersion>
+        <stkVersion>2.6-rc1</stkVersion>
         <scmTagPrefix>magnolia-bundle</scmTagPrefix>
         <!-- Disable clover during releases: -->
         <additionalReleaseProfiles />
@@ -76,27 +76,27 @@
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-legacy-admininterface</artifactId>
-        <version>5.1-SNAPSHOT</version>
+        <version>5.1-rc1</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia.dam</groupId>
         <artifactId>magnolia-dam</artifactId>
-        <version>1.1-SNAPSHOT</version>
+        <version>1.1-rc1</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-categorization</artifactId>
-        <version>2.1-SNAPSHOT</version>
+        <version>2.1-rc1</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-groovy</artifactId>
-        <version>2.1-SNAPSHOT</version>
+        <version>2.1-rc1</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia.activation</groupId>
         <artifactId>magnolia-module-activation</artifactId>
-        <version>5.0.2-SNAPSHOT</version>
+        <version>5.0.2</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia.cache</groupId>
@@ -106,7 +106,7 @@
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-mail</artifactId>
-        <version>5.1-SNAPSHOT</version>
+        <version>5.1-rc1</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
@@ -126,26 +126,26 @@
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-commenting</artifactId>
-        <version>2.0.1-SNAPSHOT</version>
+        <version>2.0.1-alpha1</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-templating-samples</artifactId>
-        <version>5.1-SNAPSHOT</version>
+        <version>5.1-rc1</version>
         <classifier>bundle</classifier>
         <type>tar.gz</type>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-data</artifactId>
-        <version>2.1-SNAPSHOT</version>
+        <version>2.1-rc1</version>
         <classifier>bundle</classifier>
         <type>tar.gz</type>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-templating-samples</artifactId>
-        <version>5.1-SNAPSHOT</version>
+        <version>5.1-rc1</version>
         <type>jar</type>
       </dependency>
       <dependency>
@@ -153,16 +153,21 @@
         <artifactId>magnolia-module-scheduler</artifactId>
         <version>2.0</version>
       </dependency>
+      <dependency>
+        <groupId>info.magnolia</groupId>
+        <artifactId>magnolia-module-rssaggregator</artifactId>
+        <version>2.0.3-rc1</version>
+      </dependency>
 
       <dependency>
         <groupId>info.magnolia.contacts</groupId>
         <artifactId>magnolia-contacts</artifactId>
-        <version>1.1-SNAPSHOT</version>
+        <version>1.1-rc1</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-4-5-migration</artifactId>
-        <version>1.2.4</version>
+        <version>1.2.5</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
