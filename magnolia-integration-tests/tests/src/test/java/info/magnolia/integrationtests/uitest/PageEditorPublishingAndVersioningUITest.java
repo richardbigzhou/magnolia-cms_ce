@@ -224,9 +224,6 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractMagnoliaUIT
         delay("Waiting before check");
         assertTrue(getTabForCaption("Standard Article [1.0]") instanceof NonExistingWebElement);
         assertFalse(getTabForCaption("Standard Article") instanceof NonExistingWebElement);
-        switchToPageEditorContent();
-        getElementByPath(By.xpath("//h2[text() = 'Subheading V2']")).click();
-        assertFalse(getElementByPath(By.xpath("//div[@class = 'mgnlEditorBar mgnlEditor area init']")) instanceof NonExistingWebElement);
     }
 
     private void fromPagesSelectArticle() {
