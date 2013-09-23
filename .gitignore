@@ -10,6 +10,7 @@ tmp
 .classpath
 .settings
 .wtpmodules
+**rebel.xml
 
 # Let's not commit the default Tomcat files - only our own.
 # Yes, those rules are ridiculously complex. If you're using a git version newer than 1.8.2, try to simplify.
