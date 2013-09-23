@@ -58,7 +58,7 @@ public class VersioningUITest extends AbstractMagnoliaUITest {
 
         getTreeTableItem(contactName).click();
         getActionBarItem("Edit contact").click();
-        getDialogTab("Contact details").click();
+        getTabForCaption("Contact details").click();
 
         setFormTextFieldText("E-Mail address", testEmailAddr);
         getDialogCommitButton().click();

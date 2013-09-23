@@ -72,8 +72,8 @@ public class ImageEditorUITest extends AbstractMagnoliaUITest {
         getDialogButton("v-button-commit").click();
 
         // THEN
-        assertTrue(getDialogTab("Contacts").isDisplayed());
+        assertTrue(getTabForCaption("Contacts").isDisplayed());
 
-        assertFalse("DialogTab /mmonroe should no longer be existing", isExisting(getDialogTab("/mmonroe")));
+        assertFalse("DialogTab /mmonroe should no longer be existing", isExisting(getTabForCaption("/mmonroe")));
     }
 }

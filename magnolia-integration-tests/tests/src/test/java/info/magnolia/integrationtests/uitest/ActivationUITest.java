@@ -37,8 +37,6 @@ package info.magnolia.integrationtests.uitest;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 
 /**
  * UI tests for activation of pages.
@@ -74,9 +72,5 @@ public class ActivationUITest extends AbstractMagnoliaUITest {
 
         // THEN
         assertTrue(getSelectedIcon("color-red").isDisplayed());
-    }
-
-    private WebElement getSelectedIcon(String iconStyle) {
-        return getElementByPath(By.xpath("//tr[contains(@class, 'v-selected')]//*[contains(@class, '" + iconStyle + "')]"));
     }
 }

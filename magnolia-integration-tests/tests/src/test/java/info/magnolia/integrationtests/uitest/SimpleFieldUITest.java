@@ -33,17 +33,18 @@
  */
 package info.magnolia.integrationtests.uitest;
 
+import static org.junit.Assert.*;
+
 import info.magnolia.cms.util.ClasspathResourcesUtil;
+
+import java.awt.AWTException;
+import java.net.URL;
+import java.text.NumberFormat;
+
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
-
-import java.awt.*;
-import java.net.URL;
-import java.text.NumberFormat;
-
-import static org.junit.Assert.*;
 
 /**
  * UI tests for Fields.
@@ -56,7 +57,7 @@ public class SimpleFieldUITest extends AbstractMagnoliaUITest {
     public void setTextFieldValue() {
         // GIVEN
         goToDialogShowRoomAndOpenDialogComponent("ftl");
-        getDialogTab("Edit controls").click();
+        getTabForCaption("Edit controls").click();
 
         // WHEN
         // Set input values
@@ -71,7 +72,7 @@ public class SimpleFieldUITest extends AbstractMagnoliaUITest {
         assertFalse(isExisting(getElementByXpath("//div[contains(concat(' ',normalize-space(@class),' '),' overlay ')]")));
 
         openDialogComponent();
-        getDialogTab("Edit controls").click();
+        getTabForCaption("Edit controls").click();
 
         // THEN
         assertEquals("test", getFormTextField("Text 1").getAttribute("value"));
@@ -83,7 +84,7 @@ public class SimpleFieldUITest extends AbstractMagnoliaUITest {
     public void checkSetTextFieldValueValidationError() {
         // GIVEN
         goToDialogShowRoomAndOpenDialogComponent("ftl");
-        getDialogTab("Edit controls").click();
+        getTabForCaption("Edit controls").click();
         // WHEN
         setFormTextFieldText("Number long", "true");
 
@@ -104,7 +105,7 @@ public class SimpleFieldUITest extends AbstractMagnoliaUITest {
     public void setLinkFieldValue() {
         // GIVEN
         goToDialogShowRoomAndOpenDialogComponent("ftl");
-        getDialogTab("Link and Date").click();
+        getTabForCaption("Link and Date").click();
         getNativeButton("magnoliabutton v-nativebutton-magnoliabutton").click();
         getTreeTableItem("demo-project").click();
 
@@ -121,7 +122,7 @@ public class SimpleFieldUITest extends AbstractMagnoliaUITest {
         goToDialogShowRoomAndOpenDialogComponent("ftl");
 
         // WHEN
-        getDialogTab("File").click();
+        getTabForCaption("File").click();
 
         // THEN
         WebElement uploadElement = getCustomField("Upload a file");
@@ -133,7 +134,7 @@ public class SimpleFieldUITest extends AbstractMagnoliaUITest {
     public void checkUploadFieldUploadFile() throws AWTException {
         // GIVEN
         goToDialogShowRoomAndOpenDialogComponent("ftl");
-        getDialogTab("File").click();
+        getTabForCaption("File").click();
         // Init file ref
         URL resource = ClasspathResourcesUtil.getResource("me.jpg");
         // Get Upload Element

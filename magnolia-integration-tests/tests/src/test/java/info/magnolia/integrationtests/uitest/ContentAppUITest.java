@@ -56,7 +56,7 @@ public class ContentAppUITest extends AbstractMagnoliaUITest {
 
         getTreeTableItem("Albert Einstein").click();
         getActionBarItem("Edit contact").click();
-        getDialogTab("Contact details").click();
+        getTabForCaption("Contact details").click();
 
         setFormTextFieldText("E-Mail address", testEmailAddr);
         getDialogCommitButton().click();
@@ -96,15 +96,15 @@ public class ContentAppUITest extends AbstractMagnoliaUITest {
         getTreeTableItem("Marilyn Monroe").click();
         getActionBarItem("Edit contact").click();
 
-        assertTrue(getDialogTab("Contacts").isDisplayed());
-        assertTrue(getDialogTab("Marilyn Monroe").isDisplayed());
+        assertTrue(getTabForCaption("Contacts").isDisplayed());
+        assertTrue(getTabForCaption("Marilyn Monroe").isDisplayed());
 
         // WHEN
         driver.navigate().refresh();
 
         // THEN
-        assertTrue(getDialogTab("Contacts").isDisplayed());
-        assertTrue(getDialogTab("Marilyn Monroe").isDisplayed());
+        assertTrue(getTabForCaption("Contacts").isDisplayed());
+        assertTrue(getTabForCaption("Marilyn Monroe").isDisplayed());
     }
 
     @Test
@@ -116,8 +116,8 @@ public class ContentAppUITest extends AbstractMagnoliaUITest {
         delay(5, "Can take some time, until subapps are open...");
 
         // THEN
-        assertTrue(getDialogTab("Contacts").isDisplayed());
-        assertTrue(getDialogTab("Marilyn Monroe").isDisplayed());
+        assertTrue(getTabForCaption("Contacts").isDisplayed());
+        assertTrue(getTabForCaption("Marilyn Monroe").isDisplayed());
     }
 
     @Test

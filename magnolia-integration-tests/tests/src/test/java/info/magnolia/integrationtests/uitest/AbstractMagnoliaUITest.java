@@ -203,6 +203,21 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         }
     }
 
+    protected void switchDriverToPublicInstance() {
+        if (driver != null) {
+            logout();
+            driver.quit();
+            driver = null;
+        }
+        driver = new FirefoxDriver();
+        driver.manage().timeouts().implicitlyWait(DRIVER_WAIT_IN_SECONDS, TimeUnit.SECONDS);
+        driver.navigate().to(Instance.PUBLIC.getURL());
+        // Check license, relevant for EE tests
+        enterLicense();
+
+        assertThat(driver.getTitle(), equalTo("Demo Project - Home"));
+    }
+
     /**
      * License check is not required for CE bundle.
      */
@@ -378,7 +393,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
     }
 
     protected WebElement getFormTextAreaField(String caption) {
-        return getElementByXpath("//*[@class = 'v-form-field-label' and text() = '%s']/following-sibling::div/input[@rows = ]", caption);
+        return getElementByXpath("//*[@class = 'v-form-field-label' and text() = '%s']/following-sibling::div/textarea", caption);
     }
 
     protected WebElement getFormRichTextField() {
@@ -404,6 +419,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
     protected WebElement getDisabledActionBarItem(String itemCaption) {
         return getElementByXpath("//*[contains(@class,'v-actionbar')]//*[@aria-hidden ='false']//*[contains(@class,'v-disabled')]//*[text()='%s']", itemCaption);
     }
+
 
     protected WebElement getActionBarItemWithContains(String itemCaption) {
         return getElementByXpath("//*[contains(@class, 'v-actionbar')]//*[@aria-hidden = 'false']//*[contains(text(), '%s')]", itemCaption);
@@ -433,7 +449,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         return getElementByXpath("//*[contains(@class, '%s')]", appIcon);
     }
 
-    protected WebElement getDialogTab(String tabCaption) {
+    protected WebElement getTabForCaption(String tabCaption) {
         return getElementByXpath("//*[contains(@class, 'v-shell-tabsheet')]//*[@class = 'tab-title' and text() = '%s']", tabCaption);
     }
 
@@ -534,11 +550,24 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
      */
     protected void setFormTextFieldText(final String caption, final String text) {
         WebElement input = getFormTextField(caption);
+        clearAndSetTextForInputElement(input, text);
+    }
+
+    protected void setFormTextAreFieldText(final String caption, final String text) {
+        WebElement input = getFormTextAreaField(caption);
+        clearAndSetTextForInputElement(input, text);
+    }
+
+    private void clearAndSetTextForInputElement(WebElement input, String text) {
         input.clear();
         input.sendKeys(text);
     }
 
-    /**
+    protected WebElement getSelectedIcon(String iconStyle) {
+        return getElementByPath(By.xpath("//tr[contains(@class, 'v-selected')]//*[contains(@class, '" + iconStyle + "')]"));
+    }
+
+        /**
      * Open the Dialog Show Room of the sample demo site.
      * 
      * @param templateImpl ftl or jsp. refer to the samples type.
@@ -560,4 +589,33 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         getElementByPath(By.xpath("//*[contains(@class, 'focus')]//*[contains(@class, 'icon-edit')]")).click();
         switchToDefaultContent();
     }
+
+    /**
+     * Return the select element.
+     */
+    protected WebElement getSelectTabElement(String caption) {
+        return getElementByXpath("//*[@class = 'v-form-field-label' and text() = '%s']/following-sibling::div/div/input[contains(@class, 'v-filterselect-input')]", caption);
+    }
+
+    /**
+     * @return the size of the SelectTabElement List.
+     */
+    protected int getSelectTabElementSize() {
+        WebElement table = getSelectedTableElement();
+        return table.findElements(By.xpath("tbody/tr")).size();
+    }
+
+    /**
+     * Select element of a select list based on a position. <br>
+     * position 0 is the first element of the list.
+     */
+    protected void selectElementOfTabListAtPosition(int position) {
+        WebElement table = getSelectedTableElement();
+        table.findElements(By.xpath("tbody/tr/td")).get(position).click();
+    }
+
+    private WebElement getSelectedTableElement() {
+        return getElementByPath(By.xpath("//div[contains(@class, 'popupContent')]//div/table"));
+    }
+
 }
