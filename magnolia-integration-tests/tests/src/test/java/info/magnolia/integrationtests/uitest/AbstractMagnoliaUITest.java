@@ -203,21 +203,6 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         }
     }
 
-    protected void switchDriverToPublicInstance() {
-        if (driver != null) {
-            logout();
-            driver.quit();
-            driver = null;
-        }
-        driver = new FirefoxDriver();
-        driver.manage().timeouts().implicitlyWait(DRIVER_WAIT_IN_SECONDS, TimeUnit.SECONDS);
-        driver.navigate().to(Instance.PUBLIC.getURL());
-        // Check license, relevant for EE tests
-        enterLicense();
-
-        assertThat(driver.getTitle(), equalTo("Demo Project - Home"));
-    }
-
     /**
      * License check is not required for CE bundle.
      */
@@ -305,13 +290,15 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         }
     }
 
+
     /**
      * Tries to retrieve requested element.
      * 
      * @path path to search the element at
+     * @driver driver to use
      * @return the searched specified element or a NonExistingWebElement in case it couldn't be found.
      */
-    protected WebElement getElementByPath(final By path) {
+    protected WebElement getElementByPath(final By path, WebDriver driver) {
         WebElement element = null;
         try {
             // will loop and try to retrieve the specified element until found or it times out.
@@ -345,6 +332,17 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
             element = getElementByPath(path);
         }
         return element;
+    }
+
+
+        /**
+     * Tries to retrieve requested element.
+     * 
+     * @path path to search the element at
+     * @return the searched specified element or a NonExistingWebElement in case it couldn't be found.
+     */
+    protected WebElement getElementByPath(final By path) {
+        return getElementByPath(path, driver);
     }
 
     /**
@@ -417,9 +415,12 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
     }
 
     protected WebElement getDisabledActionBarItem(String itemCaption) {
-        return getElementByXpath("//*[contains(@class,'v-actionbar')]//*[@aria-hidden ='false']//*[contains(@class,'v-disabled')]//*[text()='%s']", itemCaption);
+        return getElementByXpath("//*[contains(@class,'v-actionbar')]//*[@aria-hidden ='false']//li[@class ='v-action v-disabled']//*[text()='%s']", itemCaption);
     }
 
+    protected WebElement getEnabledActionBarItem(String itemCaption) {
+        return getElementByXpath("//*[contains(@class,'v-actionbar')]//*[@aria-hidden ='false']//li[@class ='v-action']//*[text()='%s']", itemCaption);
+    }
 
     protected WebElement getActionBarItemWithContains(String itemCaption) {
         return getElementByXpath("//*[contains(@class, 'v-actionbar')]//*[@aria-hidden = 'false']//*[contains(text(), '%s')]", itemCaption);

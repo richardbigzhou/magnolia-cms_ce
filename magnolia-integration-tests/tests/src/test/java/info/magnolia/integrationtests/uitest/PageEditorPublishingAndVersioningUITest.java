@@ -33,203 +33,242 @@
  */
 package info.magnolia.integrationtests.uitest;
 
+import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.Assert.*;
 
-import org.junit.FixMethodOrder;
+import java.util.concurrent.TimeUnit;
+
+import org.apache.commons.lang.StringUtils;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
-import org.junit.runners.MethodSorters;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Publishing and versioning test for pages app.
  */
 
-@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class PageEditorPublishingAndVersioningUITest extends AbstractMagnoliaUITest {
 
-    @Test
-    public void step10ChangeContentOfAPageArticle() {
-        // GIVEN
-        getAppIcon("Pages").click();
-        // Go to Pages Editor SubApp for the Article Page
-        fromPagesSelectArticle();
-        getActionBarItem("Edit page").click();
-        switchToPageEditorContent();
-        // Open Edit Dialog
-        getElementByPath(By.xpath("//h2[text() = 'quam Occidental in']")).click();
-        getElementByPath(By.xpath("//*[contains(@class, 'focus')]//*[contains(@class, 'icon-edit')]")).click();
-        switchToDefaultContent();
+    private static final Logger log = LoggerFactory.getLogger(PageEditorPublishingAndVersioningUITest.class);
+    protected WebDriver publicDriver = null;
 
-        // WHEN
-        setFormTextFieldText("Subheading", "Subheading V1");
-        getTabForCaption("Image").click();
-        setFormTextAreFieldText("Image Caption", "Image Caption");
-        getDialogCommitButton().click();
-        getTabForCaption("Pages").click();
-        delay(3, "Switch to page may take time");
+    @Override
+    @Before
+    public void setUp() {
+        super.setUp();
+        publicDriver = new FirefoxDriver();
+        publicDriver.manage().timeouts().implicitlyWait(DRIVER_WAIT_IN_SECONDS, TimeUnit.SECONDS);
+        publicDriver.navigate().to(Instance.PUBLIC.getURL());
+        // Check license, relevant for EE tests
+        enterLicense();
 
-        // THEN
-        assertTrue(getSelectedIcon("color-yellow").isDisplayed());
-        assertTrue("'Edit Component' action should be disabled on inherited elements", isExisting(getDisabledActionBarItem("Show versions")));
+        assertThat(publicDriver.getTitle(), equalTo("Demo Project - Home"));
+    }
 
+    @Override
+    @After
+    public void tearDown() {
+        super.tearDown();
+        if (publicDriver == null) {
+            log.warn("Driver is set to null.");
+        } else {
+            publicDriver.quit();
+            publicDriver = null;
+        }
     }
 
     @Test
-    public void step20PublishChangeContentOfAPageArticle() {
+    public void publishAndCheckVersions() {
         // GIVEN
-        getAppIcon("Pages").click();
-        // Go to Pages Editor SubApp for the Article Page
-        fromPagesSelectArticle();
+        String[] pathToArticle = new String[] { "demo-project", "about", "subsection-articles" };
+        String article = "article";
         // WHEN
+        // Go to pages App
+        getAppIcon("Pages").click();
+        // Navigate to the content to change
+        expandTreeAndSelectAnElement(article, pathToArticle);
+
+        // PERFORM AND PUBLISH THE FIRST MODIFICATION (V1)
+        // Make changes on an article and check publication status and available actions
+        modifyATextImageContentAndCheckStatusAndAction("quam Occidental in", "Subheading V1", "Image Caption", false);
+        // Publish modification
+        publishAndCheckAuthorAndPublic("Subheading V1", "Image Caption", article, pathToArticle);
+
+        // PERFORM AND PUBLISH THE SECOND MODIFICATION (V2)
+        modifyATextImageContentAndCheckStatusAndAction("Subheading V1", "Subheading V2", "Image Caption V2", true);
+        // Publish modification
+        publishAndCheckAuthorAndPublic("Subheading V2", "Image Caption V2", article, pathToArticle);
+
+        // CHECK VERSIONS
+        // Open the specific version in read only
+        openPageVersion(2, 1, "Standard Article [1.0]");
+
+        // Go Back to tree and edit the same page
+        getTabForCaption("Pages").click();
+        getActionBarItem("Edit page").click();
+
+        // CHECK THE TAB HEADER
+        delay("Waiting before check");
+        assertTrue(getTabForCaption("Standard Article [1.0]") instanceof NonExistingWebElement);
+        assertFalse(getTabForCaption("Standard Article") instanceof NonExistingWebElement);
+
+    }
+
+    /**
+     * Change content of a Text Image Component and check the available main sub app action and status.<br>
+     * Steps: <br>
+     * - Modify the Text Image component<br>
+     * - Check available and non available actions<br>
+     * - Check the status.
+     * 
+     * @param textImageSubheading The textImage Content containing this Subheading will be selected.
+     * @param newSubheadingValue New value of the Subheading field.
+     * @param newImageCaptionValue New value of the image caption.
+     */
+    protected void modifyATextImageContentAndCheckStatusAndAction(String textImageSubheading, String newSubheadingValue, String newImageCaptionValue, boolean hasAlreadyVersions) {
+        // Change content
+        changeTextImageContent(textImageSubheading, newSubheadingValue, newImageCaptionValue);
+
+        if (hasAlreadyVersions) {
+            // Check available actions
+            checkEnabledActions("Publish", "Unpublish", "Show versions");
+            // Check non available actions
+            checkDisableddActions("Publish incl. subpages");
+        } else {
+            // Check available actions
+            checkEnabledActions("Publish", "Unpublish");
+            // Check non available actions
+            checkDisableddActions("Show versions", "Publish incl. subpages");
+        }
+        // Check the status
+        assertTrue(getSelectedIcon("color-yellow").isDisplayed());
+    }
+
+    /**
+     * The content to change has to be selected.<br>
+     * Steps: <br>
+     * - Edit content (open an Edit sub app) <br>
+     * - Open Text Image Content Form <br>
+     * - Do changes in the Text Image form and save <br>
+     * - Switch back to the main Sub app (Tree view).
+     */
+    protected void changeTextImageContent(String subheading, String newSubheadingValue, String newImageCaptionValue) {
+        // Edit content (open an Edit sub app)
+        getActionBarItem("Edit page").click();
+        switchToPageEditorContent();
+        // Open Text Image Content Form
+
+        getElementByPath(By.xpath(String.format("//h2[text() = '%s']", subheading))).click();
+        getElementByPath(By.xpath("//*[contains(@class, 'focus')]//*[contains(@class, 'icon-edit')]")).click();
+        switchToDefaultContent();
+        // Do changes in the Text Image form and save
+        setFormTextFieldText("Subheading", newSubheadingValue);
+        getTabForCaption("Image").click();
+        setFormTextAreFieldText("Image Caption", newImageCaptionValue);
+        getDialogCommitButton().click();
+
+        getTabForCaption("Pages").click();
+        delay(3, "Switch to page may take time");
+    }
+
+    /**
+     * Publish changes and check in the public instance if changes are propagated.
+     * Steps: <br>
+     * - Publish modifications. <br>
+     * - Check status and available actions .<br>
+     * - Switch to Public instance and check if the modifications are available. <br>
+     */
+    protected void publishAndCheckAuthorAndPublic(String subheadingValue, String imageCaptionValue, String article, String... pathToArticle) {
+        // Publish changes
         getActionBarItem("Publish").click();
         delay(5, "Activation takes some time so wait before checking the updated icon");
 
-        // THEN
+        // Check status
         assertTrue(getSelectedIcon("color-green").isDisplayed());
-        assertTrue("'Edit Component' action should be enabled on inherited elements", !isExisting(getDisabledActionBarItem("Show versions")));
-        assertTrue("'Edit Component' action should be enabled on inherited elements", isExisting(getActionBarItem("Show versions")));
+        // Check available actions
+        checkEnabledActions("Show versions");
+
+        // Check the Author instance.
+        delay(3, "Wait for publication");
+        checkAuthorInstance(subheadingValue, imageCaptionValue, article, pathToArticle);
+
     }
 
-    @Test
-    public void step21CheckOnPublicInstance() {
-        // GIVEN
-        // Switch to Public Instance
-        switchDriverToPublicInstance();
+    /**
+     * Check if published changes (subheadingValue, imageCaptionValue) are present to the Author instance.
+     * Steps: <br>
+     * - Check if changes are propagated <br>
+     */
+    protected void checkAuthorInstance(String subheadingValue, String imageCaptionValue, String article, String... pathToArticle) {
+        // Build url page
+        String url = StringUtils.join(pathToArticle, "/") + "/" + article + ".html";
 
-        // WHEN
-        // Go tho the Article page
-        driver.navigate().to(Instance.PUBLIC.getURL("demo-project/about/subsection-articles/article.html"));
+        // Go to the Article page
+        publicDriver.navigate().to(Instance.PUBLIC.getURL(url));
 
         // THEN
-        assertFalse("Following published change has to be visible on public instance 'Subheading V1'", getElementByPath(By.xpath("//h2[text() = 'Subheading V1']")) instanceof NonExistingWebElement);
-        assertFalse("Following published change has to be visible on public instance 'Image Caption'", getElementByPath(By.xpath("//dd[text() = 'Image Caption']")) instanceof NonExistingWebElement);
+        assertFalse("Following published change has to be visible on public instance 'Subheading V1'", getElementByPath(By.xpath(String.format("//h2[text() = '%s']", subheadingValue)), publicDriver) instanceof NonExistingWebElement);
+        assertFalse("Following published change has to be visible on public instance 'Image Caption'", getElementByPath(By.xpath(String.format("//dd[text() = '%s']", imageCaptionValue)), publicDriver) instanceof NonExistingWebElement);
+
     }
 
-    @Test
-    public void step30ChangeContentOfAPageArticle() {
-        // GIVEN
-        getAppIcon("Pages").click();
-        // Go to Pages Editor SubApp for the Article Page
-        fromPagesSelectArticle();
-        getActionBarItem("Edit page").click();
-        switchToPageEditorContent();
-        // Open Edit Dialog
-        getElementByPath(By.xpath("//h2[text() = 'Subheading V1']")).click();
-        getElementByPath(By.xpath("//*[contains(@class, 'focus')]//*[contains(@class, 'icon-edit')]")).click();
-        switchToDefaultContent();
-
-        // WHEN
-        setFormTextFieldText("Subheading", "Subheading V2");
-        getTabForCaption("Image").click();
-        setFormTextAreFieldText("Image Caption", "Image Caption V2");
-        getDialogCommitButton().click();
-        getTabForCaption("Pages").click();
-        delay(3, "Switch to page may take time");
-
-        // THEN
-        assertTrue(getSelectedIcon("color-yellow").isDisplayed());
-        assertTrue("'Show versions' action should be enabled on inherited elements", !isExisting(getDisabledActionBarItem("Show versions")));
-        assertTrue("'Show versions' action should be enabled on inherited elements", isExisting(getActionBarItem("Show versions")));
+    /**
+     * @param element leaf element to select.
+     * @param paths individual path element road allowing to reach the leaf element. <br>
+     * "demo-project", "about", "subsection-articles",...
+     */
+    protected void expandTreeAndSelectAnElement(String element, String... paths) {
+        for (String path : paths) {
+            getTreeTableItemExpander(path).click();
+        }
+        getTreeTableItem(element).click();
     }
 
-    @Test
-    public void step40PublishChangeContentOfAPageArticle() {
-        // GIVEN
-        getAppIcon("Pages").click();
-        // Go to Pages Editor SubApp for the Article Page
-        fromPagesSelectArticle();
-        // WHEN
-        getActionBarItem("Publish").click();
-        delay(5, "Activation takes some time so wait before checking the updated icon");
-
-        // THEN
-        assertTrue(getSelectedIcon("color-green").isDisplayed());
-        assertTrue("'Show versions' action should be enabled on inherited elements", !isExisting(getDisabledActionBarItem("Show versions")));
-        assertTrue("'Show versions' action should be enabled on inherited elements", isExisting(getActionBarItem("Show versions")));
+    protected void checkEnabledActions(String... actions) {
+        for (String action : actions) {
+            assertTrue("'" + action + "' action should be enable ", isExisting(getEnabledActionBarItem(action)));
+        }
     }
 
-    @Test
-    public void step41CheckOnPublicInstance() {
-        // GIVEN
-        // Switch to Public Instance
-        switchDriverToPublicInstance();
-
-        // WHEN
-        // Go tho the Article page
-        driver.navigate().to(Instance.PUBLIC.getURL("demo-project/about/subsection-articles/article.html"));
-
-        // THEN
-        assertFalse("Following published change has to be visible on public instance 'Subheading V2'", getElementByPath(By.xpath("//h2[text() = 'Subheading V2']")) instanceof NonExistingWebElement);
-        assertFalse("Following published change has to be visible on public instance 'Image Caption V2'", getElementByPath(By.xpath("//dd[text() = 'Image Caption V2']")) instanceof NonExistingWebElement);
+    protected void checkDisableddActions(String... actions) {
+        for (String action : actions) {
+            assertTrue("'" + action + "' action should be disabled ", isExisting(getDisabledActionBarItem(action)));
+        }
     }
 
-    @Test
-    public void step50VersionedPageDetailSubApp() {
-        // GIVEN
-        getAppIcon("Pages").click();
-        // Go to Pages Editor SubApp for the Article Page
-        fromPagesSelectArticle();
+    /**
+     * From the page editor (main sub app) open a specific version.<br>
+     * Check the available actions and tab header.
+     * 
+     * @param expectedNumberOfVersion
+     * @param desiredVersion
+     */
+    protected void openPageVersion(int expectedNumberOfVersion, int desiredVersion, String tabHeader) {
+
         getActionBarItem("Show versions").click();
         delay("Waiting for the popup to show up");
 
         // Click on version drop-down to show versions
         getSelectTabElement("Version").click();
         // Check that we have 2 elements in the list.
-        assertTrue("We expect to have at least one version", getSelectTabElementSize() == 2);
+        assertTrue("We expect to have at least one version", getSelectTabElementSize() == expectedNumberOfVersion);
 
-
-        // WHEN
         // Select version 1.0 from the list
-        selectElementOfTabListAtPosition(1);
+        selectElementOfTabListAtPosition(desiredVersion);
         // Select
         getDialogButton("v-button-commit").click();
         delay("Waiting for the editSubApp to open");
 
-        // THEN
         // Sub App Open in a Read Only Mode
         assertTrue(getElementByPath(By.xpath("//div[@class = 'mgnlEditorBar mgnlEditor area init']")) instanceof NonExistingWebElement);
         // Check tab header (include version)
-        assertFalse(getTabForCaption("Standard Article [1.0]") instanceof NonExistingWebElement);
+        assertFalse(getTabForCaption(tabHeader) instanceof NonExistingWebElement);
         // Check available actions
-        assertTrue("'Edit Page' action should be enabled on inherited elements", isExisting(getActionBarItem("Edit page")));
-        assertTrue("'Publish' action should be enabled on inherited elements", isExisting(getActionBarItem("Publish")));
-        assertTrue("'Unpublish' action should be enabled on inherited elements", isExisting(getActionBarItem("Unpublish")));
-    }
-
-    @Test
-    public void step60VersionedPageFromPreviewToEdit() {
-        // GIVEN
-        getAppIcon("Pages").click();
-        // Go to Pages Editor SubApp for the Article Page
-        fromPagesSelectArticle();
-        // Open version 0 in edit mode
-        getActionBarItem("Show versions").click();
-        delay("Waiting for the popup to show up");
-        // Click on version drop-down to show versions
-        getSelectTabElement("Version").click();
-        selectElementOfTabListAtPosition(1);
-        // Select
-        getDialogButton("v-button-commit").click();
-        delay("Waiting for the editSubApp to open");
-
-        // Sub App Open in a Read Only Mode
-        assertTrue(getElementByPath(By.xpath("//div[@class = 'mgnlEditorBar mgnlEditor area init']")) instanceof NonExistingWebElement);
-
-        // WHEN
-        // Go Back to tree and edit the same page
-        getTabForCaption("Pages").click();
-        getActionBarItem("Edit page").click();
-
-        // THEN
-        delay("Waiting before check");
-        assertTrue(getTabForCaption("Standard Article [1.0]") instanceof NonExistingWebElement);
-        assertFalse(getTabForCaption("Standard Article") instanceof NonExistingWebElement);
-    }
-
-    private void fromPagesSelectArticle() {
-        getTreeTableItemExpander("demo-project").click();
-        getTreeTableItemExpander("about").click();
-        getTreeTableItemExpander("subsection-articles").click();
-        getTreeTableItem("article").click();
+        checkEnabledActions("Edit page", "Publish", "Unpublish");
     }
 }
