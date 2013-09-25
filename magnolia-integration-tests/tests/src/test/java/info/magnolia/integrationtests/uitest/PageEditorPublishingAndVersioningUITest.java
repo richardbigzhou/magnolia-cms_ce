@@ -33,54 +33,20 @@
  */
 package info.magnolia.integrationtests.uitest;
 
-import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.Assert.*;
 
-import java.util.concurrent.TimeUnit;
-
 import org.apache.commons.lang.StringUtils;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
  * Publishing and versioning test for pages app.
  */
-
 public class PageEditorPublishingAndVersioningUITest extends AbstractMagnoliaUITest {
 
     private static final Logger log = LoggerFactory.getLogger(PageEditorPublishingAndVersioningUITest.class);
-    protected WebDriver publicDriver = null;
-
-    @Override
-    @Before
-    public void setUp() {
-        super.setUp();
-        publicDriver = new FirefoxDriver();
-        publicDriver.manage().timeouts().implicitlyWait(DRIVER_WAIT_IN_SECONDS, TimeUnit.SECONDS);
-        publicDriver.navigate().to(Instance.PUBLIC.getURL());
-        // Check license, relevant for EE tests
-        enterLicense();
-
-        assertThat(publicDriver.getTitle(), equalTo("Demo Project - Home"));
-    }
-
-    @Override
-    @After
-    public void tearDown() {
-        super.tearDown();
-        if (publicDriver == null) {
-            log.warn("Driver is set to null.");
-        } else {
-            publicDriver.quit();
-            publicDriver = null;
-        }
-    }
 
     @Test
     public void publishAndCheckVersions() {
@@ -95,12 +61,12 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractMagnoliaUIT
 
         // PERFORM AND PUBLISH THE FIRST MODIFICATION (V1)
         // Make changes on an article and check publication status and available actions
-        modifyATextImageContentAndCheckStatusAndAction("quam Occidental in", "Subheading V1", "Image Caption", false);
+        modifyATextImageContentAndCheckStatusAndAction("Subheading V1", "Image Caption", false);
         // Publish modification
         publishAndCheckAuthorAndPublic("Subheading V1", "Image Caption", article, pathToArticle);
 
         // PERFORM AND PUBLISH THE SECOND MODIFICATION (V2)
-        modifyATextImageContentAndCheckStatusAndAction("Subheading V1", "Subheading V2", "Image Caption V2", true);
+        modifyATextImageContentAndCheckStatusAndAction("Subheading V2", "Image Caption V2", true);
         // Publish modification
         publishAndCheckAuthorAndPublic("Subheading V2", "Image Caption V2", article, pathToArticle);
 
@@ -126,13 +92,12 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractMagnoliaUIT
      * - Check available and non available actions<br>
      * - Check the status.
      * 
-     * @param textImageSubheading The textImage Content containing this Subheading will be selected.
      * @param newSubheadingValue New value of the Subheading field.
      * @param newImageCaptionValue New value of the image caption.
      */
-    protected void modifyATextImageContentAndCheckStatusAndAction(String textImageSubheading, String newSubheadingValue, String newImageCaptionValue, boolean hasAlreadyVersions) {
+    protected void modifyATextImageContentAndCheckStatusAndAction(String newSubheadingValue, String newImageCaptionValue, boolean hasAlreadyVersions) {
         // Change content
-        changeTextImageContent(textImageSubheading, newSubheadingValue, newImageCaptionValue);
+        changeTextImageContent(newSubheadingValue, newImageCaptionValue);
 
         if (hasAlreadyVersions) {
             // Check available actions
@@ -157,13 +122,13 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractMagnoliaUIT
      * - Do changes in the Text Image form and save <br>
      * - Switch back to the main Sub app (Tree view).
      */
-    protected void changeTextImageContent(String subheading, String newSubheadingValue, String newImageCaptionValue) {
+    protected void changeTextImageContent(String newSubheadingValue, String newImageCaptionValue) {
         // Edit content (open an Edit sub app)
         getActionBarItem("Edit page").click();
         switchToPageEditorContent();
         // Open Text Image Content Form
 
-        getElementByPath(By.xpath(String.format("//h2[text() = '%s']", subheading))).click();
+        getElementByPath(By.xpath(String.format("//div[@role='article']//div[@class='text-section']"))).click();
         getElementByPath(By.xpath("//*[contains(@class, 'focus')]//*[contains(@class, 'icon-edit')]")).click();
         switchToDefaultContent();
         // Do changes in the Text Image form and save
@@ -193,9 +158,9 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractMagnoliaUIT
         // Check available actions
         checkEnabledActions("Show versions");
 
-        // Check the Author instance.
-        delay(10, "Wait for publication");
-        checkAuthorInstance(subheadingValue, imageCaptionValue, article, pathToArticle);
+        // Check the Public instance.
+        delay(5, "Wait for publication");
+        checkPublicInstance(subheadingValue, imageCaptionValue, article, pathToArticle);
 
     }
 
@@ -204,17 +169,22 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractMagnoliaUIT
      * Steps: <br>
      * - Check if changes are propagated <br>
      */
-    protected void checkAuthorInstance(String subheadingValue, String imageCaptionValue, String article, String... pathToArticle) {
+    protected void checkPublicInstance(String subheadingValue, String imageCaptionValue, String article, String... pathToArticle) {
         // Build url page
         String url = StringUtils.join(pathToArticle, "/") + "/" + article + ".html";
 
+        // Save the last url
+        final String lastUrl = driver.getCurrentUrl();
+
         // Go to the Article page
-        publicDriver.navigate().to(Instance.PUBLIC.getURL(url));
+        driver.navigate().to(Instance.PUBLIC.getURL(url));
 
         // THEN
-        assertFalse("Following published change has to be visible on public instance 'Subheading V1'", getElementByPath(By.xpath(String.format("//h2[text() = '%s']", subheadingValue)), publicDriver) instanceof NonExistingWebElement);
-        assertFalse("Following published change has to be visible on public instance 'Image Caption'", getElementByPath(By.xpath(String.format("//dd[text() = '%s']", imageCaptionValue)), publicDriver) instanceof NonExistingWebElement);
+        assertFalse("Following published change has to be visible on public instance 'Subheading V1'", getElementByPath(By.xpath(String.format("//h2[text() = '%s']", subheadingValue))) instanceof NonExistingWebElement);
+        assertFalse("Following published change has to be visible on public instance 'Image Caption'", getElementByPath(By.xpath(String.format("//dd[text() = '%s']", imageCaptionValue))) instanceof NonExistingWebElement);
 
+        // Go back to the last url
+        driver.navigate().to(lastUrl);
     }
 
     /**
