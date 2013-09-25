@@ -194,7 +194,7 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractMagnoliaUIT
         checkEnabledActions("Show versions");
 
         // Check the Author instance.
-        delay(3, "Wait for publication");
+        delay(10, "Wait for publication");
         checkAuthorInstance(subheadingValue, imageCaptionValue, article, pathToArticle);
 
     }
