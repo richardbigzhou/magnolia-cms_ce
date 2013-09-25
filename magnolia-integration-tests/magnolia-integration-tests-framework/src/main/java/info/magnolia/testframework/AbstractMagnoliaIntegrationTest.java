@@ -109,7 +109,8 @@ public abstract class AbstractMagnoliaIntegrationTest {
      */
     public enum User {
         superuser,
-        eric
+        eric,
+        peter
     }
 
 }
