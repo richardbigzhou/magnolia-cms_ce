@@ -40,11 +40,15 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Basic tests for the config app.
  */
 public class ConfigAppUITest extends AbstractMagnoliaUITest {
+
+    private static final Logger log = LoggerFactory.getLogger(ConfigAppUITest.class);
 
     /**
      * This test checks if properties are properly escaped in the ConfigApp.
@@ -94,6 +98,8 @@ public class ConfigAppUITest extends AbstractMagnoliaUITest {
         // Unescaped property shouldn't show up
         WebElement propertyUnescaped = getElementByPath(By.xpath("//div[@class='v-table-cell-wrapper']//img[contains(@src, 'gif')]"));
         if (!(propertyUnescaped instanceof NonExistingWebElement)) {
+            log.info("Found un-escaped property [{}]", propertyUnescaped);
+
             Actions mouseOverActionUnescaped = new Actions(driver);
             mouseOverActionUnescaped.moveToElement(propertyUnescaped).build().perform();
 
@@ -105,6 +111,8 @@ public class ConfigAppUITest extends AbstractMagnoliaUITest {
         // Escaped property shouldn't trigger alert
         WebElement property = getElementByPath(By.xpath("//div[@class='v-table-cell-wrapper' and contains(text(), 'onmouseover')]"));
         if (!(property instanceof NonExistingWebElement)) {
+            log.info("Found escaped property [{}]", property);
+
             Actions mouseOverAction = new Actions(driver);
             mouseOverAction.moveToElement(property).build().perform();
 
