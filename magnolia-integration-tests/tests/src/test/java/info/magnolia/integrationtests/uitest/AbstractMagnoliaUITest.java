@@ -33,8 +33,18 @@
  */
 package info.magnolia.integrationtests.uitest;
 
+import static org.hamcrest.core.IsEqual.equalTo;
+import static org.junit.Assert.*;
+
 import info.magnolia.testframework.AbstractMagnoliaIntegrationTest;
 import info.magnolia.testframework.htmlunit.AbstractMagnoliaHtmlUnitTest;
+
+import java.io.File;
+import java.io.IOException;
+import java.net.URLEncoder;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+
 import org.apache.commons.io.FileUtils;
 import org.junit.After;
 import org.junit.Before;
@@ -52,19 +62,11 @@ import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.io.File;
-import java.io.IOException;
-import java.net.URLEncoder;
-import java.util.List;
-import java.util.concurrent.TimeUnit;
-
-import static org.hamcrest.core.IsEqual.equalTo;
-import static org.junit.Assert.*;
 
 /**
  * Base class for Magnolia UI tests. Provides convenience methods for Magnolia Apps.
@@ -617,6 +619,14 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
 
     private WebElement getSelectedTableElement() {
         return getElementByPath(By.xpath("//div[contains(@class, 'popupContent')]//div/table"));
+    }
+
+    /**
+     * Performs a double click on a web element.
+     */
+    private void doubleClick(WebElement element) {
+        Actions doubleClickOnElement = new Actions(driver);
+        doubleClickOnElement.doubleClick(element).perform();
     }
 
 }
