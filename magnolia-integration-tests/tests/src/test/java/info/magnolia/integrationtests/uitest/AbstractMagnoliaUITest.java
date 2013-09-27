@@ -624,7 +624,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
     /**
      * Performs a double click on a web element.
      */
-    private void doubleClick(WebElement element) {
+    protected void doubleClick(WebElement element) {
         Actions doubleClickOnElement = new Actions(driver);
         doubleClickOnElement.doubleClick(element).perform();
     }
