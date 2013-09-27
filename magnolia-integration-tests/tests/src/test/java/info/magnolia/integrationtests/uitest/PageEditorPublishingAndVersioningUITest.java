@@ -190,8 +190,7 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractMagnoliaUIT
         // Check that the page is not existing on Public
 
         // Check that the row is gone in the tree table
-        expandTreeAndSelectAnElement(article, pathToArticle);
-        assertFalse(isExisting(getTreeTableItem("New-Article-To-Delete")));
+        assertFalse(isExisting(getElementByXpath("//div[text()='New-Article-To-Delete']")));
 
     }
 
