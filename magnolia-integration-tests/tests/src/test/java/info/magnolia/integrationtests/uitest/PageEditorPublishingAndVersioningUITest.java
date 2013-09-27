@@ -38,16 +38,27 @@ import static org.junit.Assert.*;
 import org.apache.commons.lang.StringUtils;
 import org.junit.Test;
 import org.openqa.selenium.By;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Publishing and versioning test for pages app.
  */
 public class PageEditorPublishingAndVersioningUITest extends AbstractMagnoliaUITest {
 
-    private static final Logger log = LoggerFactory.getLogger(PageEditorPublishingAndVersioningUITest.class);
-
+    /**
+     * Single page publication and versioning check.<br>
+     * DO TWICE
+     * - Change content of an article.<br>
+     * -- Check status and available actions <br>
+     * - Publish changes.<br>
+     * -- Check status and available actions <br>
+     * -- Check that changes are propagated to the public instance.<br>
+     * END OF DO TWICE
+     * - Check the number of versions (2), select first version.<br>
+     * - Check sub app tab header (contains version) and actions <br>
+     * - Edit this article again<br>
+     * -- Check that the article open in edit mode (sub app)<br>
+     * -- Check the app tab header (no version inside).<br>
+     */
     @Test
     public void publishAndCheckVersions() {
         // GIVEN
@@ -85,7 +96,124 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractMagnoliaUIT
 
     }
 
+    @Test
+    public void publishNewArticle() {
+
+        String[] pathToArticle = new String[] { "demo-project", "about" };
+        String article = "subsection-articles";
+        // Go to pages App
+        getAppIcon("Pages").click();
+        // Navigate to the content to change
+        expandTreeAndSelectAnElement(article, pathToArticle);
+
+        // Add an Article
+        addNewTemplate("New Funny Article", "Title of the new Funny Article", "Article");
+        expandTreeAndSelectAnElement("New-Funny-Article", "subsection-articles");
+        // Check Status and actions
+        assertTrue(getSelectedIcon("color-red").isDisplayed());
+        checkDisableddActions("Show versions", "Publish incl. subpages");
+        // Edit the new page
+        getActionBarItem("Edit page").click();
+
+
+        // Add Text Image component into the main Content
+        selectAreaAndComponent("New Content Component", "Text and Image");
+        // Add Text
+        setFormTextFieldText("Subheading", "New Text Image Component");
+        getTabForCaption("Image").click();
+        setFormTextAreFieldText("Image Caption", "Image Caption");
+        // Add Image
+        getNativeButton("magnoliabutton v-nativebutton-magnoliabutton").click();
+        expandTreeAndSelectAnElement("a-grey-curvature-of-lines", "demo-project", "img", "bk", "Stage");
+        getDialogButtonWithCaption("choose").click();
+        // Close and Save the Dialog.
+        getDialogCommitButton().click();
+
+        // Add a Contact into the Extra Area Content
+        selectAreaAndComponent("New Extras Component", "Contact");
+        // Add an Image
+        switchToDefaultContent();
+        getNativeButton("magnoliabutton v-nativebutton-magnoliabutton").click();
+        getTreeTableItem("Pablo Picasso").click();
+        getDialogButtonWithCaption("Choose").click();
+        // Close and Save the Dialog.
+        getDialogCommitButton().click();
+
+        // Publish and check on the Public instance
+        getTabForCaption("Pages").click();
+        delay(3, "Switch to page may take time");
+        publishAndCheckAuthorAndPublic("New Text Image Component", "Image Caption", "New-Funny-Article", "demo-project", "about", "subsection-articles");
+    }
+
+    @Test
+    public void publishNewArticleAndRemoveIt() {
+        String[] pathToArticle = new String[] { "demo-project", "about" };
+        String article = "subsection-articles";
+        // Go to pages App
+        getAppIcon("Pages").click();
+        // Navigate to the content to change
+        expandTreeAndSelectAnElement(article, pathToArticle);
+
+        // Add an Article
+        addNewTemplate("New Article To Delete", "Title of the new Article To Delete", "Article");
+        expandTreeAndSelectAnElement("New-Article-To-Delete", "subsection-articles");
+        // Check Status and actions
+        assertTrue(getSelectedIcon("color-red").isDisplayed());
+        checkDisableddActions("Show versions", "Publish incl. subpages");
+
+        // Publish Page
+        publishAndCheckAuthor();
+
+        // Open page editor
+        getActionBarItem("Edit page").click();
+        delay(1, "Switch to page may take time");
+        getTabForCaption("Pages").click();
+        delay(1, "Switch to page may take time");
+
+        // Delete Page
+        getActionBarItem("Delete page").click();
+        delay(2, "Wait for the confirmation message");
+        getDialogConfirmButton().click();
+        delay("Give dialog some time to fade away...");
+        // Check available actions
+        checkDisableddActions("Preview page", "Add page", "Delete page", "Edit page", "Rename page");
+        // Check non available actions
+        checkEnabledActions("Move page", "Publish deletion", "Show previous version", "Restore previous version");
+        // Check the Trash Icon
+        assertTrue(getSelectedIcon("icon-trash").isDisplayed());
+
+        // Validate the Delete
+        getActionBarItem("Publish deletion").click();
+        delay(2, "Wait for the confirmation message");
+        // Check that the Detail sub app is closed
+        assertFalse(isExisting(getTabForCaption("Title of the new Article To Delete")));
+        // Check that the page is not existing on Public
+
+        // Check that the row is gone in the tree table
+        expandTreeAndSelectAnElement(article, pathToArticle);
+        assertFalse(isExisting(getTreeTableItem("New-Article-To-Delete")));
+
+    }
+
     /**
+     * From the page editor sub app, select and Area, and from the Area choose dialog, select a component.<br>
+     * The dialog of the desired component is open and available to use.
+     * 
+     * @param areaName for example: 'New Content Component' or 'New Extras Component'
+     * @param componentName for example : 'Text and Image' or 'Contact'
+     */
+    protected void selectAreaAndComponent(String areaName, String componentName) {
+        switchToPageEditorContent();
+        getElementByXpath("//div[@class='mgnlEditorBar mgnlEditor component']//div[@title='%s']", areaName).click();
+        switchToDefaultContent();
+        getActionBarItem("Add component").click();
+        getSelectTabElement("Component").click();
+        selectElementOfTabListForLabel(componentName);
+        getDialogButton("v-button-commit").click();
+    }
+
+
+        /**
      * Change content of a Text Image Component and check the available main sub app action and status.<br>
      * Steps: <br>
      * - Modify the Text Image component<br>
@@ -142,6 +270,24 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractMagnoliaUIT
     }
 
     /**
+     * Create a new Page template.
+     * 
+     * @param templateName
+     * @param templateTitle
+     * @param templateType
+     */
+    protected void addNewTemplate(String templateName, String templateTitle, String templateType) {
+        getActionBarItem("Add page").click();
+        setFormTextFieldText("Page Name", templateName);
+        setFormTextAreFieldText("Page Title", templateTitle);
+        getSelectTabElement("Template").click();
+        selectElementOfTabListForLabel(templateType);// Article
+        // Select
+        getDialogButton("v-button-commit").click();
+        delay("Waiting for the editSubApp to open");
+    }
+
+    /**
      * Publish changes and check in the public instance if changes are propagated.
      * Steps: <br>
      * - Publish modifications. <br>
@@ -149,6 +295,18 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractMagnoliaUIT
      * - Switch to Public instance and check if the modifications are available. <br>
      */
     protected void publishAndCheckAuthorAndPublic(String subheadingValue, String imageCaptionValue, String article, String... pathToArticle) {
+        publishAndCheckAuthor();
+
+        // Check the Public instance.
+        delay(5, "Wait for publication");
+        checkPublicInstance(subheadingValue, imageCaptionValue, article, pathToArticle);
+
+    }
+
+    /**
+     * Publish Page and check the publication Status.
+     */
+    protected void publishAndCheckAuthor() {
         // Publish changes
         getActionBarItem("Publish").click();
         delay(5, "Activation takes some time so wait before checking the updated icon");
@@ -157,11 +315,6 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractMagnoliaUIT
         assertTrue(getSelectedIcon("color-green").isDisplayed());
         // Check available actions
         checkEnabledActions("Show versions");
-
-        // Check the Public instance.
-        delay(5, "Wait for publication");
-        checkPublicInstance(subheadingValue, imageCaptionValue, article, pathToArticle);
-
     }
 
     /**
@@ -180,8 +333,8 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractMagnoliaUIT
         driver.navigate().to(Instance.PUBLIC.getURL(url));
 
         // THEN
-        assertFalse("Following published change has to be visible on public instance 'Subheading V1'", getElementByPath(By.xpath(String.format("//h2[text() = '%s']", subheadingValue))) instanceof NonExistingWebElement);
-        assertFalse("Following published change has to be visible on public instance 'Image Caption'", getElementByPath(By.xpath(String.format("//dd[text() = '%s']", imageCaptionValue))) instanceof NonExistingWebElement);
+        assertFalse("Following published change has to be visible on public instance '" + subheadingValue + "'", getElementByPath(By.xpath(String.format("//h2[text() = '%s']", subheadingValue))) instanceof NonExistingWebElement);
+        assertFalse("Following published change has to be visible on public instance '" + imageCaptionValue + "'", getElementByPath(By.xpath(String.format("//dd[text() = '%s']", imageCaptionValue))) instanceof NonExistingWebElement);
 
         // Go back to the last url
         driver.navigate().to(lastUrl);

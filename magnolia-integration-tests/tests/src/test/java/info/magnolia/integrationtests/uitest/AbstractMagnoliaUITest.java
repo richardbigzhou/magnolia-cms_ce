@@ -617,6 +617,10 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         table.findElements(By.xpath("tbody/tr/td")).get(position).click();
     }
 
+    protected void selectElementOfTabListForLabel(String label) {
+        getElementByXpath("//div[contains(@class, 'popupContent')]//div/table/tbody/tr/td/span[text() = '%s']/..", label).click();
+    }
+
     private WebElement getSelectedTableElement() {
         return getElementByPath(By.xpath("//div[contains(@class, 'popupContent')]//div/table"));
     }
