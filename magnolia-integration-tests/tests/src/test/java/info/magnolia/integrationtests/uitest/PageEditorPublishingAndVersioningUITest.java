@@ -135,7 +135,7 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractMagnoliaUIT
         switchToDefaultContent();
         getNativeButton("magnoliabutton v-nativebutton-magnoliabutton").click();
         getTreeTableItem("Pablo Picasso").click();
-        getDialogButtonWithCaption("Choose").click();
+        getDialogButtonWithCaption("save changes").click();
         // Close and Save the Dialog.
         getDialogCommitButton().click();
 
@@ -277,8 +277,8 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractMagnoliaUIT
      */
     protected void addNewTemplate(String templateName, String templateTitle, String templateType) {
         getActionBarItem("Add page").click();
-        setFormTextFieldText("Page Name", templateName);
-        setFormTextAreFieldText("Page Title", templateTitle);
+        setFormTextFieldText("Page name", templateName);
+        setFormTextAreFieldText("Page title", templateTitle);
         getSelectTabElement("Template").click();
         selectElementOfTabListForLabel(templateType);// Article
         // Select
