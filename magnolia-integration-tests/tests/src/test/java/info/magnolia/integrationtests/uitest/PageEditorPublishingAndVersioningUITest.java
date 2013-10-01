@@ -176,9 +176,9 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractMagnoliaUIT
         getDialogConfirmButton().click();
         delay("Give dialog some time to fade away...");
         // Check available actions
-        checkDisableddActions("Preview page", "Add page", "Delete page", "Edit page", "Rename page");
+        checkDisableddActions("Move page", "Preview page", "Add page", "Delete page", "Edit page", "Rename page");
         // Check non available actions
-        checkEnabledActions("Move page", "Publish deletion", "Show previous version", "Restore previous version");
+        checkEnabledActions("Publish deletion", "Show previous version", "Restore previous version");
         // Check the Trash Icon
         assertTrue(getSelectedIcon("icon-trash").isDisplayed());
 
