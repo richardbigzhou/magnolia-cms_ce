@@ -391,6 +391,7 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractMagnoliaUIT
         // Check tab header (include version)
         assertFalse(getTabForCaption(tabHeader) instanceof NonExistingWebElement);
         // Check available actions
-        checkEnabledActions("Edit page", "Publish", "Unpublish");
+        // With MGNLUI-2126 those actions were disabled, as they should not be available for versioned contents
+        checkDisableddActions("Edit page", "Publish", "Unpublish");
     }
 }
