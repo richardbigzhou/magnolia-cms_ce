@@ -145,6 +145,12 @@ class WebCrawler {
                 def url = newLink["url"]
                 def depth = newLink["depth"]
 
+                // Normalize URLs with more than one question mark
+                if (StringUtils.countMatches(newLink["url"], "?") > 1) {
+                    url = url.substring(0, url.indexOf('?') + 1) +
+                             url.substring(url.indexOf('?') + 1).replace('?','&')
+                }
+
                 if (depth > DEPTH_LEVEL) {
                     break
                 }
