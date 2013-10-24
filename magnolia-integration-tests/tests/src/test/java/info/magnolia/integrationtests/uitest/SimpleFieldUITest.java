@@ -110,7 +110,7 @@ public class SimpleFieldUITest extends AbstractMagnoliaUITest {
         getTreeTableItem("demo-project").click();
 
         // WHEN
-        getDialogButtonWithCaption("Pages chooser", "save changes").click();
+        getDialogButtonWithCaption("Pages chooser", "choose").click();
 
         // THEN
         assertEquals("/demo-project", getCustomFieldInputElement("Link").getAttribute("value"));
