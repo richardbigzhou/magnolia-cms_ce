@@ -144,9 +144,7 @@
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-data</artifactId>
-        <version>2.1.2-SNAPSHOT</version>
-        <classifier>bundle</classifier>
-        <type>tar.gz</type>
+        <version>2.2-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
