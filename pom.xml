@@ -76,7 +76,7 @@
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-legacy-admininterface</artifactId>
-        <version>5.1.1</version>
+        <version>5.2-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia.dam</groupId>
@@ -96,12 +96,12 @@
       <dependency>
         <groupId>info.magnolia.activation</groupId>
         <artifactId>magnolia-module-activation</artifactId>
-        <version>5.1</version>
+        <version>5.2-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia.cache</groupId>
         <artifactId>magnolia-module-cache</artifactId>
-        <version>5.1</version>
+        <version>5.2-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
@@ -131,14 +131,14 @@
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-templating-samples</artifactId>
-        <version>5.1.1-SNAPSHOT</version>
+        <version>5.2-SNAPSHOT</version>
         <classifier>bundle</classifier>
         <type>tar.gz</type>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-templating-samples</artifactId>
-        <version>5.1.1-SNAPSHOT</version>
+        <version>5.2-SNAPSHOT</version>
         <type>jar</type>
       </dependency>
       <dependency>
