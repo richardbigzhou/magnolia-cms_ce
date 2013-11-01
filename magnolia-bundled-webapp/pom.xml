@@ -2,10 +2,11 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
-    <groupId>info.magnolia</groupId>
+    <groupId>info.magnolia.bundle</groupId>
     <artifactId>magnolia-bundle-parent</artifactId>
-    <version>5.1-SNAPSHOT</version>
+    <version>5.2-SNAPSHOT</version>
   </parent>
+  <groupId>info.magnolia.bundle</groupId>
   <artifactId>magnolia-bundled-webapp</artifactId>
   <packaging>war</packaging>
   <name>magnolia-bundled-webapp</name>
@@ -20,6 +21,10 @@
       <groupId>info.magnolia</groupId>
       <artifactId>magnolia-empty-webapp</artifactId>
       <type>pom</type>
+    </dependency>
+    <dependency>
+      <groupId>info.magnolia</groupId>
+      <artifactId>magnolia-module-data</artifactId>
     </dependency>
     <dependency>
       <groupId>info.magnolia</groupId>

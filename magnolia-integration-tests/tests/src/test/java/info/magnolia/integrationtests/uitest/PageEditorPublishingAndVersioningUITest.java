@@ -330,6 +330,7 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractMagnoliaUIT
 
         // Go to the Article page
         driver.navigate().to(Instance.PUBLIC.getURL(url));
+        delay(5, "Make sure we finish rendering before anything else.");
 
         // THEN
         assertFalse("Following published change has to be visible on public instance '" + subheadingValue + "'", getElementByPath(By.xpath(String.format("//h2[text() = '%s']", subheadingValue))) instanceof NonExistingWebElement);

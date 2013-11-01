@@ -1,11 +1,11 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
-    <groupId>info.magnolia</groupId>
+    <groupId>info.magnolia.bundle.test</groupId>
     <artifactId>magnolia-integration-tests-parent</artifactId>
-    <version>5.1-SNAPSHOT</version>
+    <version>5.2-SNAPSHOT</version>
   </parent>
-  <groupId>info.magnolia</groupId>
+  <groupId>info.magnolia.bundle.test</groupId>
   <artifactId>magnolia-integration-tests</artifactId>
   <name>magnolia-integration-tests</name>
   <packaging>jar</packaging>
@@ -18,10 +18,10 @@
   <properties>
     <leaveContainerRunningAndDontExecuteTests>false</leaveContainerRunningAndDontExecuteTests>
     <!-- The default container http port used for tests. In CI this will be a random port. -->
-    <containerHttpPort>8099</containerHttpPort>
+    <containerHttpPort>8199</containerHttpPort>
     <!-- The port to use when communicating with this server, for example to start and stop it. -->
     <!-- This was probably causing builds to fail, as the default port was used. -->
-    <cargoRmiPort>8098</cargoRmiPort>
+    <cargoRmiPort>8198</cargoRmiPort>
   </properties>
   <!--
   This pom (and most of this project, for that matter), has been copied to
@@ -30,7 +30,7 @@
   -->
   <dependencies>
     <dependency>
-      <groupId>info.magnolia</groupId>
+      <groupId>info.magnolia.bundle.test</groupId>
       <artifactId>magnolia-integration-tests-framework</artifactId>
     </dependency>
     <dependency>
@@ -40,12 +40,12 @@
 
     <!-- ensure build order -->
     <dependency>
-      <groupId>info.magnolia</groupId>
+      <groupId>info.magnolia.bundle.test</groupId>
       <artifactId>magnolia-test-webapp</artifactId>
       <type>war</type>
     </dependency>
     <dependency>
-      <groupId>info.magnolia</groupId>
+      <groupId>info.magnolia.bundle.test</groupId>
       <artifactId>magnolia-integration-tests-fixture-module</artifactId>
       <scope>test</scope>
     </dependency>
@@ -211,7 +211,7 @@
 
             <deployables>
               <deployable>
-                <groupId>info.magnolia</groupId>
+                <groupId>info.magnolia.bundle.test</groupId>
                 <artifactId>magnolia-test-webapp</artifactId>
                 <type>war</type>
                 <properties>
@@ -219,7 +219,7 @@
                 </properties>
               </deployable>
               <deployable>
-                <groupId>info.magnolia</groupId>
+                <groupId>info.magnolia.bundle.test</groupId>
                 <artifactId>magnolia-test-webapp</artifactId>
                 <type>war</type>
                 <properties>

@@ -6,9 +6,10 @@
     <artifactId>magnolia-parent-pom-ce</artifactId>
     <version>27</version>
   </parent>
+  <groupId>info.magnolia.bundle</groupId>
   <artifactId>magnolia-bundle-parent</artifactId>
   <packaging>pom</packaging>
-  <version>5.1-SNAPSHOT</version>
+  <version>5.2-SNAPSHOT</version>
   <name>magnolia-bundle-parent</name>
   <inceptionYear>2003</inceptionYear>
   <scm>
@@ -20,11 +21,11 @@
 
   <properties>
     <magnoliaEdition>Community Edition</magnoliaEdition>
-    <magnoliaVersion>5.1-SNAPSHOT</magnoliaVersion>
-    <magnoliaUiVersion>5.1-SNAPSHOT</magnoliaUiVersion>
+    <magnoliaVersion>5.2-SNAPSHOT</magnoliaVersion>
+    <magnoliaUiVersion>5.2-SNAPSHOT</magnoliaUiVersion>
     <javaVersion>1.6</javaVersion>
     <documentationURL>http://documentation.magnolia-cms.com/releases/${project.version}.html</documentationURL>
-    <stkVersion>2.6-SNAPSHOT</stkVersion>
+    <stkVersion>2.7-SNAPSHOT</stkVersion>
     <scmTagPrefix>magnolia-bundle</scmTagPrefix>
     <!-- Disable clover during releases: -->
     <additionalReleaseProfiles />
@@ -62,13 +63,13 @@
         <type>war</type>
       </dependency>
       <dependency>
-        <groupId>info.magnolia</groupId>
+        <groupId>info.magnolia.bundle</groupId>
         <artifactId>magnolia-bundled-webapp</artifactId>
         <version>${project.version}</version>
         <type>pom</type>
       </dependency>
       <dependency>
-        <groupId>info.magnolia</groupId>
+        <groupId>info.magnolia.bundle</groupId>
         <artifactId>magnolia-bundled-webapp</artifactId>
         <version>${project.version}</version>
         <type>war</type>
@@ -76,32 +77,32 @@
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-legacy-admininterface</artifactId>
-        <version>5.1-SNAPSHOT</version>
+        <version>5.2-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia.dam</groupId>
         <artifactId>magnolia-dam</artifactId>
-        <version>1.1-SNAPSHOT</version>
+        <version>1.1.2-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-categorization</artifactId>
-        <version>2.1-SNAPSHOT</version>
+        <version>2.1.2-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-groovy</artifactId>
-        <version>2.1-SNAPSHOT</version>
+        <version>2.1.1</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia.activation</groupId>
         <artifactId>magnolia-module-activation</artifactId>
-        <version>5.0.3-SNAPSHOT</version>
+        <version>5.2-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia.cache</groupId>
         <artifactId>magnolia-module-cache</artifactId>
-        <version>5.0.3-SNAPSHOT</version>
+        <version>5.2-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
@@ -126,27 +127,25 @@
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-commenting</artifactId>
-        <version>2.0.1-SNAPSHOT</version>
+        <version>2.0.2-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-templating-samples</artifactId>
-        <version>5.1-SNAPSHOT</version>
+        <version>5.2-SNAPSHOT</version>
         <classifier>bundle</classifier>
         <type>tar.gz</type>
+      </dependency>
+      <dependency>
+        <groupId>info.magnolia</groupId>
+        <artifactId>magnolia-templating-samples</artifactId>
+        <version>5.2-SNAPSHOT</version>
+        <type>jar</type>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-data</artifactId>
-        <version>2.1-SNAPSHOT</version>
-        <classifier>bundle</classifier>
-        <type>tar.gz</type>
-      </dependency>
-      <dependency>
-        <groupId>info.magnolia</groupId>
-        <artifactId>magnolia-templating-samples</artifactId>
-        <version>5.1-SNAPSHOT</version>
-        <type>jar</type>
+        <version>2.2-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
@@ -156,48 +155,48 @@
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-rssaggregator</artifactId>
-        <version>2.0.3-SNAPSHOT</version>
+        <version>2.1</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia.devdect</groupId>
         <artifactId>magnolia-module-device-detection</artifactId>
-        <version>1.0.3-SNAPSHOT</version>
+        <version>1.0.3</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-imaging</artifactId>
-        <version>3.0.2-SNAPSHOT</version>
+        <version>3.0.3-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-resources</artifactId>
-        <version>2.0.2-SNAPSHOT</version>
+        <version>2.2-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-inplace-templating</artifactId>
-        <version>2.0.2-SNAPSHOT</version>
+        <version>2.2-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-form</artifactId>
-        <version>2.1-SNAPSHOT</version>
+        <version>2.1.1-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-forum</artifactId>
-        <version>3.0.1-SNAPSHOT</version>
+        <version>3.2-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-public-user-registration</artifactId>
-        <version>2.0.2-SNAPSHOT</version>
+        <version>2.1.1-SNAPSHOT</version>
       </dependency>
 
       <dependency>
         <groupId>info.magnolia.contacts</groupId>
         <artifactId>magnolia-contacts</artifactId>
-        <version>1.1-SNAPSHOT</version>
+        <version>1.1.2-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>

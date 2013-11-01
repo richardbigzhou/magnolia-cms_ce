@@ -87,7 +87,7 @@
     <dependencySet>
       <outputDirectory>apache-tomcat-${project.properties.tomcatVersion}/webapps/magnoliaAuthor</outputDirectory>
       <includes>
-        <include>info.magnolia:magnolia-bundled-webapp</include>
+        <include>info.magnolia.bundle:magnolia-bundled-webapp</include>
       </includes>
       <useStrictFiltering>true</useStrictFiltering>
       <unpack>true</unpack>
