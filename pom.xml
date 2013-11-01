@@ -6,6 +6,7 @@
     <artifactId>magnolia-parent-pom-ce</artifactId>
     <version>27</version>
   </parent>
+  <groupId>info.magnolia.bundle</groupId>
   <artifactId>magnolia-bundle-parent</artifactId>
   <packaging>pom</packaging>
   <version>5.2-SNAPSHOT</version>
@@ -62,13 +63,13 @@
         <type>war</type>
       </dependency>
       <dependency>
-        <groupId>info.magnolia</groupId>
+        <groupId>info.magnolia.bundle</groupId>
         <artifactId>magnolia-bundled-webapp</artifactId>
         <version>${project.version}</version>
         <type>pom</type>
       </dependency>
       <dependency>
-        <groupId>info.magnolia</groupId>
+        <groupId>info.magnolia.bundle</groupId>
         <artifactId>magnolia-bundled-webapp</artifactId>
         <version>${project.version}</version>
         <type>war</type>
