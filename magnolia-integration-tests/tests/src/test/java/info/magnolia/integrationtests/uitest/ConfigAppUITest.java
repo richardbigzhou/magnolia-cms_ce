@@ -78,6 +78,8 @@ public class ConfigAppUITest extends AbstractMagnoliaUITest {
         // Create content node and rename it
         getActionBarItem("Add content node").click();
         getTreeTableItem("untitled").click();
+        delay(1, "Wait a second for actionbar to update");
+
         getActionBarItem("Rename item").click();
         setFormTextFieldText("Name", nodeName);
 
@@ -86,6 +88,8 @@ public class ConfigAppUITest extends AbstractMagnoliaUITest {
         // Create property and set name & value
         getActionBarItem("Add property").click();
         getTreeTableItem("untitled").click();
+        delay(1, "Wait a second for actionbar to update");
+
         getActionBarItem("Edit property").click();
         setFormTextFieldText("Name", propertyName);
         setFormTextFieldText("Value", unEscapedHTML);
