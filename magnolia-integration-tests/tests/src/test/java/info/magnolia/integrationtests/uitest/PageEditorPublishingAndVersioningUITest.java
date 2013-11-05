@@ -115,7 +115,6 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractMagnoliaUIT
         // Edit the new page
         getActionBarItem("Edit page").click();
 
-
         // Add Text Image component into the main Content
         selectAreaAndComponent("New Content Component", "Text and Image");
         // Add Text
@@ -203,6 +202,7 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractMagnoliaUIT
      */
     protected void selectAreaAndComponent(String areaName, String componentName) {
         switchToPageEditorContent();
+        delay(1, "Switch to page editor may take time");
         getElementByXpath("//div[@class='mgnlEditorBar mgnlEditor component']//div[@title='%s']", areaName).click();
         switchToDefaultContent();
         getActionBarItem("Add component").click();
@@ -211,8 +211,7 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractMagnoliaUIT
         getDialogButton("v-button-commit").click();
     }
 
-
-        /**
+    /**
      * Change content of a Text Image Component and check the available main sub app action and status.<br>
      * Steps: <br>
      * - Modify the Text Image component<br>
