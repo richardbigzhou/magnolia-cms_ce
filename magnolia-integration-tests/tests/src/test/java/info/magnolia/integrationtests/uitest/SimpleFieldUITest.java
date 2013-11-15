@@ -95,7 +95,7 @@ public class SimpleFieldUITest extends AbstractMagnoliaUITest {
         getDialogCommitButton().click();
 
         // THEN
-        assertEquals("Please correct the 1 errors in this form [Jump to next error]", getFormErrorHeader().getText());
+        assertEquals("Please correct the 1 errors in this form[Jump to next error]", getFormErrorHeader().getText());
         getFormErrorJumpToNextError().click();
         String text = getFormFieldError().getText();
         assertEquals("Could not convert value to Long", text);
