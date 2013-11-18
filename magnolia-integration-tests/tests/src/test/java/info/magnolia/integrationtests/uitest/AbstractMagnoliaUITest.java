@@ -220,9 +220,12 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         if (driver == null) {
             log.warn("Driver is set to null.");
         } else {
-            logout();
-            driver.quit();
-            driver = null;
+            try {
+                logout();
+            } finally {
+                driver.quit();
+                driver = null;
+            }
         }
     }
 
