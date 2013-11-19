@@ -51,8 +51,8 @@
       <artifactId>magnolia-module-activation</artifactId>
     </dependency>
     <dependency>
-    	<groupId>info.magnolia</groupId>
-    	<artifactId>magnolia-module-groovy</artifactId>
+      <groupId>info.magnolia</groupId>
+      <artifactId>magnolia-module-groovy</artifactId>
     </dependency>
     <dependency>
       <groupId>info.magnolia.sample</groupId>
@@ -69,10 +69,6 @@
     <dependency>
       <groupId>info.magnolia.dam</groupId>
       <artifactId>magnolia-dam</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>info.magnolia</groupId>
-      <artifactId>magnolia-4-5-migration</artifactId>
     </dependency>
     <dependency>
       <groupId>info.magnolia</groupId>
