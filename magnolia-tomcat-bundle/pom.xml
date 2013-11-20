@@ -4,7 +4,7 @@
   <parent>
     <groupId>info.magnolia.bundle</groupId>
     <artifactId>magnolia-bundle-parent</artifactId>
-    <version>5.2-SNAPSHOT</version>
+    <version>5.2-rc2</version>
     <relativePath>../pom.xml</relativePath>
   </parent>
   <groupId>info.magnolia.bundle</groupId>
