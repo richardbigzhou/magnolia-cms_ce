@@ -83,4 +83,29 @@
       <artifactId>magnolia-rest-services</artifactId>
     </dependency>
   </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.gmaven</groupId>
+        <artifactId>gmaven-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>check-for-duplicates</id>
+            <phase>verify</phase>
+            <goals>
+              <goal>execute</goal>
+            </goals>
+            <configuration>
+              <providerSelection>1.5</providerSelection>
+              <properties>
+                <libdir>${project.build.directory}/${project.build.finalName}/WEB-INF/lib</libdir>
+              </properties>
+              <source>${project.basedir}/test/check_for_duplicates.groovy</source>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
 </project>
