@@ -9,6 +9,7 @@ tmp
 .project
 .classpath
 .settings
+.checkstyle
 .wtpmodules
 **rebel.xml
 
