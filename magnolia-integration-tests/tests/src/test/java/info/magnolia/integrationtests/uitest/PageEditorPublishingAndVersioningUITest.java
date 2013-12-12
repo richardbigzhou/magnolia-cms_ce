@@ -38,6 +38,7 @@ import static org.junit.Assert.*;
 import org.apache.commons.lang.StringUtils;
 import org.junit.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
 /**
  * Publishing and versioning test for pages app.
@@ -346,7 +347,11 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractMagnoliaUIT
      */
     protected void expandTreeAndSelectAnElement(String element, String... paths) {
         for (String path : paths) {
-            getTreeTableItemExpander(path).click();
+            WebElement treeExpander = getTreeTableItemExpander(path);
+            // Only expand node if it's not open yet
+            if (!treeExpander.getAttribute("class").contains("v-treetable-node-open")) {
+                treeExpander.click();
+            }
         }
         getTreeTableItem(element).click();
     }
