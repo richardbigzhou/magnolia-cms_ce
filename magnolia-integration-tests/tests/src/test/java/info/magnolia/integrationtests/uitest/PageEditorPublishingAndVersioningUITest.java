@@ -112,7 +112,7 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractMagnoliaUIT
         expandTreeAndSelectAnElement("New-Funny-Article", "subsection-articles");
         // Check Status and actions
         assertTrue(getSelectedIcon("color-red").isDisplayed());
-        checkDisableddActions("Show versions", "Publish incl. subpages");
+        checkDisabledActions("Show versions", "Publish incl. subpages");
         // Edit the new page
         getActionBarItem("Edit page").click();
 
@@ -159,7 +159,7 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractMagnoliaUIT
         expandTreeAndSelectAnElement("New-Article-To-Delete", "subsection-articles");
         // Check Status and actions
         assertTrue(getSelectedIcon("color-red").isDisplayed());
-        checkDisableddActions("Show versions", "Publish incl. subpages");
+        checkDisabledActions("Show versions", "Publish incl. subpages");
 
         // Publish Page
         publishAndCheckAuthor();
@@ -176,7 +176,7 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractMagnoliaUIT
         getDialogConfirmButton().click();
         delay("Give dialog some time to fade away...");
         // Check available actions
-        checkDisableddActions("Move page", "Preview page", "Add page", "Delete page", "Edit page", "Rename page");
+        checkDisabledActions("Move page", "Preview page", "Add page", "Delete page", "Edit page", "Rename page");
         // Check non available actions
         checkEnabledActions("Publish deletion", "Show previous version", "Restore previous version");
         // Check the Trash Icon
@@ -230,12 +230,12 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractMagnoliaUIT
             // Check available actions
             checkEnabledActions("Publish", "Unpublish", "Show versions");
             // Check non available actions
-            checkDisableddActions("Publish incl. subpages");
+            checkDisabledActions("Publish incl. subpages");
         } else {
             // Check available actions
             checkEnabledActions("Publish", "Unpublish");
             // Check non available actions
-            checkDisableddActions("Show versions", "Publish incl. subpages");
+            checkDisabledActions("Show versions", "Publish incl. subpages");
         }
         // Check the status
         assertTrue(getSelectedIcon("color-yellow").isDisplayed());
@@ -362,7 +362,7 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractMagnoliaUIT
         }
     }
 
-    protected void checkDisableddActions(String... actions) {
+    protected void checkDisabledActions(String... actions) {
         for (String action : actions) {
             assertTrue("'" + action + "' action should be disabled ", isExisting(getDisabledActionBarItem(action)));
         }
@@ -397,6 +397,6 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractMagnoliaUIT
         assertFalse(getTabForCaption(tabHeader) instanceof NonExistingWebElement);
         // Check available actions
         // With MGNLUI-2126 those actions were disabled, as they should not be available for versioned contents
-        checkDisableddActions("Edit page", "Publish", "Unpublish");
+        checkDisabledActions("Edit page", "Publish", "Unpublish");
     }
 }
