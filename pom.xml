@@ -132,14 +132,14 @@
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-templating-samples</artifactId>
-        <version>5.2</version>
+        <version>5.2.1-SNAPSHOT</version>
         <classifier>bundle</classifier>
         <type>tar.gz</type>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-templating-samples</artifactId>
-        <version>5.2</version>
+        <version>5.2.1-SNAPSHOT</version>
         <type>jar</type>
       </dependency>
       <dependency>
