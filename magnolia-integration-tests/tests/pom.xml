@@ -94,11 +94,6 @@
       <groupId>org.slf4j</groupId>
       <artifactId>jcl-over-slf4j</artifactId>
     </dependency>
-    <dependency>
-      <groupId>org.mortbay.jetty</groupId>
-      <artifactId>jsp-2.1-jetty</artifactId>
-      <version>6.1.22</version>
-    </dependency>
   </dependencies>
 
   <build>
@@ -189,12 +184,6 @@
               <authorContextPath>magnoliaTest/</authorContextPath>
               <publicContextPath>magnoliaTestPublic/</publicContextPath>
             </systemProperties>
-            <dependencies>
-              <dependency>
-                <groupId>org.mortbay.jetty</groupId>
-                <artifactId>jsp-2.1-jetty</artifactId>
-              </dependency>
-            </dependencies>
           </container>
           <configuration>
             <type>${configType}</type>
@@ -219,6 +208,7 @@
               <cargo.tomcat.ajp.port>8099</cargo.tomcat.ajp.port>
               <cargo.rmi.port>${cargoRmiPort}</cargo.rmi.port>
             </properties>
+
             <deployables>
               <deployable>
                 <groupId>info.magnolia.bundle.test</groupId>
