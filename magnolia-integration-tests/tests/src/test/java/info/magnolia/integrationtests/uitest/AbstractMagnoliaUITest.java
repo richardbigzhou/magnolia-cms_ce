@@ -573,6 +573,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
     }
 
     private void clearAndSetTextForInputElement(WebElement input, String text) {
+        input.click();
         input.clear();
         input.sendKeys(text);
     }

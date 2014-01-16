@@ -117,7 +117,7 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractMagnoliaUIT
         getActionBarItem("Edit page").click();
 
         // Add Text Image component into the main Content
-        selectAreaAndComponent("New Content Component", "Text and Image");
+        selectAreaAndComponent("Content", "Text and Image");
         // Add Text
         setFormTextFieldText("Subheading", "New Text Image Component");
         getTabForCaption("Image").click();
@@ -130,7 +130,7 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractMagnoliaUIT
         getDialogCommitButton().click();
 
         // Add a Contact into the Extra Area Content
-        selectAreaAndComponent("New Extras Component", "Contact");
+        selectAreaAndComponent("Extras", "Contact");
         // Add an Image
         switchToDefaultContent();
         getNativeButton("magnoliabutton v-nativebutton-magnoliabutton").click();
@@ -195,20 +195,25 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractMagnoliaUIT
     }
 
     /**
-     * From the page editor sub app, select and Area, and from the Area choose dialog, select a component.<br>
+     * From the page editor sub app, select and Area, and from the add component dialog, select a component.<br>
      * The dialog of the desired component is open and available to use.
      * 
-     * @param areaName for example: 'New Content Component' or 'New Extras Component'
+     * @param areaName for example: 'Content' or 'Extras'
      * @param componentName for example : 'Text and Image' or 'Contact'
      */
     protected void selectAreaAndComponent(String areaName, String componentName) {
         switchToPageEditorContent();
         delay(1, "Switch to page editor may take time");
-        getElementByXpath("//div[@class='mgnlEditorBar mgnlEditor component']//div[@title='%s']", areaName).click();
+        getElementByXpath("//div[contains(@class, 'area')]//div[@title='%s']", areaName).click();
         switchToDefaultContent();
         getActionBarItem("Add component").click();
         getSelectTabElement("Component").click();
         selectElementOfTabListForLabel(componentName);
+
+        // make sure field is blurred and changed (test-only)
+        getTabForCaption("Component").click();
+        delay(1, "make sure there is enough time to process change event");
+
         getDialogButton("v-button-commit").click();
     }
 
@@ -281,6 +286,11 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractMagnoliaUIT
         setFormTextAreFieldText("Page title", templateTitle);
         getSelectTabElement("Template").click();
         selectElementOfTabListForLabel(templateType);// Article
+
+        // make sure field is blurred and changed to avoid validation error (test-only)
+        getFormTextField("Page name").click();
+        delay(1, "make sure there is enough time to process change event");
+
         // Select
         getDialogButton("v-button-commit").click();
         delay("Waiting for the editSubApp to open");
