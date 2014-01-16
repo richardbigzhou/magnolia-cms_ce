@@ -451,6 +451,10 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         return getElementByXpath("//*[contains(@class, '%s')]//*[text() = '%s']", classname, caption);
     }
 
+    protected WebElement getCollapsibleAppSectionIcon(String sectionName) {
+        return getElementByXpath("//div[contains(@class, 'item')]/*[@class = 'sectionLabel' and text() = '%s']", sectionName);
+    }
+
     protected WebElement getAppIcon(String appName) {
         return getElementByXpath("//div[contains(@class, 'item')]/*[@class = 'label' and text() = '%s']", appName);
     }

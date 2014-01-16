@@ -33,13 +33,13 @@
  */
 package info.magnolia.integrationtests.uitest;
 
-import org.junit.Test;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
+import static org.junit.Assert.*;
 
 import java.util.Date;
 
-import static org.junit.Assert.*;
+import org.junit.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
 /**
  * Basic UI tests for admincentral.
@@ -67,7 +67,7 @@ public class AdmincentralUITest extends AbstractMagnoliaUITest {
         // GIVEN
         String messageContent = String.format("iam an error %d", new Date().getTime());
         String messageTitle = "iam an error";
-        getAppIcon("Dev").click();
+        getCollapsibleAppSectionIcon("Dev").click();
         getAppIcon("Messages").click();
         assertAppOpen("Messages");
 
@@ -125,7 +125,7 @@ public class AdmincentralUITest extends AbstractMagnoliaUITest {
         // GIVEN
         String messageContent = String.format("iam an error %d", new Date().getTime());
         String messageTitle = "iam an error";
-        getAppIcon("Dev").click();
+        getCollapsibleAppSectionIcon("Dev").click();
         getAppIcon("Messages").click();
         assertAppOpen("Messages");
 
