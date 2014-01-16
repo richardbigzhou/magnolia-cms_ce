@@ -102,7 +102,7 @@ public class AdmincentralUITest extends AbstractMagnoliaUITest {
     public void sendAndRetrieveMessage() {
         // GIVEN
         String messageContent = String.format("iam a message content %d", new Date().getTime());
-        getAppIcon("Dev").click();
+        getCollapsibleAppSectionIcon("Dev").click();
         getAppIcon("Messages").click();
         assertAppOpen("Messages");
 
