@@ -1,5 +1,5 @@
 /**
- * This file Copyright (c) 2013 Magnolia International
+ * This file Copyright (c) 2013-2014 Magnolia International
  * Ltd.  (http://www.magnolia-cms.com). All rights reserved.
  *
  *
@@ -452,7 +452,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
     }
 
     protected WebElement getCollapsibleAppSectionIcon(String sectionName) {
-        return getElementByXpath("//div[contains(@class, 'item')]/*[@class = 'sectionLabel' and text() = '%s']", sectionName);
+        return getElementByXpath("//div[contains(@class, 'item')]/*[contains(@class,'sectionLabel') and text() = '%s']", sectionName);
     }
 
     protected WebElement getAppIcon(String appName) {
