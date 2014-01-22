@@ -26,6 +26,7 @@
     <javaVersion>1.6</javaVersion>
     <documentationURL>http://documentation.magnolia-cms.com/releases/${project.version}.html</documentationURL>
     <stkVersion>2.7.2-SNAPSHOT</stkVersion>
+    <restVersion>1.0.2-SNAPSHOT</restVersion>
     <scmTagPrefix>magnolia-bundle</scmTagPrefix>
     <!-- Disable clover during releases: -->
     <additionalReleaseProfiles />
@@ -207,17 +208,17 @@
       <dependency>
         <groupId>info.magnolia.rest</groupId>
         <artifactId>magnolia-rest-integration</artifactId>
-        <version>1.0.1</version>
+        <version>${restVersion}</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia.rest</groupId>
         <artifactId>magnolia-rest-services</artifactId>
-        <version>1.0.1</version>
+        <version>${restVersion}</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia.rest</groupId>
         <artifactId>magnolia-rest-tools</artifactId>
-        <version>1.0.1</version>
+        <version>${restVersion}</version>
       </dependency>
 
     </dependencies>
