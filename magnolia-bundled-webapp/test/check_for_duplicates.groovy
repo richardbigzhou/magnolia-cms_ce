@@ -26,7 +26,7 @@ new File(directory).eachFile() { file ->
 
             if (jarMap.containsKey(artifact)) {
                 if (exceptions.contains(artifact)) {
-                    print "expected "
+                    print "Expected "
                 } else {
                     collision = true
                 }
@@ -36,7 +36,7 @@ new File(directory).eachFile() { file ->
             }
             jarMap[artifact].add(file.name)
         } else {
-            println "WARNING: couldn't parse" + file.name
+            println String.format("WARNING: couldn't parse '%s'", file.name)
         }
     }
 }
