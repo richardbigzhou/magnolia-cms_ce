@@ -43,7 +43,7 @@ import java.util.regex.Pattern
 
 import groovy.json.JsonSlurper
 
-class ActivationTest2 {
+class ActivationTest {
 
     private authorUrl
     private authorAdmincentralUrl
@@ -60,7 +60,7 @@ class ActivationTest2 {
 
     private isEnterprise = false
 
-    ActivationTest2(authorUrl, publicUrl, credentials, isEnterprise) {
+    ActivationTest(authorUrl, publicUrl, credentials, isEnterprise) {
         this.credentials = credentials
 
         this.authorUrl = authorUrl
@@ -706,7 +706,7 @@ if (!root || !login || !password) {
     return
 }
 
-def activator = new ActivationTest2(root, publicRoot, [mgnlUserId : login, mgnlUserPSWD : password], isEnterprise)
+def activator = new ActivationTest(root, publicRoot, [mgnlUserId : login, mgnlUserPSWD : password], isEnterprise)
 activator.testActivateExistingPage()
 activator.testActivateExistingPageInclSubPages()
 activator.testActivateNewPage()
