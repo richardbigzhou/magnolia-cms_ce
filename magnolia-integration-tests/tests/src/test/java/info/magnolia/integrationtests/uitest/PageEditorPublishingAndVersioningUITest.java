@@ -381,9 +381,6 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractMagnoliaUIT
     /**
      * From the page editor (main sub app) open a specific version.<br>
      * Check the available actions and tab header.
-     * 
-     * @param expectedNumberOfVersion
-     * @param desiredVersion
      */
     protected void openPageVersion(int expectedNumberOfVersion, int desiredVersion, String tabHeader) {
 
