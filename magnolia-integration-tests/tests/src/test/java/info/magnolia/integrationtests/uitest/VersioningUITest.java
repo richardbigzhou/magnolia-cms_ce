@@ -121,7 +121,7 @@ public class VersioningUITest extends AbstractMagnoliaUITest {
         }
 
         // Assert button "commit" is not shown
-        assertTrue(getButton("v-button-commit", "save changes") instanceof NonExistingWebElement);
+        assertFalse(isExisting(getButton("v-button-commit", "save changes")));
     }
 
     /**

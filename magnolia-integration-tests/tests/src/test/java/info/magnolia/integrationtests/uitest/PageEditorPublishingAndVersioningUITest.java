@@ -92,8 +92,8 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractMagnoliaUIT
 
         // CHECK THE TAB HEADER
         delay("Waiting before check");
-        assertTrue(getTabForCaption("Standard Article [1.0]") instanceof NonExistingWebElement);
-        assertFalse(getTabForCaption("Standard Article") instanceof NonExistingWebElement);
+        assertFalse(isExisting(getTabForCaption("Standard Article [1.0]")));
+        assertTrue(isExisting(getTabForCaption("Standard Article")));
 
     }
 
@@ -343,8 +343,8 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractMagnoliaUIT
         delay(5, "Make sure we finish rendering before anything else.");
 
         // THEN
-        assertFalse("Following published change has to be visible on public instance '" + subheadingValue + "'", getElementByPath(By.xpath(String.format("//h2[text() = '%s']", subheadingValue))) instanceof NonExistingWebElement);
-        assertFalse("Following published change has to be visible on public instance '" + imageCaptionValue + "'", getElementByPath(By.xpath(String.format("//dd[text() = '%s']", imageCaptionValue))) instanceof NonExistingWebElement);
+        assertTrue("Following published change has to be visible on public instance '" + subheadingValue + "'", isExisting(getElementByPath(By.xpath(String.format("//h2[text() = '%s']", subheadingValue)))));
+        assertTrue("Following published change has to be visible on public instance '" + imageCaptionValue + "'", isExisting(getElementByPath(By.xpath(String.format("//dd[text() = '%s']", imageCaptionValue)))));
 
         // Go back to the last url
         driver.navigate().to(lastUrl);
@@ -399,7 +399,7 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractMagnoliaUIT
         delay("Waiting for the editSubApp to open");
 
         // Sub App Open in a Read Only Mode
-        assertTrue(getElementByPath(By.xpath("//div[@class = 'mgnlEditorBar mgnlEditor area init']")) instanceof NonExistingWebElement);
+        assertFalse(isExisting(getElementByPath(By.xpath("//div[@class = 'mgnlEditorBar mgnlEditor area init']"))));
         // Check tab header (include version)
         assertFalse(getTabForCaption(tabHeader) instanceof NonExistingWebElement);
         // Check available actions

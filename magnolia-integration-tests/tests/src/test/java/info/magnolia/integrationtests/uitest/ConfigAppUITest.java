@@ -101,7 +101,7 @@ public class ConfigAppUITest extends AbstractMagnoliaUITest {
         // THEN
         // Unescaped property shouldn't show up
         WebElement propertyUnescaped = getElementByPath(By.xpath("//div[@class='v-table-cell-wrapper']//img[contains(@src, 'gif')]"));
-        if (!(propertyUnescaped instanceof NonExistingWebElement)) {
+        if (isExisting(propertyUnescaped)) {
             log.info("Found un-escaped property [{}]", propertyUnescaped);
 
             Actions mouseOverActionUnescaped = new Actions(driver);
