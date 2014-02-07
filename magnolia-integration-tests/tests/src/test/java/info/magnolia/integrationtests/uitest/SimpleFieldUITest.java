@@ -106,7 +106,7 @@ public class SimpleFieldUITest extends AbstractMagnoliaUITest {
         // GIVEN
         goToDialogShowRoomAndOpenDialogComponent("ftl");
         getTabForCaption("Link and Date").click();
-        getNativeButton("magnoliabutton v-nativebutton-magnoliabutton").click();
+        getNativeButton().click();
         getTreeTableItem("demo-project").click();
 
         // WHEN

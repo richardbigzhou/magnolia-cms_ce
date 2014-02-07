@@ -78,6 +78,8 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
     public static final String FILE_NAME_ENDING = ".png";
     public static final int MAX_FILE_NAME_LENGHT_WITHOUT_EXTENSION = 256 - FILE_NAME_ENDING.length();
 
+    public static final String DEFAULT_NATIVE_BUTTON_CLASS = "magnoliabutton v-nativebutton-magnoliabutton";
+
     protected static final String SCREENSHOT_DIR = "target/surefire-reports/";
 
     protected WebDriver driver = null;
@@ -437,6 +439,10 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
 
     protected WebElement getNativeButton(String classname) {
         return getElementByXpath("//button[contains(@class, '%s')]", classname);
+    }
+
+    protected WebElement getNativeButton() {
+        return getNativeButton(DEFAULT_NATIVE_BUTTON_CLASS);
     }
 
     protected WebElement getDialogButtonWithCaption(final String caption) {

@@ -123,7 +123,7 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractMagnoliaUIT
         getTabForCaption("Image").click();
         setFormTextAreFieldText("Image Caption", "Image Caption");
         // Add Image
-        getNativeButton("magnoliabutton v-nativebutton-magnoliabutton").click();
+        getNativeButton().click();
         expandTreeAndSelectAnElement("a-grey-curvature-of-lines", "demo-project", "img", "bk", "Stage");
         getDialogButtonWithCaption("choose").click();
         // Close and Save the Dialog.
@@ -133,7 +133,7 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractMagnoliaUIT
         selectAreaAndComponent("Extras", "Contact");
         // Add an Image
         switchToDefaultContent();
-        getNativeButton("magnoliabutton v-nativebutton-magnoliabutton").click();
+        getNativeButton().click();
         getTreeTableItem("Pablo Picasso").click();
         getDialogButtonWithCaption("save changes").click();
         // Close and Save the Dialog.
