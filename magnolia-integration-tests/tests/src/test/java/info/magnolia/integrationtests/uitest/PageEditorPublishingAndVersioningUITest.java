@@ -302,10 +302,6 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractMagnoliaUIT
 
     /**
      * Create a new Page template.
-     * 
-     * @param templateName
-     * @param templateTitle
-     * @param templateType
      */
     protected void addNewTemplate(String templateName, String templateTitle, String templateType) {
         getActionBarItem("Add page").click();
