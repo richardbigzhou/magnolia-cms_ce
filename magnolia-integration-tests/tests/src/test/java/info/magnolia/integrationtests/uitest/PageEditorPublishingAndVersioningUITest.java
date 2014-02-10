@@ -200,7 +200,7 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
         final String[] pathToArticle = new String[] { DEMO_PROJECT_PAGE, ABOUT_PAGE };
         expandTreeAndSelectAnElement(SUBSECTION_ARTICLES, pathToArticle);
 
-        expandTreeAndSelectAnElement("article", SUBSECTION_ARTICLES);
+        expandTreeAndSelectAnElement("large-article", SUBSECTION_ARTICLES);
 
         getActionBarItem(DELETE_PAGE_ACTION).click();
         delay(2, "Wait for the confirmation message");
