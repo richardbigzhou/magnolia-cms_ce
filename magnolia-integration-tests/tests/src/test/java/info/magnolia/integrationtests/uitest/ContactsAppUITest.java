@@ -43,12 +43,9 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 /**
- * Versioning test for contacts-app.
- *
- * Tests if view- and edit-mode of editor subApp have non-editable / editable fields.
- * Checks if commit button is removed in view-mode of a versioned contact.
+ * UI Tests for contacts-app.
  */
-public class VersioningUITest extends AbstractMagnoliaUITest {
+public class ContactsAppUITest extends AbstractMagnoliaUITest {
 
     private void createVersionedContactOf(String contactName) {
         String testEmailAddr = String.format("testemail%d@random.ch", new Date().getTime());
@@ -99,8 +96,7 @@ public class VersioningUITest extends AbstractMagnoliaUITest {
         // Get version drop-down
         WebElement table = getElementByPath(By.xpath("//div[contains(@class, 'popupContent')]//div/table"));
 
-        assertTrue("We expect to have at least one version",
-                table.findElements(By.xpath("tbody/tr")).size() >= 1);
+        assertTrue("We expect to have at least one version", table.findElements(By.xpath("tbody/tr")).size() >= 1);
 
         // Click on show version
         getDialogButton("v-button-commit").click();
@@ -113,11 +109,9 @@ public class VersioningUITest extends AbstractMagnoliaUITest {
         // THEN
         // Assert subApp is open and all fields in editor are readonly
         // Tab name will contain a version number
-        assertTrue("We expect the editor subApp tab to be open",
-                getElementByPath(By.xpath("//*[contains(@class, 'tab-title') and contains(text(), '" + contactName + "')]")).isDisplayed());
+        assertTrue("We expect the editor subApp tab to be open", getElementByPath(By.xpath("//*[contains(@class, 'tab-title') and contains(text(), '" + contactName + "')]")).isDisplayed());
         for (WebElement element : inputs) {
-            assertEquals("We expect element [" + element.getTagName() + "] to be readonly",
-                    "true", element.getAttribute("readonly"));
+            assertEquals("We expect element [" + element.getTagName() + "] to be readonly", "true", element.getAttribute("readonly"));
         }
 
         // Assert button "commit" is not shown
@@ -149,8 +143,7 @@ public class VersioningUITest extends AbstractMagnoliaUITest {
         // Get version drop-down
         WebElement table = getElementByPath(By.xpath("//div[contains(@class, 'popupContent')]//div/table"));
 
-        assertTrue("We expect to have at least one version",
-                table.findElements(By.xpath("tbody/tr")).size() >= 1);
+        assertTrue("We expect to have at least one version", table.findElements(By.xpath("tbody/tr")).size() >= 1);
 
         // Click on show version
         getDialogButton("v-button-commit").click();
@@ -162,8 +155,7 @@ public class VersioningUITest extends AbstractMagnoliaUITest {
 
         // Assert subApp is open and all fields in editor are readonly
         // Tab name will contain a version number
-        assertTrue("We expect the editor subApp tab to be open",
-                getElementByPath(By.xpath("//*[contains(@class, 'tab-title') and contains(text(), '" + contactName + "')]")).isDisplayed());
+        assertTrue("We expect the editor subApp tab to be open", getElementByPath(By.xpath("//*[contains(@class, 'tab-title') and contains(text(), '" + contactName + "')]")).isDisplayed());
         for (WebElement element : inputs) {
             assertEquals("We expect element [" + element.getTagName() + "] to be readonly", "true", element.getAttribute("readonly"));
         }
@@ -184,8 +176,7 @@ public class VersioningUITest extends AbstractMagnoliaUITest {
 
         // THEN
         // Assert fields are editable afterwards
-        assertTrue("We expect the editor subApp tab to be open",
-                getElementByPath(By.xpath("//*[contains(@class, 'tab-title') and text() = '" + contactName + "']")).isDisplayed());
+        assertTrue("We expect the editor subApp tab to be open", getElementByPath(By.xpath("//*[contains(@class, 'tab-title') and text() = '" + contactName + "']")).isDisplayed());
         for (WebElement element : inputsEditable) {
             assertEquals("We expect element [" + element.getTagName() + "] to be editable", null, element.getAttribute("readonly"));
         }
