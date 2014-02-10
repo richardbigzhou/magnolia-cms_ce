@@ -194,6 +194,33 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractMagnoliaUIT
 
     }
 
+    @Test
+    public void deleteAndRestoreArticle() {
+        getAppIcon("Pages").click();
+        // Navigate to the content to change
+        final String[] pathToArticle = new String[] { "demo-project", "about" };
+        final String article = "subsection-articles";
+        expandTreeAndSelectAnElement(article, pathToArticle);
+
+        expandTreeAndSelectAnElement("article", "subsection-articles");
+
+        getActionBarItem("Delete page").click();
+        delay(2, "Wait for the confirmation message");
+        getDialogConfirmButton().click();
+        delay("Give dialog some time to fade away...");
+
+        assertTrue(getSelectedIcon("icon-trash").isDisplayed());
+
+        // Restore
+        getActionBarItem("Restore previous version").click();
+        delay(2, "Wait for the confirmation message");
+
+        getTabForCaption("Pages").click();
+        assertFalse("Article should have been restored - no trash icon should be displayed any longer", isExisting(getSelectedIcon("icon-trash")));
+        assertTrue(getSelectedIcon("color-yellow").isDisplayed());
+    }
+
+
     /**
      * From the page editor sub app, select and Area, and from the add component dialog, select a component.<br>
      * The dialog of the desired component is open and available to use.

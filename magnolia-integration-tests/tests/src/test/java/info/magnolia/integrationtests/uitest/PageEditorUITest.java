@@ -38,7 +38,6 @@ import static org.junit.Assert.*;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 
 /**
  * UI tests for Page Editor.
@@ -152,7 +151,6 @@ public class PageEditorUITest extends AbstractMagnoliaUITest {
      * Test if page browser loads properly if non-existing path is given.
      * See {@link: http://jira.magnolia-cms.com/browse/MGNLUI-1475}.
      */
-    @Ignore("Reactivate when MGNLUI-1475 fix is available in master")
     @Test
     public void loadPageBrowserWhenNonExistingPathGiven() {
         // GIVEN
@@ -165,43 +163,4 @@ public class PageEditorUITest extends AbstractMagnoliaUITest {
         // THEN
         assertAppOpen("Pages");
     }
-
-    @Test
-    public void markPageAsDeletedTestAndRestorePreviousVersion() {
-        // GIVEN
-        final String history = Instance.AUTHOR.getURL() + ".magnolia/admincentral#app:pages:browser;/demo-project/about/subsection-articles/article:treeview:";
-        driver.navigate().to(history);
-        delay("Give some time to go to URL");
-
-        // WHEN delete
-        getActionBarItem("Delete page").click();
-
-        delay("Wait for the overlay to show up");
-
-        getConfirmationOverlay().findElement(By.xpath("//*[contains(@class, 'v-button-confirm')]")).click();
-
-        delay("Give some time to mark page as deleted");
-
-        // THEN
-        assertDeletedPage("We expect to find a page that is marked as deleted", true);
-
-        // WHEN restore
-        getActionBarItem("Restore previous version").click();
-
-        delay("Give some time to restore page");
-        // Restore will open the page in edit-mode in another tab,
-        // thus we have to go back to tree-view
-        driver.navigate().to(history);
-
-        // THEN
-        assertDeletedPage("We expect to NOT find a page that is marked as deleted anymore", false);
-    }
-
-    private void assertDeletedPage(final String message, final boolean expectToFindDeletedPage) {
-        final WebElement deletedPage = getElementByPath(By.xpath("//tr[contains(@class, 'v-table-row-icon-trash')]"));
-        final WebElement deletedPageColumnContent = getElementByPath(By.xpath("//tr[contains(@class, 'v-table-row-icon-trash')]//td/div[text() = 'Deleted Page']"));
-        final boolean foundDeletedPage = isExisting(deletedPage) || isExisting(deletedPageColumnContent);
-        assertEquals(message, expectToFindDeletedPage, foundDeletedPage);
-    }
-
 }
