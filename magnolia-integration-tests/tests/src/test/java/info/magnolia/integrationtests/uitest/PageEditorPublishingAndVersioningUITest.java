@@ -43,7 +43,7 @@ import org.openqa.selenium.WebElement;
 /**
  * Publishing and versioning test for pages app.
  */
-public class PageEditorPublishingAndVersioningUITest extends AbstractMagnoliaUITest {
+public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorUITest {
 
     /**
      * Single page publication and versioning check.<br>
@@ -63,11 +63,12 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractMagnoliaUIT
     @Test
     public void publishAndCheckVersions() {
         // GIVEN
-        String[] pathToArticle = new String[] { "demo-project", "about", "subsection-articles" };
-        String article = "article";
+        final String[] pathToArticle = new String[] { DEMO_PROJECT_PAGE, ABOUT_PAGE, SUBSECTION_ARTICLES };
+        final String article = "article";
+
         // WHEN
         // Go to pages App
-        getAppIcon("Pages").click();
+        getAppIcon(PAGES_APP).click();
         // Navigate to the content to change
         expandTreeAndSelectAnElement(article, pathToArticle);
 
@@ -87,8 +88,8 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractMagnoliaUIT
         openPageVersion(2, 1, "Standard Article [1.0]");
 
         // Go Back to tree and edit the same page
-        getTabForCaption("Pages").click();
-        getActionBarItem("Edit page").click();
+        getTabForCaption(PAGES_APP).click();
+        getActionBarItem(EDIT_PAGE_ACTION).click();
 
         // CHECK THE TAB HEADER
         delay("Waiting before check");
@@ -100,21 +101,20 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractMagnoliaUIT
     @Test
     public void publishNewArticle() {
 
-        String[] pathToArticle = new String[] { "demo-project", "about" };
-        String article = "subsection-articles";
+        final String[] pathToArticle = new String[] { DEMO_PROJECT_PAGE, ABOUT_PAGE };
         // Go to pages App
-        getAppIcon("Pages").click();
+        getAppIcon(PAGES_APP).click();
         // Navigate to the content to change
-        expandTreeAndSelectAnElement(article, pathToArticle);
+        expandTreeAndSelectAnElement(SUBSECTION_ARTICLES, pathToArticle);
 
         // Add an Article
         addNewTemplate("New Funny Article", "Title of the new Funny Article", "Article");
-        expandTreeAndSelectAnElement("New-Funny-Article", "subsection-articles");
+        expandTreeAndSelectAnElement("New-Funny-Article", SUBSECTION_ARTICLES);
         // Check Status and actions
-        assertTrue(getSelectedIcon("color-red").isDisplayed());
-        checkDisabledActions("Show versions", "Publish incl. subpages");
+        assertTrue(getSelectedIcon(COLOR_RED_ICON_STYLE).isDisplayed());
+        checkDisabledActions(SHOW_VERSIONS_ACTION, PUBLISH_INCLUDING_SUBPAGES_ACTION);
         // Edit the new page
-        getActionBarItem("Edit page").click();
+        getActionBarItem(EDIT_PAGE_ACTION).click();
 
         // Add Text Image component into the main Content
         selectAreaAndComponent("Content", "Text and Image");
@@ -140,50 +140,49 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractMagnoliaUIT
         getDialogCommitButton().click();
 
         // Publish and check on the Public instance
-        getTabForCaption("Pages").click();
+        getTabForCaption(PAGES_APP).click();
         delay(3, "Switch to page may take time");
-        publishAndCheckAuthorAndPublic("New Text Image Component", "Image Caption", "New-Funny-Article", "demo-project", "about", "subsection-articles");
+        publishAndCheckAuthorAndPublic("New Text Image Component", "Image Caption", "New-Funny-Article", DEMO_PROJECT_PAGE, ABOUT_PAGE, SUBSECTION_ARTICLES);
     }
 
     @Test
     public void publishNewArticleAndRemoveIt() {
-        String[] pathToArticle = new String[] { "demo-project", "about" };
-        String article = "subsection-articles";
+        final String[] pathToArticle = new String[] { DEMO_PROJECT_PAGE, ABOUT_PAGE };
         // Go to pages App
-        getAppIcon("Pages").click();
+        getAppIcon(PAGES_APP).click();
         // Navigate to the content to change
-        expandTreeAndSelectAnElement(article, pathToArticle);
+        expandTreeAndSelectAnElement(SUBSECTION_ARTICLES, pathToArticle);
 
         // Add an Article
         addNewTemplate("New Article To Delete", "Title of the new Article To Delete", "Article");
-        expandTreeAndSelectAnElement("New-Article-To-Delete", "subsection-articles");
+        expandTreeAndSelectAnElement("New-Article-To-Delete", SUBSECTION_ARTICLES);
         // Check Status and actions
-        assertTrue(getSelectedIcon("color-red").isDisplayed());
-        checkDisabledActions("Show versions", "Publish incl. subpages");
+        assertTrue(getSelectedIcon(COLOR_RED_ICON_STYLE).isDisplayed());
+        checkDisabledActions(SHOW_VERSIONS_ACTION, PUBLISH_INCLUDING_SUBPAGES_ACTION);
 
         // Publish Page
         publishAndCheckAuthor();
 
         // Open page editor
-        getActionBarItem("Edit page").click();
+        getActionBarItem(EDIT_PAGE_ACTION).click();
         delay(1, "Switch to page may take time");
-        getTabForCaption("Pages").click();
+        getTabForCaption(PAGES_APP).click();
         delay(1, "Switch to page may take time");
 
         // Delete Page
-        getActionBarItem("Delete page").click();
+        getActionBarItem(DELETE_PAGE_ACTION).click();
         delay(2, "Wait for the confirmation message");
         getDialogConfirmButton().click();
         delay("Give dialog some time to fade away...");
         // Check available actions
-        checkDisabledActions("Move page", "Preview page", "Add page", "Delete page", "Edit page", "Rename page");
+        checkDisabledActions(MOVE_PAGE_ACTION, PREVIEW_PAGE_ACTION, ADD_PAGE_ACTION, DELETE_PAGE_ACTION, EDIT_PAGE_ACTION, RENAME_PAGE_ACTION);
         // Check non available actions
-        checkEnabledActions("Publish deletion", "Show previous version", "Restore previous version");
+        checkEnabledActions(PUBLISH_DELETION_ACTION, SHOW_PREVIOUS_VERSION, RESTORE_PREVIOUS_VERSION_ACTION);
         // Check the Trash Icon
-        assertTrue(getSelectedIcon("icon-trash").isDisplayed());
+        assertTrue(getSelectedIcon(TRASH_ICON_STYLE).isDisplayed());
 
         // Validate the Delete
-        getActionBarItem("Publish deletion").click();
+        getActionBarItem(PUBLISH_DELETION_ACTION).click();
         delay(2, "Wait for the confirmation message");
         // Check that the Detail sub app is closed
         assertFalse(isExisting(getTabForCaption("Title of the new Article To Delete")));
@@ -196,30 +195,44 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractMagnoliaUIT
 
     @Test
     public void deleteAndRestoreArticle() {
-        getAppIcon("Pages").click();
+        getAppIcon(PAGES_APP).click();
         // Navigate to the content to change
-        final String[] pathToArticle = new String[] { "demo-project", "about" };
-        final String article = "subsection-articles";
-        expandTreeAndSelectAnElement(article, pathToArticle);
+        final String[] pathToArticle = new String[] { DEMO_PROJECT_PAGE, ABOUT_PAGE };
+        expandTreeAndSelectAnElement(SUBSECTION_ARTICLES, pathToArticle);
 
-        expandTreeAndSelectAnElement("article", "subsection-articles");
+        expandTreeAndSelectAnElement("article", SUBSECTION_ARTICLES);
 
-        getActionBarItem("Delete page").click();
+        getActionBarItem(DELETE_PAGE_ACTION).click();
         delay(2, "Wait for the confirmation message");
         getDialogConfirmButton().click();
         delay("Give dialog some time to fade away...");
 
-        assertTrue(getSelectedIcon("icon-trash").isDisplayed());
+        assertTrue(getSelectedIcon(TRASH_ICON_STYLE).isDisplayed());
 
         // Restore
-        getActionBarItem("Restore previous version").click();
+        getActionBarItem(RESTORE_PREVIOUS_VERSION_ACTION).click();
         delay(2, "Wait for the confirmation message");
 
-        getTabForCaption("Pages").click();
-        assertFalse("Article should have been restored - no trash icon should be displayed any longer", isExisting(getSelectedIcon("icon-trash")));
-        assertTrue(getSelectedIcon("color-yellow").isDisplayed());
+        getTabForCaption(PAGES_APP).click();
+        assertFalse("Article should have been restored - no trash icon should be displayed any longer", isExisting(getSelectedIcon(TRASH_ICON_STYLE)));
+        assertTrue(getSelectedIcon(COLOR_YELLOW_ICON_STYLE).isDisplayed());
     }
 
+    @Test
+    public void unpublishResultsInStatusChange() {
+        // GIVEN
+        getAppIcon(PAGES_APP).click();
+        getTreeTableItemExpander(DEMO_PROJECT_PAGE).click();
+        getTreeTableItemExpander(ABOUT_PAGE).click();
+        getTreeTableItem("history").click();
+
+        // WHEN
+        getActionBarItem(UNPUBLISH_PAGE_ACTION).click();
+        delay(10, "unpublishing takes some time");
+
+        // THEN
+        assertTrue(getSelectedIcon(COLOR_RED_ICON_STYLE).isDisplayed());
+    }
 
     /**
      * From the page editor sub app, select and Area, and from the add component dialog, select a component.<br>
@@ -241,7 +254,7 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractMagnoliaUIT
         getTabForCaption("Component").click();
         delay(1, "make sure there is enough time to process change event");
 
-        getDialogButton("v-button-commit").click();
+        getDialogCommitButton().click();
     }
 
     /**
@@ -260,17 +273,17 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractMagnoliaUIT
 
         if (hasAlreadyVersions) {
             // Check available actions
-            checkEnabledActions("Publish", "Unpublish", "Show versions");
+            checkEnabledActions(PUBLISH_PAGE_ACTION, UNPUBLISH_PAGE_ACTION, SHOW_VERSIONS_ACTION);
             // Check non available actions
-            checkDisabledActions("Publish incl. subpages");
+            checkDisabledActions(PUBLISH_INCLUDING_SUBPAGES_ACTION);
         } else {
             // Check available actions
-            checkEnabledActions("Publish", "Unpublish");
+            checkEnabledActions(PUBLISH_PAGE_ACTION, UNPUBLISH_PAGE_ACTION);
             // Check non available actions
-            checkDisabledActions("Show versions", "Publish incl. subpages");
+            checkDisabledActions(SHOW_VERSIONS_ACTION, PUBLISH_INCLUDING_SUBPAGES_ACTION);
         }
         // Check the status
-        assertTrue(getSelectedIcon("color-yellow").isDisplayed());
+        assertTrue(getSelectedIcon(COLOR_YELLOW_ICON_STYLE).isDisplayed());
     }
 
     /**
@@ -283,7 +296,7 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractMagnoliaUIT
      */
     protected void changeTextImageContent(String newSubheadingValue, String newImageCaptionValue) {
         // Edit content (open an Edit sub app)
-        getActionBarItem("Edit page").click();
+        getActionBarItem(EDIT_PAGE_ACTION).click();
         switchToPageEditorContent();
         // Open Text Image Content Form
 
@@ -296,7 +309,7 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractMagnoliaUIT
         setFormTextAreFieldText("Image Caption", newImageCaptionValue);
         getDialogCommitButton().click();
 
-        getTabForCaption("Pages").click();
+        getTabForCaption(PAGES_APP).click();
         delay(3, "Switch to page may take time");
     }
 
@@ -304,7 +317,7 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractMagnoliaUIT
      * Create a new Page template.
      */
     protected void addNewTemplate(String templateName, String templateTitle, String templateType) {
-        getActionBarItem("Add page").click();
+        getActionBarItem(ADD_PAGE_ACTION).click();
         setFormTextFieldText("Page name", templateName);
         setFormTextAreFieldText("Page title", templateTitle);
         getSelectTabElement("Template").click();
@@ -315,7 +328,7 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractMagnoliaUIT
         delay(1, "make sure there is enough time to process change event");
 
         // Select
-        getDialogButton("v-button-commit").click();
+        getDialogCommitButton().click();
         delay("Waiting for the editSubApp to open");
     }
 
@@ -340,13 +353,13 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractMagnoliaUIT
      */
     protected void publishAndCheckAuthor() {
         // Publish changes
-        getActionBarItem("Publish").click();
+        getActionBarItem(PUBLISH_PAGE_ACTION).click();
         delay(5, "Activation takes some time so wait before checking the updated icon");
 
         // Check status
-        assertTrue(getSelectedIcon("color-green").isDisplayed());
+        assertTrue(getSelectedIcon(COLOR_GREEN_ICON_STYLE).isDisplayed());
         // Check available actions
-        checkEnabledActions("Show versions");
+        checkEnabledActions(SHOW_VERSIONS_ACTION);
     }
 
     /**
@@ -391,7 +404,7 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractMagnoliaUIT
 
     protected void checkEnabledActions(String... actions) {
         for (String action : actions) {
-            assertTrue("'" + action + "' action should be enable ", isExisting(getEnabledActionBarItem(action)));
+            assertTrue("'" + action + "' action should be enabled ", isExisting(getEnabledActionBarItem(action)));
         }
     }
 
@@ -407,7 +420,7 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractMagnoliaUIT
      */
     protected void openPageVersion(int expectedNumberOfVersion, int desiredVersion, String tabHeader) {
 
-        getActionBarItem("Show versions").click();
+        getActionBarItem(SHOW_VERSIONS_ACTION).click();
         delay("Waiting for the popup to show up");
 
         // Click on version drop-down to show versions
@@ -418,7 +431,7 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractMagnoliaUIT
         // Select version 1.0 from the list
         selectElementOfTabListAtPosition(desiredVersion);
         // Select
-        getDialogButton("v-button-commit").click();
+        getDialogCommitButton().click();
         delay("Waiting for the editSubApp to open");
 
         // Sub App Open in a Read Only Mode
@@ -427,6 +440,6 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractMagnoliaUIT
         assertFalse(getTabForCaption(tabHeader) instanceof NonExistingWebElement);
         // Check available actions
         // With MGNLUI-2126 those actions were disabled, as they should not be available for versioned contents
-        checkDisabledActions("Edit page", "Publish", "Unpublish");
+        checkDisabledActions(EDIT_PAGE_ACTION, PUBLISH_PAGE_ACTION, UNPUBLISH_PAGE_ACTION);
     }
 }

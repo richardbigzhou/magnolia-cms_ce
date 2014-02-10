@@ -42,16 +42,16 @@ import org.openqa.selenium.By;
 /**
  * UI tests for Page Editor.
  */
-public class PageEditorUITest extends AbstractMagnoliaUITest {
+public class PageEditorUITest extends AbstractPageEditorUITest {
 
     @Test
     public void whenEditFieldThenEditComponentDialogShown() {
         // GIVEN
 
         // WHEN
-        getAppIcon("Pages").click();
+        getAppIcon(PAGES_APP).click();
         getTreeTableItem("ftl-sample-site").click();
-        getActionBarItem("Edit page").click();
+        getActionBarItem(EDIT_PAGE_ACTION).click();
 
         switchToPageEditorContent();
         getElementByPath(By.xpath("//h3[text() = 'Main - Component One']")).click();
@@ -67,9 +67,9 @@ public class PageEditorUITest extends AbstractMagnoliaUITest {
         // GIVEN
 
         // WHEN
-        getAppIcon("Pages").click();
+        getAppIcon(PAGES_APP).click();
         getTreeTableItem("jsp-sample-site").click();
-        getActionBarItem("Edit page").click();
+        getActionBarItem(EDIT_PAGE_ACTION).click();
 
         switchToPageEditorContent();
         getElementByPath(By.xpath("//h3[text() = 'Main - Component One']")).click();
@@ -86,13 +86,13 @@ public class PageEditorUITest extends AbstractMagnoliaUITest {
         // GIVEN
 
         // WHEN
-        getAppIcon("Pages").click();
-        assertAppOpen("Pages");
-        getTreeTableItemExpander("demo-project").click();
-        getTreeTableItemExpander("about").click();
-        getTreeTableItemExpander("subsection-articles").click();
+        getAppIcon(PAGES_APP).click();
+        assertAppOpen(PAGES_APP);
+        getTreeTableItemExpander(DEMO_PROJECT_PAGE).click();
+        getTreeTableItemExpander(ABOUT_PAGE).click();
+        getTreeTableItemExpander(SUBSECTION_ARTICLES).click();
         getTreeTableItem("an-interesting-article").click();
-        getActionBarItem("Edit page").click();
+        getActionBarItem(EDIT_PAGE_ACTION).click();
 
         switchToPageEditorContent();
         getElementByPath(By.xpath("//h2[text() = 'More interesting ']")).click();
@@ -109,10 +109,10 @@ public class PageEditorUITest extends AbstractMagnoliaUITest {
         // GIVEN
 
         // WHEN
-        getAppIcon("Pages").click();
-        getTreeTableItemExpander("demo-project").click();
-        getTreeTableItem("about").click();
-        getActionBarItem("Edit page").click();
+        getAppIcon(PAGES_APP).click();
+        getTreeTableItemExpander(DEMO_PROJECT_PAGE).click();
+        getTreeTableItem(ABOUT_PAGE).click();
+        getActionBarItem(EDIT_PAGE_ACTION).click();
 
         switchToPageEditorContent();
         getElementByPath(By.id("promo-1")).click();
@@ -131,9 +131,9 @@ public class PageEditorUITest extends AbstractMagnoliaUITest {
         // GIVEN
 
         // WHEN
-        getAppIcon("Pages").click();
-        getTreeTableItem("demo-project").click();
-        getActionBarItem("Edit page").click();
+        getAppIcon(PAGES_APP).click();
+        getTreeTableItem(DEMO_PROJECT_PAGE).click();
+        getActionBarItem(EDIT_PAGE_ACTION).click();
         delay(3, "Give some time to load the page");
         assertTrue("We should be in edit mode.", driver.getCurrentUrl().contains("demo-project:edit"));
 
@@ -161,6 +161,7 @@ public class PageEditorUITest extends AbstractMagnoliaUITest {
         delay("Give some time to go to URL");
 
         // THEN
-        assertAppOpen("Pages");
+        assertAppOpen(PAGES_APP);
     }
+
 }
