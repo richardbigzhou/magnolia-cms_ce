@@ -63,14 +63,13 @@ public class ContactsAppUITest extends AbstractMagnoliaUITest {
         WebElement showVersionParent = getElementByPath(By.xpath("//*[contains(@class, 'v-actionbar')]//*[@aria-hidden = 'false']//li[span/text() = 'Show versions']"));
 
         // Assert showVersions is disabled beforehand
-        //assertTrue(showVersionParent.getAttribute("class").contains("v-disabled"));
+        assertTrue(showVersionParent.getAttribute("class").contains("v-disabled"));
 
         getActionBarItem("Publish").click();
 
         delay(2, "Waiting for the contacts to be published");
 
-        assertFalse("We expect showVersions action to be enabled after publishing",
-                showVersionParent.getAttribute("class").contains("v-disabled"));
+        assertFalse("We expect showVersions action to be enabled after publishing", showVersionParent.getAttribute("class").contains("v-disabled"));
     }
 
     /**
@@ -78,7 +77,7 @@ public class ContactsAppUITest extends AbstractMagnoliaUITest {
      * action is available then and displays that version. All fields have to be read only
      */
     @Test
-    public void versionContactAndShowVersionedItemAndVerifyItemIsNoEditable() {
+    public void versionContactAndShowVersionedItemAndVerifyItemIsNotEditable() {
         // GIVEN
         final String contactName = "Marilyn Monroe";
         createVersionedContactOf(contactName);
@@ -152,6 +151,7 @@ public class ContactsAppUITest extends AbstractMagnoliaUITest {
 
         // Get inputs
         List<WebElement> inputs = getElementsByPath(By.xpath("//input[contains(@class, 'v-textfield')]"));
+
 
         // Assert subApp is open and all fields in editor are readonly
         // Tab name will contain a version number
