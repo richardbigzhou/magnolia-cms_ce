@@ -80,6 +80,12 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
 
     public static final String DEFAULT_NATIVE_BUTTON_CLASS = "magnoliabutton v-nativebutton-magnoliabutton";
 
+    // ICON STYLES
+    public static final String COLOR_GREEN_ICON_STYLE = "color-green";
+    public static final String COLOR_YELLOW_ICON_STYLE = "color-yellow";
+    public static final String COLOR_RED_ICON_STYLE = "color-red";
+    public static final String TRASH_ICON_STYLE = "icon-trash";
+
     protected static final String SCREENSHOT_DIR = "target/surefire-reports/";
 
     protected WebDriver driver = null;
@@ -588,7 +594,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         return getElementByPath(By.xpath("//tr[contains(@class, 'v-selected')]//*[contains(@class, '" + iconStyle + "')]"));
     }
 
-        /**
+    /**
      * Open the Dialog Show Room of the sample demo site.
      * 
      * @param templateImpl ftl or jsp. refer to the samples type.
@@ -639,8 +645,36 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         getElementByXpath("//div[contains(@class, 'popupContent')]//div/table/tbody/tr/td/span[text() = '%s']/..", label).click();
     }
 
-    private WebElement getSelectedTableElement() {
+    protected WebElement getSelectedTableElement() {
         return getElementByPath(By.xpath("//div[contains(@class, 'popupContent')]//div/table"));
+    }
+
+    /**
+     * @param element leaf element to select.
+     * @param paths individual path element road allowing to reach the leaf element. <br>
+     * "demo-project", "about", "subsection-articles",...
+     */
+    protected void expandTreeAndSelectAnElement(String element, String... paths) {
+        for (String path : paths) {
+            WebElement treeExpander = getTreeTableItemExpander(path);
+            // Only expand node if it's not open yet
+            if (!treeExpander.getAttribute("class").contains("v-treetable-node-open")) {
+                treeExpander.click();
+            }
+        }
+        getTreeTableItem(element).click();
+    }
+
+    protected void checkEnabledActions(String... actions) {
+        for (String action : actions) {
+            assertTrue("'" + action + "' action should be enabled ", isExisting(getEnabledActionBarItem(action)));
+        }
+    }
+
+    protected void checkDisabledActions(String... actions) {
+        for (String action : actions) {
+            assertTrue("'" + action + "' action should be disabled ", isExisting(getDisabledActionBarItem(action)));
+        }
     }
 
     /**

@@ -60,10 +60,4 @@ public class AbstractPageEditorUITest extends AbstractMagnoliaUITest {
     public static final String SHOW_PREVIOUS_VERSION = "Show previous version";
     public static final String RESTORE_PREVIOUS_VERSION_ACTION = "Restore previous version";
 
-    // ICON STYLES
-    public static final String COLOR_GREEN_ICON_STYLE = "color-green";
-    public static final String COLOR_YELLOW_ICON_STYLE = "color-yellow";
-    public static final String COLOR_RED_ICON_STYLE = "color-red";
-    public static final String TRASH_ICON_STYLE = "icon-trash";
-
 }

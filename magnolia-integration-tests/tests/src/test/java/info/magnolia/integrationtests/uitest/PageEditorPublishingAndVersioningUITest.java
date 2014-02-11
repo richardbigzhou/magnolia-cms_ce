@@ -38,7 +38,6 @@ import static org.junit.Assert.*;
 import org.apache.commons.lang.StringUtils;
 import org.junit.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 
 /**
  * Publishing and versioning test for pages app.
@@ -384,34 +383,6 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
 
         // Go back to the last url
         driver.navigate().to(lastUrl);
-    }
-
-    /**
-     * @param element leaf element to select.
-     * @param paths individual path element road allowing to reach the leaf element. <br>
-     * "demo-project", "about", "subsection-articles",...
-     */
-    protected void expandTreeAndSelectAnElement(String element, String... paths) {
-        for (String path : paths) {
-            WebElement treeExpander = getTreeTableItemExpander(path);
-            // Only expand node if it's not open yet
-            if (!treeExpander.getAttribute("class").contains("v-treetable-node-open")) {
-                treeExpander.click();
-            }
-        }
-        getTreeTableItem(element).click();
-    }
-
-    protected void checkEnabledActions(String... actions) {
-        for (String action : actions) {
-            assertTrue("'" + action + "' action should be enabled ", isExisting(getEnabledActionBarItem(action)));
-        }
-    }
-
-    protected void checkDisabledActions(String... actions) {
-        for (String action : actions) {
-            assertTrue("'" + action + "' action should be disabled ", isExisting(getDisabledActionBarItem(action)));
-        }
     }
 
     /**
