@@ -66,6 +66,7 @@ public class STKSiteDefinitionsAppUITest extends AbstractMagnoliaUITest {
         // delete
         getActionBarItem("Delete item").click();
         getDialogConfirmButton().click();
+        delay("Delete might take some time");
         assertFalse("Untitled should be gone", isExisting(getTreeTableItem("untitled")));
     }
 }
