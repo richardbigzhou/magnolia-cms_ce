@@ -35,7 +35,6 @@ package info.magnolia.integrationtests.uitest;
 
 import static org.junit.Assert.*;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.openqa.selenium.By;
 
@@ -81,7 +80,6 @@ public class PageEditorUITest extends AbstractPageEditorUITest {
     }
 
     @Test
-    @Ignore("Reactivate when MGNLUI-1924 fix is available in master")
     public void editingTextImageParagraphBringsUpRichTextEditor() {
         // GIVEN
 
