@@ -67,7 +67,7 @@ public class ContactsAppUITest extends AbstractMagnoliaUITest {
 
         getActionBarItem("Publish").click();
 
-        delay(2, "Waiting for the contacts to be published");
+        delay(5, "Waiting for the contacts to be published");
 
         assertFalse("We expect showVersions action to be enabled after publishing", showVersionParent.getAttribute("class").contains("v-disabled"));
     }
