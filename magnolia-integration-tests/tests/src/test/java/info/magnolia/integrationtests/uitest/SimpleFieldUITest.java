@@ -161,4 +161,45 @@ public class SimpleFieldUITest extends AbstractMagnoliaUITest {
         assertTrue(isExisting(uploadElement.findElement(By.xpath("//div[contains(@class, ' preview-image v-label-preview-image')]"))));
     }
 
+    @Test
+    public void testRichTextField() throws Exception {
+        // GIVEN
+        // go to FTL Sample Site homepage
+        getAppIcon("Pages").click();
+        getTreeTableItem("ftl-sample-site").click();
+        getActionBarItem("Edit page").click();
+
+        // select footer about text component
+        switchToPageEditorContent();
+        getElementByPath(By.xpath("//h3[text()='About']")).click();
+        switchToDefaultContent();
+        getActionBarItem("Edit component").click();
+
+        String editorId = getElementByPath(By.xpath("//div[starts-with(@id,'cke_editor')]")).getAttribute("id");
+        editorId = editorId.substring(4);
+
+        String newFooterText = "This is standard text component, edited in a rich text field.";
+
+        // WHEN
+        WebElement ckeditorFrame = getElementByPath(By.xpath("//iframe[contains(@class, 'cke_wysiwyg_frame')]"));
+        driver.switchTo().frame(ckeditorFrame);
+        WebElement body = getElementByPath(By.xpath("//body[@contenteditable]"));
+        body.click();
+        body.clear();
+
+        // currently faking text input because FirefoxDriver doesn't sendKeys into iframe - see https://code.google.com/p/selenium/issues/detail?id=6981
+        switchToDefaultContent();
+        ((JavascriptExecutor) driver).executeScript("CKEDITOR.instances." + editorId + ".insertText(\"" + newFooterText + "\");");
+        // make sure rich text field is blurred / changed
+        getFormTextField("Title").click();
+        delay("Allow some time for change event");
+        getDialogCommitButton().click();
+        delay("Dialog may take some time to close");
+
+        // THEN
+        switchToPageEditorContent();
+        WebElement footer = getElementByPath(By.xpath("//h3[text()='About']/following-sibling::p[1]"));
+        assertEquals(newFooterText, footer.getText());
+    }
+
 }
