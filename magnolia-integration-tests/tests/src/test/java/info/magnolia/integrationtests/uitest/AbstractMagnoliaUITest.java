@@ -62,6 +62,7 @@ import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -195,7 +196,14 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
 
     @Before
     public void setUp() {
-        driver = new FirefoxDriver();
+        final FirefoxProfile firefoxProfile = new FirefoxProfile();
+        firefoxProfile.setPreference("browser.download.dir", System.getProperty("java.io.tmpdir"));
+        firefoxProfile.setPreference("browser.download.folderList", 2);
+        firefoxProfile.setPreference("browser.helperApps.neverAsk.saveToDisk", "application/xml,application/zip,text/csv,application/vnd.ms-excel");
+        firefoxProfile.setPreference("browser.helperApps.alwaysAsk.force", false);
+        firefoxProfile.setPreference("browser.download.manager.showWhenStarting",false);
+
+        driver = new FirefoxDriver(firefoxProfile);
         driver.manage().timeouts().implicitlyWait(DRIVER_WAIT_IN_SECONDS, TimeUnit.SECONDS);
         driver.navigate().to(Instance.AUTHOR.getURL());
 
