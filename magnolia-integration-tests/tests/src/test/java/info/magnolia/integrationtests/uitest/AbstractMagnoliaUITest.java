@@ -199,7 +199,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         final FirefoxProfile firefoxProfile = new FirefoxProfile();
         firefoxProfile.setPreference("browser.download.dir", System.getProperty("java.io.tmpdir"));
         firefoxProfile.setPreference("browser.download.folderList", 2);
-        firefoxProfile.setPreference("browser.helperApps.neverAsk.saveToDisk", "application/xml,application/zip,text/csv,application/vnd.ms-excel");
+        firefoxProfile.setPreference("browser.helperApps.neverAsk.saveToDisk", "application/xml,application/zip,text/csv,application/vnd.ms-excel,application/octet-stream");
         firefoxProfile.setPreference("browser.helperApps.alwaysAsk.force", false);
         firefoxProfile.setPreference("browser.download.manager.showWhenStarting",false);
 
@@ -213,7 +213,6 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         assertThat(driver.getTitle(), equalTo("Magnolia 5"));
 
         login(getTestUserName());
-        delay(5, "Login might take some time...");
         try {
             driver.findElements(By.xpath(String.format("//div[contains(@class, 'item')]/*[@class = 'label' and text() = '%s']", "Pages")));
         } catch (NoSuchElementException e) {
