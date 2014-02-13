@@ -18,10 +18,10 @@
   <properties>
     <leaveContainerRunningAndDontExecuteTests>false</leaveContainerRunningAndDontExecuteTests>
     <!-- The default container http port used for tests. In CI this will be a random port. -->
-    <containerHttpPort>8199</containerHttpPort>
+    <containerHttpPort>8299</containerHttpPort>
     <!-- The port to use when communicating with this server, for example to start and stop it. -->
     <!-- This was probably causing builds to fail, as the default port was used. -->
-    <cargoRmiPort>8198</cargoRmiPort>
+    <cargoRmiPort>8298</cargoRmiPort>
   </properties>
   <!--
   This pom (and most of this project, for that matter), has been copied to
