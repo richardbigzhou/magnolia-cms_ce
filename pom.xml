@@ -9,7 +9,7 @@
   <groupId>info.magnolia.bundle</groupId>
   <artifactId>magnolia-bundle-parent</artifactId>
   <packaging>pom</packaging>
-  <version>5.2.3-SNAPSHOT</version>
+  <version>5.3-SNAPSHOT</version>
   <name>magnolia-bundle-parent</name>
   <inceptionYear>2003</inceptionYear>
   <scm>
@@ -21,8 +21,8 @@
 
   <properties>
     <magnoliaEdition>Community Edition</magnoliaEdition>
-    <magnoliaVersion>5.2.3-SNAPSHOT</magnoliaVersion>
-    <magnoliaUiVersion>5.2.3-SNAPSHOT</magnoliaUiVersion>
+    <magnoliaVersion>5.3-SNAPSHOT</magnoliaVersion>
+    <magnoliaUiVersion>5.3-SNAPSHOT</magnoliaUiVersion>
     <javaVersion>1.6</javaVersion>
     <documentationURL>http://documentation.magnolia-cms.com/releases/${project.version}.html</documentationURL>
     <stkVersion>2.7.3-SNAPSHOT</stkVersion>
