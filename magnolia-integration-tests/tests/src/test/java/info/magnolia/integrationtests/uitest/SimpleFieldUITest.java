@@ -113,7 +113,8 @@ public class SimpleFieldUITest extends AbstractMagnoliaUITest {
         getDialogButtonWithCaption("Pages chooser", "choose").click();
 
         // THEN
-        assertEquals("/demo-project", getCustomFieldInputElement("Link").getAttribute("value"));
+        WebElement textField = getFormTextField("Link");
+        assertEquals("/demo-project", textField.getAttribute("value"));
     }
 
     @Test
@@ -125,9 +126,9 @@ public class SimpleFieldUITest extends AbstractMagnoliaUITest {
         getTabForCaption("File").click();
 
         // THEN
-        WebElement uploadElement = getCustomField("Upload a file");
-        assertTrue(isExisting(uploadElement));
-        assertTrue(isExisting(uploadElement.findElement(By.xpath("//div[contains(@class, 'no-vertical-drag-hints')]"))));
+        WebElement upload = getFormField("Upload a file");
+        assertTrue(isExisting(upload));
+        assertTrue(isExisting(upload.findElement(By.xpath(".//div[contains(@class, 'no-vertical-drag-hints')]"))));
     }
 
     @Test
@@ -138,12 +139,12 @@ public class SimpleFieldUITest extends AbstractMagnoliaUITest {
         // Init file ref
         URL resource = ClasspathResourcesUtil.getResource("me.jpg");
         // Get Upload Element
-        WebElement uploadElement = getCustomField("Upload a file");
+        WebElement upload = getFormField("Upload a file");
         // Get Upload Form
-        WebElement uploadForm = uploadElement.findElement(By.xpath("//div[contains(@class, 'v-csslayout v-layout v-widget')]//form[contains(@class, 'v-upload v-widget v-upload-immediate')]"));
+        WebElement uploadForm = upload.findElement(By.xpath(".//div[contains(@class, 'v-csslayout v-layout v-widget')]//form[contains(@class, 'v-upload v-widget v-upload-immediate')]"));
         assertTrue(isExisting(uploadForm));
         // Get Upload Field
-        WebElement uploadFormInput = uploadForm.findElement(By.xpath("//input[contains(@class, 'gwt-FileUpload')]"));
+        WebElement uploadFormInput = uploadForm.findElement(By.xpath(".//input[contains(@class, 'gwt-FileUpload')]"));
         assertTrue(isExisting(uploadFormInput));
         // Make Upload Field Visible
         JavascriptExecutor js = (JavascriptExecutor) driver;
@@ -154,11 +155,11 @@ public class SimpleFieldUITest extends AbstractMagnoliaUITest {
         uploadFormInput.sendKeys(resource.getPath());
 
         // THEN
-        assertNotNull(uploadElement);
+        assertNotNull(upload);
         // Contains Upload Button
-        assertTrue(isExisting(uploadElement.findElement(By.xpath("//div[contains(@class, 'no-vertical-drag-hints')]"))));
+        assertTrue(isExisting(upload.findElement(By.xpath(".//div[contains(@class, 'no-vertical-drag-hints')]"))));
         // Contains Image icon
-        assertTrue(isExisting(uploadElement.findElement(By.xpath("//div[contains(@class, ' preview-image v-label-preview-image')]"))));
+        assertTrue(isExisting(upload.findElement(By.xpath(".//div[contains(@class, ' preview-image v-label-preview-image')]"))));
     }
 
     @Test
