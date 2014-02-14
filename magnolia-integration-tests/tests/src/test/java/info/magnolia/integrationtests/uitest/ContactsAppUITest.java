@@ -58,6 +58,8 @@ public class ContactsAppUITest extends AbstractMagnoliaUITest {
         getTabForCaption("Contact details").click();
 
         setFormTextFieldText("E-Mail address", testEmailAddr);
+        getFormTextField("Website").click();
+        delay(1, "give time for change event to proceed");
         getDialogCommitButton().click();
 
         WebElement showVersionParent = getElementByPath(By.xpath("//*[contains(@class, 'v-actionbar')]//*[@aria-hidden = 'false']//li[span/text() = 'Show versions']"));
