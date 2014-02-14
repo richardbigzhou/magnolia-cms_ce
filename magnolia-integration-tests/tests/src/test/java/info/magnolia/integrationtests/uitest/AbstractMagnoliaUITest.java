@@ -406,16 +406,16 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         return getElementByPath(By.xpath(xpath));
     }
 
+    protected WebElement getFormField(String caption) {
+        return getElementByXpath("//*[@class = 'v-form-field-label' and text() = '%s']/following-sibling::div[contains(@class,'v-form-field')]", caption);
+    }
+
     protected WebElement getFormTextField(String caption) {
-        return getElementByXpath("//*[@class = 'v-form-field-label' and text() = '%s']/following-sibling::div/input[@type = 'text']", caption);
+        return getElementByXpath("//*[@class = 'v-form-field-label' and text() = '%s']/following-sibling::div//input[@type = 'text']", caption);
     }
 
     protected WebElement getFormTextAreaField(String caption) {
         return getElementByXpath("//*[@class = 'v-form-field-label' and text() = '%s']/following-sibling::div/textarea", caption);
-    }
-
-    protected WebElement getFormRichTextField() {
-        return getElementByXpath("//*[contains(@class, 'cke_chrome')]");
     }
 
     protected WebElement getTreeTableItemExpander(String itemCaption) {
@@ -531,15 +531,6 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
 
     protected WebElement getDialogSelectButton(String className) {
         return getElementByXpath("//div[contains(@class, 'choose-dialog')]//*[contains(@class, '%s')]", className);
-    }
-
-    protected WebElement getCustomField(String caption) {
-        return getElementByXpath("//*[@class = 'v-form-field-section']//*[@class = 'v-form-field-label' and text() = '%s']", caption);
-    }
-
-    protected WebElement getCustomFieldInputElement(String caption) {
-        WebElement main = getCustomField(caption);
-        return main.findElement(By.xpath("//input[contains(@class, 'v-textfield')]"));
     }
 
     protected WebElement getFormErrorHeader() {
