@@ -105,7 +105,7 @@ public class ContactsAppUITest extends AbstractMagnoliaUITest {
         delay("Waiting for the editSubApp to open");
 
         // Get inputs
-        List<WebElement> inputs = getElementsByPath(By.xpath("//input[contains(@class, 'v-textfield')]"));
+        List<WebElement> inputs = getElementsByPath(By.xpath("//div[@class='form-content']//input[contains(@class, 'v-textfield')]"));
 
         // THEN
         // Assert subApp is open and all fields in editor are readonly
@@ -152,8 +152,7 @@ public class ContactsAppUITest extends AbstractMagnoliaUITest {
         delay("Waiting for the editSubApp to open");
 
         // Get inputs
-        List<WebElement> inputs = getElementsByPath(By.xpath("//input[contains(@class, 'v-textfield')]"));
-
+        List<WebElement> inputs = getElementsByPath(By.xpath("//div[@class='form-content']//input[contains(@class, 'v-textfield')]"));
 
         // Assert subApp is open and all fields in editor are readonly
         // Tab name will contain a version number
@@ -171,16 +170,16 @@ public class ContactsAppUITest extends AbstractMagnoliaUITest {
         // And open contacts in edit mode
         getActionBarItem("Edit contact").click();
 
-        delay(5, "Waiting for the editSubApp to open");
+        delay("Waiting for the editSubApp to open");
 
         // Get inputs afterwards
-        List<WebElement> inputsEditable = getElementsByPath(By.xpath("//input[contains(@class, 'v-textfield')]"));
+        List<WebElement> inputsEditable = getElementsByPath(By.xpath("//div[@class='form-content']//input[contains(@class, 'v-textfield')]"));
 
         // THEN
         // Assert fields are editable afterwards
         assertTrue("We expect the editor subApp tab to be open", getElementByPath(By.xpath("//*[contains(@class, 'tab-title') and text() = '" + contactName + "']")).isDisplayed());
         for (WebElement element : inputsEditable) {
-            assertEquals("We expect element [" + element.getTagName() + "] with value [" + element.getAttribute("value") + "] at location [" + element.getLocation() + "] to be editable", null, element.getAttribute("readonly"));
+            assertEquals("We expect element [" + element.getTagName() + "] with value [" + element.getAttribute("value") + "] to be editable", null, element.getAttribute("readonly"));
         }
 
         // Assert button "commit" is shown
