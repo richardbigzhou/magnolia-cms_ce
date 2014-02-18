@@ -549,27 +549,27 @@ public class SecurityAppUITest extends AbstractMagnoliaUITest {
     }
 
     private String getItemNameFieldLabel(String itemTypeId) {
-        return String.format(StringUtils.capitalize(itemTypeId) + " name");
+        return StringUtils.capitalize(itemTypeId) + " name";
     }
 
     private String getEditItemActionName(String itemTypeCaption) {
-        return String.format("Edit " + itemTypeCaption);
+        return "Edit " + itemTypeCaption;
     }
 
     private String getAddItemActionName(String itemTypeCaption) {
-        return String.format("Add " + itemTypeCaption);
+        return "Add " + itemTypeCaption;
     }
 
     private String getDeleteActionName(String itemTypeCaption) {
-        return String.format("Delete " + itemTypeCaption);
+        return "Delete " + itemTypeCaption;
     }
 
     private String getMoveActionName(String itemTypeCaption) {
-        return String.format("Move " + itemTypeCaption);
+        return "Move " + itemTypeCaption;
     }
 
     private String getDuplicateActionName(String itemTypeCaption) {
-        return String.format("Duplicate " + itemTypeCaption);
+        return "Duplicate " + itemTypeCaption;
     }
 
     /**
@@ -598,6 +598,11 @@ public class SecurityAppUITest extends AbstractMagnoliaUITest {
         delay("Wait e second for the user to be deleted");
     }
 
+
+    private WebElement getTableBody() {
+        return getElementByXpath("//div[contains(@class, 'v-table-row-spacer')]");
+    }
+
     private boolean isTreeTableItemSelected(String itemName) {
         return getTreeTableItemRow(itemName).getAttribute("class").contains("v-selected");
     }
@@ -610,6 +615,7 @@ public class SecurityAppUITest extends AbstractMagnoliaUITest {
     private WebElement getPasswordContainer() {
         return getElementByXpath("//div[contains(@class, 'v-form-field-section')]/div[contains(text(), 'Password')]/following-sibling::div");
     }
+
 
     public WebElement getPassword() {
         WebElement element = getPasswordContainer().findElement(By.xpath("//div/div/div[2]/input"));
