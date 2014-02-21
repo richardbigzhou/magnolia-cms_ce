@@ -32,6 +32,12 @@
     <additionalReleaseProfiles />
   </properties>
 
+  <distributionManagement>
+    <site>
+      <id>${distribSiteId}</id>
+      <url>${distribSiteRoot}/magnolia-bundle/${project.version}/</url>
+    </site>
+  </distributionManagement>
 
   <dependencyManagement>
     <dependencies>
