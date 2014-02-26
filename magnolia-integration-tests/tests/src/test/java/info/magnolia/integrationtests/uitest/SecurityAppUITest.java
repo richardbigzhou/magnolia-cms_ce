@@ -91,7 +91,7 @@ public class SecurityAppUITest extends AbstractMagnoliaUITest {
     @Test
     public void testCreateFolderAndCopyAndDragAndDropStandardUser() {
         // GIVEN
-        openSecuritySubApp("System Users");
+        openSecuritySubApp("Users");
 
         // WHEN/THEN
         doTestCreateFolderAndCopyAndDnDSecurityAppItem(USER, "test-folder-dnd", "patrick", "new-test-user-dnd");
