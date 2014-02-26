@@ -44,6 +44,7 @@ import org.openqa.selenium.interactions.Actions;
 
 /**
  * UI tests for SecurityApp.
+ *
  * <ul>
  * <li>edit standard user</li>
  * <li>edit system user</li>
@@ -51,11 +52,11 @@ import org.openqa.selenium.interactions.Actions;
  * <li>edit role</li>
  * <li>edit public user</li>
  * <li>And try to
- * <ul>
- * <li>create folders</li>
- * <li>copy users/groups/roles</li>
- * <li>move users/groups/roles</li>
- * </ul>
+ *   <ul>
+ *     <li>create folders</li>
+ *     <li>copy users/groups/roles</li>
+ *     <li>move users/groups/roles</li>
+ *   </ul>
  * </li>
  * </ul>
  */
@@ -205,6 +206,8 @@ public class SecurityAppUITest extends AbstractMagnoliaUITest {
         deleteSecurityAppItem(GROUP, "group-dnd");
     }
 
+
+
     /*
      * Roles
      */
@@ -255,6 +258,7 @@ public class SecurityAppUITest extends AbstractMagnoliaUITest {
         // WHEN/THEN
         doTestCreateFolderAndCopyAndMoveSecurityAppItem(ROLE, "test-folder-move", "editor", "new-test-role-move");
     }
+
 
     @Test
     public void testCreateFolderCopyAndDragAndDropRole() {
@@ -366,6 +370,7 @@ public class SecurityAppUITest extends AbstractMagnoliaUITest {
         assertTrue(getTreeTableItem(roleName).isDisplayed());
         assertTrue(getTreeTableItem(newRoleName) instanceof NonExistingWebElement);
     }
+
 
     /**
      * Creates a folder, renames it, clones an existing item and renames it and uses
@@ -527,7 +532,6 @@ public class SecurityAppUITest extends AbstractMagnoliaUITest {
 
     /**
      * Renames existing user.
-     * 
      * @param itemTypeCaption
      * @param itemName
      * @param newItemName
@@ -594,6 +598,7 @@ public class SecurityAppUITest extends AbstractMagnoliaUITest {
         delay("Wait e second for the user to be deleted");
     }
 
+
     private WebElement getTableBody() {
         return getElementByXpath("//div[contains(@class, 'v-table-row-spacer')]");
     }
@@ -611,6 +616,7 @@ public class SecurityAppUITest extends AbstractMagnoliaUITest {
         return getElementByXpath("//div[contains(@class, 'v-form-field-section')]/div[contains(text(), 'Password')]/following-sibling::div");
     }
 
+
     public WebElement getPassword() {
         WebElement element = getPasswordContainer().findElement(By.xpath("//div/div/div[2]/input"));
         return element;
@@ -622,7 +628,7 @@ public class SecurityAppUITest extends AbstractMagnoliaUITest {
     }
 
     private WebElement getMoveDialogElement(String elementName) {
-        return getElementByXpath("//div[contains(@class, 'light')]//div[contains(@class, 'dialog-content')]//div[contains(@class, 'v-slot-keyboard-panel')]//div[@class='v-table-cell-wrapper' and text() = '%s']", elementName);
+        return getElementByXpath("//div[contains(@class, 'choose-dialog')]//div[contains(@class, 'dialog-content')]//div[contains(@class, 'v-slot-keyboard-panel')]//div[@class='v-table-cell-wrapper' and text() = '%s']", elementName);
     }
 
 }
