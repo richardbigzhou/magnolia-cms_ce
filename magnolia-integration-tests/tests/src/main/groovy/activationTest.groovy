@@ -88,10 +88,10 @@ class ActivationTest {
         responseText = selectItem(pid, demoprojectIdx, authorUidl)
         def connectorId = getConnectorId(Patterns.SELECTED_PAGE, responseText)
         // edit page
-        triggerAction("pageActions:edit", connectorId, authorUidl)
+        responseText = triggerAction("pageActions:edit", connectorId, authorUidl)
+        connectorId = getConnectorId(Patterns.PAGE_EDITOR, responseText);
         // select component and remove it
-        // connectorId is always +10 from the last obtained one .. don't ask me why - i don't know
-        responseText = selectComponent(Integer.valueOf(connectorId) + 10, authorUidl, "website", "/demo-project/content/0", "standard-templating-kit:components/teasers/stkTeaser")
+        responseText = selectComponent(connectorId, authorUidl, "website", "/demo-project/content/0", "standard-templating-kit:components/teasers/stkTeaser")
         connectorId = getConnectorId(Patterns.SELECTED_COMPONENT, responseText)
         removeComponent(connectorId, authorUidl)
         closeApp(authorUidl)
@@ -647,6 +647,7 @@ class Patterns {
     public static final SELECTED_PAGE = Pattern.compile("\"([0-9]+)\":\\{\"disabledActions\"")
     public static final JSESSION_ID = Pattern.compile("JSESSIONID=(.+?);")
     public static final ALL_PAGES = Pattern.compile("\\[\"tr\",\\{\"key\":([0-9]+),\"rowstyle\":\"icon-file-webpage\",\"depth\":[0-9](,\"ca\":true,\"open\":false)?\\},\"([0-9a-zA-Z-_]+)\"")
+    public static final PAGE_EDITOR = Pattern.compile("\"([0-9]+)\":\\{\"immediate\":true,\"height\":\"100.0%\",\"width\":\"100.0%\",\"parameters\":\\{\"platformType\":\"DESKTOP\",\"preview\":false,\"nodePath\":\"/demo-project\",\"contextPath\":\"/magnoliaTest\",\"url\":\"/magnoliaTest/demo-project.html\\?mgnlPreview=false&mgnlChannel=desktop\"\\}\\}")
 }
 
 def isEnterprise = false
