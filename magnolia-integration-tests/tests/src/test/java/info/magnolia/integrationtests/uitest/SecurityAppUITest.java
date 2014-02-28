@@ -493,6 +493,8 @@ public class SecurityAppUITest extends AbstractMagnoliaUITest {
         // Duplicate user
         getActionBarItem(getDuplicateActionName(itemTypeCaption)).click();
 
+        delay("Wait a second for the action to be performed");
+
         // Rename user
         renameSecurityAppItem(itemTypeCaption, originalName + "0", newName); // Duplicate item action adds "0" to node name
 
@@ -511,12 +513,17 @@ public class SecurityAppUITest extends AbstractMagnoliaUITest {
      */
     private void addUser(String username, String password) {
         getActionBarItem(getAddItemActionName(USER)).click();
+
+        delay("Wait a second for the dialog to show up");
+
         sendKeysToDialogField(getItemNameFieldLabel(USER), username);
 
         sendKeysToDialogField(getPassword(), password);
         sendKeysToDialogField(getPasswordConfirmation(), password);
 
         getDialogCommitButton().click();
+
+        delay("Wait a second for the user to be created");
     }
 
     /**
@@ -584,6 +591,8 @@ public class SecurityAppUITest extends AbstractMagnoliaUITest {
     private void openSecuritySubApp(String subAppName) {
         getAppIcon("Security").click();
         getTabForCaption(subAppName).click();
+
+        delay("Wait a second for the sub app to open");
     }
 
     /**
