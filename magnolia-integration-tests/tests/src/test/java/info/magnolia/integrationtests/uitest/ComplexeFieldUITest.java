@@ -33,9 +33,7 @@
  */
 package info.magnolia.integrationtests.uitest;
 
-import static org.junit.Assert.assertEquals;
-
-import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.*;
 
 import org.junit.Ignore;
 import org.junit.Test;
@@ -94,8 +92,6 @@ public class ComplexeFieldUITest extends AbstractMagnoliaUITest {
         assertEquals("2013-08-22", getFromMultiFieldElementValueAt(fieldName, 2).getAttribute("value"));
 
     }
-
-
 
     public void testI18nMultiFieldWithDefaultPropertyBuilder() {
         // FIXME for MGNLUI-1979: Get an easy way to set configuration values (direct settings, not using UI).
@@ -261,7 +257,7 @@ public class ComplexeFieldUITest extends AbstractMagnoliaUITest {
     }
 
     protected WebElement getMultiFieldElementDeleteButtonAt(String multiFieldLabel, int position) {
-        return getElementByXpath("(//*[@class = 'v-form-field-label' and text() = '%s']/following-sibling::div//*[contains(@class, '%s')])[%s]", multiFieldLabel, "v-button-remove", position);
+        return getElementByXpath("(//*[@class = 'v-form-field-label' and text() = '%s']/following-sibling::div//*[contains(@class, '%s')])[%s]", multiFieldLabel, "v-button-inline", position);
     }
 
     protected void setMultiFieldElementValueAt(String multiFieldLabel, int position, String value) {
