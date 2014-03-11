@@ -76,7 +76,7 @@ public class SecurityAppUITest extends AbstractMagnoliaUITest {
 
     @Test
     public void testEditStandardUser() {
-        testEditUser("Users", "patrick", "patrick1");
+        testEditUser("Users", "peter", "peter1");
     }
 
     @Test
@@ -85,7 +85,7 @@ public class SecurityAppUITest extends AbstractMagnoliaUITest {
         openSecuritySubApp("Users");
 
         // WHEN/THEN
-        doTestCreateFolderAndCopyAndMoveSecurityAppItem(USER, "test-folder-move", "patrick", "new-test-user-move");
+        doTestCreateFolderAndCopyAndMoveSecurityAppItem(USER, "test-folder-move", "peter", "new-test-user-move");
     }
 
     @Test
@@ -94,7 +94,7 @@ public class SecurityAppUITest extends AbstractMagnoliaUITest {
         openSecuritySubApp("Users");
 
         // WHEN/THEN
-        doTestCreateFolderAndCopyAndDnDSecurityAppItem(USER, "test-folder-dnd", "patrick", "new-test-user-dnd");
+        doTestCreateFolderAndCopyAndDnDSecurityAppItem(USER, "test-folder-dnd", "peter", "new-test-user-dnd");
     }
 
     /*
@@ -603,7 +603,7 @@ public class SecurityAppUITest extends AbstractMagnoliaUITest {
             getTreeTableItem(itemName).click();
         }
         getActionBarItem(getDeleteActionName(itemTypeCaption)).click();
-        getConfirmationOverlay().findElement(By.xpath("//div[contains(@class, 'v-button-confirm')]")).click();
+        getConfirmationOverlay().findElement(By.xpath(".//div[contains(@class, 'v-button-confirm')]")).click();
         delay("Wait e second for the user to be deleted");
     }
 
@@ -627,12 +627,12 @@ public class SecurityAppUITest extends AbstractMagnoliaUITest {
 
 
     public WebElement getPassword() {
-        WebElement element = getPasswordContainer().findElement(By.xpath("//div/div/div[2]/input"));
+        WebElement element = getPasswordContainer().findElement(By.xpath(".//div/div/div[2]/input"));
         return element;
     }
 
     public WebElement getPasswordConfirmation() {
-        WebElement element = getPasswordContainer().findElement(By.xpath("//div/div/div[4]/input"));
+        WebElement element = getPasswordContainer().findElement(By.xpath(".//div/div/div[4]/input"));
         return element;
     }
 
