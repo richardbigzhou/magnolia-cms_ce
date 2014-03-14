@@ -21,12 +21,12 @@
 
   <properties>
     <magnoliaEdition>Community Edition</magnoliaEdition>
-    <magnoliaVersion>5.2.3-SNAPSHOT</magnoliaVersion>
-    <magnoliaUiVersion>5.2.3-SNAPSHOT</magnoliaUiVersion>
+    <magnoliaVersion>5.2.3</magnoliaVersion>
+    <magnoliaUiVersion>5.2.3</magnoliaUiVersion>
     <javaVersion>1.6</javaVersion>
     <documentationURL>http://documentation.magnolia-cms.com/releases/${project.version}.html</documentationURL>
-    <stkVersion>2.7.3-SNAPSHOT</stkVersion>
-    <restVersion>1.0.3-SNAPSHOT</restVersion>
+    <stkVersion>2.7.3</stkVersion>
+    <restVersion>1.0.3</restVersion>
     <scmTagPrefix>magnolia-bundle</scmTagPrefix>
     <!-- Disable clover during releases: -->
     <additionalReleaseProfiles />
@@ -89,7 +89,7 @@
       <dependency>
         <groupId>info.magnolia.dam</groupId>
         <artifactId>magnolia-dam</artifactId>
-        <version>1.2.3-SNAPSHOT</version>
+        <version>1.2.3</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
@@ -99,22 +99,22 @@
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-groovy</artifactId>
-        <version>2.2.3-SNAPSHOT</version>
+        <version>2.2.3</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia.activation</groupId>
         <artifactId>magnolia-module-activation</artifactId>
-        <version>5.2.3-SNAPSHOT</version>
+        <version>5.2.3</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia.cache</groupId>
         <artifactId>magnolia-module-cache</artifactId>
-        <version>5.2.3-SNAPSHOT</version>
+        <version>5.2.3</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-mail</artifactId>
-        <version>5.1.3-SNAPSHOT</version>
+        <version>5.1.3</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
@@ -134,7 +134,7 @@
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-commenting</artifactId>
-        <version>2.2-SNAPSHOT</version>
+        <version>2.2</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
@@ -162,7 +162,7 @@
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-rssaggregator</artifactId>
-        <version>2.2.3-SNAPSHOT</version>
+        <version>2.2.3</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia.devdect</groupId>
@@ -177,22 +177,22 @@
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-resources</artifactId>
-        <version>2.2.3-SNAPSHOT</version>
+        <version>2.2.3</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-inplace-templating</artifactId>
-        <version>2.2.3-SNAPSHOT</version>
+        <version>2.2.3</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-form</artifactId>
-        <version>2.2.3-SNAPSHOT</version>
+        <version>2.2.3</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-forum</artifactId>
-        <version>3.3-SNAPSHOT</version>
+        <version>3.3</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
@@ -208,7 +208,7 @@
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-google-sitemap</artifactId>
-        <version>2.0.3-SNAPSHOT</version>
+        <version>2.0.3</version>
       </dependency>
 
       <dependency>
