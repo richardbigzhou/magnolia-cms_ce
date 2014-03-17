@@ -25,7 +25,7 @@
     <magnoliaUiVersion>5.3-SNAPSHOT</magnoliaUiVersion>
     <javaVersion>1.6</javaVersion>
     <documentationURL>http://documentation.magnolia-cms.com/releases/${project.version}.html</documentationURL>
-    <stkVersion>2.7.2</stkVersion>
+    <stkVersion>2.7.4-SNAPSHOT</stkVersion>
     <restVersion>1.0.2</restVersion>
     <scmTagPrefix>magnolia-bundle</scmTagPrefix>
     <!-- Disable clover during releases: -->
@@ -89,7 +89,7 @@
       <dependency>
         <groupId>info.magnolia.dam</groupId>
         <artifactId>magnolia-dam</artifactId>
-        <version>1.2.2</version>
+        <version>2.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
@@ -152,7 +152,7 @@
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-data</artifactId>
-        <version>2.2.2</version>
+        <version>2.3-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
@@ -162,7 +162,7 @@
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-rssaggregator</artifactId>
-        <version>2.2.2</version>
+        <version>2.3-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia.devdect</groupId>
@@ -187,12 +187,12 @@
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-form</artifactId>
-        <version>2.2.2</version>
+        <version>2.2.3</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-forum</artifactId>
-        <version>3.2.1</version>
+        <version>3.3-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
@@ -203,7 +203,7 @@
       <dependency>
         <groupId>info.magnolia.contacts</groupId>
         <artifactId>magnolia-contacts</artifactId>
-        <version>1.2.1</version>
+        <version>1.3-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
