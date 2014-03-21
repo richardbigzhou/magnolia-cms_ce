@@ -274,23 +274,23 @@
               <source>${project.basedir}/src/main/groovy/crawl.groovy</source>
             </configuration>
           </execution>
-          <execution>
-            <id>activation-test</id>
-            <phase>integration-test</phase>
-            <goals>
-              <goal>execute</goal>
-            </goals>
-            <configuration>
-              <properties>
-                <login>superuser</login>
-                <password>superuser</password>
-                <isEnterprise>false</isEnterprise>
-                <authorUrl>http://localhost:${containerHttpPort}/magnoliaTest/</authorUrl>
-                <publicUrl>http://localhost:${containerHttpPort}/magnoliaTestPublic/</publicUrl>
-              </properties>
-              <source>${project.basedir}/src/main/groovy/activationTest.groovy</source>
-            </configuration>
-          </execution>
+          <!--<execution>-->
+            <!--<id>activation-test</id>-->
+            <!--<phase>integration-test</phase>-->
+            <!--<goals>-->
+              <!--<goal>execute</goal>-->
+            <!--</goals>-->
+            <!--<configuration>-->
+              <!--<properties>-->
+                <!--<login>superuser</login>-->
+                <!--<password>superuser</password>-->
+                <!--<isEnterprise>false</isEnterprise>-->
+                <!--<authorUrl>http://localhost:${containerHttpPort}/magnoliaTest/</authorUrl>-->
+                <!--<publicUrl>http://localhost:${containerHttpPort}/magnoliaTestPublic/</publicUrl>-->
+              <!--</properties>-->
+              <!--<source>${project.basedir}/src/main/groovy/activationTest.groovy</source>-->
+            <!--</configuration>-->
+          <!--</execution>-->
           <execution>
             <id>log-parser</id>
             <phase>integration-test</phase>
