@@ -88,6 +88,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
     public static final String TRASH_ICON_STYLE = "icon-trash";
 
     protected static final String SCREENSHOT_DIR = "target/surefire-reports/";
+    private static final String DOWNLOAD_DIR = "target/surefire-reports/downloads/";
 
     protected WebDriver driver = null;
     private static int screenshotIndex = 1;
@@ -197,7 +198,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
     @Before
     public void setUp() {
         final FirefoxProfile firefoxProfile = new FirefoxProfile();
-        firefoxProfile.setPreference("browser.download.dir", System.getProperty("java.io.tmpdir"));
+        firefoxProfile.setPreference("browser.download.dir", getDownloadDir());
         firefoxProfile.setPreference("browser.download.folderList", 2);
         firefoxProfile.setPreference("browser.helperApps.neverAsk.saveToDisk", "application/xml,application/zip,text/csv,application/vnd.ms-excel,application/octet-stream");
         firefoxProfile.setPreference("browser.helperApps.alwaysAsk.force", false);
@@ -218,6 +219,20 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         } catch (NoSuchElementException e) {
             fail("Expected Pages app tile being present after login but got: " + e.getMessage());
         }
+    }
+
+    /**
+     * Returns the absolute path of the temporary download directory, that is currently pointing to
+     * <code>target/surefire-reports/downloads/</code>.
+     *
+     * @see #DOWNLOAD_DIR
+     */
+    protected String getDownloadDir() {
+        File downloadDirectory = new File(DOWNLOAD_DIR);
+        if (!downloadDirectory.exists()) {
+            downloadDirectory.mkdirs();
+        }
+        return downloadDirectory.getAbsolutePath();
     }
 
     /**

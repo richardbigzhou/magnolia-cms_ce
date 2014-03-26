@@ -36,48 +36,44 @@ package info.magnolia.integrationtests.uitest;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
+import java.io.IOException;
 
-import org.junit.After;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Test that test the selenium settings.
  */
 public class SeleniumProfileTestingUITest extends AbstractMagnoliaUITest {
 
-    private final String ioTmpDir = System.getProperty("java.io.tmpdir");
+    private static final Logger log = LoggerFactory.getLogger(SeleniumProfileTestingUITest.class);
+
     private File file;
-
-    @After
-    @Override
-    public void tearDown() {
-        super.tearDown();
-
-        if (file != null && file.exists()) {
-            file.delete();
-        }
-    }
 
     /**
      * This tests the default profile setting of the {@link org.openqa.selenium.WebDriver}.
      * @see <a href="http://jira.magnolia-cms.com/browse/MAGNOLIA-5672">MAGNOLIA-5672</a>
      */
     @Test
-    public void testDefaultFirefoxDownloadSettings() {
+    public void testDefaultFirefoxDownloadSettings() throws IOException {
         // GIVEN
         final String path = "/demo-project/about/subsection-articles/article";
         final String url = String.format("%s.magnolia/admincentral#app:pages:browser;%s:treeview:", Instance.AUTHOR.getURL(), path);
 
         // WHEN
         driver.navigate().to(url);
-        delay(5, "Wait a second for the app to open");
+        delay(10, "Wait a second for the app to open");
 
         getActionBarItem("Export").click();
-        delay(2, "Wait for the file to download");
+        delay(5, "Wait for the file to download");
 
         // THEN
-        file = new File(ioTmpDir + "website.demo-project.about.subsection-articles.article.xml");
-        assertTrue(file.exists());
+        file = new File(getDownloadDir(), "website.demo-project.about.subsection-articles.article.xml");
+
+        log.info("Verifying file '{}' was successfully downloaded and exists on the filesystem", file.getCanonicalPath());
+
+        assertTrue("We expect the downloaded file '" + file.getCanonicalPath() + "' to exist.", file.exists());
     }
 
 }
