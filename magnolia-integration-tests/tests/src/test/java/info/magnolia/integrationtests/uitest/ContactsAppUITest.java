@@ -47,6 +47,8 @@ import org.openqa.selenium.WebElement;
  */
 public class ContactsAppUITest extends AbstractMagnoliaUITest {
 
+    private static final int CONTACTS_APP_INPUT_COUNT = 15;
+
     private void createVersionedContactOf(String contactName) {
         String testEmailAddr = String.format("testemail%d@random.ch", new Date().getTime());
 
@@ -105,7 +107,8 @@ public class ContactsAppUITest extends AbstractMagnoliaUITest {
         delay("Waiting for the editSubApp to open");
 
         // Get inputs
-        List<WebElement> inputs = getElementsByPath(By.xpath("//div[@class='form-content']//input[contains(@class, 'v-textfield')]"));
+        List<WebElement> inputs = getElementsByPath(By.xpath("//div[@class='form-content']//input[contains(@class, 'v-textfield')]"), CONTACTS_APP_INPUT_COUNT);
+        assertNotNull(inputs);
 
         // THEN
         // Assert subApp is open and all fields in editor are readonly
@@ -152,7 +155,8 @@ public class ContactsAppUITest extends AbstractMagnoliaUITest {
         delay("Waiting for the editSubApp to open");
 
         // Get inputs
-        List<WebElement> inputs = getElementsByPath(By.xpath("//div[@class='form-content']//input[contains(@class, 'v-textfield')]"));
+        List<WebElement> inputs = getElementsByPath(By.xpath("//div[@class='form-content']//input[contains(@class, 'v-textfield')]"), CONTACTS_APP_INPUT_COUNT);
+        assertNotNull(inputs);
 
         // Assert subApp is open and all fields in editor are readonly
         // Tab name will contain a version number
@@ -173,7 +177,8 @@ public class ContactsAppUITest extends AbstractMagnoliaUITest {
         delay("Waiting for the editSubApp to open");
 
         // Get inputs afterwards
-        List<WebElement> inputsEditable = getElementsByPath(By.xpath("//div[@class='form-content']//input[contains(@class, 'v-textfield')]"));
+        List<WebElement> inputsEditable = getElementsByPath(By.xpath("//div[@class='form-content']//input[contains(@class, 'v-textfield')]"), CONTACTS_APP_INPUT_COUNT);
+        assertNotNull(inputsEditable);
 
         // THEN
         // Assert fields are editable afterwards

@@ -98,7 +98,7 @@ public class PageEditorUITest extends AbstractPageEditorUITest {
         switchToDefaultContent();
 
         // THEN
-        assertTrue(driver.findElement(By.xpath("//*[contains(@class, 'cke_chrome')]")).isDisplayed());
+        assertTrue(getElementByPath(By.xpath("//*[contains(@class, 'cke_chrome')]")).isDisplayed());
         getDialogCancelButton().click();
     }
 
