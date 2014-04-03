@@ -102,15 +102,16 @@ public class FavoriteUITest extends AbstractMagnoliaUITest {
         delay("Give some time to complete favorite creation.");
 
         // WHEN
-        List<WebElement> favs = getElementsByPath(By.cssSelector(".favorites-entry .icon"));
+        List<WebElement> favs = getElementsByPath(By.cssSelector(".favorites-entry .icon"), 2);
 
         // THEN
-        assertNotNull(favs);
+        assertNotNull("We expect two favourites entries", favs);
         assertEquals(2, favs.size());
         for (WebElement element : favs) {
             element.click();
         }
-        List<WebElement> selected = getElementsByPath(By.cssSelector(".favorites-entry.selected"));
+        List<WebElement> selected = getElementsByPath(By.cssSelector(".favorites-entry.selected"), 1);
+        assertNotNull("We expect one selected favourite", selected);
         assertEquals(1, selected.size());
     }
 }
