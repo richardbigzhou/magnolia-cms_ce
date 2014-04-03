@@ -26,7 +26,7 @@
     <javaVersion>1.6</javaVersion>
     <documentationURL>http://documentation.magnolia-cms.com/releases/${project.version}.html</documentationURL>
     <stkVersion>2.8-SNAPSHOT</stkVersion>
-    <restVersion>1.0.2</restVersion>
+    <restVersion>1.0.3</restVersion>
     <scmTagPrefix>magnolia-bundle</scmTagPrefix>
     <!-- Disable clover during releases: -->
     <additionalReleaseProfiles />
@@ -104,12 +104,12 @@
       <dependency>
         <groupId>info.magnolia.activation</groupId>
         <artifactId>magnolia-module-activation</artifactId>
-        <version>5.2.2</version>
+        <version>5.2.3</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia.cache</groupId>
         <artifactId>magnolia-module-cache</artifactId>
-        <version>5.2.2</version>
+        <version>5.2.3</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
