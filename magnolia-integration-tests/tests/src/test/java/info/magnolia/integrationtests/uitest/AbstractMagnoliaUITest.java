@@ -410,8 +410,9 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
                     }
             );
         } catch (TimeoutException e) {
-            log.debug("Could not retrieve element by path {}. Got: {}", path, e);
-            // not found within the time limit - assume that element is not existing
+            log.error("Could not retrieve {} elements by path {} : {}", expectedElementCount, path, e);
+            // not found within the time limit - maybe the expected amount of element is wrong, but there's nothing sane we can do here. Returning null would just yield NPEs. If we need something better, consider selenium-lift, or pass a Matcher instead of expectedElementCount
+            throw new TimeoutException("Could not retrieve " + expectedElementCount + " elements by path " + path + " : " + e.getMessage(), e);
         } catch (StaleElementReferenceException s) {
             // re-trying on StaleElementReferenceExceptions: see http://docs.seleniumhq.org/exceptions/stale_element_reference.jsp
             log.info("{} when accessing element {} - trying again", s.toString(), path);
