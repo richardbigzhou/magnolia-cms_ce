@@ -397,8 +397,13 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
                         @Override
                         public List<WebElement> apply(WebDriver d) {
                             try {
-                                return d.findElements(path);
-
+                                List<WebElement> elements = d.findElements(path);
+                                if (!elements.isEmpty()) {
+                                    takeScreenshot(path.toString());
+                                    return elements;
+                                }
+                                takeScreenshot(path.toString() + "_notDisplayed");
+                                return elements;
                             } catch (NoSuchElementException e) {
                                 takeScreenshot(path.toString() + "_notFound");
                                 return null;
