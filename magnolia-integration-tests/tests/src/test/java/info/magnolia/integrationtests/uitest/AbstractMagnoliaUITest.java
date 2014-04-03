@@ -371,10 +371,10 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
     }
 
 
-        /**
+    /**
      * Tries to retrieve requested element.
      * 
-     * @path path to search the element at
+     * @param path to search the element at
      * @return the searched specified element or a NonExistingWebElement in case it couldn't be found.
      */
     protected WebElement getElementByPath(final By path) {
@@ -382,12 +382,10 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
     }
 
     /**
-     * Tries to retrieve requested elements.
-     * 
-     * @path path to search the element at
-     * @return a list matching the searched specified element or <code>null</code> in case it couldn't be found.
+     * Tries to retrieve the requested amount of elements matching the given path.
+     * Will retry until the amount matches or until the whole process times out.
      */
-    protected List<WebElement> getElementsByPath(final By path) {
+     protected List<WebElement> getElementsByPath(final By path, final int expectedElementCount) {
         List<WebElement> elements = null;
         try {
             // will loop and try to retrieve the specified element until found or it times out.
@@ -398,26 +396,26 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
                         public List<WebElement> apply(WebDriver d) {
                             try {
                                 List<WebElement> elements = d.findElements(path);
-                                if (!elements.isEmpty()) {
+                                if (elements.size() == expectedElementCount) {
                                     takeScreenshot(path.toString());
                                     return elements;
                                 }
-                                takeScreenshot(path.toString() + "_notDisplayed");
-                                return elements;
+                                takeScreenshot(path.toString() + "_wrongCount");
+                                return null;
                             } catch (NoSuchElementException e) {
                                 takeScreenshot(path.toString() + "_notFound");
                                 return null;
                             }
                         }
                     }
-                    );
+            );
         } catch (TimeoutException e) {
             log.debug("Could not retrieve element by path {}. Got: {}", path, e);
             // not found within the time limit - assume that element is not existing
         } catch (StaleElementReferenceException s) {
             // re-trying on StaleElementReferenceExceptions: see http://docs.seleniumhq.org/exceptions/stale_element_reference.jsp
             log.info("{} when accessing element {} - trying again", s.toString(), path);
-            elements = getElementsByPath(path);
+            elements = getElementsByPath(path, expectedElementCount);
         }
         return elements;
     }
