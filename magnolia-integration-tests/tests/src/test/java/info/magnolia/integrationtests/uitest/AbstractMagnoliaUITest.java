@@ -400,6 +400,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
                                     takeScreenshot(path.toString());
                                     return elements;
                                 }
+                                log.warn("Expecting {} elements for {} - trying again - found {} so far: {}", expectedElementCount, path, elements.size(), elements);
                                 takeScreenshot(path.toString() + "_wrongCount");
                                 return null;
                             } catch (NoSuchElementException e) {
