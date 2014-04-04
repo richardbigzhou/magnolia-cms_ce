@@ -28,8 +28,8 @@
       <artifactId>magnolia-ui-admincentral</artifactId>
     </dependency>
     <dependency>
-      <groupId>info.magnolia.ui</groupId>
-      <artifactId>magnolia-ui-vaadin-widgetset</artifactId>
+      <groupId>info.magnolia.widgetset</groupId>
+      <artifactId>magnolia-vaadin-widgetset</artifactId>
     </dependency>
     <dependency>
       <groupId>info.magnolia.pages</groupId>
