@@ -72,8 +72,7 @@ public class AdmincentralUITest extends AbstractMagnoliaUITest {
         assertAppOpen("Messages");
 
         // WHEN
-        // "QA Somehow there's a 3rd input[type=text] element, not visible, while running the messages app, or in general"
-        getElementsByPath(By.xpath("//input[@type = 'text']"), 3).get(0).sendKeys(messageTitle);
+        getElementsByPath(By.xpath("//*[contains(@class, 'v-layout')]//input[@type = 'text']"), 2).get(0).sendKeys(messageTitle);
         getElementByPath(By.xpath("//textarea")).sendKeys(messageContent);
         getElementByPath(By.xpath("//label[text() = 'Error']")).click();
         getNativeButton("commit").click();
@@ -108,8 +107,7 @@ public class AdmincentralUITest extends AbstractMagnoliaUITest {
         assertAppOpen("Messages");
 
         // WHEN
-        // "QA Somehow there's a 3rd input[type=text] element, not visible, while running the messages app, or in general"
-        getElementsByPath(By.xpath("//input[@type = 'text']"), 3).get(0).sendKeys("iam a message");
+        getElementsByPath(By.xpath("//*[contains(@class, 'v-layout')]//input[@type = 'text']"), 2).get(0).sendKeys("iam a message");
         getElementByPath(By.xpath("//textarea")).sendKeys(messageContent);
         getNativeButton("commit").click();
         closeInfoNotification();
@@ -132,8 +130,7 @@ public class AdmincentralUITest extends AbstractMagnoliaUITest {
         assertAppOpen("Messages");
 
         // WHEN
-        // "QA Somehow there's a 3rd input[type=text] element, not visible, while running the messages app, or in general"
-        getElementsByPath(By.xpath("//input[@type = 'text']"), 3).get(0).sendKeys(messageTitle);
+        getElementsByPath(By.xpath("//*[contains(@class, 'v-layout')]//input[@type = 'text']"), 2).get(0).sendKeys(messageTitle);
         getElementByPath(By.xpath("//textarea")).sendKeys(messageContent);
         getElementByPath(By.xpath("//label[text() = 'Error']")).click();
         getNativeButton("commit").click();
