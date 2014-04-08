@@ -14,7 +14,7 @@
     </dependency>
     <dependency>
       <name>adminInterface</name>
-      <version>5.1/*</version>
+      <version>5.2.2/*</version>
     </dependency>
     <dependency>
       <name>templating</name>
