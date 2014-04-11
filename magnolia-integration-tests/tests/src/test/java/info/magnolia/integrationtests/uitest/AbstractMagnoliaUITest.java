@@ -226,8 +226,17 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         }
     }
 
+    /**
+     * Sets the default {@link WebDriver} timeouts:
+     * <ul>
+     * <li>implicitWait {@link org.openqa.selenium.WebDriver.Timeouts#implicitlyWait(long, java.util.concurrent.TimeUnit)}</li>
+     * <li>pageLoadTimeout {@link org.openqa.selenium.WebDriver.Timeouts#pageLoadTimeout(long, java.util.concurrent.TimeUnit)} (long, java.util.concurrent.TimeUnit)}</li>
+     * </ul>
+     */
     private void setDefaultDriverTimeout() {
-        driver.manage().timeouts().implicitlyWait(DRIVER_WAIT_IN_SECONDS, TimeUnit.SECONDS);
+        driver.manage().timeouts()
+                .implicitlyWait(DRIVER_WAIT_IN_SECONDS, TimeUnit.SECONDS)
+                .pageLoadTimeout(DRIVER_WAIT_IN_SECONDS, TimeUnit.SECONDS);
     }
 
     /**
