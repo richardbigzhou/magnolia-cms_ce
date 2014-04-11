@@ -100,7 +100,7 @@ public class ContentAppUITest extends AbstractMagnoliaUITest {
         assertTrue(getTabForCaption("Marilyn Monroe").isDisplayed());
 
         // WHEN
-        driver.navigate().refresh();
+        navigateDriverRefresh();
 
         // THEN
         assertTrue(getTabForCaption("Contacts").isDisplayed());
@@ -112,7 +112,7 @@ public class ContentAppUITest extends AbstractMagnoliaUITest {
         // GIVEN
 
         // WHEN - navigate directly to Edit Subapp
-        driver.navigate().to(Instance.AUTHOR.getURL() + ".magnolia/admincentral#app:contacts:detail;/mmonroe:edit");
+        navigateDriverTo(Instance.AUTHOR.getURL() + ".magnolia/admincentral#app:contacts:detail;/mmonroe:edit");
         delay(5, "Can take some time, until subapps are open...");
 
         // THEN
@@ -125,7 +125,7 @@ public class ContentAppUITest extends AbstractMagnoliaUITest {
         // GIVEN
 
         // WHEN - navigate directly to Edit Subapp
-        driver.navigate().to(Instance.AUTHOR.getURL() + ".magnolia/admincentral#app:pages:browser;/demo-project/about/subsection-articles:treeview:");
+        navigateDriverTo(Instance.AUTHOR.getURL() + ".magnolia/admincentral#app:pages:browser;/demo-project/about/subsection-articles:treeview:");
         delay(5, "Can take some time, until subapps are open...");
 
         // THEN
@@ -151,7 +151,7 @@ public class ContentAppUITest extends AbstractMagnoliaUITest {
         // GIVEN
 
         // WHEN
-        driver.navigate().to(Instance.PUBLIC.getURL() + ".magnolia/admincentral#app:pages");
+        navigateDriverTo(Instance.PUBLIC.getURL() + ".magnolia/admincentral#app:pages");
         // on setup we only login to author instance - now we need to login to public...
         login(getTestUserName());
         delay(5, "Can take some time, until subapps are open...");

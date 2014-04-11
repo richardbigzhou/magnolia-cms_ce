@@ -62,7 +62,7 @@ public class SeleniumProfileTestingUITest extends AbstractMagnoliaUITest {
         final String url = String.format("%s.magnolia/admincentral#app:pages:browser;%s:treeview:", Instance.AUTHOR.getURL(), path);
 
         // WHEN
-        driver.navigate().to(url);
+        navigateDriverTo(url);
         delay(10, "Wait a second for the app to open");
 
         getActionBarItem("Export").click();

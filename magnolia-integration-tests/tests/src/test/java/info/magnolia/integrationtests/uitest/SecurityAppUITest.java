@@ -39,12 +39,9 @@ import org.apache.commons.lang.StringUtils;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Action;
-import org.openqa.selenium.interactions.Actions;
 
 /**
  * UI tests for SecurityApp.
- *
  * <ul>
  * <li>edit standard user</li>
  * <li>edit system user</li>
@@ -52,11 +49,11 @@ import org.openqa.selenium.interactions.Actions;
  * <li>edit role</li>
  * <li>edit public user</li>
  * <li>And try to
- *   <ul>
- *     <li>create folders</li>
- *     <li>copy users/groups/roles</li>
- *     <li>move users/groups/roles</li>
- *   </ul>
+ * <ul>
+ * <li>create folders</li>
+ * <li>copy users/groups/roles</li>
+ * <li>move users/groups/roles</li>
+ * </ul>
  * </li>
  * </ul>
  */
@@ -206,8 +203,6 @@ public class SecurityAppUITest extends AbstractMagnoliaUITest {
         deleteSecurityAppItem(GROUP, "group-dnd");
     }
 
-
-
     /*
      * Roles
      */
@@ -258,7 +253,6 @@ public class SecurityAppUITest extends AbstractMagnoliaUITest {
         // WHEN/THEN
         doTestCreateFolderAndCopyAndMoveSecurityAppItem(ROLE, "test-folder-move", "editor", "new-test-role-move");
     }
-
 
     @Test
     public void testCreateFolderCopyAndDragAndDropRole() {
@@ -371,7 +365,6 @@ public class SecurityAppUITest extends AbstractMagnoliaUITest {
         assertTrue(getTreeTableItem(newRoleName) instanceof NonExistingWebElement);
     }
 
-
     /**
      * Creates a folder, renames it, clones an existing item and renames it and uses
      * move dialog to move that new item to the new folder.
@@ -429,20 +422,6 @@ public class SecurityAppUITest extends AbstractMagnoliaUITest {
     }
 
     /**
-     * Drag (source element) and drop it (in destination element).
-     */
-    private void dragAndDropElement(WebElement sourceElement, WebElement destinationElement) {
-        Actions actionBuilder = new Actions(driver);
-
-        Action dragAndDrop = actionBuilder.clickAndHold(sourceElement)
-                .moveToElement(destinationElement)
-                .release(destinationElement)
-                .build();
-
-        dragAndDrop.perform();
-    }
-
-    /**
      * Adds a folder and renames it.
      * New folder names are always "untitled".
      */
@@ -493,8 +472,6 @@ public class SecurityAppUITest extends AbstractMagnoliaUITest {
         // Duplicate user
         getActionBarItem(getDuplicateActionName(itemTypeCaption)).click();
 
-        delay("Wait a second for the action to be performed");
-
         // Rename user
         renameSecurityAppItem(itemTypeCaption, originalName + "0", newName); // Duplicate item action adds "0" to node name
 
@@ -513,17 +490,12 @@ public class SecurityAppUITest extends AbstractMagnoliaUITest {
      */
     private void addUser(String username, String password) {
         getActionBarItem(getAddItemActionName(USER)).click();
-
-        delay("Wait a second for the dialog to show up");
-
         sendKeysToDialogField(getItemNameFieldLabel(USER), username);
 
         sendKeysToDialogField(getPassword(), password);
         sendKeysToDialogField(getPasswordConfirmation(), password);
 
         getDialogCommitButton().click();
-
-        delay("Wait a second for the user to be created");
     }
 
     /**
@@ -539,6 +511,7 @@ public class SecurityAppUITest extends AbstractMagnoliaUITest {
 
     /**
      * Renames existing user.
+     * 
      * @param itemTypeCaption
      * @param itemName
      * @param newItemName
@@ -591,8 +564,6 @@ public class SecurityAppUITest extends AbstractMagnoliaUITest {
     private void openSecuritySubApp(String subAppName) {
         getAppIcon("Security").click();
         getTabForCaption(subAppName).click();
-
-        delay("Wait a second for the sub app to open");
     }
 
     /**
@@ -607,37 +578,24 @@ public class SecurityAppUITest extends AbstractMagnoliaUITest {
         delay("Wait e second for the user to be deleted");
     }
 
-
     private WebElement getTableBody() {
         return getElementByXpath("//div[contains(@class, 'v-table-row-spacer')]");
     }
 
-    private boolean isTreeTableItemSelected(String itemName) {
-        return getTreeTableItemRow(itemName).getAttribute("class").contains("v-selected");
-    }
-
     private WebElement getDialogInputByLabel(String label) {
-        WebElement input = getElementByXpath("//div[contains(@class, 'v-form-field-section')]/div[contains(text(), '%s')]/following-sibling::div/input", label);
-        return input;
+        return getElementByXpath("//div[contains(@class, 'v-form-field-section')]/div[contains(text(), '%s')]/following-sibling::div/input", label);
     }
 
     private WebElement getPasswordContainer() {
         return getElementByXpath("//div[contains(@class, 'v-form-field-section')]/div[contains(text(), 'Password')]/following-sibling::div");
     }
 
-
     public WebElement getPassword() {
-        WebElement element = getPasswordContainer().findElement(By.xpath(".//div/div/div[2]/input"));
-        return element;
+        return getPasswordContainer().findElement(By.xpath(".//div/div/div[2]/input"));
     }
 
     public WebElement getPasswordConfirmation() {
-        WebElement element = getPasswordContainer().findElement(By.xpath(".//div/div/div[4]/input"));
-        return element;
-    }
-
-    private WebElement getMoveDialogElement(String elementName) {
-        return getElementByXpath("//div[contains(@class, 'choose-dialog')]//div[contains(@class, 'dialog-content')]//div[contains(@class, 'v-slot-keyboard-panel')]//div[@class='v-table-cell-wrapper' and text() = '%s']", elementName);
+        return getPasswordContainer().findElement(By.xpath(".//div/div/div[4]/input"));
     }
 
 }

@@ -37,8 +37,6 @@ import static org.junit.Assert.*;
 
 import org.junit.Ignore;
 import org.junit.Test;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 
 /**
  * UI TEst for MultiField, CompositeField and SwitchableField.
@@ -250,37 +248,6 @@ public class ComplexeFieldUITest extends AbstractMagnoliaUITest {
 
     public void testSwitchableFieldWithCustomPropertyBuilder() {
         // FIXME for MGNLUI-1979: Get an easy way to select an element of a list (selection).
-    }
-
-    protected WebElement getMultiFieldAddButton(String multiFieldLabel, String buttonLabel) {
-        return getElementByXpath("//*[@class = 'v-form-field-label' and text() = '%s']/following-sibling::div//*[contains(@class, '%s')]//*[text() = '%s']", multiFieldLabel, "v-nativebutton-magnoliabutton", buttonLabel);
-    }
-
-    protected WebElement getMultiFieldElementDeleteButtonAt(String multiFieldLabel, int position) {
-        return getElementByXpath("(//*[@class = 'v-form-field-label' and text() = '%s']/following-sibling::div//*[contains(@class, '%s')])[%s]", multiFieldLabel, "v-button-inline", position);
-    }
-
-    protected void setMultiFieldElementValueAt(String multiFieldLabel, int position, String value) {
-        WebElement input = getFromMultiFieldElementValueAt(multiFieldLabel, position);
-        input.clear();
-        input.sendKeys(value);
-    }
-
-    protected WebElement getFromMultiFieldElementValueAt(String multiFieldLabel, int position) {
-        return getElementByXpath("(//*[@class = 'v-form-field-label' and text() = '%s']/following-sibling::div//input[@type = 'text'])[%s]", multiFieldLabel, position);
-    }
-
-    protected WebElement getFromMultiFieldComplexeElementValueAt(String multiFieldLabel, int multiFieldposition, int compositeFieldposition) {
-        WebElement multifield = getElementByXpath("(//*[@class = 'v-form-field-label' and text() = '%s']/following-sibling::div//*[@class = 'v-slot v-slot-linkfield'])[%s]", multiFieldLabel, multiFieldposition);
-        String xpath = String.format("(//input[@type = 'text'])[%s]", compositeFieldposition);
-        WebElement fieldElement = multifield.findElement(By.xpath(xpath));
-        return fieldElement;
-    }
-
-    protected void setMultiFieldComplexeElementValueAt(String multiFieldLabel, int multiFieldposition, int compositeFieldposition, String value) {
-        WebElement input = getFromMultiFieldComplexeElementValueAt(multiFieldLabel, multiFieldposition, compositeFieldposition);
-        input.clear();
-        input.sendKeys(value);
     }
 
 }
