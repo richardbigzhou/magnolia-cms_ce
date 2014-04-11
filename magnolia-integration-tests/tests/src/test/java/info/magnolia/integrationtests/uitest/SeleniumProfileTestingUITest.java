@@ -63,10 +63,9 @@ public class SeleniumProfileTestingUITest extends AbstractMagnoliaUITest {
 
         // WHEN
         navigateDriverTo(url);
-        delay(10, "Wait a second for the app to open");
 
         getActionBarItem("Export").click();
-        delay(5, "Wait for the file to download");
+        delay(2, "Wait for the file to download");
 
         // THEN
         file = new File(getDownloadDir(), "website.demo-project.about.subsection-articles.article.xml");
