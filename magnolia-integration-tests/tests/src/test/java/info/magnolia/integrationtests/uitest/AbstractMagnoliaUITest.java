@@ -209,7 +209,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         firefoxProfile.setPreference("browser.download.manager.showWhenStarting",false);
 
         driver = new FirefoxDriver(firefoxProfile);
-        driver.manage().timeouts().implicitlyWait(DRIVER_WAIT_IN_SECONDS, TimeUnit.SECONDS);
+        setDefaultDriverTimeout();
         driver.manage().window().maximize();
         driver.navigate().to(Instance.AUTHOR.getURL());
 
@@ -224,6 +224,10 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         } catch (NoSuchElementException e) {
             fail("Expected Pages app tile being present after login but got: " + e.getMessage());
         }
+    }
+
+    private void setDefaultDriverTimeout() {
+        driver.manage().timeouts().implicitlyWait(DRIVER_WAIT_IN_SECONDS, TimeUnit.SECONDS);
     }
 
     /**
@@ -278,19 +282,27 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         password.sendKeys(userName);
 
         driver.findElement(By.xpath("//button[@id = 'login-button']")).click();
-        workaroundJsessionIdInUrl(driver);
+        workaroundJsessionIdInUrl();
 
         assertTrue("If login succeeded, user should get a screen containing the appslauncher", isExisting(driver.findElement(By.xpath("//*[@id = 'btn-appslauncher']"))));
     }
 
     /**
      * Containers (e.g. Tomcat 6, 7, Jetty 6) can append unwanted jsessionId to the url.
-     * We work around by reloading page.
+     *
+     * <p>We work around by reloading page.</p>
+     * <p>Checks for 404 headline on page, as Selenium doesn't (and won't) offer a possibility to check the status code</p>
+     *
+     * @see <a href="http://code.google.com/p/selenium/issues/detail?id=141">
+     *     WebDriver lacks HTTP response header and status code methods</a>
      */
-    protected static void workaroundJsessionIdInUrl(final WebDriver webDriver) {
-        if (webDriver.findElements(By.xpath("//h2[contains(text(), '404')]")).size() > 0) {
-            webDriver.navigate().to(AbstractMagnoliaHtmlUnitTest.Instance.AUTHOR.getURL());
+    private void workaroundJsessionIdInUrl() {
+        // temporarily lower timeout - the potential 404 either shows up directly or not at all
+        driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
+        if (driver.findElements(By.xpath("//h2[contains(text(), '404')]")).size() > 0) {
+            driver.navigate().to(AbstractMagnoliaHtmlUnitTest.Instance.AUTHOR.getURL());
         }
+        setDefaultDriverTimeout();
     }
 
     protected static void delay(final String motivation) {
@@ -361,7 +373,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
                             }
                         }
                     }
-                    );
+            );
         } catch (TimeoutException e) {
             log.debug("Could not retrieve element by path {}. Got: {}", path, e);
             // not found within the time limit - assume that element is not existing
