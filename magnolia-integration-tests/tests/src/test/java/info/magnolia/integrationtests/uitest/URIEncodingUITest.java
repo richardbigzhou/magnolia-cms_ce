@@ -45,7 +45,8 @@ import org.openqa.selenium.WebElement;
 
 /**
  * We're just checking if an un-encoded URI will result in an encoded URI.
- * {@link http://jira.magnolia-cms.com/browse/MGNLUI-1467}
+ *
+ * @see <a href="http://jira.magnolia-cms.com/browse/MGNLUI-1467">MGNLUI-1467</a>
  */
 public class URIEncodingUITest extends AbstractMagnoliaUITest {
 
@@ -60,10 +61,10 @@ public class URIEncodingUITest extends AbstractMagnoliaUITest {
         final URL unencodedURL = new URL(unencodedURLString);
 
         // WHEN
-        driver.navigate().to(unencodedURL);
+        navigateDriverTo(unencodedURL);
 
         // THEN
-        assertEquals("Expected to find encoded URI", AUTHOR_URL + "/vvangogh%20:treeview:", driver.getCurrentUrl());
+        assertEquals("Expected to find encoded URI", AUTHOR_URL + "/vvangogh%20:treeview:", getCurrentDriverUrl());
     }
 
     @Ignore("Ignoring error until MGNLUI-1600 is solved")
@@ -73,11 +74,11 @@ public class URIEncodingUITest extends AbstractMagnoliaUITest {
         final String unencodedSearchURLString = AUTHOR_URL + "/:searchview:Vincent Va*";
 
         // WHEN
-        driver.navigate().to(unencodedSearchURLString);
+        navigateDriverTo(unencodedSearchURLString);
         delay("Give some time to go to URL");
 
         // THEN
-        assertEquals("Expected to find encoded URI", AUTHOR_URL + "/:searchview:Vincent%20Va*", driver.getCurrentUrl());
+        assertEquals("Expected to find encoded URI", AUTHOR_URL + "/:searchview:Vincent%20Va*", getCurrentDriverUrl());
         assertTrue("Expected search result: Vincent Van Gogh", getTreeTableItem("Vincent Van Gogh").isDisplayed());
     }
 
@@ -88,7 +89,7 @@ public class URIEncodingUITest extends AbstractMagnoliaUITest {
         final String unencodedSearchString = "Vincent Va*";
 
         // WHEN - navigate directly to content app
-        driver.navigate().to(AUTHOR_URL);
+        navigateDriverTo(AUTHOR_URL);
         delay("Give some time to restart magnolia");
 
         // WHEN - search is entered and triggered
@@ -99,7 +100,7 @@ public class URIEncodingUITest extends AbstractMagnoliaUITest {
         delay("Give some time for the results to appear");
 
         // THEN
-        assertEquals("Expected to find encoded URI", AUTHOR_URL + "/:searchview:Vincent%20Va*", driver.getCurrentUrl());
+        assertEquals("Expected to find encoded URI", AUTHOR_URL + "/:searchview:Vincent%20Va*", getCurrentDriverUrl());
         assertTrue("Expected search result: Vincent Van Gogh", getTreeTableItem("Vincent Van Gogh").isDisplayed());
     }
 

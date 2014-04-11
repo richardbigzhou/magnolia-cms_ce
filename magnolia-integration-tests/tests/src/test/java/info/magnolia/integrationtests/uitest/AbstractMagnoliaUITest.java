@@ -41,6 +41,7 @@ import info.magnolia.testframework.htmlunit.AbstractMagnoliaHtmlUnitTest;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.net.URLEncoder;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -52,7 +53,9 @@ import org.junit.Rule;
 import org.junit.rules.TestName;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.Point;
@@ -63,6 +66,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxProfile;
+import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -90,7 +94,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
     protected static final String SCREENSHOT_DIR = "target/surefire-reports/";
     private static final String DOWNLOAD_DIR = "target/surefire-reports/downloads/";
 
-    protected WebDriver driver = null;
+    private WebDriver driver = null;
     private static int screenshotIndex = 1;
 
     private static final Logger log = LoggerFactory.getLogger(AbstractMagnoliaUITest.class);
@@ -329,9 +333,9 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
 
     /**
      * Tries to retrieve requested element.
-     * 
-     * @path path to search the element at
-     * @driver driver to use
+     *
+     * @param path path to search the element at
+     * @param driver driver to use
      * @return the searched specified element or a NonExistingWebElement in case it couldn't be found.
      */
     protected WebElement getElementByPath(final By path, WebDriver driver) {
@@ -373,8 +377,8 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
 
     /**
      * Tries to retrieve requested element.
-     * 
-     * @param path to search the element at
+     *
+     * @param path path to search the element at
      * @return the searched specified element or a NonExistingWebElement in case it couldn't be found.
      */
     protected WebElement getElementByPath(final By path) {
@@ -382,6 +386,10 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
     }
 
     /**
+     * Tries to retrieve requested elements.
+     *
+     * @param path path to search the element at
+     * @return a list matching the searched specified element or <code>null</code> in case it couldn't be found.
      * Tries to retrieve the requested amount of elements matching the given path.
      * Will retry until the amount matches or until the whole process times out.
      */
@@ -449,6 +457,10 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
 
     protected WebElement getTreeTableItemRow(String itemCaption) {
         return getElementByXpath("//*[contains(@class, 'v-table-cell-wrapper') and text() = '%s']/parent::*/parent::*", itemCaption);
+    }
+
+    protected boolean isTreeTableItemSelected(String itemName) {
+        return getTreeTableItemRow(itemName).getAttribute("class").contains("v-selected");
     }
 
     protected WebElement getActionBarItem(String itemCaption) {
@@ -615,7 +627,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
 
     /**
      * Open the Dialog Show Room of the sample demo site.
-     * 
+     *
      * @param templateImpl ftl or jsp. refer to the samples type.
      */
     protected void goToDialogShowRoomAndOpenDialogComponent(String templateImpl) {
@@ -702,6 +714,115 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
     protected void doubleClick(WebElement element) {
         Actions doubleClickOnElement = new Actions(driver);
         doubleClickOnElement.doubleClick(element).perform();
+    }
+
+    /**
+     * Drag (source element) and drop it (in destination element).
+     */
+    protected void dragAndDropElement(WebElement sourceElement, WebElement destinationElement) {
+        Actions actionBuilder = new Actions(driver);
+
+        Action dragAndDrop = actionBuilder.clickAndHold(sourceElement)
+                .moveToElement(destinationElement)
+                .release(destinationElement)
+                .build();
+
+        dragAndDrop.perform();
+    }
+
+    /**
+     * Navigates browser to specified url.
+     */
+    protected void navigateDriverTo(String url) {
+        driver.navigate().to(url);
+    }
+
+    protected void navigateDriverTo(URL url) {
+        driver.navigate().to(url.toString());
+    }
+
+    /**
+     * Refreshes current {@link WebDriver} window.
+     */
+    protected void navigateDriverRefresh() {
+        driver.navigate().refresh();
+    }
+
+    protected String getCurrentDriverUrl() {
+        return driver.getCurrentUrl();
+    }
+
+    protected void switchDriverToFrame(WebElement element) {
+        driver.switchTo().frame(element);
+    }
+
+    protected JavascriptExecutor getJavascriptExecutor() {
+        return (JavascriptExecutor) driver;
+    }
+
+    /**
+     * Checks if alert message is present.
+     */
+    protected boolean isAlertPresent() {
+        try {
+            driver.switchTo().alert();
+            return true;
+        } catch (NoAlertPresentException e) {
+            return false;
+        }
+    }
+
+    /**
+     * Will return a new {@link Actions} object for the current {@link WebDriver} instance.
+     */
+    protected Actions getDriverActions() {
+        return new Actions(driver);
+    }
+
+    protected WebElement getMoveDialogElement(String elementName) {
+        return getElementByXpath("//div[contains(@class, 'light')]//div[contains(@class, 'dialog-content')]//div[contains(@class, 'v-slot-keyboard-panel')]//div[@class='v-table-cell-wrapper' and text() = '%s']", elementName);
+    }
+
+    /*
+     * Multifield helper functions
+     */
+
+    protected void setMultiFieldElementValueAt(String multiFieldLabel, int position, String value) {
+        WebElement input = getFromMultiFieldElementValueAt(multiFieldLabel, position);
+        input.clear();
+        input.sendKeys(value);
+    }
+
+    protected WebElement getMultiFieldAddButton(String multiFieldLabel, String buttonLabel) {
+        return getElementByXpath("//*[@class = 'v-form-field-label' and text() = '%s']/following-sibling::div//*[contains(@class, '%s')]//*[text() = '%s']", multiFieldLabel, "v-nativebutton-magnoliabutton", buttonLabel);
+    }
+
+    protected WebElement getMultiFieldElementDeleteButtonAt(String multiFieldLabel, int position) {
+        return getElementByXpath("(//*[@class = 'v-form-field-label' and text() = '%s']/following-sibling::div//*[contains(@class, '%s')])[%s]", multiFieldLabel, "v-button-inline", position);
+    }
+
+    protected WebElement getFromMultiFieldElementValueAt(String multiFieldLabel, int position) {
+        return getElementByXpath("(//*[@class = 'v-form-field-label' and text() = '%s']/following-sibling::div//input[@type = 'text'])[%s]", multiFieldLabel, position);
+    }
+
+    protected WebElement getFromMultiFieldComplexeElementValueAt(String multiFieldLabel, int multiFieldposition, int compositeFieldposition) {
+        WebElement multifield = getElementByXpath("(//*[@class = 'v-form-field-label' and text() = '%s']/following-sibling::div//*[@class = 'v-slot v-slot-linkfield'])[%s]", multiFieldLabel, multiFieldposition);
+        String xpath = String.format("(//input[@type = 'text'])[%s]", compositeFieldposition);
+        WebElement fieldElement = multifield.findElement(By.xpath(xpath));
+        return fieldElement;
+    }
+
+    protected void setMultiFieldComplexeElementValueAt(String multiFieldLabel, int multiFieldposition, int compositeFieldposition, String value) {
+        WebElement input = getFromMultiFieldComplexeElementValueAt(multiFieldLabel, multiFieldposition, compositeFieldposition);
+        input.clear();
+        input.sendKeys(value);
+    }
+
+    /**
+     * Gets the current title of the {@link WebDriver}'s page.
+     */
+    protected String getDriverTitle() {
+        return driver.getTitle();
     }
 
 }

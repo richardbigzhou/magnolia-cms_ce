@@ -43,7 +43,6 @@ import java.text.NumberFormat;
 
 import org.junit.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 
 /**
@@ -147,8 +146,7 @@ public class SimpleFieldUITest extends AbstractMagnoliaUITest {
         WebElement uploadFormInput = uploadForm.findElement(By.xpath(".//input[contains(@class, 'gwt-FileUpload')]"));
         assertTrue(isExisting(uploadFormInput));
         // Make Upload Field Visible
-        JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("document.getElementsByClassName('gwt-FileUpload')[0].style.display = 'block';");
+        getJavascriptExecutor().executeScript("document.getElementsByClassName('gwt-FileUpload')[0].style.display = 'block';");
         uploadFormInput = uploadForm.findElement(By.xpath("//input[contains(@class, 'gwt-FileUpload')]"));
 
         // WHEN
@@ -183,14 +181,14 @@ public class SimpleFieldUITest extends AbstractMagnoliaUITest {
 
         // WHEN
         WebElement ckeditorFrame = getElementByPath(By.xpath("//iframe[contains(@class, 'cke_wysiwyg_frame')]"));
-        driver.switchTo().frame(ckeditorFrame);
+        switchDriverToFrame(ckeditorFrame);
         WebElement body = getElementByPath(By.xpath("//body[@contenteditable]"));
         body.click();
         body.clear();
 
         // currently faking text input because FirefoxDriver doesn't sendKeys into iframe - see https://code.google.com/p/selenium/issues/detail?id=6981
         switchToDefaultContent();
-        ((JavascriptExecutor) driver).executeScript("CKEDITOR.instances." + editorId + ".insertText(\"" + newFooterText + "\");");
+        getJavascriptExecutor().executeScript("CKEDITOR.instances." + editorId + ".insertText(\"" + newFooterText + "\");");
         // make sure rich text field is blurred / changed
         getFormTextField("Title").click();
         delay("Allow some time for change event");

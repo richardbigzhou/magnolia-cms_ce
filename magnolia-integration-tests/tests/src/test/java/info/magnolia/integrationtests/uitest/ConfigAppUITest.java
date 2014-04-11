@@ -37,7 +37,6 @@ import static org.junit.Assert.assertFalse;
 
 import org.junit.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.slf4j.Logger;
@@ -52,6 +51,7 @@ public class ConfigAppUITest extends AbstractMagnoliaUITest {
 
     /**
      * This test checks if properties are properly escaped in the ConfigApp.
+     *
      * @see <a href="http://jira.magnolia-cms.com/browse/MGNLUI-2151">MGNLUI-2151</a>
      */
     @Test
@@ -104,7 +104,7 @@ public class ConfigAppUITest extends AbstractMagnoliaUITest {
         if (isExisting(propertyUnescaped)) {
             log.info("Found un-escaped property [{}]", propertyUnescaped);
 
-            Actions mouseOverActionUnescaped = new Actions(driver);
+            Actions mouseOverActionUnescaped = getDriverActions();
             mouseOverActionUnescaped.moveToElement(propertyUnescaped).build().perform();
 
             delay("Wait for alert to appear");
@@ -117,24 +117,12 @@ public class ConfigAppUITest extends AbstractMagnoliaUITest {
         if (!(property instanceof NonExistingWebElement)) {
             log.info("Found escaped property [{}]", property);
 
-            Actions mouseOverAction = new Actions(driver);
+            Actions mouseOverAction = getDriverActions();
             mouseOverAction.moveToElement(property).build().perform();
 
             delay("Wait for alert to appear");
 
             assertFalse("We expect to see no alert.", isAlertPresent());
-        }
-    }
-
-    /**
-     * Checks if alert message is present.
-     */
-    public boolean isAlertPresent() {
-        try {
-            driver.switchTo().alert();
-            return true;
-        } catch (NoAlertPresentException e) {
-            return false;
         }
     }
 

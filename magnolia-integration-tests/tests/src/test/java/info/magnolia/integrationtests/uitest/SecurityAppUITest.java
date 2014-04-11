@@ -39,8 +39,6 @@ import org.apache.commons.lang.StringUtils;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Action;
-import org.openqa.selenium.interactions.Actions;
 
 /**
  * UI tests for SecurityApp.
@@ -424,20 +422,6 @@ public class SecurityAppUITest extends AbstractMagnoliaUITest {
     }
 
     /**
-     * Drag (source element) and drop it (in destination element).
-     */
-    private void dragAndDropElement(WebElement sourceElement, WebElement destinationElement) {
-        Actions actionBuilder = new Actions(driver);
-
-        Action dragAndDrop = actionBuilder.clickAndHold(sourceElement)
-                .moveToElement(destinationElement)
-                .release(destinationElement)
-                .build();
-
-        dragAndDrop.perform();
-    }
-
-    /**
      * Adds a folder and renames it.
      * New folder names are always "untitled".
      */
@@ -598,13 +582,8 @@ public class SecurityAppUITest extends AbstractMagnoliaUITest {
         return getElementByXpath("//div[contains(@class, 'v-table-row-spacer')]");
     }
 
-    private boolean isTreeTableItemSelected(String itemName) {
-        return getTreeTableItemRow(itemName).getAttribute("class").contains("v-selected");
-    }
-
     private WebElement getDialogInputByLabel(String label) {
-        WebElement input = getElementByXpath("//div[contains(@class, 'v-form-field-section')]/div[contains(text(), '%s')]/following-sibling::div/input", label);
-        return input;
+        return getElementByXpath("//div[contains(@class, 'v-form-field-section')]/div[contains(text(), '%s')]/following-sibling::div/input", label);
     }
 
     private WebElement getPasswordContainer() {
@@ -612,17 +591,11 @@ public class SecurityAppUITest extends AbstractMagnoliaUITest {
     }
 
     public WebElement getPassword() {
-        WebElement element = getPasswordContainer().findElement(By.xpath(".//div/div/div[2]/input"));
-        return element;
+        return getPasswordContainer().findElement(By.xpath(".//div/div/div[2]/input"));
     }
 
     public WebElement getPasswordConfirmation() {
-        WebElement element = getPasswordContainer().findElement(By.xpath(".//div/div/div[4]/input"));
-        return element;
-    }
-
-    private WebElement getMoveDialogElement(String elementName) {
-        return getElementByXpath("//div[contains(@class, 'light')]//div[contains(@class, 'dialog-content')]//div[contains(@class, 'v-slot-keyboard-panel')]//div[@class='v-table-cell-wrapper' and text() = '%s']", elementName);
+        return getPasswordContainer().findElement(By.xpath(".//div/div/div[4]/input"));
     }
 
 }

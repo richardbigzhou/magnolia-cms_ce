@@ -371,10 +371,10 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
         String url = StringUtils.join(pathToArticle, "/") + "/" + article + ".html";
 
         // Save the last url
-        final String lastUrl = driver.getCurrentUrl();
+        final String lastUrl = getCurrentDriverUrl();
 
         // Go to the Article page
-        driver.navigate().to(Instance.PUBLIC.getURL(url));
+        navigateDriverTo(Instance.PUBLIC.getURL(url));
         delay(5, "Make sure we finish rendering before anything else.");
 
         // THEN
@@ -382,7 +382,7 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
         assertTrue("Following published change has to be visible on public instance '" + imageCaptionValue + "'", isExisting(getElementByPath(By.xpath(String.format("//dd[text() = '%s']", imageCaptionValue)))));
 
         // Go back to the last url
-        driver.navigate().to(lastUrl);
+        navigateDriverTo(lastUrl);
     }
 
     /**

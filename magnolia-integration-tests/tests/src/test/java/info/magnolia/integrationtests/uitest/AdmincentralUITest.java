@@ -146,6 +146,6 @@ public class AdmincentralUITest extends AbstractMagnoliaUITest {
         assertEquals(messageTitle, title.getText());
         WebElement actionbar = getElementByPath(By.cssSelector(".v-actionbar"));
         assertTrue(actionbar.isDisplayed());
-
     }
+
 }

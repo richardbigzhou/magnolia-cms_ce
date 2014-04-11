@@ -133,7 +133,7 @@ public class PageEditorUITest extends AbstractPageEditorUITest {
         getTreeTableItem(DEMO_PROJECT_PAGE).click();
         getActionBarItem(EDIT_PAGE_ACTION).click();
         delay(3, "Give some time to load the page");
-        assertTrue("We should be in edit mode.", driver.getCurrentUrl().contains("demo-project:edit"));
+        assertTrue("We should be in edit mode.", getCurrentDriverUrl().contains("demo-project:edit"));
 
         switchToPageEditorContent();
 
@@ -142,7 +142,7 @@ public class PageEditorUITest extends AbstractPageEditorUITest {
         // THEN
         assertTrue("Edit bars should be around.", isExisting(getElementByPath(By.cssSelector("div.mgnlEditorBar"))));
         switchToDefaultContent();
-        assertTrue("We should still be in edit mode.", driver.getCurrentUrl().contains("about:edit"));
+        assertTrue("We should still be in edit mode.", getCurrentDriverUrl().contains("about:edit"));
     }
 
     /**
@@ -155,7 +155,7 @@ public class PageEditorUITest extends AbstractPageEditorUITest {
         final String nonExistingPathURL = Instance.AUTHOR.getURL() + ".magnolia/admincentral#app:pages:browser;/this-does-not-exist:treeview:";
 
         // WHEN
-        driver.navigate().to(nonExistingPathURL);
+        navigateDriverTo(nonExistingPathURL);
         delay("Give some time to go to URL");
 
         // THEN
