@@ -227,7 +227,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
     }
 
     /**
-     * Sets the default {@link WebDriver} timeouts:
+     * Sets the default {@link WebDriver} timeouts.
      * <ul>
      * <li>implicitWait {@link org.openqa.selenium.WebDriver.Timeouts#implicitlyWait(long, java.util.concurrent.TimeUnit)}</li>
      * <li>pageLoadTimeout {@link org.openqa.selenium.WebDriver.Timeouts#pageLoadTimeout(long, java.util.concurrent.TimeUnit)} (long, java.util.concurrent.TimeUnit)}</li>
@@ -545,7 +545,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
     }
 
     protected WebElement getDialogConfirmButton() {
-        return getDialogButton("v-button-confirm");
+        return getDialogCommitButton();
     }
 
     protected WebElement getDialogCancelButton() {
