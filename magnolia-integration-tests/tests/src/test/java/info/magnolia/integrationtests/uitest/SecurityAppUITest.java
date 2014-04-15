@@ -574,7 +574,7 @@ public class SecurityAppUITest extends AbstractMagnoliaUITest {
             getTreeTableItem(itemName).click();
         }
         getActionBarItem(getDeleteActionName(itemTypeCaption)).click();
-        getConfirmationOverlay().findElement(By.xpath(".//div[contains(@class, 'v-button-confirm')]")).click();
+        getDialogConfirmButton().click();
         delay("Wait e second for the user to be deleted");
     }
 
