@@ -37,11 +37,14 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
 /**
  * UI tests for Page Editor.
  */
 public class PageEditorUITest extends AbstractPageEditorUITest {
+
+    private static final String LARGE_ARTICLE = "large-article";
 
     @Test
     public void whenEditFieldThenEditComponentDialogShown() {
@@ -160,6 +163,102 @@ public class PageEditorUITest extends AbstractPageEditorUITest {
 
         // THEN
         assertAppOpen(PAGES_APP);
+    }
+
+    @Test
+    public void testPageStatusBarIsShown() {
+        // GIVEN
+        getAppIcon(PAGES_APP).click();
+        getTreeTableItemExpander(DEMO_PROJECT_PAGE).click();
+        getTreeTableItem(ABOUT_PAGE).click();
+
+        // WHEN
+        getActionBarItem(EDIT_PAGE_ACTION).click();
+
+        // THEN
+        WebElement icon = getElementByXpath("//div[contains(@class, 'icon-status-green')]//div");
+        WebElement text = getElementByXpath("//div[contains(@class, 'activationstatus')]//div");
+
+        assertTrue(isExisting(icon));
+        assertTrue(isExisting(text));
+        assertEquals("Published", text.getText());
+    }
+
+    @Test
+    public void testPageStatusBarIsChangedAfterPageModification() {
+        // GIVEN
+        getAppIcon(PAGES_APP).click();
+        getTreeTableItemExpander(DEMO_PROJECT_PAGE).click();
+        getTreeTableItemExpander(ABOUT_PAGE).click();
+        getTreeTableItemExpander(SUBSECTION_ARTICLES).click();
+        getTreeTableItem(LARGE_ARTICLE).click();
+        getActionBarItem(EDIT_PAGE_ACTION).click();
+
+        switchToPageEditorContent();
+
+        // WHEN
+        // modify the page
+        changeTextImageContent("new subheading value", "new image caption value");
+
+        // THEN
+        switchToDefaultContent();
+        WebElement icon = getElementByXpath("//div[contains(@class, 'icon-status-orange')]//div");
+        WebElement text = getElementByXpath("//div[contains(@class, 'activationstatus')]//div");
+
+        assertTrue(isExisting(icon));
+        assertTrue(isExisting(text));
+        assertEquals("Modified", text.getText());
+    }
+
+    @Test
+    public void testPageStatusBarIsChangedAfterNavigatingToAnotherPage() {
+        // GIVEN
+        getAppIcon(PAGES_APP).click();
+        getTreeTableItemExpander(DEMO_PROJECT_PAGE).click();
+        getTreeTableItemExpander(ABOUT_PAGE).click();
+        getTreeTableItemExpander(SUBSECTION_ARTICLES).click();
+        getTreeTableItem(LARGE_ARTICLE).click();
+        getActionBarItem(EDIT_PAGE_ACTION).click();
+
+        switchToPageEditorContent();
+        changeTextImageContent("new subheading value", "new image caption value");
+        switchToDefaultContent();
+
+        // sanity check
+        WebElement icon = getElementByXpath("//div[contains(@class, 'icon-status-orange')]//div");
+        assertTrue(isExisting(icon));
+        switchToPageEditorContent();
+
+        // WHEN
+        getElementByXpath("//div[@id='nav']//li[@class='on']//following-sibling::li//a").click();
+
+        // THEN
+        switchToDefaultContent();
+        icon = getElementByXpath("//div[contains(@class, 'icon-status-green')]//div");
+        WebElement text = getElementByXpath("//div[contains(@class, 'activationstatus')]//div");
+
+        assertTrue(isExisting(icon));
+        assertTrue(isExisting(text));
+        assertEquals("Published", text.getText());
+    }
+
+    /**
+     * The content to change has to be selected.<br>
+     * Steps: <br>
+     * - Open Text Image Content Form <br>
+     * - Do changes in the Text Image form and save <br>
+     */
+    protected void changeTextImageContent(String newSubheadingValue, String newImageCaptionValue) {
+        // Open Text Image Content Form
+        getElementByXpath(String.format("//div[@role='article']//div[@class='text-section']")).click();
+        getElementByXpath("//*[contains(@class, 'focus')]//*[contains(@class, 'icon-edit')]").click();
+        switchToDefaultContent();
+        // Do changes in the Text Image form and save
+        setFormTextFieldText("Subheading", newSubheadingValue);
+        getTabForCaption("Image").click();
+        setFormTextAreFieldText("Image Caption", newImageCaptionValue);
+        getDialogCommitButton().click();
+        switchToPageEditorContent();
     }
 
 }
