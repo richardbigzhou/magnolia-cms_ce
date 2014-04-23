@@ -200,6 +200,13 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
     @Rule
     public TestName testName = new TestName();
 
+    /**
+     * Returns a convenient String for identifying the current test.
+     */
+    protected String testName() {
+        return this.getClass().getSimpleName() + "#" + testName.getMethodName();
+    }
+
     @Before
     public void setUp() {
         System.out.println("Running " + getClass().getName() + "#" + testName.getMethodName());
@@ -268,12 +275,16 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
     }
 
     @After
-    public void tearDown() {
+    public void tearDown() throws Throwable {
         if (driver == null) {
             log.warn("Driver is set to null.");
         } else {
             try {
                 logout();
+            } catch (Throwable t) {
+                log.error("{} during logout() in {}: {} ", t.getClass().getSimpleName(), testName(), t.getMessage(), t);
+                takeScreenshot("exception-in-logout");
+                throw t;
             } finally {
                 driver.quit();
                 driver = null;
@@ -282,22 +293,23 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
     }
 
     protected void logout() {
+        takeScreenshot("-before-logout");
         driver.navigate().to(Instance.AUTHOR.getURL() + ".magnolia/admincentral?mgnlLogout");
+        takeScreenshot("-after-logout");
     }
 
     protected void login(final String userName) {
+        takeScreenshot("-before-login");
 
-        WebElement username = driver.findElement(By.xpath("//input[@id = 'login-username']"));
-        username.sendKeys(userName);
-
-        WebElement password = driver.findElement(By.xpath("//input[@type = 'password']"));
+        getElementByXpath("//input[@id = 'login-username']").sendKeys(userName);
         // sample users have pwd = username
-        password.sendKeys(userName);
+        getElementByXpath("//input[@type = 'password']").sendKeys(userName);
+        getElementByXpath("//button[@id = 'login-button']").click();
+        takeScreenshot("-after-login");
 
-        driver.findElement(By.xpath("//button[@id = 'login-button']")).click();
         workaroundJsessionIdInUrl();
 
-        assertTrue("If login succeeded, user should get a screen containing the appslauncher", isExisting(driver.findElement(By.xpath("//*[@id = 'btn-appslauncher']"))));
+        assertTrue("If login succeeded, user should get a screen containing the appslauncher", isExisting(getElementByXpath("//*[@id = 'btn-appslauncher']")));
     }
 
     /**
