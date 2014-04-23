@@ -43,7 +43,6 @@ import info.magnolia.testframework.htmlunit.AbstractMagnoliaHtmlUnitTest;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.net.URLEncoder;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -81,8 +80,6 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
 
     public static final int DEFAULT_DELAY_IN_SECONDS = 2;
     public static final int DRIVER_WAIT_IN_SECONDS = 10;
-    public static final String FILE_NAME_ENDING = ".png";
-    public static final int MAX_FILE_NAME_LENGHT_WITHOUT_EXTENSION = 256 - FILE_NAME_ENDING.length();
 
     public static final String DEFAULT_NATIVE_BUTTON_CLASS = "magnoliabutton v-nativebutton-magnoliabutton";
 
@@ -92,7 +89,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
     public static final String COLOR_RED_ICON_STYLE = "color-red";
     public static final String TRASH_ICON_STYLE = "icon-trash";
 
-    protected static final String SCREENSHOT_DIR = "target/surefire-reports/";
+    private static final String SCREENSHOT_DIR = "target/surefire-reports/screenshots/";
     private static final String DOWNLOAD_DIR = "target/surefire-reports/downloads/";
 
     private WebDriver driver = null;
@@ -354,19 +351,18 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         if (driver instanceof TakesScreenshot) {
             TakesScreenshot screenshotter = (TakesScreenshot) driver;
             File file = screenshotter.getScreenshotAs(OutputType.FILE);
+            // filter out any non-word, bracket, dot, colon or space character, replace them with underscore
+            suffix = suffix.replaceAll("[^\\w\\[\\].: ]", "_");
+            final String fileName = String.format("%s-%04d-%s", testName(), screenshotIndex++, suffix);
             try {
-                String fullFileName = String.format("%s/%s_%s_%d_%s", SCREENSHOT_DIR, this.getClass().getSimpleName(), testName.getMethodName(), screenshotIndex++, URLEncoder.encode(suffix, "UTF-8"));
-                // cut if required - fileNames lengths are normally restricted
-                fullFileName = fullFileName.length() > MAX_FILE_NAME_LENGHT_WITHOUT_EXTENSION ? fullFileName.substring(0, MAX_FILE_NAME_LENGHT_WITHOUT_EXTENSION) : fullFileName;
-                FileUtils.copyFile(file, new File(fullFileName + ".png"));
+                FileUtils.moveFile(file, new File(SCREENSHOT_DIR, fileName + ".png"));
             } catch (IOException e) {
                 log.error(e.getMessage());
                 // error message might be overlooked so we explicitly fail here. Should assures ppl will immediately realize and fix asap.
-                fail("failed to take a screenshot");
+                fail("IOException while moving screenshot " + file + " to " + fileName + " : " + e);
             }
         }
     }
-
 
     /**
      * Tries to retrieve requested element.
