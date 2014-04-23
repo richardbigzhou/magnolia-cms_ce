@@ -320,11 +320,15 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
      */
     private void workaroundJsessionIdInUrl() {
         // temporarily lower timeout - the potential 404 either shows up directly or not at all
-        driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
-        if (driver.findElements(By.xpath("//h2[contains(text(), '404')]")).size() > 0) {
-            driver.navigate().to(AbstractMagnoliaHtmlUnitTest.Instance.AUTHOR.getURL());
+        try {
+            driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
+            if (driver.findElements(By.xpath("//h2[contains(text(), '404')]")).size() > 0) {
+                log.info("Found h2:404 in {}#workaroundJsessionIdInUrl, navigating away", testName());
+                driver.navigate().to(AbstractMagnoliaHtmlUnitTest.Instance.AUTHOR.getURL());
+            }
+        } finally {
+            setDefaultDriverTimeout();
         }
-        setDefaultDriverTimeout();
     }
 
     protected static void delay(final String motivation) {
