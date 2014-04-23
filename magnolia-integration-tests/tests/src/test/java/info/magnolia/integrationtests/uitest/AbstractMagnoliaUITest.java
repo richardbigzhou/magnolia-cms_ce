@@ -202,6 +202,8 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
 
     @Before
     public void setUp() {
+        System.out.println("Running " + getClass().getName() + "#" + testName.getMethodName());
+
         final FirefoxProfile firefoxProfile = new FirefoxProfile();
         firefoxProfile.setPreference("browser.download.dir", getDownloadDir());
         firefoxProfile.setPreference("browser.download.folderList", 2);
