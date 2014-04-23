@@ -34,6 +34,7 @@
 package info.magnolia.integrationtests.uitest;
 
 import static org.junit.Assert.*;
+import static org.openqa.selenium.support.ui.ExpectedConditions.*;
 
 import org.apache.commons.lang.StringUtils;
 import org.junit.Test;
@@ -58,6 +59,8 @@ import org.openqa.selenium.WebElement;
  * </ul>
  */
 public class SecurityAppUITest extends AbstractMagnoliaUITest {
+    private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(SecurityAppUITest.class);
+
     public static final String GROUP = "group";
     public static final String USER = "user";
     public static final String ROLE = "role";
@@ -362,6 +365,7 @@ public class SecurityAppUITest extends AbstractMagnoliaUITest {
 
         // THEN 2
         assertTrue(getTreeTableItem(roleName).isDisplayed());
+        // TODO: the below generates a 10s delay (getElementByPath() times out then return a NonExistingWebElement impl)
         assertTrue(getTreeTableItem(newRoleName) instanceof NonExistingWebElement);
     }
 
@@ -575,7 +579,14 @@ public class SecurityAppUITest extends AbstractMagnoliaUITest {
         }
         getActionBarItem(getDeleteActionName(itemTypeCaption)).click();
         getDialogConfirmButton().click();
-        delay("Wait e second for the user to be deleted");
+        takeScreenshot("dialog-confirm-button-clicked");
+
+        // Wait until the confirmation dialog is gone and the loading indicator is not visible anymore
+        // Using presenceOfAllElementsLocatedBy - we don't want the NoSuchElementException, we want to ensure the list is empty
+        waitUntil(DRIVER_WAIT_IN_SECONDS, not(presenceOfAllElementsLocatedBy(By.xpath("//*[contains(@class, 'dialog-root-confirmation')]"))));
+        // loading-indicator is always in the dom, we just need to check it's not visible
+        waitUntil(DRIVER_WAIT_IN_SECONDS, not(visibilityOfElementLocated(By.xpath("//*[contains(@class, 'v-loading-indicator')]"))));
+        takeScreenshot("dialog-confirm-should-be-gone");
     }
 
     private WebElement getTableBody() {

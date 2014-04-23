@@ -892,7 +892,30 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         // Publish the Deletion
         getActionBarItem("Publish deletion").click();
         delay(2, "Time to process the deletion");
+    }
 
+    /**
+     * Waits until the {@link ExpectedCondition} was met.
+     * @param timeout the timeout in seconds
+     * @param expectedCondition the {@link ExpectedCondition} until the {@link WebDriver} should wait
+     * @see org.openqa.selenium.support.ui.ExpectedConditions
+     */
+    protected void waitUntil(int timeout, final ExpectedCondition<?> expectedCondition) {
+        new WebDriverWait(driver, timeout).until(expectedCondition);
+    }
+
+    /**
+     * To use while debugging tests: delegates to another condition, and logs its results.
+     */
+    protected ExpectedCondition<Object> loggingCondition(final ExpectedCondition<?> expectedCondition) {
+        return new ExpectedCondition<Object>() {
+            @Override
+            public Object apply(WebDriver input) {
+                final Object result = expectedCondition.apply(input);
+                log.info(" -- {} returned {}", expectedCondition, result);
+                return result;
+            }
+        };
     }
 
 }
