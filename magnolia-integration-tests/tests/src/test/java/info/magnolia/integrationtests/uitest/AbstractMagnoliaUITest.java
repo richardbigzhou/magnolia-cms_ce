@@ -33,6 +33,7 @@
  */
 package info.magnolia.integrationtests.uitest;
 
+import static org.hamcrest.Matchers.nullValue;
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.Assert.*;
 
@@ -208,6 +209,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         firefoxProfile.setPreference("browser.helperApps.alwaysAsk.force", false);
         firefoxProfile.setPreference("browser.download.manager.showWhenStarting",false);
 
+        assertThat("Driver is already set in setUp(), previous test didn't tearDown properly.", driver, nullValue());
         driver = new FirefoxDriver(firefoxProfile);
         setDefaultDriverTimeout();
         driver.manage().window().maximize();
