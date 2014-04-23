@@ -47,6 +47,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang.StringUtils;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
@@ -357,7 +358,9 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
             File file = screenshotter.getScreenshotAs(OutputType.FILE);
             // filter out any non-word, bracket, dot, colon or space character, replace them with underscore
             suffix = suffix.replaceAll("[^\\w\\[\\].: ]", "_");
-            final String fileName = String.format("%s-%04d-%s", testName(), screenshotIndex++, suffix);
+            String fileName = String.format("%s-%04d-%s", testName(), screenshotIndex++, suffix);
+            // Java somehow thinks it needs to limit file name lenghts !?
+            fileName = StringUtils.left(fileName, 250);
             try {
                 FileUtils.moveFile(file, new File(SCREENSHOT_DIR, fileName + ".png"));
             } catch (IOException e) {
