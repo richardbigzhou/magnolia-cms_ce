@@ -96,6 +96,15 @@ public abstract class AbstractTestingVersionHandler extends AbstractModuleVersio
                 "/server/activation/subscribers/magnoliaPublic8080", new CheckAndModifyPropertyValueTask("Activation", "Changes public URL", RepositoryConstants.CONFIG,
                 "/server/activation/subscribers/magnoliaPublic8080", "URL", "http://localhost:8080/magnoliaPublic", AbstractMagnoliaIntegrationTest.Instance.PUBLIC.getURL())));
 
+        /** DumpHeadersFilter:
+        list.add(new NodeBuilderTask("Setup DebugFilter", "", ErrorHandling.strict, RepositoryConstants.CONFIG, "/server/filters",
+                addNode("headers-dump").then(
+                        addProperty("class", "info.magnolia.debug.DumpHeadersFilter"),
+                        addProperty("enabled", "true")
+                )
+        ));
+        list.add(new OrderFilterBeforeTask("headers-dump", new String[]{"context"}));
+        */
         return list;
     }
 
