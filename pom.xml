@@ -27,6 +27,7 @@
     <documentationURL>http://documentation.magnolia-cms.com/releases/${project.version}.html</documentationURL>
     <stkVersion>2.8-m1</stkVersion>
     <restVersion>1.0.3</restVersion>
+    <damVersion>2.0-m2</damVersion>
     <scmTagPrefix>magnolia-bundle</scmTagPrefix>
     <!-- Disable clover during releases: -->
     <additionalReleaseProfiles />
@@ -86,11 +87,46 @@
         <artifactId>magnolia-module-legacy-admininterface</artifactId>
         <version>5.2.2</version>
       </dependency>
+
+      <!-- DAM -->
+      <!-- The old DAM dependency which should be replaced by the ones below -->
       <dependency>
         <groupId>info.magnolia.dam</groupId>
         <artifactId>magnolia-dam</artifactId>
-        <version>2.0-m2</version>
+        <version>${damVersion}</version>
       </dependency>
+      <!-- The new DAM dependencies -->
+      <dependency>
+        <groupId>info.magnolia.dam</groupId>
+        <artifactId>magnolia-dam-api</artifactId>
+        <version>${damVersion}</version>
+      </dependency>
+      <dependency>
+        <groupId>info.magnolia.dam</groupId>
+        <artifactId>magnolia-dam-app</artifactId>
+        <version>${damVersion}</version>
+      </dependency>
+      <dependency>
+        <groupId>info.magnolia.dam</groupId>
+        <artifactId>magnolia-dam-compatibility</artifactId>
+        <version>${damVersion}</version>
+      </dependency>
+      <dependency>
+        <groupId>info.magnolia.dam</groupId>
+        <artifactId>magnolia-dam-core</artifactId>
+        <version>${damVersion}</version>
+      </dependency>
+      <dependency>
+        <groupId>info.magnolia.dam</groupId>
+        <artifactId>magnolia-dam-jcr</artifactId>
+        <version>${damVersion}</version>
+      </dependency>
+      <dependency>
+        <groupId>info.magnolia.dam</groupId>
+        <artifactId>magnolia-dam-templating</artifactId>
+        <version>${damVersion}</version>
+      </dependency>
+
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-categorization</artifactId>
