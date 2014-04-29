@@ -359,10 +359,16 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
             // filter out any non-word, bracket, dot, colon or space character, replace them with underscore
             suffix = suffix.replaceAll("[^\\w\\[\\].: ]", "_");
             String fileName = String.format("%s-%04d-%s", testName(), screenshotIndex++, suffix);
-            // Java somehow thinks it needs to limit file name lenghts !?
+            // Java somehow thinks it needs to limit file name lengths !?
             fileName = StringUtils.left(fileName, 250);
+
+            final File destinationFile = new File(SCREENSHOT_DIR, fileName + ".png");
+            if (destinationFile.exists()) {
+                // can be existing e.g. from previous test run
+                destinationFile.delete();
+            }
             try {
-                FileUtils.moveFile(file, new File(SCREENSHOT_DIR, fileName + ".png"));
+                FileUtils.moveFile(file, destinationFile);
             } catch (IOException e) {
                 log.error(e.getMessage());
                 // error message might be overlooked so we explicitly fail here. Should assures ppl will immediately realize and fix asap.
