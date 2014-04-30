@@ -230,8 +230,10 @@ public class KeyboardShortcutUITest extends AbstractMagnoliaUITest {
         // THEN
         confirmation = getConfirmationOverlay();
         assertFalse("ENTER key should have caused confirmation overlay to close.", isExisting(confirmation));
-        WebElement detailEditorSubapp = getTabForCaption("New contact");
-        assertFalse("DetailEditor should be closed after user confirms the cancel.", isExisting(detailEditorSubapp));
+
+        WebElement fieldToCheck = getFormField("First name");
+        assertFalse("DetailEditor should be closed after user confirms the cancel.", isExisting(fieldToCheck));
+
     }
 
 
@@ -362,8 +364,8 @@ public class KeyboardShortcutUITest extends AbstractMagnoliaUITest {
 
         // THEN
         //Check that editor is not closed
-        WebElement editorTab = getTabForCaption("New contact");
-        assertTrue("ENTER key should not have closed the DetailEditor subapp when TextArea has focus.", isExisting(editorTab));
+        WebElement fieldToCheck = getFormTextAreaField("Street address");
+        assertTrue("ENTER key should not have closed the DetailEditor subapp when TextArea has focus.", isExisting(fieldToCheck));
     }
 
 
