@@ -109,7 +109,7 @@ public class SimpleFieldUITest extends AbstractMagnoliaUITest {
         getTreeTableItem("demo-project").click();
 
         // WHEN
-        getDialogButtonWithCaption("Pages chooser", "choose").click();
+        getDialogCommitButton("Pages chooser").click();
 
         // THEN
         WebElement textField = getFormTextField("Link");

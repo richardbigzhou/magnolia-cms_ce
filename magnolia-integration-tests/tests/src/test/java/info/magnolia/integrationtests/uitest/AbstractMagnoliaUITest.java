@@ -529,6 +529,10 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         return getElementByXpath("//div[contains(@class, '%s')]", classname);
     }
 
+    protected WebElement getDialogButton(String dialogTitle, String classname) {
+        return getElementByXpath("//div[contains(@class, 'dialog-root') and .//span[@class='title'] = '%s']//div[contains(@class, '%s')]", dialogTitle, classname);
+    }
+
     protected WebElement getNativeButton(String classname) {
         return getElementByXpath("//button[contains(@class, '%s')]", classname);
     }
@@ -539,10 +543,6 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
 
     protected WebElement getDialogButtonWithCaption(final String caption) {
         return getElementByXpath("//div[.='%s']", caption);
-    }
-
-    protected WebElement getDialogButtonWithCaption(final String dialogHeader, final String caption) {
-        return getElementByXpath("//div[.='%s']/parent::div[contains(@class, 'dialog-root')]//following-sibling::div[.='%s']", dialogHeader, caption);
     }
 
     protected WebElement getButton(String classname, String caption) {
@@ -567,6 +567,10 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
 
     protected WebElement getDialogCommitButton() {
         return getDialogButton("v-button-commit");
+    }
+
+    protected WebElement getDialogCommitButton(String dialogTitle) {
+        return getDialogButton(dialogTitle, "v-button-commit");
     }
 
     protected WebElement getDialogConfirmButton() {
