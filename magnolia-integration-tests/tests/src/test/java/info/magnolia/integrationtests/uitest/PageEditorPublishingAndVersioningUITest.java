@@ -233,6 +233,43 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
         assertTrue(getSelectedIcon(COLOR_RED_ICON_STYLE).isDisplayed());
     }
 
+    @Test
+    public void canPublishAfterNewPublishedPageHasBeenRenderedOnBothInstances() {
+        // GIVEN
+        final String[] pathToArticle = new String[] { DEMO_PROJECT_PAGE, ABOUT_PAGE };
+        final String pageNameAndTitle = "new";
+        final String template = "Article";
+        getAppIcon(PAGES_APP).click();
+        expandTreeAndSelectAnElement(SUBSECTION_ARTICLES, pathToArticle);
+        addNewTemplate(pageNameAndTitle, pageNameAndTitle, template);
+        expandTreeAndSelectAnElement(pageNameAndTitle, SUBSECTION_ARTICLES);
+        assertTrue(getSelectedIcon(COLOR_RED_ICON_STYLE).isDisplayed());
+
+        // now publish & render on author
+        publishAndCheckAuthor();
+        getActionBarItem(PREVIEW_PAGE_ACTION).click();
+        delay(3, "make sure page had been rendered before continuing...");
+
+        // render an public as well
+        String url = StringUtils.join(new String[] {DEMO_PROJECT_PAGE, ABOUT_PAGE, SUBSECTION_ARTICLES} , "/") + "/" + pageNameAndTitle + ".html";
+        final String lastUrlOnAuthor = getCurrentDriverUrl();
+        navigateDriverTo(Instance.PUBLIC.getURL(url));
+        delay(3, "Make sure we finish rendering on public.");
+        //navigateDriverTo(lastUrlOnAuthor);
+
+        // hint: would be more elegant to simply switch to proper subapp
+        navigateDriverTo(Instance.AUTHOR.getURL() + String.format(".magnolia/admincentral#app:pages:browser;%s:treeview:", "/demo-project/about/subsection-articles/" + pageNameAndTitle));
+        delay(3, "Make sure it's open.");
+
+        // WHEN
+        getActionBarItem(PUBLISH_PAGE_ACTION).click();
+        delay(5, "Activation takes some time so wait before checking the updated icon.");
+
+        // Check status
+        assertTrue(getSelectedIcon(COLOR_GREEN_ICON_STYLE).isDisplayed());
+    }
+
+
     /**
      * From the page editor sub app, select and Area, and from the add component dialog, select a component.<br>
      * The dialog of the desired component is open and available to use.
