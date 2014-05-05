@@ -327,7 +327,7 @@ public class KeyboardShortcutUITest extends AbstractMagnoliaUITest {
 
         // WHEN
         getFormTextField("Country").sendKeys(ENTER_OR_RETURN_KEY);
-        delay(1, "");
+        delay(4, "Long pause to ensure that name renders as fullname, not just 'jtestkeyboard'");
 
         // THEN
         //Check that editor is closed
@@ -335,7 +335,7 @@ public class KeyboardShortcutUITest extends AbstractMagnoliaUITest {
         assertFalse("ENTER key should have closed the DetailEditor subapp.", isExisting(editorTab));
         //Check that entry is added.
         WebElement newRow = getTreeTableItem(contactName);
-        assertTrue("ENTER key should have caused new contact to be created.", isExisting(newRow));
+        assertTrue("ENTER key should have caused new contact to be created, but no new contact is present.", isExisting(newRow));
 
         // Cleanup - delete the created contact.
         deleteTreeTableRow("Delete contact", contactName);
