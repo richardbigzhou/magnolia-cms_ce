@@ -339,8 +339,6 @@ public class KeyboardShortcutUITest extends AbstractMagnoliaUITest {
         WebElement newRow = getTreeTableItem(email);
         assertTrue("ENTER key should have caused new contact to be created, but no new contact is present.", isExisting(newRow));
 
-        // Cleanup - delete the created contact.
-        deleteTreeTableRow("Delete contact", email);
     }
 
     /**
