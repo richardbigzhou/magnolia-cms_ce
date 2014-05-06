@@ -318,27 +318,27 @@ public class KeyboardShortcutUITest extends AbstractMagnoliaUITest {
         final String nameFirst = "Joe";
         final String nameLast = "Testkeyboard";
         String contactName = nameFirst + " " + nameLast;
+        String email = nameFirst + "@" + nameLast + ".com";
+
 
         getAppIcon("Contacts").click();
         assertAppOpen("Contacts");
         getActionBarItem("Add contact").click();
 
-        fillInRequiredContactFields(nameFirst, nameLast);
+        fillInRequiredContactFields(nameFirst, nameLast, email);
 
         // WHEN
         getFormTextField("Country").sendKeys(ENTER_OR_RETURN_KEY);
-        delay(1, "");
+        delay(2, "");
 
         // THEN
         //Check that editor is closed
         WebElement editorTab = getTabForCaption(contactName);
         assertFalse("ENTER key should have closed the DetailEditor subapp.", isExisting(editorTab));
         //Check that entry is added.
-        WebElement newRow = getTreeTableItem(contactName);
-        assertTrue("ENTER key should have caused new contact to be created.", isExisting(newRow));
+        WebElement newRow = getTreeTableItem(email);
+        assertTrue("ENTER key should have caused new contact to be created, but no new contact is present.", isExisting(newRow));
 
-        // Cleanup - delete the created contact.
-        deleteTreeTableRow("Delete contact", contactName);
     }
 
     /**
@@ -351,12 +351,13 @@ public class KeyboardShortcutUITest extends AbstractMagnoliaUITest {
         // GIVEN
         final String nameFirst = "Joe2";
         final String nameLast = "Testkeyboard";
+        String email = nameFirst + "@" + nameLast + ".com";
 
         getAppIcon("Contacts").click();
         assertAppOpen("Contacts");
         getActionBarItem("Add contact").click();
 
-        fillInRequiredContactFields(nameFirst, nameLast);
+        fillInRequiredContactFields(nameFirst, nameLast, email);
 
         // WHEN
         getFormTextAreaField("Street address").sendKeys(ENTER_OR_RETURN_KEY);
@@ -374,12 +375,12 @@ public class KeyboardShortcutUITest extends AbstractMagnoliaUITest {
      * @param nameFirst
      * @param nameLast
      */
-    private void fillInRequiredContactFields(String nameFirst, String nameLast){
+    private void fillInRequiredContactFields(String nameFirst, String nameLast, String email){
         getTabForCaption("Personal").click();
         setFormTextFieldText("First name", nameFirst);
         setFormTextFieldText("Last name", nameLast);
         getTabForCaption("Contact details").click();
-        setFormTextFieldText("E-Mail address", "test@test.com");
+        setFormTextFieldText("E-Mail address", email);
         getTabForCaption("Address").click();
         setFormTextFieldText("Organization", "org");
         setFormTextAreFieldText("Street address", "address-125");
