@@ -69,6 +69,9 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.logging.LogEntries;
+import org.openqa.selenium.logging.LogEntry;
+import org.openqa.selenium.logging.Logs;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
@@ -284,9 +287,27 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
                 takeScreenshot("exception-in-logout");
                 throw t;
             } finally {
-                driver.quit();
-                driver = null;
+                try {
+                    captureLogs();
+                } finally {
+                    driver.quit();
+                    driver = null;
+                }
             }
+        }
+    }
+
+    protected void captureLogs() {
+        final Logs driverLogs = driver.manage().logs();
+        // To capture all logs: "driver" seems very verbose, though. Using org.openqa.selenium.logging.LogCombiner could be helpful, but then we lose the "source" of the entries.
+        // final Set<String> availableLogTypes = driverLogs.getAvailableLogTypes();
+        final LogEntries browserLog = driverLogs.get("browser");
+        // Use a specific logger category
+        final Logger log = LoggerFactory.getLogger(getClass().getName() + "." + testName.getMethodName() + ".BrowserLog");
+        log.info("Log entries for {}", testName.getMethodName());// TODO call testName()
+        for (LogEntry logEntry : browserLog) {
+            // just logging it all in info, so as to keep the original timestamp (otherwise we could use logEntry.getLevel())
+            log.info(logEntry.toString());
         }
     }
 
