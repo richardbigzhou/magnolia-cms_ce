@@ -252,10 +252,9 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
 
         // render an public as well
         String url = StringUtils.join(new String[] {DEMO_PROJECT_PAGE, ABOUT_PAGE, SUBSECTION_ARTICLES} , "/") + "/" + pageNameAndTitle + ".html";
-        final String lastUrlOnAuthor = getCurrentDriverUrl();
+
         navigateDriverTo(Instance.PUBLIC.getURL(url));
         delay(3, "Make sure we finish rendering on public.");
-        //navigateDriverTo(lastUrlOnAuthor);
 
         // hint: would be more elegant to simply switch to proper subapp
         navigateDriverTo(Instance.AUTHOR.getURL() + String.format(".magnolia/admincentral#app:pages:browser;%s:treeview:", "/demo-project/about/subsection-articles/" + pageNameAndTitle));
