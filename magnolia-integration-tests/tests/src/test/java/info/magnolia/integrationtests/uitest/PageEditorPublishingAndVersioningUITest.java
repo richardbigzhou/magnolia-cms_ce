@@ -173,6 +173,9 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
         delay(2, "Wait for the confirmation message");
         getDialogConfirmButton().click();
         delay("Give dialog some time to fade away...");
+
+        refreshTreeView();
+
         // Check available actions
         checkDisabledActions(MOVE_PAGE_ACTION, PREVIEW_PAGE_ACTION, ADD_PAGE_ACTION, DELETE_PAGE_ACTION, EDIT_PAGE_ACTION, RENAME_PAGE_ACTION);
         // Check non available actions
@@ -205,6 +208,8 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
         delay(2, "Wait for the confirmation message");
         getDialogConfirmButton().click();
         delay("Give dialog some time to fade away...");
+
+        refreshTreeView();
 
         assertTrue(getSelectedIcon(TRASH_ICON_STYLE).isDisplayed());
 
@@ -391,6 +396,8 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
         getActionBarItem(PUBLISH_PAGE_ACTION).click();
         delay(5, "Activation takes some time so wait before checking the updated icon");
 
+        refreshTreeView();
+
         // Check status
         assertTrue(getSelectedIcon(COLOR_GREEN_ICON_STYLE).isDisplayed());
         // Check available actions
@@ -449,4 +456,5 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
         // With MGNLUI-2126 those actions were disabled, as they should not be available for versioned contents
         checkDisabledActions(EDIT_PAGE_ACTION, PUBLISH_PAGE_ACTION, UNPUBLISH_PAGE_ACTION);
     }
+
 }

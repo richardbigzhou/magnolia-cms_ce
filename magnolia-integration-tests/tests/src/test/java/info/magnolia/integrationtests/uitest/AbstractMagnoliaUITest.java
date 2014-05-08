@@ -677,7 +677,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
     }
 
     protected WebElement getSelectedIcon(String iconStyle) {
-        return getElementByPath(By.xpath("//tr[contains(@class, 'v-selected')]//*[contains(@class, '" + iconStyle + "')]"));
+        return getElementByXpath("//tr[contains(@class, 'v-selected')]//*[contains(@class, '%s')]", iconStyle);
     }
 
     /**
@@ -925,6 +925,32 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         // Publish the Deletion
         getActionBarItem("Publish deletion").click();
         delay(2, "Time to process the deletion");
+    }
+
+    private WebElement getViewButton(String viewName) {
+        return getElementByXpath("//*[contains(@class, 'icon-view-%s')]", viewName);
+    }
+
+    protected WebElement getTreeViewButton() {
+        return getViewButton("tree");
+    }
+
+    protected WebElement getListViewButton() {
+        return getViewButton("list");
+    }
+
+    protected WebElement getThumbnailsViewButton() {
+        return getViewButton("thumbnails");
+    }
+
+    /**
+     * Refresh the status of the tree view as it might not be up-to-date (caused by: MGNLUI-2840).
+     *
+     * @see <a href="http://jira.magnolia-cms.com/browse/MGNLUI-2840">MGNLUI-2840</a>
+     */
+    protected void refreshTreeView() {
+        getTreeViewButton().click();
+        delay("Give refresh some time...");
     }
 
 }
