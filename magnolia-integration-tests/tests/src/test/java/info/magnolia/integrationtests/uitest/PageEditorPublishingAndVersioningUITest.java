@@ -269,6 +269,8 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
         getActionBarItem(PUBLISH_PAGE_ACTION).click();
         delay(5, "Activation takes some time so wait before checking the updated icon.");
 
+        refreshTreeView();
+
         // Check status
         assertTrue(getSelectedIcon(COLOR_GREEN_ICON_STYLE).isDisplayed());
     }

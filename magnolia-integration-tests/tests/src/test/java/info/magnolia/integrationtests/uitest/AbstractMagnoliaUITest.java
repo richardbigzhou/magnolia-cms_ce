@@ -943,6 +943,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         getActionBarItem(deleteActionCaption).click();
         delay(1,"");
         getDialogCommitButton().click();
+        delay("Delete might take some time");
 
         refreshTreeView();
 
