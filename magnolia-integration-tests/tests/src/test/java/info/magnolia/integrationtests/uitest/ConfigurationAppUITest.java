@@ -70,6 +70,7 @@ public class ConfigurationAppUITest extends AbstractMagnoliaUITest {
         getActionBarItem("Delete item").click();
         getDialogConfirmButton().click();
         delay("Delete might take some time");
+        refreshTreeView();
         assertFalse("Untitled should be gone", isExisting(getTreeTableItem("untitled")));
     }
 }
