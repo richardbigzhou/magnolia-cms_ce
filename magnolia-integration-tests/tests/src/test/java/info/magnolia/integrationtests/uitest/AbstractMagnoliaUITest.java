@@ -881,29 +881,6 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
     }
 
     /**
-     * Deletes a row from a TreeTable.
-     * Row must not be unselected when method is called.
-     * @param deleteActionCaption The caption of the delete action.
-     * @param rowName The caption of the row.
-     */
-    protected void deleteTreeTableRow(String deleteActionCaption, String rowName) {
-
-        WebElement rowToDelete = getTreeTableItem(rowName);
-        rowToDelete.click();
-        delay(1, "");
-        getActionBarItem(deleteActionCaption).click();
-        delay(1,"");
-        getDialogCommitButton().click();
-
-        // Check the Trash Icon
-        assertTrue(getSelectedIcon(TRASH_ICON_STYLE).isDisplayed());
-
-        // Publish the Deletion
-        getActionBarItem("Publish deletion").click();
-        delay(2, "Time to process the deletion");
-    }
-
-    /**
      * Waits until the {@link ExpectedCondition} was met.
      * @param timeout the timeout in seconds
      * @param expectedCondition the {@link ExpectedCondition} until the {@link WebDriver} should wait
@@ -925,6 +902,29 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
                 return result;
             }
         };
+    }
+
+    /**
+     * Deletes a row from a TreeTable.
+     * Row must not be unselected when method is called.
+     * @param deleteActionCaption The caption of the delete action.
+     * @param rowName The caption of the row.
+     */
+    protected void deleteTreeTableRow(String deleteActionCaption, String rowName) {
+
+        WebElement rowToDelete = getTreeTableItem(rowName);
+        rowToDelete.click();
+        delay(1, "");
+        getActionBarItem(deleteActionCaption).click();
+        delay(1,"");
+        getDialogCommitButton().click();
+
+        // Check the Trash Icon
+        assertTrue(getSelectedIcon(TRASH_ICON_STYLE).isDisplayed());
+
+        // Publish the Deletion
+        getActionBarItem("Publish deletion").click();
+        delay(2, "Time to process the deletion");
     }
 
 }
