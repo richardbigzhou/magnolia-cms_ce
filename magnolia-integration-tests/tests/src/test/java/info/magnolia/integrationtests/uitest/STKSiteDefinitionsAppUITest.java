@@ -57,16 +57,25 @@ public class STKSiteDefinitionsAppUITest extends AbstractMagnoliaUITest {
         // publish
         getActionBarItem("Publish").click();
         delay("Publication may take some time");
+
+        refreshTreeView();
+
         assertTrue("Status column should show green icon.", getSelectedIcon(COLOR_GREEN_ICON_STYLE).isDisplayed());
 
         // unpublish
         getActionBarItem("Unpublish").click();
+
+        refreshTreeView();
+
         assertTrue("Status column should show read icon.", getSelectedIcon(COLOR_RED_ICON_STYLE).isDisplayed());
 
         // delete
         getActionBarItem("Delete item").click();
         getDialogConfirmButton().click();
         delay("Delete might take some time");
+
+        refreshTreeView();
+
         assertFalse("Untitled should be gone", isExisting(getTreeTableItem("untitled")));
     }
 }
