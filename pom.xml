@@ -22,12 +22,12 @@
   <properties>
     <magnoliaEdition>Community Edition</magnoliaEdition>
     <magnoliaVersion>5.3-m5</magnoliaVersion>
-    <magnoliaUiVersion>5.3-m5</magnoliaUiVersion>
+    <magnoliaUiVersion>5.3-m6</magnoliaUiVersion>
     <javaVersion>1.6</javaVersion>
     <documentationURL>http://documentation.magnolia-cms.com/releases/${project.version}.html</documentationURL>
     <stkVersion>2.8-m1</stkVersion>
     <restVersion>1.0.3</restVersion>
-    <damVersion>2.0-m2</damVersion>
+    <damVersion>2.0-m3</damVersion>
     <scmTagPrefix>magnolia-bundle</scmTagPrefix>
     <!-- Disable clover during releases: -->
     <additionalReleaseProfiles />
@@ -61,7 +61,7 @@
       <dependency>
         <groupId>info.magnolia.widgetset</groupId>
         <artifactId>magnolia-vaadin-widgetset</artifactId>
-        <version>5.3-m1</version>
+        <version>5.3-m2</version>
       </dependency>
 
       <dependency>
