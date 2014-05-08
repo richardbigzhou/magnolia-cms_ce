@@ -919,6 +919,8 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         delay(1,"");
         getDialogCommitButton().click();
 
+        refreshTreeView();
+
         // Check the Trash Icon
         assertTrue(getSelectedIcon(TRASH_ICON_STYLE).isDisplayed());
 
