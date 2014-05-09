@@ -971,6 +971,10 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         return getViewButton("thumbnails");
     }
 
+    protected WebElement getPulseTab(String caption) {
+        return getElementByXpath("//*[contains(@class, 'navigator-tab')]//*[contains(@class, 'v-label') and text() = '%s']", caption);
+    }
+
     /**
      * Refresh the status of the tree view as it might not be up-to-date (caused by: MGNLUI-2840).
      *

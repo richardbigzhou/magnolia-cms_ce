@@ -115,6 +115,7 @@ public class AdmincentralUITest extends AbstractMagnoliaUITest {
         closeInfoNotification();
         closeApp();
         getShellAppIcon("icon-pulse").click();
+        getPulseTab("Messages").click();
 
         // THEN
         delay(1, "make sure pulse table is updated");
