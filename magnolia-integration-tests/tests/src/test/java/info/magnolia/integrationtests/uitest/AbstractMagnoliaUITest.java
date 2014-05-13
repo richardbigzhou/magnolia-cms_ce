@@ -954,6 +954,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
     protected void refreshTreeView() {
         getTreeViewButton().click();
         delay("Give refresh some time...");
+        takeScreenshot("-refresh-tree-view");
     }
 
 }

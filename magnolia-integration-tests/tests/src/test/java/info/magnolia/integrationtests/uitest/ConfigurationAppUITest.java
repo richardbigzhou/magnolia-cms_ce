@@ -59,13 +59,13 @@ public class ConfigurationAppUITest extends AbstractMagnoliaUITest {
         getActionBarItem("Publish incl. subnodes").click();
         delay("Publication may take some time");
         refreshTreeView();
-        delay(1,"");
+        delay(4,"");
         assertTrue("Status column should show green icon.", getSelectedIcon(COLOR_GREEN_ICON_STYLE).isDisplayed());
 
         // unpublish
         getActionBarItem("Unpublish").click();
         refreshTreeView();
-        delay(1,"");
+        delay(42,"");
         assertTrue("Status column should show read icon.", getSelectedIcon(COLOR_RED_ICON_STYLE).isDisplayed());
 
         // delete
