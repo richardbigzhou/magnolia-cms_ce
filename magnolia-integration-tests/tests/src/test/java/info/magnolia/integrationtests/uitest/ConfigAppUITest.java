@@ -69,6 +69,7 @@ public class ConfigAppUITest extends AbstractMagnoliaUITest {
 
         // Create folder and rename it
         getActionBarItem("Add folder").click();
+        delay(1, "");
         getTreeTableItem("untitled").click();
         getActionBarItem("Rename item").click();
         setFormTextFieldText("Name", folderName);
