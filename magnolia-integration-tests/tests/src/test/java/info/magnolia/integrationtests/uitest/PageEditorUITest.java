@@ -261,9 +261,9 @@ public class PageEditorUITest extends AbstractPageEditorUITest {
         switchToPageEditorContent();
     }
 
-	@Test
-	public void testAddComponentActionForOptionalArea() {
-		// GIVEN
+    @Test
+    public void testAddComponentActionForOptionalArea() {
+        // GIVEN
 
         // WHEN
         getAppIcon(PAGES_APP).click();
@@ -285,9 +285,9 @@ public class PageEditorUITest extends AbstractPageEditorUITest {
         assertTrue(getActionBarItem("Add component").findElement(By.xpath("..")).getAttribute("class").contains("v-disabled"));
 
         clearTestData();
-	}
+    }
 
-	private void generateTestData() {
+    private void generateTestData() {
         switchToPageEditorContent();
         getElementByPath(By.xpath("//div[@id = 'main']//div[contains(@class, 'mgnlEditorBarLabel') and text() = 'Teasers']")).click();
         getElementByPath(By.xpath("//div[@id = 'main']//div[text() = 'New Teasers Component']")).click();
@@ -304,21 +304,21 @@ public class PageEditorUITest extends AbstractPageEditorUITest {
         lastTeaser.findElement(By.xpath(".//div[contains(@class, 'mgnlEditorBarLabel') and text() = 'Internal Page Teaser']")).click();
         lastTeaser.findElement(By.xpath(".//div[contains(@class, 'mgnlEditorBarLabel') and text() = 'Link List (optional)']")).click();
         switchToDefaultContent();
-	}
+    }
 
-	private void clearTestData() {
-		switchToPageEditorContent();
-		getElementByPath(By.xpath("//div[@id = 'main']//div[contains(@class, 'mgnlEditorBarLabel') and text() = 'Teasers']")).click();
-		WebElement lastTeaser = getElementByPath(By.xpath("//div[@id = 'main']//div[contains(@class, 'teaser')][last() - 1]"));
-		lastTeaser.findElement(By.xpath(".//div[contains(@class, 'mgnlEditorBarLabel') and text() = 'Internal Page Teaser']")).click();
-		switchToDefaultContent();
-		getActionBarItem("Delete component").click();
-		getElementByPath(By.xpath("//div[contains(@class, 'dialog-root')]//span[text() = 'Yes, Delete']")).click();
-	}
+    private void clearTestData() {
+        switchToPageEditorContent();
+        getElementByPath(By.xpath("//div[@id = 'main']//div[contains(@class, 'mgnlEditorBarLabel') and text() = 'Teasers']")).click();
+        WebElement lastTeaser = getElementByPath(By.xpath("//div[@id = 'main']//div[contains(@class, 'teaser')][last() - 1]"));
+        lastTeaser.findElement(By.xpath(".//div[contains(@class, 'mgnlEditorBarLabel') and text() = 'Internal Page Teaser']")).click();
+        switchToDefaultContent();
+        getActionBarItem("Delete component").click();
+        getElementByPath(By.xpath("//div[contains(@class, 'dialog-root')]//span[text() = 'Yes, Delete']")).click();
+    }
 
-	@Test
-	public void testAddComponentActionForSingleArea() {
-		// GIVEN
+    @Test
+    public void testAddComponentActionForSingleArea() {
+        // GIVEN
 
         // WHEN
         getAppIcon(PAGES_APP).click();
@@ -340,5 +340,5 @@ public class PageEditorUITest extends AbstractPageEditorUITest {
 
         // THEN
         assertTrue(getActionBarItem("Move component").findElement(By.xpath("..")).getAttribute("class").contains("v-disabled"));
-	}
+    }
 }
