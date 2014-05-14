@@ -476,9 +476,58 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         return elements;
     }
 
+    /**
+     * Tries to retrieve multiple elements.
+     *
+     * @param path path to search the element at
+     * @return a list matching the searched specified element or <code>null</code> in case it couldn't be found.
+     * Will retry until there is at least one match or until the whole process times out.
+     */
+    protected List<WebElement> getElementsByPath(final By path) {
+        List<WebElement> elements = null;
+        try {
+            // will loop and try to retrieve the specified element until found or it times out.
+            elements = new WebDriverWait(driver, DRIVER_WAIT_IN_SECONDS).until(
+                    new ExpectedCondition<List<WebElement>>() {
+
+                        @Override
+                        public List<WebElement> apply(WebDriver d) {
+                            try {
+                                List<WebElement> elements = d.findElements(path);
+                                if (elements.size() > 0) {
+                                    takeScreenshot(path.toString());
+                                    return elements;
+                                }
+                                log.warn("Expecting at least 1 element for {} - trying again", path);
+                                takeScreenshot(path.toString() + "_wrongCount");
+                                return null;
+                            } catch (NoSuchElementException e) {
+                                takeScreenshot(path.toString() + "_notFound");
+                                return null;
+                            }
+                        }
+                    }
+            );
+        } catch (TimeoutException e) {
+            log.error("Could not retrieve elements by path {} : {}", path, e);
+            // not found within the time limit - but there's nothing sane we can do here. Returning null would just yield NPEs. If we need something better, consider selenium-lift, or pass a Matcher instead of expectedElementCount
+            throw new TimeoutException("Could not retrieve any element by path " + path + " : " + e.getMessage(), e);
+        } catch (StaleElementReferenceException s) {
+            // re-trying on StaleElementReferenceExceptions: see http://docs.seleniumhq.org/exceptions/stale_element_reference.jsp
+            log.info("{} when accessing element {} - trying again", s.toString(), path);
+            elements = getElementsByPath(path);
+        }
+        return elements;
+    }
+
     protected WebElement getElementByXpath(String path, Object... param) {
         String xpath = String.format(path, param);
         return getElementByPath(By.xpath(xpath));
+    }
+
+    protected List<WebElement> getElementsByXPath(String path, Object... param) {
+        String xpath = String.format(path, param);
+        return getElementsByPath(By.xpath(xpath));
     }
 
     protected WebElement getFormField(String caption) {
