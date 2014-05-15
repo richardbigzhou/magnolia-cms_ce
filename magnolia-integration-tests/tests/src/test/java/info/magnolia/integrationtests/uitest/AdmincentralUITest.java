@@ -99,6 +99,27 @@ public class AdmincentralUITest extends AbstractMagnoliaUITest {
         assertTrue("App Launcher should not be blank so e.g. Pages tile should be around", isExisting(getAppIcon("Pages")));
     }
 
+
+    /**
+     * If several apps are running, and one is closed, the appslauncher should be displayed.
+     */
+    @Test
+    public void appLauncherDisplayedWhenOneOfSeveralAppsIsClosed() {
+        // GIVEN
+        getAppIcon("Pages").click();
+        getShellIconAppsLauncher().click();
+        getAppIcon("Contacts").click();
+        getShellIconAppsLauncher().click();
+
+        // WHEN
+        getAppIcon("Pages").click();
+        closeApp();
+
+        // THEN
+        assertTrue("Apps Launcher should be displayed so e.g. Pages tile should be around", isExisting(getAppIcon("Pages")));
+    }
+
+
     @Test
     public void sendAndRetrieveMessage() {
         // GIVEN

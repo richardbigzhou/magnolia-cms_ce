@@ -582,6 +582,18 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         return getElementByXpath("//*[contains(@class, '%s')]", appIcon);
     }
 
+    protected WebElement getShellIconAppsLauncher() {
+        return getElementByXpath("//*[@id = 'btn-appslauncher']");
+    }
+
+    protected WebElement getShellIconPulse() {
+        return getElementByXpath("//*[@id = 'btn-pulse']");
+    }
+
+    protected WebElement getShellIconFavorites() {
+        return getElementByXpath("//*[@id = 'btn-favorites']");
+    }
+
     protected WebElement getTabForCaption(String tabCaption) {
         return getElementByXpath("//*[contains(@class, 'v-shell-tabsheet')]//*[@class = 'tab-title' and text() = '%s']", tabCaption);
     }
