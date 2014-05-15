@@ -50,13 +50,14 @@ public class AdmincentralUITest extends AbstractMagnoliaUITest {
     public void navigateToPulseAndBackToAppLauncherDoesntScrewLayout() {
         // GIVEN
         getShellAppIcon("icon-pulse").click();
+        getPulseTab("Messages").click();
         assertTrue(getElementByPath(By.xpath("//label[text() ='group by type']")).isDisplayed());
         getShellAppIcon("icon-appslauncher").click();
         delay("Give time so that main page wont show up as pulse messages.");
         toLandingPage();
 
         // WHEN
-        final WebElement element = getElementByPath(By.xpath("//label[text() ='group by type']"));
+        WebElement element = getElementByPath(By.xpath("//label[text() ='group by type']"));
 
         // THEN
         assertFalse(isExisting(element));
