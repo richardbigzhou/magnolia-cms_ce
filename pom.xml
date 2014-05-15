@@ -23,6 +23,7 @@
     <magnoliaEdition>Community Edition</magnoliaEdition>
     <magnoliaVersion>5.3-m6</magnoliaVersion>
     <magnoliaUiVersion>5.3-m8</magnoliaUiVersion>
+    <magnoliaWidgetsetVersion>5.3-m3</magnoliaWidgetsetVersion>
     <javaVersion>1.6</javaVersion>
     <documentationURL>http://documentation.magnolia-cms.com/releases/${project.version}.html</documentationURL>
     <stkVersion>2.8-m1</stkVersion>
@@ -61,7 +62,7 @@
       <dependency>
         <groupId>info.magnolia.widgetset</groupId>
         <artifactId>magnolia-vaadin-widgetset</artifactId>
-        <version>5.3-m2</version>
+        <version>${magnoliaWidgetsetVersion}</version>
       </dependency>
 
       <dependency>
