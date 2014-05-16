@@ -50,7 +50,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Servlet that can read properties from JCR to verify settings in tests.
+ * Servlet that can read and change a property from JCR to verify settings in tests.<br>
+ * Parameter properties: <br>
+ * - workspace : Name of the target workspace<br>
+ * - path : Specify the absolute path in the workspace to the property <br>
+ * - value : Value to set to the property <br>
+ * -- if the value is empty, return the current property value. <br>
+ * -- if the value is not empty, set this value to the property, and return the previous property value.
  */
 public class JcrPropertyServlet extends HttpServlet {
 
@@ -60,11 +66,18 @@ public class JcrPropertyServlet extends HttpServlet {
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         final String path = request.getParameter("path");
         final String workspace = StringUtils.defaultString(request.getParameter("workspace"), RepositoryConstants.CONFIG);
+        final String value = request.getParameter("value");
 
         try {
             Property property = MgnlContext.getJCRSession(workspace).getProperty(path);
+            String previousValue = property.getString();
+            if (StringUtils.isNotBlank(value)) {
+                property.setValue(value);
+                property.getSession().save();
+                log.info("Changing value of '{}' from [{}] to [{}]", path, previousValue, value);
+            }
 
-            response.getWriter().write(property.getString());
+            response.getWriter().write(previousValue);
         } catch (RepositoryException e) {
             log.warn("Could not read property [{}] from workspace [{}]", new Object[] {path, workspace});
             throw new ServletException("Could not read property [" + path + "]");
