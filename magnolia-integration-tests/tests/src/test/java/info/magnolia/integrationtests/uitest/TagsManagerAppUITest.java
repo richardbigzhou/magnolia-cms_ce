@@ -84,7 +84,7 @@ public class TagsManagerAppUITest extends AbstractMagnoliaUITest {
         // WHEN 2
         deleteTreeTableRow("Delete tag", tagName);
 
-        delay("Wait a second for the tag to be deleted");
+        delay(10, "Wait a second for the tag to be deleted");
 
         // THEN 2
         assertTrue(getTreeTableItem(tagName) instanceof NonExistingWebElement);
