@@ -101,7 +101,6 @@ public class AdmincentralUITest extends AbstractMagnoliaUITest {
         assertTrue("App Launcher should not be blank so e.g. Pages tile should be around", isExisting(getAppIcon("Pages")));
     }
 
-
     /**
      * If several apps are running, and one is closed, the appslauncher should be displayed.
      */
