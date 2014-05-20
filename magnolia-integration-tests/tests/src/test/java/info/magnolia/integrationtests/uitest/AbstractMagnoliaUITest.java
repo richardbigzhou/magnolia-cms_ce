@@ -450,11 +450,11 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
                         public List<WebElement> apply(WebDriver d) {
                             try {
                                 List<WebElement> elements = d.findElements(path);
-                                if (elements.size() == expectedElementCount) {
+                                if ((elements.size() > 0 && expectedElementCount == -1) || (elements.size() == expectedElementCount)) {
                                     takeScreenshot(path.toString());
                                     return elements;
                                 }
-                                log.warn("Expecting {} elements for {} - trying again - found {} so far: {}", expectedElementCount, path, elements.size(), elements);
+                                log.warn("Expecting {} element(s) for {} - trying again - found {} so far: {}", expectedElementCount != -1 ? expectedElementCount : "at least 1", path, elements.size(), elements);
                                 takeScreenshot(path.toString() + "_wrongCount");
                                 return null;
                             } catch (NoSuchElementException e) {
@@ -467,7 +467,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         } catch (TimeoutException e) {
             log.error("Could not retrieve {} elements by path {} : {}", expectedElementCount, path, e);
             // not found within the time limit - maybe the expected amount of element is wrong, but there's nothing sane we can do here. Returning null would just yield NPEs. If we need something better, consider selenium-lift, or pass a Matcher instead of expectedElementCount
-            throw new TimeoutException("Could not retrieve " + expectedElementCount + " elements by path " + path + " : " + e.getMessage(), e);
+            throw new TimeoutException("Could not retrieve " + (expectedElementCount != -1 ? expectedElementCount : "at least 1") + " elements by path " + path + " : " + e.getMessage(), e);
         } catch (StaleElementReferenceException s) {
             // re-trying on StaleElementReferenceExceptions: see http://docs.seleniumhq.org/exceptions/stale_element_reference.jsp
             log.info("{} when accessing element {} - trying again", s.toString(), path);
@@ -484,40 +484,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
      * Will retry until there is at least one match or until the whole process times out.
      */
     protected List<WebElement> getElementsByPath(final By path) {
-        List<WebElement> elements = null;
-        try {
-            // will loop and try to retrieve the specified element until found or it times out.
-            elements = new WebDriverWait(driver, DRIVER_WAIT_IN_SECONDS).until(
-                    new ExpectedCondition<List<WebElement>>() {
-
-                        @Override
-                        public List<WebElement> apply(WebDriver d) {
-                            try {
-                                List<WebElement> elements = d.findElements(path);
-                                if (elements.size() > 0) {
-                                    takeScreenshot(path.toString());
-                                    return elements;
-                                }
-                                log.warn("Expecting at least 1 element for {} - trying again", path);
-                                takeScreenshot(path.toString() + "_wrongCount");
-                                return null;
-                            } catch (NoSuchElementException e) {
-                                takeScreenshot(path.toString() + "_notFound");
-                                return null;
-                            }
-                        }
-                    }
-            );
-        } catch (TimeoutException e) {
-            log.error("Could not retrieve elements by path {} : {}", path, e);
-            // not found within the time limit - but there's nothing sane we can do here. Returning null would just yield NPEs. If we need something better, consider selenium-lift, or pass a Matcher instead of expectedElementCount
-            throw new TimeoutException("Could not retrieve any element by path " + path + " : " + e.getMessage(), e);
-        } catch (StaleElementReferenceException s) {
-            // re-trying on StaleElementReferenceExceptions: see http://docs.seleniumhq.org/exceptions/stale_element_reference.jsp
-            log.info("{} when accessing element {} - trying again", s.toString(), path);
-            elements = getElementsByPath(path);
-        }
-        return elements;
+        return getElementsByPath(path, -1);
     }
 
     protected WebElement getElementByXpath(String path, Object... param) {
@@ -899,40 +866,6 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         return getElementByXpath("//div[contains(@class, 'dialog-content')]//div[contains(@class, 'v-slot-keyboard-panel')]//div[@class='v-table-cell-wrapper' and text() = '%s']", elementName);
     }
 
-    /*
-     * Multifield helper functions
-     */
-
-    protected void setMultiFieldElementValueAt(String multiFieldLabel, int position, String value) {
-        WebElement input = getFromMultiFieldElementValueAt(multiFieldLabel, position);
-        input.clear();
-        input.sendKeys(value);
-    }
-
-    protected WebElement getMultiFieldAddButton(String multiFieldLabel, String buttonLabel) {
-        return getElementByXpath("//*[@class = 'v-form-field-label' and text() = '%s']/following-sibling::div//*[contains(@class, '%s')]//*[text() = '%s']", multiFieldLabel, "v-nativebutton-magnoliabutton", buttonLabel);
-    }
-
-    protected WebElement getMultiFieldElementDeleteButtonAt(String multiFieldLabel, int position) {
-        return getElementByXpath("(//*[@class = 'v-form-field-label' and text() = '%s']/following-sibling::div//*[contains(@class, '%s')])[%s]", multiFieldLabel, "v-button-inline", position);
-    }
-
-    protected WebElement getFromMultiFieldElementValueAt(String multiFieldLabel, int position) {
-        return getElementByXpath("(//*[@class = 'v-form-field-label' and text() = '%s']/following-sibling::div//input[@type = 'text'])[%s]", multiFieldLabel, position);
-    }
-
-    protected WebElement getFromMultiFieldComplexeElementValueAt(String multiFieldLabel, int multiFieldposition, int compositeFieldposition) {
-        WebElement multifield = getElementByXpath("(//*[@class = 'v-form-field-label' and text() = '%s']/following-sibling::div//*[@class = 'v-slot v-slot-linkfield'])[%s]", multiFieldLabel, multiFieldposition);
-        String xpath = String.format("(//input[@type = 'text'])[%s]", compositeFieldposition);
-        WebElement fieldElement = multifield.findElement(By.xpath(xpath));
-        return fieldElement;
-    }
-
-    protected void setMultiFieldComplexeElementValueAt(String multiFieldLabel, int multiFieldposition, int compositeFieldposition, String value) {
-        WebElement input = getFromMultiFieldComplexeElementValueAt(multiFieldLabel, multiFieldposition, compositeFieldposition);
-        input.clear();
-        input.sendKeys(value);
-    }
 
     /**
      * Gets the current title of the {@link WebDriver}'s page.
@@ -1018,4 +951,8 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         takeScreenshot("-refresh-tree-view");
     }
 
+    protected void switchToLanguage(String language) {
+        getElementByXpath("//*[@class = 'dialog-footer-toolbar']//input[contains(@class, 'v-filterselect-input v-filterselect-input-readonly')]").click();
+        getElementByXpath("//div[contains(@class, 'popupContent')]//div/table/tbody/tr/td/span[text() = '%s']/..", language).click();
+    }
 }

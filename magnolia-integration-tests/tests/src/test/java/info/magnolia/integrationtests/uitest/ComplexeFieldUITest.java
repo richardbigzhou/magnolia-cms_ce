@@ -1,5 +1,5 @@
 /**
- * This file Copyright (c) 2013 Magnolia International
+ * This file Copyright (c) 2013-2014 Magnolia International
  * Ltd.  (http://www.magnolia-cms.com). All rights reserved.
  *
  *
@@ -41,7 +41,7 @@ import org.junit.Test;
 /**
  * UI TEst for MultiField, CompositeField and SwitchableField.
  */
-public class ComplexeFieldUITest extends AbstractMagnoliaUITest {
+public class ComplexeFieldUITest extends AbstractComplexeFieldUITest {
 
     @Test
     public void testMultiFieldWithDefaultPropertyBuilderAddRemove() {
