@@ -51,7 +51,7 @@ public class OverlayUITest extends AbstractMagnoliaUITest {
     public void deleteItemConfirmationDisplayed() {
 
         // GIVEN
-        getAppIcon("Contacts").click();
+        getAppIcon("Sample content").click();
         assertAppOpen("Contacts");
 
         getTreeTableItem("Pablo Picasso").click();
@@ -70,7 +70,7 @@ public class OverlayUITest extends AbstractMagnoliaUITest {
     public void deleteItemConfirmationCancel() {
 
         // GIVEN
-        getAppIcon("Contacts").click();
+        getAppIcon("Sample content").click();
         assertAppOpen("Contacts");
 
         getTreeTableItem("Marilyn Monroe").click();
@@ -91,7 +91,7 @@ public class OverlayUITest extends AbstractMagnoliaUITest {
     public void deleteItemConfirmationConfirm() {
 
         // GIVEN
-        getAppIcon("Contacts").click();
+        getAppIcon("Sample content").click();
         assertAppOpen("Contacts");
 
         getActionBarItem("Add folder").click();
