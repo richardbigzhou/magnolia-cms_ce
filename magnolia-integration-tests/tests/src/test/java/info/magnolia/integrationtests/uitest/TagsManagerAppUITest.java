@@ -33,12 +33,9 @@
  */
 package info.magnolia.integrationtests.uitest;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import info.magnolia.cms.util.ClasspathResourcesUtil;
+import static org.junit.Assert.*;
 
 import java.awt.AWTException;
-import java.net.URL;
 
 import org.junit.Ignore;
 import org.junit.Test;
@@ -77,7 +74,7 @@ public class TagsManagerAppUITest extends AbstractMagnoliaUITest {
         // WHEN 1
         addTag(tagName, "www.magnolia-cms.com", "magnolia");
 
-        delay("Wait a second for the tag to created");
+        delay("Wait a second for the tag to be created");
 
         // THEN 1
         assertTrue(getTreeTableItem(tagName).isDisplayed());
@@ -85,7 +82,7 @@ public class TagsManagerAppUITest extends AbstractMagnoliaUITest {
         // WHEN 2
         deleteTreeTableRow("Delete tag", tagName);
 
-        delay(10, "Wait a second for the tag to be deleted");
+        delay(10, "Wait 10 seconds for the tag to be deleted");
 
         // THEN 2
         assertTrue(getTreeTableItem(tagName) instanceof NonExistingWebElement);
@@ -100,26 +97,8 @@ public class TagsManagerAppUITest extends AbstractMagnoliaUITest {
         getAppIcon("Marketing Tags").click();
         delay("Wait for application to open.");
 
-        getActionBarItem("Import").click();
-        
-        // Init file ref
-        URL resource = ClasspathResourcesUtil.getResource("tags.test.xml");
-        // Get Upload Element
-        WebElement upload = getFormField("Import XML File");
-        // Get Upload Form
-        WebElement uploadForm = upload.findElement(By.xpath(".//div[contains(@class, 'v-csslayout v-layout v-widget')]//form[contains(@class, 'v-upload v-widget v-upload-immediate')]"));
-        assertTrue(isExisting(uploadForm));
-        // Get Upload Field
-        WebElement uploadFormInput = uploadForm.findElement(By.xpath(".//input[contains(@class, 'gwt-FileUpload')]"));
-        assertTrue(isExisting(uploadFormInput));
-        // Make Upload Field Visible
-        getJavascriptExecutor().executeScript("document.getElementsByClassName('gwt-FileUpload')[0].style.display = 'block';");
-        uploadFormInput = uploadForm.findElement(By.xpath("//input[contains(@class, 'gwt-FileUpload')]"));
-        uploadFormInput.sendKeys(resource.getPath());
-        // Save changes
-        getDialogCommitButton().click();
-        
-        delay("Wait a second for the tag to created");
+        addTag(tagName, "www.magnolia-cms.com", "magnolia marketing tags manager test");
+        delay("Wait a second for the tag to be created");
         
         closeApp();
         delay("Wait a second for close app");
@@ -177,6 +156,71 @@ public class TagsManagerAppUITest extends AbstractMagnoliaUITest {
         refreshTreeView();
         delay(1,"Wait for node to be selected.");
         deleteTreeTableRow("Delete tag", tagName);
+        delay(10, "Wait 10 seconds for the tag to be deleted");
+    }
+
+    @Test
+    public void testPageRenderingIsIncludeTagContentOnPublicInstance() throws Exception {
+        // GIVEN
+        final String tagName = "test";
+        getCollapsibleAppSectionIcon("Tools").click();
+        getAppIcon("Marketing Tags").click();
+        delay("Wait for application to open.");
+
+        addTag(tagName, "www.magnolia-cms.com", "magnolia marketing tags manager test");
+        delay("Wait a second for the tag to created");
+
+        // WHEN 1
+        // Select the tag node
+        getTreeTableItem(tagName).click();
+        delay(1, "Wait for node to be selected.");
+        // Publish the tag node
+        getActionBarItem("Publish").click();
+        delay(10, "Activation takes some time so wait before checking the updated icon");
+
+        refreshTreeView();
+
+        // THEN 1
+        // Check status
+        assertTrue(getSelectedIcon(COLOR_GREEN_ICON_STYLE).isDisplayed());
+        // Check available actions
+        checkEnabledActions("Show versions");
+
+        // WHEN 2
+        switchToDefaultContent();
+        navigateDriverTo(Instance.PUBLIC.getURL("/demo-project/about.html"));
+        delay("Wait for page to open.");
+
+        // THEN 2
+        WebElement body = getElementByPath(By.xpath("//body"));
+        assertTrue(body.getText().startsWith("magnolia marketing tags manager test"));
+
+        // WHEN 3
+        switchToDefaultContent();
+        navigateDriverTo(Instance.PUBLIC.getURL("/demo-project/about/history.html"));
+        delay("Wait for page to open.");
+
+        // THEN 3
+        body = getElementByPath(By.xpath("//body"));
+        assertTrue(body.getText().startsWith("magnolia marketing tags manager test"));
+
+        // WHEN 4
+        switchToDefaultContent();
+        navigateDriverTo(Instance.PUBLIC.getURL("/demo-project/news-and-events.html"));
+        delay("Wait for page to open.");
+
+        // THEN 4
+        body = getElementByPath(By.xpath("//body"));
+        assertFalse(body.getText().startsWith("magnolia marketing tags manager test"));
+
+        // Delete tag node
+        switchToDefaultContent();
+        navigateDriverTo(Instance.AUTHOR.getURL() + ".magnolia/admincentral#app:tags-manager:browser;/:treeview:");
+        delay(1, "Wait for tree view loading");
+        refreshTreeView();
+        delay(1, "Wait for node to be selected.");
+        deleteTreeTableRow("Delete tag", tagName);
+        delay(10, "Wait 10 seconds for the tag to be deleted");
     }
 
     private void addTag(String tagName, String dashboardUrl, String content) throws AWTException {
@@ -193,19 +237,26 @@ public class TagsManagerAppUITest extends AbstractMagnoliaUITest {
         WebElement locationElement = getElementByXpath("//div[@class = 'popupContent']//table//span[text()='beginning of the body']");
         locationElement.click();
         
+        // Content
+        getTabForCaption("Content").click();
+        WebElement aceEditorTextAreaElement = getElementByXpath("//*[@class = 'v-form-field-label' and text() = '%s']/following-sibling::div/div[contains(@class,'AceEditorWidget')]//div[contains(@class,'ace_editor')]", "Tag code").findElement(By.xpath(".//textarea"));
+        aceEditorTextAreaElement.click();
+        aceEditorTextAreaElement.sendKeys(content);
+
         getTabForCaption("Pages").click();
-        // Add
-        getElementByXpath("//*[contains(@class, '%s')]", "v-button-caption").click();
-        // Select
-        getElementByXpath("//*[contains(@class, '%s')]", "v-button-caption").click();
+        // Add page
+        getElementByXpath("//*[contains(@class, 'v-button-caption') and text() = '%s']", "Add page").click();
+        // Choose
+        getElementByXpath("//*[contains(@class, 'v-button-caption') and text() = '%s']", "Choose...").click();
         getTreeTableItemExpander("demo-project").click();
         getTreeTableItem("about").click();
         getDialogCommitButton("Pages chooser").click();
+
         // Insert in subpages
         WebElement insertInSubPagesParent = getElementByXpath("//*[@class = 'v-form-field-label' and text() = '%s']/following-sibling::div", "Pages");
         WebElement insertInSubPages = insertInSubPagesParent.findElement(By.xpath(".//div//span/input"));
         insertInSubPages.click();
-        
+
         getDialogCommitButton().click();
     }
 
