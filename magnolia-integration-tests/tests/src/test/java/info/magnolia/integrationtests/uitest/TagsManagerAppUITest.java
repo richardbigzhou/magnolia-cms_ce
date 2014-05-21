@@ -55,11 +55,11 @@ public class TagsManagerAppUITest extends AbstractMagnoliaUITest {
 		
         // WHEN
         getCollapsibleAppSectionIcon("Tools").click();
-        getAppIcon("Tags Manager").click();
+        getAppIcon("Marketing Tags").click();
         delay("Wait for application to open.");
 
         // THEN
-        assertAppOpen("Tags Manager");
+        assertAppOpen("Marketing Tags");
         assertTrue(getActionBarItem("Add tag").isEnabled());
         assertTrue(getActionBarItem("Add folder").isEnabled());
         assertTrue(getActionBarItem("Import").isEnabled());
@@ -70,7 +70,7 @@ public class TagsManagerAppUITest extends AbstractMagnoliaUITest {
         // GIVEN
         final String tagName = "test-tag";
         getCollapsibleAppSectionIcon("Tools").click();
-        getAppIcon("Tags Manager").click();
+        getAppIcon("Marketing Tags").click();
         delay("Wait for application to open.");
 
         // WHEN 1
@@ -95,7 +95,7 @@ public class TagsManagerAppUITest extends AbstractMagnoliaUITest {
     	// GIVEN
         final String tagName = "test";
         getCollapsibleAppSectionIcon("Tools").click();
-        getAppIcon("Tags Manager").click();
+        getAppIcon("Marketing Tags").click();
         delay("Wait for application to open.");
 
         getActionBarItem("Import").click();
