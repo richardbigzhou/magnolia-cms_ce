@@ -52,7 +52,7 @@ public class ContactsAppUITest extends AbstractMagnoliaUITest {
     private void createVersionedContactOf(String contactName) {
         String testEmailAddr = String.format("testemail%d@random.ch", new Date().getTime());
 
-        getAppIcon("Contacts").click();
+        getAppIcon("Sample content").click();
         assertAppOpen("Contacts");
 
         getTreeTableItem(contactName).click();

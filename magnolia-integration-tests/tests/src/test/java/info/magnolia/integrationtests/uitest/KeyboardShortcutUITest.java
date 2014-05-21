@@ -59,7 +59,7 @@ public class KeyboardShortcutUITest extends AbstractMagnoliaUITest {
     public void whenEscapePressedOnConfirmationItCloses() {
         // GIVEN
         WebElement confirmation;
-        getAppIcon("Contacts").click();
+        getAppIcon("Sample content").click();
         assertAppOpen("Contacts");
 
         // WHEN
@@ -195,7 +195,7 @@ public class KeyboardShortcutUITest extends AbstractMagnoliaUITest {
         final String nameFirst = "escapeHandlingOnDetailEditor";
         WebElement confirmation;
 
-        getAppIcon("Contacts").click();
+        getAppIcon("Sample content").click();
         assertAppOpen("Contacts");
         getActionBarItem("Add contact").click();
         getTabForCaption("Personal").click();
@@ -321,7 +321,7 @@ public class KeyboardShortcutUITest extends AbstractMagnoliaUITest {
         String email = nameFirst + "@" + nameLast + ".com";
 
 
-        getAppIcon("Contacts").click();
+        getAppIcon("Sample content").click();
         assertAppOpen("Contacts");
         getActionBarItem("Add contact").click();
 
@@ -353,7 +353,7 @@ public class KeyboardShortcutUITest extends AbstractMagnoliaUITest {
         final String nameLast = "Testkeyboard";
         String email = nameFirst + "@" + nameLast + ".com";
 
-        getAppIcon("Contacts").click();
+        getAppIcon("Sample content").click();
         assertAppOpen("Contacts");
         getActionBarItem("Add contact").click();
 
