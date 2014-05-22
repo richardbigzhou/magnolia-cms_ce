@@ -272,7 +272,7 @@
       <dependency>
         <groupId>info.magnolia.tagsmanager</groupId>
         <artifactId>tags-manager</artifactId>
-        <version>1.0-m2</version>
+        <version>1.0-m3</version>
       </dependency>
 
       <!-- Tests -->
