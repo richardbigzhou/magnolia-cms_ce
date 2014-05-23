@@ -37,7 +37,6 @@ import static org.junit.Assert.*;
 
 import java.awt.AWTException;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -50,7 +49,7 @@ public class TagsManagerAppUITest extends AbstractMagnoliaUITest {
     @Test
     public void testTagsManagerAppOpenAndActionBarItemStatus() {
         // GIVEN
-		
+
         // WHEN
         getCollapsibleAppSectionIcon("Tools").click();
         getAppIcon("Marketing Tags").click();
@@ -62,7 +61,7 @@ public class TagsManagerAppUITest extends AbstractMagnoliaUITest {
         assertTrue(getActionBarItem("Add folder").isEnabled());
         assertTrue(getActionBarItem("Import").isEnabled());
     }
-	
+
     @Test
     public void testAddAndRemoveTag() throws AWTException {
         // GIVEN
@@ -88,10 +87,9 @@ public class TagsManagerAppUITest extends AbstractMagnoliaUITest {
         assertTrue(getTreeTableItem(tagName) instanceof NonExistingWebElement);
     }
 
-    @Ignore("looks like tags.test.xml needs to be adapted when using tags-manager 1.0-m3")
     @Test
     public void testPageRenderingIsIncludeTagContent() throws Exception {
-    	// GIVEN
+        // GIVEN
         final String tagName = "test";
         getCollapsibleAppSectionIcon("Tools").click();
         getAppIcon("Marketing Tags").click();
@@ -99,24 +97,24 @@ public class TagsManagerAppUITest extends AbstractMagnoliaUITest {
 
         addTag(tagName, "www.magnolia-cms.com", "magnolia marketing tags manager test");
         delay("Wait a second for the tag to be created");
-        
+
         closeApp();
         delay("Wait a second for close app");
-        
+
         // WHEN 1
         getAppIcon(AbstractPageEditorUITest.PAGES_APP).click();
         getTreeTableItemExpander(AbstractPageEditorUITest.DEMO_PROJECT_PAGE).click();
         getTreeTableItem(AbstractPageEditorUITest.ABOUT_PAGE).click();
         getActionBarItem(AbstractPageEditorUITest.EDIT_PAGE_ACTION).click();
-        
+
         delay("Wait for page to open.");
-        
+
         switchToPageEditorContent();
-        
+
         // THEN 1
         WebElement body = getElementByPath(By.xpath("//body"));
         assertTrue(body.getText().startsWith("magnolia marketing tags manager test"));
-        
+
         // WHEN 2
         // navigate directly to tree view of browser subApp
         switchToDefaultContent();
@@ -125,36 +123,36 @@ public class TagsManagerAppUITest extends AbstractMagnoliaUITest {
 
         getTreeTableItemExpander(AbstractPageEditorUITest.ABOUT_PAGE).click();
         doubleClick(getTreeTableItem("history"));
-        
+
         delay("Wait for page to open.");
-        
+
         switchToPageEditorContent();
-        
+
         // THEN 2
         body = getElementByPath(By.xpath("//body"));
         assertTrue(body.getText().startsWith("magnolia marketing tags manager test"));
-        
+
         // WHEN 3
         // navigate directly to tree view of browser subApp
         switchToDefaultContent();
         navigateDriverTo(Instance.AUTHOR.getURL() + ".magnolia/admincentral#app:pages:browser;/demo-project/about:treeview:");
         doubleClick(getTreeTableItem("news-and-events"));
-        
+
         delay("Wait for page to open.");
 
         switchToPageEditorContent();
-        
+
         // THEN 3
         body = getElementByPath(By.xpath("//body"));
         assertFalse(body.getText().startsWith("magnolia marketing tags manager test"));
-        
+
         // Delete imported tag node
         // navigate directly to tree view of tags-manager browser subApp
         switchToDefaultContent();
         navigateDriverTo(Instance.AUTHOR.getURL() + ".magnolia/admincentral#app:tags-manager:browser;/:treeview:");
-        delay(1,"Wait for tree view loading");
+        delay(1, "Wait for tree view loading");
         refreshTreeView();
-        delay(1,"Wait for node to be selected.");
+        delay(1, "Wait for node to be selected.");
         deleteTreeTableRow("Delete tag", tagName);
         delay(10, "Wait 10 seconds for the tag to be deleted");
     }
@@ -236,7 +234,7 @@ public class TagsManagerAppUITest extends AbstractMagnoliaUITest {
         locationSelectionElement.click();
         WebElement locationElement = getElementByXpath("//div[@class = 'popupContent']//table//span[text()='beginning of the body']");
         locationElement.click();
-        
+
         // Content
         getTabForCaption("Content").click();
         WebElement aceEditorTextAreaElement = getElementByXpath("//*[@class = 'v-form-field-label' and text() = '%s']/following-sibling::div/div[contains(@class,'AceEditorWidget')]//div[contains(@class,'ace_editor')]", "Tag code").findElement(By.xpath(".//textarea"));
