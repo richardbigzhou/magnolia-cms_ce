@@ -21,11 +21,11 @@
 
   <properties>
     <magnoliaEdition>Community Edition</magnoliaEdition>
-    <magnoliaVersion>5.2.5-SNAPSHOT</magnoliaVersion>
-    <magnoliaUiVersion>5.2.5-SNAPSHOT</magnoliaUiVersion>
+    <magnoliaVersion>5.2.5</magnoliaVersion>
+    <magnoliaUiVersion>5.2.6</magnoliaUiVersion>
     <javaVersion>1.6</javaVersion>
     <documentationURL>http://documentation.magnolia-cms.com/releases/${project.version}.html</documentationURL>
-    <stkVersion>2.7.5-SNAPSHOT</stkVersion>
+    <stkVersion>2.7.5</stkVersion>
     <restVersion>1.0.3</restVersion>
     <scmTagPrefix>magnolia-bundle</scmTagPrefix>
     <!-- Disable clover during releases: -->
@@ -89,7 +89,7 @@
       <dependency>
         <groupId>info.magnolia.dam</groupId>
         <artifactId>magnolia-dam</artifactId>
-        <version>1.2.5-SNAPSHOT</version>
+        <version>1.2.5</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
@@ -99,7 +99,7 @@
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-groovy</artifactId>
-        <version>2.2.4-SNAPSHOT</version>
+        <version>2.2.4</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia.activation</groupId>
@@ -134,19 +134,19 @@
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-commenting</artifactId>
-        <version>2.2.1-SNAPSHOT</version>
+        <version>2.2.1</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-templating-samples</artifactId>
-        <version>5.2.1-SNAPSHOT</version>
+        <version>5.2.1</version>
         <classifier>bundle</classifier>
         <type>tar.gz</type>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-templating-samples</artifactId>
-        <version>5.2.1-SNAPSHOT</version>
+        <version>5.2.1</version>
         <type>jar</type>
       </dependency>
       <dependency>
@@ -172,7 +172,7 @@
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-imaging</artifactId>
-        <version>3.0.4-SNAPSHOT</version>
+        <version>3.0.4</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
@@ -187,12 +187,12 @@
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-form</artifactId>
-        <version>2.2.4-SNAPSHOT</version>
+        <version>2.2.4</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-forum</artifactId>
-        <version>3.3.1-SNAPSHOT</version>
+        <version>3.3.1</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
