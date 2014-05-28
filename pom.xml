@@ -21,8 +21,8 @@
 
   <properties>
     <magnoliaEdition>Community Edition</magnoliaEdition>
-    <magnoliaVersion>5.2.5</magnoliaVersion>
-    <magnoliaUiVersion>5.2.6</magnoliaUiVersion>
+    <magnoliaVersion>5.2.6-SNAPSHOT</magnoliaVersion>
+    <magnoliaUiVersion>5.2.7-SNAPSHOT</magnoliaUiVersion>
     <javaVersion>1.6</javaVersion>
     <documentationURL>http://documentation.magnolia-cms.com/releases/${project.version}.html</documentationURL>
     <stkVersion>2.7.5</stkVersion>
