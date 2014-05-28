@@ -51,7 +51,7 @@ public class ContentAppUITest extends AbstractMagnoliaUITest {
         // GIVEN
         String testEmailAddr = String.format("testemail%d@random.ch", new Date().getTime());
 
-        getAppIcon("Sample content").click();
+        getAppIcon("Contacts").click();
         assertAppOpen("Contacts");
 
         getTreeTableItem("Albert Einstein").click();
@@ -68,7 +68,7 @@ public class ContentAppUITest extends AbstractMagnoliaUITest {
     @Test
     public void tabNavigatesToNextField() {
         // GIVEN
-        getAppIcon("Sample content").click();
+        getAppIcon("Contacts").click();
         assertAppOpen("Contacts");
 
         getTreeTableItem("Albert Einstein").click();
@@ -90,7 +90,7 @@ public class ContentAppUITest extends AbstractMagnoliaUITest {
     @Test
     public void subAppsStayOpenAfterRefresh() {
         // GIVEN
-        getAppIcon("Sample content").click();
+        getAppIcon("Contacts").click();
         assertAppOpen("Contacts");
 
         getTreeTableItem("Marilyn Monroe").click();
