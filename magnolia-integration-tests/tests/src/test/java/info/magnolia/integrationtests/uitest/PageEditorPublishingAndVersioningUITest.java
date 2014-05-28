@@ -33,6 +33,7 @@
  */
 package info.magnolia.integrationtests.uitest;
 
+import static org.hamcrest.core.StringContains.containsString;
 import static org.junit.Assert.*;
 
 import org.apache.commons.lang.StringUtils;
@@ -110,7 +111,7 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
         addNewTemplate("New Funny Article", "Title of the new Funny Article", "Article");
         expandTreeAndSelectAnElement("New-Funny-Article", SUBSECTION_ARTICLES);
         // Check Status and actions
-        assertTrue(getSelectedIcon(COLOR_RED_ICON_STYLE).isDisplayed());
+        assertThat(getSelectedActivationStatusIcon().getAttribute("class"), containsString(COLOR_RED_ICON_STYLE));
         checkDisabledActions(SHOW_VERSIONS_ACTION, PUBLISH_INCLUDING_SUBPAGES_ACTION);
         // Edit the new page
         getActionBarItem(EDIT_PAGE_ACTION).click();
@@ -156,7 +157,7 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
         addNewTemplate("New Article To Delete", "Title of the new Article To Delete", "Article");
         expandTreeAndSelectAnElement("New-Article-To-Delete", SUBSECTION_ARTICLES);
         // Check Status and actions
-        assertTrue(getSelectedIcon(COLOR_RED_ICON_STYLE).isDisplayed());
+        assertThat(getSelectedActivationStatusIcon().getAttribute("class"), containsString(COLOR_RED_ICON_STYLE));
         checkDisabledActions(SHOW_VERSIONS_ACTION, PUBLISH_INCLUDING_SUBPAGES_ACTION);
 
         // Publish Page
@@ -199,10 +200,8 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
     public void deleteAndRestoreArticle() {
         getAppIcon(PAGES_APP).click();
         // Navigate to the content to change
-        final String[] pathToArticle = new String[] { DEMO_PROJECT_PAGE, ABOUT_PAGE };
-        expandTreeAndSelectAnElement(SUBSECTION_ARTICLES, pathToArticle);
-
-        expandTreeAndSelectAnElement("large-article", SUBSECTION_ARTICLES);
+        expandTreeAndSelectAnElement("arts", new String[] { DEMO_PROJECT_PAGE, "service", "glossary", "a" });
+        assertThat(getSelectedActivationStatusIcon().getAttribute("class"), containsString(COLOR_GREEN_ICON_STYLE));
 
         getActionBarItem(DELETE_PAGE_ACTION).click();
         delay(2, "Wait for the confirmation message");
@@ -219,7 +218,7 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
 
         getTabForCaption(PAGES_APP).click();
         assertFalse("Article should have been restored - no trash icon should be displayed any longer", isExisting(getSelectedIcon(TRASH_ICON_STYLE)));
-        assertTrue(getSelectedIcon(COLOR_YELLOW_ICON_STYLE).isDisplayed());
+        assertThat(getSelectedActivationStatusIcon().getAttribute("class"), containsString(COLOR_YELLOW_ICON_STYLE));
     }
 
     @Test
@@ -235,7 +234,7 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
         delay(10, "unpublishing takes some time");
 
         // THEN
-        assertTrue(getSelectedIcon(COLOR_RED_ICON_STYLE).isDisplayed());
+        assertThat(getSelectedActivationStatusIcon().getAttribute("class"), containsString(COLOR_RED_ICON_STYLE));
     }
 
     @Test
@@ -248,7 +247,7 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
         expandTreeAndSelectAnElement(SUBSECTION_ARTICLES, pathToArticle);
         addNewTemplate(pageNameAndTitle, pageNameAndTitle, template);
         expandTreeAndSelectAnElement(pageNameAndTitle, SUBSECTION_ARTICLES);
-        assertTrue(getSelectedIcon(COLOR_RED_ICON_STYLE).isDisplayed());
+        assertThat(getSelectedActivationStatusIcon().getAttribute("class"), containsString(COLOR_RED_ICON_STYLE));
 
         // now publish & render on author
         publishAndCheckAuthor();
@@ -272,14 +271,14 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
         refreshTreeView();
 
         // Check status
-        assertTrue(getSelectedIcon(COLOR_GREEN_ICON_STYLE).isDisplayed());
+        assertThat(getSelectedActivationStatusIcon().getAttribute("class"), containsString(COLOR_GREEN_ICON_STYLE));
     }
 
 
     /**
      * From the page editor sub app, select and Area, and from the add component dialog, select a component.<br>
      * The dialog of the desired component is open and available to use.
-     * 
+     *
      * @param areaName for example: 'Content' or 'Extras'
      * @param componentName for example : 'Text and Image' or 'Contact'
      */
@@ -305,7 +304,7 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
      * - Modify the Text Image component<br>
      * - Check available and non available actions<br>
      * - Check the status.
-     * 
+     *
      * @param newSubheadingValue New value of the Subheading field.
      * @param newImageCaptionValue New value of the image caption.
      */
@@ -325,7 +324,7 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
             checkDisabledActions(SHOW_VERSIONS_ACTION, PUBLISH_INCLUDING_SUBPAGES_ACTION);
         }
         // Check the status
-        assertTrue(getSelectedIcon(COLOR_YELLOW_ICON_STYLE).isDisplayed());
+        assertThat(getSelectedActivationStatusIcon().getAttribute("class"), containsString(COLOR_YELLOW_ICON_STYLE));
     }
 
     /**
@@ -401,7 +400,7 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
         refreshTreeView();
 
         // Check status
-        assertTrue(getSelectedIcon(COLOR_GREEN_ICON_STYLE).isDisplayed());
+        assertThat(getSelectedActivationStatusIcon().getAttribute("class"), containsString(COLOR_GREEN_ICON_STYLE));
         // Check available actions
         checkEnabledActions(SHOW_VERSIONS_ACTION);
     }
