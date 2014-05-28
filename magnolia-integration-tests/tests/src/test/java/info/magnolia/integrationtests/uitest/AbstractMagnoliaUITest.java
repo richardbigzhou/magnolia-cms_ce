@@ -708,6 +708,10 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         return getElementByXpath("//tr[contains(@class, 'v-selected')]//*[contains(@class, '%s')]", iconStyle);
     }
 
+    protected WebElement getSelectedActivationStatusIcon() {
+        return getElementByXpath("//tr[contains(@class, 'v-selected')]//*[contains(@class, 'activation-status')]");
+    }
+
     /**
      * Open the Dialog Show Room of the sample demo site.
      *
