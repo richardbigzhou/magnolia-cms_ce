@@ -182,7 +182,7 @@
               <installDir>${basedir}/tmp/cargo-install</installDir>
             </zipUrlInstaller>
             <systemProperties>
-              <java.io.tmpdir>${project.build.directory}/java-io-tmpdir</java.io.tmpdir>
+              <java.io.tmpdir>${project.build.directory}</java.io.tmpdir>
               <!-- The surefire variables are not exposed to container, we need these props: -->
               <containerHttpPort>${containerHttpPort}</containerHttpPort>
               <containerRootURL>http://localhost:${containerHttpPort}/</containerRootURL>
@@ -304,7 +304,7 @@
             </goals>
             <configuration>
               <properties>
-                <logspath>${project.build.directory}/java-io-tmpdir/</logspath>
+                <logspath>${project.build.directory}</logspath>
               </properties>
               <source>${project.basedir}/src/main/groovy/parselogs.groovy</source>
             </configuration>
@@ -403,20 +403,20 @@
       <!--</build>-->
     <!--</profile>-->
     <profile>
-      <id>tomcat60</id>
+      <id>jetty8-standalone</id>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
       <properties>
-        <containerId>tomcat6x</containerId>
+        <containerId>jetty8x</containerId>
         <containerType>installed</containerType>
         <configType>standalone</configType>
-        <url>http://archive.apache.org/dist/tomcat/tomcat-6/v6.0.32/bin/apache-tomcat-6.0.32.tar.gz</url>
+        <url>http://download.eclipse.org/jetty/stable-8/dist/jetty-distribution-8.1.15.v20140411.zip</url>
       </properties>
     </profile>
     <profile>
       <!-- memory issues with jsp - cargo.jvmargs not supported -->
       <id>jetty6-standalone</id>
-      <activation>
-        <activeByDefault>true</activeByDefault>
-      </activation>
       <properties>
         <containerId>jetty6x</containerId>
         <containerType>installed</containerType>
@@ -431,6 +431,15 @@
         <containerId>jetty6x</containerId>
         <containerType>embedded</containerType>
         <configType>???</configType>
+      </properties>
+    </profile>
+    <profile>
+      <id>tomcat60</id>
+      <properties>
+        <containerId>tomcat6x</containerId>
+        <containerType>installed</containerType>
+        <configType>standalone</configType>
+        <url>http://archive.apache.org/dist/tomcat/tomcat-6/v6.0.32/bin/apache-tomcat-6.0.32.tar.gz</url>
       </properties>
     </profile>
     <profile>
