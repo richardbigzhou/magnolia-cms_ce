@@ -42,12 +42,12 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 /**
- * UI Tests for Marketing Tags App.
+ * UI Tests for Tags Manager App.
  */
-public class MarketingTagsAppUITest extends AbstractMagnoliaUITest {
+public class TagsManagerAppUITest extends AbstractMagnoliaUITest {
 
     @Test
-    public void testMarketingTagsAppOpenAndActionBarItemStatus() {
+    public void testTagsManagerAppOpenAndActionBarItemStatus() {
         // GIVEN
 
         // WHEN
@@ -147,9 +147,9 @@ public class MarketingTagsAppUITest extends AbstractMagnoliaUITest {
         assertFalse(body.getText().startsWith("magnolia marketing tags manager test"));
 
         // Delete imported tag node
-        // navigate directly to tree view of marketing-tags browser subApp
+        // navigate directly to tree view of tags-manager browser subApp
         switchToDefaultContent();
-        navigateDriverTo(Instance.AUTHOR.getURL() + ".magnolia/admincentral#app:marketing-tags:browser;/:treeview:");
+        navigateDriverTo(Instance.AUTHOR.getURL() + ".magnolia/admincentral#app:tags-manager:browser;/:treeview:");
         delay(1, "Wait for tree view loading");
         refreshTreeView();
         delay(1, "Wait for node to be selected.");
@@ -213,7 +213,7 @@ public class MarketingTagsAppUITest extends AbstractMagnoliaUITest {
 
         // Delete tag node
         switchToDefaultContent();
-        navigateDriverTo(Instance.AUTHOR.getURL() + ".magnolia/admincentral#app:marketing-tags:browser;/:treeview:");
+        navigateDriverTo(Instance.AUTHOR.getURL() + ".magnolia/admincentral#app:tags-manager:browser;/:treeview:");
         delay(1, "Wait for tree view loading");
         refreshTreeView();
         delay(1, "Wait for node to be selected.");
