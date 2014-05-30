@@ -26,7 +26,7 @@
     <magnoliaWidgetsetVersion>5.3-m3</magnoliaWidgetsetVersion>
     <javaVersion>1.6</javaVersion>
     <documentationURL>http://documentation.magnolia-cms.com/releases/${project.version}.html</documentationURL>
-    <stkVersion>2.8-m1</stkVersion>
+    <stkVersion>2.8-m2</stkVersion>
     <restVersion>1.0.3</restVersion>
     <damVersion>2.0-m3</damVersion>
     <scmTagPrefix>magnolia-bundle</scmTagPrefix>
@@ -270,9 +270,9 @@
         <version>${restVersion}</version>
       </dependency>
       <dependency>
-        <groupId>info.magnolia.tagsmanager</groupId>
-        <artifactId>tags-manager</artifactId>
-        <version>1.0-m3</version>
+        <groupId>info.magnolia.marketingtags</groupId>
+        <artifactId>marketing-tags</artifactId>
+        <version>1.0-m4</version>
       </dependency>
 
       <!-- Tests -->

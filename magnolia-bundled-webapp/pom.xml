@@ -83,8 +83,8 @@
       <artifactId>magnolia-rest-services</artifactId>
     </dependency>
     <dependency>
-      <groupId>info.magnolia.tagsmanager</groupId>
-      <artifactId>tags-manager</artifactId>
+      <groupId>info.magnolia.marketingtags</groupId>
+      <artifactId>marketing-tags</artifactId>
     </dependency>
   </dependencies>
 
