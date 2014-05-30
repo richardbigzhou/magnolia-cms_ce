@@ -42,12 +42,12 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 /**
- * UI Tests for Tags Manager App.
+ * UI Tests for Marketing Tags App.
  */
-public class TagsManagerAppUITest extends AbstractMagnoliaUITest {
+public class MarketingTagsAppUITest extends AbstractMagnoliaUITest {
 
     @Test
-    public void testTagsManagerAppOpenAndActionBarItemStatus() {
+    public void testMarketingTagsAppOpenAndActionBarItemStatus() {
         // GIVEN
 
         // WHEN
@@ -147,9 +147,9 @@ public class TagsManagerAppUITest extends AbstractMagnoliaUITest {
         assertFalse(body.getText().startsWith("magnolia marketing tags manager test"));
 
         // Delete imported tag node
-        // navigate directly to tree view of tags-manager browser subApp
+        // navigate directly to tree view of marketing-tags browser subApp
         switchToDefaultContent();
-        navigateDriverTo(Instance.AUTHOR.getURL() + ".magnolia/admincentral#app:tags-manager:browser;/:treeview:");
+        navigateDriverTo(Instance.AUTHOR.getURL() + ".magnolia/admincentral#app:marketing-tags:browser;/:treeview:");
         delay(1, "Wait for tree view loading");
         refreshTreeView();
         delay(1, "Wait for node to be selected.");
@@ -186,6 +186,10 @@ public class TagsManagerAppUITest extends AbstractMagnoliaUITest {
 
         // WHEN 2
         switchToDefaultContent();
+
+        navigateDriverTo(Instance.PUBLIC.getURL() + ".magnolia/admincentral#app:pages");
+        login(getTestUserName());
+        delay(5, "Can take some time, until subapps are open...");
         navigateDriverTo(Instance.PUBLIC.getURL("/demo-project/about.html"));
         delay("Wait for page to open.");
 
@@ -213,7 +217,7 @@ public class TagsManagerAppUITest extends AbstractMagnoliaUITest {
 
         // Delete tag node
         switchToDefaultContent();
-        navigateDriverTo(Instance.AUTHOR.getURL() + ".magnolia/admincentral#app:tags-manager:browser;/:treeview:");
+        navigateDriverTo(Instance.AUTHOR.getURL() + ".magnolia/admincentral#app:marketing-tags:browser;/:treeview:");
         delay(1, "Wait for tree view loading");
         refreshTreeView();
         delay(1, "Wait for node to be selected.");
