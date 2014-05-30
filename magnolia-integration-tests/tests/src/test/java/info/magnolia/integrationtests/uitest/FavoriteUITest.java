@@ -41,6 +41,7 @@ import java.util.List;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
 
 /**
@@ -86,11 +87,18 @@ public class FavoriteUITest extends AbstractMagnoliaUITest {
 
 
         // let's delete the group finally (which makes it easier for upcoming tests)
-        newGroupElement.click();
-        getElementByPath(By.xpath("//*[@class = 'icon-trash']")).click();
-        delay("Wait for Confirmation Dialog.");
-        getDialogConfirmButton().click();
-        delay("Remove is not always super fast...");
+        removeExistingItems();
+    }
+
+    private void removeExistingItems() {
+        getButton("dialog-header", "Edit favorites").click();
+        WebElement trashElement = getElementByPath(By.xpath("//*[@class = 'icon-trash']"));
+        if (trashElement != null) {
+            trashElement.click();
+            delay("Wait for Confirmation Dialog.");
+            getDialogConfirmButton().click();
+            delay("Remove is not always super fast...");
+        }
     }
 
     @Test
@@ -98,7 +106,6 @@ public class FavoriteUITest extends AbstractMagnoliaUITest {
         // GIVEN
         getAppIcon("Pages").click();
         delay("Make sure Pages app is open before we navigate to favorites");
-
         getShellAppIcon("icon-favorites").click();
         delay("Give some time to fill in values from previous location.");
 
@@ -110,7 +117,7 @@ public class FavoriteUITest extends AbstractMagnoliaUITest {
         assertEquals("Pages /", getElementByXpath("//input[contains(@class, 'v-textfield-readonly')]").getAttribute("value"));
 
         // WHEN
-        getElementByPath(By.xpath("//*[contains(@class, 'v-label-icon')]/*[@class = 'icon-webpages-app']")).click();
+        getButton("dialog-header", "Edit favorites").click();
         getElementByPath(By.xpath("//*[@class = 'icon-trash']")).click();
         delay("Wait for Confirmation Dialog.");
 
@@ -122,54 +129,55 @@ public class FavoriteUITest extends AbstractMagnoliaUITest {
     }
 
     @Test
-    public void ensureOnlyOneFavoriteIsSelected() {
+    public void testShowHideEditDeleteIcons() {
         // GIVEN
+        // create new entry (new fav in new group = 2 items)
         getAppIcon("Pages").click();
-        delay("Make sure Pages app is open before we navigate to favorites");
-
+        getTreeTableItem("ftl-sample-site").click();
+        delay("Give some time to open the page");
         getShellAppIcon("icon-favorites").click();
         delay("Give some time to fill in values from previous location.");
-
         getButton("dialog-header", "Add new").click();
+        delay("Give some time to open the favorites dialog.");
+        String newGroupName = String.valueOf((new Date()).getTime());
+        getElementByPath(By.xpath("//*[contains(@class, 'v-filterselect')]/*[@class = 'v-filterselect-input']")).sendKeys(newGroupName);
+        simulateKeyPress(Keys.TAB);
         getButton("v-button-commit", "Add").click();
+        delay("Wait again ...");
 
-        // back to app launcher
-        getShellAppIcon("icon-appslauncher").click();
-        delay("Give some time to transition to app launcher");
-
-        getAppIcon("Sample content").click();
-        delay("Make sure Contacts app is open before we navigate to favorites");
-
-        getShellAppIcon("icon-favorites").click();
-        delay("Give some time to fill in values from previous location.");
-
-        getButton("dialog-header", "Add new").click();
-        getButton("v-button-commit", "Add").click();
-        delay("Give some time to complete favorite creation.");
 
         // WHEN
-        List<WebElement> favs = getElementsByPath(By.cssSelector(".favorites-entry .icon"), 2);
-
+        // edit-state: => expecting to have 2x2 icons)
+        getButton("dialog-header", "Edit favorites").click();
+        delay("Wait again ...");
         // THEN
-        assertNotNull("We expect two favourites entries", favs);
-        assertEquals(2, favs.size());
-        for (WebElement element : favs) {
-            element.click();
+        List<WebElement> trashIconElementsList = getElementsByPath(By.xpath("//*[@class = 'icon-trash']"));
+        assertEquals(trashIconElementsList.size(), 2);
+        List<WebElement> editIconElementsList = getElementsByPath(By.xpath("//*[@class = 'icon-edit']"));
+        assertEquals(editIconElementsList.size(), 2);
+
+
+        // WHEN
+        // non-edit-state: => expecting no more icons  but expecting to run into TimeoutException when trying to fetch the elements by x-path
+        trashIconElementsList = null;
+        getButton("dialog-header", "Edit favorites").click();
+        delay("Wait again ...");
+        // THEN
+        Exception ex = null;
+        try {
+            trashIconElementsList = getElementsByPath(By.xpath("//*[@class = 'icon-trash']"));
         }
-        List<WebElement> selected = getElementsByPath(By.cssSelector(".favorites-entry.selected"), 1);
-        assertNotNull("We expect one selected favourite", selected);
-        assertEquals(1, selected.size());
-        // at the end, removing the the added stuff (which makes it easier for upcoming tests)
-        // 1st one is already selected
-        getElementByPath(By.xpath("//*[@class = 'icon-trash']")).click();
-        delay("Wait for Confirmation Dialog.");
-        getDialogConfirmButton().click();
-        delay("Remove is not always super fast...");
-        // 2nd one easy to fetch
-        getElementByPath(By.cssSelector(".favorites-entry .icon")).click();
-        getElementByPath(By.xpath("//*[@class = 'icon-trash']")).click();
-        delay("Wait for Confirmation Dialog.");
-        getDialogConfirmButton().click();
-        delay("Remove is not always super fast...");
+        // exceptionally catching the exception instead of throwing it and declaring expected exception in the annotation;
+        // => it allows to test more and mainly to properly clean-up at the end
+        catch (TimeoutException tex) {
+            ex = tex;
+        } finally {
+            assertNull(trashIconElementsList);
+            assertNotNull(ex);
+        }
+
+
+        // clean-up at the end ...
+        removeExistingItems();
     }
 }
