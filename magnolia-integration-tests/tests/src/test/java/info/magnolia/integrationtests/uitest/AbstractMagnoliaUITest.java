@@ -648,6 +648,10 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         return getElementByXpath("//*[contains(@class, 'v-shell-tabsheet')]//*[@class = 'tab-title']//*[text() = '%s']", tabCaption);
     }
 
+    protected WebElement getTabContainingCaption(String tabCaption) {
+        return getElementByXpath("//*[contains(@class, 'v-shell-tabsheet')]//*[@class = 'tab-title']//*[contains(text(),'%s')]", tabCaption);
+    }
+
     protected WebElement getDialogCommitButton() {
         return getDialogButton("v-button-commit");
     }
