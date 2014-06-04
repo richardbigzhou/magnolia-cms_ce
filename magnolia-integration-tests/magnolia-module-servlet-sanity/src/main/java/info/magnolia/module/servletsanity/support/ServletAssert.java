@@ -33,10 +33,7 @@
  */
 package info.magnolia.module.servletsanity.support;
 
-import info.magnolia.cms.util.ServletUtils;
-
 import java.io.IOException;
-
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
@@ -44,7 +41,9 @@ import javax.servlet.http.HttpServletRequestWrapper;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletResponseWrapper;
 
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang.StringUtils;
+
+import info.magnolia.cms.util.ServletUtils;
 
 /**
  * Provides various methods for testing and writing status information. Keeps output in a thread local where it can be

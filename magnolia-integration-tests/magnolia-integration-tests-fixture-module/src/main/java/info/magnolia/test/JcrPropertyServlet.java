@@ -45,7 +45,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -79,9 +79,10 @@ public class JcrPropertyServlet extends HttpServlet {
 
             response.getWriter().write(previousValue);
         } catch (RepositoryException e) {
-            log.warn("Could not read property [{}] from workspace [{}]", new Object[] { path, workspace });
+            log.warn("Could not read property [{}] from workspace [{}]", new Object[] {path, workspace});
             throw new ServletException("Could not read property [" + path + "]");
         }
     }
 
 }
+
