@@ -113,7 +113,7 @@ public class ContactsAppUITest extends AbstractMagnoliaUITest {
         // THEN
         // Assert subApp is open and all fields in editor are readonly
         // Tab name will contain a version number
-        assertTrue("We expect the editor subApp tab to be open", getTabContainingCaption(contactName).isDisplayed());
+        assertTrue("We expect the editor subApp tab to be open", getElementByPath(By.xpath("//*[contains(@class, 'tab-title') and contains(text(), '" + contactName + "')]")).isDisplayed());
         for (WebElement element : inputs) {
             assertEquals("We expect element [" + element.getTagName() + "] to be readonly", "true", element.getAttribute("readonly"));
         }
@@ -160,14 +160,14 @@ public class ContactsAppUITest extends AbstractMagnoliaUITest {
 
         // Assert subApp is open and all fields in editor are readonly
         // Tab name will contain a version number
-        assertTrue("We expect the editor subApp tab to be open", getTabContainingCaption(contactName).isDisplayed());
+        assertTrue("We expect the editor subApp tab to be open", getElementByPath(By.xpath("//*[contains(@class, 'tab-title') and contains(text(), '" + contactName + "')]")).isDisplayed());
         for (WebElement element : inputs) {
             assertEquals("We expect element [" + element.getTagName() + "] to be readonly", "true", element.getAttribute("readonly"));
         }
 
         // WHEN
         // Click back to browser
-        getTabForCaption("Contacts").click();
+        getElementByPath(By.xpath("//*[contains(@class, 'tab-title') and text() = 'Contacts']")).click();
 
         delay("Wait for the browserSubApp to open");
 
@@ -182,7 +182,7 @@ public class ContactsAppUITest extends AbstractMagnoliaUITest {
 
         // THEN
         // Assert fields are editable afterwards
-        assertTrue("We expect the editor subApp tab to be open", getTabContainingCaption(contactName).isDisplayed());
+        assertTrue("We expect the editor subApp tab to be open", getElementByPath(By.xpath("//*[contains(@class, 'tab-title') and text() = '" + contactName + "']")).isDisplayed());
         for (WebElement element : inputsEditable) {
             assertEquals("We expect element [" + element.getTagName() + "] with value [" + element.getAttribute("value") + "] to be editable", null, element.getAttribute("readonly"));
         }
