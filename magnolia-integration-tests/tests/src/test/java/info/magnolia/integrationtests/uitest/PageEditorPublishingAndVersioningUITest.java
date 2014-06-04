@@ -36,7 +36,7 @@ package info.magnolia.integrationtests.uitest;
 import static org.hamcrest.core.StringContains.containsString;
 import static org.junit.Assert.*;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 import org.openqa.selenium.By;
 
@@ -255,7 +255,7 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
         delay(3, "make sure page had been rendered before continuing...");
 
         // render an public as well
-        String url = StringUtils.join(new String[] {DEMO_PROJECT_PAGE, ABOUT_PAGE, SUBSECTION_ARTICLES} , "/") + "/" + pageNameAndTitle + ".html";
+        String url = StringUtils.join(new String[] { DEMO_PROJECT_PAGE, ABOUT_PAGE, SUBSECTION_ARTICLES }, "/") + "/" + pageNameAndTitle + ".html";
 
         navigateDriverTo(Instance.PUBLIC.getURL(url));
         delay(3, "Make sure we finish rendering on public.");
@@ -274,11 +274,10 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
         assertThat(getSelectedActivationStatusIcon().getAttribute("class"), containsString(COLOR_GREEN_ICON_STYLE));
     }
 
-
     /**
      * From the page editor sub app, select and Area, and from the add component dialog, select a component.<br>
      * The dialog of the desired component is open and available to use.
-     *
+     * 
      * @param areaName for example: 'Content' or 'Extras'
      * @param componentName for example : 'Text and Image' or 'Contact'
      */
@@ -304,7 +303,7 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
      * - Modify the Text Image component<br>
      * - Check available and non available actions<br>
      * - Check the status.
-     *
+     * 
      * @param newSubheadingValue New value of the Subheading field.
      * @param newImageCaptionValue New value of the image caption.
      */
