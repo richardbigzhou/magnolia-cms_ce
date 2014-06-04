@@ -576,6 +576,13 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         return getElementByXpath("//*[contains(@class, 'v-table-cell-wrapper') and text() = '%s']/parent::*/parent::*", itemCaption);
     }
 
+    protected WebElement getTreeTableCheckBox(String itemCaption) {
+        WebElement row = getTreeTableItem(itemCaption);
+        // findElement(By.xpath("//input[@type='checkbox']"));
+        // would have been more precise but turns out it doesn't work as its opacity=0 so Selenium considers it not visible
+        return row.findElement(By.tagName("input"));
+    }
+
     protected boolean isTreeTableItemSelected(String itemName) {
         return getTreeTableItemRow(itemName).getAttribute("class").contains("v-selected");
     }
@@ -773,6 +780,10 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
 
     protected WebElement getSelectedActivationStatusIcon() {
         return getElementByXpath("//tr[contains(@class, 'v-selected')]//*[contains(@class, 'activation-status')]");
+    }
+
+    protected WebElement getStatusBar() {
+        return getElementByXpath("//div[contains(@class, 'statusbar')]//*[contains(@class, 'v-label')]");
     }
 
     /**

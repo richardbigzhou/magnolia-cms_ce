@@ -160,4 +160,36 @@ public class ContentAppUITest extends AbstractMagnoliaUITest {
         final WebElement statusColumn = getColumnHeader("Status");
         assertFalse("There should be no status column as we're testing on a public instance with no subscribers.", isExisting(statusColumn));
     }
+
+    @Test
+    public void itemSelectionDisplaysOnStatusBar() {
+        // GIVEN
+        getAppIcon("Sample content").click();
+        assertAppOpen("Contacts");
+
+        // WHEN
+        String statusbarText = getStatusBar().getText();
+
+        // THEN
+        assertEquals("No item selected", statusbarText);
+
+        // GIVEN
+        getTreeTableItem("Albert Einstein").click();
+
+        // WHEN
+        statusbarText = getStatusBar().getText();
+
+        // THEN
+        assertEquals("/aeinstein", statusbarText);
+
+        // GIVEN
+        getTreeTableCheckBox("Pablo Picasso").click();
+
+        // WHEN
+        delay("It may need some time to update the status bar");
+        statusbarText = getStatusBar().getText();
+
+        // THEN
+        assertEquals("2 items selected", statusbarText);
+    }
 }
