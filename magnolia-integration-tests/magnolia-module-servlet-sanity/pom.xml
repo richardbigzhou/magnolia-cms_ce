@@ -3,7 +3,7 @@
   <parent>
     <groupId>info.magnolia.bundle.test</groupId>
     <artifactId>magnolia-integration-tests-parent</artifactId>
-    <version>5.3-beta5</version>
+    <version>5.3-SNAPSHOT</version>
   </parent>
   <groupId>info.magnolia.bundle.test</groupId>
   <artifactId>magnolia-module-servlet-sanity</artifactId>
