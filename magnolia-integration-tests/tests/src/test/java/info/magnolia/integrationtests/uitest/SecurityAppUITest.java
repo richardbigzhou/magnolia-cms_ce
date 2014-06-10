@@ -252,9 +252,13 @@ public class SecurityAppUITest extends AbstractMagnoliaUITest {
     public void testCreateFolderCopyAndMoveRole() {
         // GIVEN
         openSecuritySubApp("Roles");
+        addSecurityAppItem(ROLE, "role-move");
 
         // WHEN/THEN
-        doTestCreateFolderAndCopyAndMoveSecurityAppItem(ROLE, "test-folder-move", "editor", "new-test-role-move");
+        doTestCreateFolderAndCopyAndMoveSecurityAppItem(ROLE, "test-folder-move", "role-move", "new-test-role-move");
+
+        // Cleanup
+        deleteSecurityAppItem(ROLE, "role-move");
     }
 
     @Test
@@ -388,7 +392,6 @@ public class SecurityAppUITest extends AbstractMagnoliaUITest {
         delay("Wait a second");
 
         // THEN
-        getTreeTableItemExpander(folderName).click();
         assertTrue(getTreeTableItem(newItemName).isDisplayed());
 
         // Delete user and folder
