@@ -22,13 +22,13 @@
   <properties>
     <magnoliaEdition>Community Edition</magnoliaEdition>
     <magnoliaVersion>5.3-m10</magnoliaVersion>
-    <magnoliaUiVersion>5.3-m14</magnoliaUiVersion>
+    <magnoliaUiVersion>5.3-m15</magnoliaUiVersion>
     <magnoliaWidgetsetVersion>5.3-m4</magnoliaWidgetsetVersion>
     <javaVersion>1.6</javaVersion>
     <documentationURL>http://documentation.magnolia-cms.com/releases/${project.version}.html</documentationURL>
     <stkVersion>2.8-m3</stkVersion>
     <restVersion>1.0.3</restVersion>
-    <damVersion>2.0-m6</damVersion>
+    <damVersion>2.0-m7</damVersion>
     <scmTagPrefix>magnolia-bundle</scmTagPrefix>
     <!-- Disable clover during releases: -->
     <additionalReleaseProfiles />
