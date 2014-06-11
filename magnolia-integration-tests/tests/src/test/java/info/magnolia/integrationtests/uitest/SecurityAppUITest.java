@@ -392,7 +392,6 @@ public class SecurityAppUITest extends AbstractMagnoliaUITest {
         delay("Wait a second");
 
         // THEN
-        getTreeTableItemExpander(folderName).click();
         assertTrue(getTreeTableItem(newItemName).isDisplayed());
 
         // Delete user and folder
@@ -519,7 +518,7 @@ public class SecurityAppUITest extends AbstractMagnoliaUITest {
 
     /**
      * Renames existing user.
-     * 
+     *
      * @param itemTypeCaption
      * @param itemName
      * @param newItemName
