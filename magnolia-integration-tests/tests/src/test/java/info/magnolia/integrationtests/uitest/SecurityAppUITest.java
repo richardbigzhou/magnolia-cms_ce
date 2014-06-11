@@ -392,7 +392,6 @@ public class SecurityAppUITest extends AbstractMagnoliaUITest {
         delay("Wait a second");
 
         // THEN
-        getTreeTableItemExpander(folderName).click();
         assertTrue(getTreeTableItem(newItemName).isDisplayed());
 
         // Delete user and folder
