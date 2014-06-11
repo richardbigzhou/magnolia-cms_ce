@@ -145,7 +145,6 @@ public class FavoriteUITest extends AbstractMagnoliaUITest {
         getButton("v-button-commit", "Add").click();
         delay("Wait again ...");
 
-
         // WHEN
         // edit-state: => expecting to have 2x2 icons)
         getButton("dialog-header", "Edit favorites").click();

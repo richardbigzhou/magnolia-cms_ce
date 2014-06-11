@@ -246,7 +246,7 @@
       <dependency>
         <groupId>info.magnolia.contacts</groupId>
         <artifactId>magnolia-contacts</artifactId>
-        <version>1.3-m2</version>
+        <version>1.3-m1</version> <!-- Dont use m2, we decided to undo the app name change -->
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>

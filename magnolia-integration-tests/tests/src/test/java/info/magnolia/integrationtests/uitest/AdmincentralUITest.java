@@ -109,7 +109,7 @@ public class AdmincentralUITest extends AbstractMagnoliaUITest {
         getAppIcon("Pages").click();
         getElementByXpath("//*[contains(@class, '%s') and text() = '%s']", "v-actionbar-section-title", "Page"); // wait for app to actually be started
         getShellIconAppsLauncher().click();
-        getAppIcon("Sample content").click();
+        getAppIcon("Contacts").click();
         getElementByXpath("//*[contains(@class, '%s') and text() = '%s']", "v-actionbar-section-title", "Contacts"); // wait for app to actually be started
 
         // WHEN

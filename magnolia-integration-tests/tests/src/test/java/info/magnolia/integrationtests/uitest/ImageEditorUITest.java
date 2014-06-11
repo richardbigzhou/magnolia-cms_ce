@@ -45,7 +45,7 @@ public class ImageEditorUITest extends AbstractMagnoliaUITest {
     @Test
     public void canExecuteTwoImagingOperationsInARow() {
         // GIVEN
-        getAppIcon("Sample content").click();
+        getAppIcon("Contacts").click();
         assertAppOpen("Contacts");
 
         getTreeTableItem("Marilyn Monroe").click();
