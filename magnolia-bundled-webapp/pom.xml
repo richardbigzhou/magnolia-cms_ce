@@ -84,7 +84,7 @@
     </dependency>
     <dependency>
       <groupId>info.magnolia.marketingtags</groupId>
-      <artifactId>marketing-tags</artifactId>
+      <artifactId>magnolia-marketing-tags</artifactId>
     </dependency>
   </dependencies>
 

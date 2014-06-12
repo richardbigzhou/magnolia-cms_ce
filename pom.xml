@@ -271,8 +271,8 @@
       </dependency>
       <dependency>
         <groupId>info.magnolia.marketingtags</groupId>
-        <artifactId>marketing-tags</artifactId>
-        <version>1.0-m5</version>
+        <artifactId>magnolia-marketing-tags</artifactId>
+        <version>1.0-m6</version>
       </dependency>
 
       <!-- Tests -->
