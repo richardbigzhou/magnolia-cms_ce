@@ -41,9 +41,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * UI Test for complex Multi field.
+ * UI tests for complex multi-value fields.
  */
-public class MultiFieldUITest extends AbstractComplexeFieldUITest {
+public class MultiFieldUITest extends AbstractMagnoliaUITest {
 
     @Override
     @Before

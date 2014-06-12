@@ -39,9 +39,9 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 /**
- * UI TEst for MultiField, CompositeField and SwitchableField.
+ * UI tests for MultiField, CompositeField and SwitchableField.
  */
-public class ComplexeFieldUITest extends AbstractComplexeFieldUITest {
+public class ComplexFieldUITest extends AbstractMagnoliaUITest {
 
     @Test
     public void testMultiFieldWithDefaultPropertyBuilderAddRemove() {

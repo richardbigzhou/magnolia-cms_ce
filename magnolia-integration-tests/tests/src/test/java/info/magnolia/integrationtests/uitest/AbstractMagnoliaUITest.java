@@ -1005,4 +1005,79 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         getElementByXpath("//*[@class = 'dialog-footer-toolbar']//input[contains(@class, 'v-filterselect-input v-filterselect-input-readonly')]").click();
         getElementByXpath("//div[contains(@class, 'popupContent')]//div/table/tbody/tr/td/span[text() = '%s']/..", language).click();
     }
+
+    // / COMPLEX FIELD UTILS /////////
+
+    protected void addCompositeTextFieldValue(String fieldLabel, String value) {
+        WebElement input = getCompositeTextFieldValue(fieldLabel);
+        input.clear();
+        input.sendKeys(value);
+    }
+
+    protected WebElement getCompositeTextFieldValue(String fieldLabel) {
+        return getElementByXpath("(//div[@class = 'v-caption' and .//span[text() = '%s']])//following-sibling::input", fieldLabel);
+    }
+
+    protected void addSubInnerFieldElementAt(String fieldLabel, int mainFieldPosition, int subFieldPosition) {
+        WebElement add = getElementByXpath("((//div[@class = 'v-caption v-caption-linkfield' and .//span[text() = '%s']])[%s]/following-sibling::div//*[contains(@class, 'v-slot')]//*[text() = 'Add'])[%s]", fieldLabel, mainFieldPosition, subFieldPosition);
+        add.click();
+        delay(1, "Needed to create the field element");
+    }
+
+    protected void addInnerFieldElementAt(String fieldLabel, int mainFieldPosition, int subFieldPosition) {
+        addSubInnerFieldElementAt(fieldLabel, mainFieldPosition, subFieldPosition);
+        addSubInnerFieldElementAt(fieldLabel, mainFieldPosition, subFieldPosition);
+    }
+
+    protected void setMultiFieldInnerTextValueAt(String fieldLabel, int mainFieldPosition, int subFieldPosition, String value) {
+        WebElement input = getMultiFieldInnerText(fieldLabel, mainFieldPosition, subFieldPosition);
+        input.clear();
+        input.sendKeys(value);
+    }
+
+    protected WebElement getMultiFieldInnerText(String fieldLabel, int mainFieldPosition, int subFieldPosition) {
+        return getElementByXpath("((//div[@class = 'v-caption v-caption-linkfield' and .//span[text() = '%s']])[%s]/following-sibling::div//*[contains(@class, 'v-slot')]/input[@type = 'text'])[%s]", fieldLabel, mainFieldPosition, subFieldPosition);
+    }
+
+    protected void setMultiFieldComponentTextValueAt(String fieldLabel, int mainFieldPosition, String value) {
+        WebElement input = getMultiFieldComponentTextElement(fieldLabel, mainFieldPosition);
+        input.clear();
+        input.sendKeys(value);
+    }
+
+    protected WebElement getMultiFieldComponentTextElement(String fieldLabel, int mainFieldPosition) {
+        return getElementByXpath("(//div[@class = 'v-caption' and .//span[text() = '%s']])[%s]/following-sibling::input[@type = 'text']", fieldLabel, mainFieldPosition);
+    }
+
+    protected void setMultiFieldElementValueAt(String multiFieldLabel, int position, String value) {
+        WebElement input = getFromMultiFieldElementValueAt(multiFieldLabel, position);
+        input.clear();
+        input.sendKeys(value);
+    }
+
+    protected WebElement getMultiFieldAddButton(String multiFieldLabel, String buttonLabel) {
+        return getElementByXpath("(//*[@class = 'v-form-field-label' and contains(text() , '%s')]/following-sibling::div//*[contains(@class, '%s')]//*[text() = '%s'])[last()]", multiFieldLabel, "v-nativebutton-magnoliabutton", buttonLabel);
+    }
+
+    protected WebElement getMultiFieldElementDeleteButtonAt(String multiFieldLabel, int position) {
+        return getElementByXpath("(//*[@class = 'v-form-field-label' and contains(text() , '%s')]/following-sibling::div//*[contains(@class, '%s')])[%s]", multiFieldLabel, "v-button-inline", position);
+    }
+
+    protected WebElement getFromMultiFieldElementValueAt(String multiFieldLabel, int position) {
+        return getElementByXpath("(//*[@class = 'v-form-field-label' and text() = '%s']/following-sibling::div//input[@type = 'text'])[%s]", multiFieldLabel, position);
+    }
+
+    protected WebElement getFromMultiFieldComplexeElementValueAt(String multiFieldLabel, int multiFieldposition, int compositeFieldposition) {
+        WebElement multifield = getElementByXpath("(//*[@class = 'v-form-field-label' and text() = '%s']/following-sibling::div//*[@class = 'v-slot v-slot-linkfield'])[%s]", multiFieldLabel, multiFieldposition);
+        String xpath = String.format("(//input[@type = 'text'])[%s]", compositeFieldposition);
+        WebElement fieldElement = multifield.findElement(By.xpath(xpath));
+        return fieldElement;
+    }
+
+    protected void setMultiFieldComplexeElementValueAt(String multiFieldLabel, int multiFieldposition, int compositeFieldposition, String value) {
+        WebElement input = getFromMultiFieldComplexeElementValueAt(multiFieldLabel, multiFieldposition, compositeFieldposition);
+        input.clear();
+        input.sendKeys(value);
+    }
+
 }

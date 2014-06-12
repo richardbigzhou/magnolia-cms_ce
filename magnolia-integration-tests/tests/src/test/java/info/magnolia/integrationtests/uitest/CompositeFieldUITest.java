@@ -40,9 +40,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * UI Test for complex Composite field.
+ * UI tests for complex Composite field.
  */
-public class CompositeFieldUITest extends AbstractComplexeFieldUITest {
+public class CompositeFieldUITest extends AbstractMagnoliaUITest {
 
     @Override
     @Before
