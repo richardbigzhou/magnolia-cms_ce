@@ -147,7 +147,7 @@
       <dependency>
         <groupId>info.magnolia.activation</groupId>
         <artifactId>magnolia-module-activation</artifactId>
-        <version>5.2.5-m1</version>
+        <version>5.2.5-m2</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia.cache</groupId>
@@ -205,7 +205,7 @@
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-rssaggregator</artifactId>
-        <version>2.3-m5</version>
+        <version>2.3-m6</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia.devdect</groupId>
