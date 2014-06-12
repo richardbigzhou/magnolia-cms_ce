@@ -652,11 +652,11 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
     }
 
     protected WebElement getTabForCaption(String tabCaption) {
-        return getElementByXpath("//*[contains(@class, 'v-shell-tabsheet')]//*[@class = 'tab-title']//*[text() = '%s']", tabCaption);
+        return getElementByXpath("//*[contains(@class, 'v-shell-tabsheet')]//*[@class = 'tab-title' and text() = '%s']", tabCaption);
     }
 
     protected WebElement getTabContainingCaption(String tabCaption) {
-        return getElementByXpath("//*[contains(@class, 'v-shell-tabsheet')]//*[@class = 'tab-title']//*[contains(text(),'%s')]", tabCaption);
+        return getElementByXpath("//*[contains(@class, 'v-shell-tabsheet')]//*[@class = 'tab-title' and contains(text(),'%s')]", tabCaption);
     }
 
     protected WebElement getDialogCommitButton() {
@@ -680,7 +680,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
     }
 
     protected void assertAppOpen(String appName) {
-        String path = String.format("//*[contains(@class, 'v-viewport-apps')]//*[@class = 'tab-title']//*[text() = '%s']", appName);
+        String path = String.format("//*[contains(@class, 'v-viewport-apps')]//*[@class = 'tab-title' and text() = '%s']", appName);
         assertTrue(driver.findElement(By.xpath(path)).isDisplayed());
     }
 
