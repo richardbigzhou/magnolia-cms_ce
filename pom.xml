@@ -22,7 +22,7 @@
   <properties>
     <magnoliaEdition>Community Edition</magnoliaEdition>
     <magnoliaVersion>5.3-m10</magnoliaVersion>
-    <magnoliaUiVersion>5.3-m16</magnoliaUiVersion>
+    <magnoliaUiVersion>5.3-m17</magnoliaUiVersion>
     <magnoliaWidgetsetVersion>5.3-m5</magnoliaWidgetsetVersion>
     <javaVersion>1.6</javaVersion>
     <documentationURL>http://documentation.magnolia-cms.com/releases/${project.version}.html</documentationURL>
