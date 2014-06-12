@@ -82,10 +82,6 @@
       <groupId>info.magnolia.rest</groupId>
       <artifactId>magnolia-rest-services</artifactId>
     </dependency>
-    <dependency>
-      <groupId>info.magnolia.marketingtags</groupId>
-      <artifactId>magnolia-marketing-tags</artifactId>
-    </dependency>
   </dependencies>
 
   <build>

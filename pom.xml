@@ -26,7 +26,7 @@
     <magnoliaWidgetsetVersion>5.3-m6</magnoliaWidgetsetVersion>
     <javaVersion>1.6</javaVersion>
     <documentationURL>http://documentation.magnolia-cms.com/releases/${project.version}.html</documentationURL>
-    <stkVersion>2.8-m4</stkVersion>
+    <stkVersion>2.8-SNAPSHOT</stkVersion>
     <restVersion>1.0.3</restVersion>
     <damVersion>2.0-m8</damVersion>
     <scmTagPrefix>magnolia-bundle</scmTagPrefix>
@@ -268,11 +268,6 @@
         <groupId>info.magnolia.rest</groupId>
         <artifactId>magnolia-rest-tools</artifactId>
         <version>${restVersion}</version>
-      </dependency>
-      <dependency>
-        <groupId>info.magnolia.marketingtags</groupId>
-        <artifactId>magnolia-marketing-tags</artifactId>
-        <version>1.0-m6</version>
       </dependency>
 
       <!-- Tests -->
