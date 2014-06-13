@@ -43,6 +43,9 @@ import info.magnolia.testframework.htmlunit.AbstractMagnoliaHtmlUnitTest;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -822,6 +825,28 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
             }
         }
         getTreeTableItem(element).click();
+    }
+
+    /**
+     * @param path the path as String (e.g. "/demo-project/services/glossary/a/arts")
+     */
+    protected void expandTreeAndSelectAnElement(String path) {
+        List<String> nodes = Arrays.asList(path.split("/"));
+        List<String> nodesToExpand = new ArrayList<String>();
+        String nodeToSelect = null;
+        Iterator<String> it = nodes.iterator();
+        while (it.hasNext()) {
+            String node = it.next();
+            if (StringUtils.isBlank(node)) {
+                continue;
+            }
+            if (it.hasNext()) {
+                nodesToExpand.add(node);
+            } else {
+                nodeToSelect = node;
+            }
+        }
+        expandTreeAndSelectAnElement(nodeToSelect, nodesToExpand.toArray(new String[0]));
     }
 
     protected void checkEnabledActions(String... actions) {
