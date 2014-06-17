@@ -22,13 +22,13 @@
   <properties>
     <magnoliaEdition>Community Edition</magnoliaEdition>
     <magnoliaVersion>5.3-rc1</magnoliaVersion>
-    <magnoliaUiVersion>5.3-m19</magnoliaUiVersion>
-    <magnoliaWidgetsetVersion>5.3-m6</magnoliaWidgetsetVersion>
+    <magnoliaUiVersion>5.3-rc1</magnoliaUiVersion>
+    <magnoliaWidgetsetVersion>5.3-rc1</magnoliaWidgetsetVersion>
     <javaVersion>1.6</javaVersion>
     <documentationURL>http://documentation.magnolia-cms.com/releases/${project.version}.html</documentationURL>
-    <stkVersion>2.8-m6</stkVersion>
+    <stkVersion>2.8-rc1</stkVersion>
     <restVersion>1.0.3</restVersion>
-    <damVersion>2.0-m8</damVersion>
+    <damVersion>2.0-rc1</damVersion>
     <scmTagPrefix>magnolia-bundle</scmTagPrefix>
     <!-- Disable clover during releases: -->
     <additionalReleaseProfiles />
@@ -137,22 +137,22 @@
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-categorization</artifactId>
-        <version>2.3-m2</version>
+        <version>2.3-rc1</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-groovy</artifactId>
-        <version>2.3-m1</version>
+        <version>2.3-rc1</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia.activation</groupId>
         <artifactId>magnolia-module-activation</artifactId>
-        <version>5.2.5-m2</version>
+        <version>5.2.5-rc1</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia.cache</groupId>
         <artifactId>magnolia-module-cache</artifactId>
-        <version>5.2.4-m1</version>
+        <version>5.2.4-rc1</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
@@ -195,17 +195,17 @@
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-data</artifactId>
-        <version>2.3-m2</version>
+        <version>2.3-rc1</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-scheduler</artifactId>
-        <version>2.1.2-m1</version>
+        <version>2.1.2-c1</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-rssaggregator</artifactId>
-        <version>2.3-m7</version>
+        <version>2.3-rc1</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia.devdect</groupId>
@@ -215,17 +215,17 @@
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-imaging</artifactId>
-        <version>3.1-m2</version>
+        <version>3.1-rc1</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-resources</artifactId>
-        <version>2.3-m1</version>
+        <version>2.3-rc1</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-inplace-templating</artifactId>
-        <version>2.3-m1</version>
+        <version>2.3-rc1</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
@@ -235,23 +235,23 @@
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-forum</artifactId>
-        <version>3.4-m2</version>
+        <version>3.4-rc1</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-public-user-registration</artifactId>
-        <version>2.3-m1</version>
+        <version>2.3-rc1</version>
       </dependency>
 
       <dependency>
         <groupId>info.magnolia.contacts</groupId>
         <artifactId>magnolia-contacts</artifactId>
-        <version>1.3-m1</version> <!-- Dont use m2, we decided to undo the app name change -->
+        <version>1.3-rc1</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-google-sitemap</artifactId>
-        <version>2.1-m3</version>
+        <version>2.1-rc1</version>
       </dependency>
 
       <dependency>
