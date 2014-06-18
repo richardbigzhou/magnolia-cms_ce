@@ -21,7 +21,7 @@
 
   <properties>
     <magnoliaEdition>Community Edition</magnoliaEdition>
-    <magnoliaVersion>5.3-rc1</magnoliaVersion>
+    <magnoliaVersion>5.3-rc2</magnoliaVersion>
     <magnoliaUiVersion>5.3-rc2</magnoliaUiVersion>
     <magnoliaWidgetsetVersion>5.3-rc1</magnoliaWidgetsetVersion>
     <javaVersion>1.6</javaVersion>
