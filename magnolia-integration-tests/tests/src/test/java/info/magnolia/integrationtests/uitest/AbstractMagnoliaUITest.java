@@ -719,6 +719,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
      */
     protected void goToDialogShowRoomAndOpenDialogComponent(String templateImpl) {
         getAppIcon("Pages").click();
+        assertAppOpen("Pages");
         getTreeTableItemExpander(templateImpl + "-sample-site").click();
         getTreeTableItem(templateImpl + "-dialog-showroom").click();
         getActionBarItem("Edit page").click();
@@ -898,6 +899,17 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
                 final Object result = expectedCondition.apply(input);
                 log.info(" -- {} returned {}", expectedCondition, result);
                 return result;
+            }
+        };
+    }
+
+    protected ExpectedCondition<WebElement> applauncherTransitionIsComplete() {
+        final WebElement shellappsViewport = getElementByPath(By.className("v-viewport-shellapps"));
+        return new ExpectedCondition<WebElement>() {
+
+            @Override
+            public WebElement apply(WebDriver driver) {
+                return "0px".equals(shellappsViewport.getCssValue("top")) ? shellappsViewport : null;
             }
         };
     }
