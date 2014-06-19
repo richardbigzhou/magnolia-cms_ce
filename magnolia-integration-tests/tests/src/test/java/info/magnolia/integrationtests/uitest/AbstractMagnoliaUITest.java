@@ -256,7 +256,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
 
     /**
      * Returns the absolute path of the temporary download directory, that is currently pointing to <code>target/surefire-reports/downloads/</code>.
-     * 
+     *
      * @see #DOWNLOAD_DIR
      */
     protected String getDownloadDir() {
@@ -342,7 +342,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
      * <p>
      * Checks for 404 headline on page, as Selenium doesn't (and won't) offer a possibility to check the status code
      * </p>
-     * 
+     *
      * @see <a href="http://code.google.com/p/selenium/issues/detail?id=141"> WebDriver lacks HTTP response header and status code methods</a>
      */
     private void workaroundJsessionIdInUrl() {
@@ -405,7 +405,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
 
     /**
      * Tries to retrieve requested element.
-     * 
+     *
      * @param path path to search the element at
      * @param driver driver to use
      * @return the searched specified element or a NonExistingWebElement in case it couldn't be found.
@@ -448,7 +448,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
 
     /**
      * Tries to retrieve requested element.
-     * 
+     *
      * @param path path to search the element at
      * @return the searched specified element or a NonExistingWebElement in case it couldn't be found.
      */
@@ -458,7 +458,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
 
     /**
      * Tries to retrieve requested elements.
-     * 
+     *
      * @param path path to search the element at
      * @return a list matching the searched specified element or <code>null</code> in case it couldn't be found.
      * Tries to retrieve the requested amount of elements matching the given path.
@@ -503,7 +503,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
 
     /**
      * Tries to retrieve multiple elements.
-     * 
+     *
      * @param path path to search the element at
      * @return a list matching the searched specified element or <code>null</code> in case it couldn't be found.
      * Will retry until there is at least one match or until the whole process times out.
@@ -758,11 +758,12 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
 
     /**
      * Open the Dialog Show Room of the sample demo site.
-     * 
+     *
      * @param templateImpl ftl or jsp. refer to the samples type.
      */
     protected void goToDialogShowRoomAndOpenDialogComponent(String templateImpl) {
         getAppIcon("Pages").click();
+        assertAppOpen("Pages");
         getTreeTableItemExpander(templateImpl + "-sample-site").click();
         getTreeTableItem(templateImpl + "-dialog-showroom").click();
         getActionBarItem("Edit page").click();
@@ -946,7 +947,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
 
     /**
      * Waits until the {@link ExpectedCondition} was met.
-     * 
+     *
      * @param timeout the timeout in seconds
      * @param expectedCondition the {@link ExpectedCondition} until the {@link WebDriver} should wait
      * @see org.openqa.selenium.support.ui.ExpectedConditions
@@ -969,10 +970,21 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         };
     }
 
+    protected ExpectedCondition<WebElement> applauncherTransitionIsComplete() {
+        final WebElement shellappsViewport = getElementByPath(By.className("v-viewport-shellapps"));
+        return new ExpectedCondition<WebElement>() {
+
+            @Override
+            public WebElement apply(WebDriver driver) {
+                return "0px".equals(shellappsViewport.getCssValue("top")) ? shellappsViewport : null;
+            }
+        };
+    }
+
     /**
      * Deletes a row from a TreeTable.
      * Row must not be unselected when method is called.
-     * 
+     *
      * @param deleteActionCaption The caption of the delete action.
      * @param rowName The caption of the row.
      */
@@ -1018,7 +1030,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
 
     /**
      * Refresh the status of the tree view as it might not be up-to-date (caused by: MGNLUI-2840).
-     * 
+     *
      * @see <a href="http://jira.magnolia-cms.com/browse/MGNLUI-2840">MGNLUI-2840</a>
      */
     protected void refreshTreeView() {

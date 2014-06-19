@@ -33,7 +33,9 @@
  */
 package info.magnolia.integrationtests.uitest;
 
-import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.*;
+
+import java.util.List;
 
 import org.junit.Test;
 import org.openqa.selenium.By;
@@ -67,30 +69,32 @@ public class ConfigAppUITest extends AbstractMagnoliaUITest {
         getAppIcon("Configuration").click();
         assertAppOpen("Configuration");
 
+        deleteUntitledFolderIfExisting();
+
         // Create folder and rename it
-        getActionBarItem("Add folder").click();
+        getEnabledActionBarItem("Add folder").click();
         getTreeTableItem("untitled").click();
-        getActionBarItem("Rename item").click();
+        getEnabledActionBarItem("Rename item").click();
         setFormTextFieldText("Name", folderName);
 
         getDialogCommitButton().click();
 
         // Create content node and rename it
-        getActionBarItem("Add content node").click();
+        getEnabledActionBarItem("Add content node").click();
         getTreeTableItem("untitled").click();
         delay(1, "Wait a second for actionbar to update");
 
-        getActionBarItem("Rename item").click();
+        getEnabledActionBarItem("Rename item").click();
         setFormTextFieldText("Name", nodeName);
 
         getDialogCommitButton().click();
 
         // Create property and set name & value
-        getActionBarItem("Add property").click();
+        getEnabledActionBarItem("Add property").click();
         getTreeTableItem("untitled").click();
         delay(1, "Wait a second for actionbar to update");
 
-        getActionBarItem("Edit property").click();
+        getEnabledActionBarItem("Edit property").click();
         setFormTextFieldText("Name", propertyName);
         setFormTextFieldText("Value", unEscapedHTML);
 
@@ -123,6 +127,20 @@ public class ConfigAppUITest extends AbstractMagnoliaUITest {
             delay("Wait for alert to appear");
 
             assertFalse("We expect to see no alert.", isAlertPresent());
+        }
+    }
+
+    private void deleteUntitledFolderIfExisting() {
+        WebElement untitledFolder = getTreeTableItem("untitled");
+        if (isExisting(untitledFolder)) {
+            untitledFolder.click();
+            getEnabledActionBarItem("Delete item").click();
+            getDialogConfirmButton().click();
+            delay("Delete might take some time");
+            refreshTreeView();
+
+            List<WebElement> rows = getElementsByPath(By.xpath(String.format("//*[contains(@class, 'v-table-cell-wrapper') and text() = '%s']", "untitled")), 0);
+            assertTrue(rows.isEmpty());
         }
     }
 

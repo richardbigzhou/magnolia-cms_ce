@@ -44,6 +44,12 @@ import org.openqa.selenium.WebElement;
  */
 public class OverlayUITest extends AbstractMagnoliaUITest {
 
+    @Override
+    public void setUp() {
+        super.setUp();
+        waitUntil(DRIVER_WAIT_IN_SECONDS, applauncherTransitionIsComplete());
+    }
+
     /**
      * Test that the confirmation overlay appears when you delete a contact.
      */

@@ -39,9 +39,7 @@ import java.util.Date;
 
 import org.junit.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedCondition;
 
 /**
  * Basic UI tests for admincentral.
@@ -108,14 +106,6 @@ public class AdmincentralUITest extends AbstractMagnoliaUITest {
     @Test
     public void appLauncherDisplayedWhenOneOfSeveralAppsIsClosed() {
         // GIVEN
-        final WebElement shellappsViewport = getElementByPath(By.className("v-viewport-shellapps"));
-        ExpectedCondition<WebElement> applauncherTransitionIsComplete = new ExpectedCondition<WebElement>() {
-
-            @Override
-            public WebElement apply(WebDriver driver) {
-                return "0px".equals(shellappsViewport.getCssValue("top")) ? shellappsViewport : null;
-            }
-        };
 
         getAppIcon("Pages").click();
         getElementByXpath("//*[contains(@class, '%s') and text() = '%s']", "v-actionbar-section-title", "Page"); // wait for app to actually be started
@@ -123,7 +113,7 @@ public class AdmincentralUITest extends AbstractMagnoliaUITest {
 
         getShellIconAppsLauncher().click();
 
-        waitUntil(DRIVER_WAIT_IN_SECONDS, applauncherTransitionIsComplete);
+        waitUntil(DRIVER_WAIT_IN_SECONDS, applauncherTransitionIsComplete());
 
         getAppIcon("Contacts").click();
         getElementByXpath("//*[contains(@class, '%s') and text() = '%s']", "v-actionbar-section-title", "Contacts"); // wait for app to actually be started
@@ -133,7 +123,7 @@ public class AdmincentralUITest extends AbstractMagnoliaUITest {
         closeApp();
 
         // THEN
-        waitUntil(DRIVER_WAIT_IN_SECONDS, applauncherTransitionIsComplete);
+        waitUntil(DRIVER_WAIT_IN_SECONDS, applauncherTransitionIsComplete());
         assertTrue("Apps Launcher should be displayed so e.g. Pages tile should be around", isExisting(getAppIcon("Pages")));
     }
 

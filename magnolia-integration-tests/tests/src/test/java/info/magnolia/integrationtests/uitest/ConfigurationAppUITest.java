@@ -33,6 +33,7 @@
  */
 package info.magnolia.integrationtests.uitest;
 
+import static org.hamcrest.core.StringContains.containsString;
 import static org.junit.Assert.*;
 
 import org.junit.Test;
@@ -48,26 +49,26 @@ public class ConfigurationAppUITest extends AbstractMagnoliaUITest {
         getAppIcon(CONFIGURATION_APP).click();
         assertAppOpen(CONFIGURATION_APP);
 
-        getActionBarItem("Add folder").click();
+        getEnabledActionBarItem("Add folder").click();
 
         getTreeTableItem("untitled").click();
 
-        getActionBarItem("Add content node").click();
-        getActionBarItem("Add property").click();
+        getEnabledActionBarItem("Add content node").click();
+        getEnabledActionBarItem("Add property").click();
 
         // publish
-        getActionBarItem("Publish incl. subnodes").click();
+        getEnabledActionBarItem("Publish incl. subnodes").click();
         delay("Publication may take some time");
         refreshTreeView();
-        assertTrue("Status column should show green icon.", getSelectedIcon(COLOR_GREEN_ICON_STYLE).isDisplayed());
+        assertThat(getSelectedActivationStatusIcon().getAttribute("class"), containsString(COLOR_GREEN_ICON_STYLE));
 
         // unpublish
-        getActionBarItem("Unpublish").click();
+        getEnabledActionBarItem("Unpublish").click();
         refreshTreeView();
-        assertTrue("Status column should show read icon.", getSelectedIcon(COLOR_RED_ICON_STYLE).isDisplayed());
+        assertThat(getSelectedActivationStatusIcon().getAttribute("class"), containsString(COLOR_RED_ICON_STYLE));
 
         // delete
-        getActionBarItem("Delete item").click();
+        getEnabledActionBarItem("Delete item").click();
         getDialogConfirmButton().click();
         delay("Delete might take some time");
         refreshTreeView();
