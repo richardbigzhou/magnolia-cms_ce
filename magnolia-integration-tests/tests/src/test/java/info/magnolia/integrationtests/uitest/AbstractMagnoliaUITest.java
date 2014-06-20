@@ -239,6 +239,8 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         } catch (NoSuchElementException e) {
             fail("Expected Pages app tile being present after login but got: " + e.getMessage());
         }
+
+        waitUntil(DEFAULT_DELAY_IN_SECONDS, applauncherTransitionIsComplete());
     }
 
     /**
