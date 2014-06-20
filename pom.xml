@@ -26,7 +26,7 @@
     <magnoliaWidgetsetVersion>5.3-rc1</magnoliaWidgetsetVersion>
     <javaVersion>1.6</javaVersion>
     <documentationURL>http://documentation.magnolia-cms.com/releases/${project.version}.html</documentationURL>
-    <stkVersion>2.8-rc1</stkVersion>
+    <stkVersion>2.8-rc2</stkVersion>
     <restVersion>1.0.3</restVersion>
     <damVersion>2.0-rc1</damVersion>
     <scmTagPrefix>magnolia-bundle</scmTagPrefix>
