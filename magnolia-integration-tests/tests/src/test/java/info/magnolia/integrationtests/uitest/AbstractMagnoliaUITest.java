@@ -214,7 +214,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         firefoxProfile.setPreference("browser.download.folderList", 2);
         firefoxProfile.setPreference("browser.helperApps.neverAsk.saveToDisk", "application/xml,application/zip,text/csv,application/vnd.ms-excel,application/octet-stream");
         firefoxProfile.setPreference("browser.helperApps.alwaysAsk.force", false);
-        firefoxProfile.setPreference("browser.download.manager.showWhenStarting",false);
+        firefoxProfile.setPreference("browser.download.manager.showWhenStarting", false);
 
         assertThat("Driver is already set in setUp(), previous test didn't tearDown properly.", driver, nullValue());
         driver = new FirefoxDriver(firefoxProfile);
@@ -249,8 +249,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
     }
 
     /**
-     * Returns the absolute path of the temporary download directory, that is currently pointing to
-     * <code>target/surefire-reports/downloads/</code>.
+     * Returns the absolute path of the temporary download directory, that is currently pointing to <code>target/surefire-reports/downloads/</code>.
      *
      * @see #DOWNLOAD_DIR
      */
@@ -312,12 +311,14 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
 
     /**
      * Containers (e.g. Tomcat 6, 7, Jetty 6) can append unwanted jsessionId to the url.
+     * <p>
+     * We work around by reloading page.
+     * </p>
+     * <p>
+     * Checks for 404 headline on page, as Selenium doesn't (and won't) offer a possibility to check the status code
+     * </p>
      *
-     * <p>We work around by reloading page.</p>
-     * <p>Checks for 404 headline on page, as Selenium doesn't (and won't) offer a possibility to check the status code</p>
-     *
-     * @see <a href="http://code.google.com/p/selenium/issues/detail?id=141">
-     *     WebDriver lacks HTTP response header and status code methods</a>
+     * @see <a href="http://code.google.com/p/selenium/issues/detail?id=141"> WebDriver lacks HTTP response header and status code methods</a>
      */
     private void workaroundJsessionIdInUrl() {
         // temporarily lower timeout - the potential 404 either shows up directly or not at all
@@ -407,7 +408,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
                             }
                         }
                     }
-            );
+                    );
         } catch (TimeoutException e) {
             log.debug("Could not retrieve element by path {}. Got: {}", path, e);
             // not found within the time limit - assume that element is not existing
@@ -419,7 +420,6 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         }
         return element;
     }
-
 
     /**
      * Tries to retrieve requested element.
@@ -439,7 +439,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
      * Tries to retrieve the requested amount of elements matching the given path.
      * Will retry until the amount matches or until the whole process times out.
      */
-     protected List<WebElement> getElementsByPath(final By path, final int expectedElementCount) {
+    protected List<WebElement> getElementsByPath(final By path, final int expectedElementCount) {
         List<WebElement> elements = null;
         try {
             // will loop and try to retrieve the specified element until found or it times out.
@@ -463,7 +463,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
                             }
                         }
                     }
-            );
+                    );
         } catch (TimeoutException e) {
             log.error("Could not retrieve {} elements by path {} : {}", expectedElementCount, path, e);
             // not found within the time limit - maybe the expected amount of element is wrong, but there's nothing sane we can do here. Returning null would just yield NPEs. If we need something better, consider selenium-lift, or pass a Matcher instead of expectedElementCount
@@ -870,7 +870,6 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         return getElementByXpath("//div[contains(@class, 'dialog-content')]//div[contains(@class, 'v-slot-keyboard-panel')]//div[@class='v-table-cell-wrapper' and text() = '%s']", elementName);
     }
 
-
     /**
      * Gets the current title of the {@link WebDriver}'s page.
      */
@@ -880,6 +879,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
 
     /**
      * Waits until the {@link ExpectedCondition} was met.
+     *
      * @param timeout the timeout in seconds
      * @param expectedCondition the {@link ExpectedCondition} until the {@link WebDriver} should wait
      * @see org.openqa.selenium.support.ui.ExpectedConditions
@@ -905,6 +905,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
     /**
      * Deletes a row from a TreeTable.
      * Row must not be unselected when method is called.
+     *
      * @param deleteActionCaption The caption of the delete action.
      * @param rowName The caption of the row.
      */
@@ -914,7 +915,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         rowToDelete.click();
         delay(1, "");
         getActionBarItem(deleteActionCaption).click();
-        delay(1,"");
+        delay(1, "");
         getDialogCommitButton().click();
         delay("Delete might take some time");
 
