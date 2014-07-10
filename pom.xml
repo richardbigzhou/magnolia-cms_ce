@@ -147,7 +147,7 @@
       <dependency>
         <groupId>info.magnolia.activation</groupId>
         <artifactId>magnolia-module-activation</artifactId>
-        <version>5.2.5</version>
+        <version>5.2.6-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia.cache</groupId>
