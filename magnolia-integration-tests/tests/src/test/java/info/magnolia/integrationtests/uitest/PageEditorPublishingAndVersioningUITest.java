@@ -33,8 +33,10 @@
  */
 package info.magnolia.integrationtests.uitest;
 
+import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.core.StringContains.containsString;
 import static org.junit.Assert.*;
+import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
 
 import org.apache.commons.lang.StringUtils;
 import org.junit.Test;
@@ -274,11 +276,40 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
         assertThat(getSelectedActivationStatusIcon().getAttribute("class"), containsString(COLOR_GREEN_ICON_STYLE));
     }
 
+    @Test
+    public void canPublishWithUtf8Enabled() {
+        // Set utf-8 enabled on author/public
+        String currentUrl = getCurrentDriverUrl();
+        navigateDriverTo(Instance.AUTHOR.getURL(".magnolia/sysprop/?name=magnolia.utf8.enabled&value=true"));
+        navigateDriverTo(Instance.PUBLIC.getURL(".magnolia/admincentral"));
+        login(getTestUserName());
+        navigateDriverTo(Instance.PUBLIC.getURL(".magnolia/sysprop/?name=magnolia.utf8.enabled&value=true"));
+        navigateDriverTo(currentUrl);
+
+        // GIVEN
+        getAppIcon(PAGES_APP).click();
+        assertAppOpen(PAGES_APP);
+
+        getTreeTableItemExpander(DEMO_PROJECT_PAGE).click();
+        getTreeTableItemExpander(ABOUT_PAGE).click();
+        getTreeTableItem("history").click();
+
+        // WHEN
+        getActionBarItem(PUBLISH_PAGE_ACTION).click();
+
+        // THEN
+        waitUntil(10, visibilityOfElementLocated(notificationMessage));
+        assertThat(getNotificationMessage().getText(), is("Publication successful."));
+
+        // Reset utf-8 enabled on author/public
+        navigateDriverTo(Instance.AUTHOR.getURL(".magnolia/sysprop/?name=magnolia.utf8.enabled&value=false"));
+        navigateDriverTo(Instance.PUBLIC.getURL(".magnolia/sysprop/?name=magnolia.utf8.enabled&value=false"));
+    }
 
     /**
      * From the page editor sub app, select and Area, and from the add component dialog, select a component.<br>
      * The dialog of the desired component is open and available to use.
-     *
+     * 
      * @param areaName for example: 'Content' or 'Extras'
      * @param componentName for example : 'Text and Image' or 'Contact'
      */
@@ -304,7 +335,7 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
      * - Modify the Text Image component<br>
      * - Check available and non available actions<br>
      * - Check the status.
-     *
+     * 
      * @param newSubheadingValue New value of the Subheading field.
      * @param newImageCaptionValue New value of the image caption.
      */

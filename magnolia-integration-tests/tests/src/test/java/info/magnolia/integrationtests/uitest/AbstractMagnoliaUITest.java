@@ -43,6 +43,9 @@ import info.magnolia.testframework.htmlunit.AbstractMagnoliaHtmlUnitTest;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -69,6 +72,9 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.logging.LogEntries;
+import org.openqa.selenium.logging.LogEntry;
+import org.openqa.selenium.logging.Logs;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
@@ -285,9 +291,28 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
                 takeScreenshot("exception-in-logout");
                 throw t;
             } finally {
-                driver.quit();
-                driver = null;
+                try {
+                    // uncomment the following line to flush browser console output to the server logs
+                    // captureLogs();
+                } finally {
+                    driver.quit();
+                    driver = null;
+                }
             }
+        }
+    }
+
+    protected void captureLogs() {
+        final Logs driverLogs = driver.manage().logs();
+        // To capture all logs: "driver" seems very verbose, though. Using org.openqa.selenium.logging.LogCombiner could be helpful, but then we lose the "source" of the entries.
+        // final Set<String> availableLogTypes = driverLogs.getAvailableLogTypes();
+        final LogEntries browserLog = driverLogs.get("browser");
+        // Use a specific logger category
+        final Logger log = LoggerFactory.getLogger(getClass().getName() + "." + testName.getMethodName() + ".BrowserLog");
+        log.info("Log entries for {}", testName.getMethodName());// TODO call testName()
+        for (LogEntry logEntry : browserLog) {
+            // just logging it all in info, so as to keep the original timestamp (otherwise we could use logEntry.getLevel())
+            log.info(logEntry.toString());
         }
     }
 
@@ -523,6 +548,13 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         return getElementByXpath("//*[contains(@class, 'v-table-cell-wrapper') and text() = '%s']/parent::*/parent::*", itemCaption);
     }
 
+    protected WebElement getTreeTableCheckBox(String itemCaption) {
+        WebElement row = getTreeTableItem(itemCaption);
+        // findElement(By.xpath("//input[@type='checkbox']"));
+        // would have been more precise but turns out it doesn't work as its opacity=0 so Selenium considers it not visible
+        return row.findElement(By.tagName("input"));
+    }
+
     protected boolean isTreeTableItemSelected(String itemName) {
         return getTreeTableItemRow(itemName).getAttribute("class").contains("v-selected");
     }
@@ -545,6 +577,10 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
 
     protected WebElement getDialogButton(String classname) {
         return getElementByXpath("//div[contains(@class, '%s')]", classname);
+    }
+
+    protected WebElement getDialogButton(String dialogTitle, String classname) {
+        return getElementByXpath("//div[contains(@class, 'dialog-root') and .//span[@class='title'] = '%s']//div[contains(@class, '%s')]", dialogTitle, classname);
     }
 
     protected WebElement getNativeButton(String classname) {
@@ -595,8 +631,16 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         return getElementByXpath("//*[contains(@class, 'v-shell-tabsheet')]//*[@class = 'tab-title' and text() = '%s']", tabCaption);
     }
 
+    protected WebElement getTabContainingCaption(String tabCaption) {
+        return getElementByXpath("//*[contains(@class, 'v-shell-tabsheet')]//*[@class = 'tab-title' and contains(text(),'%s')]", tabCaption);
+    }
+
     protected WebElement getDialogCommitButton() {
         return getDialogButton("v-button-commit");
+    }
+
+    protected WebElement getDialogCommitButton(String dialogTitle) {
+        return getDialogButton(dialogTitle, "v-button-commit");
     }
 
     protected WebElement getDialogConfirmButton() {
@@ -714,6 +758,10 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         return getElementByXpath("//tr[contains(@class, 'v-selected')]//*[contains(@class, 'activation-status')]");
     }
 
+    protected WebElement getStatusBar() {
+        return getElementByXpath("//div[contains(@class, 'statusbar')]//*[contains(@class, 'v-label')]");
+    }
+
     /**
      * Open the Dialog Show Room of the sample demo site.
      *
@@ -784,6 +832,28 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
             }
         }
         getTreeTableItem(element).click();
+    }
+
+    /**
+     * @param path the path as String (e.g. "/demo-project/services/glossary/a/arts")
+     */
+    protected void expandTreeAndSelectAnElement(String path) {
+        List<String> nodes = Arrays.asList(path.split("/"));
+        List<String> nodesToExpand = new ArrayList<String>();
+        String nodeToSelect = null;
+        Iterator<String> it = nodes.iterator();
+        while (it.hasNext()) {
+            String node = it.next();
+            if (StringUtils.isBlank(node)) {
+                continue;
+            }
+            if (it.hasNext()) {
+                nodesToExpand.add(node);
+            } else {
+                nodeToSelect = node;
+            }
+        }
+        expandTreeAndSelectAnElement(nodeToSelect, nodesToExpand.toArray(new String[0]));
     }
 
     protected void checkEnabledActions(String... actions) {
@@ -873,6 +943,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         return getElementByXpath("//div[contains(@class, 'dialog-content')]//div[contains(@class, 'v-slot-keyboard-panel')]//div[@class='v-table-cell-wrapper' and text() = '%s']", elementName);
     }
 
+
     /**
      * Gets the current title of the {@link WebDriver}'s page.
      */
@@ -959,6 +1030,10 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         return getViewButton("thumbnails");
     }
 
+    protected WebElement getPulseTab(String caption) {
+        return getElementByXpath("//*[contains(@class, 'navigator-tab')]//*[contains(@class, 'v-label') and text() = '%s']", caption);
+    }
+
     /**
      * Refresh the status of the tree view as it might not be up-to-date (caused by: MGNLUI-2840).
      *
@@ -974,4 +1049,85 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         getElementByXpath("//*[@class = 'dialog-footer-toolbar']//input[contains(@class, 'v-filterselect-input v-filterselect-input-readonly')]").click();
         getElementByXpath("//div[contains(@class, 'popupContent')]//div/table/tbody/tr/td/span[text() = '%s']/..", language).click();
     }
+
+    // / COMPLEX FIELD UTILS /////////
+
+    protected void addCompositeTextFieldValue(String fieldLabel, String value) {
+        WebElement input = getCompositeTextFieldValue(fieldLabel);
+        input.clear();
+        input.sendKeys(value);
+    }
+
+    protected WebElement getCompositeTextFieldValue(String fieldLabel) {
+        return getElementByXpath("(//div[@class = 'v-caption' and .//span[text() = '%s']])//following-sibling::input", fieldLabel);
+    }
+
+    protected void addSubInnerFieldElementAt(String fieldLabel, int mainFieldPosition, int subFieldPosition) {
+        WebElement add = getElementByXpath("((//div[@class = 'v-caption v-caption-linkfield' and .//span[text() = '%s']])[%s]/following-sibling::div//*[contains(@class, 'v-slot')]//*[text() = 'Add'])[%s]", fieldLabel, mainFieldPosition, subFieldPosition);
+        add.click();
+        delay(1, "Needed to create the field element");
+    }
+
+    protected void addInnerFieldElementAt(String fieldLabel, int mainFieldPosition, int subFieldPosition) {
+        addSubInnerFieldElementAt(fieldLabel, mainFieldPosition, subFieldPosition);
+        addSubInnerFieldElementAt(fieldLabel, mainFieldPosition, subFieldPosition);
+    }
+
+    protected void setMultiFieldInnerTextValueAt(String fieldLabel, int mainFieldPosition, int subFieldPosition, String value) {
+        WebElement input = getMultiFieldInnerText(fieldLabel, mainFieldPosition, subFieldPosition);
+        input.clear();
+        input.sendKeys(value);
+    }
+
+    protected WebElement getMultiFieldInnerText(String fieldLabel, int mainFieldPosition, int subFieldPosition) {
+        return getElementByXpath("((//div[@class = 'v-caption v-caption-linkfield' and .//span[text() = '%s']])[%s]/following-sibling::div//*[contains(@class, 'v-slot')]/input[@type = 'text'])[%s]", fieldLabel, mainFieldPosition, subFieldPosition);
+    }
+
+    protected void setMultiFieldComponentTextValueAt(String fieldLabel, int mainFieldPosition, String value) {
+        WebElement input = getMultiFieldComponentTextElement(fieldLabel, mainFieldPosition);
+        input.clear();
+        input.sendKeys(value);
+    }
+
+    protected WebElement getMultiFieldComponentTextElement(String fieldLabel, int mainFieldPosition) {
+        return getElementByXpath("(//div[@class = 'v-caption' and .//span[text() = '%s']])[%s]/following-sibling::input[@type = 'text']", fieldLabel, mainFieldPosition);
+    }
+
+    protected void setMultiFieldElementValueAt(String multiFieldLabel, int position, String value) {
+        WebElement input = getFromMultiFieldElementValueAt(multiFieldLabel, position);
+        input.clear();
+        input.sendKeys(value);
+    }
+
+    protected WebElement getMultiFieldAddButton(String multiFieldLabel, String buttonLabel) {
+        return getElementByXpath("(//*[@class = 'v-form-field-label' and contains(text() , '%s')]/following-sibling::div//*[contains(@class, '%s')]//*[text() = '%s'])[last()]", multiFieldLabel, "v-nativebutton-magnoliabutton", buttonLabel);
+    }
+
+    protected WebElement getMultiFieldElementDeleteButtonAt(String multiFieldLabel, int position) {
+        return getElementByXpath("(//*[@class = 'v-form-field-label' and contains(text() , '%s')]/following-sibling::div//*[contains(@class, '%s')])[%s]", multiFieldLabel, "v-button-inline", position);
+    }
+
+    protected WebElement getFromMultiFieldElementValueAt(String multiFieldLabel, int position) {
+        return getElementByXpath("(//*[@class = 'v-form-field-label' and text() = '%s']/following-sibling::div//input[@type = 'text'])[%s]", multiFieldLabel, position);
+    }
+
+    protected WebElement getFromMultiFieldComplexeElementValueAt(String multiFieldLabel, int multiFieldposition, int compositeFieldposition) {
+        WebElement multifield = getElementByXpath("(//*[@class = 'v-form-field-label' and text() = '%s']/following-sibling::div//*[@class = 'v-slot v-slot-linkfield'])[%s]", multiFieldLabel, multiFieldposition);
+        String xpath = String.format("(//input[@type = 'text'])[%s]", compositeFieldposition);
+        WebElement fieldElement = multifield.findElement(By.xpath(xpath));
+        return fieldElement;
+    }
+
+    protected void setMultiFieldComplexeElementValueAt(String multiFieldLabel, int multiFieldposition, int compositeFieldposition, String value) {
+        WebElement input = getFromMultiFieldComplexeElementValueAt(multiFieldLabel, multiFieldposition, compositeFieldposition);
+        input.clear();
+        input.sendKeys(value);
+    }
+
+    protected WebElement getNotificationMessage() {
+        return getElementByPath(notificationMessage);
+    }
+
+    protected By notificationMessage = By.xpath("//div[contains(@class, 'v-label-dialog-content')]");
+
 }
