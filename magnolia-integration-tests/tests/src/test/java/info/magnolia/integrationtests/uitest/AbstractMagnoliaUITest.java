@@ -1119,4 +1119,10 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         input.sendKeys(value);
     }
 
+    protected WebElement getNotificationMessage() {
+        return getElementByPath(notificationMessage);
+    }
+
+    protected By notificationMessage = By.xpath("//div[contains(@class, 'v-label-dialog-content')]");
+
 }

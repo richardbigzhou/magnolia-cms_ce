@@ -33,8 +33,10 @@
  */
 package info.magnolia.integrationtests.uitest;
 
+import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.core.StringContains.containsString;
 import static org.junit.Assert.*;
+import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
 
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
@@ -272,6 +274,36 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
 
         // Check status
         assertThat(getSelectedActivationStatusIcon().getAttribute("class"), containsString(COLOR_GREEN_ICON_STYLE));
+    }
+
+    @Test
+    public void canPublishWithUtf8Enabled() {
+        // Set utf-8 enabled on author/public
+        String currentUrl = getCurrentDriverUrl();
+        navigateDriverTo(Instance.AUTHOR.getURL(".magnolia/sysprop/?name=magnolia.utf8.enabled&value=true"));
+        navigateDriverTo(Instance.PUBLIC.getURL(".magnolia/admincentral"));
+        login(getTestUserName());
+        navigateDriverTo(Instance.PUBLIC.getURL(".magnolia/sysprop/?name=magnolia.utf8.enabled&value=true"));
+        navigateDriverTo(currentUrl);
+
+        // GIVEN
+        getAppIcon(PAGES_APP).click();
+        assertAppOpen(PAGES_APP);
+
+        getTreeTableItemExpander(DEMO_PROJECT_PAGE).click();
+        getTreeTableItemExpander(ABOUT_PAGE).click();
+        getTreeTableItem("history").click();
+
+        // WHEN
+        getActionBarItem(PUBLISH_PAGE_ACTION).click();
+
+        // THEN
+        waitUntil(10, visibilityOfElementLocated(notificationMessage));
+        assertThat(getNotificationMessage().getText(), is("Publication successful."));
+
+        // Reset utf-8 enabled on author/public
+        navigateDriverTo(Instance.AUTHOR.getURL(".magnolia/sysprop/?name=magnolia.utf8.enabled&value=false"));
+        navigateDriverTo(Instance.PUBLIC.getURL(".magnolia/sysprop/?name=magnolia.utf8.enabled&value=false"));
     }
 
     /**
