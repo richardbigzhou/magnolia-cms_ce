@@ -109,7 +109,7 @@
       <dependency>
         <groupId>info.magnolia.cache</groupId>
         <artifactId>magnolia-module-cache</artifactId>
-        <version>5.2.5-SNAPSHOT</version>
+        <version>5.2.5</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
