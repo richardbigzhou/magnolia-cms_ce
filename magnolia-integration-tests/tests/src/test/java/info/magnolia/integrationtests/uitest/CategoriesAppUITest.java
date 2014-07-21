@@ -63,12 +63,12 @@ public class CategoriesAppUITest extends AbstractMagnoliaUITest {
         getDialogButton("v-button-commit").click();
 
         // THEN
+        expandTreeAndSelectAnElement(testName, "untitled");
         assertTrue(isExisting(getTreeTableItem(testName)));
 
 
         // GIVEN - rename
         final String renamedName = "RenamedFrom" + testName;
-        expandTreeAndSelectAnElement(testName, "untitled");
 
         getActionBarItem("Edit category").click();
         WebElement categoryNameField = getFormTextField("Category name");
