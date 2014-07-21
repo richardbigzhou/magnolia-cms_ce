@@ -70,9 +70,9 @@ public class GoogleSitemapAppUITest extends AbstractMagnoliaUITest {
         expandTreeAndSelectAnElement(testName, "untitled");
         getTreeTableItem(testName).click();
         getActionBarItem("Edit site map properties").click();
-        WebElement categoryNameField = getFormTextField("Name");
-        categoryNameField.clear();
-        categoryNameField.sendKeys(renamedName);
+        final WebElement nameField = getFormTextField("Name");
+        nameField.clear();
+        nameField.sendKeys(renamedName);
 
         // work around the prob that sometimes newly entered text is not considered for validation
         delay("Sometimes it's also timing so let's wait a moment");
