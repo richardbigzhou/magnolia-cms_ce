@@ -24,6 +24,10 @@
     </dependency>
     <dependency>
       <groupId>info.magnolia</groupId>
+      <artifactId>magnolia-module-mail</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>info.magnolia</groupId>
       <artifactId>magnolia-module-data</artifactId>
     </dependency>
     <dependency>
