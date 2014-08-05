@@ -403,6 +403,15 @@
       <!--</build>-->
     <!--</profile>-->
     <profile>
+      <id>tomcat70</id>
+      <properties>
+        <containerId>tomcat7x</containerId>
+        <containerType>installed</containerType>
+        <configType>standalone</configType>
+        <url>http://archive.apache.org/dist/tomcat/tomcat-7/v7.0.55/bin/apache-tomcat-7.0.55.tar.gz</url>
+      </properties>
+    </profile>
+    <profile>
       <id>tomcat60</id>
       <properties>
         <containerId>tomcat6x</containerId>
