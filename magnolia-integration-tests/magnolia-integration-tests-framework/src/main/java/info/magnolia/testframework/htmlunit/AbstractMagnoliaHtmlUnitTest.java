@@ -42,6 +42,7 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.commons.codec.binary.Base64;
@@ -65,6 +66,10 @@ public abstract class AbstractMagnoliaHtmlUnitTest extends AbstractMagnoliaInteg
      * Session id's can consist of any digit and letter (lower or upper case).
      */
     protected static final String SESSION_ID_REGEXP = ";jsessionid=[a-zA-Z0-9]+";
+
+    protected static final Map<String, String> DEFAULT_HEADERS = new HashMap<String, String>() {{
+        put("Referer", Instance.AUTHOR.getURL(""));
+    }};
 
     /**
      * @see #openConnection(AbstractMagnoliaHtmlUnitTest.Instance, String, AbstractMagnoliaHtmlUnitTest.User, java.util.Map)
@@ -125,20 +130,25 @@ public abstract class AbstractMagnoliaHtmlUnitTest extends AbstractMagnoliaInteg
      */
     @Deprecated
     protected <P extends Page> P openPage(Instance instance, String path, User user, boolean followRedirects) throws IOException {
-        return (P) openPage(instance.getURL(path), user, followRedirects, true);
+        return (P) openPage(instance.getURL(path), user, followRedirects, true, DEFAULT_HEADERS);
     }
 
     protected <P extends Page> P openPage(String url, User user) throws IOException {
-        return (P) openPage(url, user, false, true);
+        return (P) openPage(url, user, false, true, DEFAULT_HEADERS);
     }
 
     protected <P extends Page> P openPage(String url, User user, boolean followRedirects) throws IOException {
-        return (P) openPage(url, user, false, true);
+        return (P) openPage(url, user, followRedirects, true, DEFAULT_HEADERS);
     }
+
+    protected <P extends Page> P openPage(String url, User user, boolean followRedirects, boolean enableJavascript) throws IOException {
+        return (P) openPage(url, user, followRedirects, enableJavascript, DEFAULT_HEADERS);
+    }
+
     /**
      * This uses htmlunit, simulates a browser and does all kind of fancy stuff for you.
      */
-    protected <P extends Page> P openPage(String url, User user, boolean followRedirects, boolean enableJsvascript) throws IOException {
+    protected <P extends Page> P openPage(String url, User user, boolean followRedirects, boolean enableJavascript, Map<String, String> headers) throws IOException {
         final WebClient webClient = new WebClient(BrowserVersion.FIREFOX_3_6);
         // this writes files to /tmp - the most interesting one probably being magnolia-test_<random>.js, which lists headers for all requests
         final WebConnection connection = new DebuggingWebConnection(webClient.getWebConnection(), "magnolia-test_");
@@ -150,7 +160,12 @@ public abstract class AbstractMagnoliaHtmlUnitTest extends AbstractMagnoliaInteg
         webClient.setThrowExceptionOnFailingStatusCode(false);
 
         webClient.setCssEnabled(true);
-        webClient.setJavaScriptEnabled(enableJsvascript);
+        webClient.setJavaScriptEnabled(enableJavascript);
+
+        // add custom headers to the client
+        for (String header : headers.keySet()) {
+            webClient.addRequestHeader(header, headers.get(header));
+        }
 
         if (user != null) {
             final String authValue = getAuthValue(user.name());
@@ -168,7 +183,7 @@ public abstract class AbstractMagnoliaHtmlUnitTest extends AbstractMagnoliaInteg
 
         // since this is already redirected do not follow more redirects
         // also do not execute javascript on the target page - at least not until https://sourceforge.net/tracker/?func=detail&aid=3110090&group_id=47038&atid=448266 is solved
-        return (P) openPage(location, user, false, false);
+        return (P) openPage(location, user, false, false, DEFAULT_HEADERS);
     }
 
     /**
