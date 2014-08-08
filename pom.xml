@@ -21,8 +21,8 @@
 
   <properties>
     <magnoliaEdition>Community Edition</magnoliaEdition>
-    <magnoliaVersion>5.2.7</magnoliaVersion>
-    <magnoliaUiVersion>5.2.8</magnoliaUiVersion>
+    <magnoliaVersion>5.2.8-SNAPSHOT</magnoliaVersion>
+    <magnoliaUiVersion>5.2.9-SNAPSHOT</magnoliaUiVersion>
     <javaVersion>1.6</javaVersion>
     <documentationURL>http://documentation.magnolia-cms.com/releases/${project.version}.html</documentationURL>
     <stkVersion>2.7.7</stkVersion>
@@ -152,7 +152,7 @@
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-data</artifactId>
-        <version>2.2.3</version>
+        <version>2.2.4-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
