@@ -42,7 +42,7 @@ import org.junit.Test;
 /**
  * UI Test for complex Composite field.
  */
-public class CompositeFieldUITest extends AbstractComplexeFieldUITest {
+public class CompositeFieldUITest extends AbstractMagnoliaUITest {
 
     @Override
     @Before

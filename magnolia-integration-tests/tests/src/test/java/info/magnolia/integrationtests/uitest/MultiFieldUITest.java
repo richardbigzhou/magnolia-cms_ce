@@ -43,7 +43,7 @@ import org.junit.Test;
 /**
  * UI Test for complex Multi field.
  */
-public class MultiFieldUITest extends AbstractComplexeFieldUITest {
+public class MultiFieldUITest extends AbstractMagnoliaUITest {
 
     @Override
     @Before
