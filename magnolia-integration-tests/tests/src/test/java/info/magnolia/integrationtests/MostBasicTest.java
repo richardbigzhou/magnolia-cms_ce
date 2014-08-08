@@ -38,11 +38,9 @@ import static org.junit.matchers.JUnitMatchers.containsString;
 
 import info.magnolia.testframework.htmlunit.AbstractMagnoliaHtmlUnitTest;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import com.gargoylesoftware.htmlunit.Page;
-import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 /**
@@ -58,17 +56,12 @@ public class MostBasicTest extends AbstractMagnoliaHtmlUnitTest {
     }
 
     @Test
-    @Ignore("See MAGNOLIA-4942")
     public void loginOnAuthorInstanceWithSuperuser() throws Exception {
         final HtmlPage root = openPage(Instance.AUTHOR.getURL(""), User.superuser);
         final HtmlPage adminCentralPage = assertRedirected("adminCentral redirect is not setup?", Instance.AUTHOR.getURL("/\\.magnolia/admincentral" + SESSION_ID_REGEXP), root, User.superuser);
         assertEquals(200, adminCentralPage.getWebResponse().getStatusCode());
         final String allContents = adminCentralPage.getWebResponse().getContentAsString();
-        assertThat("We're not on a CE instance!?", allContents, containsString("Community Edition"));
-
-        final HtmlElement footerDiv = adminCentralPage.getElementById("mgnlAdminCentralFooterDiv");
-        assertNotNull(footerDiv);
-        assertThat("We're not on a CE instance!?", footerDiv.getTextContent(), containsString("Community Edition"));
+        assertThat("Apparently login did not succed.", allContents, containsString("v-app admincentral"));
     }
 
     @Test
