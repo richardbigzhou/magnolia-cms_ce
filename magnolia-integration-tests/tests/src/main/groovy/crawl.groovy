@@ -173,6 +173,7 @@ class WebCrawler {
                     connection.addRequestProperty("Cookie", cookie.split(";", 2)[0]);
                 }
                 try {
+                    connection.addRequestProperty("Referer", url) // use the url as referer
                     connection.addRequestProperty("Accept-Encoding", defEncoding)
                     connection.setFollowRedirects(false)
                     connection.connect()
@@ -317,6 +318,7 @@ class WebCrawler {
                     cookies.each { cookie ->
                         connection.addRequestProperty("Cookie", cookie.split(";", 2)[0]);
                     }
+                    connection.addRequestProperty("Referer", url) // use the url as referer
                     connection.addRequestProperty("Accept-Encoding", defEncoding)
                     connection.setFollowRedirects(false)
                     connection.connect()
@@ -446,6 +448,7 @@ class WebCrawler {
         def queryString = "path=" + path + "&repository=" + repository + "&command=dump&level=1"
 
         def connection = normalizedURL(jcrUrl).openConnection()
+        connection.addRequestProperty("Referer", jcrUrl) // use the url as referer
         connection.setRequestMethod("POST")
         connection.setDoOutput(true)
         connection.setDoInput(true)
