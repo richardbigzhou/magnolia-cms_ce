@@ -61,6 +61,8 @@ import org.openqa.selenium.WebElement;
 public class SecurityAppUITest extends AbstractMagnoliaUITest {
     private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(SecurityAppUITest.class);
 
+    public static final String PUBLIC_USERS_APP_NAME = "Public Users";
+
     public static final String GROUP = "group";
     public static final String USER = "user";
     public static final String ROLE = "role";
@@ -280,7 +282,7 @@ public class SecurityAppUITest extends AbstractMagnoliaUITest {
 
     @Test
     public void testAddAndRemovePublicUser() {
-        testAddAndRemoveUser("Public Users", "test-pub-user", "test-password");
+        testAddAndRemoveUser(PUBLIC_USERS_APP_NAME, "test-pub-user", "test-password");
     }
 
     /**
@@ -294,6 +296,9 @@ public class SecurityAppUITest extends AbstractMagnoliaUITest {
         addUser(userName, password);
 
         // THEN 1
+        if (PUBLIC_USERS_APP_NAME.equals(subAppName)) {
+            expandTreeAndSelectAnElement(getHierarchicalPath(userName));
+        }
         assertTrue(getTreeTableItem(userName).isDisplayed());
 
         // WHEN 2
@@ -303,6 +308,14 @@ public class SecurityAppUITest extends AbstractMagnoliaUITest {
 
         // THEN 2
         assertTrue(getTreeTableItem(userName) instanceof NonExistingWebElement);
+    }
+
+    private String getHierarchicalPath(String name) {
+        final String lcName = name.toLowerCase();
+        if (lcName.length() < 3) {
+            return "/" + name;
+        }
+        return "/" + String.valueOf(lcName.charAt(0)) + "/" + StringUtils.left(lcName, 2) + "/" + name;
     }
 
     /**
