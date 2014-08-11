@@ -558,6 +558,7 @@ class ActivationTest {
         postData.each { key, value ->
             method.addParameter(key, value)
         }
+        method.addRequestHeader("Referer", url) // use the url as referer
         client.executeMethod(method)
         def jsessionid = ""
         if (method.getResponseHeader("Set-Cookie") != null) {
