@@ -36,6 +36,7 @@ package info.magnolia.test;
 import info.magnolia.module.InstallContext;
 import info.magnolia.module.delta.BootstrapSingleResource;
 import info.magnolia.module.delta.IsAuthorInstanceDelegateTask;
+import info.magnolia.module.delta.ModuleBootstrapTask;
 import info.magnolia.module.delta.Task;
 import info.magnolia.testframework.setup.AbstractTestingVersionHandler;
 
@@ -44,8 +45,6 @@ import java.util.List;
 
 /**
  * A version handler setting up pages, templates, paragraphs, dialogs, based on properties files and archetypes.
- *
- * @version $Revision: $ ($Author: $)
  */
 public class SetupStuffForTests extends AbstractTestingVersionHandler {
 
@@ -57,6 +56,14 @@ public class SetupStuffForTests extends AbstractTestingVersionHandler {
     @Override
     protected String getConfigImportPropertiesFile() {
         return "/info/magnolia/test/config.properties";
+    }
+
+    @Override
+    protected List<Task> getBasicInstallTasks(InstallContext installContext) {
+        final ArrayList<Task> basicInstallTasks = new ArrayList<Task>();
+        basicInstallTasks.addAll(super.getBasicInstallTasks(installContext));
+        basicInstallTasks.add(new ModuleBootstrapTask());
+        return basicInstallTasks;
     }
 
     @Override
