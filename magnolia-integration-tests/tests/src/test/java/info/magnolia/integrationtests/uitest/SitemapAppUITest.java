@@ -49,17 +49,13 @@ public class SitemapAppUITest extends AbstractMagnoliaUITest {
 
         getActionBarItem("Add folder").click();
         getTreeTableItem("untitled").click();
-        getActionBarItem("Add site map").click();
+        getEnabledActionBarItem("Add site map").click();
 
         getFormTextField("Name").sendKeys(testName);
-
-        // work around the prob that sometimes newly entered text is not considered for validation
-        delay("Sometimes it's also timing so let's wait a moment");
         getFormTextField("URI").click();
 
         // WHEN
         getDialogButton("v-button-commit").click();
-        delay("the above might take some time...");
 
         // THEN
         expandTreeAndSelectAnElement(testName, "untitled");
@@ -69,13 +65,10 @@ public class SitemapAppUITest extends AbstractMagnoliaUITest {
         final String renamedName = "RenamedFrom" + testName;
         expandTreeAndSelectAnElement(testName, "untitled");
         getTreeTableItem(testName).click();
-        getActionBarItem("Edit site map properties").click();
+        getEnabledActionBarItem("Edit site map properties").click();
         final WebElement nameField = getFormTextField("Name");
         nameField.clear();
         nameField.sendKeys(renamedName);
-
-        // work around the prob that sometimes newly entered text is not considered for validation
-        delay("Sometimes it's also timing so let's wait a moment");
         getFormTextField("URI").click();
 
         // WHEN - rename
@@ -86,15 +79,13 @@ public class SitemapAppUITest extends AbstractMagnoliaUITest {
 
         // GIVEN - delete
         getTreeTableItem("untitled").click();
-        getActionBarItem("Delete folder").click();
+        getEnabledActionBarItem("Delete folder").click();
         getDialogButtonWithCaption("Yes, delete").click();
-        delay("the above takes some time...");
 
         // WHEN
-        getActionBarItem("Publish deletion").click();
+        getEnabledActionBarItem("Publish deletion").click();
 
         // THEN
-        delay("Give some time to clean the table");
-        assertFalse(isExisting(getTreeTableItem("untitled")));
+        waitUntil(15, elementIsGone(String.format("//*[contains(@class, 'v-table-cell-wrapper') and text() = '%s']", "untitled")));
     }
 }
