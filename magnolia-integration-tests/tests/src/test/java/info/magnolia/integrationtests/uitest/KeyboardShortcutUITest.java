@@ -45,12 +45,6 @@ import org.openqa.selenium.WebElement;
  */
 public class KeyboardShortcutUITest extends AbstractMagnoliaUITest {
 
-    /*
-     * Keys.ENTER does not trigger proper key event in Firefox - https://code.google.com/p/selenium/issues/detail?id=2079.
-     * Therefore triggering Keys.RETURN as a workaround.
-     */
-    public static final Keys ENTER_OR_RETURN_KEY = Keys.RETURN;
-
     /**
      * Get a confirmation to test by running 'Delete contact' action.
      * Hit the ESCAPE key and verify that a confirmation is closed, and the contact is not deleted.
@@ -99,7 +93,7 @@ public class KeyboardShortcutUITest extends AbstractMagnoliaUITest {
 
         // First pass - we cancel the dialog closing.
         // WHEN
-        getFormField("Page name").sendKeys(Keys.ESCAPE);
+        simulateKeyPress(Keys.ESCAPE);
         delay(1, "");
         // THEN
         confirmation = getConfirmationOverlay();
@@ -158,7 +152,7 @@ public class KeyboardShortcutUITest extends AbstractMagnoliaUITest {
         switchToDefaultContent();
 
         // WHEN
-        getFormField("Title").sendKeys(Keys.ESCAPE);
+        simulateKeyPress(Keys.ESCAPE);
         delay(1, "");
         // THEN
         confirmation = getConfirmationOverlay();
@@ -203,7 +197,7 @@ public class KeyboardShortcutUITest extends AbstractMagnoliaUITest {
 
         // First pass - we cancel the ESCAPE action.
         // WHEN
-        getFormField("First name").sendKeys(Keys.ESCAPE);
+        simulateKeyPress(Keys.ESCAPE);
         delay(1, "");
         // THEN
         confirmation = getConfirmationOverlay();
@@ -259,7 +253,7 @@ public class KeyboardShortcutUITest extends AbstractMagnoliaUITest {
         selectElementOfTabListForLabel("Redirect");
         delay(3, "give time for change event to proceed");
 
-        getFormField("Template").sendKeys(ENTER_OR_RETURN_KEY);
+        simulateKeyPress(Keys.RETURN);
         delay(1, "give time for change event to proceed");
 
         //THEN
@@ -296,7 +290,7 @@ public class KeyboardShortcutUITest extends AbstractMagnoliaUITest {
 
         // WHEN
         // Ensure a text area has focus and hit ENTER.
-        getFormTextAreaField("Page title").sendKeys(ENTER_OR_RETURN_KEY);
+        getFormTextAreaField("Page title").sendKeys(Keys.RETURN);
         delay(1, "give time for change event to proceed");
 
         //THEN
@@ -328,7 +322,7 @@ public class KeyboardShortcutUITest extends AbstractMagnoliaUITest {
         fillInRequiredContactFields(nameFirst, nameLast, email);
 
         // WHEN
-        getFormTextField("Country").sendKeys(ENTER_OR_RETURN_KEY);
+        simulateKeyPress(Keys.RETURN);
         delay(2, "");
 
         // THEN
@@ -360,7 +354,8 @@ public class KeyboardShortcutUITest extends AbstractMagnoliaUITest {
         fillInRequiredContactFields(nameFirst, nameLast, email);
 
         // WHEN
-        getFormTextAreaField("Street address").sendKeys(ENTER_OR_RETURN_KEY);
+        getTabForCaption("Address").click();
+        getFormTextAreaField("Street address").sendKeys(Keys.RETURN);
         delay(1, "");
 
         // THEN
@@ -379,11 +374,11 @@ public class KeyboardShortcutUITest extends AbstractMagnoliaUITest {
         getTabForCaption("Personal").click();
         setFormTextFieldText("First name", nameFirst);
         setFormTextFieldText("Last name", nameLast);
-        getTabForCaption("Contact details").click();
-        setFormTextFieldText("E-Mail address", email);
         getTabForCaption("Address").click();
         setFormTextFieldText("Organization", "org");
         setFormTextAreFieldText("Street address", "address-125");
+        getTabForCaption("Contact details").click();
+        setFormTextFieldText("E-Mail address", email);
     }
 
 }
