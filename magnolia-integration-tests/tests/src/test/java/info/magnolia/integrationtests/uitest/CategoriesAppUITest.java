@@ -54,9 +54,6 @@ public class CategoriesAppUITest extends AbstractMagnoliaUITest {
 
         getFormTextField("Category name").sendKeys(testName);
         getFormTextField("Display name").sendKeys(StringUtils.capitalize(testName));
-
-        // work around the prob that sometimes newly entered text is not considered for validation
-        delay("Sometimes it's also timing so let's wait a moment");
         getFormTextField("Category name").click();
 
         // WHEN
@@ -66,7 +63,6 @@ public class CategoriesAppUITest extends AbstractMagnoliaUITest {
         expandTreeAndSelectAnElement(testName, "untitled");
         assertTrue(isExisting(getTreeTableItem(testName)));
 
-
         // GIVEN - rename
         final String renamedName = "RenamedFrom" + testName;
 
@@ -74,9 +70,6 @@ public class CategoriesAppUITest extends AbstractMagnoliaUITest {
         WebElement categoryNameField = getFormTextField("Category name");
         categoryNameField.clear();
         categoryNameField.sendKeys(renamedName);
-
-        // work around the prob that sometimes newly entered text is not considered for validation
-        delay("Sometimes it's also timing so let's wait a moment");
         getFormTextField("Display name").click();
 
         // WHEN
@@ -94,7 +87,6 @@ public class CategoriesAppUITest extends AbstractMagnoliaUITest {
         getActionBarItem("Publish deletion").click();
 
         // THEN
-        delay("Give some time to clean the table");
-        assertFalse(isExisting(getTreeTableItem("untitled")));
+        waitUntil(15, elementIsGone(String.format("//*[contains(@class, 'v-table-cell-wrapper') and text() = '%s']", "untitled")));
     }
 }

@@ -984,6 +984,31 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
     }
 
     /**
+     * Checks that a specific WebElement is gone;
+     * this method temporarily reduce implicit wait so that we exit right as soon as condition is successful.
+     */
+    protected ExpectedCondition<WebElement> elementIsGone(final String xpath) {
+        return new ExpectedCondition<WebElement>() {
+
+            @Override
+            public WebElement apply(WebDriver driver) {
+                // drastically reduce driver timeout so that implicit wait doesn't get in the way
+                driver.manage().timeouts().implicitlyWait(500, TimeUnit.MILLISECONDS);
+                WebElement untitled = null;
+                try {
+                    // do not use getElementsByPath utils to avoid cascading another expected condition
+                    untitled = driver.findElement(By.xpath(xpath));
+                } catch (NoSuchElementException e) {
+                    // expecting element not to be found
+                }
+                // restore driver timeout
+                driver.manage().timeouts().implicitlyWait(DRIVER_WAIT_IN_SECONDS, TimeUnit.SECONDS);
+                return untitled != null ? null : new NonExistingWebElement(xpath);
+            }
+        };
+    }
+
+    /**
      * Deletes a row from a TreeTable.
      * Row must not be unselected when method is called.
      *
