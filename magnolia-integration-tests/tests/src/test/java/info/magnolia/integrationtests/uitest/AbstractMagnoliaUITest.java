@@ -537,7 +537,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
     }
 
     protected WebElement getTreeTableItemExpander(String itemCaption) {
-        return getElementByXpath("//*[text() = '%s']/*[contains(@class, 'v-treetable-treespacer')]", itemCaption);
+        return getElementByXpath("//*[text() = '%s']/*[contains(@class, 'v-treetable-treespacer') and contains(@class, 'v-treetable-node-')]", itemCaption);
     }
 
     protected WebElement getTreeTableItem(String itemCaption) {
