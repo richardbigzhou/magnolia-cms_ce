@@ -131,7 +131,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
 
         @Override
         public void clear() {
-            fail("Cannot clean non existing WebElement");
+            fail("Cannot clear non existing WebElement");
         }
 
         @Override
