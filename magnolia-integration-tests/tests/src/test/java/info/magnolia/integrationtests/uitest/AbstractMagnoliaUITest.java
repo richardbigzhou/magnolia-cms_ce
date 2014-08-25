@@ -984,7 +984,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
     }
 
     /**
-     * Checks that a specific WebElement is gone;
+     * Wait until a specific WebElement is gone;
      * this method temporarily reduce implicit wait so that we exit right as soon as condition is successful.
      */
     protected ExpectedCondition<WebElement> elementIsGone(final String xpath) {
@@ -994,16 +994,31 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
             public WebElement apply(WebDriver driver) {
                 // drastically reduce driver timeout so that implicit wait doesn't get in the way
                 driver.manage().timeouts().implicitlyWait(500, TimeUnit.MILLISECONDS);
-                WebElement untitled = null;
+                WebElement gone = null;
                 try {
                     // do not use getElementsByPath utils to avoid cascading another expected condition
-                    untitled = driver.findElement(By.xpath(xpath));
+                    gone = driver.findElement(By.xpath(xpath));
                 } catch (NoSuchElementException e) {
                     // expecting element not to be found
                 }
                 // restore driver timeout
                 driver.manage().timeouts().implicitlyWait(DRIVER_WAIT_IN_SECONDS, TimeUnit.SECONDS);
-                return untitled != null ? null : new NonExistingWebElement(xpath);
+                return gone != null ? null : new NonExistingWebElement(xpath);
+            }
+        };
+    }
+
+    /**
+     * Wait until form is updated with new language, by checking that at least one i18nized field label suffix has changed.
+     * To check that a "Title" field was switched to french, <code>expectedFieldCaption</code> should be <code>"fr"</code>.
+     */
+    protected ExpectedCondition<WebElement> languageSwitched(final String langSuffix) {
+        return new ExpectedCondition<WebElement>() {
+
+            @Override
+            public WebElement apply(WebDriver driver) {
+                WebElement label = driver.findElement(By.xpath(String.format("//*[@class = 'v-form-field-label' and contains(text(), '(%s)')]", langSuffix)));
+                return isExisting(label) ? label : null;
             }
         };
     }

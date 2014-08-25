@@ -68,21 +68,15 @@ public class CompositeFieldUITest extends AbstractMagnoliaUITest {
         String fieldName = "Composite";
         String textValuePrefix = " en ";
         String subFieldName = "Sub Multi";
-
-        // Go to Multi field tab
         goToDialogShowRoomAndOpenDialogComponent("ftl");
         getTabForCaption("Switch").click();
-        // WHEN
-        // //////////
-        //
-        // STEP 1 : Add elements in EN
-        //
-        // /////////
+
+        // WHEN - STEP 1 : Add elements in EN
+
         // Change the not I18n field
         addCompositeTextFieldValue("Name (no I18n)", "no I18n");
         // Add a first main element to the field 'Multi'
         getMultiFieldAddButton(fieldName, "Add").click();
-        delay(1, "");
         // Add a value to the 'Text 2'
         setMultiFieldComponentTextValueAt("Text 2", 1, textValuePrefix + "value 1");
         // Add one sub multiple with two values
@@ -95,43 +89,37 @@ public class CompositeFieldUITest extends AbstractMagnoliaUITest {
         setMultiFieldInnerTextValueAt(subFieldName, 1, 3, textValuePrefix + "value 121");
         // Add a second main element to the field 'Multi'
         getMultiFieldAddButton(fieldName, "Add").click();
-        delay(1, "");
         // Add a value to the 'Text 1' and 'Text 2'
         setMultiFieldComponentTextValueAt("Text 1", 2, textValuePrefix + "not default");
         setMultiFieldComponentTextValueAt("Text 2", 2, textValuePrefix + "value 2");
         // Add a third main element to the field 'Multi'
         getMultiFieldAddButton(fieldName, "Add").click();
-        delay(1, "");
         // Add a value to the 'Text 2'
         setMultiFieldComponentTextValueAt("Text 2", 3, textValuePrefix + "value 3");
         // Add one sub multiple with one value
         addInnerFieldElementAt(subFieldName, 3, 1);
         setMultiFieldInnerTextValueAt(subFieldName, 3, 1, textValuePrefix + "value 311");
 
-        // //////////
-        //
-        // STEP 2 : Add elements in DE
-        //
-        // /////////
-        // Switch Language to DE
+        // WHEN - STEP 2 : Add elements in DE
+
         switchToLanguage("German");
-        delay(1, "");
+        waitUntil(DRIVER_WAIT_IN_SECONDS, languageSwitched("de"));
+
         textValuePrefix = " de ";
         // Add a first main element to the field 'Multi' in DE
         getMultiFieldAddButton(fieldName, "Add").click();
-        delay(1, "");
         // Add a value to the 'Text 2'
         setMultiFieldComponentTextValueAt("Text 2", 1, textValuePrefix + "value 1");
         // Add one sub multiple with two values
         addInnerFieldElementAt(subFieldName, 1, 1);
         setMultiFieldInnerTextValueAt(subFieldName, 1, 1, textValuePrefix + "value 111");
 
-        // Switch Language to EN
-        switchToLanguage("English");
-        delay(1, "");
-        textValuePrefix = " en ";
+        // THEN - Check all values entered at the STEP 1
 
-        // Check all values entered at the STEP 1
+        switchToLanguage("English");
+        waitUntil(DRIVER_WAIT_IN_SECONDS, languageSwitched("en"));
+
+        textValuePrefix = " en ";
         getMultiFieldComponentTextElement("Text 2", 1).click();
         assertEquals("no I18n", getCompositeTextFieldValue("Name (no I18n)").getAttribute("value"));
         assertEquals(textValuePrefix + "value 1", getMultiFieldComponentTextElement("Text 2", 1).getAttribute("value"));
@@ -142,33 +130,29 @@ public class CompositeFieldUITest extends AbstractMagnoliaUITest {
         assertEquals(textValuePrefix + "value 2", getMultiFieldComponentTextElement("Text 2", 2).getAttribute("value"));
         assertEquals(textValuePrefix + "value 3", getMultiFieldComponentTextElement("Text 2", 3).getAttribute("value"));
         assertEquals(textValuePrefix + "value 311", getMultiFieldInnerText(subFieldName, 3, 1).getAttribute("value"));
-        // Check all values entered at the STEP 2
+
+        // THEN - Check all values entered at the STEP 2
+
         switchToLanguage("German");
-        delay(1, "");
+        waitUntil(DRIVER_WAIT_IN_SECONDS, languageSwitched("de"));
+
         textValuePrefix = " de ";
         getMultiFieldComponentTextElement("Text 2", 1).click();
         assertEquals("no I18n", getCompositeTextFieldValue("Name (no I18n)").getAttribute("value"));
         assertEquals(textValuePrefix + "value 1", getMultiFieldComponentTextElement("Text 2", 1).getAttribute("value"));
         assertEquals(textValuePrefix + "value 111", getMultiFieldInnerText(subFieldName, 1, 1).getAttribute("value"));
 
-        // //////////
-        //
-        // STEP 3 : Save and reopen dialog
-        //
-        // /////////
-        // Save Dialog
+        // WHEN - STEP 3 : Save and reopen dialog
         getDialogCommitButton().click();
-        // make sure dialog is closed
-        delay("Dialog may take some time to close");
-        assertFalse(isExisting(getElementByXpath("//div[contains(concat(' ',normalize-space(@class),' '),' overlay ')]")));
+        waitUntil(DRIVER_WAIT_IN_SECONDS, elementIsGone("//div[contains(concat(' ',normalize-space(@class),' '),' overlay ')]"));
 
         // Open it again
         openDialogComponent();
         getTabForCaption("Switch").click();
         textValuePrefix = " en ";
-        // THEN
-        // Check that all values entered in STEP 1 and STEP 2 are correctly displayed after the STEP 3
-        // Value have to be present
+
+        // THEN - Check that all values entered in STEP 1 and STEP 2 are correctly displayed after the STEP 3
+
         getMultiFieldComponentTextElement("Text 2", 1).click();
         assertEquals("no I18n", getCompositeTextFieldValue("Name (no I18n)").getAttribute("value"));
         assertEquals(textValuePrefix + "value 1", getMultiFieldComponentTextElement("Text 2", 1).getAttribute("value"));
@@ -179,49 +163,44 @@ public class CompositeFieldUITest extends AbstractMagnoliaUITest {
         assertEquals(textValuePrefix + "value 2", getMultiFieldComponentTextElement("Text 2", 2).getAttribute("value"));
         assertEquals(textValuePrefix + "value 3", getMultiFieldComponentTextElement("Text 2", 3).getAttribute("value"));
         assertEquals(textValuePrefix + "value 311", getMultiFieldInnerText(subFieldName, 3, 1).getAttribute("value"));
+
         // Check all values entered at the STEP 2
         switchToLanguage("German");
-        delay(1, "");
+        waitUntil(DRIVER_WAIT_IN_SECONDS, languageSwitched("de"));
+
         textValuePrefix = " de ";
         getMultiFieldComponentTextElement("Text 2", 1).click();
         assertEquals("no I18n", getCompositeTextFieldValue("Name (no I18n)").getAttribute("value"));
         assertEquals(textValuePrefix + "value 1", getMultiFieldComponentTextElement("Text 2", 1).getAttribute("value"));
         assertEquals(textValuePrefix + "value 111", getMultiFieldInnerText(subFieldName, 1, 1).getAttribute("value"));
 
-        // //////////
-        //
-        // STEP 4 : Remove and add entry in EN
-        //
-        // /////////
+        // WHEN - STEP 4 : Remove and add entry in EN
+
         switchToLanguage("English");
-        delay(1, "");
+        waitUntil(DRIVER_WAIT_IN_SECONDS, languageSwitched("en"));
+
         textValuePrefix = " en ";
         // Delete one element
         getMultiFieldElementDeleteButtonAt(fieldName, 5).click();
-        delay(1, "");
         // Delete one element
         getMultiFieldElementDeleteButtonAt(fieldName, 8).click();
-        delay(1, "");
         // Add one sub multiple with two values
         addInnerFieldElementAt(subFieldName, 2, 1);
         setMultiFieldInnerTextValueAt(subFieldName, 2, 1, textValuePrefix + "value 211");
         addSubInnerFieldElementAt(subFieldName, 2, 1);
         setMultiFieldInnerTextValueAt(subFieldName, 2, 2, textValuePrefix + "value 212");
 
-        // //////////
-        //
-        // STEP 5 : Remove and add entry in DE
-        //
-        // /////////
+        // WHEN - STEP 5 : Remove and add entry in DE
+
         switchToLanguage("German");
-        delay(1, "");
+        waitUntil(DRIVER_WAIT_IN_SECONDS, languageSwitched("de"));
+
         getMultiFieldComponentTextElement("Text 2", 1).click();
         textValuePrefix = " de ";
         // Remove the whole entry
         getMultiFieldElementDeleteButtonAt(fieldName, 3).click();
         // Add a first main element to the field 'Multi' in DE
         getMultiFieldAddButton(fieldName, "Add").click();
-        delay(1, "");
         // Add a value to the 'Text 2'
         setMultiFieldComponentTextValueAt("Text 2", 1, textValuePrefix + "value 1");
         // Delete the newly created element
@@ -229,61 +208,66 @@ public class CompositeFieldUITest extends AbstractMagnoliaUITest {
 
         // Switch to en
         switchToLanguage("English");
-        delay(1, "");
+        waitUntil(DRIVER_WAIT_IN_SECONDS, languageSwitched("en"));
+
+        // THEN - Check all values entered at the STEP 4
+
         textValuePrefix = " en ";
-        // Check all values entered at the STEP 4
         getMultiFieldComponentTextElement("Text 2", 1).click();
         assertEquals("no I18n", getCompositeTextFieldValue("Name (no I18n)").getAttribute("value"));
         assertEquals(textValuePrefix + "value 1", getMultiFieldComponentTextElement("Text 2", 1).getAttribute("value"));
         assertEquals(textValuePrefix + "value 111", getMultiFieldInnerText(subFieldName, 1, 1).getAttribute("value"));
         assertEquals(textValuePrefix + "value 112", getMultiFieldInnerText(subFieldName, 1, 2).getAttribute("value"));
-        assertFalse(isExisting(getMultiFieldInnerText(subFieldName, 1, 3)));
+        waitUntil(DRIVER_WAIT_IN_SECONDS, elementIsGone(String.format(
+                "((//div[@class = 'v-caption v-caption-linkfield' and .//span[text() = '%s']])[%s]/following-sibling::div//*[contains(@class, 'v-slot')]/input[@type = 'text'])[%s]", subFieldName, 1, 3)));
+
         assertEquals(textValuePrefix + "not default", getMultiFieldComponentTextElement("Text 1", 2).getAttribute("value"));
         assertEquals(textValuePrefix + "value 2", getMultiFieldComponentTextElement("Text 2", 2).getAttribute("value"));
         assertEquals(textValuePrefix + "value 211", getMultiFieldInnerText(subFieldName, 2, 1).getAttribute("value"));
         assertEquals(textValuePrefix + "value 212", getMultiFieldInnerText(subFieldName, 2, 2).getAttribute("value"));
-        assertFalse(isExisting(getMultiFieldComponentTextElement("Text 2", 3)));
+        waitUntil(DRIVER_WAIT_IN_SECONDS, elementIsGone(String.format(
+                "(//div[@class = 'v-caption' and .//span[text() = '%s']])[%s]/following-sibling::input[@type = 'text']", "Text 2", 3)));
 
-        // Check all values entered at the STEP 5
+        // THEN - Check all values entered at the STEP 5
+
         switchToLanguage("German");
-        delay(1, "");
+        waitUntil(DRIVER_WAIT_IN_SECONDS, languageSwitched("de"));
         textValuePrefix = " de ";
-        assertFalse(isExisting(getMultiFieldComponentTextElement("Text 2", 1)));
+        waitUntil(DRIVER_WAIT_IN_SECONDS, elementIsGone(String.format(
+                "(//div[@class = 'v-caption' and .//span[text() = '%s']])[%s]/following-sibling::input[@type = 'text']", "Text 2", 1)));
 
-        // //////////
-        //
-        // STEP 6 : Save and reopen dialog
-        //
-        // /////////
-        // Save Dialog
+        // WHEN - STEP 6 : Save and reopen dialog
         getDialogCommitButton().click();
-        // make sure dialog is closed
-        delay("Dialog may take some time to close");
-        assertFalse(isExisting(getElementByXpath("//div[contains(concat(' ',normalize-space(@class),' '),' overlay ')]")));
+        waitUntil(DRIVER_WAIT_IN_SECONDS, elementIsGone("//div[contains(concat(' ',normalize-space(@class),' '),' overlay ')]"));
 
         // Open it again
         openDialogComponent();
         getTabForCaption("Switch").click();
+
+        // THEN - Check all values entered at the STEP 4
+
         textValuePrefix = " en ";
-        getMultiFieldComponentTextElement("Text 2", 1).click();
-        // Check all values entered at the STEP 4
         getMultiFieldComponentTextElement("Text 2", 1).click();
         assertEquals("no I18n", getCompositeTextFieldValue("Name (no I18n)").getAttribute("value"));
         assertEquals(textValuePrefix + "value 1", getMultiFieldComponentTextElement("Text 2", 1).getAttribute("value"));
         assertEquals(textValuePrefix + "value 111", getMultiFieldInnerText(subFieldName, 1, 1).getAttribute("value"));
         assertEquals(textValuePrefix + "value 112", getMultiFieldInnerText(subFieldName, 1, 2).getAttribute("value"));
-        assertFalse(isExisting(getMultiFieldInnerText(subFieldName, 1, 3)));
+        waitUntil(DRIVER_WAIT_IN_SECONDS, elementIsGone(String.format(
+                "((//div[@class = 'v-caption v-caption-linkfield' and .//span[text() = '%s']])[%s]/following-sibling::div//*[contains(@class, 'v-slot')]/input[@type = 'text'])[%s]", subFieldName, 1, 3)));
         assertEquals(textValuePrefix + "not default", getMultiFieldComponentTextElement("Text 1", 2).getAttribute("value"));
         assertEquals(textValuePrefix + "value 2", getMultiFieldComponentTextElement("Text 2", 2).getAttribute("value"));
         assertEquals(textValuePrefix + "value 211", getMultiFieldInnerText(subFieldName, 2, 1).getAttribute("value"));
         assertEquals(textValuePrefix + "value 212", getMultiFieldInnerText(subFieldName, 2, 2).getAttribute("value"));
-        assertFalse(isExisting(getMultiFieldComponentTextElement("Text 2", 3)));
+        waitUntil(DRIVER_WAIT_IN_SECONDS, elementIsGone(String.format(
+                "(//div[@class = 'v-caption' and .//span[text() = '%s']])[%s]/following-sibling::input[@type = 'text']", "Text 2", 3)));
 
-        // Check all values entered at the STEP 5
+        // THEN - Check all values entered at the STEP 5
+
         switchToLanguage("German");
-        delay(1, "");
+        waitUntil(DRIVER_WAIT_IN_SECONDS, languageSwitched("de"));
         textValuePrefix = " de ";
-        assertFalse(isExisting(getMultiFieldComponentTextElement("Text 2", 1)));
+        waitUntil(DRIVER_WAIT_IN_SECONDS, elementIsGone(String.format(
+                "(//div[@class = 'v-caption' and .//span[text() = '%s']])[%s]/following-sibling::input[@type = 'text']", "Text 2", 1)));
 
     }
 
