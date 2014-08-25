@@ -680,7 +680,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
 
     protected void closeApp() {
         getElementByPath(By.className("m-closebutton-app")).click();
-        delay("Wait to let the animation clear app from the viewport");
+        waitUntil(DRIVER_WAIT_IN_SECONDS, applauncherTransitionIsComplete());
     }
 
     protected boolean hasCssClass(WebElement webElement, String cssClass) {

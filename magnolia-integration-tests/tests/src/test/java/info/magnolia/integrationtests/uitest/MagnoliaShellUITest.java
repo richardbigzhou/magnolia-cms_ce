@@ -47,6 +47,8 @@ import org.openqa.selenium.WebElement;
  */
 public class MagnoliaShellUITest extends AbstractMagnoliaUITest {
 
+    private static final String XPATH_V_APP_PRELOADER = "//*[contains(@class, 'v-app-preloader')]";
+
     /**
      * A bug was introduced where a subApp wouldn't restart properly
      * after switching to ShellApp and backwards (no ticket available).
@@ -92,7 +94,7 @@ public class MagnoliaShellUITest extends AbstractMagnoliaUITest {
         String temporarySectionsXPath = "//section[contains(@class,'app-list') and contains(@class,'temporary')]";
         List<WebElement> sections = getElementsByPath(By.xpath(temporarySectionsXPath));
         for (WebElement section : sections) {
-            // remove 'temporary' from class attribute to make apps visible 
+            // remove 'temporary' from class attribute to make apps visible
             js.executeScript(String.format("document.evaluate(\"%s\", document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue.setAttribute('class', 'app-list section');", temporarySectionsXPath));
         }
 
@@ -100,6 +102,9 @@ public class MagnoliaShellUITest extends AbstractMagnoliaUITest {
         for (WebElement app : apps) {
             // WHEN
             app.click();
+            getElementByXpath(XPATH_V_APP_PRELOADER); // wait for preloader to be around
+            waitUntil(DRIVER_WAIT_IN_SECONDS, elementIsGone(XPATH_V_APP_PRELOADER)); // then disappear
+
             // THEN
             closeApp();
         }
