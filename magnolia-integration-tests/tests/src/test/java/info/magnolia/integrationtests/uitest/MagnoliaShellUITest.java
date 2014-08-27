@@ -47,8 +47,6 @@ import org.openqa.selenium.WebElement;
  */
 public class MagnoliaShellUITest extends AbstractMagnoliaUITest {
 
-    private static final String XPATH_V_APP_PRELOADER = "//*[contains(@class, 'v-app-preloader')]";
-
     /**
      * A bug was introduced where a subApp wouldn't restart properly
      * after switching to ShellApp and backwards (no ticket available).
@@ -102,8 +100,7 @@ public class MagnoliaShellUITest extends AbstractMagnoliaUITest {
         for (WebElement app : apps) {
             // WHEN
             app.click();
-            getElementByXpath(XPATH_V_APP_PRELOADER); // wait for preloader to be around
-            waitUntil(DRIVER_WAIT_IN_SECONDS, elementIsGone(XPATH_V_APP_PRELOADER)); // then disappear
+            waitUntil(DRIVER_WAIT_IN_SECONDS, appIsLoaded());
 
             // THEN
             closeApp();

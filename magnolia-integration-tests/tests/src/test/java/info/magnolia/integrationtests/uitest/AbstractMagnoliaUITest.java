@@ -88,6 +88,24 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
     public static final int DEFAULT_DELAY_IN_SECONDS = 2;
     public static final int DRIVER_WAIT_IN_SECONDS = 10;
 
+    protected static enum ShellApp {
+        APPLAUNCHER("v-app-launcher"),
+        PULSE("v-pulse"),
+        FAVORITES("favorites");
+
+        private final String className;
+
+        private ShellApp(String className) {
+            this.className = className;
+        }
+
+        public String getClassName() {
+            return className;
+        }
+    }
+
+    private static final String XPATH_V_APP_PRELOADER = "//*[contains(@class, 'v-app-preloader')]";
+
     public static final String DEFAULT_NATIVE_BUTTON_CLASS = "magnoliabutton v-nativebutton-magnoliabutton";
 
     // ICON STYLES
@@ -981,6 +999,41 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
                 return "0px".equals(shellappsViewport.getCssValue("top")) ? shellappsViewport : null;
             }
         };
+    }
+
+    /**
+     * Shell app is considered loaded once both shellapps viewport and the given shell-app meet the following conditions:
+     * <ul>
+     * <li>element is displayed</li>
+     * <li>element transition is complete (no more transition related property in inline-styles).</li>
+     * </ul>
+     *
+     * @param shellAppType the {@link ShellApp} to wait for.
+     */
+    protected ExpectedCondition<WebElement> shellAppIsLoaded(final ShellApp shellAppType) {
+        // shell app should be displayed (block) and non-transitioning (opacity cleared upon transition complete)
+        final WebElement shellApp = driver.findElement(By.xpath(String.format("//div[contains(@class, 'v-viewport-shellapps')]/*[contains(@class, '%s')]", shellAppType.getClassName())));
+        final WebElement viewport = getElementByPath(By.className("v-viewport-shellapps"));
+        return new ExpectedCondition<WebElement>() {
+
+            @Override
+            public WebElement apply(WebDriver driver) {
+                boolean viewportTransitioning = viewport.getAttribute("style").contains("transition");
+                boolean viewportDisplayed = viewport.isDisplayed();
+                boolean shellAppTransitioning = shellApp.getAttribute("style").contains("transition");
+                boolean shellAppDisplayed = shellApp.isDisplayed();
+                return !viewportTransitioning && viewportDisplayed && !shellAppTransitioning && shellAppDisplayed ? shellApp : null;
+            }
+        };
+    }
+
+    /**
+     * App is considered loaded once the app-preloader has appeared (zoom-in) then disappeared (fade out after app is loaded).
+     * This should be called right after opening an app.
+     */
+    protected ExpectedCondition<WebElement> appIsLoaded() {
+        getElementByXpath(XPATH_V_APP_PRELOADER); // wait for preloader to be around
+        return elementIsGone(XPATH_V_APP_PRELOADER); // then disappear
     }
 
     /**

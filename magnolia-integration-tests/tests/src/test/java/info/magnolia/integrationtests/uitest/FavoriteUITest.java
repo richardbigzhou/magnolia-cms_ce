@@ -41,7 +41,6 @@ import java.util.List;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
-import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
 
 /**
@@ -50,27 +49,21 @@ import org.openqa.selenium.WebElement;
  */
 public class FavoriteUITest extends AbstractMagnoliaUITest {
 
-
     @Test
     public void addFavoriteAndGroupSimultaneously() {
         // GIVEN
-        //
         getAppIcon("Pages").click();
         getTreeTableItem("ftl-sample-site").click();
-        //getActionBarItem("Edit page").click();
-        delay("Give some time to open the page");
         getShellAppIcon("icon-favorites").click();
-        delay("Give some time to fill in values from previous location.");
+        waitUntil(DRIVER_WAIT_IN_SECONDS, shellAppIsLoaded(ShellApp.FAVORITES));
 
         // WHEN
-        //
         getButton("dialog-header", "Add new").click();
-        delay("Give some time to open the favorites dialog.");
+        WebElement groupComboBox = getElementByPath(By.xpath("//*[contains(@class, 'v-filterselect')]/*[@class = 'v-filterselect-input']"));
         String newGroupName = String.valueOf((new Date()).getTime());
-        getElementByPath(By.xpath("//*[contains(@class, 'v-filterselect')]/*[@class = 'v-filterselect-input']")).sendKeys(newGroupName);
+        groupComboBox.sendKeys(newGroupName);
         simulateKeyPress(Keys.TAB);
         getButton("v-button-commit", "Add").click();
-        delay("Wait again ...");
 
         // THEN
         WebElement newGroupElement = null;
@@ -85,7 +78,6 @@ public class FavoriteUITest extends AbstractMagnoliaUITest {
         WebElement newFavoriteElement = newGroupElement.findElement(By.xpath("//*[contains(concat(' ', @class, ' '), ' favorites-entry ')]"));
         assertNotNull(newFavoriteElement);
 
-
         // let's delete the group finally (which makes it easier for upcoming tests)
         removeExistingItems();
     }
@@ -95,9 +87,8 @@ public class FavoriteUITest extends AbstractMagnoliaUITest {
         WebElement trashElement = getElementByPath(By.xpath("//*[@class = 'icon-trash']"));
         if (trashElement != null) {
             trashElement.click();
-            delay("Wait for Confirmation Dialog.");
             getDialogConfirmButton().click();
-            delay("Remove is not always super fast...");
+            waitUntil(DRIVER_WAIT_IN_SECONDS, elementIsGone("//*[contains(@class, 'dialog-root-confirmation')]"));
         }
     }
 
@@ -105,9 +96,9 @@ public class FavoriteUITest extends AbstractMagnoliaUITest {
     public void addAndRemoveFavorite() {
         // GIVEN
         getAppIcon("Pages").click();
-        delay("Make sure Pages app is open before we navigate to favorites");
+        waitUntil(DRIVER_WAIT_IN_SECONDS, appIsLoaded());
         getShellAppIcon("icon-favorites").click();
-        delay("Give some time to fill in values from previous location.");
+        waitUntil(DRIVER_WAIT_IN_SECONDS, shellAppIsLoaded(ShellApp.FAVORITES));
 
         // WHEN
         getButton("dialog-header", "Add new").click();
@@ -119,62 +110,47 @@ public class FavoriteUITest extends AbstractMagnoliaUITest {
         // WHEN
         getButton("dialog-header", "Edit favorites").click();
         getElementByPath(By.xpath("//*[@class = 'icon-trash']")).click();
-        delay("Wait for Confirmation Dialog.");
 
         getDialogConfirmButton().click();
-        delay("Remove is not always super fast...");
+        waitUntil(DRIVER_WAIT_IN_SECONDS, elementIsGone("//*[contains(@class, 'dialog-root-confirmation')]"));
 
         // THEN
-        assertFalse("Entry 'Pages /' should have been removed", isExisting(getElementByXpath("//input[contains(@class, 'v-textfield-readonly')]")));
+        waitUntil(DRIVER_WAIT_IN_SECONDS, elementIsGone("//input[contains(@class, 'v-textfield-readonly')]"));
     }
 
     @Test
     public void testShowHideEditDeleteIcons() {
         // GIVEN
         // create new entry (new fav in new group = 2 items)
+
         getAppIcon("Pages").click();
         getTreeTableItem("ftl-sample-site").click();
-        delay("Give some time to open the page");
         getShellAppIcon("icon-favorites").click();
-        delay("Give some time to fill in values from previous location.");
+        waitUntil(DRIVER_WAIT_IN_SECONDS, shellAppIsLoaded(ShellApp.FAVORITES));
+
         getButton("dialog-header", "Add new").click();
-        delay("Give some time to open the favorites dialog.");
+        WebElement groupComboBox = getElementByPath(By.xpath("//*[contains(@class, 'v-filterselect')]/*[@class = 'v-filterselect-input']"));
         String newGroupName = String.valueOf((new Date()).getTime());
-        getElementByPath(By.xpath("//*[contains(@class, 'v-filterselect')]/*[@class = 'v-filterselect-input']")).sendKeys(newGroupName);
+        groupComboBox.sendKeys(newGroupName);
         simulateKeyPress(Keys.TAB);
         getButton("v-button-commit", "Add").click();
-        delay("Wait again ...");
 
         // WHEN
         // edit-state: => expecting to have 2x2 icons)
         getButton("dialog-header", "Edit favorites").click();
-        delay("Wait again ...");
+
         // THEN
         List<WebElement> trashIconElementsList = getElementsByPath(By.xpath("//*[@class = 'icon-trash']"));
         assertEquals(trashIconElementsList.size(), 2);
         List<WebElement> editIconElementsList = getElementsByPath(By.xpath("//*[@class = 'icon-edit']"));
         assertEquals(editIconElementsList.size(), 2);
 
-
         // WHEN
         // non-edit-state: => expecting no more icons  but expecting to run into TimeoutException when trying to fetch the elements by x-path
-        trashIconElementsList = null;
         getButton("dialog-header", "Edit favorites").click();
-        delay("Wait again ...");
-        // THEN
-        Exception ex = null;
-        try {
-            trashIconElementsList = getElementsByPath(By.xpath("//*[@class = 'icon-trash']"));
-        }
-        // exceptionally catching the exception instead of throwing it and declaring expected exception in the annotation;
-        // => it allows to test more and mainly to properly clean-up at the end
-        catch (TimeoutException tex) {
-            ex = tex;
-        } finally {
-            assertNull(trashIconElementsList);
-            assertNotNull(ex);
-        }
 
+        // THEN
+        waitUntil(DRIVER_WAIT_IN_SECONDS, elementIsGone("//*[@class = 'icon-trash']"));
 
         // clean-up at the end ...
         removeExistingItems();
