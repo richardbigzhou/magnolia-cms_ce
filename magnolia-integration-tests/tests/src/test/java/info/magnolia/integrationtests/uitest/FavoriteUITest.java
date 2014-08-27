@@ -83,7 +83,7 @@ public class FavoriteUITest extends AbstractMagnoliaUITest {
     }
 
     private void removeExistingItems() {
-        getButton("dialog-header", "Edit favorites").click();
+        getEditFavoritesButton().click();
         WebElement trashElement = getElementByPath(By.xpath("//*[@class = 'icon-trash']"));
         if (trashElement != null) {
             trashElement.click();
@@ -108,7 +108,7 @@ public class FavoriteUITest extends AbstractMagnoliaUITest {
         assertEquals("Pages /", getElementByXpath("//input[contains(@class, 'v-textfield-readonly')]").getAttribute("value"));
 
         // WHEN
-        getButton("dialog-header", "Edit favorites").click();
+        getEditFavoritesButton().click();
         getElementByPath(By.xpath("//*[@class = 'icon-trash']")).click();
 
         getDialogConfirmButton().click();
@@ -137,7 +137,7 @@ public class FavoriteUITest extends AbstractMagnoliaUITest {
 
         // WHEN
         // edit-state: => expecting to have 2x2 icons)
-        getButton("dialog-header", "Edit favorites").click();
+        getEditFavoritesButton().click();
 
         // THEN
         List<WebElement> trashIconElementsList = getElementsByPath(By.xpath("//*[@class = 'icon-trash']"));
@@ -147,12 +147,16 @@ public class FavoriteUITest extends AbstractMagnoliaUITest {
 
         // WHEN
         // non-edit-state: => expecting no more icons  but expecting to run into TimeoutException when trying to fetch the elements by x-path
-        getButton("dialog-header", "Edit favorites").click();
+        getEditFavoritesButton().click();
 
         // THEN
         waitUntil(DRIVER_WAIT_IN_SECONDS, elementIsGone("//*[@class = 'icon-trash']"));
 
         // clean-up at the end ...
         removeExistingItems();
+    }
+
+    private WebElement getEditFavoritesButton() {
+        return getElementByXpath("//*[contains(@class, '%s')]//*[not(contains(@class, 'disabled')) and text() = '%s']", "dialog-header", "Edit favorites");
     }
 }
