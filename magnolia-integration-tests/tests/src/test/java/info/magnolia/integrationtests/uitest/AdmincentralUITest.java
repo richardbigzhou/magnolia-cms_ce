@@ -36,6 +36,7 @@ package info.magnolia.integrationtests.uitest;
 import static org.junit.Assert.*;
 
 import java.util.Date;
+import java.util.List;
 
 import org.junit.Test;
 import org.openqa.selenium.By;
@@ -53,14 +54,17 @@ public class AdmincentralUITest extends AbstractMagnoliaUITest {
         getPulseTab("Messages").click();
         assertTrue(getElementByPath(By.xpath("//label[text() ='group by type']")).isDisplayed());
         getShellAppIcon("icon-appslauncher").click();
-        delay("Give time so that main page wont show up as pulse messages.");
-        toLandingPage();
+        waitUntil(DRIVER_WAIT_IN_SECONDS, shellAppIsLoaded(ShellApp.APPLAUNCHER));
 
         // WHEN
-        WebElement element = getElementByPath(By.xpath("//label[text() ='group by type']"));
+        toLandingPage();
 
         // THEN
-        assertFalse(isExisting(element));
+        // use getElements because singular form doesn't match elements that are not displayed (and times out)
+        List<WebElement> elements = getElementsByPath(By.xpath("//label[text() ='group by type']"));
+        assertNotNull(elements);
+        assertEquals(1, elements.size());
+        assertFalse(elements.get(0).isDisplayed());
     }
 
     @Test
@@ -106,27 +110,21 @@ public class AdmincentralUITest extends AbstractMagnoliaUITest {
     @Test
     public void appLauncherDisplayedWhenOneOfSeveralAppsIsClosed() {
         // GIVEN
-
         getAppIcon("Pages").click();
-        getElementByXpath("//*[contains(@class, '%s') and text() = '%s']", "v-actionbar-section-title", "Page"); // wait for app to actually be started
-        delay("app preloader should go too; using implicit wait here is not possible under a reasonable amount of time without changing the driver's fluent wait duration");
+        waitUntil(DRIVER_WAIT_IN_SECONDS, appIsLoaded());
 
         getShellIconAppsLauncher().click();
-
-        waitUntil(DRIVER_WAIT_IN_SECONDS, applauncherTransitionIsComplete());
+        waitUntil(DRIVER_WAIT_IN_SECONDS, shellAppIsLoaded(ShellApp.APPLAUNCHER));
 
         getAppIcon("Contacts").click();
-        getElementByXpath("//*[contains(@class, '%s') and text() = '%s']", "v-actionbar-section-title", "Contacts"); // wait for app to actually be started
-        delay("app preloader should go too; using implicit wait here is not possible under a reasonable amount of time without changing the driver's fluent wait duration");
+        waitUntil(DRIVER_WAIT_IN_SECONDS, appIsLoaded());
 
         // WHEN
         closeApp();
 
         // THEN
-        waitUntil(DRIVER_WAIT_IN_SECONDS, applauncherTransitionIsComplete());
         assertTrue("Apps Launcher should be displayed so e.g. Pages tile should be around", isExisting(getAppIcon("Pages")));
     }
-
 
     @Test
     public void sendAndRetrieveMessage() {

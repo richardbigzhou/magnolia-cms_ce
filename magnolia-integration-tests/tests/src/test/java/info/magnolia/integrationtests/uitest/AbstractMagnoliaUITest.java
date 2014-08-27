@@ -685,7 +685,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
 
     protected void toLandingPage() {
         driver.navigate().to(Instance.AUTHOR.getURL());
-        delay("Give some time to let animation finish");
+        waitUntil(DRIVER_WAIT_IN_SECONDS, shellAppIsLoaded(ShellApp.APPLAUNCHER));
     }
 
     protected void closeErrorNotification() {
