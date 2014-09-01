@@ -147,7 +147,7 @@
       <dependency>
         <groupId>info.magnolia.activation</groupId>
         <artifactId>magnolia-module-activation</artifactId>
-        <version>5.2.6</version>
+        <version>5.3</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia.cache</groupId>
@@ -157,7 +157,7 @@
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-mail</artifactId>
-        <version>5.2</version>
+        <version>5.2.1</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
