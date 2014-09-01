@@ -26,7 +26,7 @@
   </context-param>
   <context-param>
     <param-name>heartbeatInterval</param-name>
-    <param-value>20</param-value>
+    <param-value>90</param-value>
   </context-param>
   <!-- These are the default paths searched for magnolia configuration. Uncomment if you need to customize these.
     Your container might also do its own variables substitution here. Tomcat, for instance, allows you to use
