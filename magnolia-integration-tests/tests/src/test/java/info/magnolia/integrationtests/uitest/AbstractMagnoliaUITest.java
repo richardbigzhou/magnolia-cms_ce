@@ -398,17 +398,23 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         return !(element instanceof NonExistingWebElement);
     }
 
+
     protected void takeScreenshot(String suffix) {
         if (driver instanceof TakesScreenshot) {
             TakesScreenshot screenshotter = (TakesScreenshot) driver;
             File file = screenshotter.getScreenshotAs(OutputType.FILE);
-            // filter out any non-word, bracket, dot, colon or space character, replace them with underscore
-            suffix = suffix.replaceAll("[^\\w\\[\\].: ]", "_");
-            String fileName = String.format("%s-%04d-%s", testName(), screenshotIndex++, suffix);
+            // Replace non url-safe characters with underscores.
+            // Safe: $-_.+!*'() See: http://perishablepress.com/stop-using-unsafe-characters-in-urls/
+            suffix = suffix.replace(" = ", "IS");
+            suffix = suffix.replaceAll("[^\\w\\[\\].$_+!*'()]", "_");
+            suffix = reduceUnderscores(suffix);
+
+            String dirName = SCREENSHOT_DIR + "/" +  testName();
+            String fileName = String.format("%04d-%s", screenshotIndex++, suffix);
             // Java somehow thinks it needs to limit file name lengths !?
             fileName = StringUtils.left(fileName, 250);
 
-            final File destinationFile = new File(SCREENSHOT_DIR, fileName + ".png");
+            final File destinationFile = new File(dirName, fileName + ".png");
             if (destinationFile.exists()) {
                 // can be existing e.g. from previous test run
                 destinationFile.delete();
@@ -1218,4 +1224,23 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
 
     protected By notificationMessage = By.xpath("//div[contains(@class, 'v-label-dialog-content')]");
 
+
+    /**
+     * Replaces multiple adjacent _'s with a single one.
+     */
+    protected String reduceUnderscores(String s){
+        String result = " ";
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            if ('_' == c){
+                char resultLastChar = result.charAt(result.length() - 1);
+                if (!('_' == resultLastChar)){
+                    result = result + c;
+                }
+            }else{
+                result = result + c;
+            }
+        }
+        return result.trim();
+    }
 }
