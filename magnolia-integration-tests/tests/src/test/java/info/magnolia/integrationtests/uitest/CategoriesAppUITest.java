@@ -94,7 +94,6 @@ public class CategoriesAppUITest extends AbstractMagnoliaUITest {
         getActionBarItem("Publish deletion").click();
 
         // THEN
-        delay("Give some time to clean the table");
-        assertFalse(isExisting(getTreeTableItem("untitled")));
+        waitUntil(15, elementIsGone(String.format("//*[contains(@class, 'v-table-cell-wrapper') and text() = '%s']", "untitled")));
     }
 }

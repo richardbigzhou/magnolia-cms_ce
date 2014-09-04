@@ -88,6 +88,24 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
     public static final int DEFAULT_DELAY_IN_SECONDS = 2;
     public static final int DRIVER_WAIT_IN_SECONDS = 10;
 
+    protected static enum ShellApp {
+        APPLAUNCHER("v-app-launcher"),
+        PULSE("v-pulse"),
+        FAVORITES("favorites");
+
+        private final String className;
+
+        private ShellApp(String className) {
+            this.className = className;
+        }
+
+        public String getClassName() {
+            return className;
+        }
+    }
+
+    private static final String XPATH_V_APP_PRELOADER = "//*[contains(@class, 'v-app-preloader')]";
+
     public static final String DEFAULT_NATIVE_BUTTON_CLASS = "magnoliabutton v-nativebutton-magnoliabutton";
 
     // ICON STYLES
@@ -543,7 +561,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
     }
 
     protected WebElement getTreeTableItemExpander(String itemCaption) {
-        return getElementByXpath("//*[text() = '%s']/*[contains(@class, 'v-treetable-treespacer')]", itemCaption);
+        return getElementByXpath("//*[text() = '%s']/*[contains(@class, 'v-treetable-treespacer') and contains(@class, 'v-treetable-node-')]", itemCaption);
     }
 
     protected WebElement getTreeTableItem(String itemCaption) {
@@ -662,7 +680,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
     }
 
     protected void assertAppOpen(String appName) {
-        String path = String.format("//*[contains(@class, 'v-viewport-apps')]//*[contains(@class, 'tab-title') and text() = '%s']", appName);
+        String path = String.format("//*[contains(@class, 'v-viewport-apps')]//*[@class = 'tab-title' and text() = '%s']", appName);
         assertTrue(driver.findElement(By.xpath(path)).isDisplayed());
     }
 
@@ -677,7 +695,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
 
     protected void toLandingPage() {
         driver.navigate().to(Instance.AUTHOR.getURL());
-        delay("Give some time to let animation finish");
+        waitUntil(DRIVER_WAIT_IN_SECONDS, shellAppIsLoaded(ShellApp.APPLAUNCHER));
     }
 
     protected void closeErrorNotification() {
@@ -690,7 +708,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
 
     protected void closeApp() {
         getElementByPath(By.className("m-closebutton-app")).click();
-        delay("Wait to let the animation clear app from the viewport");
+        waitUntil(DRIVER_WAIT_IN_SECONDS, applauncherTransitionIsComplete());
     }
 
     protected boolean hasCssClass(WebElement webElement, String cssClass) {
@@ -946,7 +964,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
     }
 
     protected WebElement getMoveDialogElement(String elementName) {
-        return getElementByXpath("//div[contains(@class, 'dialog-content')]//div[contains(@class, 'v-slot-keyboard-panel')]//div[@class='v-table-cell-wrapper' and text() = '%s']", elementName);
+        return getElementByXpath("//div[contains(@class, 'light')]//div[contains(@class, 'dialog-content')]//div[contains(@class, 'v-slot-keyboard-panel')]//div[@class='v-table-cell-wrapper' and text() = '%s']", elementName);
     }
 
 
@@ -989,6 +1007,81 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
             @Override
             public WebElement apply(WebDriver driver) {
                 return "0px".equals(shellappsViewport.getCssValue("top")) ? shellappsViewport : null;
+            }
+        };
+    }
+
+    /**
+     * Shell app is considered loaded once both shellapps viewport and the given shell-app meet the following conditions:
+     * <ul>
+     * <li>element is displayed</li>
+     * <li>element transition is complete (no more transition related property in inline-styles).</li>
+     * </ul>
+     *
+     * @param shellAppType the {@link ShellApp} to wait for.
+     */
+    protected ExpectedCondition<WebElement> shellAppIsLoaded(final ShellApp shellAppType) {
+        // shell app should be displayed (block) and non-transitioning (opacity cleared upon transition complete)
+        final WebElement shellApp = driver.findElement(By.xpath(String.format("//div[contains(@class, 'v-viewport-shellapps')]/*[contains(@class, '%s')]", shellAppType.getClassName())));
+        final WebElement viewport = getElementByPath(By.className("v-viewport-shellapps"));
+        return new ExpectedCondition<WebElement>() {
+
+            @Override
+            public WebElement apply(WebDriver driver) {
+                boolean viewportTransitioning = viewport.getAttribute("style").contains("transition");
+                boolean viewportDisplayed = viewport.isDisplayed();
+                boolean shellAppTransitioning = shellApp.getAttribute("style").contains("transition");
+                boolean shellAppDisplayed = shellApp.isDisplayed();
+                return !viewportTransitioning && viewportDisplayed && !shellAppTransitioning && shellAppDisplayed ? shellApp : null;
+            }
+        };
+    }
+
+    /**
+     * App is considered loaded once the app-preloader has appeared (zoom-in) then disappeared (fade out after app is loaded).
+     * This should be called right after opening an app.
+     */
+    protected ExpectedCondition<WebElement> appIsLoaded() {
+        getElementByXpath(XPATH_V_APP_PRELOADER); // wait for preloader to be around
+        return elementIsGone(XPATH_V_APP_PRELOADER); // then disappear
+    }
+
+    /**
+     * Wait until a specific WebElement is gone;
+     * this method temporarily reduce implicit wait so that we exit right as soon as condition is successful.
+     */
+    protected ExpectedCondition<WebElement> elementIsGone(final String xpath) {
+        return new ExpectedCondition<WebElement>() {
+
+            @Override
+            public WebElement apply(WebDriver driver) {
+                // drastically reduce driver timeout so that implicit wait doesn't get in the way
+                driver.manage().timeouts().implicitlyWait(500, TimeUnit.MILLISECONDS);
+                WebElement gone = null;
+                try {
+                    // do not use getElementsByPath utils to avoid cascading another expected condition
+                    gone = driver.findElement(By.xpath(xpath));
+                } catch (NoSuchElementException e) {
+                    // expecting element not to be found
+                }
+                // restore driver timeout
+                driver.manage().timeouts().implicitlyWait(DRIVER_WAIT_IN_SECONDS, TimeUnit.SECONDS);
+                return gone != null ? null : new NonExistingWebElement(xpath);
+            }
+        };
+    }
+
+    /**
+     * Wait until form is updated with new language, by checking that at least one i18nized field label suffix has changed.
+     * To check that a "Title" field was switched to french, <code>expectedFieldCaption</code> should be <code>"fr"</code>.
+     */
+    protected ExpectedCondition<WebElement> languageSwitched(final String langSuffix) {
+        return new ExpectedCondition<WebElement>() {
+
+            @Override
+            public WebElement apply(WebDriver driver) {
+                WebElement label = driver.findElement(By.xpath(String.format("//*[@class = 'v-form-field-label' and contains(text(), '(%s)')]", langSuffix)));
+                return isExisting(label) ? label : null;
             }
         };
     }
