@@ -1247,9 +1247,9 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
     }
 
     /**
-     * Waits (max 10s) until the dialog with the specified title is closed.
+     * Waits until the dialog with the specified title is closed.
      */
-    protected void ensureDialogIsClosed(String dialogTitle) {
-        waitUntil(DRIVER_WAIT_IN_SECONDS, elementIsGone(String.format(XPATH_TO_DIALOG, dialogTitle)));
+    protected ExpectedCondition<WebElement> dialogIsClosed(final String dialogTitle) {
+        return elementIsGone(String.format(XPATH_TO_DIALOG, dialogTitle));
     }
 }
