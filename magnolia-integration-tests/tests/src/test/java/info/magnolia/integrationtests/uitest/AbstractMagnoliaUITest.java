@@ -1247,7 +1247,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
     }
 
     /**
-     * Waits until the dialog with the specified title is closed.
+     * Checks that the dialog with the specified title is closed.
      */
     protected ExpectedCondition<WebElement> dialogIsClosed(final String dialogTitle) {
         return elementIsGone(String.format(XPATH_TO_DIALOG, dialogTitle));
