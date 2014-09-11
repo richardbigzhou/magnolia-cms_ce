@@ -108,6 +108,8 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
 
     public static final String DEFAULT_NATIVE_BUTTON_CLASS = "magnoliabutton v-nativebutton-magnoliabutton";
 
+    private static final String XPATH_TO_DIALOG = "//*[contains(@class, 'dialog-header')]//*[contains(@class, 'title') and text() = '%s']";
+
     // ICON STYLES
     public static final String COLOR_GREEN_ICON_STYLE = "color-green";
     public static final String COLOR_YELLOW_ICON_STYLE = "color-yellow";
@@ -1242,5 +1244,12 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
             }
         }
         return result.trim();
+    }
+
+    /**
+     * Waits (max 10s) until the dialog with the specified title is closed.
+     */
+    protected void ensureDialogIsClosed(String dialogTitle) {
+        waitUntil(DRIVER_WAIT_IN_SECONDS, elementIsGone(String.format(XPATH_TO_DIALOG, dialogTitle)));
     }
 }
