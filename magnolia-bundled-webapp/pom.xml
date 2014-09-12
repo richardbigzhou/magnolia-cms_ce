@@ -4,7 +4,7 @@
   <parent>
     <groupId>info.magnolia.bundle</groupId>
     <artifactId>magnolia-bundle-parent</artifactId>
-    <version>5.3.3</version>
+    <version>5.3.4-SNAPSHOT</version>
   </parent>
   <groupId>info.magnolia.bundle</groupId>
   <artifactId>magnolia-bundled-webapp</artifactId>
