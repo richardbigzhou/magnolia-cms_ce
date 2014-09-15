@@ -246,11 +246,15 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         driver = new FirefoxDriver(firefoxProfile);
         setDefaultDriverTimeout();
         driver.manage().window().maximize();
-        driver.navigate().to(Instance.AUTHOR.getURL());
 
-        // Check license, relevant for EE tests
+        // public check/setup
+        driver.navigate().to(Instance.PUBLIC.getURL() + ".magnolia/admincentral");
         enterLicense();
+        assertThat(driver.getTitle(), equalTo("Magnolia 5"));
 
+        // author check/setup
+        driver.navigate().to(Instance.AUTHOR.getURL());
+        enterLicense();
         assertThat(driver.getTitle(), equalTo("Magnolia 5"));
 
         login(getTestUserName());
