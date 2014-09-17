@@ -119,6 +119,16 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
     private static final String SCREENSHOT_DIR = "target/surefire-reports/screenshots/";
     private static final String DOWNLOAD_DIR = "target/surefire-reports/downloads/";
 
+    /**
+     * Custom {@link FirefoxProfile} for mainly file download handling.
+     */
+    protected final static FirefoxProfile firefoxProfile = new FirefoxProfile() {{
+        setPreference("browser.download.folderList", 2);
+        setPreference("browser.helperApps.neverAsk.saveToDisk", "application/xml,application/zip,text/csv,application/vnd.ms-excel,application/octet-stream");
+        setPreference("browser.helperApps.alwaysAsk.force", false);
+        setPreference("browser.download.manager.showWhenStarting", false);
+    }};
+
     private WebDriver driver = null;
     private static int screenshotIndex = 1;
 
@@ -235,12 +245,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
     public void setUp() {
         System.out.println("Running " + getClass().getName() + "#" + testName.getMethodName());
 
-        final FirefoxProfile firefoxProfile = new FirefoxProfile();
         firefoxProfile.setPreference("browser.download.dir", getDownloadDir());
-        firefoxProfile.setPreference("browser.download.folderList", 2);
-        firefoxProfile.setPreference("browser.helperApps.neverAsk.saveToDisk", "application/xml,application/zip,text/csv,application/vnd.ms-excel,application/octet-stream");
-        firefoxProfile.setPreference("browser.helperApps.alwaysAsk.force", false);
-        firefoxProfile.setPreference("browser.download.manager.showWhenStarting", false);
 
         assertThat("Driver is already set in setUp(), previous test didn't tearDown properly.", driver, nullValue());
         driver = new FirefoxDriver(firefoxProfile);
