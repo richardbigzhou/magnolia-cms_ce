@@ -324,6 +324,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
                     // uncomment the following line to flush browser console output to the server logs
                     // captureLogs();
                 } finally {
+                    driver.close();
                     driver.quit();
                     driver = null;
                 }
