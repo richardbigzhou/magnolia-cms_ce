@@ -42,6 +42,7 @@ import info.magnolia.testframework.htmlunit.AbstractMagnoliaHtmlUnitTest;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -75,6 +76,8 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.logging.LogEntries;
 import org.openqa.selenium.logging.LogEntry;
 import org.openqa.selenium.logging.Logs;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
@@ -87,6 +90,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
 
     public static final int DEFAULT_DELAY_IN_SECONDS = 2;
     public static final int DRIVER_WAIT_IN_SECONDS = 10;
+    public static final String VM_HOST_NAME = "vmHostName";
 
     protected static enum ShellApp {
         APPLAUNCHER("v-app-launcher"),
@@ -128,6 +132,8 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         setPreference("browser.helperApps.alwaysAsk.force", false);
         setPreference("browser.download.manager.showWhenStarting", false);
     }};
+
+    protected final static DesiredCapabilities capabilities = DesiredCapabilities.firefox();
 
     private WebDriver driver = null;
     private static int screenshotIndex = 1;
@@ -241,14 +247,41 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         return this.getClass().getSimpleName() + "#" + testName.getMethodName();
     }
 
+    /**
+     * Returns the {@link WebDriver} to be used for all tests.
+     *
+     * If a system property {@link #VM_HOST_NAME} was provided with a hostname a {@link RemoteWebDriver} will be
+     * returned, otherwise the default {@link FirefoxDriver}.
+     */
+    private WebDriver getWebDriver() {
+        // Set the download dir which might be overwritten in subclasses
+        firefoxProfile.setPreference("browser.download.dir", getDownloadDir());
+
+        // Set our custom profile as desired capabilities
+        capabilities.setCapability(FirefoxDriver.PROFILE, firefoxProfile);
+
+        // If a vmHostName was supplied then we're executing the tests in a Virtual Machine
+        String vmHostName = System.getProperty(VM_HOST_NAME);
+        if (StringUtils.isNotBlank(vmHostName)) {
+            try {
+                URL seleniumServerUrl = new URL(String.format("http://%s:4444/wd/hub", vmHostName));
+                return new RemoteWebDriver(seleniumServerUrl, capabilities);
+            } catch (MalformedURLException e) {
+                log.error("VM hostname was set [{}] but couldn't setup URL", vmHostName, e);
+            }
+        }
+
+        return new FirefoxDriver(capabilities);
+    }
+
     @Before
     public void setUp() {
         System.out.println("Running " + getClass().getName() + "#" + testName.getMethodName());
 
-        firefoxProfile.setPreference("browser.download.dir", getDownloadDir());
-
         assertThat("Driver is already set in setUp(), previous test didn't tearDown properly.", driver, nullValue());
-        driver = new FirefoxDriver(firefoxProfile);
+
+        driver = getWebDriver();
+
         setDefaultDriverTimeout();
         driver.manage().window().maximize();
 
