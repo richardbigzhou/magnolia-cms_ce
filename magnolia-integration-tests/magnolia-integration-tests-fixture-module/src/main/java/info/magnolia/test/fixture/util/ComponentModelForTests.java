@@ -31,7 +31,7 @@
  * intact.
  *
  */
-package info.magnolia.testframework.util;
+package info.magnolia.test.fixture.util;
 
 import info.magnolia.cms.core.Content;
 import info.magnolia.jcr.util.ContentMap;
@@ -45,8 +45,6 @@ import javax.jcr.Node;
 
 /**
  * Dummy model used in tests, exposing an execution counter and hardcoded arbitrary properties.
- *
- * @version $Id$
  */
 public class ComponentModelForTests implements RenderingModel {
     private static int executionCount;

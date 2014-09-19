@@ -3,7 +3,7 @@
 <module>
   <name>test</name>
   <displayName>Integration tests</displayName>
-  <versionHandler>info.magnolia.test.SetupStuffForTests</versionHandler>
+  <versionHandler>info.magnolia.test.fixture.setup.SetupStuffForTests</versionHandler>
   <version>${project.version}</version>
 
   <!-- make sure we're last -->
@@ -40,14 +40,14 @@
   <servlets>
     <servlet>
       <name>SystemPropertyServlet</name>
-      <class>info.magnolia.test.SystemPropertyServlet</class>
+      <class>info.magnolia.test.fixture.SystemPropertyServlet</class>
       <mappings>
         <mapping>/.magnolia/sysprop/*</mapping>
       </mappings>
     </servlet>
     <servlet>
       <name>JcrPropertyServlet</name>
-      <class>info.magnolia.test.JcrPropertyServlet</class>
+      <class>info.magnolia.test.fixture.JcrPropertyServlet</class>
       <mappings>
         <mapping>/.magnolia/jcrprop/*</mapping>
       </mappings>
