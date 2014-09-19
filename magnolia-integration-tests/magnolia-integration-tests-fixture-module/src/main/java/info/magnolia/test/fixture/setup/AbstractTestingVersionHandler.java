@@ -31,7 +31,7 @@
  * intact.
  *
  */
-package info.magnolia.testframework.setup;
+package info.magnolia.test.fixture.setup;
 
 import static info.magnolia.nodebuilder.Ops.*;
 
@@ -62,8 +62,6 @@ import java.util.List;
  *
  * By default, it imports content into the website and config workspace using the properties file returned by
  * {@link #getWebsiteImportPropertiesFile()} and {@link #getConfigImportPropertiesFile()} respectively.
- *
- * @version $Revision: $ ($Author: $)
  */
 public abstract class AbstractTestingVersionHandler extends AbstractModuleVersionHandler {
     @Override

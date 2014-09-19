@@ -35,9 +35,6 @@ package info.magnolia.integrationtests.uitest;
 
 import static org.junit.Assert.*;
 
-import info.magnolia.cms.util.ClasspathResourcesUtil;
-
-import java.awt.AWTException;
 import java.net.URL;
 import java.text.NumberFormat;
 
@@ -131,12 +128,12 @@ public class SimpleFieldUITest extends AbstractMagnoliaUITest {
     }
 
     @Test
-    public void checkUploadFieldUploadFile() throws AWTException {
+    public void checkUploadFieldUploadFile() {
         // GIVEN
         goToDialogShowRoomAndOpenDialogComponent("ftl");
         getTabForCaption("File").click();
         // Init file ref
-        URL resource = ClasspathResourcesUtil.getResource("me.jpg");
+        URL resource = getClass().getResource("me.jpg");
         // Get Upload Element
         WebElement upload = getFormField("Upload a file");
         // Get Upload Form

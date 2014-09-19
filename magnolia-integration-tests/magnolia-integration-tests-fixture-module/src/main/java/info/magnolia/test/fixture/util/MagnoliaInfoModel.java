@@ -1,5 +1,5 @@
 /**
- * This file Copyright (c) 2003-2013 Magnolia International
+ * This file Copyright (c) 2010-2013 Magnolia International
  * Ltd.  (http://www.magnolia-cms.com). All rights reserved.
  *
  *
@@ -31,71 +31,29 @@
  * intact.
  *
  */
-package info.magnolia.testframework.util;
+package info.magnolia.test.fixture.util;
 
-import info.magnolia.cms.core.Content;
-import info.magnolia.jcr.util.ContentMap;
+import info.magnolia.cms.license.LicenseFileExtractor;
 import info.magnolia.rendering.model.RenderingModel;
+import info.magnolia.rendering.model.RenderingModelImpl;
 import info.magnolia.rendering.template.RenderableDefinition;
-
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
 
 import javax.jcr.Node;
 
 /**
- * Dummy model used in tests, exposing an execution counter and hardcoded arbitrary properties.
- *
- * @deprecated since 5.0 use {@link ComponentModelForTests} instead.
+ * A simple model used in tests which exposes Magnolia version info.
  */
-@Deprecated
-public class ParagraphModelForTests implements RenderingModel {
-    private static int executionCount;
-    public ParagraphModelForTests(Content content, RenderableDefinition renderable, RenderingModel parent) {
+public class MagnoliaInfoModel extends RenderingModelImpl<RenderableDefinition> {
+    public MagnoliaInfoModel(Node content, RenderableDefinition renderable, RenderingModel parent) {
+        super(content, renderable, parent);
     }
 
-    @Override
-    public RenderingModel getParent() {
-        return null;
+    public String getMagnoliaVersion() {
+        final LicenseFileExtractor license = LicenseFileExtractor.getInstance();
+        final StringBuilder info = new StringBuilder();
+        info.append(license.get(LicenseFileExtractor.EDITION)).append(" ");
+        info.append(license.get(LicenseFileExtractor.VERSION_NUMBER)).append(" ");
+        info.append("(").append(license.get(LicenseFileExtractor.BUILD_NUMBER)).append(")");
+        return info.toString();
     }
-
-    @Override
-    public Node getNode() {
-        return null;
-    }
-
-    @Override
-    public ContentMap getContent() {
-        return null;
-    }
-
-    @Override
-    public RenderableDefinition getDefinition() {
-        return null;
-    }
-
-    @Override
-    public String execute() {
-        executionCount++;
-        return "foobar";
-    }
-
-    @Override
-    public RenderingModel<?> getRoot() {
-        return null;
-    }
-
-    public String getCount() {
-        return "This class was executed " + executionCount + " times.";
-    }
-
-    public int getRandomInt() {
-        return new Random().nextInt(100);
-    }
-
-    public List<String> getAllowedParagraphs(Content content) {
-        return Arrays.asList("foo", "bar");
-    }
-
 }

@@ -33,17 +33,16 @@
  */
 package info.magnolia.integrationtests.rendering;
 
+import static org.hamcrest.Matchers.containsString;
 import static org.junit.Assert.*;
-import static org.junit.matchers.JUnitMatchers.containsString;
 
-import info.magnolia.cms.util.ClasspathResourcesUtil;
 import info.magnolia.testframework.htmlunit.AbstractMagnoliaHtmlUnitTest;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URL;
 
 import org.apache.commons.io.IOUtils;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.gargoylesoftware.htmlunit.Page;
@@ -53,11 +52,11 @@ import com.gargoylesoftware.htmlunit.Page;
  */
 public class SimpleRenderingTest extends AbstractMagnoliaHtmlUnitTest {
 
+    @Ignore("We have removed the dependency to the fixture-module, thus this file cannot be accessed anymore")
     @Test
     public void ensureWeCanReachResourcesFromTheTestModule() throws IOException {
-        final URL resource = ClasspathResourcesUtil.getResource("/mgnl-files/templates/test/templating_test_expectedresults.txt");
-        assertNotNull(resource);
-        final InputStream stream = resource.openStream();
+        final Thread thread = Thread.currentThread();
+        final InputStream stream = thread.getContextClassLoader().getResourceAsStream("mgnl-files/templates/test/templating_test_expectedresults.txt");
         assertNotNull(stream);
         final String allContents = IOUtils.toString(stream);
         assertThat(allContents, containsString("This file is currently not used !"));

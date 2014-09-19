@@ -31,14 +31,13 @@
  * intact.
  *
  */
-package info.magnolia.test;
+package info.magnolia.test.fixture.setup;
 
 import info.magnolia.module.InstallContext;
 import info.magnolia.module.delta.BootstrapSingleResource;
 import info.magnolia.module.delta.IsAuthorInstanceDelegateTask;
 import info.magnolia.module.delta.ModuleBootstrapTask;
 import info.magnolia.module.delta.Task;
-import info.magnolia.testframework.setup.AbstractTestingVersionHandler;
 
 import java.util.ArrayList;
 import java.util.List;

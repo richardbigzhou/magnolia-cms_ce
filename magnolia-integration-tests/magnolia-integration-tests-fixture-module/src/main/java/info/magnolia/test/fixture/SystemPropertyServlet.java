@@ -31,7 +31,7 @@
  * intact.
  *
  */
-package info.magnolia.test;
+package info.magnolia.test.fixture;
 
 import java.io.IOException;
 import javax.servlet.ServletException;

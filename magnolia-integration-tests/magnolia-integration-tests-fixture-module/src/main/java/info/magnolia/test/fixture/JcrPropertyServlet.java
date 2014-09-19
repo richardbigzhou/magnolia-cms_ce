@@ -31,7 +31,7 @@
  * intact.
  *
  */
-package info.magnolia.test;
+package info.magnolia.test.fixture;
 
 import info.magnolia.context.MgnlContext;
 import info.magnolia.repository.RepositoryConstants;
