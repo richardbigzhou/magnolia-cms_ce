@@ -34,33 +34,20 @@
 package info.magnolia.integrationtests.rendering;
 
 import static org.hamcrest.Matchers.containsString;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertThat;
 
 import info.magnolia.testframework.htmlunit.AbstractMagnoliaHtmlUnitTest;
 
 import java.io.IOException;
-import java.io.InputStream;
 
-import org.apache.commons.io.IOUtils;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import com.gargoylesoftware.htmlunit.Page;
 
 /**
- * Tests.
+ * Simple rendering tests.
  */
 public class SimpleRenderingTest extends AbstractMagnoliaHtmlUnitTest {
-
-    @Ignore("We have removed the dependency to the fixture-module, thus this file cannot be accessed anymore")
-    @Test
-    public void ensureWeCanReachResourcesFromTheTestModule() throws IOException {
-        final Thread thread = Thread.currentThread();
-        final InputStream stream = thread.getContextClassLoader().getResourceAsStream("mgnl-files/templates/test/templating_test_expectedresults.txt");
-        assertNotNull(stream);
-        final String allContents = IOUtils.toString(stream);
-        assertThat(allContents, containsString("This file is currently not used !"));
-    }
 
     @Test
     public void ensureTheSimplePlainTextTestPageIsReachable() throws IOException {
