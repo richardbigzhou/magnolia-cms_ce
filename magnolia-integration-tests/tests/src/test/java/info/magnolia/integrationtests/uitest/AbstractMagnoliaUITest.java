@@ -90,7 +90,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
 
     public static final int DEFAULT_DELAY_IN_SECONDS = 2;
     public static final int DRIVER_WAIT_IN_SECONDS = 10;
-    public static final String VM_HOST_NAME = "vmHostName";
+    public static final String SELENIUM_SERVER_HOST_NAME = "seleniumServerHostName";
 
     protected static enum ShellApp {
         APPLAUNCHER("v-app-launcher"),
@@ -250,7 +250,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
     /**
      * Returns a new {@link WebDriver} to be used for all tests.
      *
-     * If a system property {@link #VM_HOST_NAME} was provided with a hostname a {@link RemoteWebDriver} will be
+     * If a system property {@link #SELENIUM_SERVER_HOST_NAME} was provided with a hostname a {@link RemoteWebDriver} will be
      * returned, otherwise the default {@link FirefoxDriver}.
      */
     protected WebDriver getNewWebDriver() {
@@ -261,7 +261,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         capabilities.setCapability(FirefoxDriver.PROFILE, firefoxProfile);
 
         // If a vmHostName was supplied then we're executing the tests in a Virtual Machine
-        String vmHostName = System.getProperty(VM_HOST_NAME);
+        String vmHostName = System.getProperty(SELENIUM_SERVER_HOST_NAME);
         if (StringUtils.isNotBlank(vmHostName)) {
             try {
                 URL seleniumServerUrl = new URL(String.format("http://%s:4444/wd/hub", vmHostName));
