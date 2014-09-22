@@ -126,14 +126,14 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
     /**
      * Custom {@link FirefoxProfile} for mainly file download handling.
      */
-    protected final static FirefoxProfile firefoxProfile = new FirefoxProfile() {{
+    protected final FirefoxProfile firefoxProfile = new FirefoxProfile() {{
         setPreference("browser.download.folderList", 2);
         setPreference("browser.helperApps.neverAsk.saveToDisk", "application/xml,application/zip,text/csv,application/vnd.ms-excel,application/octet-stream");
         setPreference("browser.helperApps.alwaysAsk.force", false);
         setPreference("browser.download.manager.showWhenStarting", false);
     }};
 
-    protected final static DesiredCapabilities capabilities = DesiredCapabilities.firefox();
+    protected final DesiredCapabilities capabilities = DesiredCapabilities.firefox();
 
     private WebDriver driver = null;
     private static int screenshotIndex = 1;
@@ -248,12 +248,12 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
     }
 
     /**
-     * Returns the {@link WebDriver} to be used for all tests.
+     * Returns a new {@link WebDriver} to be used for all tests.
      *
      * If a system property {@link #VM_HOST_NAME} was provided with a hostname a {@link RemoteWebDriver} will be
      * returned, otherwise the default {@link FirefoxDriver}.
      */
-    private WebDriver getWebDriver() {
+    protected WebDriver getNewWebDriver() {
         // Set the download dir which might be overwritten in subclasses
         firefoxProfile.setPreference("browser.download.dir", getDownloadDir());
 
@@ -280,7 +280,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
 
         assertThat("Driver is already set in setUp(), previous test didn't tearDown properly.", driver, nullValue());
 
-        driver = getWebDriver();
+        driver = getNewWebDriver();
 
         setDefaultDriverTimeout();
         driver.manage().window().maximize();
