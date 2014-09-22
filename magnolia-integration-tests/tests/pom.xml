@@ -17,11 +17,18 @@
 
   <properties>
     <leaveContainerRunningAndDontExecuteTests>false</leaveContainerRunningAndDontExecuteTests>
+    <!-- The containerHostName which will be used to access the instance -->
+    <!-- In case of access from a remote host change accordingly -->
+    <containerHostName>localhost</containerHostName>
     <!-- The default container http port used for tests. In CI this will be a random port. -->
     <containerHttpPort>8199</containerHttpPort>
     <!-- The port to use when communicating with this server, for example to start and stop it. -->
     <!-- This was probably causing builds to fail, as the default port was used. -->
     <cargoRmiPort>8198</cargoRmiPort>
+    <!-- The hostname used to access the selenium standalone server 'http://${vmHostName}:4444/wd/hub' -->
+    <!-- (please replace variables) on the virtual machine -->
+    <!-- If set, tests will use a RemoteWebDriver instead of the default web driver -->
+    <seleniumServerHostName></seleniumServerHostName>
   </properties>
   <!--
   This pom (and most of this project, for that matter), has been copied to
@@ -156,9 +163,11 @@
           </excludes>
           <systemPropertyVariables>
             <containerHttpPort>${containerHttpPort}</containerHttpPort>
-            <containerRootURL>http://localhost:${containerHttpPort}/</containerRootURL>
+            <containerRootURL>http://${containerHostName}:${containerHttpPort}/</containerRootURL>
             <authorContextPath>magnoliaTest/</authorContextPath>
             <publicContextPath>magnoliaTestPublic/</publicContextPath>
+            <!-- Parameters for running tests in virtual machine -->
+            <seleniumServerHostName>${seleniumServerHostName}</seleniumServerHostName>
           </systemPropertyVariables>
         </configuration>
       </plugin>
@@ -188,9 +197,11 @@
               <java.io.tmpdir>${project.build.directory}/java-io-tmpdir</java.io.tmpdir>
               <!-- The surefire variables are not exposed to container, we need these props: -->
               <containerHttpPort>${containerHttpPort}</containerHttpPort>
-              <containerRootURL>http://localhost:${containerHttpPort}/</containerRootURL>
+              <containerRootURL>http://${containerHostName}:${containerHttpPort}/</containerRootURL>
               <authorContextPath>magnoliaTest/</authorContextPath>
               <publicContextPath>magnoliaTestPublic/</publicContextPath>
+              <!-- Parameters for running tests in virtual machine -->
+              <seleniumServerHostName>${seleniumServerHostName}</seleniumServerHostName>
             </systemProperties>
           </container>
           <configuration>
@@ -270,35 +281,35 @@
               <properties>
                 <login>superuser</login>
                 <password>superuser</password>
-                <geturl1>http://localhost:${containerHttpPort}/magnoliaTestPublic/ftl-sample-site/</geturl1>
-                <geturl2>http://localhost:${containerHttpPort}/magnoliaTestPublic/jsp-sample-site/</geturl2>
-                <geturl3>http://localhost:${containerHttpPort}/magnoliaTestPublic/demo-project/</geturl3>
-                <geturl4>http://localhost:${containerHttpPort}/magnoliaTestPublic/demo-features/</geturl4>
-                <geturlauth5>http://localhost:${containerHttpPort}/magnoliaTest/ftl-sample-site/</geturlauth5>
-                <geturlauth6>http://localhost:${containerHttpPort}/magnoliaTest/jsp-sample-site/</geturlauth6>
-                <geturlauth7>http://localhost:${containerHttpPort}/magnoliaTestPublic/demo-project/</geturlauth7>
-                <geturlauth8>http://localhost:${containerHttpPort}/magnoliaTestPublic/demo-features/</geturlauth8>
+                <geturl1>http://${containerHostName}:${containerHttpPort}/magnoliaTestPublic/ftl-sample-site/</geturl1>
+                <geturl2>http://${containerHostName}:${containerHttpPort}/magnoliaTestPublic/jsp-sample-site/</geturl2>
+                <geturl3>http://${containerHostName}:${containerHttpPort}/magnoliaTestPublic/demo-project/</geturl3>
+                <geturl4>http://${containerHostName}:${containerHttpPort}/magnoliaTestPublic/demo-features/</geturl4>
+                <geturlauth5>http://${containerHostName}:${containerHttpPort}/magnoliaTest/ftl-sample-site/</geturlauth5>
+                <geturlauth6>http://${containerHostName}:${containerHttpPort}/magnoliaTest/jsp-sample-site/</geturlauth6>
+                <geturlauth7>http://${containerHostName}:${containerHttpPort}/magnoliaTestPublic/demo-project/</geturlauth7>
+                <geturlauth8>http://${containerHostName}:${containerHttpPort}/magnoliaTestPublic/demo-features/</geturlauth8>
               </properties>
               <source>${project.basedir}/src/main/groovy/crawl.groovy</source>
             </configuration>
           </execution>
-<!--           <execution> -->
-<!--             <id>activation-test</id> -->
-<!--             <phase>integration-test</phase> -->
-<!--             <goals> -->
-<!--               <goal>execute</goal> -->
-<!--             </goals> -->
-<!--             <configuration> -->
-<!--               <properties> -->
-<!--                 <login>superuser</login> -->
-<!--                 <password>superuser</password> -->
-<!--                 <isEnterprise>false</isEnterprise> -->
-<!--                 <authorUrl>http://localhost:${containerHttpPort}/magnoliaTest/</authorUrl> -->
-<!--                 <publicUrl>http://localhost:${containerHttpPort}/magnoliaTestPublic/</publicUrl> -->
-<!--               </properties> -->
-<!--               <source>${project.basedir}/src/main/groovy/activationTest.groovy</source> -->
-<!--             </configuration> -->
-<!--           </execution> -->
+           <!--<execution> -->
+             <!--<id>activation-test</id> -->
+             <!--<phase>integration-test</phase> -->
+             <!--<goals> -->
+               <!--<goal>execute</goal> -->
+             <!--</goals> -->
+             <!--<configuration> -->
+               <!--<properties> -->
+                 <!--<login>superuser</login> -->
+                 <!--<password>superuser</password> -->
+                 <!--<isEnterprise>false</isEnterprise> -->
+                 <!--<authorUrl>http://localhost:${containerHttpPort}/magnoliaTest/</authorUrl> -->
+                 <!--<publicUrl>http://localhost:${containerHttpPort}/magnoliaTestPublic/</publicUrl> -->
+               <!--</properties> -->
+               <!--<source>${project.basedir}/src/main/groovy/activationTest.groovy</source> -->
+             <!--</configuration> -->
+           <!--</execution> -->
           <execution>
             <id>log-parser</id>
             <phase>integration-test</phase>
