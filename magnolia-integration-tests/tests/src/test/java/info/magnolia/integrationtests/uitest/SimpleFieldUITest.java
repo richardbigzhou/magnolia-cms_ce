@@ -133,7 +133,8 @@ public class SimpleFieldUITest extends AbstractMagnoliaUITest {
         goToDialogShowRoomAndOpenDialogComponent("ftl");
         getTabForCaption("File").click();
         // Init file ref
-        URL resource = getClass().getResource("me.jpg");
+        URL resource = getClass().getClassLoader().getResource("me.jpg");
+        assertNotNull(resource);
         // Get Upload Element
         WebElement upload = getFormField("Upload a file");
         // Get Upload Form
