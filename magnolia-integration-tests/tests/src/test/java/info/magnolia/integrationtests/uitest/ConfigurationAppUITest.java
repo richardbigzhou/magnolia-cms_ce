@@ -58,7 +58,7 @@ public class ConfigurationAppUITest extends AbstractMagnoliaUITest {
 
         // publish
         getEnabledActionBarItem("Publish incl. subnodes").click();
-        delay("Publication may take some time");
+        delay(5, "Publication may take some time");
         refreshTreeView();
         assertThat(getSelectedActivationStatusIcon().getAttribute("class"), containsString(COLOR_GREEN_ICON_STYLE));
 
