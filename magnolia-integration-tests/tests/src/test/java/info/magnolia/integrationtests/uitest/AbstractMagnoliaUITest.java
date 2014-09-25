@@ -724,9 +724,12 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         return getElementByXpath("//*[contains(@class, 'v-table-caption-container')]/span[text() = '%s']", columnName);
     }
 
+    protected By getXpathForAppByAppName(String appName) {
+        return By.xpath(String.format("//*[contains(@class, 'v-viewport-apps')]//*[@class = 'tab-title' and text() = '%s']", appName));
+    }
+
     protected void assertAppOpen(String appName) {
-        String path = String.format("//*[contains(@class, 'v-viewport-apps')]//*[@class = 'tab-title' and text() = '%s']", appName);
-        assertTrue(driver.findElement(By.xpath(path)).isDisplayed());
+        assertTrue(driver.findElement(getXpathForAppByAppName(appName)).isDisplayed());
     }
 
     protected WebElement getDialog(final String dialogTitle) {
