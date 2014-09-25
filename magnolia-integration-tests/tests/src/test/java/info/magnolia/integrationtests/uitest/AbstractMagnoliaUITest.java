@@ -1034,6 +1034,16 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
     }
 
     /**
+     * Waits {@link #DRIVER_WAIT_IN_SECONDS} seconds until the {@link ExpectedCondition} was met.
+     *
+     * @param expectedCondition the {@link ExpectedCondition} until the {@link WebDriver} should wait
+     * @see org.openqa.selenium.support.ui.ExpectedConditions
+     */
+    protected void waitUntil(final ExpectedCondition<?> expectedCondition) {
+        new WebDriverWait(driver, DRIVER_WAIT_IN_SECONDS).until(expectedCondition);
+    }
+
+    /**
      * To use while debugging tests: delegates to another condition, and logs its results.
      */
     protected ExpectedCondition<Object> loggingCondition(final ExpectedCondition<?> expectedCondition) {
