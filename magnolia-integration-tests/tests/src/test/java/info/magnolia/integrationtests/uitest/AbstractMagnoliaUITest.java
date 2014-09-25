@@ -787,8 +787,10 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         driver.switchTo().defaultContent();
     }
 
+    protected By confirmationOverlay = By.xpath("//*[contains(@class, 'dialog-root-confirmation')]");
+
     protected WebElement getConfirmationOverlay() {
-        return getElementByXpath("//*[contains(@class, 'dialog-root-confirmation')]");
+        return getElementByPath(confirmationOverlay);
     }
 
     protected WebElement getFocusedElement() {

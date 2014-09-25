@@ -34,6 +34,7 @@
 package info.magnolia.integrationtests.uitest;
 
 import static org.junit.Assert.*;
+import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
 
 import org.junit.Test;
 import org.openqa.selenium.By;
@@ -152,7 +153,7 @@ public class KeyboardShortcutUITest extends AbstractMagnoliaUITest {
 
         // WHEN
         simulateKeyPress(Keys.ESCAPE);
-        delay(1, "");
+        waitUntil(DRIVER_WAIT_IN_SECONDS, visibilityOfElementLocated(confirmationOverlay));
         // THEN
         confirmation = getConfirmationOverlay();
         assertTrue("ESC key should have caused confirmation overlay.", isExisting(confirmation));
