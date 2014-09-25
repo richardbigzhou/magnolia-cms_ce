@@ -700,8 +700,12 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         return getElementByXpath("//*[contains(@class, 'v-shell-tabsheet')]//*[@class = 'tab-title' and text() = '%s']", tabCaption);
     }
 
+    protected By getXpathOfTabContainingCaption(String tabCaption) {
+        return By.xpath(String.format("//*[contains(@class, 'v-shell-tabsheet')]//*[@class = 'tab-title' and contains(text(),'%s')]", tabCaption));
+    }
+
     protected WebElement getTabContainingCaption(String tabCaption) {
-        return getElementByXpath("//*[contains(@class, 'v-shell-tabsheet')]//*[@class = 'tab-title' and contains(text(),'%s')]", tabCaption);
+        return getElementByPath(getXpathOfTabContainingCaption(tabCaption));
     }
 
     protected WebElement getDialogCommitButton() {

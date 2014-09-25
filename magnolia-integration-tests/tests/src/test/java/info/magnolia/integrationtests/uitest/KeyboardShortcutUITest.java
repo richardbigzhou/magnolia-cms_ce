@@ -145,6 +145,8 @@ public class KeyboardShortcutUITest extends AbstractMagnoliaUITest {
         getElementByPath(By.xpath("//*[contains(@class, 'focus')]//*[contains(@class, 'icon-edit')]")).click();
         switchToDefaultContent();
 
+        waitUntil(visibilityOfElementLocated(getXpathOfTabContainingCaption("Settings")));
+
         // WHEN
         simulateKeyPress(Keys.ESCAPE);
         // THEN
