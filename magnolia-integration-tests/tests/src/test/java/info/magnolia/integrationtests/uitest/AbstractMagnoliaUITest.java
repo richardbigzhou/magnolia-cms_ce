@@ -696,8 +696,12 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         return getElementByXpath("//*[contains(@class, 'v-shell-tabsheet')]//*[@class = 'tab-title' and text() = '%s']", tabCaption);
     }
 
+    protected By getXpathOfTabContainingCaption(String tabCaption) {
+        return By.xpath(String.format("//*[contains(@class, 'v-shell-tabsheet')]//*[@class = 'tab-title' and contains(text(),'%s')]", tabCaption));
+    }
+
     protected WebElement getTabContainingCaption(String tabCaption) {
-        return getElementByXpath("//*[contains(@class, 'v-shell-tabsheet')]//*[@class = 'tab-title' and contains(text(),'%s')]", tabCaption);
+        return getElementByPath(getXpathOfTabContainingCaption(tabCaption));
     }
 
     protected WebElement getDialogCommitButton() {
@@ -720,9 +724,12 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         return getElementByXpath("//*[contains(@class, 'v-table-caption-container')]/span[text() = '%s']", columnName);
     }
 
+    protected By getXpathForAppByAppName(String appName) {
+        return By.xpath(String.format("//*[contains(@class, 'v-viewport-apps')]//*[@class = 'tab-title' and text() = '%s']", appName));
+    }
+
     protected void assertAppOpen(String appName) {
-        String path = String.format("//*[contains(@class, 'v-viewport-apps')]//*[@class = 'tab-title' and text() = '%s']", appName);
-        assertTrue(driver.findElement(By.xpath(path)).isDisplayed());
+        assertTrue(driver.findElement(getXpathForAppByAppName(appName)).isDisplayed());
     }
 
     protected WebElement getDialog(final String dialogTitle) {
@@ -783,8 +790,10 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         driver.switchTo().defaultContent();
     }
 
+    protected By confirmationOverlay = By.xpath("//*[contains(@class, 'dialog-root-confirmation')]");
+
     protected WebElement getConfirmationOverlay() {
-        return getElementByXpath("//*[contains(@class, 'dialog-root-confirmation')]");
+        return getElementByPath(confirmationOverlay);
     }
 
     protected WebElement getFocusedElement() {
@@ -1025,6 +1034,16 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
      */
     protected void waitUntil(int timeout, final ExpectedCondition<?> expectedCondition) {
         new WebDriverWait(driver, timeout).until(expectedCondition);
+    }
+
+    /**
+     * Waits {@link #DRIVER_WAIT_IN_SECONDS} seconds until the {@link ExpectedCondition} was met.
+     *
+     * @param expectedCondition the {@link ExpectedCondition} until the {@link WebDriver} should wait
+     * @see org.openqa.selenium.support.ui.ExpectedConditions
+     */
+    protected void waitUntil(final ExpectedCondition<?> expectedCondition) {
+        new WebDriverWait(driver, DRIVER_WAIT_IN_SECONDS).until(expectedCondition);
     }
 
     /**

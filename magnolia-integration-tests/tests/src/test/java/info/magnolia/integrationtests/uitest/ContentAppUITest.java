@@ -34,6 +34,7 @@
 package info.magnolia.integrationtests.uitest;
 
 import static org.junit.Assert.*;
+import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
 
 import java.util.Date;
 
@@ -113,7 +114,7 @@ public class ContentAppUITest extends AbstractMagnoliaUITest {
 
         // WHEN - navigate directly to Edit Subapp
         navigateDriverTo(Instance.AUTHOR.getURL() + ".magnolia/admincentral#app:contacts:detail;/mmonroe:edit");
-        delay(5, "Can take some time, until subapps are open...");
+        waitUntil(visibilityOfElementLocated(getXpathForAppByAppName("Contacts")));
 
         // THEN
         assertTrue(getTabForCaption("Contacts").isDisplayed());
@@ -126,7 +127,7 @@ public class ContentAppUITest extends AbstractMagnoliaUITest {
 
         // WHEN - navigate directly to Edit Subapp
         navigateDriverTo(Instance.AUTHOR.getURL() + ".magnolia/admincentral#app:pages:browser;/demo-project/about/subsection-articles:treeview:");
-        delay(5, "Can take some time, until subapps are open...");
+        waitUntil(visibilityOfElementLocated(getXpathForAppByAppName("Pages")));
 
         // THEN
         assertTrue("The subsection-articles page should be visible after navigating to it.", getTreeTableItem("subsection-articles").isDisplayed());
@@ -139,7 +140,7 @@ public class ContentAppUITest extends AbstractMagnoliaUITest {
 
         // WHEN
         getAppIcon("Pages").click();
-        delay(5, "Can take some time, until subapps are open...");
+        waitUntil(visibilityOfElementLocated(getXpathForAppByAppName("Pages")));
 
         // THEN
         final WebElement statusColumn = getColumnHeader("Status");
@@ -154,7 +155,7 @@ public class ContentAppUITest extends AbstractMagnoliaUITest {
         navigateDriverTo(Instance.PUBLIC.getURL() + ".magnolia/admincentral#app:pages");
         // on setup we only login to author instance - now we need to login to public...
         login(getTestUserName());
-        delay(5, "Can take some time, until subapps are open...");
+        waitUntil(visibilityOfElementLocated(getXpathForAppByAppName("Pages")));
 
         // THEN
         final WebElement statusColumn = getColumnHeader("Status");

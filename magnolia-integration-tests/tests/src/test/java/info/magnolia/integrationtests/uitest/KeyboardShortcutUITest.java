@@ -34,6 +34,7 @@
 package info.magnolia.integrationtests.uitest;
 
 import static org.junit.Assert.*;
+import static org.openqa.selenium.support.ui.ExpectedConditions.*;
 
 import org.junit.Test;
 import org.openqa.selenium.By;
@@ -59,15 +60,16 @@ public class KeyboardShortcutUITest extends AbstractMagnoliaUITest {
         // WHEN
         getTreeTableItem("Albert Einstein").click();
         getActionBarItem("Delete contact").click();
-        delay(1, "");
+
+        waitUntil(visibilityOfElementLocated(confirmationOverlay));
         confirmation = getConfirmationOverlay();
+
         assertTrue("Delete action should have caused confirmation overlay.", isExisting(confirmation));
         simulateKeyPress(Keys.ESCAPE);
-        delay(1,"");
+
+        waitUntil(invisibilityOfElementLocated(confirmationOverlay));
 
         // THEN
-        confirmation = getConfirmationOverlay();
-        assertFalse("ESC key should have caused confirmation overlay to close.", isExisting(confirmation));
         WebElement contact = getTreeTableItem("Albert Einstein");
         assertTrue("Contact should not have been deleted.", isExisting(contact));
     }
@@ -83,7 +85,6 @@ public class KeyboardShortcutUITest extends AbstractMagnoliaUITest {
     public void escapeHandlingOnDialog() {
         //GIVEN
         final String pageName = "testEscapeHandling";
-        final String title = "My page title";
         WebElement confirmation;
 
         getAppIcon("Pages").click();
@@ -94,34 +95,28 @@ public class KeyboardShortcutUITest extends AbstractMagnoliaUITest {
         // First pass - we cancel the dialog closing.
         // WHEN
         simulateKeyPress(Keys.ESCAPE);
-        delay(1, "");
+        waitUntil(visibilityOfElementLocated(confirmationOverlay));
         // THEN
         confirmation = getConfirmationOverlay();
         assertTrue("ESC key should have caused confirmation overlay.", isExisting(confirmation));
 
         // WHEN
         simulateKeyPress(Keys.ESCAPE);
-        delay(1,"");
         // THEN
-        confirmation = getConfirmationOverlay();
-        assertFalse("ESC key should have caused confirmation overlay to close.", isExisting(confirmation));
+        waitUntil(invisibilityOfElementLocated(confirmationOverlay));
 
         // Now do it again, but this time confirm the dialog closing.
 
         // WHEN
         simulateKeyPress(Keys.ESCAPE);
-        delay(1,"");
+        waitUntil(visibilityOfElementLocated(confirmationOverlay));
         // THEN
         confirmation = getConfirmationOverlay();
         assertTrue("ESC key should have caused confirmation overlay.", isExisting(confirmation));
         // WHEN
-        simulateKeyPress(Keys.RETURN);
-        delay(1,"");
+        simulateKeyPress(Keys.ENTER);
         // THEN
-        confirmation = getConfirmationOverlay();
-        assertFalse("ENTER key should have caused confirmation overlay to close.", isExisting(confirmation));
-        WebElement dialog = getDialog("Add new page");
-        assertFalse("Dialog should be closed after user confirms the cancel.", isExisting(dialog));
+        waitUntil(invisibilityOfElementLocated(confirmationOverlay));
     }
 
     /**
@@ -136,7 +131,6 @@ public class KeyboardShortcutUITest extends AbstractMagnoliaUITest {
     @Test
     public void escapeHandlingOnDialogOverPageEditor() {
         //GIVEN
-        WebElement confirmation;
         String url;
 
         getAppIcon("Pages").click();
@@ -151,24 +145,22 @@ public class KeyboardShortcutUITest extends AbstractMagnoliaUITest {
         getElementByPath(By.xpath("//*[contains(@class, 'focus')]//*[contains(@class, 'icon-edit')]")).click();
         switchToDefaultContent();
 
+        waitUntil(visibilityOfElementLocated(getXpathOfTabContainingCaption("Settings")));
+
         // WHEN
         simulateKeyPress(Keys.ESCAPE);
-        delay(1, "");
         // THEN
-        confirmation = getConfirmationOverlay();
-        assertTrue("ESC key should have caused confirmation overlay.", isExisting(confirmation));
+        waitUntil(visibilityOfElementLocated(confirmationOverlay));
+
+        // Validate that PageEditor is not in preview mode.
         url = getCurrentDriverUrl();
         assertTrue("Subapp should still be in edit mode.", url.contains("edit"));
         assertFalse("Subapp should still be in edit mode.", url.contains("view"));
 
         // WHEN
-        simulateKeyPress(Keys.RETURN);
-        delay(1,"");
+        simulateKeyPress(Keys.ENTER);
         // THEN
-        confirmation = getConfirmationOverlay();
-        assertFalse("ENTER key should have caused confirmation overlay to close.", isExisting(confirmation));
-        WebElement dialogTab = getTabForCaption("Settings");
-        assertFalse("Dialog should be closed after user confirms the cancel.", isExisting(dialogTab));
+        waitUntil(invisibilityOfElementLocated(confirmationOverlay));
 
         // Validate that PageEditor is not in preview mode.
         url = getCurrentDriverUrl();
@@ -198,38 +190,29 @@ public class KeyboardShortcutUITest extends AbstractMagnoliaUITest {
         // First pass - we cancel the ESCAPE action.
         // WHEN
         simulateKeyPress(Keys.ESCAPE);
-        delay(1, "");
+        waitUntil(visibilityOfElementLocated(confirmationOverlay));
         // THEN
         confirmation = getConfirmationOverlay();
         assertTrue("ESC key should have caused confirmation overlay.", isExisting(confirmation));
 
         // WHEN
         simulateKeyPress(Keys.ESCAPE);
-        delay(1,"");
         // THEN
-        confirmation = getConfirmationOverlay();
-        assertFalse("ESC key should have caused confirmation overlay to close.", isExisting(confirmation));
+        waitUntil(invisibilityOfElementLocated(confirmationOverlay));
 
         // Now do it again, but this time confirm the detailEditor closing.
 
         // WHEN
         simulateKeyPress(Keys.ESCAPE);
-        delay(1,"");
+        waitUntil(visibilityOfElementLocated(confirmationOverlay));
         // THEN
         confirmation = getConfirmationOverlay();
         assertTrue("ESC key should have caused confirmation overlay.", isExisting(confirmation));
         // WHEN
         simulateKeyPress(Keys.RETURN);
-        delay(1,"");
         // THEN
-        confirmation = getConfirmationOverlay();
-        assertFalse("ENTER key should have caused confirmation overlay to close.", isExisting(confirmation));
-
-        WebElement fieldToCheck = getFormField("First name");
-        assertFalse("DetailEditor should be closed after user confirms the cancel.", isExisting(fieldToCheck));
-
+        waitUntil(invisibilityOfElementLocated(confirmationOverlay));
     }
-
 
     /**
      * Get a dialog to test by running 'Add page' action.
@@ -263,9 +246,8 @@ public class KeyboardShortcutUITest extends AbstractMagnoliaUITest {
 
         // Cleanup - delete the created page.
         deleteTreeTableRow("Delete page", pageName);
-        delay(3, "Delay to avoid: Timed out waiting for page load.");
+        waitUntil(invisibilityOfElementLocated(By.xpath(String.format("//*[contains(@class, 'v-table-cell-wrapper') and text() = '%s']", pageName))));
     }
-
 
     /**
      * Get a dialog to test by running 'Add page' action.
@@ -298,8 +280,6 @@ public class KeyboardShortcutUITest extends AbstractMagnoliaUITest {
         assertDialogOpen("Add new page");
     }
 
-
-
     /**
      * Get a DetailEditor to test by running 'Add contact' action.
      * Fill in required fields, then focus on something other then textArea and hit the ENTER key.
@@ -313,7 +293,6 @@ public class KeyboardShortcutUITest extends AbstractMagnoliaUITest {
         final String nameLast = "Testkeyboard";
         String contactName = nameFirst + " " + nameLast;
         String email = nameFirst + "@" + nameLast + ".com";
-
 
         getAppIcon("Contacts").click();
         assertAppOpen("Contacts");
@@ -332,7 +311,6 @@ public class KeyboardShortcutUITest extends AbstractMagnoliaUITest {
         //Check that entry is added.
         WebElement newRow = getTreeTableItem(email);
         assertTrue("ENTER key should have caused new contact to be created, but no new contact is present.", isExisting(newRow));
-
     }
 
     /**
@@ -363,7 +341,6 @@ public class KeyboardShortcutUITest extends AbstractMagnoliaUITest {
         WebElement fieldToCheck = getFormTextAreaField("Street address");
         assertTrue("ENTER key should not have closed the DetailEditor subapp when TextArea has focus.", isExisting(fieldToCheck));
     }
-
 
     /**
      * Helper to fill in necessary fields for a contact.
