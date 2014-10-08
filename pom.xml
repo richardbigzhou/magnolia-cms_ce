@@ -23,7 +23,6 @@
     <magnoliaEdition>Community Edition</magnoliaEdition>
     <magnoliaVersion>5.3.4-SNAPSHOT</magnoliaVersion>
     <magnoliaUiVersion>5.3.4-SNAPSHOT</magnoliaUiVersion>
-    <magnoliaWidgetsetVersion>5.3.4-SNAPSHOT</magnoliaWidgetsetVersion>
     <javaVersion>1.6</javaVersion>
     <documentationURL>http://documentation.magnolia-cms.com/releases/${project.version}.html</documentationURL>
     <stkVersion>2.8.4-SNAPSHOT</stkVersion>
@@ -62,7 +61,8 @@
       <dependency>
         <groupId>info.magnolia.widgetset</groupId>
         <artifactId>magnolia-vaadin-widgetset</artifactId>
-        <version>${magnoliaWidgetsetVersion}</version>
+        <!-- For now we keep info.magnolia.ui & info.magnolia.widgetset versions in sync -->
+        <version>${magnoliaUiVersion}</version>
       </dependency>
 
       <dependency>
