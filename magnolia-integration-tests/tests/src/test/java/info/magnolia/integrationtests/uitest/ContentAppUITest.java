@@ -39,6 +39,7 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElem
 import java.util.Date;
 
 import org.junit.Test;
+import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 
@@ -145,6 +146,40 @@ public class ContentAppUITest extends AbstractMagnoliaUITest {
         // THEN
         final WebElement statusColumn = getColumnHeader("Status");
         assertTrue("There should be a status column as we're testing on a author instance.", isExisting(statusColumn));
+    }
+
+    @Test
+    public void itemSelectedInChooseDialogWhenRootPathIsSet() {
+        // GIVEN
+
+        // WHEN
+        String currentUrl = getCurrentDriverUrl();
+        String propertyPath = "/modules/standard-templating-kit/dialogs/generic/controls/tabImage/fields/image/targetTreeRootPath";
+        String propertyValue = "/demo-project/img/bk/Opener";
+        navigateDriverTo(Instance.AUTHOR.getURL(String.format(".magnolia/jcrprop/?workspace=config&path=%s&value=%s", propertyPath, propertyValue)));
+        navigateDriverTo(currentUrl);
+
+        getAppIcon("Pages").click();
+        delay(7, "Can take some time, until subapps are open...");
+
+        expandTreeAndSelectAnElement("article", "demo-features", "content-templates");
+        getActionBarItem("Edit page").click();
+
+        switchToPageEditorContent();
+
+        getElementByPath(By.xpath(String.format("//div[@role='article']//div[@class='text-section']"))).click();
+        getElementByPath(By.xpath("//*[contains(@class, 'focus')]//*[contains(@class, 'icon-edit')]")).click();
+
+        switchToDefaultContent();
+
+        getTabForCaption("Image").click();
+        setFormTextFieldText("Choose image", "/demo-project/img/bk/Opener/round-wooden-blocks-in-various-colors");
+        getElementByXpath("//button/span[text() = '%s']", "Select new...").click();
+
+        assertTrue(isTreeTableItemSelected("round-wooden-blocks-in-various-colors"));
+
+        // Clean up modified property
+        navigateDriverTo(Instance.AUTHOR.getURL(String.format(".magnolia/jcrprop/?workspace=config&path=%s&value=%s", propertyPath, "")));
     }
 
     @Test
