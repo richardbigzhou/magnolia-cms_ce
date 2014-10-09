@@ -127,7 +127,7 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
         // Add Image
         getNativeButton().click();
         expandTreeAndSelectAnElement("a-grey-curvature-of-lines", "demo-project", "img", "bk", "Stage");
-        getDialogButtonWithCaption("choose").click();
+        getDialogButtonWithCaption("Choose").click();
         // Close and Save the Dialog.
         getDialogCommitButton().click();
 
