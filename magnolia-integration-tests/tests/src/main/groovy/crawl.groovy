@@ -91,11 +91,11 @@ class WebCrawler {
         unvisitedData = new LinkedList()
 
         // start on this URL:
-        if (startURL.contains("?"))
-                startURL += "&"
-            else
-                startURL += "?"
-        startURL += "mgnlIntercept=PREVIEW&mgnlPreview=false"
+        if (startURL.contains("?")) { //author instance
+            startURL += "&mgnlIntercept=PREVIEW&mgnlPreview=false"
+        } else {
+            //appending of parameters on public instance would bypass cache
+        }
         unvisitedURLs << ["url" : startURL, "depth" : 0]
 
         def startHost = getHost(startURL)  // e.g. http://localhost:8080/
@@ -231,11 +231,11 @@ class WebCrawler {
                     linkURL["url"] = rebuildURL(host, base, link)
                     if (linkURL["url"] != null && linkURL["url"].contains(startHost)) {
                         // add magnolia parameters only to URLs on host we started on
-                        if (link.contains("?"))
-                            linkURL["url"] += "&"
-                        else
-                             linkURL["url"] += "?"
-                        linkURL["url"] += "mgnlIntercept=PREVIEW&mgnlPreview=false"
+                        if (startURL.contains("?")) { //author instance
+                            startURL += "&mgnlIntercept=PREVIEW&mgnlPreview=false"
+                        } else {
+                            //appending of parameters on public instance would bypass cache
+                        }
                     }
 
                     linkURL["depth"] = depth + 1

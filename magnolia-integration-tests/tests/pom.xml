@@ -291,8 +291,8 @@
                 <geturl4>http://${containerHostName}:${containerHttpPort}/magnoliaTestPublic/demo-features/</geturl4>
                 <geturlauth5>http://${containerHostName}:${containerHttpPort}/magnoliaTest/ftl-sample-site/</geturlauth5>
                 <geturlauth6>http://${containerHostName}:${containerHttpPort}/magnoliaTest/jsp-sample-site/</geturlauth6>
-                <geturlauth7>http://${containerHostName}:${containerHttpPort}/magnoliaTestPublic/demo-project/</geturlauth7>
-                <geturlauth8>http://${containerHostName}:${containerHttpPort}/magnoliaTestPublic/demo-features/</geturlauth8>
+                <geturlauth7>http://${containerHostName}:${containerHttpPort}/magnoliaTest/demo-project/</geturlauth7>
+                <geturlauth8>http://${containerHostName}:${containerHttpPort}/magnoliaTest/demo-features/</geturlauth8>
               </properties>
               <source>${project.basedir}/src/main/groovy/crawl.groovy</source>
             </configuration>
