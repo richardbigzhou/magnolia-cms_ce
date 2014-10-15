@@ -104,7 +104,7 @@
       <dependency>
         <groupId>info.magnolia.activation</groupId>
         <artifactId>magnolia-module-activation</artifactId>
-        <version>5.3</version>
+        <version>5.3.1</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia.cache</groupId>
