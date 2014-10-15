@@ -106,9 +106,4 @@ public class MagnoliaShellUITest extends AbstractMagnoliaUITest {
             closeApp();
         }
     }
-
-    private WebElement getMainLauncherShell() {
-        return getElementByXpath("//*[@id = 'btn-appslauncher']");
-    }
-
 }

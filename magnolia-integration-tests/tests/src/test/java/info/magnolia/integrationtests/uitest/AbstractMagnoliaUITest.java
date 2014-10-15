@@ -1314,4 +1314,8 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
     protected ExpectedCondition<WebElement> dialogIsClosed(final String dialogTitle) {
         return elementIsGone(String.format(XPATH_TO_DIALOG, dialogTitle));
     }
+
+    protected WebElement getMainLauncherShell() {
+        return getElementByXpath("//*[@id = 'btn-appslauncher']");
+    }
 }
