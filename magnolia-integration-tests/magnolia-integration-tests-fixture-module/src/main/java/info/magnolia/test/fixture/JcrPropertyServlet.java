@@ -33,12 +33,13 @@
  */
 package info.magnolia.test.fixture;
 
-import info.magnolia.context.MgnlContext;
+import info.magnolia.jcr.util.PropertyUtil;
+import info.magnolia.jcr.util.SessionUtil;
 import info.magnolia.repository.RepositoryConstants;
 
 import java.io.IOException;
 
-import javax.jcr.Property;
+import javax.jcr.Node;
 import javax.jcr.RepositoryException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -67,19 +68,25 @@ public class JcrPropertyServlet extends HttpServlet {
         final String path = request.getParameter("path");
         final String workspace = StringUtils.defaultString(request.getParameter("workspace"), RepositoryConstants.CONFIG);
         final String value = request.getParameter("value");
-
+        final String nodePath = StringUtils.substringBeforeLast(path, "/");
+        final String propertyName = StringUtils.substringAfterLast(path, "/");
         try {
-            Property property = MgnlContext.getJCRSession(workspace).getProperty(path);
-            String previousValue = property.getString();
-            if (StringUtils.isNotBlank(value)) {
-                property.setValue(value);
-                property.getSession().save();
-                log.info("Changing value of '{}' from [{}] to [{}]", path, previousValue, value);
+            final Node node = SessionUtil.getNode(workspace, nodePath);
+            if (node == null) {
+                throw new ServletException("Node does not exist [" + nodePath + "]");
             }
 
-            response.getWriter().write(previousValue);
+            final String returnValue = PropertyUtil.getString(node, propertyName);
+
+            if (value != null) {
+                node.setProperty(propertyName, value);
+                node.getSession().save();
+                log.info("Changing value of '{}' from [{}] to [{}]", path, returnValue, value);
+            }
+
+            response.getWriter().write(String.valueOf(returnValue));
         } catch (RepositoryException e) {
-            log.warn("Could not read property [{}] from workspace [{}]", new Object[] { path, workspace });
+            log.warn("Could not handle property [{}] from workspace [{}]", new Object[] { path, workspace });
             throw new ServletException("Could not read property [" + path + "]");
         }
     }
