@@ -21,11 +21,11 @@
 
   <properties>
     <magnoliaEdition>Community Edition</magnoliaEdition>
-    <magnoliaVersion>5.2.9-SNAPSHOT</magnoliaVersion>
-    <magnoliaUiVersion>5.2.10-SNAPSHOT</magnoliaUiVersion>
+    <magnoliaVersion>5.2.9</magnoliaVersion>
+    <magnoliaUiVersion>5.2.10</magnoliaUiVersion>
     <javaVersion>1.6</javaVersion>
     <documentationURL>http://documentation.magnolia-cms.com/releases/${project.version}.html</documentationURL>
-    <stkVersion>2.7.9-SNAPSHOT</stkVersion>
+    <stkVersion>2.7.9</stkVersion>
     <restVersion>1.0.4</restVersion>
     <scmTagPrefix>magnolia-bundle</scmTagPrefix>
     <!-- Disable clover during releases: -->
@@ -172,7 +172,7 @@
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-imaging</artifactId>
-        <version>3.0.6-SNAPSHOT</version>
+        <version>3.0.6</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
@@ -192,7 +192,7 @@
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-forum</artifactId>
-        <version>3.3.5-SNAPSHOT</version>
+        <version>3.3.5</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
