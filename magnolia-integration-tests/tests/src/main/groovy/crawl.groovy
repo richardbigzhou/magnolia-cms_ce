@@ -57,6 +57,8 @@ class Constants {
     // try to display areas directly
     static final DIRECTAREA_RENDERING = true
 }
+
+//@Grab(group='commons-lang', module='commons-lang', version='2.4')
 import static Constants.*
 import org.apache.commons.lang.StringUtils
 
