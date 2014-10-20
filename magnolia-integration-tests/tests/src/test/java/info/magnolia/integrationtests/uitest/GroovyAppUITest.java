@@ -48,6 +48,8 @@ public class GroovyAppUITest extends AbstractMagnoliaUITest {
         getCollapsibleAppSectionIcon("Dev").click();
 
         getAppIcon("Groovy").click();
+        waitUntil(appIsLoaded());
+
         getTabForCaption("Groovy console").click();
 
         // WHEN
