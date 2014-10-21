@@ -229,6 +229,12 @@ class WebCrawler {
                 def links = page.depthFirst().A.grep { it.@href }.'@href'
 
                 if (!url.contains("~mgnlArea=")) links.each { link ->
+
+                    // do not add anchor links to pages to be analyzed
+                    if (link.startsWith("#")) {
+                        return
+                    }
+
                     def linkURL = [:]
                     linkURL["url"] = rebuildURL(host, base, link)
                     if (linkURL["url"] != null && linkURL["url"].contains(startHost)) {
