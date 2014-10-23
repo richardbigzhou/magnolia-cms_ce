@@ -33,7 +33,8 @@
  */
 package info.magnolia.integrationtests.uitest;
 
-import static org.junit.Assert.assertFalse;
+import static org.hamcrest.Matchers.*;
+import static org.junit.Assert.assertThat;
 
 import org.junit.Test;
 import org.openqa.selenium.Keys;
@@ -54,10 +55,10 @@ public class GroovyAppUITest extends AbstractMagnoliaUITest {
 
         // WHEN
         simulateKeyPress(Keys.NUMPAD1);
-        delay(2, "");
+        delay("Wait until keypress was performed");
 
         // THEN
         // Check that no shell app is active
-        assertFalse(getMainLauncherShell().getAttribute("class").contains("active"));
+        assertThat("We expect the MainLauncherShell 'class' to not contain 'active'", getMainLauncherShell().getAttribute("class"), not(containsString("active")));
     }
 }
