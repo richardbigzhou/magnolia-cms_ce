@@ -35,8 +35,10 @@ package info.magnolia.integrationtests.uitest;
 
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.assertThat;
+import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated;
 
 import org.junit.Test;
+import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 
 /**
@@ -46,12 +48,16 @@ public class GroovyAppUITest extends AbstractMagnoliaUITest {
     @Test
     public void whenEnteringDigitsInGroovyConsoleNoShortcutIsTriggered() {
         // GIVEN
+        final String consoleName = "Groovy console";
+
         getCollapsibleAppSectionIcon("Dev").click();
 
         getAppIcon("Groovy").click();
         waitUntil(appIsLoaded());
 
-        getTabForCaption("Groovy console").click();
+        getTabForCaption(consoleName).click();
+
+        waitUntil(presenceOfElementLocated(By.xpath(String.format("//*[contains(@class, 'v-shell-tabsheet')]//li[contains(@class, 'active')]//*[@class = 'tab-title' and text() = '%s']", "Groovy console"))));
 
         // WHEN
         simulateKeyPress(Keys.NUMPAD1);
