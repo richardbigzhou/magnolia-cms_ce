@@ -68,7 +68,7 @@
       <directoryMode>755</directoryMode>
     </fileSet>
     <fileSet>
-      <directory>target/magnolia-build-tools-resources</directory>
+      <directory>target/magnolia-build-resources</directory>
       <outputDirectory></outputDirectory>
       <!-- filtering here is probably redundant -->
       <filtered>true</filtered>
