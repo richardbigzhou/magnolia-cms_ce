@@ -74,7 +74,7 @@
       <groupId>org.apache.tomcat</groupId>
       <artifactId>tomcat</artifactId>
       <version>${tomcatVersion}</version>
-      <!-- we're only cheating here, to give a hint to the readme -->
+      <!-- This dependency is here to give hints to README/NOTICE files -->
       <type>pom</type>
       <scope>provided</scope>
     </dependency>
@@ -82,6 +82,12 @@
       <groupId>info.magnolia.bundle</groupId>
       <artifactId>magnolia-bundled-webapp</artifactId>
       <type>war</type>
+    </dependency>
+    <dependency>
+      <groupId>info.magnolia.bundle</groupId>
+      <artifactId>magnolia-bundled-webapp</artifactId>
+      <!-- This is also to give hints to README/NOTICE files -->
+      <type>pom</type>
     </dependency>
     <dependency>
       <groupId>info.magnolia</groupId>
