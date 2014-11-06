@@ -75,11 +75,11 @@
     <!-- We excluded bouncycastle deps from Tika because they include jdk15 version - we want the jdk16 versions -->
     <dependency>
       <groupId>org.bouncycastle</groupId>
-      <artifactId>bcprov-jdk16</artifactId>
+      <artifactId>bcprov-jdk15on</artifactId>
     </dependency>
     <dependency>
       <groupId>org.bouncycastle</groupId>
-      <artifactId>bcmail-jdk16</artifactId>
+      <artifactId>bcmail-jdk15on</artifactId>
     </dependency>
     <dependency>
       <groupId>net.sourceforge.openutils</groupId>
