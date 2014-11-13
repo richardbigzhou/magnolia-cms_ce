@@ -45,6 +45,7 @@ public class SitemapAppUITest extends AbstractMagnoliaUITest {
         // GIVEN
         final String testName = "TestSitemap";
         getAppIcon("Sitemaps").click();
+        waitUntil(appIsLoaded());
         assertAppOpen("Sitemaps");
 
         getActionBarItem("Add folder").click();

@@ -55,6 +55,7 @@ public class KeyboardShortcutUITest extends AbstractMagnoliaUITest {
         // GIVEN
         WebElement confirmation;
         getAppIcon("Contacts").click();
+        waitUntil(appIsLoaded());
         assertAppOpen("Contacts");
 
         // WHEN
@@ -88,6 +89,7 @@ public class KeyboardShortcutUITest extends AbstractMagnoliaUITest {
         WebElement confirmation;
 
         getAppIcon("Pages").click();
+        waitUntil(appIsLoaded());
         assertAppOpen("Pages");
         getActionBarItem("Add page").click();
         setFormTextFieldText("Page name", pageName);
@@ -134,6 +136,7 @@ public class KeyboardShortcutUITest extends AbstractMagnoliaUITest {
         String url;
 
         getAppIcon("Pages").click();
+        waitUntil(appIsLoaded());
         assertAppOpen("Pages");
 
         doubleClick(getTreeTableItem("ftl-sample-site"));
@@ -182,6 +185,7 @@ public class KeyboardShortcutUITest extends AbstractMagnoliaUITest {
         WebElement confirmation;
 
         getAppIcon("Contacts").click();
+        waitUntil(appIsLoaded());
         assertAppOpen("Contacts");
         getActionBarItem("Add contact").click();
         getTabForCaption("Personal").click();
@@ -225,6 +229,7 @@ public class KeyboardShortcutUITest extends AbstractMagnoliaUITest {
         final String pageName = "testCommitOnEnter";
         final String title = "My page title";
         getAppIcon("Pages").click();
+        waitUntil(appIsLoaded());
         assertAppOpen("Pages");
 
         // WHEN
@@ -260,6 +265,7 @@ public class KeyboardShortcutUITest extends AbstractMagnoliaUITest {
         final String pageName = "testEnterInTextAreaDoesntCommit";
         final String title = "My page title";
         getAppIcon("Pages").click();
+        waitUntil(appIsLoaded());
         assertAppOpen("Pages");
 
         getActionBarItem("Add page").click();
@@ -295,6 +301,7 @@ public class KeyboardShortcutUITest extends AbstractMagnoliaUITest {
         String email = nameFirst + "@" + nameLast + ".com";
 
         getAppIcon("Contacts").click();
+        waitUntil(appIsLoaded());
         assertAppOpen("Contacts");
         getActionBarItem("Add contact").click();
 
@@ -326,6 +333,7 @@ public class KeyboardShortcutUITest extends AbstractMagnoliaUITest {
         String email = nameFirst + "@" + nameLast + ".com";
 
         getAppIcon("Contacts").click();
+        waitUntil(appIsLoaded());
         assertAppOpen("Contacts");
         getActionBarItem("Add contact").click();
 

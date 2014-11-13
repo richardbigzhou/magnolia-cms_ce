@@ -46,6 +46,7 @@ public class CategoriesAppUITest extends AbstractMagnoliaUITest {
         // GIVEN
         final String testName = "TestCategory";
         getAppIcon("Categories").click();
+        waitUntil(appIsLoaded());
         assertAppOpen("Categories");
 
         getActionBarItem("Add folder").click();

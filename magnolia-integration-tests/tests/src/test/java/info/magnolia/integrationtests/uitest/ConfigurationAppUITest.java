@@ -48,6 +48,7 @@ public class ConfigurationAppUITest extends AbstractMagnoliaUITest {
     public void canPublishUnpublishAndDeleteNewNode() {
         getAppIcon(CONFIGURATION_APP).click();
         assertAppOpen(CONFIGURATION_APP);
+        waitUntil(appIsLoaded());
 
         getEnabledActionBarItem("Add folder").click();
 

@@ -52,6 +52,7 @@ public class OverlayUITest extends AbstractMagnoliaUITest {
 
         // GIVEN
         getAppIcon("Contacts").click();
+        waitUntil(appIsLoaded());
         assertAppOpen("Contacts");
 
         getTreeTableItem("Pablo Picasso").click();
@@ -71,6 +72,7 @@ public class OverlayUITest extends AbstractMagnoliaUITest {
 
         // GIVEN
         getAppIcon("Contacts").click();
+        waitUntil(appIsLoaded());
         assertAppOpen("Contacts");
 
         getTreeTableItem("Marilyn Monroe").click();
@@ -92,6 +94,7 @@ public class OverlayUITest extends AbstractMagnoliaUITest {
 
         // GIVEN
         getAppIcon("Contacts").click();
+        waitUntil(appIsLoaded());
         assertAppOpen("Contacts");
 
         getActionBarItem("Add folder").click();

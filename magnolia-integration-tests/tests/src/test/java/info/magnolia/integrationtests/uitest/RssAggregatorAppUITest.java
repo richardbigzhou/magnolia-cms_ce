@@ -45,6 +45,7 @@ public class RssAggregatorAppUITest extends AbstractMagnoliaUITest {
         // GIVEN
         final String testName = "TestRss";
         getAppIcon("Feeds").click();
+        waitUntil(appIsLoaded());
         assertAppOpen("Feeds");
 
         getActionBarItem("Add folder").click();

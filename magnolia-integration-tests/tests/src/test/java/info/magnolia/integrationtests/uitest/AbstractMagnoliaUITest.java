@@ -629,19 +629,19 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
     }
 
     protected WebElement getActionBarItem(String itemCaption) {
-        return getElementByXpath("//*[contains(@class, 'v-actionbar')]//*[@aria-hidden = 'false']//*[text() = '%s']", itemCaption);
+        return getElementByXpath("//*[contains(@class, 'v-actionbar')]//*[contains(@class, 'v-actionbar-section') and not(@aria-hidden)]//*[text() = '%s']", itemCaption);
     }
 
     protected WebElement getDisabledActionBarItem(String itemCaption) {
-        return getElementByXpath("//*[contains(@class,'v-actionbar')]//*[@aria-hidden ='false']//li[@class ='v-action v-disabled']//*[text()='%s']", itemCaption);
+        return getElementByXpath("//*[contains(@class,'v-actionbar')]//*[contains(@class, 'v-actionbar-section') and not(@aria-hidden)]//li[@class ='v-action v-disabled']//*[text()='%s']", itemCaption);
     }
 
     protected WebElement getEnabledActionBarItem(String itemCaption) {
-        return getElementByXpath("//*[contains(@class,'v-actionbar')]//*[@aria-hidden ='false']//li[@class ='v-action']//*[text()='%s']", itemCaption);
+        return getElementByXpath("//*[contains(@class,'v-actionbar')]//*[contains(@class, 'v-actionbar-section') and not(@aria-hidden)]//li[@class ='v-action']//*[text()='%s']", itemCaption);
     }
 
     protected WebElement getActionBarItemWithContains(String itemCaption) {
-        return getElementByXpath("//*[contains(@class, 'v-actionbar')]//*[@aria-hidden = 'false']//*[contains(text(), '%s')]", itemCaption);
+        return getElementByXpath("//*[contains(@class, 'v-actionbar')]//*[contains(@class, 'v-actionbar-section') and not(@aria-hidden)]//*[contains(text(), '%s')]", itemCaption);
     }
 
     protected WebElement getDialogButton(String classname) {
@@ -843,6 +843,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
      */
     protected void goToDialogShowRoomAndOpenDialogComponent(String templateImpl) {
         getAppIcon("Pages").click();
+        waitUntil(appIsLoaded());
         assertAppOpen("Pages");
         getTreeTableItemExpander(templateImpl + "-sample-site").click();
         getTreeTableItem(templateImpl + "-dialog-showroom").click();

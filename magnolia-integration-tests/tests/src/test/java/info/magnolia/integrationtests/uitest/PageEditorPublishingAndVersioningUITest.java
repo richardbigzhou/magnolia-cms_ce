@@ -71,6 +71,7 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
         // WHEN
         // Go to pages App
         getAppIcon(PAGES_APP).click();
+        waitUntil(appIsLoaded());
         // Navigate to the content to change
         expandTreeAndSelectAnElement(article, pathToArticle);
 
@@ -106,6 +107,7 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
         final String[] pathToArticle = new String[] { DEMO_PROJECT_PAGE, ABOUT_PAGE };
         // Go to pages App
         getAppIcon(PAGES_APP).click();
+        waitUntil(appIsLoaded());
         // Navigate to the content to change
         expandTreeAndSelectAnElement(SUBSECTION_ARTICLES, pathToArticle);
 
@@ -152,6 +154,7 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
         final String[] pathToArticle = new String[] { DEMO_PROJECT_PAGE, ABOUT_PAGE };
         // Go to pages App
         getAppIcon(PAGES_APP).click();
+        waitUntil(appIsLoaded());
         // Navigate to the content to change
         expandTreeAndSelectAnElement(SUBSECTION_ARTICLES, pathToArticle);
 
@@ -201,6 +204,7 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
     @Test
     public void deleteAndRestoreArticle() {
         getAppIcon(PAGES_APP).click();
+        waitUntil(appIsLoaded());
         // Navigate to the content to change
         expandTreeAndSelectAnElement("arts", new String[] { DEMO_PROJECT_PAGE, "service", "glossary", "a" });
         assertThat(getSelectedActivationStatusIcon().getAttribute("class"), containsString(COLOR_GREEN_ICON_STYLE));
@@ -227,6 +231,7 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
     public void unpublishResultsInStatusChange() {
         // GIVEN
         getAppIcon(PAGES_APP).click();
+        waitUntil(appIsLoaded());
         getTreeTableItemExpander(DEMO_PROJECT_PAGE).click();
         getTreeTableItemExpander(ABOUT_PAGE).click();
         getTreeTableItem("history").click();
@@ -246,6 +251,7 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
         final String pageNameAndTitle = "new";
         final String template = "Article";
         getAppIcon(PAGES_APP).click();
+        waitUntil(appIsLoaded());
         expandTreeAndSelectAnElement(SUBSECTION_ARTICLES, pathToArticle);
         addNewTemplate(pageNameAndTitle, pageNameAndTitle, template);
         expandTreeAndSelectAnElement(pageNameAndTitle, SUBSECTION_ARTICLES);
@@ -288,6 +294,7 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
 
         // GIVEN
         getAppIcon(PAGES_APP).click();
+        waitUntil(appIsLoaded());
         assertAppOpen(PAGES_APP);
 
         getTreeTableItemExpander(DEMO_PROJECT_PAGE).click();

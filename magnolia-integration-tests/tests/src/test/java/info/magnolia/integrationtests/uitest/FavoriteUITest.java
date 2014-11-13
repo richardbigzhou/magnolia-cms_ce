@@ -53,6 +53,7 @@ public class FavoriteUITest extends AbstractMagnoliaUITest {
     public void addFavoriteAndGroupSimultaneously() {
         // GIVEN
         getAppIcon("Pages").click();
+        waitUntil(appIsLoaded());
         getTreeTableItem("ftl-sample-site").click();
         getShellAppIcon("icon-favorites").click();
         waitUntil(DRIVER_WAIT_IN_SECONDS, shellAppIsLoaded(ShellApp.FAVORITES));
@@ -124,6 +125,7 @@ public class FavoriteUITest extends AbstractMagnoliaUITest {
         // create new entry (new fav in new group = 2 items)
 
         getAppIcon("Pages").click();
+        waitUntil(appIsLoaded());
         getTreeTableItem("ftl-sample-site").click();
         getShellAppIcon("icon-favorites").click();
         waitUntil(DRIVER_WAIT_IN_SECONDS, shellAppIsLoaded(ShellApp.FAVORITES));

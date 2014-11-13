@@ -163,6 +163,7 @@ public class SimpleFieldUITest extends AbstractMagnoliaUITest {
         // GIVEN
         // go to FTL Sample Site homepage
         getAppIcon("Pages").click();
+        waitUntil(appIsLoaded());
         getTreeTableItem("ftl-sample-site").click();
         getActionBarItem("Edit page").click();
 

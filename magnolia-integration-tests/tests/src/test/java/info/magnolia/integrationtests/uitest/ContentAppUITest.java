@@ -54,6 +54,7 @@ public class ContentAppUITest extends AbstractMagnoliaUITest {
         String testEmailAddr = String.format("testemail%d@random.ch", new Date().getTime());
 
         getAppIcon("Contacts").click();
+        waitUntil(appIsLoaded());
         assertAppOpen("Contacts");
 
         getTreeTableItem("Albert Einstein").click();
@@ -71,6 +72,7 @@ public class ContentAppUITest extends AbstractMagnoliaUITest {
     public void tabNavigatesToNextField() {
         // GIVEN
         getAppIcon("Contacts").click();
+        waitUntil(appIsLoaded());
         assertAppOpen("Contacts");
 
         getTreeTableItem("Albert Einstein").click();
@@ -93,6 +95,7 @@ public class ContentAppUITest extends AbstractMagnoliaUITest {
     public void subAppsStayOpenAfterRefresh() {
         // GIVEN
         getAppIcon("Contacts").click();
+        waitUntil(appIsLoaded());
         assertAppOpen("Contacts");
 
         getTreeTableItem("Marilyn Monroe").click();
@@ -160,7 +163,7 @@ public class ContentAppUITest extends AbstractMagnoliaUITest {
         navigateDriverTo(currentUrl);
 
         getAppIcon("Pages").click();
-        delay(7, "Can take some time, until subapps are open...");
+        waitUntil(appIsLoaded());
 
         expandTreeAndSelectAnElement("article", "demo-features", "content-templates");
         getActionBarItem("Edit page").click();
@@ -201,6 +204,7 @@ public class ContentAppUITest extends AbstractMagnoliaUITest {
     public void itemSelectionDisplaysOnStatusBar() {
         // GIVEN
         getAppIcon("Contacts").click();
+        waitUntil(appIsLoaded());
         assertAppOpen("Contacts");
 
         // WHEN

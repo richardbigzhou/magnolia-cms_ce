@@ -52,6 +52,8 @@ public class PageEditorUITest extends AbstractPageEditorUITest {
 
         // WHEN
         getAppIcon(PAGES_APP).click();
+        waitUntil(appIsLoaded());
+
         getTreeTableItem("ftl-sample-site").click();
         getActionBarItem(EDIT_PAGE_ACTION).click();
 
@@ -70,6 +72,7 @@ public class PageEditorUITest extends AbstractPageEditorUITest {
 
         // WHEN
         getAppIcon(PAGES_APP).click();
+        waitUntil(appIsLoaded());
         getTreeTableItem("jsp-sample-site").click();
         getActionBarItem(EDIT_PAGE_ACTION).click();
 
@@ -88,6 +91,7 @@ public class PageEditorUITest extends AbstractPageEditorUITest {
 
         // WHEN
         getAppIcon(PAGES_APP).click();
+        waitUntil(appIsLoaded());
         assertAppOpen(PAGES_APP);
         getTreeTableItemExpander(DEMO_PROJECT_PAGE).click();
         getTreeTableItemExpander(ABOUT_PAGE).click();
@@ -111,6 +115,7 @@ public class PageEditorUITest extends AbstractPageEditorUITest {
 
         // WHEN
         getAppIcon(PAGES_APP).click();
+        waitUntil(appIsLoaded());
         getTreeTableItemExpander(DEMO_PROJECT_PAGE).click();
         getTreeTableItem(ABOUT_PAGE).click();
         getActionBarItem(EDIT_PAGE_ACTION).click();
@@ -133,6 +138,8 @@ public class PageEditorUITest extends AbstractPageEditorUITest {
 
         // WHEN
         getAppIcon(PAGES_APP).click();
+        waitUntil(appIsLoaded());
+
         getTreeTableItem(DEMO_PROJECT_PAGE).click();
         getActionBarItem(EDIT_PAGE_ACTION).click();
         delay(3, "Give some time to load the page");
@@ -169,6 +176,7 @@ public class PageEditorUITest extends AbstractPageEditorUITest {
     public void testPageStatusBarIsShown() {
         // GIVEN
         getAppIcon(PAGES_APP).click();
+        waitUntil(appIsLoaded());
         getTreeTableItemExpander(DEMO_PROJECT_PAGE).click();
         getTreeTableItem(ABOUT_PAGE).click();
 
@@ -188,6 +196,7 @@ public class PageEditorUITest extends AbstractPageEditorUITest {
     public void testPageStatusBarIsChangedAfterPageModification() {
         // GIVEN
         getAppIcon(PAGES_APP).click();
+        waitUntil(appIsLoaded());
         getTreeTableItemExpander(DEMO_PROJECT_PAGE).click();
         getTreeTableItemExpander(ABOUT_PAGE).click();
         getTreeTableItemExpander(SUBSECTION_ARTICLES).click();
@@ -214,6 +223,7 @@ public class PageEditorUITest extends AbstractPageEditorUITest {
     public void testPageStatusBarIsChangedAfterNavigatingToAnotherPage() {
         // GIVEN
         getAppIcon(PAGES_APP).click();
+        waitUntil(appIsLoaded());
         getTreeTableItemExpander(DEMO_PROJECT_PAGE).click();
         getTreeTableItemExpander(ABOUT_PAGE).click();
         getTreeTableItemExpander(SUBSECTION_ARTICLES).click();
@@ -267,6 +277,8 @@ public class PageEditorUITest extends AbstractPageEditorUITest {
 
         // WHEN
         getAppIcon(PAGES_APP).click();
+        waitUntil(appIsLoaded());
+
         getTreeTableItem("demo-project").click();
         getActionBarItem(EDIT_PAGE_ACTION).click();
         switchToPageEditorContent();
@@ -322,6 +334,7 @@ public class PageEditorUITest extends AbstractPageEditorUITest {
 
         // WHEN
         getAppIcon(PAGES_APP).click();
+        waitUntil(appIsLoaded());
         getTreeTableItem("demo-project").findElement(By.xpath("./div[contains(@class, 'icon-arrow1_e')]")).click();;
         getTreeTableItem("service").findElement(By.xpath("./div[contains(@class, 'icon-arrow1_e')]")).click();
         getTreeTableItem("site-map").click();

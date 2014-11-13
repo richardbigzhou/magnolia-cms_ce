@@ -46,6 +46,7 @@ public class STKSiteDefinitionsAppUITest extends AbstractMagnoliaUITest {
     public void canPublishUnpublishAndDeleteVariation() {
         getCollapsibleAppSectionIcon("STK").click();
         getAppIcon("Site definitions").click();
+        waitUntil(appIsLoaded());
         assertAppOpen("Site definitions");
 
         getTreeTableItem("variations").click();

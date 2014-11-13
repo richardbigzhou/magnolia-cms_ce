@@ -53,6 +53,7 @@ public class ContactsAppUITest extends AbstractMagnoliaUITest {
         String testEmailAddr = String.format("testemail%d@random.ch", new Date().getTime());
 
         getAppIcon("Contacts").click();
+        waitUntil(appIsLoaded());
         assertAppOpen("Contacts");
 
         getTreeTableItem(contactName).click();
@@ -64,7 +65,7 @@ public class ContactsAppUITest extends AbstractMagnoliaUITest {
         delay(1, "give time for change event to proceed");
         getDialogCommitButton().click();
 
-        WebElement showVersionParent = getElementByPath(By.xpath("//*[contains(@class, 'v-actionbar')]//*[@aria-hidden = 'false']//li[span/text() = 'Show versions']"));
+        WebElement showVersionParent = getActionBarItem("Show versions").findElement(By.xpath(".."));;
 
         // Assert showVersions is disabled beforehand
         assertTrue(showVersionParent.getAttribute("class").contains("v-disabled"));
