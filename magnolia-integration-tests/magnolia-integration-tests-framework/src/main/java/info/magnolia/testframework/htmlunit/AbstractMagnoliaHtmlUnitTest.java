@@ -39,6 +39,7 @@ import info.magnolia.testframework.AbstractMagnoliaIntegrationTest;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Collections;
@@ -149,18 +150,18 @@ public abstract class AbstractMagnoliaHtmlUnitTest extends AbstractMagnoliaInteg
      * This uses htmlunit, simulates a browser and does all kind of fancy stuff for you.
      */
     protected <P extends Page> P openPage(String url, User user, boolean followRedirects, boolean enableJavascript, Map<String, String> headers) throws IOException {
-        final WebClient webClient = new WebClient(BrowserVersion.FIREFOX_3_6);
+        final WebClient webClient = new WebClient(BrowserVersion.FIREFOX_24);
         // this writes files to /tmp - the most interesting one probably being magnolia-test_<random>.js, which lists headers for all requests
         final WebConnection connection = new DebuggingWebConnection(webClient.getWebConnection(), "magnolia-test_");
         webClient.setWebConnection(connection);
 
-        webClient.setRedirectEnabled(followRedirects);
+        webClient.getOptions().setRedirectEnabled(followRedirects);
 
         // we also want to test error code handling:
-        webClient.setThrowExceptionOnFailingStatusCode(false);
+        webClient.getOptions().setThrowExceptionOnFailingStatusCode(false);
 
-        webClient.setCssEnabled(true);
-        webClient.setJavaScriptEnabled(enableJavascript);
+        webClient.getOptions().setCssEnabled(true);
+        webClient.getOptions().setJavaScriptEnabled(enableJavascript);
 
         // add custom headers to the client
         for (String header : headers.keySet()) {
@@ -203,7 +204,8 @@ public abstract class AbstractMagnoliaHtmlUnitTest extends AbstractMagnoliaInteg
      */
     protected void saveToFile(Page page, StackTraceElement stackTraceElement) throws IOException {
         final WebResponse res = page.getWebResponse();
-        final byte[] body = res.getContentAsBytes();
+        InputStream input = res.getContentAsStream();
+        final byte[] body = IOUtils.toByteArray(input);
         // TODO : configure the output directory / get it from system properties ?
         final String path = "target/" + stackTraceElement.getClassName() + "-" + stackTraceElement.getMethodName() + "-" + stackTraceElement.getLineNumber() + ".out";
         IOUtils.write(body, new FileOutputStream(path));

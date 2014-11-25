@@ -20,7 +20,6 @@
       <groupId>info.magnolia.bundle</groupId>
       <artifactId>magnolia-bundled-webapp</artifactId>
       <type>pom</type>
-      <scope>import</scope>
     </dependency>
     <dependency>
       <groupId>info.magnolia</groupId>
