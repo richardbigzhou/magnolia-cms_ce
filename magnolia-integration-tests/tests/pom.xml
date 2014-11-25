@@ -61,6 +61,14 @@
       <groupId>net.sourceforge.htmlunit</groupId>
       <artifactId>htmlunit</artifactId>
     </dependency>
+    <!-- Since 2.11, htmlunit requires xml-apis 1.4.01 because DomElement implements an interface that was not in 1.3, hence not in the JDK. -->
+    <dependency>
+      <groupId>xml-apis</groupId>
+      <artifactId>xml-apis</artifactId>
+      <version>1.4.01</version>
+      <scope>test</scope>
+    </dependency>
+
     <dependency>
       <groupId>org.seleniumhq.selenium</groupId>
       <artifactId>selenium-java</artifactId>
@@ -68,7 +76,8 @@
     <dependency>
       <groupId>net.sourceforge.nekohtml</groupId>
       <artifactId>nekohtml</artifactId>
-      <version>1.9.14</version>
+      <version>1.9.21</version>
+      <scope>provided</scope>
     </dependency>
     <!-- Intellij requires to have groovy in the classpath in order to compile .groovy files -->
     <dependency>
@@ -329,8 +338,28 @@
           <source>2.0</source>
         </configuration>
       </plugin>
+
+      <!-- Exception for the enforcer plugin, because we have to depend explicitly on xml-apis 1.4.01 for htmlunit tests, see related comment in the dependency declaration around line 65. -->
+      <plugin>
+        <artifactId>maven-enforcer-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>enforce-banned-dependencies</id>
+            <configuration>
+              <rules>
+                <bannedDependencies>
+                  <includes>
+                    <include>xml-apis:xml-apis:1.4.01:jar:test</include>
+                  </includes>
+                </bannedDependencies>
+              </rules>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
     </plugins>
   </build>
+
   <profiles>
     <!-- This profile will run ui-tests on a real browser - use to run them on your machine -->
     <profile>

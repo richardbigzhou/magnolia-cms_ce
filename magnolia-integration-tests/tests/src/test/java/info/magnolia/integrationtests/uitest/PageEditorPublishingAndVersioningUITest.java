@@ -38,7 +38,7 @@ import static org.hamcrest.core.StringContains.containsString;
 import static org.junit.Assert.*;
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 import org.openqa.selenium.By;
 
@@ -309,7 +309,7 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
     /**
      * From the page editor sub app, select and Area, and from the add component dialog, select a component.<br>
      * The dialog of the desired component is open and available to use.
-     * 
+     *
      * @param areaName for example: 'Content' or 'Extras'
      * @param componentName for example : 'Text and Image' or 'Contact'
      */
@@ -335,7 +335,7 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
      * - Modify the Text Image component<br>
      * - Check available and non available actions<br>
      * - Check the status.
-     * 
+     *
      * @param newSubheadingValue New value of the Subheading field.
      * @param newImageCaptionValue New value of the image caption.
      */

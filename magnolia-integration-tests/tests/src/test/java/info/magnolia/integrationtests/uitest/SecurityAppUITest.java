@@ -36,7 +36,7 @@ package info.magnolia.integrationtests.uitest;
 import static org.junit.Assert.*;
 import static org.openqa.selenium.support.ui.ExpectedConditions.*;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -531,7 +531,7 @@ public class SecurityAppUITest extends AbstractMagnoliaUITest {
 
     /**
      * Renames existing user.
-     * 
+     *
      * @param itemTypeCaption
      * @param itemName
      * @param newItemName

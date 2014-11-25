@@ -33,7 +33,7 @@
  */
 package info.magnolia.testframework;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * A base class for Magnolia integration tests. Allows to overwrite context paths and domain via system properties in case
