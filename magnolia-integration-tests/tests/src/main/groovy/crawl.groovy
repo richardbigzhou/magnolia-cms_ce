@@ -32,7 +32,6 @@
  *
  */
 
-//@Grab(group='net.sourceforge.nekohtml', module='nekohtml', version='1.9.14')
 import org.cyberneko.html.parsers.SAXParser
 import java.util.zip.GZIPInputStream
 
@@ -58,9 +57,8 @@ class Constants {
     static final DIRECTAREA_RENDERING = true
 }
 
-//@Grab(group='commons-lang', module='commons-lang', version='2.4')
 import static Constants.*
-import org.apache.commons.lang.StringUtils
+import org.apache.commons.lang3.StringUtils
 
 class WebCrawler {
     private startURL
