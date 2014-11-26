@@ -21,10 +21,10 @@
     <!-- In case of access from a remote host change accordingly -->
     <containerHostName>localhost</containerHostName>
     <!-- The default container http port used for tests. In CI this will be a random port. -->
-    <containerHttpPort>8299</containerHttpPort>
+    <containerHttpPort>8399</containerHttpPort>
     <!-- The port to use when communicating with this server, for example to start and stop it. -->
     <!-- This was probably causing builds to fail, as the default port was used. -->
-    <cargoRmiPort>8298</cargoRmiPort>
+    <cargoRmiPort>8398</cargoRmiPort>
     <!-- The hostname used to access the selenium standalone server 'http://${vmHostName}:4444/wd/hub' -->
     <!-- (please replace variables) on the virtual machine -->
     <!-- If set, tests will use a RemoteWebDriver instead of the default web driver -->
