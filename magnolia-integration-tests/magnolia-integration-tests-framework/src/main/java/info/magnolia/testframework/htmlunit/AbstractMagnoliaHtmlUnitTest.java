@@ -99,6 +99,7 @@ public abstract class AbstractMagnoliaHtmlUnitTest extends AbstractMagnoliaInteg
 
     /**
      * Just a shortcut method to avoid a cast to HtmlPage.
+     *
      * @see #openPage(AbstractMagnoliaHtmlUnitTest.Instance, String, AbstractMagnoliaHtmlUnitTest.User, boolean)
      * @deprecated openPage now uses generics, so use that instead.
      */
@@ -148,8 +149,9 @@ public abstract class AbstractMagnoliaHtmlUnitTest extends AbstractMagnoliaInteg
     /**
      * This uses htmlunit, simulates a browser and does all kind of fancy stuff for you.
      */
-    protected <P extends Page> P openPage(String url, User user, boolean followRedirects, boolean enableJavascript, Map<String, String> headers) throws IOException {
-        final WebClient webClient = new WebClient(BrowserVersion.FIREFOX_3_6);
+    protected <P extends Page> P openPage(String url, User user, boolean followRedirects, boolean enableJsvascript, Map<String, String> headers) throws IOException {
+        final WebClient webClient = getWebClient();
+
         // this writes files to /tmp - the most interesting one probably being magnolia-test_<random>.js, which lists headers for all requests
         final WebConnection connection = new DebuggingWebConnection(webClient.getWebConnection(), "magnolia-test_");
         webClient.setWebConnection(connection);
@@ -188,6 +190,7 @@ public abstract class AbstractMagnoliaHtmlUnitTest extends AbstractMagnoliaInteg
 
     /**
      * Passing a fake exception might be simpler for some cases.
+     *
      * @see #saveToFile(com.gargoylesoftware.htmlunit.Page, StackTraceElement)
      */
     protected void saveToFile(Page page, Throwable fakeException) throws IOException {
@@ -207,6 +210,13 @@ public abstract class AbstractMagnoliaHtmlUnitTest extends AbstractMagnoliaInteg
         // TODO : configure the output directory / get it from system properties ?
         final String path = "target/" + stackTraceElement.getClassName() + "-" + stackTraceElement.getMethodName() + "-" + stackTraceElement.getLineNumber() + ".out";
         IOUtils.write(body, new FileOutputStream(path));
+    }
+
+    /**
+     * @return an instance of {@link WebClient}. By default it will instantiate a {@link BrowserVersion#FIREFOX_3_6}, however subclasses can change it depending on the htmlunit version in use.
+     */
+    protected WebClient getWebClient() {
+        return new WebClient(BrowserVersion.FIREFOX_3_6);
     }
 
     /**
