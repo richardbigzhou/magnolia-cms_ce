@@ -149,7 +149,7 @@ public abstract class AbstractMagnoliaHtmlUnitTest extends AbstractMagnoliaInteg
     /**
      * This uses htmlunit, simulates a browser and does all kind of fancy stuff for you.
      */
-    protected <P extends Page> P openPage(String url, User user, boolean followRedirects, boolean enableJavascript, Map<String, String> headers) throws IOException {
+    protected <P extends Page> P openPage(String url, User user, boolean followRedirects, boolean enableJsvascript, Map<String, String> headers) throws IOException {
         final WebClient webClient = getWebClient();
 
         // this writes files to /tmp - the most interesting one probably being magnolia-test_<random>.js, which lists headers for all requests
