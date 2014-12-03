@@ -33,7 +33,7 @@
     </dependency>
     <dependency>
       <groupId>info.magnolia.pages</groupId>
-      <artifactId>magnolia-pages</artifactId>
+      <artifactId>magnolia-pages-app</artifactId>
     </dependency>
     <dependency>
       <groupId>info.magnolia.security</groupId>
