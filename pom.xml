@@ -27,7 +27,7 @@
     <documentationURL>http://documentation.magnolia-cms.com/releases/${project.version}.html</documentationURL>
     <stkVersion>2.9-SNAPSHOT</stkVersion>
     <restVersion>1.0.5</restVersion>
-    <damVersion>2.0.6</damVersion>
+    <damVersion>2.1-SNAPSHOT</damVersion>
     <scmTagPrefix>magnolia-bundle</scmTagPrefix>
     <!-- Disable clover during releases: -->
     <additionalReleaseProfiles />
@@ -246,7 +246,7 @@
       <dependency>
         <groupId>info.magnolia.contacts</groupId>
         <artifactId>magnolia-contacts</artifactId>
-        <version>1.3.3</version>
+        <version>1.4-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
