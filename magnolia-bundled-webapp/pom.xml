@@ -35,6 +35,14 @@
       <artifactId>magnolia-module-standard-templating-kit</artifactId>
     </dependency>
     <dependency>
+      <groupId>info.magnolia.resources</groupId>
+      <artifactId>magnolia-resources</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>info.magnolia.resources</groupId>
+      <artifactId>magnolia-resources-app</artifactId>
+    </dependency>
+    <dependency>
       <groupId>info.magnolia</groupId>
       <artifactId>magnolia-module-categorization</artifactId>
     </dependency>
