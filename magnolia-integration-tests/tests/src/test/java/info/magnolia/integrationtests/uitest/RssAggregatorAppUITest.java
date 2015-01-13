@@ -33,7 +33,7 @@
  */
 package info.magnolia.integrationtests.uitest;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 import org.openqa.selenium.WebElement;
@@ -48,9 +48,9 @@ public class RssAggregatorAppUITest extends AbstractMagnoliaUITest {
         waitUntil(appIsLoaded());
         assertAppOpen("Feeds");
 
-        getActionBarItem("Add folder").click();
+        getEnabledActionBarItem("Add folder").click();
         getTreeTableItem("untitled").click();
-        getActionBarItem("Add feed").click();
+        getEnabledActionBarItem("Add feed").click();
 
         getFormTextField("Name").sendKeys(testName);
         getFormTextField("Title").sendKeys("TestTitle");
@@ -68,9 +68,7 @@ public class RssAggregatorAppUITest extends AbstractMagnoliaUITest {
 
         // GIVEN - rename
         final String renamedName = "RenamedFrom" + testName;
-        expandTreeAndSelectAnElement(testName, "untitled");
-        getTreeTableItem(testName).click();
-        getActionBarItem("Edit feed").click();
+        getEnabledActionBarItem("Edit feed").click();
         WebElement categoryNameField = getFormTextField("Name");
         categoryNameField.clear();
         categoryNameField.sendKeys(renamedName);
@@ -87,14 +85,13 @@ public class RssAggregatorAppUITest extends AbstractMagnoliaUITest {
 
         // GIVEN - delete
         getTreeTableItem("untitled").click();
-        getActionBarItem("Delete folder").click();
+        getEnabledActionBarItem("Delete folder").click();
         getDialogButtonWithCaption("Yes, delete").click();
 
         // WHEN
-        getActionBarItem("Publish deletion").click();
+        getEnabledActionBarItem("Publish deletion").click();
 
         // THEN
-        delay("Give some time to clean the table");
-        assertFalse(isExisting(getTreeTableItem("untitled")));
+        waitUntil(elementIsGone("//*[contains(@class, 'v-table-cell-wrapper') and text() = 'untitled']"));
     }
 }
