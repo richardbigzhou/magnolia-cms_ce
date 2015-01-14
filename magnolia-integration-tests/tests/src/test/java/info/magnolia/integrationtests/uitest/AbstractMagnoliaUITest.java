@@ -606,15 +606,15 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
     }
 
     protected WebElement getTreeTableItemExpander(String itemCaption) {
-        return getElementByXpath("//*[text() = '%s']/*[contains(@class, 'v-treetable-treespacer') and contains(@class, 'v-treetable-node-')]", itemCaption);
+        return getElementByXpath("//*[normalize-space(text()) = '%s']/*[contains(@class, 'v-treetable-treespacer') and contains(@class, 'v-treetable-node-')]", itemCaption);
     }
 
     protected WebElement getTreeTableItem(String itemCaption) {
-        return getElementByXpath("//*[contains(@class, 'v-table-cell-wrapper') and text() = '%s']", itemCaption);
+        return getElementByXpath("//*[contains(@class, 'v-table-cell-wrapper') and normalize-space(text()) = '%s']", itemCaption);
     }
 
     protected WebElement getTreeTableItemRow(String itemCaption) {
-        return getElementByXpath("//*[contains(@class, 'v-table-cell-wrapper') and text() = '%s']/parent::*/parent::*", itemCaption);
+        return getElementByXpath("//*[contains(@class, 'v-table-cell-wrapper') and normalize-space(text()) = '%s']/parent::*/parent::*", itemCaption);
     }
 
     protected WebElement getTreeTableCheckBox(String itemCaption) {
@@ -1015,7 +1015,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
     }
 
     protected WebElement getMoveDialogElement(String elementName) {
-        return getElementByXpath("//div[contains(@class, 'light')]//div[contains(@class, 'dialog-content')]//div[contains(@class, 'v-slot-keyboard-panel')]//div[@class='v-table-cell-wrapper' and text() = '%s']", elementName);
+        return getElementByXpath("//div[contains(@class, 'light')]//div[contains(@class, 'dialog-content')]//div[contains(@class, 'v-slot-keyboard-panel')]//div[@class='v-table-cell-wrapper' and normalize-space(text()) = '%s']", elementName);
     }
 
 
