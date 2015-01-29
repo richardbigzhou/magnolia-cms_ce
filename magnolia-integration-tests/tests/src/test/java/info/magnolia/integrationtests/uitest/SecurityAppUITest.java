@@ -540,7 +540,9 @@ public class SecurityAppUITest extends AbstractMagnoliaUITest {
         if (!isTreeTableItemSelected(itemName)) {
             getTreeTableItem(itemName).click();
         }
-        getActionBarItem(getEditItemActionName(itemTypeCaption)).click();
+        WebElement editItem = getActionBarItem(getEditItemActionName(itemTypeCaption));
+        editItem.click();
+
         getDialogInputByLabel(getItemNameFieldLabel(itemTypeCaption)).clear();
         sendKeysToDialogField(getItemNameFieldLabel(itemTypeCaption), newItemName);
 
