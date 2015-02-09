@@ -94,6 +94,10 @@
       <groupId>info.magnolia.rest</groupId>
       <artifactId>magnolia-rest-services</artifactId>
     </dependency>
+    <dependency>
+      <groupId>info.magnolia.templating</groupId>
+      <artifactId>magnolia-templating-essentials-models</artifactId>
+    </dependency>
   </dependencies>
 
   <build>
