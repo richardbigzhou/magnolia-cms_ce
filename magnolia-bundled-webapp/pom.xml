@@ -22,6 +22,11 @@
       <artifactId>magnolia-empty-webapp</artifactId>
       <type>pom</type>
     </dependency>
+    <!-- Until we can get rid of all deps. to legacy-admininterface we'll add it to the bundle -->
+    <dependency>
+      <groupId>info.magnolia</groupId>
+      <artifactId>magnolia-module-legacy-admininterface</artifactId>
+    </dependency>
     <dependency>
       <groupId>info.magnolia</groupId>
       <artifactId>magnolia-module-mail</artifactId>
