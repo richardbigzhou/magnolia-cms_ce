@@ -48,6 +48,10 @@
       <artifactId>magnolia-resources-app</artifactId>
     </dependency>
     <dependency>
+      <groupId>info.magnolia.categorization</groupId>
+      <artifactId>magnolia-categorization-support</artifactId>
+    </dependency>
+    <dependency>
       <groupId>info.magnolia</groupId>
       <artifactId>magnolia-module-categorization</artifactId>
     </dependency>

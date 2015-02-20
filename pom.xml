@@ -25,9 +25,12 @@
     <magnoliaUiVersion>5.4-m2</magnoliaUiVersion>
     <javaVersion>1.7</javaVersion>
     <documentationURL>http://documentation.magnolia-cms.com/releases/${project.version}.html</documentationURL>
-    <stkVersion>2.9-m2</stkVersion>
+    <stkVersion>2.9-m3</stkVersion>
     <restVersion>1.0.5</restVersion>
     <damVersion>2.1-m2</damVersion>
+    <categorizationVersion>2.4-m3</categorizationVersion>
+    <mteVersion>1.0-m1</mteVersion>
+    <resourcesVersion>2.4-m2</resourcesVersion>
     <scmTagPrefix>magnolia-bundle</scmTagPrefix>
     <!-- Disable clover during releases: -->
     <additionalReleaseProfiles />
@@ -141,9 +144,19 @@
       </dependency>
 
       <dependency>
+        <groupId>info.magnolia.categorization</groupId>
+        <artifactId>magnolia-categorization-support</artifactId>
+        <version>${categorizationVersion}</version>
+      </dependency>
+      <dependency>
+        <groupId>info.magnolia.categorization</groupId>
+        <artifactId>magnolia-categorization</artifactId>
+        <version>${categorizationVersion}</version>
+      </dependency>
+      <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-categorization</artifactId>
-        <version>2.4-m2</version>
+        <version>${categorizationVersion}</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
@@ -211,7 +224,7 @@
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-rssaggregator</artifactId>
-        <version>2.4-m2</version>
+        <version>2.4-m3</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia.devdect</groupId>
@@ -226,17 +239,17 @@
       <dependency>
         <groupId>info.magnolia.resources</groupId>
         <artifactId>magnolia-resources</artifactId>
-        <version>2.4-m1</version>
+        <version>${resourcesVersion}</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia.resources</groupId>
         <artifactId>magnolia-resources-app</artifactId>
-        <version>2.4-m1</version>
+        <version>${resourcesVersion}</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-inplace-templating</artifactId>
-        <version>2.3.1</version>
+        <version>2.4-m1</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
@@ -284,12 +297,12 @@
       <dependency>
         <groupId>info.magnolia.templating</groupId>
         <artifactId>magnolia-templating-essentials-models</artifactId>
-        <version>1.0-m1</version>
+        <version>${mteVersion}</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia.templating</groupId>
         <artifactId>magnolia-templating-essentials-imaging</artifactId>
-        <version>1.0-m1</version>
+        <version>${mteVersion}</version>
       </dependency>
 
       <!-- Tests -->
