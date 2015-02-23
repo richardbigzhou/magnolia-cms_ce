@@ -905,7 +905,9 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
                 treeExpander.click();
             }
         }
-        getTreeTableItem(element).click();
+        if (!isTreeTableItemSelected(element)) {
+            getTreeTableItem(element).click();
+        }
     }
 
     /**

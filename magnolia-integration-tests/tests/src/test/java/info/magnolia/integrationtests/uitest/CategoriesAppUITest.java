@@ -79,7 +79,9 @@ public class CategoriesAppUITest extends AbstractMagnoliaUITest {
         assertTrue(isExisting(getTreeTableItem(renamedName)));
 
         // GIVEN - delete
-        getTreeTableItem("untitled").click();
+        if (!isTreeTableItemSelected("untitled")) {
+            getTreeTableItem("untitled").click();
+        }
         getActionBarItem("Delete folder").click();
         getDialogButtonWithCaption("Yes, delete").click();
 
