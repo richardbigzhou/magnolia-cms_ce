@@ -63,6 +63,7 @@ public class RssAggregatorAppUITest extends AbstractMagnoliaUITest {
         getDialogButton("v-button-commit").click();
 
         // THEN
+        waitUntil(DRIVER_WAIT_IN_SECONDS, elementIsGone("//div[contains(concat(' ',normalize-space(@class),' '),' overlay ')]"));
         expandTreeAndSelectAnElement(testName, "untitled");
         assertTrue(isExisting(getTreeTableItem(testName)));
 

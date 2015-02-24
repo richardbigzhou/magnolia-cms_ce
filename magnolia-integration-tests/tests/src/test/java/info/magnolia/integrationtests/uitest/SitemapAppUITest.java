@@ -74,7 +74,6 @@ public class SitemapAppUITest extends AbstractMagnoliaUITest {
         getDialogButton("v-button-commit").click();
 
         // THEN
-        expandTreeAndSelectAnElement(renamedName, "untitled");
         assertTrue(isExisting(getTreeTableItem(renamedName)));
 
         // GIVEN - delete
