@@ -59,6 +59,7 @@ public class CategoriesAppUITest extends AbstractMagnoliaUITest {
 
         // WHEN
         getDialogButton("v-button-commit").click();
+        waitUntil(appIsLoaded()); // we expect preloader to show up when heading back to browser subapp
 
         // THEN
         expandTreeAndSelectAnElement(testName, "untitled");

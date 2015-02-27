@@ -33,7 +33,7 @@
  */
 package info.magnolia.integrationtests.uitest;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 import org.openqa.selenium.WebElement;
@@ -57,6 +57,7 @@ public class SitemapAppUITest extends AbstractMagnoliaUITest {
 
         // WHEN
         getDialogButton("v-button-commit").click();
+        waitUntil(appIsLoaded()); // we expect preloader to show up when heading back to browser subapp
 
         // THEN
         expandTreeAndSelectAnElement(testName, "untitled");
