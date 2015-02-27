@@ -5,6 +5,7 @@
     <groupId>info.magnolia.bundle</groupId>
     <artifactId>magnolia-bundle-parent</artifactId>
     <version>5.4-SNAPSHOT</version>
+    <relativePath>../pom.xml</relativePath>
   </parent>
   <groupId>info.magnolia.bundle</groupId>
   <artifactId>magnolia-bundled-webapp</artifactId>
