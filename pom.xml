@@ -21,16 +21,17 @@
 
   <properties>
     <magnoliaEdition>Community Edition</magnoliaEdition>
-    <magnoliaVersion>5.4-m3</magnoliaVersion>
-    <magnoliaUiVersion>5.4-m2</magnoliaUiVersion>
+    <magnoliaVersion>5.4-m4</magnoliaVersion>
+    <magnoliaUiVersion>5.4-m3</magnoliaUiVersion>
     <javaVersion>1.7</javaVersion>
     <documentationURL>http://documentation.magnolia-cms.com/releases/${project.version}.html</documentationURL>
     <stkVersion>2.9-m3</stkVersion>
     <restVersion>1.0.5</restVersion>
-    <damVersion>2.1-m2</damVersion>
-    <categorizationVersion>2.4-m3</categorizationVersion>
+    <damVersion>2.1-m3</damVersion>
+    <categorizationVersion>2.4-m4</categorizationVersion>
     <mteVersion>1.0-m1</mteVersion>
-    <resourcesVersion>2.4-m2</resourcesVersion>
+    <resourcesVersion>2.4-m3</resourcesVersion>
+    <imagingVersion>3.2-m2</imagingVersion>
     <scmTagPrefix>magnolia-bundle</scmTagPrefix>
     <!-- Disable clover during releases: -->
     <additionalReleaseProfiles />
@@ -140,7 +141,7 @@
       <dependency>
         <groupId>info.magnolia.pages</groupId>
         <artifactId>magnolia-pages-app</artifactId>
-        <version>5.4-m2</version>
+        <version>5.4-m3</version>
       </dependency>
 
       <dependency>
@@ -171,7 +172,7 @@
       <dependency>
         <groupId>info.magnolia.cache</groupId>
         <artifactId>magnolia-module-cache</artifactId>
-        <version>5.4-m2</version>
+        <version>5.4-m3</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
@@ -233,8 +234,13 @@
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
+        <artifactId>magnolia-imaging-support</artifactId>
+        <version>${imagingVersion}</version>
+      </dependency>
+      <dependency>
+        <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-imaging</artifactId>
-        <version>3.2-m1</version>
+        <version>${imagingVersion}</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia.resources</groupId>
