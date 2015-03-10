@@ -172,7 +172,12 @@
       <dependency>
         <groupId>info.magnolia.cache</groupId>
         <artifactId>magnolia-module-cache</artifactId>
-        <version>5.4-m3</version>
+        <version>5.4-m4</version>
+      </dependency>
+      <dependency>
+        <groupId>info.magnolia.cache</groupId>
+        <artifactId>magnolia-module-cache-app</artifactId>
+        <version>5.4-m4</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
