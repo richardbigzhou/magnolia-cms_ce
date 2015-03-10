@@ -227,7 +227,7 @@
                This might require an update of Cargo to work with all contains, since it was noted here before that not all containers supported this.
                This allowed us to remove most of the content of test-webapp, which is now essentially just a pom file.
                TODO : <jvmargs> used by some profiles is not passed anymore - caused issues with Tomcat
-               Setting debug options causes problems at shutdown -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005
+               Setting debug options causes problems at shutdown -Xdebug -Xrunjdwp:transport=dt_socket,address=8000,server=y,suspend=n
               -->
               <cargo.jvmargs>-Dmagnolia.update.auto=true -Xmx1024M  -Djava.awt.headless=true -XX:MaxPermSize=256m</cargo.jvmargs>
               <cargo.servlet.port>${containerHttpPort}</cargo.servlet.port>
