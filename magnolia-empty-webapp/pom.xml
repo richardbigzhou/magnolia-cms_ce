@@ -65,6 +65,10 @@
       <artifactId>magnolia-module-cache</artifactId>
     </dependency>
     <dependency>
+      <groupId>info.magnolia.cache</groupId>
+      <artifactId>magnolia-module-cache-app</artifactId>
+    </dependency>
+    <dependency>
       <groupId>info.magnolia.activation</groupId>
       <artifactId>magnolia-module-activation</artifactId>
     </dependency>
