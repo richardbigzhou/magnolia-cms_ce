@@ -80,6 +80,7 @@ public class RssAggregatorAppUITest extends AbstractMagnoliaUITest {
 
         // WHEN - rename
         getDialogButton("v-button-commit").click();
+        waitUntil(appIsLoaded()); // we expect preloader to show up when heading back to browser subapp
 
         // THEN
         assertTrue(isExisting(getTreeTableItem(renamedName)));
