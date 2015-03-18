@@ -73,12 +73,15 @@ public class SitemapAppUITest extends AbstractMagnoliaUITest {
 
         // WHEN - rename
         getDialogButton("v-button-commit").click();
+        waitUntil(appIsLoaded()); // we expect preloader to show up when heading back to browser subapp
 
         // THEN
         assertTrue(isExisting(getTreeTableItem(renamedName)));
 
         // GIVEN - delete
-        getTreeTableItem("untitled").click();
+        if (!isTreeTableItemSelected("untitled")) {
+            getTreeTableItem("untitled").click();
+        }
         getEnabledActionBarItem("Delete folder").click();
         getDialogButtonWithCaption("Yes, delete").click();
 
