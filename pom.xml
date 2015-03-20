@@ -30,7 +30,7 @@
     <damVersion>2.1-m4</damVersion>
     <categorizationVersion>2.4-m4</categorizationVersion>
     <mteVersion>1.0-m1</mteVersion>
-    <resourcesVersion>2.4-m4</resourcesVersion>
+    <resourcesVersion>2.4-m3</resourcesVersion>
     <imagingVersion>3.2-m2</imagingVersion>
     <siteVersion>1.0-m4</siteVersion>
     <scmTagPrefix>magnolia-bundle</scmTagPrefix>
