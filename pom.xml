@@ -32,7 +32,7 @@
     <mteVersion>1.0-m1</mteVersion>
     <resourcesVersion>2.4-m5</resourcesVersion>
     <imagingVersion>3.2-m2</imagingVersion>
-    <siteVersion>1.0-m4</siteVersion>
+    <siteVersion>1.0-m5</siteVersion>
     <scmTagPrefix>magnolia-bundle</scmTagPrefix>
     <!-- Disable clover during releases: -->
     <additionalReleaseProfiles />
