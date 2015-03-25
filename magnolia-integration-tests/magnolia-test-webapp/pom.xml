@@ -22,26 +22,6 @@
       <artifactId>magnolia-bundled-webapp</artifactId>
       <type>pom</type>
     </dependency>
-
-    <!-- Adding these modules for the purpose of making tests work,
-    they are temporarily (for the alpha) removed from the bundle -->
-    <dependency>
-      <groupId>info.magnolia</groupId>
-      <artifactId>magnolia-module-commenting</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>info.magnolia</groupId>
-      <artifactId>magnolia-module-standard-templating-kit</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>info.magnolia</groupId>
-      <artifactId>magnolia-demo-project</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>info.magnolia</groupId>
-      <artifactId>magnolia-theme-pop</artifactId>
-    </dependency>
-
     <dependency>
       <groupId>info.magnolia</groupId>
       <artifactId>magnolia-templating-samples</artifactId>

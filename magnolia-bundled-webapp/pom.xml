@@ -37,6 +37,10 @@
       <artifactId>magnolia-module-data</artifactId>
     </dependency>
     <dependency>
+      <groupId>info.magnolia</groupId>
+      <artifactId>magnolia-module-standard-templating-kit</artifactId>
+    </dependency>
+    <dependency>
       <groupId>info.magnolia.resources</groupId>
       <artifactId>magnolia-resources</artifactId>
     </dependency>
@@ -52,16 +56,9 @@
       <groupId>info.magnolia</groupId>
       <artifactId>magnolia-module-categorization</artifactId>
     </dependency>
-
-    <!-- Temporarily (for the alpha) removing these modules from the bundle -->
-    <!--
     <dependency>
       <groupId>info.magnolia</groupId>
       <artifactId>magnolia-module-commenting</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>info.magnolia</groupId>
-      <artifactId>magnolia-module-standard-templating-kit</artifactId>
     </dependency>
     <dependency>
       <groupId>info.magnolia</groupId>
@@ -71,8 +68,6 @@
       <groupId>info.magnolia</groupId>
       <artifactId>magnolia-theme-pop</artifactId>
     </dependency>
-    -->
-
     <dependency>
       <groupId>info.magnolia.activation</groupId>
       <artifactId>magnolia-module-activation</artifactId>
