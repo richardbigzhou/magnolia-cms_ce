@@ -20,6 +20,7 @@
     <module>magnolia-integration-tests-fixture-module</module>
     <module>magnolia-module-servlet-sanity</module>
     <module>magnolia-test-webapp</module>
+    <module>magnolia-test-public-webapp</module>
     <module>tests</module>
   </modules>
 
@@ -44,6 +45,18 @@
       <dependency>
         <groupId>info.magnolia.bundle.test</groupId>
         <artifactId>magnolia-test-webapp</artifactId>
+        <type>war</type>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>info.magnolia.bundle.test</groupId>
+        <artifactId>magnolia-test-webapp</artifactId>
+        <type>pom</type>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>info.magnolia.bundle.test</groupId>
+        <artifactId>magnolia-test-public-webapp</artifactId>
         <type>war</type>
         <version>${project.version}</version>
       </dependency>
