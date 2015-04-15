@@ -1321,4 +1321,21 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
     protected WebElement getMainLauncherShell() {
         return getElementByXpath("//*[@id = 'btn-appslauncher']");
     }
+    
+    /**
+     * This allow to select multiple web elements matching the given path.
+     * @param path: to list of elements
+     * @param expectedElementCount: number of expected elements
+     */
+    protected void selectMultipleElementsByPath(final By path, final int expectedElementCount) {
+        List<WebElement> els = getElementsByPath(path, expectedElementCount);
+        
+        Actions multiSelect = new Actions(driver).keyDown(Keys.CONTROL);
+        for (WebElement el : els) {
+            multiSelect = multiSelect.click(el);
+        }
+        
+        multiSelect.keyUp(Keys.CONTROL).build().perform();
+    }
+
 }

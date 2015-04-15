@@ -312,6 +312,48 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
         navigateDriverTo(Instance.AUTHOR.getURL(".magnolia/sysprop/?name=magnolia.utf8.enabled&value=false"));
         navigateDriverTo(Instance.PUBLIC.getURL(".magnolia/sysprop/?name=magnolia.utf8.enabled&value=false"));
     }
+    
+    /**
+     * Delete multiple items and check if the publish delete is available for multiple items.
+     */
+    @Test
+    public void canPublishDeletionMultipleItems() {
+        // GIVEN
+        final String[] pathToArticle = new String[] { DEMO_PROJECT_PAGE, ABOUT_PAGE, SUBSECTION_ARTICLES };
+        final String article = "article";
+        final String largeArticle = "large-article";
+        String url = StringUtils.join(pathToArticle, "/");
+
+        // WHEN
+        navigateDriverTo(Instance.AUTHOR.getURL() + String.format(".magnolia/admincentral#app:pages:browser;%s:treeview:", url));
+        delay(3, "Make sure it's open.");
+
+        // Navigate to select multiple items
+        for (String item : pathToArticle) {
+            getTreeTableItemExpander(item).click();
+        }
+
+        getTreeTableItem(article).findElement(By.xpath(".//*[contains(@class, 'v-selection-cb')]/input[@type='checkbox']")).click();
+        getTreeTableItem(largeArticle).findElement(By.xpath(".//*[contains(@class, 'v-selection-cb')]/input[@type='checkbox']")).click();
+
+        refreshTreeView();
+
+        // Delete Page
+        getActionBarItem(DELETE_PAGE_ACTION).click();
+        delay(3, "Wait for the confirmation message");
+        getDialogConfirmButton().click();
+        delay(3, "Give dialog some time to fade away...");
+
+        refreshTreeView();
+
+        // THEN
+        getActionBarItem(PUBLISH_DELETION_ACTION).click();
+        delay(2, "Wait for the confirmation message");
+
+        // Check that the row is gone in the tree table
+        assertFalse(isExisting(getTreeTableItem(article)));
+        assertFalse(isExisting(getTreeTableItem(largeArticle)));
+    }
 
     /**
      * From the page editor sub app, select and Area, and from the add component dialog, select a component.<br>
