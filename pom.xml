@@ -21,15 +21,15 @@
 
   <properties>
     <magnoliaEdition>Community Edition</magnoliaEdition>
-    <magnoliaVersion>5.4-m6</magnoliaVersion>
-    <magnoliaUiVersion>5.4-m5</magnoliaUiVersion>
+    <magnoliaVersion>5.4-m7</magnoliaVersion>
+    <magnoliaUiVersion>5.4-m6</magnoliaUiVersion>
     <javaVersion>1.7</javaVersion>
     <documentationURL>http://documentation.magnolia-cms.com/releases/${project.version}.html</documentationURL>
-    <stkVersion>2.9-m4</stkVersion>
+    <stkVersion>2.9-m5</stkVersion>
     <restVersion>1.0.5</restVersion>
-    <damVersion>2.1-m4</damVersion>
-    <categorizationVersion>2.4-m4</categorizationVersion>
-    <mteVersion>1.0-m1</mteVersion>
+    <damVersion>2.1-m5</damVersion>
+    <categorizationVersion>2.4-m5</categorizationVersion>
+    <mteVersion>1.0-m3</mteVersion>
     <resourcesVersion>2.4-m5</resourcesVersion>
     <imagingVersion>3.2-m2</imagingVersion>
     <siteVersion>1.0-m6</siteVersion>
@@ -147,7 +147,7 @@
       <dependency>
         <groupId>info.magnolia.pages</groupId>
         <artifactId>magnolia-pages-app</artifactId>
-        <version>5.4-m4</version>
+        <version>5.4-m5</version>
       </dependency>
 
       <dependency>
@@ -236,7 +236,7 @@
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-rssaggregator</artifactId>
-        <version>2.4-m3</version>
+        <version>2.4-m4</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia.devdect</groupId>
