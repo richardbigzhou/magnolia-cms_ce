@@ -147,7 +147,7 @@
       <dependency>
         <groupId>info.magnolia.pages</groupId>
         <artifactId>magnolia-pages-app</artifactId>
-        <version>5.4-m5</version>
+        <version>5.4-m6</version>
       </dependency>
 
       <dependency>
