@@ -21,11 +21,11 @@
 
   <properties>
     <magnoliaEdition>Community Edition</magnoliaEdition>
-    <magnoliaVersion>5.3.8</magnoliaVersion>
-    <magnoliaUiVersion>5.3.8</magnoliaUiVersion>
+    <magnoliaVersion>5.3.9-SNAPSHOT</magnoliaVersion>
+    <magnoliaUiVersion>5.3.9-SNAPSHOT</magnoliaUiVersion>
     <javaVersion>1.6</javaVersion>
     <documentationURL>http://documentation.magnolia-cms.com/releases/${project.version}.html</documentationURL>
-    <stkVersion>2.8.8</stkVersion>
+    <stkVersion>2.8.9-SNAPSHOT</stkVersion>
     <restVersion>1.0.5</restVersion>
     <damVersion>2.0.8</damVersion>
     <scmTagPrefix>magnolia-bundle</scmTagPrefix>
