@@ -33,6 +33,7 @@
     <resourcesVersion>2.4-m5</resourcesVersion>
     <imagingVersion>3.2-m2</imagingVersion>
     <siteVersion>1.0-m6</siteVersion>
+    <travelDemoVersion>1.0-m2</travelDemoVersion>
     <scmTagPrefix>magnolia-bundle</scmTagPrefix>
     <!-- Disable clover during releases: -->
     <additionalReleaseProfiles />
@@ -331,6 +332,17 @@
         <groupId>info.magnolia.site</groupId>
         <artifactId>magnolia-site-app</artifactId>
         <version>${siteVersion}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>info.magnolia.demo</groupId>
+        <artifactId>magnolia-travel-demo</artifactId>
+        <version>${travelDemoVersion}</version>
+      </dependency>
+      <dependency>
+        <groupId>info.magnolia.demo</groupId>
+        <artifactId>magnolia-travel-tours</artifactId>
+        <version>${travelDemoVersion}</version>
       </dependency>
 
       <!-- Tests -->

@@ -16,11 +16,31 @@
       <groupId>info.magnolia.bundle</groupId>
       <artifactId>magnolia-bundled-webapp</artifactId>
       <type>war</type>
+      <exclusions>
+        <exclusion>
+          <groupId>info.magnolia.demo</groupId>
+          <artifactId>magnolia-travel-demo</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>info.magnolia.demo</groupId>
+          <artifactId>magnolia-travel-tours</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <dependency>
       <groupId>info.magnolia.bundle</groupId>
       <artifactId>magnolia-bundled-webapp</artifactId>
       <type>pom</type>
+      <exclusions>
+        <exclusion>
+          <groupId>info.magnolia.demo</groupId>
+          <artifactId>magnolia-travel-demo</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>info.magnolia.demo</groupId>
+          <artifactId>magnolia-travel-tours</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <dependency>
       <groupId>info.magnolia</groupId>
@@ -37,6 +57,21 @@
       <artifactId>magnolia-integration-tests-fixture-module</artifactId>
       <type>jar</type>
     </dependency>
+
+    <!-- STK dependency for UI tests -->
+    <dependency>
+      <groupId>info.magnolia</groupId>
+      <artifactId>magnolia-module-standard-templating-kit</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>info.magnolia</groupId>
+      <artifactId>magnolia-demo-project</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>info.magnolia</groupId>
+      <artifactId>magnolia-theme-pop</artifactId>
+    </dependency>
+
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>

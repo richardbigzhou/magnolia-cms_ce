@@ -37,10 +37,6 @@
       <artifactId>magnolia-module-data</artifactId>
     </dependency>
     <dependency>
-      <groupId>info.magnolia</groupId>
-      <artifactId>magnolia-module-standard-templating-kit</artifactId>
-    </dependency>
-    <dependency>
       <groupId>info.magnolia.resources</groupId>
       <artifactId>magnolia-resources</artifactId>
     </dependency>
@@ -59,14 +55,6 @@
     <dependency>
       <groupId>info.magnolia</groupId>
       <artifactId>magnolia-module-commenting</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>info.magnolia</groupId>
-      <artifactId>magnolia-demo-project</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>info.magnolia</groupId>
-      <artifactId>magnolia-theme-pop</artifactId>
     </dependency>
     <dependency>
       <groupId>info.magnolia.activation</groupId>
@@ -113,12 +101,24 @@
       <artifactId>magnolia-templating-essentials-models</artifactId>
     </dependency>
     <dependency>
+      <groupId>info.magnolia.templating</groupId>
+      <artifactId>magnolia-templating-essentials-imaging</artifactId>
+    </dependency>
+    <dependency>
       <groupId>info.magnolia.site</groupId>
       <artifactId>magnolia-site</artifactId>
     </dependency>
     <dependency>
       <groupId>info.magnolia.site</groupId>
       <artifactId>magnolia-site-app</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>info.magnolia.demo</groupId>
+      <artifactId>magnolia-travel-demo</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>info.magnolia.demo</groupId>
+      <artifactId>magnolia-travel-tours</artifactId>
     </dependency>
   </dependencies>
 
