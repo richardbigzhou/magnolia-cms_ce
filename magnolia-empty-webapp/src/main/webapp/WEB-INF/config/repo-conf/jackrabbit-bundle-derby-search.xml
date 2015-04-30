@@ -45,6 +45,10 @@
       <param name="extractorPoolSize" value="3" />
       <param name="extractorTimeout" value="100" />
       <param name="extractorBackLogSize" value="100" />
+      <!-- needed to highlight the searched term -->
+      <param name="supportHighlighting" value="true"/>
+      <!-- custom provider for getting an HTML excerpt in a query result with rep:excerpt() -->
+      <param name="excerptProviderClass" value="info.magnolia.jackrabbit.lucene.SearchHTMLExcerpt"/>
     </SearchIndex>
     <WorkspaceSecurity>
       <AccessControlProvider class="info.magnolia.cms.core.MagnoliaAccessProvider" />
