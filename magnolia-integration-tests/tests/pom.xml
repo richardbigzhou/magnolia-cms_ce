@@ -121,6 +121,87 @@
   </dependencyManagement>
 
   <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <!-- Base configuration for Cargo - executions are bound in build/plugins, but first "specialized" by profiles -->
+          <groupId>org.codehaus.cargo</groupId>
+          <artifactId>cargo-maven2-plugin</artifactId>
+          <configuration>
+            <wait>${leaveContainerRunningAndDontExecuteTests}</wait>
+            <container>
+              <!-- Override the following in a profile: -->
+              <containerId>OVERRIDE ME IN A PROFILE</containerId>
+              <type>OVERRIDE ME IN A PROFILE</type>
+              <!-- Also specify a :
+              <zipUrlInstaller/> or <artifactInstaller/>
+              -->
+              <output>${project.build.directory}/container.log</output>
+              <log>${project.build.directory}/cargo.log</log>
+              specifying empty values for output and log should result in everything being printed in the console -->
+              <output />
+              <log />
+              <!-- 10 minutes timeout IS long, but the default 2 minutes is sometimes not enough... ?? -->
+              <timeout>600000</timeout>
+
+              <systemProperties>
+                <java.io.tmpdir>${project.build.directory}/java-io-tmpdir</java.io.tmpdir>
+                <!-- The surefire variables are not exposed to container, we need these props: -->
+                <containerHttpPort>${containerHttpPort}</containerHttpPort>
+                <containerRootURL>http://${containerHostName}:${containerHttpPort}/</containerRootURL>
+                <authorContextPath>magnoliaTest/</authorContextPath>
+                <publicContextPath>magnoliaTestPublic/</publicContextPath>
+                <!-- Parameters for running tests in virtual machine -->
+                <seleniumServerHostName>${seleniumServerHostName}</seleniumServerHostName>
+              </systemProperties>
+            </container>
+            <configuration>
+              <type>OVERRIDE ME IN A PROFILE</type>
+              <home>${basedir}/tmp/cargo-home</home>
+              <configfiles>
+                <configfile>
+                  <file>${basedir}/src/test/resources/jetty.xml</file>
+                  <todir>/etc</todir>
+                </configfile>
+              </configfiles>
+              <properties>
+                <!--
+                 Containers support for system properties: See "Passing system properties" and "cargo.jvmargs" on Cargo's container pages: http://cargo.codehaus.org/Jetty+6.x
+                 This might require an update of Cargo to work with all contains, since it was noted here before that not all containers supported this.
+                 This allowed us to remove most of the content of test-webapp, which is now essentially just a pom file.
+                 TODO : <jvmargs> used by some profiles is not passed anymore - caused issues with Tomcat
+                 Setting debug options causes problems at shutdown -Xdebug -Xrunjdwp:transport=dt_socket,address=8000,server=y,suspend=n
+                -->
+                <cargo.jvmargs>-Dmagnolia.update.auto=true -Xmx1024M -Djava.awt.headless=true -XX:MaxPermSize=256m</cargo.jvmargs>
+                <cargo.servlet.port>${containerHttpPort}</cargo.servlet.port>
+                <cargo.logging>medium</cargo.logging>
+                <cargo.tomcat.ajp.port>8099</cargo.tomcat.ajp.port>
+                <cargo.rmi.port>${cargoRmiPort}</cargo.rmi.port>
+              </properties>
+
+              <deployables>
+                <deployable>
+                  <groupId>info.magnolia.bundle.test</groupId>
+                  <artifactId>magnolia-test-webapp</artifactId>
+                  <type>war</type>
+                  <properties>
+                    <context>magnoliaTest</context>
+                  </properties>
+                </deployable>
+                <deployable>
+                  <groupId>info.magnolia.bundle.test</groupId>
+                  <artifactId>magnolia-test-webapp</artifactId>
+                  <type>war</type>
+                  <properties>
+                    <context>magnoliaTestPublic</context>
+                  </properties>
+                </deployable>
+              </deployables>
+            </configuration>
+          </configuration>
+        </plugin>
+      </plugins>
+    </pluginManagement>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -182,80 +263,9 @@
       </plugin>
 
       <plugin>
+        <!-- Executions of Cargo. See config in pluginManagement -->
         <groupId>org.codehaus.cargo</groupId>
         <artifactId>cargo-maven2-plugin</artifactId>
-        <configuration>
-          <wait>${leaveContainerRunningAndDontExecuteTests}</wait>
-          <container>
-            <containerId>${containerId}</containerId>
-            <type>${containerType}</type>
-            <!--
-            <output>${project.build.directory}/${containerId}.log</output>
-            <log>${project.build.directory}/cargo.log</log>
-            specifying empty values for output and log should result in everything being printed in the console -->
-            <output />
-            <log />
-            <!-- 10 minutes timeout IS long, but the default 2 minutes is sometimes not enough... ?? -->
-            <timeout>600000</timeout>
-            <zipUrlInstaller>
-              <url>${url}</url>
-              <installDir>${basedir}/tmp/cargo-install</installDir>
-            </zipUrlInstaller>
-            <systemProperties>
-              <java.io.tmpdir>${project.build.directory}/java-io-tmpdir</java.io.tmpdir>
-              <!-- The surefire variables are not exposed to container, we need these props: -->
-              <containerHttpPort>${containerHttpPort}</containerHttpPort>
-              <containerRootURL>http://${containerHostName}:${containerHttpPort}/</containerRootURL>
-              <authorContextPath>magnoliaTest/</authorContextPath>
-              <publicContextPath>magnoliaTestPublic/</publicContextPath>
-              <!-- Parameters for running tests in virtual machine -->
-              <seleniumServerHostName>${seleniumServerHostName}</seleniumServerHostName>
-            </systemProperties>
-          </container>
-          <configuration>
-            <type>${configType}</type>
-            <home>${basedir}/tmp/cargo-home</home>
-            <configfiles>
-              <configfile>
-                <file>${basedir}/src/test/resources/jetty.xml</file>
-                <todir>/etc</todir>
-              </configfile>
-            </configfiles>
-            <properties>
-              <!--
-               Containers support for system properties: See "Passing system properties" and "cargo.jvmargs" on Cargo's container pages: http://cargo.codehaus.org/Jetty+6.x
-               This might require an update of Cargo to work with all contains, since it was noted here before that not all containers supported this.
-               This allowed us to remove most of the content of test-webapp, which is now essentially just a pom file.
-               TODO : <jvmargs> used by some profiles is not passed anymore - caused issues with Tomcat
-               Setting debug options causes problems at shutdown -Xdebug -Xrunjdwp:transport=dt_socket,address=8000,server=y,suspend=n
-              -->
-              <cargo.jvmargs>-Dmagnolia.update.auto=true -Xmx1024M  -Djava.awt.headless=true -XX:MaxPermSize=256m</cargo.jvmargs>
-              <cargo.servlet.port>${containerHttpPort}</cargo.servlet.port>
-              <cargo.logging>medium</cargo.logging>
-              <cargo.tomcat.ajp.port>8099</cargo.tomcat.ajp.port>
-              <cargo.rmi.port>${cargoRmiPort}</cargo.rmi.port>
-            </properties>
-
-            <deployables>
-              <deployable>
-                <groupId>info.magnolia.bundle.test</groupId>
-                <artifactId>magnolia-test-webapp</artifactId>
-                <type>war</type>
-                <properties>
-                  <context>magnoliaTest</context>
-                </properties>
-              </deployable>
-              <deployable>
-                <groupId>info.magnolia.bundle.test</groupId>
-                <artifactId>magnolia-test-webapp</artifactId>
-                <type>war</type>
-                <properties>
-                  <context>magnoliaTestPublic</context>
-                </properties>
-              </deployable>
-            </deployables>
-          </configuration>
-        </configuration>
         <executions>
           <execution>
             <id>start</id>
@@ -444,69 +454,181 @@
       <!--</build>-->
     <!--</profile>-->
     <profile>
-      <id>tomcat60</id>
-      <properties>
-        <containerId>tomcat6x</containerId>
-        <containerType>installed</containerType>
-        <configType>standalone</configType>
-        <url>http://archive.apache.org/dist/tomcat/tomcat-6/v6.0.32/bin/apache-tomcat-6.0.32.tar.gz</url>
-      </properties>
-    </profile>
-    <profile>
       <!-- memory issues with jsp - cargo.jvmargs not supported -->
       <id>jetty6-standalone</id>
       <activation>
         <activeByDefault>true</activeByDefault>
       </activation>
-      <properties>
-        <containerId>jetty6x</containerId>
-        <containerType>installed</containerType>
-        <configType>standalone</configType>
-        <url>http://dist.codehaus.org/jetty/jetty-6.1.22/jetty-6.1.22.zip</url>
-      </properties>
+      <build>
+        <pluginManagement>
+          <plugins>
+            <plugin>
+              <groupId>org.codehaus.cargo</groupId>
+              <artifactId>cargo-maven2-plugin</artifactId>
+              <configuration>
+                <configuration>
+                  <type>standalone</type>
+                </configuration>
+                <container>
+                  <containerId>jetty6x</containerId>
+                  <type>installed</type>
+                  <artifactInstaller>
+                    <groupId>org.mortbay.jetty</groupId>
+                    <artifactId>jetty</artifactId>
+                    <classifier>bundle</classifier>
+                    <version>6.1.26</version>
+                  </artifactInstaller>
+                </container>
+              </configuration>
+            </plugin>
+          </plugins>
+        </pluginManagement>
+      </build>
     </profile>
     <profile>
-      <!-- this currently doesn't work with jsp -->
-      <id>jetty6-embedded</id>
-      <properties>
-        <containerId>jetty6x</containerId>
-        <containerType>embedded</containerType>
-        <configType>???</configType>
-      </properties>
+      <id>tomcat70</id>
+      <build>
+        <pluginManagement>
+          <plugins>
+            <plugin>
+              <groupId>org.codehaus.cargo</groupId>
+              <artifactId>cargo-maven2-plugin</artifactId>
+              <configuration>
+                <configuration>
+                  <type>standalone</type>
+                </configuration>
+                <container>
+                  <containerId>tomcat7x</containerId>
+                  <type>installed</type>
+                  <zipUrlInstaller>
+                    <url>http://archive.apache.org/dist/tomcat/tomcat-7/v7.0.55/bin/apache-tomcat-7.0.55.tar.gz</url>
+                    <downloadDir>${basedir}/tmp/cargo-downloads</downloadDir>
+                    <extractDir>${basedir}/tmp/cargo-extracts</extractDir>
+                  </zipUrlInstaller>
+                </container>
+              </configuration>
+            </plugin>
+          </plugins>
+        </pluginManagement>
+      </build>
+    </profile>
+    <profile>
+      <id>tomcat60</id>
+      <build>
+        <pluginManagement>
+          <plugins>
+            <plugin>
+              <groupId>org.codehaus.cargo</groupId>
+              <artifactId>cargo-maven2-plugin</artifactId>
+              <configuration>
+                <configuration>
+                  <type>standalone</type>
+                </configuration>
+                <container>
+                  <containerId>tomcat6x</containerId>
+                  <type>installed</type>
+                  <zipUrlInstaller>
+                    <url>http://archive.apache.org/dist/tomcat/tomcat-6/v6.0.32/bin/apache-tomcat-6.0.32.tar.gz</url>
+                    <downloadDir>${basedir}/tmp/cargo-downloads</downloadDir>
+                    <extractDir>${basedir}/tmp/cargo-extracts</extractDir>
+                  </zipUrlInstaller>
+                </container>
+              </configuration>
+            </plugin>
+          </plugins>
+        </pluginManagement>
+      </build>
     </profile>
     <profile>
       <id>tomcat55</id>
-      <properties>
-        <containerId>tomcat5x</containerId>
-        <containerType>installed</containerType>
-        <configType>standalone</configType>
-        <url>http://archive.apache.org/dist/tomcat/tomcat-5/v5.5.27/bin/apache-tomcat-5.5.27.zip</url>
-      </properties>
+      <build>
+        <pluginManagement>
+          <plugins>
+            <plugin>
+              <groupId>org.codehaus.cargo</groupId>
+              <artifactId>cargo-maven2-plugin</artifactId>
+              <configuration>
+                <configuration>
+                  <type>standalone</type>
+                </configuration>
+                <container>
+                  <containerId>tomcat5x</containerId>
+                  <type>installed</type>
+                  <zipUrlInstaller>
+                    <url>http://archive.apache.org/dist/tomcat/tomcat-5/v5.5.27/bin/apache-tomcat-5.5.27.zip</url>
+                    <downloadDir>${basedir}/tmp/cargo-downloads</downloadDir>
+                    <extractDir>${basedir}/tmp/cargo-extracts</extractDir>
+                  </zipUrlInstaller>
+                </container>
+              </configuration>
+            </plugin>
+          </plugins>
+        </pluginManagement>
+      </build>
     </profile>
     <profile>
       <id>tomcat50</id>
-      <properties>
-        <containerId>tomcat5x</containerId>
-        <containerType>installed</containerType>
-        <configType>standalone</configType>
-        <url>http://archive.apache.org/dist/tomcat/tomcat-5/v5.0.30/bin/jakarta-tomcat-5.0.30.zip</url>
-      </properties>
+      <build>
+        <pluginManagement>
+          <plugins>
+            <plugin>
+              <groupId>org.codehaus.cargo</groupId>
+              <artifactId>cargo-maven2-plugin</artifactId>
+              <configuration>
+                <configuration>
+                  <type>standalone</type>
+                </configuration>
+                <container>
+                  <containerId>tomcat5x</containerId>
+                  <type>installed</type>
+                  <zipUrlInstaller>
+                    <url>http://archive.apache.org/dist/tomcat/tomcat-5/v5.0.30/bin/jakarta-tomcat-5.0.30.zip</url>
+                    <downloadDir>${basedir}/tmp/cargo-downloads</downloadDir>
+                    <extractDir>${basedir}/tmp/cargo-extracts</extractDir>
+                  </zipUrlInstaller>
+                </container>
+              </configuration>
+            </plugin>
+          </plugins>
+        </pluginManagement>
+      </build>
     </profile>
     <profile>
       <id>jboss42</id>
       <properties>
-        <containerId>jboss4x</containerId>
-        <containerType>installed</containerType>
-        <configType>standalone</configType>
-        <url>http://switch.dl.sourceforge.net/sourceforge/jboss/jboss-4.2.2.GA.zip</url>
         <jvmargs>
           -Djava.security.auth.login.config=file://XXXXX/magnolia-trunk/magnolia-webapp/target/magnolia-webapp-3.5-SNAPSHOT/WEB-INF/config/jaas.config
-          -Djboss.home.dir=${cargo.installDir}/jboss-4.2.2.GA/jboss-4.2.2.GA
-          -Djboss.server.home.dir=${cargo.installDir}/jboss-4.2.2.GA/jboss-4.2.2.GA/server/default
-          -Djboss.server.home.url=file:/${cargo.installDir}/jboss-4.2.2.GA/jboss-4.2.2.GA/server/default
+          -Djboss.home.dir=${cargo.extractDir}/jboss-4.2.2.GA/jboss-4.2.2.GA
+          -Djboss.server.home.dir=${cargo.extractDir}/jboss-4.2.2.GA/jboss-4.2.2.GA/server/default
+          -Djboss.server.home.url=file:/${cargo.extractDir}/jboss-4.2.2.GA/jboss-4.2.2.GA/server/default
           -Djboss.server.name=jboss4x
         </jvmargs>
       </properties>
+      <build>
+        <pluginManagement>
+          <plugins>
+            <plugin>
+              <groupId>org.codehaus.cargo</groupId>
+              <artifactId>cargo-maven2-plugin</artifactId>
+              <configuration>
+                <configuration>
+                  <type>standalone</type>
+                </configuration>
+                <container>
+                  <containerId>jboss4x</containerId>
+                  <type>installed</type>
+                  <zipUrlInstaller>
+                    <url>http://switch.dl.sourceforge.net/sourceforge/jboss/jboss-4.2.2.GA.zip</url>
+                    <downloadDir>${basedir}/tmp/cargo-downloads</downloadDir>
+                    <extractDir>${basedir}/tmp/cargo-extracts</extractDir>
+                  </zipUrlInstaller>
+                </container>
+              </configuration>
+            </plugin>
+          </plugins>
+        </pluginManagement>
+      </build>
+
     </profile>
     <!-- unfortunately doesn't work since JBoss doesn't recognize the java.security.auth.login.config property -->
     <!--
