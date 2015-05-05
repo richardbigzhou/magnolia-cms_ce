@@ -119,9 +119,11 @@
               <!-- Also specify a :
               <zipUrlInstaller/> or <artifactInstaller/>
               -->
+              <!-- Specifying empty values for output and log should result in everything being printed in the console.
+                   If not, we log to these files:
               <output>${project.build.directory}/container.log</output>
               <log>${project.build.directory}/cargo.log</log>
-              specifying empty values for output and log should result in everything being printed in the console -->
+              -->
               <output />
               <log />
               <!-- 10 minutes timeout IS long, but the default 2 minutes is sometimes not enough... ?? -->
