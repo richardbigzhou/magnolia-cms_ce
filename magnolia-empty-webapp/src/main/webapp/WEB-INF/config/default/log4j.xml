@@ -167,6 +167,10 @@ Number of occurrences: %o%n
   <category name="org.apache.jackrabbit">
     <priority value="WARN" />
   </category>
+  <!-- Reflections library spoils logs with hundreds of harmless warnings; tries to look into native libs but none of its DefaultUrlTypes can handle them. -->
+  <category name="org.reflections">
+    <priority value="ERROR" />
+  </category>
   <category name="com">
     <priority value="WARN" />
   </category>
