@@ -140,32 +140,61 @@ public class ConfigurationAppUITest extends AbstractMagnoliaUITest {
         getEnabledActionBarItem("Add folder").click();
 
         getTreeTableItem("untitled").click();
+        getEnabledActionBarItem("Rename item").click();
+        setFormTextFieldText("Name", "lvl1");
+        delay(1, "Wait a second for update");
+        getDialogCommitButton().click();
+
+        getEnabledActionBarItem("Add folder").click();
+
+        getTreeTableItem("untitled").click();
+        getEnabledActionBarItem("Rename item").click();
+        setFormTextFieldText("Name", "lvl2");
+        delay(1, "Wait a second for update");
+        getDialogCommitButton().click();
+
+        getEnabledActionBarItem("Add folder").click();
+
+        getTreeTableItem("untitled").click();
+        getEnabledActionBarItem("Rename item").click();
+        setFormTextFieldText("Name", "lvl3");
+        delay(1, "Wait a second for update");
+        getDialogCommitButton().click();
 
         getEnabledActionBarItem("Add content node").click();
         getEnabledActionBarItem("Add property").click();
 
-        // publish
+        // publish lvl1
+        getTreeTableItem("lvl1").click();
         getEnabledActionBarItem("Publish incl. subnodes").click();
         delay(5, "Publication may take some time");
         refreshTreeView();
         assertThat(getSelectedActivationStatusIcon().getAttribute("class"), containsString(COLOR_GREEN_ICON_STYLE));
 
-        // unpublish
+        // unpublish lvl1
+        getEnabledActionBarItem("Unpublish").click();
+        refreshTreeView();
+        assertThat(getSelectedActivationStatusIcon().getAttribute("class"), containsString(COLOR_GREEN_ICON_STYLE));
+
+        //unpublish lvl2
+        getTreeTableItem("lvl2").click();
+        getEnabledActionBarItem("Unpublish").click();
+        refreshTreeView();
+        assertThat(getSelectedActivationStatusIcon().getAttribute("class"), containsString(COLOR_GREEN_ICON_STYLE));
+
+        //unpublish lvl3
+        getTreeTableItem("lvl3").click();
         getEnabledActionBarItem("Unpublish").click();
         refreshTreeView();
         assertThat(getSelectedActivationStatusIcon().getAttribute("class"), containsString(COLOR_RED_ICON_STYLE));
 
         // delete
+        getTreeTableItem("lvl3").click();
         getEnabledActionBarItem("Delete item").click();
         getDialogConfirmButton().click();
         delay("Delete might take some time");
         refreshTreeView();
-        assertFalse("Untitled should be gone", isExisting(getTreeTableItem("untitled")));
-    }
-
-    @Test
-    public void canPublishCannotUnpublishLevel1Or2Node() {
-
+        assertFalse("Lvl3 folder should be gone", isExisting(getTreeTableItem("lvl3")));
     }
 
     private void deleteUntitledFolderIfExisting() {
