@@ -27,7 +27,7 @@
     <documentationURL>http://documentation.magnolia-cms.com/releases/${project.version}.html</documentationURL>
     <stkVersion>2.8.9-SNAPSHOT</stkVersion>
     <restVersion>1.0.5</restVersion>
-    <damVersion>2.0.8</damVersion>
+    <damVersion>2.0.9-SNAPSHOT</damVersion>
     <scmTagPrefix>magnolia-bundle</scmTagPrefix>
     <!-- Disable clover during releases: -->
     <additionalReleaseProfiles />
@@ -147,7 +147,7 @@
       <dependency>
         <groupId>info.magnolia.activation</groupId>
         <artifactId>magnolia-module-activation</artifactId>
-        <version>5.3.2</version>
+        <version>5.3.3-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia.cache</groupId>
@@ -230,7 +230,7 @@
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-form</artifactId>
-        <version>2.2.11</version>
+        <version>2.2.12</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
