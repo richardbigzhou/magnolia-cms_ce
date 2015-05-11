@@ -33,7 +33,9 @@
  */
 package info.magnolia.integrationtests.uitest;
 
+import static org.hamcrest.core.StringContains.containsString;
 import static org.junit.Assert.*;
+import static org.openqa.selenium.support.ui.ExpectedConditions.*;
 
 import java.util.List;
 
@@ -83,7 +85,7 @@ public class ConfigurationAppUITest extends AbstractMagnoliaUITest {
         // Create content node and rename it
         getEnabledActionBarItem("Add content node").click();
         getTreeTableItem("untitled").click();
-        delay(1, "Wait a second for actionbar to update");
+        waitUntil(elementToBeClickable(getEnabledActionBarItem("Rename item")));
 
         getEnabledActionBarItem("Rename item").click();
         setFormTextFieldText("Name", nodeName);
@@ -93,7 +95,7 @@ public class ConfigurationAppUITest extends AbstractMagnoliaUITest {
         // Create property and set name & value
         getEnabledActionBarItem("Add property").click();
         getTreeTableItem("untitled").click();
-        delay(1, "Wait a second for actionbar to update");
+        waitUntil(elementToBeClickable(getEnabledActionBarItem("Edit property")));
 
         getEnabledActionBarItem("Edit property").click();
         setFormTextFieldText("Name", propertyName);
@@ -136,36 +138,102 @@ public class ConfigurationAppUITest extends AbstractMagnoliaUITest {
         getAppIcon(CONFIGURATION_APP).click();
         assertAppOpen(CONFIGURATION_APP);
 
-        getActionBarItem("Add folder").click();
+        getEnabledActionBarItem("Add folder").click();
 
         getTreeTableItem("untitled").click();
+        getEnabledActionBarItem("Rename item").click();
+        setFormTextFieldText("Name", "lvl1");
+        waitUntil(textToBePresentInElementValue(getFormTextField("Name"), "lvl1"));
+        getDialogCommitButton().click();
 
-        getActionBarItem("Add content node").click();
-        getActionBarItem("Add property").click();
+        getEnabledActionBarItem("Add folder").click();
 
-        // publish
-        getActionBarItem("Publish incl. subnodes").click();
-        delay(10,"Publication may take some time");
+        getTreeTableItem("untitled").click();
+        getEnabledActionBarItem("Rename item").click();
+        setFormTextFieldText("Name", "lvl2");
+        waitUntil(textToBePresentInElementValue(getFormTextField("Name"), "lvl2"));
+        getDialogCommitButton().click();
+
+        getEnabledActionBarItem("Add folder").click();
+
+        getTreeTableItem("untitled").click();
+        getEnabledActionBarItem("Rename item").click();
+        setFormTextFieldText("Name", "lvl3");
+        waitUntil(textToBePresentInElementValue(getFormTextField("Name"), "lvl3"));
+        getDialogCommitButton().click();
+
+        getEnabledActionBarItem("Add content node").click();
+        getEnabledActionBarItem("Add property").click();
+
+        // publish lvl1
         refreshTreeView();
-        assertTrue("Status column should show green icon.", getSelectedIcon(COLOR_GREEN_ICON_STYLE).isDisplayed());
-
-        // unpublish
-        getActionBarItem("Unpublish").click();
-        delay(10,"Unpublication may take some time");
+        getTreeTableItem("lvl1").click();
+        getEnabledActionBarItem("Publish incl. subnodes").click();
+        delay(5, "Publication may take some time");
         refreshTreeView();
-        assertTrue("Status column should show read icon.", getSelectedIcon(COLOR_RED_ICON_STYLE).isDisplayed());
+        assertThat(getSelectedActivationStatusIcon().getAttribute("class"), containsString(COLOR_GREEN_ICON_STYLE));
+
+        // unpublish lvl3
+        getTreeTableItem("lvl3").click();
+        getEnabledActionBarItem("Unpublish").click();
+        refreshTreeView();
+        assertThat(getSelectedActivationStatusIcon().getAttribute("class"), containsString(COLOR_RED_ICON_STYLE));
 
         // delete
-        getActionBarItem("Delete item").click();
+        getEnabledActionBarItem("Delete item").click();
         getDialogConfirmButton().click();
         delay("Delete might take some time");
         refreshTreeView();
-        assertFalse("Untitled should be gone", isExisting(getTreeTableItem("untitled")));
+        assertFalse("Lvl3 folder should be gone", isExisting(getTreeTableItem("lvl3")));
     }
 
     @Test
-    public void canPublishCannotUnpublishLevel1Or2Node() {
+    public void unpublishActionIsDisabledForLvl1Or2Nodes() {
+        getAppIcon(CONFIGURATION_APP).click();
+        assertAppOpen(CONFIGURATION_APP);
 
+        getEnabledActionBarItem("Add folder").click();
+
+        getTreeTableItem("untitled").click();
+        getEnabledActionBarItem("Rename item").click();
+        setFormTextFieldText("Name", "depth1");
+        waitUntil(textToBePresentInElementValue(getFormTextField("Name"), "depth1"));
+        getDialogCommitButton().click();
+
+        getEnabledActionBarItem("Add folder").click();
+
+        getTreeTableItem("untitled").click();
+        getEnabledActionBarItem("Rename item").click();
+        setFormTextFieldText("Name", "depth2");
+        waitUntil(textToBePresentInElementValue(getFormTextField("Name"), "depth2"));
+        getDialogCommitButton().click();
+
+        getEnabledActionBarItem("Add folder").click();
+
+        getTreeTableItem("untitled").click();
+        getEnabledActionBarItem("Rename item").click();
+        setFormTextFieldText("Name", "depth3");
+        waitUntil(textToBePresentInElementValue(getFormTextField("Name"), "depth3"));
+        getDialogCommitButton().click();
+
+        // publish depth1
+        refreshTreeView();
+        getTreeTableItem("depth1").click();
+        getEnabledActionBarItem("Publish incl. subnodes").click();
+        delay(5, "Publication may take some time");
+        refreshTreeView();
+        assertThat(getSelectedActivationStatusIcon().getAttribute("class"), containsString(COLOR_GREEN_ICON_STYLE));
+
+        // unpublish availability depth1
+        checkDisabledActions("Unpublish");
+
+        // unpublish availability depth2
+        getTreeTableItem("depth2").click();
+        checkDisabledActions("Unpublish");
+
+        // unpublish availability depth3
+        getTreeTableItem("depth3").click();
+        checkEnabledActions("Unpublish");
     }
 
     private void deleteUntitledFolderIfExisting() {
