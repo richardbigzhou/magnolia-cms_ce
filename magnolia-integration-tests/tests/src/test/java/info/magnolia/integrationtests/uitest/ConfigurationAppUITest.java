@@ -189,7 +189,6 @@ public class ConfigurationAppUITest extends AbstractMagnoliaUITest {
         assertThat(getSelectedActivationStatusIcon().getAttribute("class"), containsString(COLOR_RED_ICON_STYLE));
 
         // delete
-        getTreeTableItem("lvl3").click();
         getEnabledActionBarItem("Delete item").click();
         getDialogConfirmButton().click();
         delay("Delete might take some time");
