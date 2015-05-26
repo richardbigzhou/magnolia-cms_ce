@@ -37,7 +37,9 @@ import info.magnolia.module.InstallContext;
 import info.magnolia.module.delta.BootstrapSingleResource;
 import info.magnolia.module.delta.IsAuthorInstanceDelegateTask;
 import info.magnolia.module.delta.ModuleBootstrapTask;
+import info.magnolia.module.delta.OrderFilterBeforeTask;
 import info.magnolia.module.delta.Task;
+import info.magnolia.test.fixture.CacheMonitorFilter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -75,6 +77,8 @@ public class SetupStuffForTests extends AbstractTestingVersionHandler {
         list.add(removeArchetypePage());
 
         list.add(new IsAuthorInstanceDelegateTask("Bootstrap", "Bootstrap new web to author instance for PageAccessTest purposes", new BootstrapSingleResource("", "", "/info/magnolia/test/website.newtestpages.xml")));
+
+        list.add(new OrderFilterBeforeTask(CacheMonitorFilter.class.getSimpleName(), new String[]{}, new String[]{"cache"}));
 
         return list;
     }

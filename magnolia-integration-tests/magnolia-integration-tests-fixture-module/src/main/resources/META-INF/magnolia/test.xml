@@ -22,7 +22,6 @@
     </dependency>
     <dependency>
       <name>cache</name>
-      <optional>true</optional>
     </dependency>
     <dependency>
       <name>activation</name>
@@ -35,6 +34,9 @@
     <dependency>
       <name>samples</name>
       <optional>true</optional>
+    </dependency>
+    <dependency>
+      <name>demo-project</name>
     </dependency>
   </dependencies>
   <servlets>
