@@ -176,7 +176,7 @@
               <containerId>OVERRIDE ME IN A PROFILE</containerId>
               <type>OVERRIDE ME IN A PROFILE</type>
               <!-- Also specify a :
-              <zipUrlInstaller /> or <artifactInstaller />
+              <zipUrlInstaller/> or <artifactInstaller/>
               -->
               <!-- Specifying empty values for output and log should result in everything being printed in the console.
                    If not, we log to these files:
