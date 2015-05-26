@@ -21,19 +21,19 @@
 
   <properties>
     <magnoliaEdition>Community Edition</magnoliaEdition>
-    <magnoliaVersion>5.4-m9</magnoliaVersion>
-    <magnoliaUiVersion>5.4-m9</magnoliaUiVersion>
+    <magnoliaVersion>5.4-m10</magnoliaVersion>
+    <magnoliaUiVersion>5.4-m10</magnoliaUiVersion>
     <javaVersion>1.7</javaVersion>
     <documentationURL>http://documentation.magnolia-cms.com/releases/${project.version}.html</documentationURL>
-    <stkVersion>2.9-m6</stkVersion>
+    <stkVersion>2.9-m7</stkVersion>
     <restVersion>1.0.5</restVersion>
-    <damVersion>2.1-m5</damVersion>
-    <categorizationVersion>2.4-m7</categorizationVersion>
-    <mteVersion>1.0-m4</mteVersion>
-    <resourcesVersion>2.4-m6</resourcesVersion>
-    <imagingVersion>3.2-m2</imagingVersion>
-    <siteVersion>1.0-m7</siteVersion>
-    <travelDemoVersion>1.0-m2</travelDemoVersion>
+    <damVersion>2.1-m6</damVersion>
+    <categorizationVersion>2.4-m8</categorizationVersion>
+    <mteVersion>1.0-m5</mteVersion>
+    <resourcesVersion>2.4-m7</resourcesVersion>
+    <imagingVersion>3.2-m3</imagingVersion>
+    <siteVersion>1.0-m8</siteVersion>
+    <travelDemoVersion>1.0-m3</travelDemoVersion>
     <scmTagPrefix>magnolia-bundle</scmTagPrefix>
     <!-- Disable clover during releases: -->
     <additionalReleaseProfiles />
@@ -148,7 +148,7 @@
       <dependency>
         <groupId>info.magnolia.pages</groupId>
         <artifactId>magnolia-pages-app</artifactId>
-        <version>5.4-m6</version>
+        <version>5.4-m7</version>
       </dependency>
 
       <dependency>
@@ -229,15 +229,21 @@
         <artifactId>magnolia-module-data</artifactId>
         <version>2.3.4</version>
       </dependency>
+      <!-- Old groupId for scheduler, gets relocated to the new one below -->
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-scheduler</artifactId>
-        <version>2.1.2</version>
+        <version>2.2-m1</version>
+      </dependency>
+      <dependency>
+        <groupId>info.magnolia.scheduler</groupId>
+        <artifactId>magnolia-module-scheduler</artifactId>
+        <version>2.2-m1</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-rssaggregator</artifactId>
-        <version>2.4-m5</version>
+        <version>2.4-m6</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia.devdect</groupId>
@@ -267,7 +273,7 @@
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-inplace-templating</artifactId>
-        <version>2.4-m2</version>
+        <version>2.4-m3</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>

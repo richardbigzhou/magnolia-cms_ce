@@ -45,6 +45,10 @@
       <artifactId>magnolia-resources-app</artifactId>
     </dependency>
     <dependency>
+      <groupId>info.magnolia.scheduler</groupId>
+      <artifactId>magnolia-module-scheduler</artifactId>
+    </dependency>
+    <dependency>
       <groupId>info.magnolia.categorization</groupId>
       <artifactId>magnolia-categorization-support</artifactId>
     </dependency>
