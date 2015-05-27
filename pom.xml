@@ -35,8 +35,8 @@
     <siteVersion>1.0-m8</siteVersion>
     <travelDemoVersion>1.0-m3</travelDemoVersion>
     <scmTagPrefix>magnolia-bundle</scmTagPrefix>
-    <!-- Disable clover during releases: -->
-    <additionalReleaseProfiles />
+
+    <skipClover>true</skipClover>
   </properties>
 
   <distributionManagement>
