@@ -29,11 +29,11 @@
     <restVersion>1.0.5</restVersion>
     <damVersion>2.1-m6</damVersion>
     <categorizationVersion>2.4-m8</categorizationVersion>
-    <mteVersion>1.0-m5</mteVersion>
+    <mteVersion>1.0-SNAPSHOT</mteVersion>
     <resourcesVersion>2.4-m7</resourcesVersion>
     <imagingVersion>3.2-m3</imagingVersion>
     <siteVersion>1.0-m8</siteVersion>
-    <travelDemoVersion>1.0-m3</travelDemoVersion>
+    <travelDemoVersion>1.0-SNAPSHOT</travelDemoVersion>
     <scmTagPrefix>magnolia-bundle</scmTagPrefix>
     <!-- Disable clover during releases: -->
     <additionalReleaseProfiles />
