@@ -33,7 +33,7 @@
  */
 package info.magnolia.integrationtests.uitest;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.After;
 import org.junit.Before;
@@ -149,10 +149,12 @@ public class CompositeFieldUITest extends AbstractMagnoliaUITest {
         // Open it again
         openDialogComponent();
         getTabForCaption("Switch").click();
-        textValuePrefix = " en ";
+
+        switchToLanguage("English");
+        waitUntil(DRIVER_WAIT_IN_SECONDS, languageSwitched("en"));
 
         // THEN - Check that all values entered in STEP 1 and STEP 2 are correctly displayed after the STEP 3
-
+        textValuePrefix = " en ";
         getMultiFieldComponentTextElement("Text 2", 1).click();
         assertEquals("no I18n", getCompositeTextFieldValue("Name (no I18n)").getAttribute("value"));
         assertEquals(textValuePrefix + "value 1", getMultiFieldComponentTextElement("Text 2", 1).getAttribute("value"));
@@ -245,6 +247,8 @@ public class CompositeFieldUITest extends AbstractMagnoliaUITest {
         getTabForCaption("Switch").click();
 
         // THEN - Check all values entered at the STEP 4
+        switchToLanguage("English");
+        waitUntil(DRIVER_WAIT_IN_SECONDS, languageSwitched("en"));
 
         textValuePrefix = " en ";
         getMultiFieldComponentTextElement("Text 2", 1).click();
