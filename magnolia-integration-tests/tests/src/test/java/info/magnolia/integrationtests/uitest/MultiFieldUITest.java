@@ -121,7 +121,8 @@ public class MultiFieldUITest extends AbstractMagnoliaUITest {
         // /////////
         // Switch Language to DE
         switchToLanguage("German");
-        delay(1, "");
+        waitUntil(DRIVER_WAIT_IN_SECONDS, languageSwitched("de"));
+
         textValuePrefix = " de ";
         // Add a first main element to the 'Multi Fields' in DE
         getMultiFieldAddButton(fieldName, "Add").click();
@@ -139,10 +140,10 @@ public class MultiFieldUITest extends AbstractMagnoliaUITest {
 
         // Switch Language to EN
         switchToLanguage("English");
-        delay(1, "");
-        textValuePrefix = " en ";
+        waitUntil(DRIVER_WAIT_IN_SECONDS, languageSwitched("en"));
 
         // Check all values entered at the STEP 1
+        textValuePrefix = " en ";
         getMultiFieldComponentTextElement("Text 2", 1).click();
         assertEquals(textValuePrefix + "value 1", getMultiFieldComponentTextElement("Text 2", 1).getAttribute("value"));
         assertEquals(textValuePrefix + "value 111", getMultiFieldInnerText(subFieldName, 1, 1).getAttribute("value"));
@@ -157,7 +158,8 @@ public class MultiFieldUITest extends AbstractMagnoliaUITest {
 
         // Check all values entered at the STEP 2
         switchToLanguage("German");
-        delay(1, "");
+        waitUntil(DRIVER_WAIT_IN_SECONDS, languageSwitched("de"));
+
         textValuePrefix = " de ";
         getMultiFieldComponentTextElement("Text 2", 1).click();
         assertEquals(textValuePrefix + "value 1", getMultiFieldComponentTextElement("Text 2", 1).getAttribute("value"));
@@ -179,10 +181,14 @@ public class MultiFieldUITest extends AbstractMagnoliaUITest {
         // Open it again
         openDialogComponent();
         getTabForCaption("Multi Fields").click();
-        textValuePrefix = " en ";
+
+        switchToLanguage("English");
+        waitUntil(DRIVER_WAIT_IN_SECONDS, languageSwitched("en"));
+
         // THEN
         // Check that all values entered in STEP 1 and STEP 2 are correctly displayed after the STEP 3
         // Value have to be present
+        textValuePrefix = " en ";
         getMultiFieldComponentTextElement("Text 2", 1).click();
         assertEquals(textValuePrefix + "value 1", getMultiFieldComponentTextElement("Text 2", 1).getAttribute("value"));
         assertEquals(textValuePrefix + "value 111", getMultiFieldInnerText(subFieldName, 1, 1).getAttribute("value"));
@@ -196,7 +202,8 @@ public class MultiFieldUITest extends AbstractMagnoliaUITest {
         assertEquals(textValuePrefix + "value 311", getMultiFieldInnerText(subFieldName, 3, 1).getAttribute("value"));
 
         switchToLanguage("German");
-        delay(1, "");
+        waitUntil(DRIVER_WAIT_IN_SECONDS, languageSwitched("de"));
+
         textValuePrefix = " de ";
         getMultiFieldComponentTextElement("Text 2", 1).click();
         assertEquals(textValuePrefix + "value 1", getMultiFieldComponentTextElement("Text 2", 1).getAttribute("value"));
@@ -210,9 +217,10 @@ public class MultiFieldUITest extends AbstractMagnoliaUITest {
         //
         // /////////
         switchToLanguage("English");
-        delay(1, "");
-        textValuePrefix = " en ";
+        waitUntil(DRIVER_WAIT_IN_SECONDS, languageSwitched("en"));
+
         // Delete one element
+        textValuePrefix = " en ";
         getMultiFieldElementDeleteButtonAt(fieldName, 5).click();
         delay(1, "");
         // Add one sub multiple with two values to the first main element
@@ -243,19 +251,19 @@ public class MultiFieldUITest extends AbstractMagnoliaUITest {
         // STEP 5 : Remove and add entry in DE
         //
         // /////////
-        // Switch to en
         switchToLanguage("German");
-        delay(1, "");
+        waitUntil(DRIVER_WAIT_IN_SECONDS, languageSwitched("de"));
+
         getMultiFieldComponentTextElement("Text 2", 1).click();
         textValuePrefix = " de ";
         // Remove the third value of the first sub multiple
         getMultiFieldElementDeleteButtonAt(fieldName, 5).click();
 
-        // Check values
         switchToLanguage("English");
-        delay(1, "");
-        textValuePrefix = " en ";
+        waitUntil(DRIVER_WAIT_IN_SECONDS, languageSwitched("en"));
+
         // Check all values changed at the STEP 4
+        textValuePrefix = " en ";
         getMultiFieldComponentTextElement("Text 2", 1).click();
         assertEquals(textValuePrefix + "value 1", getMultiFieldComponentTextElement("Text 2", 1).getAttribute("value"));
         assertEquals(textValuePrefix + "value 111", getMultiFieldInnerText(subFieldName, 1, 1).getAttribute("value"));
@@ -268,7 +276,8 @@ public class MultiFieldUITest extends AbstractMagnoliaUITest {
         assertEquals(textValuePrefix + "value 412", getMultiFieldInnerText(subFieldName, 2, 2).getAttribute("value"));
 
         switchToLanguage("German");
-        delay(1, "");
+        waitUntil(DRIVER_WAIT_IN_SECONDS, languageSwitched("de"));
+
         textValuePrefix = " de ";
         // Check all values changed at the STEP 5
         assertEquals(textValuePrefix + "value 1", getMultiFieldComponentTextElement("Text 2", 1).getAttribute("value"));
@@ -289,6 +298,10 @@ public class MultiFieldUITest extends AbstractMagnoliaUITest {
         // Open it again
         openDialogComponent();
         getTabForCaption("Multi Fields").click();
+
+        switchToLanguage("English");
+        waitUntil(DRIVER_WAIT_IN_SECONDS, languageSwitched("en"));
+
         textValuePrefix = " en ";
         getMultiFieldComponentTextElement("Text 2", 1).click();
         assertEquals(textValuePrefix + "value 1", getMultiFieldComponentTextElement("Text 2", 1).getAttribute("value"));
@@ -302,7 +315,8 @@ public class MultiFieldUITest extends AbstractMagnoliaUITest {
         assertEquals(textValuePrefix + "value 412", getMultiFieldInnerText(subFieldName, 2, 2).getAttribute("value"));
 
         switchToLanguage("German");
-        delay(1, "");
+        waitUntil(DRIVER_WAIT_IN_SECONDS, languageSwitched("de"));
+
         textValuePrefix = " de ";
         assertEquals(textValuePrefix + "value 1", getMultiFieldComponentTextElement("Text 2", 1).getAttribute("value"));
         // Add one sub multiple with two values
