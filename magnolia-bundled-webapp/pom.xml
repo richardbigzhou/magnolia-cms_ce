@@ -120,6 +120,14 @@
       <groupId>info.magnolia.demo</groupId>
       <artifactId>magnolia-travel-tours</artifactId>
     </dependency>
+    <dependency>
+      <groupId>info.magnolia.cache</groupId>
+      <artifactId>magnolia-module-cache-app</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>info.magnolia.cache</groupId>
+      <artifactId>magnolia-module-cache-browser-app</artifactId>
+    </dependency>
   </dependencies>
 
   <build>
