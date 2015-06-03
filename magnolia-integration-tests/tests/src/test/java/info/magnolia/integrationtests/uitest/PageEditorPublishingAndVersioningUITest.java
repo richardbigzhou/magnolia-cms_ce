@@ -309,7 +309,7 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
     /**
      * From the page editor sub app, select and Area, and from the add component dialog, select a component.<br>
      * The dialog of the desired component is open and available to use.
-     * 
+     *
      * @param areaName for example: 'Content' or 'Extras'
      * @param componentName for example : 'Text and Image' or 'Contact'
      */
@@ -335,7 +335,7 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
      * - Modify the Text Image component<br>
      * - Check available and non available actions<br>
      * - Check the status.
-     * 
+     *
      * @param newSubheadingValue New value of the Subheading field.
      * @param newImageCaptionValue New value of the image caption.
      */
@@ -371,6 +371,7 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
         getActionBarItem(EDIT_PAGE_ACTION).click();
         switchToPageEditorContent();
         // Open Text Image Content Form
+        delay(3, "Switch to page editor frame may take time");
 
         getElementByPath(By.xpath(String.format("//div[@role='article']//div[@class='text-section']"))).click();
         getElementByPath(By.xpath("//*[contains(@class, 'focus')]//*[contains(@class, 'icon-edit')]")).click();
