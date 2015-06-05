@@ -29,11 +29,11 @@
     <restVersion>1.0.5</restVersion>
     <damVersion>2.1-m6</damVersion>
     <categorizationVersion>2.4-m8</categorizationVersion>
-    <mteVersion>1.0-m6</mteVersion>
+    <mteVersion>1.0-m7</mteVersion>
     <resourcesVersion>2.4-m9</resourcesVersion>
     <imagingVersion>3.2-m3</imagingVersion>
     <siteVersion>1.0-m9</siteVersion>
-    <travelDemoVersion>1.0-m4</travelDemoVersion>
+    <travelDemoVersion>1.0-m7</travelDemoVersion>
     <cacheVersion>5.4-m5</cacheVersion>
     <scmTagPrefix>magnolia-bundle</scmTagPrefix>
 
@@ -149,7 +149,7 @@
       <dependency>
         <groupId>info.magnolia.pages</groupId>
         <artifactId>magnolia-pages-app</artifactId>
-        <version>5.4-m8</version>
+        <version>5.4-m9</version>
       </dependency>
 
       <dependency>
