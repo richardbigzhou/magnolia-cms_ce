@@ -92,7 +92,7 @@
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-legacy-admininterface</artifactId>
-        <version>5.2.3</version>
+        <version>5.2.4-SNAPSHOT</version>
       </dependency>
 
       <!-- DAM -->
