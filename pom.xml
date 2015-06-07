@@ -21,8 +21,8 @@
 
   <properties>
     <magnoliaEdition>Community Edition</magnoliaEdition>
-    <magnoliaVersion>5.4-m11</magnoliaVersion>
-    <magnoliaUiVersion>5.4-m11</magnoliaUiVersion>
+    <magnoliaVersion>5.4-m12</magnoliaVersion>
+    <magnoliaUiVersion>5.4-m12</magnoliaUiVersion>
     <javaVersion>1.7</javaVersion>
     <documentationURL>http://documentation.magnolia-cms.com/releases/${project.version}.html</documentationURL>
     <stkVersion>2.9-m7</stkVersion>
@@ -30,7 +30,7 @@
     <damVersion>2.1-m6</damVersion>
     <categorizationVersion>2.4-m8</categorizationVersion>
     <mteVersion>1.0-m7</mteVersion>
-    <resourcesVersion>2.4-m9</resourcesVersion>
+    <resourcesVersion>2.4-m10</resourcesVersion>
     <imagingVersion>3.2-m3</imagingVersion>
     <siteVersion>1.0-m9</siteVersion>
     <travelDemoVersion>1.0-m7</travelDemoVersion>
