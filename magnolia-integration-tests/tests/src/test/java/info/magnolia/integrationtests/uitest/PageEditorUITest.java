@@ -252,6 +252,28 @@ public class PageEditorUITest extends AbstractPageEditorUITest {
         assertEquals("Published", text.getText());
     }
 
+    @Test
+    public void switchToPreview() {
+        // GIVEN
+
+        // WHEN
+        getAppIcon(PAGES_APP).click();
+        getTreeTableItem(DEMO_PROJECT_PAGE).click();
+        getActionBarItem(EDIT_PAGE_ACTION).click();
+        delay(3, "Give some time to load the page");
+        assertTrue("We should be in edit mode.", getCurrentDriverUrl().contains("demo-project:edit"));
+
+        getActionBarItem(PREVIEW_PAGE_ACTION).click();
+        delay(3, "Give some time to load the page");
+
+        // THEN
+        assertTrue("We should be in view mode.", getCurrentDriverUrl().contains("demo-project:view"));
+
+        switchToPageEditorContent();
+
+        assertTrue("Content in editor frame doesn't seem to have loaded.", isExisting(getElementByPath(By.linkText("About"))));
+    }
+
     /**
      * The content to change has to be selected.<br>
      * Steps: <br>
