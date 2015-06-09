@@ -11,7 +11,7 @@
   <artifactId>magnolia-bundled-webapp</artifactId>
   <packaging>war</packaging>
   <name>magnolia-bundled-webapp</name>
-  <description>Magnolia pre-installed with DAM and STK.</description>
+  <description>Magnolia webapp pre-bundled with the DAM module and Magnolia Templating Essentials.</description>
   <dependencies>
     <dependency>
       <groupId>info.magnolia</groupId>
