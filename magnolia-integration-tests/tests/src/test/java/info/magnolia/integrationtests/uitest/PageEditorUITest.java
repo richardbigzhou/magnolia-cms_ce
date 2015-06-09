@@ -258,6 +258,7 @@ public class PageEditorUITest extends AbstractPageEditorUITest {
 
         // WHEN
         getAppIcon(PAGES_APP).click();
+        waitUntil(appIsLoaded());
         getTreeTableItem(DEMO_PROJECT_PAGE).click();
         getActionBarItem(EDIT_PAGE_ACTION).click();
         delay(3, "Give some time to load the page");

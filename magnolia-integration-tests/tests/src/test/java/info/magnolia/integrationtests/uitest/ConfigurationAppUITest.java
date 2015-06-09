@@ -70,6 +70,7 @@ public class ConfigurationAppUITest extends AbstractMagnoliaUITest {
         // WHEN
         // Go to pages App
         getAppIcon(CONFIGURATION_APP).click();
+        waitUntil(appIsLoaded());
         assertAppOpen(CONFIGURATION_APP);
 
         deleteUntitledFolderIfExisting();
@@ -136,6 +137,7 @@ public class ConfigurationAppUITest extends AbstractMagnoliaUITest {
     @Test
     public void canPublishUnpublishAndDeleteNewNode() {
         getAppIcon(CONFIGURATION_APP).click();
+        waitUntil(appIsLoaded());
         assertAppOpen(CONFIGURATION_APP);
 
         getEnabledActionBarItem("Add folder").click();
@@ -190,6 +192,7 @@ public class ConfigurationAppUITest extends AbstractMagnoliaUITest {
     @Test
     public void unpublishActionIsDisabledForLvl1Or2Nodes() {
         getAppIcon(CONFIGURATION_APP).click();
+        waitUntil(appIsLoaded());
         assertAppOpen(CONFIGURATION_APP);
 
         getEnabledActionBarItem("Add folder").click();

@@ -319,15 +319,14 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
     @Test
     public void canPublishDeletionMultipleItems() {
         // GIVEN
+        getAppIcon(PAGES_APP).click();
+        waitUntil(appIsLoaded());
+        assertAppOpen(PAGES_APP);
         final String[] pathToArticle = new String[] { DEMO_PROJECT_PAGE, ABOUT_PAGE, SUBSECTION_ARTICLES };
         final String article = "article";
         final String largeArticle = "large-article";
-        String url = StringUtils.join(pathToArticle, "/");
 
         // WHEN
-        navigateDriverTo(Instance.AUTHOR.getURL() + String.format(".magnolia/admincentral#app:pages:browser;%s:treeview:", url));
-        delay(3, "Make sure it's open.");
-
         // Navigate to select multiple items
         for (String item : pathToArticle) {
             getTreeTableItemExpander(item).click();
@@ -348,7 +347,7 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
 
         // THEN
         getActionBarItem(PUBLISH_DELETION_ACTION).click();
-        delay(2, "Wait for the confirmation message");
+        delay(5, "Wait for the confirmation message");
 
         // Check that the row is gone in the tree table
         assertFalse(isExisting(getTreeTableItem(article)));
