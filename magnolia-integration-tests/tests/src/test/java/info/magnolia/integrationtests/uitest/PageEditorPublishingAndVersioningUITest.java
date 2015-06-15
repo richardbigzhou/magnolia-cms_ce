@@ -39,6 +39,7 @@ import static org.junit.Assert.*;
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
 
 import org.apache.commons.lang3.StringUtils;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.openqa.selenium.By;
 
@@ -310,6 +311,7 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
      * Delete multiple items and check if the publish delete is available for multiple items.
      */
     @Test
+    @Ignore("Until other solution for this test has been found")
     public void canPublishDeletionMultipleItems() {
         // GIVEN
         final String[] pathToArticle = new String[] { DEMO_PROJECT_PAGE, ABOUT_PAGE, SUBSECTION_ARTICLES };
