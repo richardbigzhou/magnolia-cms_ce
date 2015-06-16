@@ -39,7 +39,6 @@ import static org.junit.Assert.*;
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
 
 import org.apache.commons.lang3.StringUtils;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.openqa.selenium.By;
 
@@ -318,24 +317,19 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
      * Delete multiple items and check if the publish delete is available for multiple items.
      */
     @Test
-    @Ignore("Until other solution for this test has been found")
     public void canPublishDeletionMultipleItems() {
         // GIVEN
         getAppIcon(PAGES_APP).click();
         waitUntil(appIsLoaded());
         assertAppOpen(PAGES_APP);
-        final String[] pathToArticle = new String[] { DEMO_PROJECT_PAGE, ABOUT_PAGE, SUBSECTION_ARTICLES };
-        final String article = "article";
-        final String largeArticle = "large-article";
 
-        // WHEN
-        // Navigate to select multiple items
-        for (String item : pathToArticle) {
-            getTreeTableItemExpander(item).click();
-        }
+        final String FIRST_PAGE = "first-page-to-delete";
+        final String SECOND_PAGE = "second-page-to-delete";
+        addNewTemplate(FIRST_PAGE, "Title of the first page to delete", "Home");
+        addNewTemplate(SECOND_PAGE, "Title of the second to delete", "Home");
 
-        getTreeTableItem(article).findElement(By.xpath(".//*[contains(@class, 'v-selection-cb')]/input[@type='checkbox']")).click();
-        getTreeTableItem(largeArticle).findElement(By.xpath(".//*[contains(@class, 'v-selection-cb')]/input[@type='checkbox']")).click();
+        getTreeTableItem(FIRST_PAGE).findElement(By.xpath(".//*[contains(@class, 'v-selection-cb')]/input[@type='checkbox']")).click();
+        getTreeTableItem(SECOND_PAGE).findElement(By.xpath(".//*[contains(@class, 'v-selection-cb')]/input[@type='checkbox']")).click();
 
         refreshTreeView();
 
@@ -352,14 +346,14 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
         delay(5, "Wait for the confirmation message");
 
         // Check that the row is gone in the tree table
-        assertFalse(isExisting(getTreeTableItem(article)));
-        assertFalse(isExisting(getTreeTableItem(largeArticle)));
+        assertFalse(isExisting(getTreeTableItem(FIRST_PAGE)));
+        assertFalse(isExisting(getTreeTableItem(SECOND_PAGE)));
     }
 
     /**
      * From the page editor sub app, select and Area, and from the add component dialog, select a component.<br>
      * The dialog of the desired component is open and available to use.
-     * 
+     *
      * @param areaName for example: 'Content' or 'Extras'
      * @param componentName for example : 'Text and Image' or 'Contact'
      */
@@ -385,7 +379,7 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
      * - Modify the Text Image component<br>
      * - Check available and non available actions<br>
      * - Check the status.
-     * 
+     *
      * @param newSubheadingValue New value of the Subheading field.
      * @param newImageCaptionValue New value of the image caption.
      */
