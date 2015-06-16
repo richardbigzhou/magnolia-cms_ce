@@ -39,7 +39,6 @@ import static org.junit.Assert.*;
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
 
 import org.apache.commons.lang3.StringUtils;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.openqa.selenium.By;
 
@@ -311,25 +310,19 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
      * Delete multiple items and check if the publish delete is available for multiple items.
      */
     @Test
-    @Ignore("Until other solution for this test has been found")
     public void canPublishDeletionMultipleItems() {
         // GIVEN
-        final String[] pathToArticle = new String[] { DEMO_PROJECT_PAGE, ABOUT_PAGE, SUBSECTION_ARTICLES };
-        final String article = "article";
-        final String largeArticle = "large-article";
-        String url = StringUtils.join(pathToArticle, "/");
+        getAppIcon(PAGES_APP).click();
+        waitUntil(appIsLoaded());
+        assertAppOpen(PAGES_APP);
 
-        // WHEN
-        navigateDriverTo(Instance.AUTHOR.getURL() + String.format(".magnolia/admincentral#app:pages:browser;%s:treeview:", url));
-        delay(3, "Make sure it's open.");
+        final String FIRST_PAGE = "first-page-to-delete";
+        final String SECOND_PAGE = "second-page-to-delete";
+        addNewTemplate(FIRST_PAGE, "Title of the first page to delete", "Home");
+        addNewTemplate(SECOND_PAGE, "Title of the second to delete", "Home");
 
-        // Navigate to select multiple items
-        for (String item : pathToArticle) {
-            getTreeTableItemExpander(item).click();
-        }
-
-        getTreeTableItem(article).findElement(By.xpath(".//*[contains(@class, 'v-selection-cb')]/input[@type='checkbox']")).click();
-        getTreeTableItem(largeArticle).findElement(By.xpath(".//*[contains(@class, 'v-selection-cb')]/input[@type='checkbox']")).click();
+        getTreeTableItem(FIRST_PAGE).findElement(By.xpath(".//*[contains(@class, 'v-selection-cb')]/input[@type='checkbox']")).click();
+        getTreeTableItem(SECOND_PAGE).findElement(By.xpath(".//*[contains(@class, 'v-selection-cb')]/input[@type='checkbox']")).click();
 
         refreshTreeView();
 
@@ -343,11 +336,11 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
 
         // THEN
         getActionBarItem(PUBLISH_DELETION_ACTION).click();
-        delay(2, "Wait for the confirmation message");
+        delay(5, "Wait for the confirmation message");
 
         // Check that the row is gone in the tree table
-        assertFalse(isExisting(getTreeTableItem(article)));
-        assertFalse(isExisting(getTreeTableItem(largeArticle)));
+        assertFalse(isExisting(getTreeTableItem(FIRST_PAGE)));
+        assertFalse(isExisting(getTreeTableItem(SECOND_PAGE)));
     }
 
     /**
