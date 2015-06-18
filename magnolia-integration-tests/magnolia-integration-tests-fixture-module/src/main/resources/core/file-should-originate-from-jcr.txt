@@ -1,0 +1,1 @@
+This value is used for testing the resource loading cascade and comes from classpath
