@@ -41,6 +41,7 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElem
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
 /**
  * Publishing and versioning test for pages app.
@@ -419,8 +420,18 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
         setFormTextAreFieldText("Image Caption", newImageCaptionValue);
         getDialogCommitButton().click();
 
+        // Close the active tab (edit view) after editing
+        getActiveTabCloseButton().click();
+
         getTabForCaption(PAGES_APP).click();
         delay(3, "Switch to page may take time");
+    }
+
+    /**
+     * Returns the close button of the current, active tab.
+     */
+    private WebElement getActiveTabCloseButton() {
+        return getElementByXpath("//*[contains(@class, 'v-shell-tabsheet')]//li[@class = 'active']//span[contains(@class, 'v-shell-tab-close')]");
     }
 
     /**
