@@ -69,7 +69,7 @@
         <groupId>info.magnolia.widgetset</groupId>
         <artifactId>magnolia-vaadin-widgetset</artifactId>
         <!-- For now we keep info.magnolia.ui & info.magnolia.widgetset versions in sync -->
-        <version>${magnoliaUiVersion}</version>
+        <version>5.4-m13</version>
       </dependency>
 
       <dependency>
