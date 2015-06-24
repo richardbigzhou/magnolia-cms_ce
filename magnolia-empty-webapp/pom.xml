@@ -62,11 +62,11 @@
     </dependency>
     <dependency>
       <groupId>info.magnolia.cache</groupId>
-      <artifactId>magnolia-module-cache</artifactId>
+      <artifactId>magnolia-cache-core</artifactId>
     </dependency>
     <dependency>
       <groupId>info.magnolia.cache</groupId>
-      <artifactId>magnolia-module-cache-ehcache</artifactId>
+      <artifactId>magnolia-cache-ehcache</artifactId>
     </dependency>
     <dependency>
       <groupId>info.magnolia.activation</groupId>

@@ -34,7 +34,7 @@
     <imagingVersion>3.2-m4</imagingVersion>
     <siteVersion>1.0-m10</siteVersion>
     <travelDemoVersion>1.0-m10</travelDemoVersion>
-    <cacheVersion>5.4-m5</cacheVersion>
+    <cacheVersion>5.4-m6</cacheVersion>
     <scmTagPrefix>magnolia-bundle</scmTagPrefix>
 
     <skipClover>true</skipClover>
@@ -179,22 +179,22 @@
       </dependency>
       <dependency>
         <groupId>info.magnolia.cache</groupId>
-        <artifactId>magnolia-module-cache</artifactId>
+        <artifactId>magnolia-cache-core</artifactId>
         <version>${cacheVersion}</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia.cache</groupId>
-        <artifactId>magnolia-module-cache-ehcache</artifactId>
+        <artifactId>magnolia-cache-ehcache</artifactId>
         <version>${cacheVersion}</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia.cache</groupId>
-        <artifactId>magnolia-module-cache-app</artifactId>
+        <artifactId>magnolia-cache-app</artifactId>
         <version>${cacheVersion}</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia.cache</groupId>
-        <artifactId>magnolia-module-cache-browser-app</artifactId>
+        <artifactId>magnolia-cache-browser-app</artifactId>
         <version>${cacheVersion}</version>
       </dependency>
       <dependency>

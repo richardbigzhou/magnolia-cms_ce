@@ -122,11 +122,11 @@
     </dependency>
     <dependency>
       <groupId>info.magnolia.cache</groupId>
-      <artifactId>magnolia-module-cache-app</artifactId>
+      <artifactId>magnolia-cache-app</artifactId>
     </dependency>
     <dependency>
       <groupId>info.magnolia.cache</groupId>
-      <artifactId>magnolia-module-cache-browser-app</artifactId>
+      <artifactId>magnolia-cache-browser-app</artifactId>
     </dependency>
   </dependencies>
 
