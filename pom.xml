@@ -21,8 +21,8 @@
 
   <properties>
     <magnoliaEdition>Community Edition</magnoliaEdition>
-    <magnoliaVersion>5.4-m12</magnoliaVersion>
-    <magnoliaUiVersion>5.4-m12</magnoliaUiVersion>
+    <magnoliaVersion>5.4-m13</magnoliaVersion>
+    <magnoliaUiVersion>5.4-m13</magnoliaUiVersion>
     <javaVersion>1.7</javaVersion>
     <documentationURL>http://documentation.magnolia-cms.com/releases/${project.version}.html</documentationURL>
     <stkVersion>2.9-m7</stkVersion>
@@ -149,7 +149,7 @@
       <dependency>
         <groupId>info.magnolia.pages</groupId>
         <artifactId>magnolia-pages-app</artifactId>
-        <version>5.4-m9</version>
+        <version>5.4-m10</version>
       </dependency>
 
       <dependency>
@@ -175,7 +175,7 @@
       <dependency>
         <groupId>info.magnolia.activation</groupId>
         <artifactId>magnolia-module-activation</artifactId>
-        <version>5.3.2</version>
+        <version>5.4-m1</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia.cache</groupId>
