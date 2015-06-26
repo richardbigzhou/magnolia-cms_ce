@@ -49,8 +49,8 @@
       <artifactId>magnolia-categorization-support</artifactId>
     </dependency>
     <dependency>
-      <groupId>info.magnolia</groupId>
-      <artifactId>magnolia-module-categorization</artifactId>
+      <groupId>info.magnolia.categorization</groupId>
+      <artifactId>magnolia-categorization</artifactId>
     </dependency>
     <dependency>
       <groupId>info.magnolia</groupId>

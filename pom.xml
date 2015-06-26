@@ -153,6 +153,12 @@
       </dependency>
 
       <dependency>
+        <!-- This group/artifactId now gets redirected to magnolia-categorization -->
+        <groupId>info.magnolia</groupId>
+        <artifactId>magnolia-module-categorization</artifactId>
+        <version>${categorizationVersion}</version>
+      </dependency>
+      <dependency>
         <groupId>info.magnolia.categorization</groupId>
         <artifactId>magnolia-categorization-support</artifactId>
         <version>${categorizationVersion}</version>
@@ -160,11 +166,6 @@
       <dependency>
         <groupId>info.magnolia.categorization</groupId>
         <artifactId>magnolia-categorization</artifactId>
-        <version>${categorizationVersion}</version>
-      </dependency>
-      <dependency>
-        <groupId>info.magnolia</groupId>
-        <artifactId>magnolia-module-categorization</artifactId>
         <version>${categorizationVersion}</version>
       </dependency>
       <dependency>
