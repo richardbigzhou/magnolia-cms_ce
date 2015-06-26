@@ -178,6 +178,12 @@
         <version>5.4-m1</version>
       </dependency>
       <dependency>
+        <!-- This group/artifactId now gets redirected to magnolia-cache-core -->
+        <groupId>info.magnolia.cache</groupId>
+        <artifactId>magnolia-module-cache</artifactId>
+        <version>${cacheVersion}</version>
+      </dependency>
+      <dependency>
         <groupId>info.magnolia.cache</groupId>
         <artifactId>magnolia-cache-core</artifactId>
         <version>${cacheVersion}</version>
