@@ -34,7 +34,6 @@
 package info.magnolia.integrationtests;
 
 import static org.hamcrest.CoreMatchers.*;
-import static org.hamcrest.beans.HasPropertyWithValue.hasProperty;
 import static org.junit.Assert.assertThat;
 
 import info.magnolia.testframework.htmlunit.AbstractMagnoliaHtmlUnitTest;
