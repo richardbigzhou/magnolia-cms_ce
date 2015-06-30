@@ -44,6 +44,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
 
+import org.hamcrest.FeatureMatcher;
 import org.hamcrest.Matcher;
 import org.hamcrest.Matchers;
 import org.junit.Ignore;
@@ -101,7 +102,6 @@ public class ResourcesIntegrationTest extends AbstractMagnoliaHtmlUnitTest {
     }
 
     @Test
-    @Ignore("Fails at the moment in ResourceServlet in the far future timestamp stripping")
     public void resourceServletShouldRespondBadRequestForEmptyRequest() throws Exception {
         validateErrorResponse("/.resources/", is(400));
     }
@@ -135,36 +135,42 @@ public class ResourcesIntegrationTest extends AbstractMagnoliaHtmlUnitTest {
                 is(200),
                 is("text/plain"),
                 is("This file is loaded from JCR; it overrides a file on the filesystem and on the classpath."),
-                Matchers.<NameValuePair>hasItems(
-                        allOf(
-                                hasProperty("name", is(HttpHeaders.LAST_MODIFIED)),
-                                hasProperty("value", is(String.valueOf(httpHeaderDateFormat.format(lastModifiedDate))))),
-                        allOf(
-                                hasProperty("name", is(HttpHeaders.CACHE_CONTROL)),
-                                hasProperty("value", is("max-age=3600, public")))));
+                hasItems(
+                        header(HttpHeaders.LAST_MODIFIED, is(String.valueOf(httpHeaderDateFormat.format(lastModifiedDate)))),
+                        header(HttpHeaders.CACHE_CONTROL, is("max-age=3600, public"))
+                )
+        );
     }
 
     @Test
-    @Ignore("Client side cache disabling with Cache-Control=no-cache does not work any more.")
+    @Ignore("Client side cache disabling with Cache-Control=no-cache does not work any more.!?")
     public void responseCacheControlHeaderShouldBeDisabledInDevMode() throws Exception {
         // GIVEN
-        openPage(Instance.AUTHOR.getURL("/.magnolia/sysprop/?name=magnolia.develop&value=true"), User.superuser);
+        final String devPreviousValue = setSystemProperty(Instance.AUTHOR, "magnolia.develop", "true");
+        try {
+            // WHEN
+            Page authorPage = openPage(Instance.AUTHOR.getURL("/.resources/core/file-should-originate-from-jcr.txt"), User.superuser, true);
 
-        // WHEN
-        Page authorPage = openPage(Instance.AUTHOR.getURL("/.resources/core/file-should-originate-from-jcr.txt"), User.superuser, true);
-
-        // THEN
-        List<NameValuePair> responseHeaders = authorPage.getWebResponse().getResponseHeaders();
-        assertThat(responseHeaders, Matchers.<NameValuePair>hasItems(
-                allOf(
-                        hasProperty("name", is(HttpHeaders.CACHE_CONTROL)),
-                        hasProperty("value", is("no-cache")))));
+            // THEN
+            List<NameValuePair> responseHeaders = authorPage.getWebResponse().getResponseHeaders();
+            assertThat(responseHeaders, hasItem(
+                    header(HttpHeaders.CACHE_CONTROL, equalTo("no-cache"))));
+        } finally {
+            setSystemProperty(Instance.AUTHOR, "magnolia.develop", devPreviousValue);
+        }
     }
 
     @Test
     @Ignore("This test might belong to the resources app ui test.")
     public void hotfixShouldOverrideClasspathResource() throws Exception {
         // JcrPropertyServlet (has to be extended)
+    }
+
+    @Test
+    @Ignore("This test does not work at the moment")
+    public void resourcesShouldWorkWithForwards() throws Exception {
+        // TODO: For this test to work, we'd need to setup a virtual uri that forwards /some-forward.css to /.resources/resource-loading-test.css
+        validateCorrectResponse("/some-forward.css", is("text/css"), is("body { color: #5a5a5a; }"));
     }
 
     private void validateCorrectResponse(String path, Matcher<String> expectedContentType) throws Exception {
@@ -196,4 +202,21 @@ public class ResourcesIntegrationTest extends AbstractMagnoliaHtmlUnitTest {
             assertThat(page.getWebResponse().getContentAsString().trim(), contentMatcher);
         }
     }
+
+    private Matcher<NameValuePair> header(final String name, final Matcher<String> valueMatcher) {
+        return allOf(
+                new FeatureMatcher<NameValuePair, String>(Matchers.is(name), "name", "name") {
+                    @Override
+                    protected String featureValueOf(NameValuePair actual) {
+                        return actual.getName();
+                    }
+                },
+                new FeatureMatcher<NameValuePair, String>(valueMatcher, "value", "value") {
+                    @Override
+                    protected String featureValueOf(NameValuePair actual) {
+                        return actual.getValue();
+                    }
+                });
+    }
+
 }
