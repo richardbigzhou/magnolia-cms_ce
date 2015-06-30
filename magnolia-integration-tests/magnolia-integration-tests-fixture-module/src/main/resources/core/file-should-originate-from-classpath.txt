@@ -1,1 +1,1 @@
-This value is used for testing the resource loading cascade and comes from classpath
+This file is loaded from the classpath, and is not overridden by another origin.

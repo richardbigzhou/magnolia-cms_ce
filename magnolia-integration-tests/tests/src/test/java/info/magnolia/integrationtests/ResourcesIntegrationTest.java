@@ -42,7 +42,6 @@ import info.magnolia.testframework.htmlunit.AbstractMagnoliaHtmlUnitTest;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 import java.util.TimeZone;
 
 import org.hamcrest.Matcher;
@@ -52,7 +51,6 @@ import org.junit.Test;
 
 import com.gargoylesoftware.htmlunit.Page;
 import com.gargoylesoftware.htmlunit.util.NameValuePair;
-import com.google.common.collect.Maps;
 import com.google.common.net.HttpHeaders;
 
 /**
@@ -86,20 +84,20 @@ public class ResourcesIntegrationTest extends AbstractMagnoliaHtmlUnitTest {
         validateCorrectResponse(
                 "/.resources/core/file-should-originate-from-legacyclasspath.txt",
                 is("text/plain"),
-                is("This value is used for testing the resource loading cascade and comes from legacy-classpath"));
+                is("This file is loaded from the legacy-classpath (mgnl-resources), and is not overridden by another origin."));
 
         validateCorrectResponse(
                 "/.resources/core/file-should-originate-from-classpath.txt",
                 is("text/plain"),
-                is("This value is used for testing the resource loading cascade and comes from classpath"));
+                is("This file is loaded from the classpath, and is not overridden by another origin."));
 
         validateCorrectResponse("/.resources/core/file-should-originate-from-filesystem.txt",
                 is("text/plain"),
-                is("This value is used for testing the resource loading cascade and comes from filesystem"));
+                is("This file is loaded from the filesystem, and is not overridden by another origin."));
 
         validateCorrectResponse("/.resources/core/file-should-originate-from-jcr.txt",
                 is("text/plain"),
-                is("This value is used for testing the resource loading cascade and comes from jcr"));
+                is("This file is loaded from the JCR, and is not overridden by another origin."));
     }
 
     @Test
@@ -143,7 +141,7 @@ public class ResourcesIntegrationTest extends AbstractMagnoliaHtmlUnitTest {
                 "/.resources/core/file-should-originate-from-jcr.txt",
                 is(200),
                 is("text/plain"),
-                is("This value is used for testing the resource loading cascade and comes from jcr"),
+                is("This file is loaded from the JCR, and is not overridden by another origin."),
                 Matchers.<NameValuePair>hasItems(
                         allOf(
                                 hasProperty("name", is(HttpHeaders.LAST_MODIFIED)),
@@ -174,17 +172,6 @@ public class ResourcesIntegrationTest extends AbstractMagnoliaHtmlUnitTest {
     @Ignore("This test might belong to the resources app ui test.")
     public void hotfixShouldOverrideClasspathResource() throws Exception {
         // JcrPropertyServlet (has to be extended)
-    }
-
-    @Test
-    @Ignore("This test does not work at the moment")
-    public void resourcesShouldWorkWithForwards() throws Exception {
-        Map<String, String> headers = Maps.newHashMap();
-        headers.put("javax.servlet.forward.path_info", "/.resources/core/file-should-originate-from-classpath.txt");
-        Page page = openPage(Instance.AUTHOR.getURL("/.resources/"), User.superuser, true, true, headers);
-
-        validateResponse(page, is(200), is("text/plain"), any(String.class), Matchers.<NameValuePair>hasItems());
-
     }
 
     private void validateCorrectResponse(String path, Matcher<String> expectedContentType) throws Exception {
