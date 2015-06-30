@@ -387,16 +387,8 @@ class WebCrawler {
     }
 
     def announceError(code, url, message = "") {
-        if (!message.empty)
-            message = "\n    " + message
-        System.err.println("${code} Error - ${url}" + message)
+        System.err.println("${code} Error - ${url} ${message?'\n    ':''}${message}")
         gotErrors += 1
-    }
-
-    def announceWarning(code, url, message = "") {
-        if (!message.empty)
-            message = "\n    " + message
-        System.err.println("${code} Warning - ${url}" + message)
     }
 
     def getErrorStatus() {
@@ -412,7 +404,7 @@ class WebCrawler {
 
         if (content ==~ /^\s*$/) {
             if (url.contains("~mgnlArea=")) {
-                announceWarning("Templating", url, "Nothing rendered. The area node is probably empty.")
+                debugMessage("Nothing rendered at ${url}. The area node is probably empty.")
             } else {
                 announceError("Templating", url, "Nothing rendered.")
             }

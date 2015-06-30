@@ -105,17 +105,15 @@ if (!logdir.isDirectory()) {
 def totalErrors = 0
 
 files.each { file ->
-    println "="*40
-    println "Parsing log ${file.path}"
-    println "="*40
-    
+    print "Parsing log ${file.path}: "
+
     def parser = new LogReader(file)
     def errors = parser.getErrors()
     totalErrors += errors
 
     println "${errors} errors!"
-    println ""
 }
 
-if (totalErrors != 0)
+if (totalErrors != 0) {
     throw new RuntimeException("Errors found while parsing the log files.")
+}
