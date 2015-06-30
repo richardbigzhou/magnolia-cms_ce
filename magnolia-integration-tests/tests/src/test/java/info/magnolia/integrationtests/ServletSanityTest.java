@@ -117,8 +117,8 @@ public class ServletSanityTest extends AbstractMagnoliaHtmlUnitTest {
     }
 
     private String setUtfEnabled(String value) throws IOException {
-        HtmlPage page = openPage(Instance.AUTHOR.getURL("/.magnolia/sysprop/?name=magnolia.utf8.enabled&value=" + value), User.superuser);
-        assertEquals(200, page.getWebResponse().getStatusCode());
-        return page.asText();
+        final String name = "magnolia.utf8.enabled";
+        return setSystemProperty(Instance.AUTHOR, name, value);
     }
+
 }
