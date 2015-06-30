@@ -65,9 +65,9 @@ public class ResourcesIntegrationTest extends AbstractMagnoliaHtmlUnitTest {
 
     @Test
     public void resourcesShouldHaveCorrectContentType() throws Exception {
-        validateCorrectResponse("/.resources/resource-loading-test.css", is("text/css"), is("body { color: #5a5a5a; }\n"));
+        validateCorrectResponse("/.resources/resource-loading-test.css", is("text/css"), is("body { color: #5a5a5a; }"));
         validateCorrectResponse("/.resources/resource-loading-test.html", is("text/html"), is("<html><body>This is of content type text/html</body></html>"));
-        validateCorrectResponse("/.resources/resource-loading-test.js", is("application/x-javascript"), startsWith("\n    document.write(\"resource loading test\");\n\n"));
+        validateCorrectResponse("/.resources/resource-loading-test.js", is("application/x-javascript"), containsString("document.write(\"resource loading test\");"));
         validateCorrectResponse("/.resources/resource-loading-test.gif", is("image/gif"));
         validateCorrectResponse("/.resources/resource-loading-test.jpg", is("image/jpeg"));
         validateCorrectResponse("/.resources/resource-loading-test.png", is("image/png"));
@@ -75,8 +75,8 @@ public class ResourcesIntegrationTest extends AbstractMagnoliaHtmlUnitTest {
 
     @Test
     public void requestWithFarFutureTimestampShouldReturnCorrectResource() throws Exception {
-        validateCorrectResponse("/.resources/resource-loading-test.2015-03-19-13-58-59-450.cache.css", is("text/css"), is("body { color: #5a5a5a; }\n"));
-        validateCorrectResponse("/.resources/resource-loading-test~2015-03-19-13-58-59-450~cache.css", is("text/css"), is("body { color: #5a5a5a; }\n"));
+        validateCorrectResponse("/.resources/resource-loading-test.2015-03-19-13-58-59-450.cache.css", is("text/css"), is("body { color: #5a5a5a; }"));
+        validateCorrectResponse("/.resources/resource-loading-test~2015-03-19-13-58-59-450~cache.css", is("text/css"), is("body { color: #5a5a5a; }"));
     }
 
     @Test
@@ -84,20 +84,20 @@ public class ResourcesIntegrationTest extends AbstractMagnoliaHtmlUnitTest {
         validateCorrectResponse(
                 "/.resources/core/file-should-originate-from-legacyclasspath.txt",
                 is("text/plain"),
-                is("This file is loaded from the legacy-classpath (mgnl-resources), and is not overridden by another origin."));
+                is("This file is loaded from the legacy classpath (/mgnl-resources/); it is not overridden by another origin."));
 
         validateCorrectResponse(
                 "/.resources/core/file-should-originate-from-classpath.txt",
                 is("text/plain"),
-                is("This file is loaded from the classpath, and is not overridden by another origin."));
+                is("This file is loaded from the classpath; it is not overridden by another origin."));
 
         validateCorrectResponse("/.resources/core/file-should-originate-from-filesystem.txt",
                 is("text/plain"),
-                is("This file is loaded from the filesystem, and is not overridden by another origin."));
+                is("This file is loaded from the filesystem; it overrides a file on the classpath."));
 
         validateCorrectResponse("/.resources/core/file-should-originate-from-jcr.txt",
                 is("text/plain"),
-                is("This file is loaded from the JCR, and is not overridden by another origin."));
+                is("This file is loaded from JCR; it overrides a file on the filesystem and on the classpath."));
     }
 
     @Test
@@ -141,7 +141,7 @@ public class ResourcesIntegrationTest extends AbstractMagnoliaHtmlUnitTest {
                 "/.resources/core/file-should-originate-from-jcr.txt",
                 is(200),
                 is("text/plain"),
-                is("This file is loaded from the JCR, and is not overridden by another origin."),
+                is("This file is loaded from JCR; it overrides a file on the filesystem and on the classpath."),
                 Matchers.<NameValuePair>hasItems(
                         allOf(
                                 hasProperty("name", is(HttpHeaders.LAST_MODIFIED)),
@@ -200,7 +200,7 @@ public class ResourcesIntegrationTest extends AbstractMagnoliaHtmlUnitTest {
         assertThat(page.getWebResponse().getResponseHeaders(), headerFieldMatcher);
 
         if (statusCodeMatcher.matches(200)) { // The following assert will produce ERROR warnings when error code is returned
-            assertThat(page.getWebResponse().getContentAsString(), contentMatcher);
+            assertThat(page.getWebResponse().getContentAsString().trim(), contentMatcher);
         }
     }
 }

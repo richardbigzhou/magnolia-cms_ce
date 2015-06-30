@@ -1,1 +1,1 @@
-This file is loaded from the classpath, but is overridden the JCR origin.
+This file is loaded from the classpath; it is overridden by the JCR origin.

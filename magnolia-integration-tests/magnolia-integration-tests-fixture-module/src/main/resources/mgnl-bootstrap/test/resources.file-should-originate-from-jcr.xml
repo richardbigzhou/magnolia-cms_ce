@@ -62,7 +62,7 @@
       <sv:value>superuser</sv:value>
     </sv:property>
     <sv:property sv:name="text" sv:type="String">
-      <sv:value>This file is loaded from the JCR, and is not overridden by another origin.</sv:value>
+      <sv:value>This file is loaded from JCR; it overrides a file on the filesystem and on the classpath.</sv:value>
     </sv:property>
   </sv:node>
 </sv:node>
