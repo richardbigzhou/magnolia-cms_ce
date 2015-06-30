@@ -116,15 +116,8 @@ public class ResourcesIntegrationTest extends AbstractMagnoliaHtmlUnitTest {
     }
 
     @Test
-    @Ignore("Works but produces ERROR log entries which fails the crawler test." +
-            "Has to do with getWriter and getOutputStream accessed simultaniously on the response, but just in Jetty9." +
-            "The underling problem is from FormLoginCallback which tries to write the login screen to the response if 403 was set on the response." +
-            "Might be related to MAGNOLIA-6012.")
     public void resourceServletShouldRespondForbiddenForNotAllowedExtensions() throws Exception {
-        validateErrorResponse("/.resources/not-allowed-to-access-template-files.ftl", is(403));
-        validateErrorResponse("/.resources/core/not-allowed-to-access-java-files.java", is(403));
-        validateErrorResponse("/.resources/core-ui/not-allowed-to-access-class-files.class", is(403));
-        validateErrorResponse("/.resources/not-allowed-to-access-yaml-files.yaml", is(403));
+        validateErrorResponse("/.resources/templates/test/dummy_test.ftl", is(403));
     }
 
     // TODO: use matcher approach for header fields as well
