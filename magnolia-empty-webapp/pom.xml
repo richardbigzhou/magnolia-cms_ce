@@ -77,7 +77,7 @@
       <groupId>org.apache.tika</groupId>
       <artifactId>tika-parsers</artifactId>
     </dependency>
-    <!-- We excluded bouncycastle deps from Tika because they include jdk15 version - we want the jdk16 versions -->
+    <!-- We excluded bouncycastle deps from Tika because they include jdk15 version - we want the jdk15on versions -->
     <dependency>
       <groupId>org.bouncycastle</groupId>
       <artifactId>bcprov-jdk15on</artifactId>
