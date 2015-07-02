@@ -61,6 +61,10 @@
       <artifactId>magnolia-core</artifactId>
     </dependency>
     <dependency>
+      <groupId>info.magnolia</groupId>
+      <artifactId>magnolia-jaas</artifactId>
+    </dependency>
+    <dependency>
       <groupId>info.magnolia.cache</groupId>
       <artifactId>magnolia-cache-core</artifactId>
     </dependency>
