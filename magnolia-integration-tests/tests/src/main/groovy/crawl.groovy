@@ -169,6 +169,7 @@ class WebCrawler {
                 }
 
                 def connection = normalizedURL(url).openConnection()
+                debugMessage("Loading URL: " + connection.getURL())
                 cookies.each { cookie ->
                     connection.addRequestProperty("Cookie", cookie.split(";", 2)[0]);
                 }
@@ -320,6 +321,7 @@ class WebCrawler {
                     def page = normalizedURL(url)
 
                     def connection = page.openConnection()
+                    debugMessage("Loading page URL: " + connection.getURL())
 
                     cookies.each { cookie ->
                         connection.addRequestProperty("Cookie", cookie.split(";", 2)[0]);
@@ -446,6 +448,7 @@ class WebCrawler {
         def queryString = "path=" + path + "&repository=" + repository + "&command=dump&level=1"
 
         def connection = normalizedURL(jcrUrl).openConnection()
+        debugMessage("Opening area URL: " + connection.getURL())
         connection.addRequestProperty("Referer", jcrUrl) // use the url as referer
         connection.setRequestMethod("POST")
         connection.setDoOutput(true)
