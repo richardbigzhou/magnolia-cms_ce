@@ -45,6 +45,10 @@
       <artifactId>magnolia-about-app</artifactId>
     </dependency>
     <dependency>
+      <groupId>info.magnolia.scheduler</groupId>
+      <artifactId>magnolia-module-scheduler</artifactId>
+    </dependency>
+    <dependency>
       <groupId>info.magnolia</groupId>
       <artifactId>magnolia-rendering</artifactId>
     </dependency>
