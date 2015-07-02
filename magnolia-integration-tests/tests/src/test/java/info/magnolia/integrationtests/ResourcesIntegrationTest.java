@@ -41,6 +41,7 @@ import info.magnolia.testframework.htmlunit.AbstractMagnoliaHtmlUnitTest;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.TimeZone;
 
 import org.hamcrest.FeatureMatcher;
@@ -125,9 +126,10 @@ public class ResourcesIntegrationTest extends AbstractMagnoliaHtmlUnitTest {
     @Test
     public void responseShouldIncludeHeaderFieldsForCaching() throws Exception {
         SimpleDateFormat jcrDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
-        SimpleDateFormat httpHeaderDateFormat = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z");
-        httpHeaderDateFormat.setTimeZone(TimeZone.getTimeZone("GMT")); // HTTP header contains by definition only GMT dates (RFC 2616 - 3.3.1)
         Date lastModifiedDate = jcrDateFormat.parse("2014-08-13T07:36:36.141+02:00"); // This is a copy from the bootstrap xml. This is why the parsing/formating looks a little bit awkward
+
+        SimpleDateFormat httpHeaderDateFormat = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z", Locale.US);
+        httpHeaderDateFormat.setTimeZone(TimeZone.getTimeZone("GMT")); // HTTP header contains by definition only GMT dates (RFC 2616 - 3.3.1)
 
         validateResponse(
                 "/.resources/core/file-should-originate-from-jcr.txt",
