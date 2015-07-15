@@ -25,7 +25,7 @@
     <magnoliaUiVersion>5.3.10-SNAPSHOT</magnoliaUiVersion>
     <javaVersion>1.6</javaVersion>
     <documentationURL>http://documentation.magnolia-cms.com/releases/${project.version}.html</documentationURL>
-    <stkVersion>2.8.10-SNAPSHOT</stkVersion>
+    <stkVersion>2.8.9</stkVersion>
     <restVersion>1.0.5</restVersion>
     <damVersion>2.0.10-SNAPSHOT</damVersion>
     <scmTagPrefix>magnolia-bundle</scmTagPrefix>
@@ -240,7 +240,7 @@
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-public-user-registration</artifactId>
-        <version>2.4.4-SNAPSHOT</version>
+        <version>2.4.3</version>
       </dependency>
 
       <dependency>
