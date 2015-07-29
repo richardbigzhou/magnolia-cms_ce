@@ -30,7 +30,7 @@
     <damVersion>2.1.1-SNAPSHOT</damVersion>
     <categorizationVersion>2.4.1-SNAPSHOT</categorizationVersion>
     <mteVersion>0.5</mteVersion>
-    <resourcesVersion>2.4</resourcesVersion>
+    <resourcesVersion>2.4.1-SNAPSHOT</resourcesVersion>
     <imagingVersion>3.2</imagingVersion>
     <siteVersion>1.0.1-SNAPSHOT</siteVersion>
     <travelDemoVersion>0.6-SNAPSHOT</travelDemoVersion>
@@ -176,7 +176,7 @@
       <dependency>
         <groupId>info.magnolia.activation</groupId>
         <artifactId>magnolia-module-activation</artifactId>
-        <version>5.4</version>
+        <version>5.4.1-SNAPSHOT</version>
       </dependency>
       <dependency>
         <!-- This group/artifactId now gets redirected to magnolia-cache-core -->
