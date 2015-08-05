@@ -40,6 +40,7 @@ import info.magnolia.repository.RepositoryConstants;
 import java.io.IOException;
 
 import javax.jcr.Node;
+import javax.jcr.Property;
 import javax.jcr.RepositoryException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -57,7 +58,8 @@ import org.slf4j.LoggerFactory;
  * - path : Specify the absolute path in the workspace to the property <br>
  * - value : Value to set to the property <br>
  * -- if the value is empty, return the current property value. <br>
- * -- if the value is not empty, set this value to the property, and return the previous property value.
+ * -- if the value is not empty, set this value to the property, and return the previous property value. <br>
+ * - delete : remove the property (don't forget '=true')
  */
 public class JcrPropertyServlet extends HttpServlet {
 
@@ -68,6 +70,8 @@ public class JcrPropertyServlet extends HttpServlet {
         final String path = request.getParameter("path");
         final String workspace = StringUtils.defaultString(request.getParameter("workspace"), RepositoryConstants.CONFIG);
         final String value = request.getParameter("value");
+        final boolean delete = Boolean.valueOf(request.getParameter("delete"));
+
         final String nodePath = StringUtils.substringBeforeLast(path, "/");
         final String propertyName = StringUtils.substringAfterLast(path, "/");
         try {
@@ -82,6 +86,17 @@ public class JcrPropertyServlet extends HttpServlet {
                 node.setProperty(propertyName, value);
                 node.getSession().save();
                 log.info("Changing value of '{}' from [{}] to [{}]", path, returnValue, value);
+            }
+            else if (delete) {
+                if (node.hasProperty(propertyName)) {
+                    Property property = node.getProperty(propertyName);
+                    property.remove();
+                    node.getSession().save();
+                    log.info("Removed property '{}' from [{}].", propertyName, path);
+                }
+                else {
+                    log.info("No property '{}' found at [{}].", propertyName, path);
+                }
             }
 
             response.getWriter().write(String.valueOf(returnValue));
