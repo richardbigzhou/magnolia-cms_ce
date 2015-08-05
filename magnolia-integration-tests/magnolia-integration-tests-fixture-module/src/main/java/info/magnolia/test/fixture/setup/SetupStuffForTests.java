@@ -33,17 +33,12 @@
  */
 package info.magnolia.test.fixture.setup;
 
-import static info.magnolia.jcr.nodebuilder.Ops.*;
-
-import info.magnolia.jcr.nodebuilder.task.ErrorHandling;
-import info.magnolia.jcr.nodebuilder.task.NodeBuilderTask;
 import info.magnolia.module.InstallContext;
 import info.magnolia.module.delta.BootstrapSingleResource;
 import info.magnolia.module.delta.IsAuthorInstanceDelegateTask;
 import info.magnolia.module.delta.ModuleBootstrapTask;
 import info.magnolia.module.delta.OrderFilterBeforeTask;
 import info.magnolia.module.delta.Task;
-import info.magnolia.repository.RepositoryConstants;
 import info.magnolia.test.fixture.CacheMonitorFilter;
 
 import java.util.ArrayList;
@@ -84,10 +79,6 @@ public class SetupStuffForTests extends AbstractTestingVersionHandler {
         list.add(new IsAuthorInstanceDelegateTask("Bootstrap", "Bootstrap new web to author instance for PageAccessTest purposes", new BootstrapSingleResource("", "", "/info/magnolia/test/website.newtestpages.xml")));
 
         list.add(new OrderFilterBeforeTask(CacheMonitorFilter.class.getSimpleName(), new String[]{}, new String[]{"cache"}));
-
-        list.add(new NodeBuilderTask("Enable i18n", "Enable i18n content support for STK site", ErrorHandling.strict, RepositoryConstants.CONFIG, "/modules/standard-templating-kit/config/site",
-                getNode("i18n").then(setProperty("enabled", "true"))
-        ));
 
         return list;
     }
