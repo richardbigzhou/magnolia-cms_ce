@@ -71,7 +71,6 @@ public class JcrPropertyServlet extends HttpServlet {
         final String workspace = StringUtils.defaultString(request.getParameter("workspace"), RepositoryConstants.CONFIG);
         final String value = request.getParameter("value");
         final boolean delete = Boolean.valueOf(request.getParameter("delete"));
-
         final String nodePath = StringUtils.substringBeforeLast(path, "/");
         final String propertyName = StringUtils.substringAfterLast(path, "/");
         try {
@@ -86,22 +85,20 @@ public class JcrPropertyServlet extends HttpServlet {
                 node.setProperty(propertyName, value);
                 node.getSession().save();
                 log.info("Changing value of '{}' from [{}] to [{}]", path, returnValue, value);
-            }
-            else if (delete) {
+            } else if (delete) {
                 if (node.hasProperty(propertyName)) {
                     Property property = node.getProperty(propertyName);
                     property.remove();
                     node.getSession().save();
                     log.info("Removed property '{}' from [{}].", propertyName, path);
-                }
-                else {
+                } else {
                     log.info("No property '{}' found at [{}].", propertyName, path);
                 }
             }
 
             response.getWriter().write(String.valueOf(returnValue));
         } catch (RepositoryException e) {
-            log.warn("Could not handle property [{}] from workspace [{}]", new Object[] { path, workspace });
+            log.warn("Could not handle property [{}] from workspace [{}]", new Object[]{path, workspace});
             throw new ServletException("Could not read property [" + path + "]");
         }
     }
