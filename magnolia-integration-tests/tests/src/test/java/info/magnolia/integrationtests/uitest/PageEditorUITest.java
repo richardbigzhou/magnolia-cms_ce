@@ -333,6 +333,7 @@ public class PageEditorUITest extends AbstractPageEditorUITest {
         delay("wait");
         getElementByPath(By.xpath("//div[contains(@class, 'dialog-root')]//input[@type = 'text']")).sendKeys("/demo-project/about/history");
         getElementByPath(By.xpath("//div[contains(@class, 'dialog-root')]//span[text() = 'save changes']")).click();
+        waitUntil(dialogIsClosed("Teaser"));
         switchToPageEditorContent();
         getElementByPath(By.xpath("//div[@id = 'main']//div[contains(@class, 'mgnlEditorBarLabel') and text() = 'Teasers']")).click();
         WebElement lastTeaser = getElementByPath(By.xpath("//div[@id = 'main']//div[contains(@class, 'teaser')][last() - 1]"));
