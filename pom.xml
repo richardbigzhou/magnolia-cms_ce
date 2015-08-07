@@ -27,8 +27,8 @@
     <documentationURL>http://documentation.magnolia-cms.com/releases/${project.version}.html</documentationURL>
     <stkVersion>2.9.1-SNAPSHOT</stkVersion>
     <restVersion>1.0.5</restVersion>
-    <damVersion>2.1</damVersion>
-    <categorizationVersion>2.4</categorizationVersion>
+    <damVersion>2.1.1-SNAPSHOT</damVersion>
+    <categorizationVersion>2.4.1-SNAPSHOT</categorizationVersion>
     <mteVersion>0.5</mteVersion>
     <resourcesVersion>2.4</resourcesVersion>
     <imagingVersion>3.2</imagingVersion>
@@ -99,7 +99,7 @@
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-legacy-admininterface</artifactId>
-        <version>5.2.4</version>
+        <version>5.3-SNAPSHOT</version>
       </dependency>
 
       <!-- DAM -->
@@ -149,7 +149,7 @@
       <dependency>
         <groupId>info.magnolia.pages</groupId>
         <artifactId>magnolia-pages-app</artifactId>
-        <version>5.4</version>
+        <version>5.4.1-SNAPSHOT</version>
       </dependency>
 
       <dependency>
