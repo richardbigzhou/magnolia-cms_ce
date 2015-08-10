@@ -26,12 +26,13 @@
     <javaVersion>1.7</javaVersion>
     <documentationURL>http://documentation.magnolia-cms.com/releases/${project.version}.html</documentationURL>
     <stkVersion>2.9.1-SNAPSHOT</stkVersion>
-    <restVersion>1.0.5</restVersion>
+    <restVersion>1.1-SNAPSHOT</restVersion>
+    <restClientVersion>1.0.5-SNAPSHOT</restClientVersion>
     <damVersion>2.1.1-SNAPSHOT</damVersion>
     <categorizationVersion>2.4.1-SNAPSHOT</categorizationVersion>
     <mteVersion>0.5</mteVersion>
     <resourcesVersion>2.4.1-SNAPSHOT</resourcesVersion>
-    <imagingVersion>3.2</imagingVersion>
+    <imagingVersion>3.2.1-SNAPSHOT</imagingVersion>
     <siteVersion>1.0.1-SNAPSHOT</siteVersion>
     <travelDemoVersion>0.6-SNAPSHOT</travelDemoVersion>
     <cacheVersion>5.4.1-SNAPSHOT</cacheVersion>
@@ -334,6 +335,16 @@
         <groupId>info.magnolia.rest</groupId>
         <artifactId>magnolia-rest-tools</artifactId>
         <version>${restVersion}</version>
+      </dependency>
+      <dependency>
+        <groupId>info.magnolia.restclient</groupId>
+        <artifactId>magnolia-rest-client</artifactId>
+        <version>${restClientVersion}</version>
+      </dependency>
+      <dependency>
+        <groupId>info.magnolia.restclient</groupId>
+        <artifactId>magnolia-resteasy-client</artifactId>
+        <version>${restClientVersion}</version>
       </dependency>
 
       <dependency>
