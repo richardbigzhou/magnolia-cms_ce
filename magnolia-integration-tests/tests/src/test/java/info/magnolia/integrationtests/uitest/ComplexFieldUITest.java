@@ -115,7 +115,7 @@ public class ComplexFieldUITest extends AbstractMagnoliaUITest {
 
         // Open it again
         openDialogComponent();
-        getTabForCaption("Multi Fields").click();
+        openTabWithCaption("Multi Fields");
         // Pre test
         assertEquals("text 1", getFromMultiFieldElementValueAt(fieldName, 1).getAttribute("value"));
         assertEquals("text 2", getFromMultiFieldElementValueAt(fieldName, 3).getAttribute("value"));
@@ -198,7 +198,7 @@ public class ComplexFieldUITest extends AbstractMagnoliaUITest {
         // GIVEN
         String fieldName = "Simple Composite";
         goToDialogShowRoomAndOpenDialogComponent("ftl");
-        getTabForCaption("Switch").click();
+        openTabWithCaption("Switch");
 
         // Set Initial Values
         setMultiFieldElementValueAt(fieldName, 1, "text custom 1");
@@ -213,7 +213,7 @@ public class ComplexFieldUITest extends AbstractMagnoliaUITest {
         assertFalse(isExisting(getElementByXpath("//div[contains(concat(' ',normalize-space(@class),' '),' overlay ')]")));
         // Pre test
         openDialogComponent();
-        getTabForCaption("Switch").click();
+        openTabWithCaption("Switch");
         assertEquals("text custom 1", getFromMultiFieldElementValueAt(fieldName, 1).getAttribute("value"));
         assertEquals("/demo-project", getFromMultiFieldElementValueAt(fieldName, 3).getAttribute("value"));
 
@@ -230,7 +230,7 @@ public class ComplexFieldUITest extends AbstractMagnoliaUITest {
         delay("Dialog may take some time to close");
         assertFalse(isExisting(getElementByXpath("//div[contains(concat(' ',normalize-space(@class),' '),' overlay ')]")));
         openDialogComponent();
-        getTabForCaption("Switch").click();
+        openTabWithCaption("Switch");
         assertEquals("text custom 11", getFromMultiFieldElementValueAt(fieldName, 1).getAttribute("value"));
         assertEquals("/demo-features", getFromMultiFieldElementValueAt(fieldName, 3).getAttribute("value"));
     }

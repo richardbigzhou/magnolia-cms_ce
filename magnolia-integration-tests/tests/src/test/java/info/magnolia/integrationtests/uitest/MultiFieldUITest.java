@@ -72,7 +72,7 @@ public class MultiFieldUITest extends AbstractMagnoliaUITest {
 
         // Go to Multi field tab
         goToDialogShowRoomAndOpenDialogComponent("ftl");
-        getTabForCaption("Multi Fields").click();
+        openTabWithCaption("Multi Fields");
         // WHEN
         // //////////
         //
@@ -180,7 +180,7 @@ public class MultiFieldUITest extends AbstractMagnoliaUITest {
 
         // Open it again
         openDialogComponent();
-        getTabForCaption("Multi Fields").click();
+        openTabWithCaption("Multi Fields");
 
         switchToLanguage("English");
         waitUntil(DRIVER_WAIT_IN_SECONDS, languageSwitched("en"));
@@ -297,7 +297,7 @@ public class MultiFieldUITest extends AbstractMagnoliaUITest {
 
         // Open it again
         openDialogComponent();
-        getTabForCaption("Multi Fields").click();
+        openTabWithCaption("Multi Fields");
 
         switchToLanguage("English");
         waitUntil(DRIVER_WAIT_IN_SECONDS, languageSwitched("en"));

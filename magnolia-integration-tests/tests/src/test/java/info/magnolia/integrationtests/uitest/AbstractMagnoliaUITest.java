@@ -46,6 +46,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -561,9 +562,8 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
                     }
                     );
         } catch (TimeoutException e) {
-            log.error("Could not retrieve {} elements by path {} : {}", expectedElementCount, path, e);
-            // not found within the time limit - maybe the expected amount of element is wrong, but there's nothing sane we can do here. Returning null would just yield NPEs. If we need something better, consider selenium-lift, or pass a Matcher instead of expectedElementCount
-            throw new TimeoutException("Could not retrieve " + (expectedElementCount != -1 ? expectedElementCount : "at least 1") + " elements by path " + path + " : " + e.getMessage(), e);
+            log.error("Could not retrieve " + (expectedElementCount != -1 ? expectedElementCount : "at least 1") + " elements by path " + path + " : " + e.getMessage());
+            return Collections.emptyList();
         } catch (StaleElementReferenceException s) {
             // re-trying on StaleElementReferenceExceptions: see http://docs.seleniumhq.org/exceptions/stale_element_reference.jsp
             log.info("{} when accessing element {} - trying again", s.toString(), path);
@@ -692,16 +692,86 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         return getElementByXpath("//*[@id = 'btn-favorites']");
     }
 
+    protected void openTabWithCaption(String tabCaption, String... parentTitles) {
+        getTabWithCaption(tabCaption, parentTitles).click();
+    }
+
+    protected void openTabWithPartialCaption(String tabCaption, String... parentTitles) {
+        getTabWithPartialCaption(tabCaption, parentTitles).click();
+    }
+
+    protected WebElement getTabWithCaption(String tabCaption, String... parentTitles) {
+        return doGetTabElement(tabCaption, false, parentTitles);
+    }
+
+    protected WebElement getTabWithPartialCaption(String tabCaption, String... parentTitles) {
+        return doGetTabElement(tabCaption, true, parentTitles);
+    }
+
+    protected boolean tabWithCaptionExists(String tabCaption, String... parentTitles) {
+        return isExisting(getPotentiallyHiddenTab(tabCaption, false, parentTitles));
+    }
+
+    protected boolean tabWithPartialCaptionExists(String tabCaption, String... parentTitles) {
+        return isExisting(getPotentiallyHiddenTab(tabCaption, true, parentTitles));
+    }
+
+    private WebElement doGetTabElement(String tabCaption, boolean partial, String... parentTitles) {
+        final WebElement tabLabel = getPotentiallyHiddenTab(tabCaption, partial, parentTitles);
+        // Either tab does not exist at all (yield non-existent element) or it is displayed and ready to shown
+        if (!isExisting(tabLabel) || tabLabel.isDisplayed()) {
+            return tabLabel;
+        } else {
+            final String parentXPath = buildPathFromTitles(parentTitles);
+            final String popupControlXPath = String.format("%s%s", parentXPath, "//*[contains(@class, 'hidden-tabs-popup-button') and not(contains(@style, 'display: none'))]");
+            final WebElement popupControl = getElementByXpath(popupControlXPath);
+            popupControl.click();
+            final String hiddenTabPath = partial ?
+                    String.format("//*[contains(@class, 'hidden-tabs-menu')]//*[contains(@class, 'menu-item') and contains(text(), '%s')]", tabCaption):
+                    String.format("//*[contains(@class, 'hidden-tabs-menu')]//*[contains(@class, 'menu-item') and text() = '%s']", tabCaption);
+            return getElementByXpath(hiddenTabPath);
+        }
+    }
+
+    private WebElement getPotentiallyHiddenTab(String tabCaption, boolean partial, String[] parentTitles) {
+        final String parentXPath1 = buildPathFromTitles(parentTitles);
+        final String tabCaptionPath = partial ?
+                String.format("//*[contains(@class, 'v-shell-tabsheet')]//*[@class = 'tab-title' and contains(text(), '%s')]", tabCaption):
+                String.format("//*[contains(@class, 'v-shell-tabsheet')]//*[@class = 'tab-title' and text() = '%s']", tabCaption);
+
+        final String fullTabXPath = String.format("%s%s", parentXPath1, tabCaptionPath);
+        // Use multi-element search method in order to work-around a limitation of #getElementByXpath() - it returns only visible element,
+        // whereas here we're interested if the element just exists in DOM
+        final List<WebElement> allMatchingElements = getElementsByPath(By.xpath(fullTabXPath));
+        return allMatchingElements.isEmpty() ? new NonExistingWebElement(fullTabXPath) : allMatchingElements.get(0);
+    }
+
+    private String buildPathFromTitles(String[] titles) {
+        final StringBuilder path = new StringBuilder();
+        for (final String parentName : titles) {
+            path.append("//*[text() = ").append(parentName).append("]");
+        }
+        return path.toString();
+    }
+
+    /**
+     * @deprecated since 5.4.1 - use {@link #openTabWithCaption(String, String...)} instead.
+     */
+    @Deprecated
     protected WebElement getTabForCaption(String tabCaption) {
-        return getElementByXpath("//*[contains(@class, 'v-shell-tabsheet')]//*[@class = 'tab-title' and text() = '%s']", tabCaption);
+        return doGetTabElement(tabCaption, false);
+    }
+
+    /**
+     * @deprecated since 5.4.1 - use {@link #getTabWithPartialCaption(String, String...)} instead.
+     */
+    @Deprecated
+    protected WebElement getTabContainingCaption(String tabCaption) {
+        return doGetTabElement(tabCaption, true);
     }
 
     protected By getXpathOfTabContainingCaption(String tabCaption) {
         return By.xpath(String.format("//*[contains(@class, 'v-shell-tabsheet')]//*[@class = 'tab-title' and contains(text(),'%s')]", tabCaption));
-    }
-
-    protected WebElement getTabContainingCaption(String tabCaption) {
-        return getElementByPath(getXpathOfTabContainingCaption(tabCaption));
     }
 
     protected WebElement getDialogCommitButton() {
