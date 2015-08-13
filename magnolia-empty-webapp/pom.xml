@@ -81,6 +81,14 @@
       <artifactId>magnolia-module-activation</artifactId>
     </dependency>
     <dependency>
+      <groupId>info.magnolia.resources</groupId>
+      <artifactId>magnolia-resources</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>info.magnolia.resources</groupId>
+      <artifactId>magnolia-resources-app</artifactId>
+    </dependency>
+    <dependency>
       <!-- JackRabbit doesn't bring tika-parsers transitively by default, but we want it -->
       <groupId>org.apache.tika</groupId>
       <artifactId>tika-parsers</artifactId>

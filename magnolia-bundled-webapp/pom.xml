@@ -33,14 +33,6 @@
       <artifactId>magnolia-module-mail</artifactId>
     </dependency>
     <dependency>
-      <groupId>info.magnolia.resources</groupId>
-      <artifactId>magnolia-resources</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>info.magnolia.resources</groupId>
-      <artifactId>magnolia-resources-app</artifactId>
-    </dependency>
-    <dependency>
       <groupId>info.magnolia.categorization</groupId>
       <artifactId>magnolia-categorization-support</artifactId>
     </dependency>
