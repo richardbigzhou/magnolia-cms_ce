@@ -21,21 +21,21 @@
 
   <properties>
     <magnoliaEdition>Community Edition</magnoliaEdition>
-    <magnoliaVersion>5.4.1-SNAPSHOT</magnoliaVersion>
-    <magnoliaUiVersion>5.4.1-SNAPSHOT</magnoliaUiVersion>
+    <magnoliaVersion>5.4.1</magnoliaVersion>
+    <magnoliaUiVersion>5.4.1</magnoliaUiVersion>
     <javaVersion>1.7</javaVersion>
     <documentationURL>http://documentation.magnolia-cms.com/releases/${project.version}.html</documentationURL>
-    <stkVersion>2.9.1-SNAPSHOT</stkVersion>
-    <restVersion>1.1-SNAPSHOT</restVersion>
-    <restClientVersion>1.0.5-SNAPSHOT</restClientVersion>
-    <damVersion>2.1.1-SNAPSHOT</damVersion>
-    <categorizationVersion>2.4.1-SNAPSHOT</categorizationVersion>
+    <stkVersion>2.9.1</stkVersion>
+    <restVersion>1.1</restVersion>
+    <restClientVersion>1.0.5</restClientVersion>
+    <damVersion>2.1.1</damVersion>
+    <categorizationVersion>2.4.1</categorizationVersion>
     <mteVersion>0.5</mteVersion>
-    <resourcesVersion>2.4.1-SNAPSHOT</resourcesVersion>
-    <imagingVersion>3.2.1-SNAPSHOT</imagingVersion>
-    <siteVersion>1.0.1-SNAPSHOT</siteVersion>
-    <travelDemoVersion>0.6-SNAPSHOT</travelDemoVersion>
-    <cacheVersion>5.4.1-SNAPSHOT</cacheVersion>
+    <resourcesVersion>2.4.1</resourcesVersion>
+    <imagingVersion>3.2.1</imagingVersion>
+    <siteVersion>1.0.1</siteVersion>
+    <travelDemoVersion>0.6</travelDemoVersion>
+    <cacheVersion>5.4.1</cacheVersion>
     <scmTagPrefix>magnolia-bundle</scmTagPrefix>
 
     <skipClover>true</skipClover>
@@ -100,7 +100,7 @@
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-legacy-admininterface</artifactId>
-        <version>5.3-SNAPSHOT</version>
+        <version>5.3</version>
       </dependency>
 
       <!-- DAM -->
@@ -150,7 +150,7 @@
       <dependency>
         <groupId>info.magnolia.pages</groupId>
         <artifactId>magnolia-pages-app</artifactId>
-        <version>5.4.1-SNAPSHOT</version>
+        <version>5.4.1</version>
       </dependency>
 
       <dependency>
@@ -172,12 +172,12 @@
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-groovy</artifactId>
-        <version>2.4.1-SNAPSHOT</version>
+        <version>2.4.1</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia.activation</groupId>
         <artifactId>magnolia-module-activation</artifactId>
-        <version>5.4.1-SNAPSHOT</version>
+        <version>5.4.1</version>
       </dependency>
       <dependency>
         <!-- This group/artifactId now gets redirected to magnolia-cache-core -->
@@ -208,7 +208,7 @@
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-mail</artifactId>
-        <version>5.3-SNAPSHOT</version>
+        <version>5.3</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
@@ -228,19 +228,19 @@
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-commenting</artifactId>
-        <version>2.3.1-SNAPSHOT</version>
+        <version>2.3.1</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-templating-samples</artifactId>
-        <version>5.3-SNAPSHOT</version>
+        <version>5.3</version>
         <classifier>bundle</classifier>
         <type>tar.gz</type>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-templating-samples</artifactId>
-        <version>5.3-SNAPSHOT</version>
+        <version>5.3</version>
         <type>jar</type>
       </dependency>
       <dependency>
@@ -252,17 +252,17 @@
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-scheduler</artifactId>
-        <version>2.2.1-SNAPSHOT</version>
+        <version>2.2.1</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia.scheduler</groupId>
         <artifactId>magnolia-module-scheduler</artifactId>
-        <version>2.2.1-SNAPSHOT</version>
+        <version>2.2.1</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-rssaggregator</artifactId>
-        <version>2.4.1-SNAPSHOT</version>
+        <version>2.4.1</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia.devdect</groupId>
@@ -292,33 +292,33 @@
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-inplace-templating</artifactId>
-        <version>2.4.1-SNAPSHOT</version>
+        <version>2.4.1</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-form</artifactId>
-        <version>2.3-SNAPSHOT</version>
+        <version>2.3</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-forum</artifactId>
-        <version>3.5-SNAPSHOT</version>
+        <version>3.5</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-public-user-registration</artifactId>
-        <version>2.5-SNAPSHOT</version>
+        <version>2.5</version>
       </dependency>
 
       <dependency>
         <groupId>info.magnolia.contacts</groupId>
         <artifactId>magnolia-contacts</artifactId>
-        <version>1.4.1-SNAPSHOT</version>
+        <version>1.4.1</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-google-sitemap</artifactId>
-        <version>2.3.1-SNAPSHOT</version>
+        <version>2.3.1</version>
       </dependency>
 
       <dependency>
@@ -384,132 +384,132 @@
       <dependency>
         <groupId>info.magnolia.lang</groupId>
         <artifactId>magnolia-lang-ar</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <version>1.0</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia.lang</groupId>
         <artifactId>magnolia-lang-cs</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <version>1.0</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia.lang</groupId>
         <artifactId>magnolia-lang-da</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <version>1.0</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia.lang</groupId>
         <artifactId>magnolia-lang-de</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <version>1.0</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia.lang</groupId>
         <artifactId>magnolia-lang-el</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <version>1.0</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia.lang</groupId>
         <artifactId>magnolia-lang-es</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <version>1.0</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia.lang</groupId>
         <artifactId>magnolia-lang-fi</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <version>1.0</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia.lang</groupId>
         <artifactId>magnolia-lang-fr</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <version>1.0</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia.lang</groupId>
         <artifactId>magnolia-lang-he</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <version>1.0</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia.lang</groupId>
         <artifactId>magnolia-lang-hr</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <version>1.0</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia.lang</groupId>
         <artifactId>magnolia-lang-hu</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <version>1.0</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia.lang</groupId>
         <artifactId>magnolia-lang-id</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <version>1.0</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia.lang</groupId>
         <artifactId>magnolia-lang-it</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <version>1.0</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia.lang</groupId>
         <artifactId>magnolia-lang-ja</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <version>1.0</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia.lang</groupId>
         <artifactId>magnolia-lang-nl</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <version>1.0</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia.lang</groupId>
         <artifactId>magnolia-lang-no</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <version>1.0</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia.lang</groupId>
         <artifactId>magnolia-lang-pl</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <version>1.0</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia.lang</groupId>
         <artifactId>magnolia-lang-pt</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <version>1.0</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia.lang</groupId>
         <artifactId>magnolia-lang-pt_BR</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <version>1.0</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia.lang</groupId>
         <artifactId>magnolia-lang-ru</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <version>1.0</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia.lang</groupId>
         <artifactId>magnolia-lang-sk</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <version>1.0</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia.lang</groupId>
         <artifactId>magnolia-lang-sq</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <version>1.0</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia.lang</groupId>
         <artifactId>magnolia-lang-sv</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <version>1.0</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia.lang</groupId>
         <artifactId>magnolia-lang-tr</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <version>1.0</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia.lang</groupId>
         <artifactId>magnolia-lang-zh_CN</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <version>1.0</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia.lang</groupId>
         <artifactId>magnolia-lang-zh_TW</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <version>1.0</version>
       </dependency>
 
       <!-- Tests -->
