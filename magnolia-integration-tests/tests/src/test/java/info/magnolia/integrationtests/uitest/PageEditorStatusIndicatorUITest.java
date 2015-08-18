@@ -63,7 +63,7 @@ public class PageEditorStatusIndicatorUITest extends AbstractPageEditorUITest {
     @Test
     public void checkStatusIndicatorInvisibleOnPublished() {
         // GIVEN
-        publishSelected();
+        publishSelected(PUBLISH_PAGE_ACTION);
 
         getActionBarItem(EDIT_PAGE_ACTION).click();
         waitUntil(appIsLoaded());
@@ -80,7 +80,7 @@ public class PageEditorStatusIndicatorUITest extends AbstractPageEditorUITest {
     @Test
     public void checkStatusIndicatorVisibleOnModified() {
         // GIVEN
-        publishSelected();
+        publishSelected(PUBLISH_PAGE_ACTION);
 
         checkEnabledActions(EDIT_PAGE_ACTION);
         getActionBarItem(EDIT_PAGE_ACTION).click();
@@ -113,9 +113,10 @@ public class PageEditorStatusIndicatorUITest extends AbstractPageEditorUITest {
         // GIVEN
         WebElement selectedElement = getSelectedActivationStatusIcon();
         if (!selectedElement.getAttribute("class").contains("color-red")) {
-            getActionBarItem("Unpublish").click();
+            getActionBarItem(UNPUBLISH_PAGE_ACTION).click();
             delay(5, "Wait for un-publication");
         }
+
         getActionBarItem(EDIT_PAGE_ACTION).click();
         waitUntil(appIsLoaded());
         switchToPageEditorContent();
@@ -134,13 +135,13 @@ public class PageEditorStatusIndicatorUITest extends AbstractPageEditorUITest {
         switchToDefaultContent();
         getTabForCaption("Pages").click();
         expandTreeAndSelectAnElement("ftl-sample-site");
-        publishSelected();
+        publishSelected(PUBLISH_INCLUDING_SUBPAGES_ACTION);
     }
 
-    private void publishSelected() {
+    private void publishSelected(final String actionName) {
         WebElement selectedElement = getSelectedActivationStatusIcon();
         if (!selectedElement.getAttribute("class").contains("color-green")) {
-            getActionBarItem("Publish").click();
+            getActionBarItem(actionName).click();
             delay(5, "Wait for publication");
         }
     }
