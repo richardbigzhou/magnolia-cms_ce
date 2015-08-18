@@ -63,11 +63,7 @@ public class PageEditorStatusIndicatorUITest extends AbstractPageEditorUITest {
     @Test
     public void checkStatusIndicatorInvisibleOnPublished() {
         // GIVEN
-        WebElement selectedElement = getSelectedActivationStatusIcon();
-        if (!selectedElement.getAttribute("class").contains("color-green")) {
-            getActionBarItem("Publish").click();
-            delay(5, "Wait for publication");
-        }
+        publishSelected();
 
         getActionBarItem(EDIT_PAGE_ACTION).click();
         waitUntil(appIsLoaded());
@@ -84,11 +80,8 @@ public class PageEditorStatusIndicatorUITest extends AbstractPageEditorUITest {
     @Test
     public void checkStatusIndicatorVisibleOnModified() {
         // GIVEN
-        WebElement selectedElement = getSelectedActivationStatusIcon();
-        if (!selectedElement.getAttribute("class").contains("color-green")) {
-            getActionBarItem("Publish").click();
-            delay(5, "Wait for publication");
-        }
+        publishSelected();
+
         checkEnabledActions(EDIT_PAGE_ACTION);
         getActionBarItem(EDIT_PAGE_ACTION).click();
         waitUntil(appIsLoaded());
@@ -136,5 +129,20 @@ public class PageEditorStatusIndicatorUITest extends AbstractPageEditorUITest {
         assertTrue(getElementByPath(XPATH_STAGE_DIV2).getAttribute("class").contains("mgnlEditorBarStatusIndicator"));
         assertTrue(getElementByPath(XPATH_STAGE_DIV1_STATUS_INDICATOR).getAttribute("class").contains("icon-status-red"));
         assertTrue(getElementByPath(XPATH_STAGE_DIV2_STATUS_INDICATOR).getAttribute("class").contains("icon-status-red"));
+
+        // Re-publish page sp that crawler finds it on the public instance
+        switchToDefaultContent();
+        getTabForCaption("Pages").click();
+        expandTreeAndSelectAnElement("ftl-sample-site");
+        publishSelected();
     }
+
+    private void publishSelected() {
+        WebElement selectedElement = getSelectedActivationStatusIcon();
+        if (!selectedElement.getAttribute("class").contains("color-green")) {
+            getActionBarItem("Publish").click();
+            delay(5, "Wait for publication");
+        }
+    }
+
 }
