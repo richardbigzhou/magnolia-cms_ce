@@ -258,6 +258,7 @@ public class PageEditorUITest extends AbstractPageEditorUITest {
 
         // THEN
         assertTrue("We should be in view mode.", getCurrentDriverUrl().contains("demo-project:view"));
+        assertFalse("Loading icon should have been removed", isExisting(getElementByXpath("//*[contains(@class, 'iframe-preview-loading-indicator')]")));
 
         switchToPageEditorContent();
 
