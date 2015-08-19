@@ -96,6 +96,11 @@ public class PageEditorStatusIndicatorUITest extends AbstractPageEditorUITest {
 
         getDialogCommitButton().click();
 
+        // Wait until dialog is gone before switching to page editor content, CI might be slow here
+        // Not using info.magnolia.integrationtests.uitest.AbstractMagnoliaUITest#dialogIsClosed(String) method as this
+        // dialog doesn't have title!
+        waitUntil(elementIsGone("//*[contains(@class, 'dialog-wrapper') and @role='dialogDescriptionHeader']"));
+
         switchToPageEditorContent();
 
         // WHEN
