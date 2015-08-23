@@ -1279,6 +1279,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
     protected void switchToLanguage(String language) {
         getElementByXpath("//*[@class = 'dialog-footer-toolbar']//input[contains(@class, 'v-filterselect-input v-filterselect-input-readonly')]").click();
         getElementByXpath("//div[contains(@class, 'popupContent')]//div/table/tbody/tr/td/span[text() = '%s']/..", language).click();
+        delay("Let the form to re-build due to locale change");
     }
 
     // / COMPLEX FIELD UTILS /////////
