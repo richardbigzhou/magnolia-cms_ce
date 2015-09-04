@@ -34,7 +34,7 @@
     <resourcesVersion>2.4.2-SNAPSHOT</resourcesVersion>
     <imagingVersion>3.2.2-SNAPSHOT</imagingVersion>
     <siteVersion>1.0.1</siteVersion>
-    <travelDemoVersion>0.6</travelDemoVersion>
+    <travelDemoVersion>0.7-SNAPSHOT</travelDemoVersion>
     <cacheVersion>5.4.2</cacheVersion>
     <scmTagPrefix>magnolia-bundle</scmTagPrefix>
 
@@ -297,7 +297,7 @@
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-form</artifactId>
-        <version>2.3</version>
+        <version>2.3.1-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
