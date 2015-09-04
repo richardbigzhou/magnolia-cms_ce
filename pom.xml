@@ -27,7 +27,7 @@
     <documentationURL>http://documentation.magnolia-cms.com/releases/${project.version}.html</documentationURL>
     <stkVersion>2.9.1</stkVersion>
     <restVersion>1.1</restVersion>
-    <restClientVersion>1.0.5</restClientVersion>
+    <restClientVersion>1.0.6</restClientVersion>
     <damVersion>2.1.1</damVersion>
     <categorizationVersion>2.4.1</categorizationVersion>
     <mteVersion>0.5</mteVersion>
