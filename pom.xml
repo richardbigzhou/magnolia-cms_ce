@@ -26,14 +26,14 @@
     <javaVersion>1.7</javaVersion>
     <documentationURL>http://documentation.magnolia-cms.com/releases/${project.version}.html</documentationURL>
     <stkVersion>2.9.1</stkVersion>
-    <restVersion>1.1</restVersion>
+    <restVersion>1.1.1-SNAPSHOT</restVersion>
     <restClientVersion>1.0.6</restClientVersion>
     <damVersion>2.1.1</damVersion>
     <categorizationVersion>2.4.1</categorizationVersion>
-    <mteVersion>0.5</mteVersion>
-    <resourcesVersion>2.4.2-SNAPSHOT</resourcesVersion>
+    <mteVersion>0.6-SNAPSHOT</mteVersion>
+    <resourcesVersion>2.4.1</resourcesVersion>
     <imagingVersion>3.2.2-SNAPSHOT</imagingVersion>
-    <siteVersion>1.0.1</siteVersion>
+    <siteVersion>1.0.2-SNAPSHOT</siteVersion>
     <travelDemoVersion>0.7-SNAPSHOT</travelDemoVersion>
     <cacheVersion>5.4.2</cacheVersion>
     <scmTagPrefix>magnolia-bundle</scmTagPrefix>
