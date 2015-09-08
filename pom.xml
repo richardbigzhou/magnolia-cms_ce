@@ -21,20 +21,20 @@
 
   <properties>
     <magnoliaEdition>Community Edition</magnoliaEdition>
-    <magnoliaVersion>5.4.2-SNAPSHOT</magnoliaVersion>
-    <magnoliaUiVersion>5.4.2-SNAPSHOT</magnoliaUiVersion>
+    <magnoliaVersion>5.4.2</magnoliaVersion>
+    <magnoliaUiVersion>5.4.2</magnoliaUiVersion>
     <javaVersion>1.7</javaVersion>
     <documentationURL>http://documentation.magnolia-cms.com/releases/${project.version}.html</documentationURL>
     <stkVersion>2.9.1</stkVersion>
-    <restVersion>1.1.1-SNAPSHOT</restVersion>
+    <restVersion>1.1.1</restVersion>
     <restClientVersion>1.0.6</restClientVersion>
     <damVersion>2.1.1</damVersion>
     <categorizationVersion>2.4.1</categorizationVersion>
-    <mteVersion>0.6-SNAPSHOT</mteVersion>
+    <mteVersion>0.6</mteVersion>
     <resourcesVersion>2.4.1</resourcesVersion>
-    <imagingVersion>3.2.2-SNAPSHOT</imagingVersion>
-    <siteVersion>1.0.2-SNAPSHOT</siteVersion>
-    <travelDemoVersion>0.7-SNAPSHOT</travelDemoVersion>
+    <imagingVersion>3.2.2</imagingVersion>
+    <siteVersion>1.0.2</siteVersion>
+    <travelDemoVersion>0.7</travelDemoVersion>
     <cacheVersion>5.4.2</cacheVersion>
     <scmTagPrefix>magnolia-bundle</scmTagPrefix>
 
@@ -252,12 +252,12 @@
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-scheduler</artifactId>
-        <version>2.2.2-SNAPSHOT</version>
+        <version>2.2.2</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia.scheduler</groupId>
         <artifactId>magnolia-module-scheduler</artifactId>
-        <version>2.2.2-SNAPSHOT</version>
+        <version>2.2.2</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
@@ -297,7 +297,7 @@
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-form</artifactId>
-        <version>2.3.1-SNAPSHOT</version>
+        <version>2.3.1</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
