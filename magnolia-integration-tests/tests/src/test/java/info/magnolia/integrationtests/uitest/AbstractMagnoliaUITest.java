@@ -1336,7 +1336,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
     }
 
     protected WebElement getMultiFieldElementDeleteButtonAt(String multiFieldLabel, int position) {
-        return getElementByXpath("(//*[@class = 'v-form-field-label' and contains(text() , '%s')]/following-sibling::div//*[contains(@class, '%s')])[%s]", multiFieldLabel, "v-button-inline", position);
+        return getElementByXpath("(//*[@class = 'v-form-field-label' and contains(text() , '%s')]/following-sibling::div//span[contains(@class, '%s')])[%s]", multiFieldLabel, "icon-trash", position);
     }
 
     protected WebElement getFromMultiFieldElementValueAt(String multiFieldLabel, int position) {
