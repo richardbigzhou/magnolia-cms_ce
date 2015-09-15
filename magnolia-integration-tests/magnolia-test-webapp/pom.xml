@@ -58,6 +58,12 @@
       <type>jar</type>
     </dependency>
 
+    <!-- Observation for integration tests -->
+    <dependency>
+      <groupId>info.magnolia</groupId>
+      <artifactId>magnolia-module-observation</artifactId>
+    </dependency>
+
     <!-- STK dependency for UI tests -->
     <dependency>
       <groupId>info.magnolia</groupId>

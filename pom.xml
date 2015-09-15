@@ -380,6 +380,12 @@
         <version>${travelDemoVersion}</version>
       </dependency>
 
+      <dependency>
+        <groupId>info.magnolia</groupId>
+        <artifactId>magnolia-module-observation</artifactId>
+        <version>2.0.4-SNAPSHOT</version>
+      </dependency>
+
       <!-- Dependencies to language bundles -->
       <dependency>
         <groupId>info.magnolia.lang</groupId>

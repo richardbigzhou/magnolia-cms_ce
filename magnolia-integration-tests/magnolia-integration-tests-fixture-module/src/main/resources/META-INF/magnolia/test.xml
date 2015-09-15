@@ -38,6 +38,10 @@
     <dependency>
       <name>demo-project</name>
     </dependency>
+    <dependency>
+      <name>observation</name>
+      <version>2.0.4/*</version>
+    </dependency>
   </dependencies>
   <servlets>
     <servlet>
