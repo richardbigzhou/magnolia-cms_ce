@@ -36,6 +36,10 @@
       <name>samples</name>
       <optional>true</optional>
     </dependency>
+    <dependency>
+      <name>observation</name>
+      <version>2.0.4/*</version>
+    </dependency>
   </dependencies>
   <servlets>
     <servlet>

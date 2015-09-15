@@ -36,6 +36,13 @@
       <artifactId>magnolia-integration-tests-fixture-module</artifactId>
       <type>jar</type>
     </dependency>
+
+    <!-- Observation for integration tests -->
+    <dependency>
+      <groupId>info.magnolia</groupId>
+      <artifactId>magnolia-module-observation</artifactId>
+    </dependency>
+
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
