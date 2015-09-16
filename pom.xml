@@ -21,13 +21,13 @@
 
   <properties>
     <magnoliaEdition>Community Edition</magnoliaEdition>
-    <magnoliaVersion>5.3.11-SNAPSHOT</magnoliaVersion>
-    <magnoliaUiVersion>5.3.11-SNAPSHOT</magnoliaUiVersion>
+    <magnoliaVersion>5.3.11</magnoliaVersion>
+    <magnoliaUiVersion>5.3.11</magnoliaUiVersion>
     <javaVersion>1.6</javaVersion>
     <documentationURL>http://documentation.magnolia-cms.com/releases/${project.version}.html</documentationURL>
-    <stkVersion>2.8.10-SNAPSHOT</stkVersion>
+    <stkVersion>2.8.10</stkVersion>
     <restVersion>1.1.1</restVersion>
-    <damVersion>2.0.11-SNAPSHOT</damVersion>
+    <damVersion>2.0.11</damVersion>
     <scmTagPrefix>magnolia-bundle</scmTagPrefix>
     <!-- Disable clover during releases: -->
     <additionalReleaseProfiles />
