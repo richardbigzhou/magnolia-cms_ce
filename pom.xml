@@ -25,7 +25,7 @@
     <magnoliaUiVersion>5.4.3-SNAPSHOT</magnoliaUiVersion>
     <javaVersion>1.7</javaVersion>
     <documentationURL>http://documentation.magnolia-cms.com/releases/${project.version}.html</documentationURL>
-    <stkVersion>2.9.1</stkVersion>
+    <stkVersion>2.9.2-SNAPSHOT</stkVersion>
     <restVersion>1.1.1</restVersion>
     <restClientVersion>1.0.6</restClientVersion>
     <damVersion>2.1.1</damVersion>
