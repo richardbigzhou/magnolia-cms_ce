@@ -28,7 +28,7 @@
     <stkVersion>2.9.2-SNAPSHOT</stkVersion>
     <restVersion>1.1.1</restVersion>
     <restClientVersion>1.0.6</restClientVersion>
-    <damVersion>2.1.1</damVersion>
+    <damVersion>2.1.2-SNAPSHOT</damVersion>
     <categorizationVersion>2.4.1</categorizationVersion>
     <mteVersion>0.6</mteVersion>
     <resourcesVersion>2.4.2-SNAPSHOT</resourcesVersion>
