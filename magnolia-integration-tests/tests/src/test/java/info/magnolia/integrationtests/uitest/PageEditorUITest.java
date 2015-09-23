@@ -263,6 +263,7 @@ public class PageEditorUITest extends AbstractPageEditorUITest {
         getActionBarItem(EDIT_PAGE_ACTION).click();
         delay(3, "Give some time to load the page");
         assertTrue("We should be in edit mode.", getCurrentDriverUrl().contains("demo-project:edit"));
+        waitUntil(elementIsGone("//*[contains(@class, 'iframe-preloader')]"));
 
         getActionBarItem(PREVIEW_PAGE_ACTION).click();
         delay(3, "Give some time to load the page");
