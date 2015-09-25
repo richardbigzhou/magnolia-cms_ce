@@ -68,7 +68,7 @@ public class ResourcesIntegrationTest extends AbstractMagnoliaHtmlUnitTest {
     public void resourcesShouldHaveCorrectContentType() throws Exception {
         validateCorrectResponse("/.resources/resource-loading-test.css", is("text/css"), is("body { color: #5a5a5a; }"));
         validateCorrectResponse("/.resources/resource-loading-test.html", is("text/html"), is("<html><body>This is of content type text/html</body></html>"));
-        validateCorrectResponse("/.resources/resource-loading-test.js", is("application/x-javascript"), containsString("document.write(\"resource loading test\");"));
+        validateCorrectResponse("/.resources/resource-loading-test.js", is("application/javascript"), containsString("document.write(\"resource loading test\");"));
         validateCorrectResponse("/.resources/resource-loading-test.gif", is("image/gif"));
         validateCorrectResponse("/.resources/resource-loading-test.jpg", is("image/jpeg"));
         validateCorrectResponse("/.resources/resource-loading-test.png", is("image/png"));
