@@ -81,6 +81,10 @@
       <artifactId>magnolia-module-activation</artifactId>
     </dependency>
     <dependency>
+      <groupId>info.magnolia.bundle</groupId>
+      <artifactId>magnolia-community-product-descriptor</artifactId>
+    </dependency>
+    <dependency>
       <groupId>info.magnolia.resources</groupId>
       <artifactId>magnolia-resources</artifactId>
     </dependency>

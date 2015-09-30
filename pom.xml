@@ -98,6 +98,11 @@
         <type>war</type>
       </dependency>
       <dependency>
+        <groupId>info.magnolia.bundle</groupId>
+        <artifactId>magnolia-community-product-descriptor</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-legacy-admininterface</artifactId>
         <version>5.3</version>
@@ -529,6 +534,7 @@
   </dependencyManagement>
 
   <modules>
+    <module>magnolia-community-product-descriptor</module>
     <module>magnolia-empty-webapp</module>
     <module>magnolia-bundled-webapp</module>
     <module>magnolia-integration-tests</module>

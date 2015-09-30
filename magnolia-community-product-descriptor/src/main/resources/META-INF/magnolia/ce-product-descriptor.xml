@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE module SYSTEM "module.dtd">
+<module>
+  <name>ce-product-descriptor</name>
+  <displayName>CE Product Descriptor Extractor</displayName>
+  <version>${project.version}</version>
+
+  <components>
+    <id>system</id>
+    <component>
+      <type>info.magnolia.cms.pddescriptor.ProductDescriptorExtractor</type>
+      <implementation>info.magnolia.bundle.pddescriptor.CEProductDescriptorExtractor</implementation>
+    </component>
+  </components>
+
+  <dependencies>
+    <dependency>
+      <name>core</name>
+      <version>${magnoliaVersion}/*</version>
+    </dependency>
+  </dependencies>
+</module>

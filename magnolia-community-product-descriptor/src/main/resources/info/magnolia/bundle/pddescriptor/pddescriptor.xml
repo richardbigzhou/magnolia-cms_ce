@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE Product [
+    <!ELEMENT Product (Meta+)>
+    <!ELEMENT Meta (VersionNumber,
+                    Edition,
+                    BuildNumber,
+                    Provider,
+                    ProviderAddress,
+                    ProviderEmail,
+                    ProductDomain)>
+    <!ELEMENT VersionNumber (#PCDATA)>
+    <!ELEMENT Edition (#PCDATA)>
+    <!ELEMENT BuildNumber (#PCDATA)>
+    <!ELEMENT Provider (#PCDATA)>
+    <!ELEMENT ProviderAddress (#PCDATA)>
+    <!ELEMENT ProviderEmail (#PCDATA)>
+    <!ELEMENT ProductDomain (#PCDATA)>
+]>
+<Product>
+    <Meta>
+        <VersionNumber>${magnoliaNiceVersion}</VersionNumber>
+        <Edition>${magnoliaEdition}</Edition>
+        <BuildNumber>${magnoliaReleaseDate} (rev. ${buildScmRevisionNumber} of ${buildScmBranch})</BuildNumber>
+        <Provider>${pom.organization.name}</Provider>
+        <ProviderAddress>
+            <![CDATA[
+Magnolia International Ltd.
+Oslo-Strasse 2
+4142 Münchenstein (Basel)
+Switzerland
+Office +41 61 228 90 00
+Fax +41 61 228 90 01
+]]>
+        </ProviderAddress>
+        <ProviderEmail>info@magnolia-cms.com</ProviderEmail>
+        <ProductDomain>www.magnolia-cms.com</ProductDomain>
+    </Meta>
+</Product>

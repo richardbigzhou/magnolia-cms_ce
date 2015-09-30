@@ -1,5 +1,5 @@
 /**
- * This file Copyright (c) 2010-2015 Magnolia International
+ * This file Copyright (c) 2015 Magnolia International
  * Ltd.  (http://www.magnolia-cms.com). All rights reserved.
  *
  *
@@ -31,30 +31,25 @@
  * intact.
  *
  */
-package info.magnolia.test.fixture.util;
+package info.magnolia.bundle.pddescriptor;
 
 import info.magnolia.cms.pddescriptor.ProductDescriptorExtractor;
-import info.magnolia.objectfactory.Components;
-import info.magnolia.rendering.model.RenderingModel;
-import info.magnolia.rendering.model.RenderingModelImpl;
-import info.magnolia.rendering.template.RenderableDefinition;
 
-import javax.jcr.Node;
+import java.io.InputStream;
+
+import javax.inject.Singleton;
 
 /**
- * A simple model used in tests which exposes Magnolia version info.
+ * Product descriptor extractor for the community edition.
  */
-public class MagnoliaInfoModel extends RenderingModelImpl<RenderableDefinition> {
-    public MagnoliaInfoModel(Node content, RenderableDefinition renderable, RenderingModel parent) {
-        super(content, renderable, parent);
-    }
+@Singleton
+public class CEProductDescriptorExtractor extends ProductDescriptorExtractor {
 
-    public String getMagnoliaVersion() {
-        final ProductDescriptorExtractor productDescriptorExtractor = Components.getComponent(ProductDescriptorExtractor.class);
-        final StringBuilder info = new StringBuilder();
-        info.append(productDescriptorExtractor.get(ProductDescriptorExtractor.EDITION)).append(" ");
-        info.append(productDescriptorExtractor.get(ProductDescriptorExtractor.VERSION_NUMBER)).append(" ");
-        info.append("(").append(productDescriptorExtractor.get(ProductDescriptorExtractor.BUILD_NUMBER)).append(")");
-        return info.toString();
+    private static final String LICENSE_FILE_PATH = "info/magnolia/bundle/pddescriptor/pddescriptor.xml";
+
+    @Override
+    public void init() {
+        InputStream in = getClass().getClassLoader().getResourceAsStream(LICENSE_FILE_PATH);
+        this.init(in);
     }
 }
