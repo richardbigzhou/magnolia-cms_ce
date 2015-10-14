@@ -8,10 +8,10 @@
     <relativePath>../pom.xml</relativePath>
   </parent>
   <groupId>info.magnolia.bundle</groupId>
-  <artifactId>magnolia-bundled-webapp</artifactId>
+  <artifactId>magnolia-community-webapp</artifactId>
   <packaging>war</packaging>
-  <name>magnolia-bundled-webapp</name>
-  <description>Magnolia webapp pre-bundled with the DAM module and Magnolia Templating Essentials.</description>
+  <name>magnolia-community-webapp</name>
+  <description>Magnolia community webapp pre-bundled with the DAM module and Magnolia Templating Essentials.</description>
   <dependencies>
     <dependency>
       <groupId>info.magnolia</groupId>
@@ -65,6 +65,10 @@
       <artifactId>magnolia-contacts</artifactId>
     </dependency>
     <dependency>
+      <groupId>info.magnolia</groupId>
+      <artifactId>magnolia-module-form</artifactId>
+    </dependency>
+    <dependency>
       <groupId>info.magnolia.dam</groupId>
       <artifactId>magnolia-dam-api</artifactId>
     </dependency>
@@ -115,14 +119,6 @@
     <dependency>
       <groupId>info.magnolia.site</groupId>
       <artifactId>magnolia-site-app</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>info.magnolia.demo</groupId>
-      <artifactId>magnolia-travel-demo</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>info.magnolia.demo</groupId>
-      <artifactId>magnolia-travel-tours</artifactId>
     </dependency>
     <dependency>
       <groupId>info.magnolia.cache</groupId>

@@ -14,33 +14,13 @@
   <dependencies>
     <dependency>
       <groupId>info.magnolia.bundle</groupId>
-      <artifactId>magnolia-bundled-webapp</artifactId>
+      <artifactId>magnolia-community-webapp</artifactId>
       <type>war</type>
-      <exclusions>
-        <exclusion>
-          <groupId>info.magnolia.demo</groupId>
-          <artifactId>magnolia-travel-demo</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>info.magnolia.demo</groupId>
-          <artifactId>magnolia-travel-tours</artifactId>
-        </exclusion>
-      </exclusions>
     </dependency>
     <dependency>
       <groupId>info.magnolia.bundle</groupId>
-      <artifactId>magnolia-bundled-webapp</artifactId>
+      <artifactId>magnolia-community-webapp</artifactId>
       <type>pom</type>
-      <exclusions>
-        <exclusion>
-          <groupId>info.magnolia.demo</groupId>
-          <artifactId>magnolia-travel-demo</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>info.magnolia.demo</groupId>
-          <artifactId>magnolia-travel-tours</artifactId>
-        </exclusion>
-      </exclusions>
     </dependency>
     <dependency>
       <groupId>info.magnolia</groupId>

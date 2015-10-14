@@ -13,19 +13,5 @@ tmp
 .wtpmodules
 **rebel.xml
 
-# Let's not commit the default Tomcat files - only our own.
-# Yes, those rules are ridiculously complex. If you're using a git version newer than 1.8.2, try to simplify.
-/magnolia-tomcat-bundle/src/release/tomcat/*
-
-!/magnolia-tomcat-bundle/src/release/tomcat/bin/
-/magnolia-tomcat-bundle/src/release/tomcat/bin/*
-!/magnolia-tomcat-bundle/src/release/tomcat/bin/magnolia*
-!/magnolia-tomcat-bundle/src/release/tomcat/bin/setenv.*
-
-!/magnolia-tomcat-bundle/src/release/tomcat/webapps/
-/magnolia-tomcat-bundle/src/release/tomcat/webapps/*
-!/magnolia-tomcat-bundle/src/release/tomcat/webapps/ROOT/
-!/magnolia-tomcat-bundle/src/release/tomcat/webapps/magnoliaPublic/
-
 # This webapp should not have sources, so let's avoid committing them accidentally after a war:inplace
-/magnolia-bundled-webapp/src
+/magnolia-community-webapp/src

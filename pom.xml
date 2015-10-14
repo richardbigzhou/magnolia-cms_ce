@@ -74,33 +74,33 @@
       </dependency>
 
       <dependency>
-        <groupId>info.magnolia</groupId>
-        <artifactId>magnolia-empty-webapp</artifactId>
-        <version>${project.version}</version>
-        <type>pom</type>
-      </dependency>
-      <dependency>
-        <groupId>info.magnolia</groupId>
-        <artifactId>magnolia-empty-webapp</artifactId>
-        <version>${project.version}</version>
-        <type>war</type>
-      </dependency>
-      <dependency>
-        <groupId>info.magnolia.bundle</groupId>
-        <artifactId>magnolia-bundled-webapp</artifactId>
-        <version>${project.version}</version>
-        <type>pom</type>
-      </dependency>
-      <dependency>
-        <groupId>info.magnolia.bundle</groupId>
-        <artifactId>magnolia-bundled-webapp</artifactId>
-        <version>${project.version}</version>
-        <type>war</type>
-      </dependency>
-      <dependency>
         <groupId>info.magnolia.bundle</groupId>
         <artifactId>magnolia-community-product-descriptor</artifactId>
         <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>info.magnolia</groupId>
+        <artifactId>magnolia-empty-webapp</artifactId>
+        <version>${project.version}</version>
+        <type>pom</type>
+      </dependency>
+      <dependency>
+        <groupId>info.magnolia</groupId>
+        <artifactId>magnolia-empty-webapp</artifactId>
+        <version>${project.version}</version>
+        <type>war</type>
+      </dependency>
+      <dependency>
+        <groupId>info.magnolia.bundle</groupId>
+        <artifactId>magnolia-community-webapp</artifactId>
+        <version>${project.version}</version>
+        <type>pom</type>
+      </dependency>
+      <dependency>
+        <groupId>info.magnolia.bundle</groupId>
+        <artifactId>magnolia-community-webapp</artifactId>
+        <version>${project.version}</version>
+        <type>war</type>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
@@ -536,9 +536,8 @@
   <modules>
     <module>magnolia-community-product-descriptor</module>
     <module>magnolia-empty-webapp</module>
-    <module>magnolia-bundled-webapp</module>
+    <module>magnolia-community-webapp</module>
     <module>magnolia-integration-tests</module>
-    <module>magnolia-tomcat-bundle</module>
   </modules>
 
   <build>
