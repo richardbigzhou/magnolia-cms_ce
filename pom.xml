@@ -410,7 +410,7 @@
       <dependency>
         <groupId>info.magnolia.lang</groupId>
         <artifactId>magnolia-lang-de</artifactId>
-        <version>1.0.1</version>
+        <version>1.0.2-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia.lang</groupId>
