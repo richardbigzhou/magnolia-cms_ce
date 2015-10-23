@@ -440,6 +440,10 @@ class WebCrawler {
         return (url =~ /(https?:\/\/[^\/]+)\/?.*/)[0][1]  // e.g. http://localhost:8080/
     }
 
+    def getProtocol(url) {
+        return (url =~ /(https?:)\/\/[^\/]+\/?.*/)[0][1] //returns http: or https:
+    }
+
     /**
      * Request dump from JCR Queries tool to get child areas.
      */
@@ -523,13 +527,18 @@ class WebCrawler {
         if (url.startsWith('http://') || url.startsWith('https://')) {
             newURL = url
         }
-        else if (url.startsWith('/'))
+        else if (url.startsWith('//')) {
+            newURL = getProtocol(host) + url
+        }
+        else if (url.startsWith('/')) {
             newURL = host + url
+        }
         else if (url.startsWith('..')) {
             newURL = new URL(base.toURL(), url.toString()).toString()
         }
-        else if (url.startsWith('mailto:') || url.startsWith('ftp:') || url.startsWith('ftps:/')) //ignore mail and ftp links
+        else if (url.startsWith('mailto:') || url.startsWith('tel:') || url.startsWith('ftp:') || url.startsWith('ftps:/')) { //ignore mail, tel and ftp links
             newURL = null
+        }
         else
             newURL = base + url
         return newURL
