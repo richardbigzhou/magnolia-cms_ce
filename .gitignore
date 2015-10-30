@@ -12,6 +12,7 @@ tmp
 .checkstyle
 .wtpmodules
 **rebel.xml
+.DS_Store
 
 # This webapp should not have sources, so let's avoid committing them accidentally after a war:inplace
 /magnolia-community-webapp/src
