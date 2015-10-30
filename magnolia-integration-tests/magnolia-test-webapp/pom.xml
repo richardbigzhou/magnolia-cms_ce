@@ -58,6 +58,16 @@
       <artifactId>magnolia-theme-pop</artifactId>
     </dependency>
 
+    <!-- MTE travel demo modules for crawler-->
+    <dependency>
+      <groupId>info.magnolia.demo</groupId>
+      <artifactId>magnolia-travel-demo</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>info.magnolia.demo</groupId>
+      <artifactId>magnolia-travel-tours</artifactId>
+    </dependency>
+
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>

@@ -343,6 +343,10 @@
               <goal>execute</goal>
             </goals>
             <configuration>
+              <!-- This execution definition doesn't need site and URLPropertyPrefix properties set, because:
+                1. site property: this crawler crawls stk demo pages and stk site is set in Site module by default, if this would change then add <site>/modules/standard-templating-kit/config/site</site>
+                2. URLPropertyPrefix doesn't need to be set because this is first execution definition so no properties from previous execution definitions are set
+              -->
               <properties>
                 <login>superuser</login>
                 <password>superuser</password>
@@ -354,6 +358,32 @@
                 <geturlauth6>http://${containerHostName}:${containerHttpPort}/magnoliaTest/jsp-sample-site/</geturlauth6>
                 <geturlauth7>http://${containerHostName}:${containerHttpPort}/magnoliaTest/demo-project/</geturlauth7>
                 <geturlauth8>http://${containerHostName}:${containerHttpPort}/magnoliaTest/demo-features/</geturlauth8>
+              </properties>
+              <source>${project.basedir}/src/main/groovy/crawl.groovy</source>
+            </configuration>
+          </execution>
+          <execution>
+            <id>web-crawler-travel-demo</id>
+            <phase>integration-test</phase>
+            <goals>
+              <goal>execute</goal>
+            </goals>
+            <configuration>
+              <!-- This execution definition has property site set to travel demo (/modules/travel-demo/config/travel),
+                crawler.groovy script sets site to travel demo -> then triggers crawling -> resets site to the previously configured site.
+                URLPropertyPrefix property needs to be set to avoid crawling pages from previous execution definition, because this is not first execution definition and
+                execution definition reuses properties from previous definitions. URLPropertyPrefix is set to "travel" so it means that crawler.groovy script will look
+                for page properties defined with prefix "travelgeturl" or "travelgeturlauth".
+              -->
+              <properties>
+                <propertyServletUrlAuthor>http://${containerHostName}:${containerHttpPort}/magnoliaTest/.magnolia/jcrprop</propertyServletUrlAuthor>
+                <propertyServletUrlPublic>http://${containerHostName}:${containerHttpPort}/magnoliaTestPublic/.magnolia/jcrprop</propertyServletUrlPublic>
+                <site>/modules/travel-demo/config/travel</site>
+                <URLPropertyPrefix>travel</URLPropertyPrefix>
+                <login>superuser</login>
+                <password>superuser</password>
+                <travelgeturl1>http://${containerHostName}:${containerHttpPort}/magnoliaTestPublic/travel/</travelgeturl1>
+                <travelgeturlauth2>http://${containerHostName}:${containerHttpPort}/magnoliaTest/travel/</travelgeturlauth2>
               </properties>
               <source>${project.basedir}/src/main/groovy/crawl.groovy</source>
             </configuration>
