@@ -168,6 +168,10 @@ class WebCrawler {
                     }
                 }
 
+                if (url.contains("data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==")) {
+                    continue;
+                }
+
                 def connection = normalizedURL(url).openConnection()
                 debugMessage("Loading URL: " + connection.getURL())
                 cookies.each { cookie ->
