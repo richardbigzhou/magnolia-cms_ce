@@ -628,14 +628,23 @@ System.setProperty("http.keepAlive", "true")
 
 
 def encoding = null
+def propertyServletUrlAuthor
+def propertyServletUrlPublic
+def site
+def prevSiteAuthor
+def prevSitePublic
 def pages
 try{
     pages = args
 } catch (MissingPropertyException ex) { //We're triggered from Maven
     pages = []
+
+    // Check if URLPropertyPrefix property is defined. This is needed if more executions are defined to avoid crawling pages from previous execution definitions.
+    def urlPropertyPrefix = StringUtils.isNotBlank(project.properties["URLPropertyPrefix"]) ? project.properties["URLPropertyPrefix"] : ""
+
     project.properties.keySet().each {
-        if (it.contains("geturl")) {
-            if (it.contains("geturlauth")) {
+        if (it.contains("${urlPropertyPrefix}geturl")) {
+            if (it.contains("${urlPropertyPrefix}geturlauth")) {
                 //property value in maven can't contain '=' character, nor '%' for url encoding.
                 //hence, we need to construct URI here.
                 pages << project.properties[it] + "?mgnlUserId=${project.properties["login"]}&mgnlUserPSWD=${project.properties["password"]}"
@@ -646,10 +655,29 @@ try{
         if (it.contains("httpencoding")) {
             encoding = project.properties[it]
         }
+        if (it.equals("site")) {
+            site = project.properties[it]
+        }
+        if (it.equals("propertyServletUrlAuthor")) {
+            propertyServletUrlAuthor = project.properties[it]
+        }
+        if (it.equals("propertyServletUrlPublic")) {
+            propertyServletUrlPublic = project.properties[it]
+        }
     }
 }
-
 def exitCode = 0
+
+try {
+    if (StringUtils.isNotBlank(site) && StringUtils.isNotBlank(propertyServletUrlAuthor) && StringUtils.isNotBlank(propertyServletUrlPublic)) {
+        prevSiteAuthor = setSite(site, propertyServletUrlAuthor)
+        prevSitePublic = setSite(site, propertyServletUrlPublic)
+        sleep(10000) // wait for restart of Site module
+    }
+} catch (Exception ex) {
+    System.err.println("Can't set site to [${site}].")
+    throw ex
+}
 
 pages.each{ page ->
     if (encoding)
@@ -659,6 +687,24 @@ pages.each{ page ->
     exitCode += crawler.getErrorStatus()
 }
 
+try {
+    if (StringUtils.isNotBlank(prevSiteAuthor) && StringUtils.isNotBlank(prevSitePublic)) {
+        setSite(prevSiteAuthor, propertyServletUrlAuthor)
+        setSite(prevSitePublic, propertyServletUrlPublic)
+        sleep(10000) // wait for restart of Site module
+    }
+} catch (Exception ex) {
+    System.err.println("Can't re-set site back to [${site}].")
+    throw ex
+}
+
 println "No. of Errors: ${exitCode}"
 if (exitCode != 0)
     throw new RuntimeException("Errors found while crawling.")
+
+def setSite(site, propertyServletUrl) {
+    def changeSiteURL = "${propertyServletUrl}/?path=/modules/site/config/site/extends&value=${site}&mgnlUserId=${project.properties["login"]}&mgnlUserPSWD=${project.properties["password"]}"
+    def connection = new URL(changeSiteURL).openConnection()
+    connection.connect()
+    return connection.getInputStream().text
+}
