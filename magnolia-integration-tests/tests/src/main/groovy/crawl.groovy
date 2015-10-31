@@ -168,10 +168,6 @@ class WebCrawler {
                     }
                 }
 
-                if (url.contains("data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==")) {
-                    continue;
-                }
-
                 def connection = normalizedURL(url).openConnection()
                 debugMessage("Loading URL: " + connection.getURL())
                 cookies.each { cookie ->
@@ -278,6 +274,10 @@ class WebCrawler {
                 if (!url.contains("~mgnlArea=") && GET_IMAGES) {
                     def images = page.depthFirst().IMG.grep { it.@src }.'@src'
                     images.each { link ->
+                        if (link.contains("data:image/")) {
+                            debugMessage("Skipping inline image '${link}'")
+                            return false
+                        }
                         def imgURL = rebuildURL(host, base, link)
                         addData(imgURL)
                     }
