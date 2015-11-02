@@ -109,7 +109,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         }
     }
 
-    private static final String XPATH_V_APP_PRELOADER = "//*[contains(@class, 'v-app-preloader')]";
+    protected static final String XPATH_V_APP_PRELOADER = "//*[contains(@class, 'v-app-preloader')]";
 
     public static final String DEFAULT_NATIVE_BUTTON_CLASS = "magnoliabutton v-nativebutton-magnoliabutton";
 
