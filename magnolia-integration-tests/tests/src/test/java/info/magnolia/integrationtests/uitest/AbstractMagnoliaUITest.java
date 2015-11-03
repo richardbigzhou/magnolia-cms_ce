@@ -447,15 +447,16 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
 
     protected void takeScreenshot(String suffix) {
         if (driver instanceof TakesScreenshot) {
-            TakesScreenshot screenshotter = (TakesScreenshot) driver;
-            File file = screenshotter.getScreenshotAs(OutputType.FILE);
+            final TakesScreenshot takesScreenshotDriver = (TakesScreenshot) driver;
+            final File file = takesScreenshotDriver.getScreenshotAs(OutputType.FILE);
+
             // Replace non url-safe characters with underscores.
             // Safe: $-_.+!*'() See: http://perishablepress.com/stop-using-unsafe-characters-in-urls/
-            suffix = suffix.replace(" = ", "IS");
-            suffix = suffix.replaceAll("[^\\w\\[\\].$_+!*'()]", "_");
+            suffix = suffix.replace(" = ", "-eq-");
+            suffix = suffix.replaceAll("[\\W\\[\\]\\.\\$\\+!\\*'()]", "_");
             suffix = reduceUnderscores(suffix);
 
-            String dirName = SCREENSHOT_DIR + "/" +  testName();
+            String dirName = SCREENSHOT_DIR + "/" + testName();
             String fileName = String.format("%04d-%s", screenshotIndex++, suffix);
             // Java somehow thinks it needs to limit file name lengths !?
             fileName = StringUtils.left(fileName, 250);
@@ -1366,16 +1367,16 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
     /**
      * Replaces multiple adjacent _'s with a single one.
      */
-    protected String reduceUnderscores(String s){
+    protected String reduceUnderscores(String s) {
         String result = " ";
         for (int i = 0; i < s.length(); i++) {
             char c = s.charAt(i);
-            if ('_' == c){
+            if ('_' == c) {
                 char resultLastChar = result.charAt(result.length() - 1);
-                if (!('_' == resultLastChar)){
+                if (!('_' == resultLastChar)) {
                     result = result + c;
                 }
-            }else{
+            } else {
                 result = result + c;
             }
         }
