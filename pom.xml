@@ -35,7 +35,7 @@
     <imagingVersion>3.2.3-SNAPSHOT</imagingVersion>
     <siteVersion>1.0.3-SNAPSHOT</siteVersion>
     <travelDemoVersion>0.8-SNAPSHOT</travelDemoVersion>
-    <cacheVersion>5.4.2</cacheVersion>
+    <cacheVersion>5.4.3-SNAPSHOT</cacheVersion>
     <scmTagPrefix>magnolia-bundle</scmTagPrefix>
 
     <skipClover>true</skipClover>
