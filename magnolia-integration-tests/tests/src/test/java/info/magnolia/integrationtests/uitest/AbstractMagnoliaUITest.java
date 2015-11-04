@@ -36,6 +36,7 @@ package info.magnolia.integrationtests.uitest;
 import static org.hamcrest.Matchers.nullValue;
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.Assert.*;
+import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated;
 
 import info.magnolia.testframework.AbstractMagnoliaIntegrationTest;
 import info.magnolia.testframework.htmlunit.AbstractMagnoliaHtmlUnitTest;
@@ -1388,6 +1389,13 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
      */
     protected ExpectedCondition<WebElement> dialogIsClosed(final String dialogTitle) {
         return elementIsGone(String.format(XPATH_TO_DIALOG, dialogTitle));
+    }
+
+    /**
+     * Checks if dialog (identified by {@link By#xpath(String)}) is present.
+     */
+    protected ExpectedCondition<WebElement> dialogIsOpen(final String dialogTitle) {
+        return presenceOfElementLocated(By.xpath(String.format(XPATH_TO_DIALOG, dialogTitle)));
     }
 
     protected WebElement getMainLauncherShell() {
