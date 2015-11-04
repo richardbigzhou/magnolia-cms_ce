@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>info.magnolia.bundle</groupId>
+    <artifactId>magnolia-bundle-parent</artifactId>
+    <version>5.4.3-SNAPSHOT</version>
+    <relativePath>../pom.xml</relativePath>
+  </parent>
+  <groupId>info.magnolia.bundle</groupId>
+  <artifactId>magnolia-tomcat-bundle</artifactId>
+  <packaging>pom</packaging>
+  <name>magnolia-tomcat-bundle</name>
+  <description>
+    Relocates info.magnolia.bundle:magnolia-tomcat-bundle to its new artifactId: magnolia-community-demo-bundle.
+    See http://maven.apache.org/guides/mini/guide-relocation.html
+  </description>
+  <distributionManagement>
+    <relocation>
+      <groupId>info.magnolia.bundle</groupId>
+      <artifactId>magnolia-community-demo-bundle</artifactId>
+      <version>${project.version}</version>
+      <!-- The 2 space indentation below is due to how Maven seems to present this message. Probably trim() it then
+           prepend the complete string with 2 spaces, so to keep it aligned we added 2 spaces on every line. -->
+      <message>
+  #################################################################################################
+  #
+  #  WARNING: Magnolia Tomcat Bundle was relocated and renamed.
+  #
+  #  Your project has a dependency on
+  #        ${project.groupId}:${project.artifactId}:${project.version}
+  #  and this relocation is redirecting it to
+  #        info.magnolia.bundle:magnolia-community-demo-bundle:${project.version}
+  #
+  #  We encourage you to update your dependencies and use the newer artifacts
+  #  for your specific purposes.
+  #
+  #  Use mvn dependency:tree to find out how dependencies are resolved.
+  #
+  #################################################################################################
+      </message>
+    </relocation>
+  </distributionManagement>
+</project>
