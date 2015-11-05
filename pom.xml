@@ -102,6 +102,23 @@
         <version>${project.version}</version>
         <type>war</type>
       </dependency>
+
+      <!-- This is maintained for backwards-compatibility.
+       Do not use this web app in your new projects, it relocates to:
+       info.magnolia.bundle:magnolia-community-demo-webapp:${project.version}. -->
+      <dependency>
+        <groupId>info.magnolia.bundle</groupId>
+        <artifactId>magnolia-bundled-webapp</artifactId>
+        <version>${project.version}</version>
+        <type>pom</type>
+      </dependency>
+      <dependency>
+        <groupId>info.magnolia.bundle</groupId>
+        <artifactId>magnolia-bundled-webapp</artifactId>
+        <version>${project.version}</version>
+        <type>war</type>
+      </dependency>
+
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-legacy-admininterface</artifactId>
@@ -538,6 +555,8 @@
     <module>magnolia-empty-webapp</module>
     <module>magnolia-community-webapp</module>
     <module>magnolia-integration-tests</module>
+    <module>magnolia-bundled-webapp-maven-relocate</module>
+    <module>magnolia-tomcat-bundle-maven-relocate</module>
   </modules>
 
   <build>
