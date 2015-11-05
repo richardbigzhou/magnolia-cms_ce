@@ -445,7 +445,7 @@
       <dependency>
         <groupId>info.magnolia.lang</groupId>
         <artifactId>magnolia-lang-hu</artifactId>
-        <version>1.0.2-SNAPSHOT1</version>
+        <version>1.0.2-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia.lang</groupId>
