@@ -13,9 +13,9 @@
   <name>magnolia-bundle-parent</name>
   <inceptionYear>2003</inceptionYear>
   <scm>
-    <connection>scm:git:http://git.magnolia-cms.com/ce-bundle</connection>
-    <developerConnection>scm:git:https://git.magnolia-cms.com/ce-bundle</developerConnection>
-    <url>http://git.magnolia-cms.com/gitweb/?p=ce-bundle</url>
+    <connection>scm:git:ssh://git@git.magnolia-cms.com/PLATFORM/ce</connection>
+    <developerConnection>scm:git:ssh://git@git.magnolia-cms.com/PLATFORM/ce</developerConnection>
+    <url>https://git.magnolia-cms.com/projects/PLATFORM/repos/ce</url>
     <tag>HEAD</tag>
   </scm>
 
