@@ -273,7 +273,7 @@
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-observation</artifactId>
-        <version>2.0.4-SNAPSHOT</version>
+        <version>2.0.4</version>
       </dependency>
 
       <!-- Tests -->
