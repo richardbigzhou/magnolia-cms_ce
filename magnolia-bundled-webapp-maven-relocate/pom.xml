@@ -10,7 +10,7 @@
   <groupId>info.magnolia.bundle</groupId>
   <artifactId>magnolia-bundled-webapp</artifactId>
   <packaging>pom</packaging>
-  <name>magnolia-bundled-webapp</name>
+  <name>Magnolia Bundled Webapp Maven Relocation</name>
   <description>
     Relocates info.magnolia.bundle:magnolia-bundled-webapp to its new artifactId: magnolia-community-demo-webapp.
     See http://maven.apache.org/guides/mini/guide-relocation.html

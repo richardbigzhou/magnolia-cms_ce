@@ -10,7 +10,7 @@
   <groupId>info.magnolia.bundle</groupId>
   <artifactId>magnolia-tomcat-bundle</artifactId>
   <packaging>pom</packaging>
-  <name>magnolia-tomcat-bundle</name>
+  <name>Magnolia Tomcat Bundle Maven Relocation</name>
   <description>
     Relocates info.magnolia.bundle:magnolia-tomcat-bundle to its new artifactId: magnolia-community-demo-bundle.
     See http://maven.apache.org/guides/mini/guide-relocation.html
