@@ -164,6 +164,7 @@ public class ContentAppUITest extends AbstractMagnoliaUITest {
 
         expandTreeAndSelectAnElement("article", "demo-features", "content-templates");
         getActionBarItem("Edit page").click();
+        waitUntil(appIsLoaded());
 
         switchToPageEditorContent();
 
