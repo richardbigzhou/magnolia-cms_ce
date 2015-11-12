@@ -34,7 +34,7 @@
     <resourcesVersion>2.4.2</resourcesVersion>
     <imagingVersion>3.2.3</imagingVersion>
     <siteVersion>1.0.3</siteVersion>
-    <travelDemoVersion>0.8.1-SNAPSHOT</travelDemoVersion>
+    <travelDemoVersion>0.8.2-SNAPSHOT</travelDemoVersion>
     <cacheVersion>5.4.3</cacheVersion>
     <scmTagPrefix>magnolia-bundle</scmTagPrefix>
 
