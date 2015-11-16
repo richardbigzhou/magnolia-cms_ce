@@ -4,7 +4,7 @@
   <parent>
     <groupId>info.magnolia.maven.poms</groupId>
     <artifactId>magnolia-parent-pom-community</artifactId>
-    <version>30</version>
+    <version>31</version>
   </parent>
   <groupId>info.magnolia.bundle</groupId>
   <artifactId>magnolia-bundle-parent</artifactId>
@@ -28,8 +28,10 @@
     <stkVersion>2.7.9</stkVersion>
     <restVersion>1.0.4</restVersion>
     <scmTagPrefix>magnolia-bundle</scmTagPrefix>
-    <!-- Disable clover during releases: -->
-    <additionalReleaseProfiles />
+    <skipClover>true</skipClover>
+    <!-- This project is in "maintenance mode". See http://www.magnolia-cms.com/services/support/maintenance-policy.html for details -->
+    <distribRepoPrefix>magnolia.public.maintenance</distribRepoPrefix>
+    <nexusStagingProfileId>6617f277f4ee2</nexusStagingProfileId>
   </properties>
 
   <distributionManagement>
