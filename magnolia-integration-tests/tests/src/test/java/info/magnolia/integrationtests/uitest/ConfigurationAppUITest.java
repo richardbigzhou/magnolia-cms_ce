@@ -39,6 +39,7 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.*;
 
 import java.util.List;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -70,6 +71,7 @@ public class ConfigurationAppUITest extends AbstractMagnoliaUITest {
         // WHEN
         // Go to pages App
         getAppIcon(CONFIGURATION_APP).click();
+        waitUntil(appIsLoaded());
         assertAppOpen(CONFIGURATION_APP);
 
         deleteUntitledFolderIfExisting();
@@ -79,18 +81,17 @@ public class ConfigurationAppUITest extends AbstractMagnoliaUITest {
         getTreeTableItem("untitled").click();
         getEnabledActionBarItem("Rename item").click();
         setFormTextFieldText("Name", folderName);
-
         getDialogCommitButton().click();
+        waitUntil(dialogIsClosed("Rename item"));
 
         // Create content node and rename it
         getEnabledActionBarItem("Add content node").click();
         getTreeTableItem("untitled").click();
         waitUntil(elementToBeClickable(getEnabledActionBarItem("Rename item")));
-
         getEnabledActionBarItem("Rename item").click();
         setFormTextFieldText("Name", nodeName);
-
         getDialogCommitButton().click();
+        waitUntil(dialogIsClosed("Rename item"));
 
         // Create property and set name & value
         getEnabledActionBarItem("Add property").click();
@@ -136,6 +137,7 @@ public class ConfigurationAppUITest extends AbstractMagnoliaUITest {
     @Test
     public void canPublishUnpublishAndDeleteNewNode() {
         getAppIcon(CONFIGURATION_APP).click();
+        waitUntil(appIsLoaded());
         assertAppOpen(CONFIGURATION_APP);
 
         getEnabledActionBarItem("Add folder").click();
@@ -145,6 +147,7 @@ public class ConfigurationAppUITest extends AbstractMagnoliaUITest {
         setFormTextFieldText("Name", "lvl1");
         waitUntil(textToBePresentInElementValue(getFormTextField("Name"), "lvl1"));
         getDialogCommitButton().click();
+        waitUntil(dialogIsClosed("Rename item"));
 
         getEnabledActionBarItem("Add folder").click();
 
@@ -153,6 +156,7 @@ public class ConfigurationAppUITest extends AbstractMagnoliaUITest {
         setFormTextFieldText("Name", "lvl2");
         waitUntil(textToBePresentInElementValue(getFormTextField("Name"), "lvl2"));
         getDialogCommitButton().click();
+        waitUntil(dialogIsClosed("Rename item"));
 
         getEnabledActionBarItem("Add folder").click();
 
@@ -161,6 +165,7 @@ public class ConfigurationAppUITest extends AbstractMagnoliaUITest {
         setFormTextFieldText("Name", "lvl3");
         waitUntil(textToBePresentInElementValue(getFormTextField("Name"), "lvl3"));
         getDialogCommitButton().click();
+        waitUntil(dialogIsClosed("Rename item"));
 
         getEnabledActionBarItem("Add content node").click();
         getEnabledActionBarItem("Add property").click();
@@ -187,9 +192,11 @@ public class ConfigurationAppUITest extends AbstractMagnoliaUITest {
         assertFalse("Lvl3 folder should be gone", isExisting(getTreeTableItem("lvl3")));
     }
 
+    @Ignore("Ignored until action availability has been sorted out for ui-5.2.x, see MGNLUI-3677")
     @Test
     public void unpublishActionIsDisabledForLvl1Or2Nodes() {
         getAppIcon(CONFIGURATION_APP).click();
+        waitUntil(appIsLoaded());
         assertAppOpen(CONFIGURATION_APP);
 
         getEnabledActionBarItem("Add folder").click();
@@ -199,6 +206,7 @@ public class ConfigurationAppUITest extends AbstractMagnoliaUITest {
         setFormTextFieldText("Name", "depth1");
         waitUntil(textToBePresentInElementValue(getFormTextField("Name"), "depth1"));
         getDialogCommitButton().click();
+        waitUntil(dialogIsClosed("Rename item"));
 
         getEnabledActionBarItem("Add folder").click();
 
@@ -207,6 +215,7 @@ public class ConfigurationAppUITest extends AbstractMagnoliaUITest {
         setFormTextFieldText("Name", "depth2");
         waitUntil(textToBePresentInElementValue(getFormTextField("Name"), "depth2"));
         getDialogCommitButton().click();
+        waitUntil(dialogIsClosed("Rename item"));
 
         getEnabledActionBarItem("Add folder").click();
 
@@ -215,6 +224,7 @@ public class ConfigurationAppUITest extends AbstractMagnoliaUITest {
         setFormTextFieldText("Name", "depth3");
         waitUntil(textToBePresentInElementValue(getFormTextField("Name"), "depth3"));
         getDialogCommitButton().click();
+        waitUntil(dialogIsClosed("Rename item"));
 
         // publish depth1
         refreshTreeView();
