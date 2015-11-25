@@ -9,14 +9,14 @@
   <groupId>info.magnolia.bundle</groupId>
   <artifactId>magnolia-bundle-parent</artifactId>
   <packaging>pom</packaging>
-  <version>5.3.12</version>
+  <version>5.3.13-SNAPSHOT</version>
   <name>magnolia-bundle-parent</name>
   <inceptionYear>2003</inceptionYear>
   <scm>
     <connection>scm:git:ssh://git@git.magnolia-cms.com/PLATFORM/ce</connection>
     <developerConnection>scm:git:ssh://git@git.magnolia-cms.com/PLATFORM/ce</developerConnection>
     <url>https://git.magnolia-cms.com/projects/PLATFORM/repos/ce</url>
-    <tag>magnolia-bundle-5.3.12</tag>
+    <tag>HEAD</tag>
   </scm>
 
   <properties>
