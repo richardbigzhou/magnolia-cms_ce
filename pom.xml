@@ -31,10 +31,10 @@
     <damVersion>2.1.2</damVersion>
     <categorizationVersion>2.4.1</categorizationVersion>
     <mteVersion>0.7</mteVersion>
-    <resourcesVersion>2.4.2</resourcesVersion>
+    <resourcesVersion>2.4.3-SNAPSHOT</resourcesVersion>
     <imagingVersion>3.2.3</imagingVersion>
     <siteVersion>1.0.3</siteVersion>
-    <travelDemoVersion>0.8.2-SNAPSHOT</travelDemoVersion>
+    <travelDemoVersion>0.9-SNAPSHOT</travelDemoVersion>
     <cacheVersion>5.4.3</cacheVersion>
     <scmTagPrefix>magnolia-bundle</scmTagPrefix>
 
