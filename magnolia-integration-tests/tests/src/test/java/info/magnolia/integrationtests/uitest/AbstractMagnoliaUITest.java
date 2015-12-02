@@ -646,6 +646,14 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         return getElementByXpath("//*[contains(@class, 'v-actionbar')]//*[contains(@class, 'v-actionbar-section') and not(@aria-hidden)]//*[contains(text(), '%s')]", itemCaption);
     }
 
+    protected String getActionBarTitle() {
+        List<WebElement> elements = getElementsByPath(By.xpath("//div[contains(@class,'v-actionbar-section') and not(@aria-hidden)]/h3"));
+        if (elements.size() != 1) {
+            fail("More then one actionBar cannot be visible, something went terribly wrong/interesting");
+        }
+        return elements.get(0).getText();
+    }
+
     protected WebElement getDialogButton(String classname) {
         return getElementByXpath("//div[contains(@class, '%s')]", classname);
     }
