@@ -93,6 +93,17 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
     public static final int DEFAULT_DELAY_IN_SECONDS = 2;
     public static final int DRIVER_WAIT_IN_SECONDS = 10;
     public static final String SELENIUM_SERVER_HOST_NAME = "seleniumServerHostName";
+    private int timeout = DRIVER_WAIT_IN_SECONDS;
+
+    protected void resetTimeout() {
+        driver.manage().timeouts().implicitlyWait(DEFAULT_DELAY_IN_SECONDS, TimeUnit.SECONDS);
+        timeout = DRIVER_WAIT_IN_SECONDS;
+    }
+
+    protected void setMinimalTimeout() {
+        driver.manage().timeouts().implicitlyWait(50, TimeUnit.MILLISECONDS);
+        timeout = 1;
+    }
 
     protected static enum ShellApp {
         APPLAUNCHER("v-app-launcher"),
@@ -318,6 +329,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         driver.manage().timeouts()
                 .implicitlyWait(DRIVER_WAIT_IN_SECONDS, TimeUnit.SECONDS)
                 .pageLoadTimeout(DRIVER_WAIT_IN_SECONDS, TimeUnit.SECONDS);
+        timeout = DRIVER_WAIT_IN_SECONDS;
     }
 
     /**
@@ -442,7 +454,11 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
      * @return true in case the provided WebElement is existing - false else.
      */
     protected static boolean isExisting(WebElement element) {
-        return !(element instanceof NonExistingWebElement);
+        return !isNotExisting(element);
+    }
+
+    protected static boolean isNotExisting(WebElement element) {
+        return element instanceof NonExistingWebElement;
     }
 
 
@@ -488,7 +504,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         WebElement element;
         try {
             // will loop and try to retrieve the specified element until found or it times out.
-            element = new WebDriverWait(driver, DRIVER_WAIT_IN_SECONDS).until(
+            element = new WebDriverWait(driver, timeout).until(
                     new ExpectedCondition<WebElement>() {
 
                         @Override
@@ -542,7 +558,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         List<WebElement> elements;
         try {
             // will loop and try to retrieve the specified element until found or it times out.
-            elements = new WebDriverWait(driver, DRIVER_WAIT_IN_SECONDS).until(
+            elements = new WebDriverWait(driver, timeout).until(
                     new ExpectedCondition<List<WebElement>>() {
 
                         @Override

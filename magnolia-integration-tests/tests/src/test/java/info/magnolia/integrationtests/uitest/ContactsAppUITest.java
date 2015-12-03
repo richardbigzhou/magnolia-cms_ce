@@ -120,7 +120,8 @@ public class ContactsAppUITest extends AbstractMagnoliaUITest {
         }
 
         // Assert button "commit" is not shown
-        assertFalse(isExisting(getButton("v-button-commit", "save changes")));
+        setMinimalTimeout();
+        assertTrue(isNotExisting(getButton("v-button-commit", "save changes")));
     }
 
     /**

@@ -75,6 +75,7 @@ public class ImageEditorUITest extends AbstractMagnoliaUITest {
         // THEN
         assertTrue(getTabForCaption("Contacts").isDisplayed());
 
+        setMinimalTimeout();
         assertFalse("DialogTab /mmonroe should no longer be existing", isExisting(getTabForCaption("/mmonroe")));
     }
 }

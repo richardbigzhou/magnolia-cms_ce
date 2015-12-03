@@ -96,7 +96,9 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
 
         // CHECK THE TAB HEADER
         delay("Waiting before check");
+        setMinimalTimeout();
         assertFalse(isExisting(getTabForCaption("Standard Article [1.0]")));
+        resetTimeout();
         assertTrue(isExisting(getTabForCaption("Standard Article")));
 
     }
@@ -193,12 +195,12 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
         getActionBarItem(PUBLISH_DELETION_ACTION).click();
         delay(2, "Wait for the confirmation message");
         // Check that the Detail sub app is closed
+        setMinimalTimeout();
         assertFalse(isExisting(getTabForCaption("Title of the new Article To Delete")));
         // Check that the page is not existing on Public
 
         // Check that the row is gone in the tree table
         assertFalse(isExisting(getElementByXpath("//div[text()='New-Article-To-Delete']")));
-
     }
 
     @Test
@@ -223,7 +225,9 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
         delay(2, "Wait for the confirmation message");
 
         getTabForCaption(PAGES_APP).click();
+        setMinimalTimeout();
         assertFalse("Article should have been restored - no trash icon should be displayed any longer", isExisting(getSelectedIcon(TRASH_ICON_STYLE)));
+        resetTimeout();
         assertThat(getSelectedActivationStatusIcon().getAttribute("class"), containsString(COLOR_YELLOW_ICON_STYLE));
     }
 
@@ -346,6 +350,7 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
         delay(5, "Wait for the confirmation message");
 
         // Check that the row is gone in the tree table
+        setMinimalTimeout();
         assertFalse(isExisting(getTreeTableItem(FIRST_PAGE)));
         assertFalse(isExisting(getTreeTableItem(SECOND_PAGE)));
     }
@@ -525,7 +530,9 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
         delay("Waiting for the editSubApp to open");
 
         // Sub App Open in a Read Only Mode
-        assertFalse(isExisting(getElementByPath(By.xpath("//div[@class = 'mgnlEditorBar mgnlEditor area init']"))));
+        setMinimalTimeout();
+        assertTrue(getElementByPath(By.xpath("//div[@class = 'mgnlEditorBar mgnlEditor area init']")) instanceof NonExistingWebElement);
+        resetTimeout();
         // Check tab header (include version)
         assertFalse(getTabForCaption(tabHeader) instanceof NonExistingWebElement);
         // Check available actions

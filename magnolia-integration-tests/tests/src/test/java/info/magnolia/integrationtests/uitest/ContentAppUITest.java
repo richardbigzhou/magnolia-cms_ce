@@ -135,7 +135,8 @@ public class ContentAppUITest extends AbstractMagnoliaUITest {
 
         // THEN
         assertTrue("The subsection-articles page should be visible after navigating to it.", getTreeTableItem("subsection-articles").isDisplayed());
-        assertFalse("The subpages for subsection-articles should not be visible.", isExisting(getTreeTableItem("large-article")));
+        setMinimalTimeout();
+        assertTrue("The subpages for subsection-articles should not be visible.", isNotExisting(getTreeTableItem("large-article")));
     }
 
     @Test
@@ -148,7 +149,8 @@ public class ContentAppUITest extends AbstractMagnoliaUITest {
 
         // THEN
         final WebElement statusColumn = getColumnHeader("Status");
-        assertTrue("There should be a status column as we're testing on a author instance.", isExisting(statusColumn));
+        setMinimalTimeout();
+        assertFalse("There should be a status column as we're testing on a author instance.", isNotExisting(statusColumn));
     }
 
     @Test
@@ -198,7 +200,8 @@ public class ContentAppUITest extends AbstractMagnoliaUITest {
 
         // THEN
         final WebElement statusColumn = getColumnHeader("Status");
-        assertFalse("There should be no status column as we're testing on a public instance with no subscribers.", isExisting(statusColumn));
+        setMinimalTimeout();
+        assertTrue("There should be no status column as we're testing on a public instance with no subscribers.", isNotExisting(statusColumn));
     }
 
     @Test

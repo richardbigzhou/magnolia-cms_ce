@@ -124,7 +124,9 @@ public class PageEditorUITest extends AbstractPageEditorUITest {
         getElementByPath(By.id("promo-1")).click();
 
         // THEN
+        setMinimalTimeout();
         assertFalse("Inherited components should not have edit bars.", isExisting(getElementByPath(By.xpath("//*[contains(@class, 'focus')]//*[contains(@class, 'icon-edit')]"))));
+        resetTimeout();
 
         switchToDefaultContent();
         assertTrue("'Edit Component' action should be disabled on inherited elements", isExisting(getDisabledActionBarItem("Edit component")));

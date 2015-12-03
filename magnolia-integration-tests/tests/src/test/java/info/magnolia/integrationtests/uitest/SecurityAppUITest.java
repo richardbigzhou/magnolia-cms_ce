@@ -168,6 +168,7 @@ public class SecurityAppUITest extends AbstractMagnoliaUITest {
         delay("Wait a second for the group to be deleted");
 
         // THEN 2
+        setMinimalTimeout();
         assertTrue(getTreeTableItem(groupName) instanceof NonExistingWebElement);
     }
 
@@ -232,6 +233,7 @@ public class SecurityAppUITest extends AbstractMagnoliaUITest {
         delay("Wait a second for the role to be deleted");
 
         // THEN 2
+        setMinimalTimeout();
         assertTrue(getTreeTableItem(roleName) instanceof NonExistingWebElement);
     }
 
@@ -307,6 +309,7 @@ public class SecurityAppUITest extends AbstractMagnoliaUITest {
         delay("Wait a bit for the element to be deleted");
 
         // THEN 2
+        setMinimalTimeout();
         assertTrue(getTreeTableItem(userName) instanceof NonExistingWebElement);
     }
 
@@ -338,6 +341,7 @@ public class SecurityAppUITest extends AbstractMagnoliaUITest {
 
         // THEN 2
         assertTrue(getTreeTableItem(userName).isDisplayed());
+        setMinimalTimeout();
         assertTrue(getTreeTableItem(newUserName) instanceof NonExistingWebElement);
     }
 
@@ -357,6 +361,7 @@ public class SecurityAppUITest extends AbstractMagnoliaUITest {
 
         // THEN 2
         assertTrue(getTreeTableItem(groupName).isDisplayed());
+        setMinimalTimeout();
         assertTrue(getTreeTableItem(newGroupName) instanceof NonExistingWebElement);
     }
 
@@ -383,6 +388,7 @@ public class SecurityAppUITest extends AbstractMagnoliaUITest {
         // THEN 2
         assertTrue(getTreeTableItem(roleName).isDisplayed());
         // TODO: the below generates a 10s delay (getElementByPath() times out then return a NonExistingWebElement impl)
+        setMinimalTimeout();
         assertTrue(getTreeTableItem(newRoleName) instanceof NonExistingWebElement);
     }
 
@@ -411,6 +417,7 @@ public class SecurityAppUITest extends AbstractMagnoliaUITest {
         deleteSecurityAppItem(itemTypeCaption, newItemName);
         deleteFolder(folderName);
 
+        setMinimalTimeout();
         assertTrue(getTreeTableItem(folderName) instanceof NonExistingWebElement);
     }
 
@@ -438,6 +445,7 @@ public class SecurityAppUITest extends AbstractMagnoliaUITest {
         deleteSecurityAppItem(itemTypeCaption, newItemName);
         deleteFolder(folderName);
 
+        setMinimalTimeout();
         assertTrue(getTreeTableItem(folderName) instanceof NonExistingWebElement);
     }
 

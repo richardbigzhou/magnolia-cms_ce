@@ -202,6 +202,7 @@ public class ResourcesAppUITest extends AbstractMagnoliaUITest {
         deleteSelectedFile();
 
         // THEN
+        setMinimalTimeout();
         assertThat(getTreeTableItemRow("markingAsDeletedBottomUpApproach"), instanceOf(NonExistingWebElement.class));
         assertThat(getTreeTableItemRow("markingAsDeletedBottomUpApproach2"), instanceOf(NonExistingWebElement.class));
         assertThat(getTreeTableItemRow("markFile"), instanceOf(NonExistingWebElement.class));
@@ -217,6 +218,7 @@ public class ResourcesAppUITest extends AbstractMagnoliaUITest {
         deleteSelectedFolder();
 
         // THEN
+        setMinimalTimeout();
         assertThat(getTreeTableItemRow("markingAsDeletedTopDownApproach"), instanceOf(NonExistingWebElement.class));
         assertThat(getTreeTableItemRow("markingAsDeletedTopDownApproach2"), instanceOf(NonExistingWebElement.class));
         assertThat(getTreeTableItemRow("markFile"), instanceOf(NonExistingWebElement.class));
@@ -235,7 +237,10 @@ public class ResourcesAppUITest extends AbstractMagnoliaUITest {
         assertThat(getTreeTableItemRow("markingAsDeletedDoesNotDelete"), not(instanceOf(NonExistingWebElement.class)));
         assertThat(getTreeTableItemRow("markingAsDeletedDoesNotDelete2"), not(instanceOf(NonExistingWebElement.class)));
         assertThat(getTreeTableItemRow("markFile"), not(instanceOf(NonExistingWebElement.class)));
+        setMinimalTimeout();
         assertThat(getTreeTableItemRow("markFile2"), instanceOf(NonExistingWebElement.class));
+        resetTimeout();
+
 
         // Deleting the remaining Jcr Resources, will cleanup the ancestors.
         // WHEN
@@ -243,6 +248,7 @@ public class ResourcesAppUITest extends AbstractMagnoliaUITest {
         deleteSelectedFile();
 
         // THEN
+        setMinimalTimeout();
         assertThat(getTreeTableItemRow("markingAsDeletedDoesNotDelete"), instanceOf(NonExistingWebElement.class));
         assertThat(getTreeTableItemRow("markingAsDeletedDoesNotDelete2"), instanceOf(NonExistingWebElement.class));
         assertThat(getTreeTableItemRow("markFile"), instanceOf(NonExistingWebElement.class));
@@ -258,6 +264,7 @@ public class ResourcesAppUITest extends AbstractMagnoliaUITest {
         deleteSelectedFolder();
 
         // THEN
+        setMinimalTimeout();
         assertThat(getTreeTableItemRow("markingParentAsDeletedDeletesChildren"), instanceOf(NonExistingWebElement.class));
         assertThat(getTreeTableItemRow("markingParentAsDeletedDeletesChildren2"), instanceOf(NonExistingWebElement.class));
         assertThat(getTreeTableItemRow("markFile"), instanceOf(NonExistingWebElement.class));

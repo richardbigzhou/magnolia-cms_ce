@@ -83,6 +83,7 @@ public class OverlayUITest extends AbstractMagnoliaUITest {
 
         // THEN
         delay("Give it enough time to fade away.");
+        setMinimalTimeout();
         assertFalse("Confirmation overlay should have gone now", isExisting(getConfirmationOverlay()));
     }
 
@@ -114,7 +115,9 @@ public class OverlayUITest extends AbstractMagnoliaUITest {
         delay("Give dialog some time to fade away...");
 
         // THEN
+        setMinimalTimeout();
         assertFalse(isExisting(getConfirmationOverlay()));
+        resetTimeout();
         assertTrue(hasCssClass(getTreeTableItemRow("untitled"), "v-table-row-icon-trash"));
     }
 

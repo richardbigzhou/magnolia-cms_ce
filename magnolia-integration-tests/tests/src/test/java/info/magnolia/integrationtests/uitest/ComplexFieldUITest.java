@@ -59,7 +59,9 @@ public class ComplexFieldUITest extends AbstractMagnoliaUITest {
         getDialogCommitButton().click();
         // make sure dialog is closed
         delay("Dialog may take some time to close");
-        assertFalse(isExisting(getElementByXpath("//div[contains(concat(' ',normalize-space(@class),' '),' overlay ')]")));
+        setMinimalTimeout();
+        assertTrue(isNotExisting(getElementByXpath("//div[contains(concat(' ',normalize-space(@class),' '),' overlay ')]")));
+        resetTimeout();
 
         // Open it again
         openDialogComponent();
@@ -79,7 +81,9 @@ public class ComplexFieldUITest extends AbstractMagnoliaUITest {
         getDialogCommitButton().click();
         // make sure dialog is closed
         delay("Dialog may take some time to close");
-        assertFalse(isExisting(getElementByXpath("//div[contains(concat(' ',normalize-space(@class),' '),' overlay ')]")));
+        setMinimalTimeout();
+        assertTrue(isNotExisting(getElementByXpath("//div[contains(concat(' ',normalize-space(@class),' '),' overlay ')]")));
+        resetTimeout();
 
         // Open it again
         openDialogComponent();
@@ -111,7 +115,9 @@ public class ComplexFieldUITest extends AbstractMagnoliaUITest {
         getDialogCommitButton().click();
         // make sure dialog is closed
         delay("Dialog may take some time to close");
-        assertFalse(isExisting(getElementByXpath("//div[contains(concat(' ',normalize-space(@class),' '),' overlay ')]")));
+        setMinimalTimeout();
+        assertTrue(isNotExisting(getElementByXpath("//div[contains(concat(' ',normalize-space(@class),' '),' overlay ')]")));
+        resetTimeout();
 
         // Open it again
         openDialogComponent();
@@ -131,7 +137,9 @@ public class ComplexFieldUITest extends AbstractMagnoliaUITest {
         getDialogCommitButton().click();
         // make sure dialog is closed
         delay("Dialog may take some time to close");
-        assertFalse(isExisting(getElementByXpath("//div[contains(concat(' ',normalize-space(@class),' '),' overlay ')]")));
+        setMinimalTimeout();
+        assertTrue(isNotExisting(getElementByXpath("//div[contains(concat(' ',normalize-space(@class),' '),' overlay ')]")));
+        resetTimeout();
 
         // Open it again
         openDialogComponent();
@@ -159,7 +167,9 @@ public class ComplexFieldUITest extends AbstractMagnoliaUITest {
         getDialogCommitButton().click();
         // make sure dialog is closed
         delay("Dialog may take some time to close");
-        assertFalse(isExisting(getElementByXpath("//div[contains(concat(' ',normalize-space(@class),' '),' overlay ')]")));
+        setMinimalTimeout();
+        assertTrue(isNotExisting(getElementByXpath("//div[contains(concat(' ',normalize-space(@class),' '),' overlay ')]")));
+        resetTimeout();
         // Pre test
         // Open it again
         openDialogComponent();
@@ -178,7 +188,9 @@ public class ComplexFieldUITest extends AbstractMagnoliaUITest {
         getDialogCommitButton().click();
         // make sure dialog is closed
         delay("Dialog may take some time to close");
-        assertFalse(isExisting(getElementByXpath("//div[contains(concat(' ',normalize-space(@class),' '),' overlay ')]")));
+        setMinimalTimeout();
+        assertTrue(isNotExisting(getElementByXpath("//div[contains(concat(' ',normalize-space(@class),' '),' overlay ')]")));
+        resetTimeout();
 
         // Open it again
         openDialogComponent();
@@ -210,7 +222,9 @@ public class ComplexFieldUITest extends AbstractMagnoliaUITest {
         getDialogCommitButton().click();
         // make sure dialog is closed
         delay("Dialog may take some time to close");
-        assertFalse(isExisting(getElementByXpath("//div[contains(concat(' ',normalize-space(@class),' '),' overlay ')]")));
+        setMinimalTimeout();
+        assertTrue(isNotExisting(getElementByXpath("//div[contains(concat(' ',normalize-space(@class),' '),' overlay ')]")));
+        resetTimeout();
         // Pre test
         openDialogComponent();
         openTabWithCaption("Switch");
@@ -228,7 +242,9 @@ public class ComplexFieldUITest extends AbstractMagnoliaUITest {
         getDialogCommitButton().click();
         // make sure dialog is closed
         delay("Dialog may take some time to close");
-        assertFalse(isExisting(getElementByXpath("//div[contains(concat(' ',normalize-space(@class),' '),' overlay ')]")));
+        setMinimalTimeout();
+        assertTrue(isNotExisting(getElementByXpath("//div[contains(concat(' ',normalize-space(@class),' '),' overlay ')]")));
+        resetTimeout();
         openDialogComponent();
         openTabWithCaption("Switch");
         assertEquals("text custom 11", getFromMultiFieldElementValueAt(fieldName, 1).getAttribute("value"));

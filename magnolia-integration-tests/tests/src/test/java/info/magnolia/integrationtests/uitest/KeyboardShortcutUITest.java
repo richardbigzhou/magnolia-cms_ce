@@ -314,7 +314,9 @@ public class KeyboardShortcutUITest extends AbstractMagnoliaUITest {
         // THEN
         //Check that editor is closed
         WebElement editorTab = getTabForCaption(contactName);
+        setMinimalTimeout();
         assertFalse("ENTER key should have closed the DetailEditor subapp.", isExisting(editorTab));
+        resetTimeout();
         //Check that entry is added.
         WebElement newRow = getTreeTableItem(email);
         assertTrue("ENTER key should have caused new contact to be created, but no new contact is present.", isExisting(newRow));

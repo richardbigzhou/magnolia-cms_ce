@@ -77,6 +77,7 @@ public class STKSiteDefinitionsAppUITest extends AbstractMagnoliaUITest {
 
         refreshTreeView();
 
+        setMinimalTimeout();
         assertFalse("Untitled should be gone", isExisting(getTreeTableItem("untitled")));
     }
 }
