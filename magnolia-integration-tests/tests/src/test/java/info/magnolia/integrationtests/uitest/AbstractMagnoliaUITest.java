@@ -485,7 +485,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
      * @return the searched specified element or a NonExistingWebElement in case it couldn't be found.
      */
     protected WebElement getElementByPath(final By path, WebDriver driver) {
-        WebElement element = null;
+        WebElement element;
         try {
             // will loop and try to retrieve the specified element until found or it times out.
             element = new WebDriverWait(driver, DRIVER_WAIT_IN_SECONDS).until(
@@ -507,7 +507,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
                             }
                         }
                     }
-                    );
+            );
         } catch (TimeoutException e) {
             log.debug("Could not retrieve element by path {}. Got: {}", path, e);
             // not found within the time limit - assume that element is not existing
@@ -539,7 +539,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
      * Will retry until the amount matches or until the whole process times out.
      */
     protected List<WebElement> getElementsByPath(final By path, final int expectedElementCount) {
-        List<WebElement> elements = null;
+        List<WebElement> elements;
         try {
             // will loop and try to retrieve the specified element until found or it times out.
             elements = new WebDriverWait(driver, DRIVER_WAIT_IN_SECONDS).until(
@@ -562,7 +562,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
                             }
                         }
                     }
-                    );
+            );
         } catch (TimeoutException e) {
             log.error("Could not retrieve " + (expectedElementCount != -1 ? expectedElementCount : "at least 1") + " elements by path " + path + " : " + e.getMessage());
             return Collections.emptyList();
@@ -644,6 +644,14 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
 
     protected WebElement getActionBarItemWithContains(String itemCaption) {
         return getElementByXpath("//*[contains(@class, 'v-actionbar')]//*[contains(@class, 'v-actionbar-section') and not(@aria-hidden)]//*[contains(text(), '%s')]", itemCaption);
+    }
+
+    protected String getActionBarTitle() {
+        List<WebElement> elements = getElementsByPath(By.xpath("//div[contains(@class,'v-actionbar-section') and not(@aria-hidden)]/h3"));
+        if (elements.size() != 1) {
+            fail("More then one actionBar cannot be visible, something went terribly wrong/interesting");
+        }
+        return elements.get(0).getText();
     }
 
     protected WebElement getDialogButton(String classname) {
@@ -729,7 +737,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
             final WebElement popupControl = getElementByXpath(popupControlXPath);
             popupControl.click();
             final String hiddenTabPath = partial ?
-                    String.format("//*[contains(@class, 'hidden-tabs-menu')]//*[contains(@class, 'menu-item') and contains(text(), '%s')]", tabCaption):
+                    String.format("//*[contains(@class, 'hidden-tabs-menu')]//*[contains(@class, 'menu-item') and contains(text(), '%s')]", tabCaption) :
                     String.format("//*[contains(@class, 'hidden-tabs-menu')]//*[contains(@class, 'menu-item') and text() = '%s']", tabCaption);
             return getElementByXpath(hiddenTabPath);
         }
@@ -738,7 +746,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
     private WebElement getPotentiallyHiddenTab(String tabCaption, boolean partial, String[] parentTitles) {
         final String parentXPath1 = buildPathFromTitles(parentTitles);
         final String tabCaptionPath = partial ?
-                String.format("//*[contains(@class, 'v-shell-tabsheet')]//*[@class = 'tab-title' and contains(text(), '%s')]", tabCaption):
+                String.format("//*[contains(@class, 'v-shell-tabsheet')]//*[@class = 'tab-title' and contains(text(), '%s')]", tabCaption) :
                 String.format("//*[contains(@class, 'v-shell-tabsheet')]//*[@class = 'tab-title' and text() = '%s']", tabCaption);
 
         final String fullTabXPath = String.format("%s%s", parentXPath1, tabCaptionPath);
@@ -1348,8 +1356,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
     protected WebElement getFromMultiFieldComplexeElementValueAt(String multiFieldLabel, int multiFieldposition, int compositeFieldposition) {
         WebElement multifield = getElementByXpath("(//*[@class = 'v-form-field-label' and text() = '%s']/following-sibling::div//*[@class = 'v-slot v-slot-linkfield'])[%s]", multiFieldLabel, multiFieldposition);
         String xpath = String.format("(//input[@type = 'text'])[%s]", compositeFieldposition);
-        WebElement fieldElement = multifield.findElement(By.xpath(xpath));
-        return fieldElement;
+        return multifield.findElement(By.xpath(xpath));
     }
 
     protected void setMultiFieldComplexeElementValueAt(String multiFieldLabel, int multiFieldposition, int compositeFieldposition, String value) {
@@ -1401,7 +1408,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
     protected WebElement getMainLauncherShell() {
         return getElementByXpath("//*[@id = 'btn-appslauncher']");
     }
-    
+
     /**
      * This allow to select multiple web elements matching the given path.
      * @param path: to list of elements
@@ -1409,12 +1416,12 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
      */
     protected void selectMultipleElementsByPath(final By path, final int expectedElementCount) {
         List<WebElement> els = getElementsByPath(path, expectedElementCount);
-        
+
         Actions multiSelect = new Actions(driver).keyDown(Keys.CONTROL);
         for (WebElement el : els) {
             multiSelect = multiSelect.click(el);
         }
-        
+
         multiSelect.keyUp(Keys.CONTROL).build().perform();
     }
 
