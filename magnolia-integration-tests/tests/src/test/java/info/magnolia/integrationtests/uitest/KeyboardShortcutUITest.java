@@ -235,7 +235,7 @@ public class KeyboardShortcutUITest extends AbstractMagnoliaUITest {
         // WHEN
         getActionBarItem("Add page").click();
         setFormTextFieldText("Page name", pageName);
-        setFormTextAreFieldText("Page title", title);
+        setFormTextAreaFieldText("Page title", title);
         getSelectTabElement("Template").click();
         // Click on selector item.
         selectElementOfTabListForLabel("Redirect");
@@ -270,7 +270,7 @@ public class KeyboardShortcutUITest extends AbstractMagnoliaUITest {
 
         getActionBarItem("Add page").click();
         setFormTextFieldText("Page name", pageName);
-        setFormTextAreFieldText("Page title", title);
+        setFormTextAreaFieldText("Page title", title);
         getSelectTabElement("Template").click();
         // Click on selector item.
         selectElementOfTabListForLabel("Redirect");
@@ -361,7 +361,7 @@ public class KeyboardShortcutUITest extends AbstractMagnoliaUITest {
         setFormTextFieldText("Last name", nameLast);
         getTabForCaption("Address").click();
         setFormTextFieldText("Organization", "org");
-        setFormTextAreFieldText("Street address", "address-125");
+        setFormTextAreaFieldText("Street address", "address-125");
         getTabForCaption("Contact details").click();
         setFormTextFieldText("E-Mail address", email);
     }
