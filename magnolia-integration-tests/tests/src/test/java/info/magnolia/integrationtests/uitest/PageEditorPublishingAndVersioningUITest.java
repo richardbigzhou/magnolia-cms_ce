@@ -125,7 +125,7 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
         // Add Text
         setFormTextFieldText("Subheading", "New Text Image Component");
         getTabForCaption("Image").click();
-        setFormTextAreFieldText("Image Caption", "Image Caption");
+        setFormTextAreaFieldText("Image Caption", "Image Caption");
         // Add Image
         getNativeButton().click();
         expandTreeAndSelectAnElement("a-grey-curvature-of-lines", "demo-project", "img", "bk", "Stage");
@@ -422,7 +422,7 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
         // Do changes in the Text Image form and save
         setFormTextFieldText("Subheading", newSubheadingValue);
         getTabForCaption("Image").click();
-        setFormTextAreFieldText("Image Caption", newImageCaptionValue);
+        setFormTextAreaFieldText("Image Caption", newImageCaptionValue);
         getDialogCommitButton().click();
 
         getTabForCaption(PAGES_APP).click();
@@ -435,7 +435,7 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
     protected void addNewTemplate(String templateName, String templateTitle, String templateType) {
         getActionBarItem(ADD_PAGE_ACTION).click();
         setFormTextFieldText("Page name", templateName);
-        setFormTextAreFieldText("Page title", templateTitle);
+        setFormTextAreaFieldText("Page title", templateTitle);
         getSelectTabElement("Template").click();
         selectElementOfTabListForLabel(templateType);// Article
 

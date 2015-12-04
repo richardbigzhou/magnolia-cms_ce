@@ -893,7 +893,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         clearAndSetTextForInputElement(input, text);
     }
 
-    protected void setFormTextAreFieldText(final String caption, final String text) {
+    protected void setFormTextAreaFieldText(final String caption, final String text) {
         WebElement input = getFormTextAreaField(caption);
         clearAndSetTextForInputElement(input, text);
     }

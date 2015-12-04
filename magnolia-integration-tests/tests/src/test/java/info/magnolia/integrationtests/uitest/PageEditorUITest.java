@@ -290,7 +290,7 @@ public class PageEditorUITest extends AbstractPageEditorUITest {
         // Do changes in the Text Image form and save
         setFormTextFieldText("Subheading", newSubheadingValue);
         getTabForCaption("Image").click();
-        setFormTextAreFieldText("Image Caption", newImageCaptionValue);
+        setFormTextAreaFieldText("Image Caption", newImageCaptionValue);
         getDialogCommitButton().click();
         switchToPageEditorContent();
     }
