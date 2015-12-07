@@ -284,7 +284,7 @@ public class PageEditorUITest extends AbstractPageEditorUITest {
      */
     protected void changeTextImageContent(String newSubheadingValue, String newImageCaptionValue) {
         // Open Text Image Content Form
-        getElementByXpath(String.format("//div[@role='article']//div[@class='text-section']")).click();
+        getElementByXpath("//div[@role='article']//div[@class='text-section']").click();
         getElementByXpath("//*[contains(@class, 'focus')]//*[contains(@class, 'icon-edit')]").click();
         switchToDefaultContent();
         // Do changes in the Text Image form and save

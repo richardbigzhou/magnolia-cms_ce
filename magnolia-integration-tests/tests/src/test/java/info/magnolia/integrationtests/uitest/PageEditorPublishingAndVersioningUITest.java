@@ -65,7 +65,7 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
     @Test
     public void publishAndCheckVersions() {
         // GIVEN
-        final String[] pathToArticle = new String[] { DEMO_PROJECT_PAGE, ABOUT_PAGE, SUBSECTION_ARTICLES };
+        final String[] pathToArticle = new String[]{DEMO_PROJECT_PAGE, ABOUT_PAGE, SUBSECTION_ARTICLES};
         final String article = "article";
 
         // WHEN
@@ -104,7 +104,7 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
     @Test
     public void publishNewArticle() {
 
-        final String[] pathToArticle = new String[] { DEMO_PROJECT_PAGE, ABOUT_PAGE };
+        final String[] pathToArticle = new String[]{DEMO_PROJECT_PAGE, ABOUT_PAGE};
         // Go to pages App
         getAppIcon(PAGES_APP).click();
         waitUntil(appIsLoaded());
@@ -151,7 +151,7 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
 
     @Test
     public void publishNewArticleAndRemoveIt() {
-        final String[] pathToArticle = new String[] { DEMO_PROJECT_PAGE, ABOUT_PAGE };
+        final String[] pathToArticle = new String[]{DEMO_PROJECT_PAGE, ABOUT_PAGE};
         // Go to pages App
         getAppIcon(PAGES_APP).click();
         waitUntil(appIsLoaded());
@@ -206,7 +206,7 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
         getAppIcon(PAGES_APP).click();
         waitUntil(appIsLoaded());
         // Navigate to the content to change
-        expandTreeAndSelectAnElement("arts", new String[] { DEMO_PROJECT_PAGE, "service", "glossary", "a" });
+        expandTreeAndSelectAnElement("arts", DEMO_PROJECT_PAGE, "service", "glossary", "a");
         assertThat(getSelectedActivationStatusIcon().getAttribute("class"), containsString(COLOR_GREEN_ICON_STYLE));
 
         getActionBarItem(DELETE_PAGE_ACTION).click();
@@ -247,7 +247,7 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
     @Test
     public void canPublishAfterNewPublishedPageHasBeenRenderedOnBothInstances() {
         // GIVEN
-        final String[] pathToArticle = new String[] { DEMO_PROJECT_PAGE, ABOUT_PAGE };
+        final String[] pathToArticle = new String[]{DEMO_PROJECT_PAGE, ABOUT_PAGE};
         final String pageNameAndTitle = "new";
         final String template = "Article";
         getAppIcon(PAGES_APP).click();
@@ -263,7 +263,7 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
         delay(3, "make sure page had been rendered before continuing...");
 
         // render an public as well
-        String url = StringUtils.join(new String[] { DEMO_PROJECT_PAGE, ABOUT_PAGE, SUBSECTION_ARTICLES }, "/") + "/" + pageNameAndTitle + ".html";
+        String url = StringUtils.join(new String[]{DEMO_PROJECT_PAGE, ABOUT_PAGE, SUBSECTION_ARTICLES}, "/") + "/" + pageNameAndTitle + ".html";
 
         navigateDriverTo(Instance.PUBLIC.getURL(url));
         delay(3, "Make sure we finish rendering on public.");
@@ -312,7 +312,7 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
         navigateDriverTo(Instance.AUTHOR.getURL(".magnolia/sysprop/?name=magnolia.utf8.enabled&value=false"));
         navigateDriverTo(Instance.PUBLIC.getURL(".magnolia/sysprop/?name=magnolia.utf8.enabled&value=false"));
     }
-    
+
     /**
      * Delete multiple items and check if the publish delete is available for multiple items.
      */
@@ -416,7 +416,7 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
         switchToPageEditorContent();
         // Open Text Image Content Form
 
-        getElementByPath(By.xpath(String.format("//div[@role='article']//div[@class='text-section']"))).click();
+        getElementByPath(By.xpath("//div[@role='article']//div[@class='text-section']")).click();
         getElementByPath(By.xpath("//*[contains(@class, 'focus')]//*[contains(@class, 'icon-edit')]")).click();
         switchToDefaultContent();
         // Do changes in the Text Image form and save
