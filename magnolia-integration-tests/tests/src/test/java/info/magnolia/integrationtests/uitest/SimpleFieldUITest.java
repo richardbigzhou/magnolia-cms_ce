@@ -217,7 +217,7 @@ public class SimpleFieldUITest extends AbstractMagnoliaUITest {
         WebElement suggestMenu = getElementByPath(By.xpath("//div[contains(@class, 'v-filterselect-suggestmenu')]"));
 
         // THEN
-        assertEquals(suggestMenu.getCssValue("overflow-y"), "auto");
+        assertEquals("auto", suggestMenu.getCssValue("overflow-y"));
         assertTrue(StringUtils.isNotBlank(suggestMenu.getCssValue("height")));
     }
 }
