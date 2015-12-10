@@ -208,14 +208,13 @@ public class SimpleFieldUITest extends AbstractMagnoliaUITest {
 
         WebElement select = getFormField("Select");
 
-        // Simulate a click on the select field so that the suggestion menu pops up and become visible. Can't invoke click() method directly
+        // Simulate a click on the select field so that the suggestion menu pops up and becomes visible. Can't invoke click() method directly
         // on select because that is a DIV and clicking on it has not the desired effect.
         WebElement selection = select.findElement(By.className("v-filterselect-input"));
         selection.click();
 
         // WHEN
         WebElement suggestMenu = getElementByPath(By.xpath("//div[contains(@class, 'v-filterselect-suggestmenu')]"));
-        System.out.println(suggestMenu.getCssValue("overflow-y"));
 
         // THEN
         assertEquals(suggestMenu.getCssValue("overflow-y"), "auto");
