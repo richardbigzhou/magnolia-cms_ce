@@ -38,6 +38,7 @@ import static org.junit.Assert.*;
 import java.net.URL;
 import java.text.NumberFormat;
 
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -200,4 +201,24 @@ public class SimpleFieldUITest extends AbstractMagnoliaUITest {
         assertEquals(newFooterText, footer.getText());
     }
 
+    @Test
+    public void selectFieldHasOverflowAutoAndHeight() {
+        // GIVEN
+        goToDialogShowRoomAndOpenDialogComponent("ftl");
+        openTabWithCaption("Selections");
+
+        WebElement select = getFormField("Select");
+
+        // Simulate a click on the select field so that the suggestion menu pops up and becomes visible. Can't invoke click() method directly
+        // on select because that is a DIV and clicking on it has not the desired effect.
+        WebElement selection = select.findElement(By.className("v-filterselect-input"));
+        selection.click();
+
+        // WHEN
+        WebElement suggestMenu = getElementByPath(By.xpath("//div[contains(@class, 'v-filterselect-suggestmenu')]"));
+
+        // THEN
+        assertEquals(suggestMenu.getCssValue("overflow-y"), "auto");
+        assertTrue(StringUtils.isNotBlank(suggestMenu.getCssValue("height")));
+    }
 }
