@@ -121,7 +121,7 @@ public class ItemSelectionUITest extends AbstractMagnoliaUITest {
         // cleanup
         getEnabledActionBarItem("Delete item").click();
         getDialogConfirmButton().click();
-        delay("Wait a moment so first item is deleted.");
+        delay(5, "Wait a moment so first item is deleted.");
         getTreeTableItem("untitled").click();
         getEnabledActionBarItem("Delete item").click();
         getDialogConfirmButton().click();
