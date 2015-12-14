@@ -376,12 +376,12 @@
                 for page properties defined with prefix "travelgeturl" or "travelgeturlauth".
               -->
               <properties>
+                <login>superuser</login>
+                <password>superuser</password>
                 <propertyServletUrlAuthor>http://${containerHostName}:${containerHttpPort}/magnoliaTest/.magnolia/jcrprop</propertyServletUrlAuthor>
                 <propertyServletUrlPublic>http://${containerHostName}:${containerHttpPort}/magnoliaTestPublic/.magnolia/jcrprop</propertyServletUrlPublic>
                 <site>/modules/travel-demo/config/travel</site>
                 <URLPropertyPrefix>travel</URLPropertyPrefix>
-                <login>superuser</login>
-                <password>superuser</password>
                 <travelgeturl1>http://${containerHostName}:${containerHttpPort}/magnoliaTestPublic/travel/</travelgeturl1>
                 <travelgeturlauth2>http://${containerHostName}:${containerHttpPort}/magnoliaTest/travel/</travelgeturlauth2>
               </properties>

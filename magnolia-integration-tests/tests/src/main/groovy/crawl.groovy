@@ -81,7 +81,10 @@ class WebCrawler {
 
     private threadPool
 
-    WebCrawler(start_on, defEncoding = "deflated, gzip") {
+    private useAuth
+    private authString
+
+    WebCrawler(start_on, authString, defEncoding = "deflated, gzip") {
         startURL = start_on
 
         visitedURLs = new HashSet()
@@ -104,6 +107,9 @@ class WebCrawler {
         if (PREVIEW_MODE) {
             unvisitedURLs << ["url" : startURL.replaceAll(/false$/,"true"), "depth" : 0]
         }
+
+        useAuth = start_on.contains("useAuth");
+        this.authString = authString
 
         cookies = []
         gotErrors = 0
@@ -177,6 +183,12 @@ class WebCrawler {
                     connection.addRequestProperty("Referer", url) // use the url as referer
                     connection.addRequestProperty("Accept-Encoding", defEncoding)
                     connection.setFollowRedirects(false)
+
+                    if (useAuth) {
+                        def byte[] authEncBytes = Base64.getEncoder().encode(this.authString.getBytes())
+                        connection.addRequestProperty("Authorization", "Basic " + new String(authEncBytes))
+                    }
+
                     connection.connect()
                     def response = connection.getResponseCode()
                     def location = connection.getHeaderField("Location")
@@ -333,6 +345,12 @@ class WebCrawler {
                     connection.addRequestProperty("Referer", url) // use the url as referer
                     connection.addRequestProperty("Accept-Encoding", defEncoding)
                     connection.setFollowRedirects(false)
+
+                    if (useAuth) {
+                        def byte[] authEncBytes = Base64.getEncoder().encode(this.authString.getBytes())
+                        connection.addRequestProperty("Authorization", "Basic " + new String(authEncBytes))
+                    }
+
                     connection.connect()
 
                     def response = connection.getResponseCode()
@@ -638,6 +656,7 @@ def site
 def prevSiteAuthor
 def prevSitePublic
 def pages
+def authString;
 try{
     pages = args
 } catch (MissingPropertyException ex) { //We're triggered from Maven
@@ -651,7 +670,7 @@ try{
             if (it.contains("${urlPropertyPrefix}geturlauth")) {
                 //property value in maven can't contain '=' character, nor '%' for url encoding.
                 //hence, we need to construct URI here.
-                pages << project.properties[it] + "?mgnlUserId=${project.properties["login"]}&mgnlUserPSWD=${project.properties["password"]}"
+                pages << project.properties[it] + "?useAuth"
             } else {
                 pages << project.properties[it]
             }
@@ -669,13 +688,20 @@ try{
             propertyServletUrlPublic = project.properties[it]
         }
     }
+
+    if (StringUtils.isBlank(project.properties["login"]) || StringUtils.isBlank(project.properties["password"])) {
+        throw new IllegalStateException("Login/Password missing")
+    }
+
+    // The authentication string consists of "username:password" and will later be base64 encoded
+    authString = "${project.properties["login"]}:${project.properties["password"]}";
 }
 def exitCode = 0
 
 try {
     if (StringUtils.isNotBlank(site) && StringUtils.isNotBlank(propertyServletUrlAuthor) && StringUtils.isNotBlank(propertyServletUrlPublic)) {
-        prevSiteAuthor = setSite(site, propertyServletUrlAuthor)
-        prevSitePublic = setSite(site, propertyServletUrlPublic)
+        prevSiteAuthor = setSite(site, propertyServletUrlAuthor, authString)
+        prevSitePublic = setSite(site, propertyServletUrlPublic, authString)
         sleep(10000) // wait for restart of Site module
     }
 } catch (Exception ex) {
@@ -685,16 +711,16 @@ try {
 
 pages.each{ page ->
     if (encoding)
-        crawler = new WebCrawler(page, encoding)
+        crawler = new WebCrawler(page, authString, encoding)
     else
-        crawler = new WebCrawler(page)
+        crawler = new WebCrawler(page, authString)
     exitCode += crawler.getErrorStatus()
 }
 
 try {
     if (StringUtils.isNotBlank(prevSiteAuthor) && StringUtils.isNotBlank(prevSitePublic)) {
-        setSite(prevSiteAuthor, propertyServletUrlAuthor)
-        setSite(prevSitePublic, propertyServletUrlPublic)
+        setSite(prevSiteAuthor, propertyServletUrlAuthor, authString)
+        setSite(prevSitePublic, propertyServletUrlPublic, authString)
         sleep(10000) // wait for restart of Site module
     }
 } catch (Exception ex) {
@@ -706,9 +732,13 @@ println "No. of Errors: ${exitCode}"
 if (exitCode != 0)
     throw new RuntimeException("Errors found while crawling.")
 
-def setSite(site, propertyServletUrl) {
-    def changeSiteURL = "${propertyServletUrl}/?path=/modules/site/config/site/extends&value=${site}&mgnlUserId=${project.properties["login"]}&mgnlUserPSWD=${project.properties["password"]}"
+def setSite(site, propertyServletUrl, authString) {
+    def byte[] authEncBytes = Base64.getEncoder().encode(authString.getBytes());
+    def changeSiteURL = "${propertyServletUrl}/?path=/modules/site/config/site/extends&value=${site}"
+
     def connection = new URL(changeSiteURL).openConnection()
+    connection.setRequestProperty("Authorization", "Basic " + new String(authEncBytes));
     connection.connect()
+
     return connection.getInputStream().text
 }
