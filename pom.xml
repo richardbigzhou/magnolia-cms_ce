@@ -546,6 +546,12 @@
         <version>${langVersion}</version>
       </dependency>
 
+      <dependency>
+        <groupId>info.magnolia.jcrtools</groupId>
+        <artifactId>magnolia-jcr-tools</artifactId>
+        <version>1.0-SNAPSHOT</version>
+      </dependency>
+
       <!-- Tests -->
       <dependency>
         <groupId>org.hamcrest</groupId>
