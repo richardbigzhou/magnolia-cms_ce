@@ -59,6 +59,7 @@ class Constants {
 
 import static Constants.*
 import org.apache.commons.lang3.StringUtils
+import org.apache.commons.codec.binary.Base64
 
 class WebCrawler {
     private startURL
@@ -185,8 +186,8 @@ class WebCrawler {
                     connection.setFollowRedirects(false)
 
                     if (useAuth) {
-                        def byte[] authEncBytes = Base64.getEncoder().encode(this.authString.getBytes())
-                        connection.addRequestProperty("Authorization", "Basic " + new String(authEncBytes))
+                        def authEnc = new String(Base64.encodeBase64(this.authString.getBytes()))
+                        connection.addRequestProperty("Authorization", "Basic " + authEnc)
                     }
 
                     connection.connect()
@@ -347,8 +348,8 @@ class WebCrawler {
                     connection.setFollowRedirects(false)
 
                     if (useAuth) {
-                        def byte[] authEncBytes = Base64.getEncoder().encode(this.authString.getBytes())
-                        connection.addRequestProperty("Authorization", "Basic " + new String(authEncBytes))
+                        def authEnc = new String(Base64.encodeBase64(this.authString.getBytes()))
+                        connection.addRequestProperty("Authorization", "Basic " + authEnc)
                     }
 
                     connection.connect()
@@ -733,11 +734,12 @@ if (exitCode != 0)
     throw new RuntimeException("Errors found while crawling.")
 
 def setSite(site, propertyServletUrl, authString) {
-    def byte[] authEncBytes = Base64.getEncoder().encode(authString.getBytes());
+    def authEnc = new String(Base64.encodeBase64(authString.getBytes()))
     def changeSiteURL = "${propertyServletUrl}/?path=/modules/site/config/site/extends&value=${site}"
 
     def connection = new URL(changeSiteURL).openConnection()
-    connection.setRequestProperty("Authorization", "Basic " + new String(authEncBytes));
+
+    connection.setRequestProperty("Authorization", "Basic " + authEnc)
     connection.connect()
 
     return connection.getInputStream().text
