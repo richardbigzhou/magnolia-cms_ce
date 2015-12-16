@@ -212,8 +212,11 @@ class WebCrawler {
                         }
                         break
                     }
+                } catch (UnknownHostException ex) {
+                    announceError("Unknown Host", url)
+                    continue
                 } catch (Exception ex) {
-                    announceError("Unknown Host",url)
+                    ex.printStackTrace()
                     continue
                 }
 
