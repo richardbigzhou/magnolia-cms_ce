@@ -43,7 +43,6 @@ import static org.hamcrest.core.IsInstanceOf.instanceOf;
 import java.util.List;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
@@ -194,7 +193,6 @@ public class ResourcesAppUITest extends AbstractMagnoliaUITest {
         getEnabledActionBarItem("Delete file");
     }
 
-    @Ignore("Ignored until test has been made more reliable.")
     @Test
     public void markingAsDeletedBottomUpApproach() {
         // GIVEN
@@ -209,7 +207,6 @@ public class ResourcesAppUITest extends AbstractMagnoliaUITest {
         assertThat(getTreeTableItemRow("markFile"), instanceOf(NonExistingWebElement.class));
     }
 
-    @Ignore("Ignored until test has been made more reliable.")
     @Test
     public void markingAsDeletedTopDownApproach() {
         // GIVEN
@@ -321,7 +318,7 @@ public class ResourcesAppUITest extends AbstractMagnoliaUITest {
         getDialogCommitButton().click();
         delay("Wait for marking as deleted");
         getEnabledActionBarItem("Publish deletion").click();
-        delay(5, "Let system publish the deletion");
+        delay(8, "Let system publish the deletion");
     }
 
     private void assertResourceIconIs(WebElement resourceRow, String iconTitle, String iconClass) {
