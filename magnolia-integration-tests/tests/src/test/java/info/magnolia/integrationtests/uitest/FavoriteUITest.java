@@ -158,6 +158,51 @@ public class FavoriteUITest extends AbstractMagnoliaUITest {
         removeExistingItems();
     }
 
+    @Test
+    public void shouldOpenTheAppAssociatedWithFavoriteItem() {
+        // GIVEN
+        // Create a new favorite item
+        getAppIcon("Pages").click();
+        waitUntil(appIsLoaded());
+        getShellAppIcon("icon-favorites").click();
+        waitUntil(shellAppIsLoaded(ShellApp.FAVORITES));
+
+        // WHEN
+        getButton("dialog-header", "Add new").click();
+        getButton("v-button-commit", "Add").click();
+
+        // THEN
+        assertEquals("Pages /", getElementByXpath("//input[contains(@class, 'v-textfield-readonly')]").getAttribute("value"));
+
+        // GIVEN
+        // Close Favorites and Pages app.
+        getShellAppIcon("icon-favorites").click();
+        delay("Wait a second to close Favorites");
+        closeApp();
+        delay("Wait a second to close Pages app");
+        // Open Favorites again
+        getShellAppIcon("icon-favorites").click();
+        waitUntil(shellAppIsLoaded(ShellApp.FAVORITES));
+
+        // WHEN
+        // Click into bookmarked item to open the app.
+        getElementByXpath("//input[contains(@class, 'v-textfield-readonly')]").click();
+        waitUntil(appIsLoaded());
+
+        // THEN
+        // Make sure that Pages app can open and we still able to interact with pages
+        assertAppOpen("Pages");
+        getTreeTableItem(AbstractPageEditorUITest.DEMO_PROJECT_PAGE).click();
+        getActionBarItem(AbstractPageEditorUITest.EDIT_PAGE_ACTION).click();
+        delay(3, "Give some time to load the page");
+        assertTrue("We should be in edit mode.", getCurrentDriverUrl().contains("demo-project:edit"));
+
+        // Clean up
+        getShellAppIcon("icon-favorites").click();
+        waitUntil(shellAppIsLoaded(ShellApp.FAVORITES));
+        removeExistingItems();
+    }
+
     private WebElement getEditFavoritesButton() {
         return getElementByXpath("//*[contains(@class, '%s')]//*[not(contains(@class, 'disabled')) and text() = '%s']", "dialog-header", "Edit favorites");
     }
