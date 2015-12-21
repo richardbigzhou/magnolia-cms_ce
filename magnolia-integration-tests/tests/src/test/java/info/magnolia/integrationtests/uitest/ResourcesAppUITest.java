@@ -43,6 +43,7 @@ import static org.hamcrest.core.IsInstanceOf.instanceOf;
 import java.util.List;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
@@ -207,6 +208,7 @@ public class ResourcesAppUITest extends AbstractMagnoliaUITest {
         assertThat(getTreeTableItemRow("markFile"), instanceOf(NonExistingWebElement.class));
     }
 
+    @Ignore("Ignored until test has been made more reliable.")
     @Test
     public void markingAsDeletedTopDownApproach() {
         // GIVEN
