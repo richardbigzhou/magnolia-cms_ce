@@ -194,6 +194,7 @@ public class ResourcesAppUITest extends AbstractMagnoliaUITest {
         getEnabledActionBarItem("Delete file");
     }
 
+    @Ignore("Ignored until test has been made more reliable.")
     @Test
     public void markingAsDeletedBottomUpApproach() {
         // GIVEN
