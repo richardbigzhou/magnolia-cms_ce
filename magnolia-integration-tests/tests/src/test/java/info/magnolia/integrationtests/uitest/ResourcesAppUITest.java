@@ -265,7 +265,7 @@ public class ResourcesAppUITest extends AbstractMagnoliaUITest {
     }
 
     private void editSelectedFile() {
-        getActionBarItem("Edit file").click();
+        getEnabledActionBarItem("Edit file").click();
         waitUntil(appIsLoaded());
         getDialogCommitButton().click();
     }
@@ -289,7 +289,7 @@ public class ResourcesAppUITest extends AbstractMagnoliaUITest {
     }
 
     private void createFileFor(String fileName) {
-        getActionBarItem("Add file").click();
+        getEnabledActionBarItem("Add file").click();
         setFormTextFieldText("File name", fileName);
         getDialogCommitButton().click();
         waitUntil(appIsLoaded());
@@ -298,19 +298,19 @@ public class ResourcesAppUITest extends AbstractMagnoliaUITest {
     }
 
     private void createFolderFor(String folderName) {
-        getActionBarItem("Add folder").click();
+        getEnabledActionBarItem("Add folder").click();
         setFormTextFieldText("Folder name", folderName);
         getDialogCommitButton().click();
         waitUntil(dialogIsClosed("Add folder"));
     }
 
     private void deleteSelectedFile() {
-        getActionBarItem("Delete file").click();
+        getEnabledActionBarItem("Delete file").click();
         commitDelete();
     }
 
     private void deleteSelectedFolder() {
-        getActionBarItem("Delete folder").click();
+        getEnabledActionBarItem("Delete folder").click();
         commitDelete();
     }
 
