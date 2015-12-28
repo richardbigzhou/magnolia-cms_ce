@@ -50,7 +50,6 @@ public class CategoriesAppUITest extends AbstractMagnoliaUITest {
         assertAppOpen("Categories");
 
         getActionBarItem("Add folder").click();
-        getTreeTableItem("untitled").click();
         getActionBarItem("Add category").click();
 
         getFormTextField("Category name").sendKeys(testName);

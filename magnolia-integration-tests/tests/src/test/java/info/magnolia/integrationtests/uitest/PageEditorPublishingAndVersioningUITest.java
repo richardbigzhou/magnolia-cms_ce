@@ -332,7 +332,12 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
         final String FIRST_PAGE = "first-page-to-delete";
         final String SECOND_PAGE = "second-page-to-delete";
         addNewTemplate(FIRST_PAGE, "Title of the first page to delete", "Home");
+        //de-select the item
+        getTreeTableItem(FIRST_PAGE).click();
+
         addNewTemplate(SECOND_PAGE, "Title of the second to delete", "Home");
+        //de-select the item
+        getTreeTableItem(SECOND_PAGE).click();
 
         getTreeTableItem(FIRST_PAGE).findElement(By.xpath(".//*[contains(@class, 'v-selection-cb')]/input[@type='checkbox']")).click();
         getTreeTableItem(SECOND_PAGE).findElement(By.xpath(".//*[contains(@class, 'v-selection-cb')]/input[@type='checkbox']")).click();

@@ -49,7 +49,6 @@ public class RssAggregatorAppUITest extends AbstractMagnoliaUITest {
         assertAppOpen("Feeds");
 
         getEnabledActionBarItem("Add folder").click();
-        getTreeTableItem("untitled").click();
         getEnabledActionBarItem("Add feed").click();
 
         getFormTextField("Name").sendKeys(testName);

@@ -49,7 +49,6 @@ public class SitemapAppUITest extends AbstractMagnoliaUITest {
         assertAppOpen("Sitemaps");
 
         getActionBarItem("Add folder").click();
-        getTreeTableItem("untitled").click();
         getEnabledActionBarItem("Add site map").click();
 
         getFormTextField("Name").sendKeys(testName);

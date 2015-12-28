@@ -56,8 +56,6 @@ public class SiteAppUITest extends AbstractPageEditorUITest {
 
         getActionBarItem("Add content node").click();
 
-        getTreeTableItem("untitled").click();
-
         // publish
         getActionBarItem("Publish").click();
         delay("Publication may take some time");

@@ -1274,8 +1274,10 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
      */
     protected void deleteTreeTableRow(String deleteActionCaption, String rowName) {
 
-        WebElement rowToDelete = getTreeTableItem(rowName);
-        rowToDelete.click();
+        if (!isTreeTableItemSelected(rowName)) {
+            WebElement rowToDelete = getTreeTableItem(rowName);
+            rowToDelete.click();
+        }
         delay(1, "");
         getActionBarItem(deleteActionCaption).click();
         delay(1, "");
