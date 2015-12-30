@@ -279,6 +279,7 @@ public class ResourcesAppUITest extends AbstractMagnoliaUITest {
 
     private void setUpStructureFor(List<String> folders, List<String> files) {
         for (int i = 0; i < folders.size(); i++) {
+            delay("Let folder to be created");
             createFolderFor(folders.get(i));
             if (i == 0) {
                 getTreeTableItemRow(folders.get(i)).click();
@@ -288,6 +289,7 @@ public class ResourcesAppUITest extends AbstractMagnoliaUITest {
         }
 
         for (String file : files) {
+            delay("Let file to be created");
             createFileFor(file);
         }
 
