@@ -33,7 +33,7 @@
     <mteVersion>0.8-SNAPSHOT</mteVersion>
     <resourcesVersion>2.4.3-SNAPSHOT</resourcesVersion>
     <imagingVersion>3.2.3</imagingVersion>
-    <siteVersion>1.0.3</siteVersion>
+    <siteVersion>1.0.4-SNAPSHOT</siteVersion>
     <travelDemoVersion>0.9-SNAPSHOT</travelDemoVersion>
     <cacheVersion>5.4.3</cacheVersion>
     <langVersion>1.0.3-SNAPSHOT</langVersion>
@@ -173,7 +173,7 @@
       <dependency>
         <groupId>info.magnolia.pages</groupId>
         <artifactId>magnolia-pages-app</artifactId>
-        <version>5.4.2</version>
+        <version>5.4.3-SNAPSHOT</version>
       </dependency>
 
       <dependency>
