@@ -30,7 +30,7 @@
     <restClientVersion>1.0.6</restClientVersion>
     <damVersion>2.1.2</damVersion>
     <categorizationVersion>2.4.1</categorizationVersion>
-    <mteVersion>0.7</mteVersion>
+    <mteVersion>0.8-SNAPSHOT</mteVersion>
     <resourcesVersion>2.4.3-SNAPSHOT</resourcesVersion>
     <imagingVersion>3.2.3</imagingVersion>
     <siteVersion>1.0.3</siteVersion>
@@ -378,6 +378,11 @@
       <dependency>
         <groupId>info.magnolia.templating</groupId>
         <artifactId>magnolia-templating-essentials-imaging</artifactId>
+        <version>${mteVersion}</version>
+      </dependency>
+       <dependency>
+        <groupId>info.magnolia.templating</groupId>
+        <artifactId>magnolia-templating-kit</artifactId>
         <version>${mteVersion}</version>
       </dependency>
 
