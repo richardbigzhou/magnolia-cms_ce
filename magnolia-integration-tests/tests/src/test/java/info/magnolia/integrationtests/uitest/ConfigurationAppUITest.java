@@ -239,6 +239,24 @@ public class ConfigurationAppUITest extends AbstractMagnoliaUITest {
         checkEnabledActions("Unpublish");
     }
 
+    @Test
+    public void doubleClickOnNonSelectedTableItemSelectsIt() throws Exception {
+        // GIVEN
+        getAppIcon(CONFIGURATION_APP).click();
+        waitUntil(appIsLoaded());
+        assertAppOpen(CONFIGURATION_APP);
+        expandTreeNoSelection("/modules/core");
+        WebElement item = getTreeTableItem("version");
+
+        // WHEN
+        doubleClick(item);
+
+        // THEN
+        // checking version (at this point a cell in editing state) for some reason doesn't work. Let's check the type cell on the same row
+        getTreeTableItem("String");
+        assertTrue(isTreeTableItemSelected("String"));
+    }
+
     private void deleteUntitledFolderIfExisting() {
         WebElement untitledFolder = getTreeTableItem("untitled");
         if (isExisting(untitledFolder)) {
