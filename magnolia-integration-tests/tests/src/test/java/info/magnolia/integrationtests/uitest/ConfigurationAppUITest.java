@@ -54,13 +54,21 @@ public class ConfigurationAppUITest extends AbstractMagnoliaUITest {
     private static final Logger log = LoggerFactory.getLogger(ConfigurationAppUITest.class);
     public static final String CONFIGURATION_APP = "Configuration";
 
+    @Override
+    public void setUp() {
+        super.setUp();
+        getAppIcon(CONFIGURATION_APP).click();
+        waitUntil(appIsLoaded());
+        assertAppOpen(CONFIGURATION_APP);
+    }
+
     /**
      * This test checks if properties are properly escaped in the ConfigurationApp.
      *
      * @see <a href="http://jira.magnolia-cms.com/browse/MGNLUI-2151">MGNLUI-2151</a>
      */
     @Test
-    public void testIfPropertiesAreEscaped() {
+    public void ensureThatPropertiesAreEscaped() {
         // GIVEN
         final String unEscapedHTML = "<img src=\"http://hudson.magnolia-cms.com/static/6629b508/images/32x32/health-00to19.gif\" width=\"32\" height=\"32\" onmouseover='alert(\"Pwwned\")' />";
         final String folderName = "testFolder";
@@ -68,10 +76,6 @@ public class ConfigurationAppUITest extends AbstractMagnoliaUITest {
         final String propertyName = "property";
 
         // WHEN
-        // Go to pages App
-        getAppIcon(CONFIGURATION_APP).click();
-        assertAppOpen(CONFIGURATION_APP);
-
         deleteUntitledFolderIfExisting();
 
         // Create folder and rename it
@@ -135,8 +139,6 @@ public class ConfigurationAppUITest extends AbstractMagnoliaUITest {
 
     @Test
     public void canPublishUnpublishAndDeleteNewNode() {
-        getAppIcon(CONFIGURATION_APP).click();
-        assertAppOpen(CONFIGURATION_APP);
 
         getEnabledActionBarItem("Add folder").click();
 
@@ -189,8 +191,6 @@ public class ConfigurationAppUITest extends AbstractMagnoliaUITest {
 
     @Test
     public void unpublishActionIsDisabledForLvl1Or2Nodes() {
-        getAppIcon(CONFIGURATION_APP).click();
-        assertAppOpen(CONFIGURATION_APP);
 
         getEnabledActionBarItem("Add folder").click();
 
@@ -234,6 +234,21 @@ public class ConfigurationAppUITest extends AbstractMagnoliaUITest {
         // unpublish availability depth3
         getTreeTableItem("depth3").click();
         checkEnabledActions("Unpublish");
+    }
+
+    @Test
+    public void doubleClickOnNonSelectedTableItemSelectsIt() throws Exception {
+        // GIVEN
+        expandTreeNoSelection("/modules/core");
+        WebElement item = getTreeTableItem("version");
+
+        // WHEN
+        doubleClick(item);
+
+        // THEN
+        // checking version (at this point a cell in editing state) for some reason doesn't work. Let's check the type cell on the same row
+        getTreeTableItem("String");
+        assertTrue(isTreeTableItemSelected("String"));
     }
 
     private void deleteUntitledFolderIfExisting() {

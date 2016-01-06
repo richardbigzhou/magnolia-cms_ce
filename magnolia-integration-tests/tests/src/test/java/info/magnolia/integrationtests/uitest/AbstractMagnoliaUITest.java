@@ -968,6 +968,19 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
      * "demo-project", "about", "subsection-articles",...
      */
     protected void expandTreeAndSelectAnElement(String element, String... paths) {
+        expandTreeNoSelection(paths);
+        if (!isTreeTableItemSelected(element)) {
+            getTreeTableItem(element).click();
+        }
+    }
+
+    /*
+     * Expands a tree up to the given path <strong>without selecting</strong> any element.
+     *
+     * @param paths individual path element road allowing to reach a leaf element. <br>
+     * "demo-project", "about", "subsection-articles",...
+     */
+    private void expandTreeNoSelection(String... paths) {
         for (String path : paths) {
             WebElement treeExpander = getTreeTableItemExpander(path);
             // Only expand node if it's not open yet
@@ -975,9 +988,16 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
                 treeExpander.click();
             }
         }
-        if (!isTreeTableItemSelected(element)) {
-            getTreeTableItem(element).click();
-        }
+    }
+
+
+    /**
+     * Will expand a tree <strong>without making any selection</strong>.
+     *
+     * @param path the path as String (e.g. "/demo-project/services/glossary/a/arts").
+     */
+    protected void expandTreeNoSelection(String path) {
+        expandTreeNoSelection(StringUtils.split(path, "/"));
     }
 
     /**
