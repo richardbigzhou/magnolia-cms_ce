@@ -431,6 +431,8 @@ public class SecurityAppUITest extends AbstractMagnoliaUITest {
         addFolder(folderName);
         duplicateSecurityAppItem(itemTypeCaption, itemNameToCopy, newItemName);
 
+        getTreeTableItemRow(folderName).click(); // TODO: Because of a bug uncovered by the changes from MGNLUI-2927 we have to explicitly ensure that the dnd target is visibly by selecting it.
+
         delay("Wait a second");
 
         dragAndDropElement(getTreeTableItemRow(newItemName), getTreeTableItemRow(folderName));
