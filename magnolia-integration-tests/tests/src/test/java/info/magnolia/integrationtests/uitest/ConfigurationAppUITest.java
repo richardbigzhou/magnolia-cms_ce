@@ -192,9 +192,6 @@ public class ConfigurationAppUITest extends AbstractMagnoliaUITest {
 
     @Test
     public void unpublishActionIsDisabledForLvl1Or2Nodes() {
-        getAppIcon(CONFIGURATION_APP).click();
-        waitUntil(appIsLoaded());
-        assertAppOpen(CONFIGURATION_APP);
 
         getEnabledActionBarItem("Add folder").click();
 
