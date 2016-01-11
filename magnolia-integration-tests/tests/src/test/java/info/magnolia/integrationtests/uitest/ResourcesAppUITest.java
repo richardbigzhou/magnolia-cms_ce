@@ -53,7 +53,6 @@ import com.google.common.collect.Iterables;
 public class ResourcesAppUITest extends AbstractMagnoliaUITest {
 
     private static final String RESOURCES_APP = "Resource Files";
-    private static final String SECTION_NAME = "STK";
     private static final String FILE_SYSTEM_ICON = "FS";
     private static final String JCR_ICON = "JCR";
     private static final String JCR = "JCR";
@@ -63,7 +62,7 @@ public class ResourcesAppUITest extends AbstractMagnoliaUITest {
     @Before
     public void setUp() {
         super.setUp();
-        getCollapsibleAppSectionIcon(SECTION_NAME).click();
+        getElementByXpath("//div[contains(@class, 'item')]/*[contains(@class,'sectionLabel') and (text() = 'STK' or text() = 'Web dev' or text() = 'MTE')]").click();
         getAppIcon(RESOURCES_APP).click();
         waitUntil(appIsLoaded());
         assertAppOpen(RESOURCES_APP);
