@@ -39,7 +39,7 @@ import info.magnolia.testframework.htmlunit.AbstractMagnoliaHtmlUnitTest;
 
 import org.junit.Test;
 
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import com.gargoylesoftware.htmlunit.Page;
 
 /**
  * Tests whether configuration from fixtures module was set.
@@ -48,9 +48,11 @@ public class ConfirmIntegrationFixturesTest extends AbstractMagnoliaHtmlUnitTest
 
     @Test
     public void testWhetherActivationURLWasProperlySet() throws Exception {
-        final HtmlPage root = openPage(Instance.AUTHOR.getURL(".magnolia/jcrprop/?path=/server/activation/subscribers/magnoliaPublic8080/URL"), User.superuser);
-        final String result = root.asText();
-
+        //GIVEN
+        final Page root = openPage(Instance.AUTHOR.getURL(".magnolia/jcrprop/?path=/server/activation/subscribers/magnoliaPublic8080/URL"), User.superuser);
+        //WHEN
+        final String result = root.getWebResponse().getContentAsString();
+        //THEN
         assertNotNull(result);
         assertEquals("We expect that the activation URL of the default subscriber was updated.", AbstractMagnoliaHtmlUnitTest.Instance.PUBLIC.getURL(), result);
     }

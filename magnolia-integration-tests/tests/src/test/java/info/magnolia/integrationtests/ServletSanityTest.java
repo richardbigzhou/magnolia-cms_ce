@@ -45,6 +45,7 @@ import org.junit.Test;
 import com.gargoylesoftware.htmlunit.html.HtmlForm;
 import com.gargoylesoftware.htmlunit.html.HtmlInput;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import com.gargoylesoftware.htmlunit.Page;
 
 /**
  * Runs tests for the pages in servlet sanity module.
@@ -117,8 +118,8 @@ public class ServletSanityTest extends AbstractMagnoliaHtmlUnitTest {
     }
 
     private String setUtfEnabled(String value) throws IOException {
-        HtmlPage page = openPage(Instance.AUTHOR.getURL("/.magnolia/sysprop/?name=magnolia.utf8.enabled&value=" + value), User.superuser);
+        Page page = openPage(Instance.AUTHOR.getURL("/.magnolia/sysprop/?name=magnolia.utf8.enabled&value=" + value), User.superuser);
         assertEquals(200, page.getWebResponse().getStatusCode());
-        return page.asText();
+        return page.getWebResponse().getContentAsString();
     }
 }
