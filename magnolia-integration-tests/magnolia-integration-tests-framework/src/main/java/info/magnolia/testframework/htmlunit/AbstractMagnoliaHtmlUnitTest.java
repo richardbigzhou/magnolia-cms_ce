@@ -215,9 +215,9 @@ public abstract class AbstractMagnoliaHtmlUnitTest extends AbstractMagnoliaInteg
      * Sets a system property (using the SystemPropertyServlet servlet) to a given value. Returns its previous value.
      */
     protected String setSystemProperty(Instance instance, String name, String value) throws IOException {
-        HtmlPage page = openPage(instance.getURL("/.magnolia/sysprop/?name=" + name + "&value=" + value), User.superuser);
+        Page page = openPage(instance.getURL("/.magnolia/sysprop/?name=" + name + "&value=" + value), User.superuser);
         assertEquals(200, page.getWebResponse().getStatusCode());
-        return page.asText();
+        return page.getWebResponse().getContentAsString();
     }
 
     /**
