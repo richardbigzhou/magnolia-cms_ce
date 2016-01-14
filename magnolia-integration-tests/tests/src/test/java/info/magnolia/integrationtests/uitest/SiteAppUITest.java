@@ -38,9 +38,9 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 /**
- * UI Tests for stk's site definitions app.
+ * UI Tests for site app.
  */
-public class STKSiteDefinitionsAppUITest extends AbstractMagnoliaUITest {
+public class SiteAppUITest extends AbstractMagnoliaUITest {
 
     private static final String STK_APP_GROUP = "STK";
     private static final String SITE_APP = "Site";
