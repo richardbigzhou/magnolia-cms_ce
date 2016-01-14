@@ -42,10 +42,13 @@ import org.junit.Test;
  */
 public class STKSiteDefinitionsAppUITest extends AbstractMagnoliaUITest {
 
+    private static final String STK_APP_GROUP = "STK";
+    private static final String SITE_APP = "Site";
+
     @Test
     public void canPublishUnpublishAndDeleteVariation() {
-        getCollapsibleAppSectionIcon("STK").click();
-        getAppIcon("Site definitions").click();
+        getCollapsibleAppSectionIcon(STK_APP_GROUP).click();
+        getAppIcon(SITE_APP).click();
         waitUntil(appIsLoaded());
         assertAppOpen("Site definitions");
 
