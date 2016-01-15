@@ -157,15 +157,11 @@ public class SecurityAppUITest extends AbstractMagnoliaUITest {
         // WHEN 1
         addSecurityAppItem(GROUP, groupName);
 
-        delay("Wait a second for the group to created");
-
         // THEN 1
         assertTrue(getTreeTableItem(groupName).isDisplayed());
 
         // WHEN 2
         deleteSecurityAppItem(GROUP, groupName);
-
-        delay("Wait a second for the group to be deleted");
 
         // THEN 2
         setMinimalTimeout();
@@ -178,7 +174,6 @@ public class SecurityAppUITest extends AbstractMagnoliaUITest {
         final String groupName = "test-group";
         openSecuritySubApp("Groups");
         addSecurityAppItem(GROUP, groupName);
-        delay("Wait a second for the group to created");
 
         // WHEN / THEN
         doTestEditGroup(groupName, groupName + "1");
@@ -222,15 +217,11 @@ public class SecurityAppUITest extends AbstractMagnoliaUITest {
         // WHEN 1
         addSecurityAppItem(ROLE, roleName);
 
-        delay("Wait a second for the role to created");
-
         // THEN 1
         assertTrue(getTreeTableItem(roleName).isDisplayed());
 
         // WHEN 2
         deleteSecurityAppItem(ROLE, roleName);
-
-        delay("Wait a second for the role to be deleted");
 
         // THEN 2
         setMinimalTimeout();
@@ -243,7 +234,6 @@ public class SecurityAppUITest extends AbstractMagnoliaUITest {
         final String roleName = "test-role";
         openSecuritySubApp("Roles");
         addSecurityAppItem(ROLE, roleName);
-        delay("Wait a second for the role to be created");
 
         // WHEN / THEN
         doTestEditRole(roleName, roleName + "1");
@@ -306,8 +296,6 @@ public class SecurityAppUITest extends AbstractMagnoliaUITest {
         // WHEN 2
         deleteSecurityAppItem(USER, userName);
 
-        delay("Wait a bit for the element to be deleted");
-
         // THEN 2
         setMinimalTimeout();
         assertTrue(getTreeTableItem(userName) instanceof NonExistingWebElement);
@@ -331,8 +319,6 @@ public class SecurityAppUITest extends AbstractMagnoliaUITest {
         // WHEN 1
         renameSecurityAppItem(USER, userName, newUserName);
 
-        delay(2, "Wait a second");
-
         // THEN 1
         assertTrue(getTreeTableItem(newUserName).isDisplayed());
 
@@ -348,8 +334,6 @@ public class SecurityAppUITest extends AbstractMagnoliaUITest {
     private void doTestEditGroup(String groupName, String newGroupName) {
         // WHEN 1
         renameSecurityAppItem(GROUP, groupName, newGroupName);
-
-        delay(2, "Wait a second");
 
         // THEN 1
         assertTrue(getTreeTableItem(newGroupName).isDisplayed());
@@ -376,14 +360,12 @@ public class SecurityAppUITest extends AbstractMagnoliaUITest {
     private void doTestEditRole(String roleName, String newRoleName) {
         // WHEN 1
         renameSecurityAppItem(ROLE, roleName, newRoleName);
-        delay(2, "Wait a second");
 
         // THEN 1
         assertTrue(getTreeTableItem(newRoleName).isDisplayed());
 
         // WHEN 2
         renameSecurityAppItem(ROLE, newRoleName, roleName);
-        delay(2, "Wait a second");
 
         // THEN 2
         assertTrue(getTreeTableItem(roleName).isDisplayed());
@@ -401,8 +383,6 @@ public class SecurityAppUITest extends AbstractMagnoliaUITest {
         // WHEN
         addFolder(folderName);
         duplicateSecurityAppItem(itemTypeCaption, itemNameToCopy, newItemName);
-
-        delay("Wait a second");
 
         getActionBarItem(getMoveActionName(itemTypeCaption)).click();
         getMoveDialogElement(folderName).click();
@@ -468,6 +448,8 @@ public class SecurityAppUITest extends AbstractMagnoliaUITest {
         sendKeysToDialogField("Folder Name", folderName);
         getDialogCommitButton().click();
 
+        waitUntil(dialogIsClosed("Rename folder"));
+
         assertFalse(getTreeTableItem(folderName) instanceof NonExistingWebElement);
 
         return getTreeTableItemRow(folderName);
@@ -526,6 +508,8 @@ public class SecurityAppUITest extends AbstractMagnoliaUITest {
         sendKeysToDialogField(getPasswordConfirmation(), password);
 
         getDialogCommitButton().click();
+
+        waitUntil(dialogIsClosed(StringUtils.capitalize(USER)));
     }
 
     /**
@@ -541,10 +525,6 @@ public class SecurityAppUITest extends AbstractMagnoliaUITest {
 
     /**
      * Renames existing user.
-     *
-     * @param itemTypeCaption
-     * @param itemName
-     * @param newItemName
      */
     private void renameSecurityAppItem(String itemTypeCaption, String itemName, String newItemName) {
         if (!isTreeTableItemSelected(itemName)) {
@@ -556,6 +536,8 @@ public class SecurityAppUITest extends AbstractMagnoliaUITest {
 
         delay("Let the name change propagate");
         getDialogCommitButton().click();
+
+        waitUntil(dialogIsClosed(getItemNameFieldLabel(itemTypeCaption)));
     }
 
     private String getItemNameFieldLabel(String itemTypeId) {
@@ -589,6 +571,8 @@ public class SecurityAppUITest extends AbstractMagnoliaUITest {
         getActionBarItem(getAddItemActionName(itemTypeCaption)).click();
         sendKeysToDialogField(getItemNameFieldLabel(itemTypeCaption), itemName);
         getDialogCommitButton().click();
+
+        waitUntil(dialogIsClosed(getItemNameFieldLabel(itemTypeCaption)));
     }
 
     private void openSecuritySubApp(String subAppName) {
@@ -607,14 +591,20 @@ public class SecurityAppUITest extends AbstractMagnoliaUITest {
         }
         getActionBarItem(getDeleteActionName(itemTypeCaption)).click();
         getDialogConfirmButton().click();
+
         takeScreenshot("dialog-confirm-button-clicked");
 
         // Wait until the confirmation dialog is gone and the loading indicator is not visible anymore
         // Using presenceOfAllElementsLocatedBy - we don't want the NoSuchElementException, we want to ensure the list is empty
-        waitUntil(DRIVER_WAIT_IN_SECONDS, not(presenceOfAllElementsLocatedBy(By.xpath("//*[contains(@class, 'dialog-root-confirmation')]"))));
+        waitUntil(not(presenceOfAllElementsLocatedBy(By.xpath("//*[contains(@class, 'dialog-root-confirmation')]"))));
         // loading-indicator is always in the dom, we just need to check it's not visible
-        waitUntil(DRIVER_WAIT_IN_SECONDS, not(visibilityOfElementLocated(By.xpath("//*[contains(@class, 'v-loading-indicator')]"))));
+        waitUntil(not(visibilityOfElementLocated(By.xpath("//*[contains(@class, 'v-loading-indicator')]"))));
+
         takeScreenshot("dialog-confirm-should-be-gone");
+
+        setMinimalTimeout();
+        assertTrue(getTreeTableItem(itemName) instanceof NonExistingWebElement);
+        resetTimeout();
     }
 
     private WebElement getTableBody() {
