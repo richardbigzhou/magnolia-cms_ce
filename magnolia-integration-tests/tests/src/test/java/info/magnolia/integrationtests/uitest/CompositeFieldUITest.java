@@ -35,34 +35,12 @@ package info.magnolia.integrationtests.uitest;
 
 import static org.junit.Assert.assertEquals;
 
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 
 /**
  * UI tests for complex Composite field.
  */
-public class CompositeFieldUITest extends AbstractMagnoliaUITest {
-
-    @Override
-    @Before
-    public void setUp() {
-        super.setUp();
-        String currentUrl = getCurrentDriverUrl();
-        navigateDriverTo(Instance.AUTHOR.getURL(".magnolia/jcrprop/?workspace=config&path=/modules/standard-templating-kit/config/site/i18n/enabled&value=true"));
-        navigateDriverTo(Instance.AUTHOR.getURL(".magnolia/jcrprop/?workspace=config&path=/modules/site/config/site/reload&value=true")); // restart site module to pick up changes for i18n
-        navigateDriverTo(currentUrl);
-    }
-
-    @Override
-    @After
-    public void tearDown() throws Throwable {
-        String currentUrl = getCurrentDriverUrl();
-        navigateDriverTo(Instance.AUTHOR.getURL(".magnolia/jcrprop/?workspace=config&path=/modules/standard-templating-kit/config/site/i18n/enabled&value=false"));
-        navigateDriverTo(Instance.AUTHOR.getURL(".magnolia/jcrprop/?workspace=config&path=/modules/site/config/site/reload&delete=true")); // restart site module to pick up changes for i18n
-        navigateDriverTo(currentUrl);
-        super.tearDown();
-    }
+public class CompositeFieldUITest extends AbstractI18nEnabledUITest {
 
     @Test
     public void testI18nCompositeField() {
