@@ -33,10 +33,7 @@
  */
 package info.magnolia.integrationtests;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
-import info.magnolia.testframework.htmlunit.AbstractMagnoliaHtmlUnitTest;
+import static org.junit.Assert.*;
 
 import org.junit.Test;
 
@@ -46,7 +43,7 @@ import com.gargoylesoftware.htmlunit.Page;
  * We're just checking if the public instance shows the Magnolia badge.
  * In a CE edition, the badge and the generator tag should always be rendered.
  */
-public class STKBadgeTest extends AbstractMagnoliaHtmlUnitTest {
+public class STKBadgeTest extends AbstractMagnoliaSTKDependentHtmlUnitTest {
 
     @Test
     public void checkOnPublicInstanceWhetherBadgeIsRendered() throws Exception {

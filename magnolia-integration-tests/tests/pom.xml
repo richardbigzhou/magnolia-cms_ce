@@ -351,6 +351,9 @@
               <properties>
                 <login>superuser</login>
                 <password>superuser</password>
+                <propertyServletUrlAuthor>http://${containerHostName}:${containerHttpPort}/magnoliaTest/.magnolia/jcrprop</propertyServletUrlAuthor>
+                <propertyServletUrlPublic>http://${containerHostName}:${containerHttpPort}/magnoliaTestPublic/.magnolia/jcrprop</propertyServletUrlPublic>
+                <site>/modules/standard-templating-kit/config/site</site>
                 <geturl1>http://${containerHostName}:${containerHttpPort}/magnoliaTestPublic/ftl-sample-site/</geturl1>
                 <geturl2>http://${containerHostName}:${containerHttpPort}/magnoliaTestPublic/jsp-sample-site/</geturl2>
                 <geturl3>http://${containerHostName}:${containerHttpPort}/magnoliaTestPublic/demo-project/</geturl3>

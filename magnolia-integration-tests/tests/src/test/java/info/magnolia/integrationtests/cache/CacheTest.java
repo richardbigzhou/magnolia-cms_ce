@@ -36,7 +36,7 @@ package info.magnolia.integrationtests.cache;
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.assertThat;
 
-import info.magnolia.testframework.htmlunit.AbstractMagnoliaHtmlUnitTest;
+import info.magnolia.integrationtests.AbstractMagnoliaSTKDependentHtmlUnitTest;
 
 import java.io.IOException;
 
@@ -48,7 +48,7 @@ import com.gargoylesoftware.htmlunit.Page;
 /**
  * Tests for cache module.
  */
-public class CacheTest extends AbstractMagnoliaHtmlUnitTest {
+public class CacheTest extends AbstractMagnoliaSTKDependentHtmlUnitTest {
 
     protected String result;
 
