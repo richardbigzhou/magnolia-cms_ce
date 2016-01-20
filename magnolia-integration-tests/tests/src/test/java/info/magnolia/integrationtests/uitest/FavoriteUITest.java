@@ -47,7 +47,7 @@ import org.openqa.selenium.WebElement;
  * UI tests for Favorites.
  * Should be rewritten/expanded as soon as MGNLUI-1189 is fixed - right now it can easily fail e.g. if for any reason there's a several favorites and hence several remove buttons.
  */
-public class FavoriteUITest extends AbstractMagnoliaUITest {
+public class FavoriteUITest extends AbstractPageEditorUITest {
 
     @Test
     public void addFavoriteAndGroupSimultaneously() {

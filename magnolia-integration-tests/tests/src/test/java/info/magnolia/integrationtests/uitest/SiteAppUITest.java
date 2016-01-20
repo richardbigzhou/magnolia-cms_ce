@@ -40,7 +40,7 @@ import org.junit.Test;
 /**
  * UI Tests for site app.
  */
-public class SiteAppUITest extends AbstractMagnoliaUITest {
+public class SiteAppUITest extends AbstractPageEditorUITest {
 
     private static final String STK_APP_GROUP = "STK";
     private static final String SITE_APP = "Site";

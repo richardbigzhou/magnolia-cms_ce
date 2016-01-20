@@ -44,7 +44,7 @@ import org.openqa.selenium.WebElement;
 /**
  * UI Tests for keyboard shortcuts.
  */
-public class KeyboardShortcutUITest extends AbstractMagnoliaUITest {
+public class KeyboardShortcutUITest extends AbstractPageEditorUITest {
 
     /**
      * Get a confirmation to test by running 'Delete contact' action.

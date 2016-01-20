@@ -41,7 +41,7 @@ import org.junit.Test;
 /**
  * UI tests for MultiField, CompositeField and SwitchableField.
  */
-public class ComplexFieldUITest extends AbstractMagnoliaUITest {
+public class ComplexFieldUITest extends AbstractPageEditorUITest {
 
     @Test
     public void testMultiFieldWithDefaultPropertyBuilderAddRemove() {

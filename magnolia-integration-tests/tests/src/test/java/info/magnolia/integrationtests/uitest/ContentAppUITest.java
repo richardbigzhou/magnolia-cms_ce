@@ -46,7 +46,7 @@ import org.openqa.selenium.WebElement;
 /**
  * UI tests for content app.
  */
-public class ContentAppUITest extends AbstractMagnoliaUITest {
+public class ContentAppUITest extends AbstractPageEditorUITest {
 
     @Test
     public void editContact() {
