@@ -62,7 +62,7 @@ public class ServletSanityTest extends AbstractMagnoliaHtmlUnitTest {
     public void testNormalizationFilter() throws Exception {
         String previousValue = setUtfEnabled("true");
         try {
-            final HtmlPage root = openPage(Instance.AUTHOR.getURL(".magnolia/normalizationfiltertest/dispatch"), User.superuser);
+            final Page root = openPage(Instance.AUTHOR.getURL(".magnolia/normalizationfiltertest/dispatch"), User.superuser);
             assertPageResult(root);
         } finally {
             try {
@@ -76,7 +76,7 @@ public class ServletSanityTest extends AbstractMagnoliaHtmlUnitTest {
         final HtmlPage page = openPage(Instance.AUTHOR.getURL(".magnolia/multipartfiltertest/form"), User.superuser);
         assertFalse(page.getForms().isEmpty());
         HtmlForm form = page.getForms().get(0);
-        HtmlPage root = form.<HtmlInput>getInputByName("submit").click();
+        Page root = form.<HtmlInput>getInputByName("submit").click();
         assertPageResult(root);
     }
 
@@ -108,11 +108,11 @@ public class ServletSanityTest extends AbstractMagnoliaHtmlUnitTest {
         }
     }
 
-    private void assertPageResult(HtmlPage root) {
+    private void assertPageResult(Page root) {
         final int statusCode = root.getWebResponse().getStatusCode();
         assertEquals("Expected status code 200 but got: " + statusCode, 200, statusCode);
         
-        final String rootAsText = root.asText();
+        final String rootAsText = root.getWebResponse().getContentAsString();
         assertThat(rootAsText, not(containsString("ERROR")));
         assertThat(rootAsText, containsString("TEST COMPLETED"));
     }
