@@ -36,7 +36,7 @@ import org.cyberneko.html.parsers.SAXParser
 import java.util.zip.GZIPInputStream
 
 class Constants {
-    static final NUM_THREADS = 6
+    static final NUM_THREADS = 4
     static final MAX_URLS = 2000
     static final DEPTH_LEVEL = 6
 
