@@ -57,7 +57,7 @@ public class MostBasicTest extends AbstractMagnoliaHtmlUnitTest {
 
     @Test
     public void loginOnAuthorInstanceWithSuperuser() throws Exception {
-        final HtmlPage root = openPage(Instance.AUTHOR.getURL(""), User.superuser);
+        final Page root = openPage(Instance.AUTHOR.getURL(""), User.superuser);
         final HtmlPage adminCentralPage = assertRedirected("adminCentral redirect is not setup?", Instance.AUTHOR.getURL("/\\.magnolia/admincentral" + SESSION_ID_REGEXP), root, User.superuser);
         assertEquals(200, adminCentralPage.getWebResponse().getStatusCode());
         final String allContents = adminCentralPage.getWebResponse().getContentAsString();
