@@ -49,7 +49,11 @@ import com.gargoylesoftware.htmlunit.util.DebuggingWebConnection;
 /**
  * Static test utilities.
  */
-public class TestUtil {
+public final class TestUtil {
+
+    private TestUtil() {
+        // Private constructor, util classes should not be instantiated
+    }
 
     /**
      * A static method to open an URL connection. Yes we have similar functionality in
