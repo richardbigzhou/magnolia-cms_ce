@@ -45,6 +45,7 @@ import org.junit.Test;
 import com.gargoylesoftware.htmlunit.html.HtmlForm;
 import com.gargoylesoftware.htmlunit.html.HtmlInput;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import com.gargoylesoftware.htmlunit.Page;
 
 /**
  * Runs tests for the pages in servlet sanity module.
@@ -61,7 +62,7 @@ public class ServletSanityTest extends AbstractMagnoliaHtmlUnitTest {
     public void testNormalizationFilter() throws Exception {
         String previousValue = setUtfEnabled("true");
         try {
-            final HtmlPage root = openPage(Instance.AUTHOR.getURL(".magnolia/normalizationfiltertest/dispatch"), User.superuser);
+            final Page root = openPage(Instance.AUTHOR.getURL(".magnolia/normalizationfiltertest/dispatch"), User.superuser);
             assertPageResult(root);
         } finally {
             try {
@@ -75,7 +76,7 @@ public class ServletSanityTest extends AbstractMagnoliaHtmlUnitTest {
         final HtmlPage page = openPage(Instance.AUTHOR.getURL(".magnolia/multipartfiltertest/form"), User.superuser);
         assertFalse(page.getForms().isEmpty());
         HtmlForm form = page.getForms().get(0);
-        HtmlPage root = form.<HtmlInput>getInputByName("submit").click();
+        Page root = form.<HtmlInput>getInputByName("submit").click();
         assertPageResult(root);
     }
 
@@ -107,18 +108,18 @@ public class ServletSanityTest extends AbstractMagnoliaHtmlUnitTest {
         }
     }
 
-    private void assertPageResult(HtmlPage root) {
+    private void assertPageResult(Page root) {
         final int statusCode = root.getWebResponse().getStatusCode();
         assertEquals("Expected status code 200 but got: " + statusCode, 200, statusCode);
         
-        final String rootAsText = root.asText();
+        final String rootAsText = root.getWebResponse().getContentAsString();
         assertThat(rootAsText, not(containsString("ERROR")));
         assertThat(rootAsText, containsString("TEST COMPLETED"));
     }
 
     private String setUtfEnabled(String value) throws IOException {
-        HtmlPage page = openPage(Instance.AUTHOR.getURL("/.magnolia/sysprop/?name=magnolia.utf8.enabled&value=" + value), User.superuser);
+        Page page = openPage(Instance.AUTHOR.getURL("/.magnolia/sysprop/?name=magnolia.utf8.enabled&value=" + value), User.superuser);
         assertEquals(200, page.getWebResponse().getStatusCode());
-        return page.asText();
+        return page.getWebResponse().getContentAsString();
     }
 }
