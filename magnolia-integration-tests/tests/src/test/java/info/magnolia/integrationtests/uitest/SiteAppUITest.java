@@ -42,12 +42,11 @@ import org.junit.Test;
  */
 public class SiteAppUITest extends AbstractPageEditorUITest {
 
-    private static final String STK_APP_GROUP = "STK";
     private static final String SITE_APP = "Site";
 
     @Test
     public void canPublishUnpublishAndDeleteVariation() {
-        getCollapsibleAppSectionIcon(STK_APP_GROUP).click();
+        getElementByPath(XPATH_WEB_DEV_SECTION).click();
         getAppIcon(SITE_APP).click();
         waitUntil(appIsLoaded());
         assertAppOpen("Site definitions");
