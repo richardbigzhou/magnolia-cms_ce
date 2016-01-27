@@ -96,11 +96,13 @@
       <groupId>info.magnolia.resources</groupId>
       <artifactId>magnolia-resources-app</artifactId>
     </dependency>
+
     <dependency>
       <!-- JackRabbit doesn't bring tika-parsers transitively by default, but we want it -->
       <groupId>org.apache.tika</groupId>
       <artifactId>tika-parsers</artifactId>
     </dependency>
+
     <!-- We excluded bouncycastle deps from Tika because they include jdk15 version - we want the jdk15on versions -->
     <dependency>
       <groupId>org.bouncycastle</groupId>
@@ -219,7 +221,6 @@
     <dependency>
       <groupId>info.magnolia.lang</groupId>
       <artifactId>magnolia-lang-zh_TW</artifactId>
-
     </dependency>
   </dependencies>
   <build>
