@@ -448,6 +448,21 @@
               </excludes>
             </configuration>
           </plugin>
+          <!-- We do not execute the web-crawler when running UI tests -->
+          <plugin>
+            <groupId>org.codehaus.gmaven</groupId>
+            <artifactId>gmaven-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>web-crawler</id>
+                <phase>none</phase>
+              </execution>
+              <execution>
+                <id>web-crawler-travel-demo</id>
+                <phase>none</phase>
+              </execution>
+            </executions>
+          </plugin>
         </plugins>
       </build>
     </profile>
@@ -493,6 +508,10 @@
             <executions>
               <execution>
                 <id>web-crawler</id>
+                <phase>none</phase>
+              </execution>
+              <execution>
+                <id>web-crawler-travel-demo</id>
                 <phase>none</phase>
               </execution>
               <execution>
