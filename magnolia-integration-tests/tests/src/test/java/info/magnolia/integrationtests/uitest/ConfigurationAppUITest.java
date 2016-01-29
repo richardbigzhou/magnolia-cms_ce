@@ -80,7 +80,6 @@ public class ConfigurationAppUITest extends AbstractMagnoliaUITest {
 
         // Create folder and rename it
         getEnabledActionBarItem("Add folder").click();
-        getTreeTableItem("untitled").click();
         getEnabledActionBarItem("Rename item").click();
         setFormTextFieldText("Name", folderName);
 
@@ -88,7 +87,6 @@ public class ConfigurationAppUITest extends AbstractMagnoliaUITest {
 
         // Create content node and rename it
         getEnabledActionBarItem("Add content node").click();
-        getTreeTableItem("untitled").click();
         waitUntil(elementToBeClickable(getEnabledActionBarItem("Rename item")));
 
         getEnabledActionBarItem("Rename item").click();
@@ -98,7 +96,6 @@ public class ConfigurationAppUITest extends AbstractMagnoliaUITest {
 
         // Create property and set name & value
         getEnabledActionBarItem("Add property").click();
-        getTreeTableItem("untitled").click();
         waitUntil(elementToBeClickable(getEnabledActionBarItem("Edit property")));
 
         getEnabledActionBarItem("Edit property").click();
@@ -142,7 +139,6 @@ public class ConfigurationAppUITest extends AbstractMagnoliaUITest {
 
         getEnabledActionBarItem("Add folder").click();
 
-        getTreeTableItem("untitled").click();
         getEnabledActionBarItem("Rename item").click();
         setFormTextFieldText("Name", "lvl1");
         waitUntil(textToBePresentInElementValue(getFormTextField("Name"), "lvl1"));
@@ -150,7 +146,6 @@ public class ConfigurationAppUITest extends AbstractMagnoliaUITest {
 
         getEnabledActionBarItem("Add folder").click();
 
-        getTreeTableItem("untitled").click();
         getEnabledActionBarItem("Rename item").click();
         setFormTextFieldText("Name", "lvl2");
         waitUntil(textToBePresentInElementValue(getFormTextField("Name"), "lvl2"));
@@ -158,7 +153,6 @@ public class ConfigurationAppUITest extends AbstractMagnoliaUITest {
 
         getEnabledActionBarItem("Add folder").click();
 
-        getTreeTableItem("untitled").click();
         getEnabledActionBarItem("Rename item").click();
         setFormTextFieldText("Name", "lvl3");
         waitUntil(textToBePresentInElementValue(getFormTextField("Name"), "lvl3"));
@@ -195,7 +189,6 @@ public class ConfigurationAppUITest extends AbstractMagnoliaUITest {
 
         getEnabledActionBarItem("Add folder").click();
 
-        getTreeTableItem("untitled").click();
         getEnabledActionBarItem("Rename item").click();
         setFormTextFieldText("Name", "depth1");
         waitUntil(textToBePresentInElementValue(getFormTextField("Name"), "depth1"));
@@ -203,7 +196,6 @@ public class ConfigurationAppUITest extends AbstractMagnoliaUITest {
 
         getEnabledActionBarItem("Add folder").click();
 
-        getTreeTableItem("untitled").click();
         getEnabledActionBarItem("Rename item").click();
         setFormTextFieldText("Name", "depth2");
         waitUntil(textToBePresentInElementValue(getFormTextField("Name"), "depth2"));
@@ -211,7 +203,6 @@ public class ConfigurationAppUITest extends AbstractMagnoliaUITest {
 
         getEnabledActionBarItem("Add folder").click();
 
-        getTreeTableItem("untitled").click();
         getEnabledActionBarItem("Rename item").click();
         setFormTextFieldText("Name", "depth3");
         waitUntil(textToBePresentInElementValue(getFormTextField("Name"), "depth3"));
