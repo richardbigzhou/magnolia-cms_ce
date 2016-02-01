@@ -87,7 +87,7 @@ public class ConfigurationAppUITest extends AbstractMagnoliaUITest {
 
         // Create content node and rename it
         getEnabledActionBarItem("Add content node").click();
-        waitUntil(elementToBeClickable(getEnabledActionBarItem("Rename item")));
+        waitUntil(elementToBeClickable(getTreeTableItem("untitled")));
 
         getEnabledActionBarItem("Rename item").click();
         setFormTextFieldText("Name", nodeName);
