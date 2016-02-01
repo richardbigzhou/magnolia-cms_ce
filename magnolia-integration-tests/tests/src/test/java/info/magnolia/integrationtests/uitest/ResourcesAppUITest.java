@@ -172,8 +172,10 @@ public class ResourcesAppUITest extends AbstractMagnoliaUITest {
     @Test
     public void deletingAndEditingFile() {
         // GIVEN
+        final String itemName = "NOTICE.txt";
+
         // WHEN
-        getTreeTableItemRow("NOTICE.txt").click();
+        getTreeTableItemRow(itemName).click();
         // Let's edit/hotfix file.
         editSelectedFile();
 
@@ -181,14 +183,16 @@ public class ResourcesAppUITest extends AbstractMagnoliaUITest {
         deleteSelectedFile();
 
         assertThat(getEnabledActionBarItem("Delete file"), instanceOf(NonExistingWebElement.class));
-        assertResourceIconIs(getTreeTableItemRow("NOTICE.txt"), FILE_SYSTEM, FILE_SYSTEM_ICON);
+        assertResourceIconIs(getTreeTableItemRow(itemName), FILE_SYSTEM, FILE_SYSTEM_ICON);
 
         // Let's edit/hotfix it again.
         editSelectedFile();
 
         // THEN
-        getTreeTableItemRow("NOTICE.txt").click();
-        assertResourceIconIs(getTreeTableItemRow("NOTICE.txt"), JCR, JCR_ICON);
+        if (!isTreeTableItemSelected(itemName)) {
+            getTreeTableItemRow(itemName).click();
+        }
+        assertResourceIconIs(getTreeTableItemRow(itemName), JCR, JCR_ICON);
         getEnabledActionBarItem("Delete file");
     }
 
