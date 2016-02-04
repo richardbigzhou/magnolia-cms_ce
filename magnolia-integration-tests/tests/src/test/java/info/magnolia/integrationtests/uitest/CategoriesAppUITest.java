@@ -34,6 +34,7 @@
 package info.magnolia.integrationtests.uitest;
 
 import static org.junit.Assert.assertTrue;
+import static org.openqa.selenium.support.ui.ExpectedConditions.*;
 
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
@@ -50,6 +51,7 @@ public class CategoriesAppUITest extends AbstractMagnoliaUITest {
         assertAppOpen("Categories");
 
         getActionBarItem("Add folder").click();
+        waitUntil(elementToBeClickable(getTreeTableItem("untitled")));
         getActionBarItem("Add category").click();
 
         getFormTextField("Category name").sendKeys(testName);

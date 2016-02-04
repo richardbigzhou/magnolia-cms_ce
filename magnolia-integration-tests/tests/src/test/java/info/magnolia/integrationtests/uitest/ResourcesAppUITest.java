@@ -33,6 +33,7 @@
  */
 package info.magnolia.integrationtests.uitest;
 
+import static org.openqa.selenium.support.ui.ExpectedConditions.*;
 
 import static com.google.common.collect.Lists.newArrayList;
 import static org.hamcrest.CoreMatchers.not;
@@ -141,16 +142,14 @@ public class ResourcesAppUITest extends AbstractMagnoliaUITest {
     @Test
     public void newFolderCanBeAddedAndActionBarIsCorrectForEditableFolders() {
         // GIVEN
+
         // WHEN
         createFolderFor("testFolder");
+        waitUntil(elementToBeClickable(getTreeTableItem("testFolder")));
 
         // THEN
         getTreeTableItem("testFolder").isDisplayed();
 
-        // WHEN
-        getTreeTableItem("testFolder").click();
-
-        // THEN
         getEnabledActionBarItem("Add file").isDisplayed();
         getEnabledActionBarItem("Add folder").isDisplayed();
         getEnabledActionBarItem("Delete folder").isDisplayed();
@@ -281,17 +280,16 @@ public class ResourcesAppUITest extends AbstractMagnoliaUITest {
     }
 
     private void setUpStructureFor(List<String> folders, List<String> files) {
-        for (int i = 0; i < folders.size(); i++) {
+        for (String folder : folders) {
             delay("Let folder to be created");
-            createFolderFor(folders.get(i));
-            if (i == 0) {
-                getTreeTableItemRow(folders.get(i)).click();
-            } else {
-                expandTreeAndSelectAnElement(folders.get(i), folders.get(i - 1));
-            }
+            createFolderFor(folder);
         }
 
+        String lastFolderName = folders.get(folders.size() - 1);
         for (String file : files) {
+            if (!isTreeTableItemSelected(lastFolderName)) {
+                getTreeTableItem(lastFolderName).click();
+            }
             delay("Let file to be created");
             createFileFor(file);
         }

@@ -80,6 +80,8 @@ public class ConfigurationAppUITest extends AbstractMagnoliaUITest {
 
         // Create folder and rename it
         getEnabledActionBarItem("Add folder").click();
+        waitUntil(elementToBeClickable(getTreeTableItem("untitled")));
+
         getEnabledActionBarItem("Rename item").click();
         setFormTextFieldText("Name", folderName);
 
@@ -138,6 +140,7 @@ public class ConfigurationAppUITest extends AbstractMagnoliaUITest {
     public void canPublishUnpublishAndDeleteNewNode() {
 
         getEnabledActionBarItem("Add folder").click();
+        waitUntil(elementToBeClickable(getTreeTableItem("untitled")));
 
         getEnabledActionBarItem("Rename item").click();
         setFormTextFieldText("Name", "lvl1");
@@ -145,6 +148,7 @@ public class ConfigurationAppUITest extends AbstractMagnoliaUITest {
         getDialogCommitButton().click();
 
         getEnabledActionBarItem("Add folder").click();
+        waitUntil(elementToBeClickable(getTreeTableItem("untitled")));
 
         getEnabledActionBarItem("Rename item").click();
         setFormTextFieldText("Name", "lvl2");
@@ -152,6 +156,7 @@ public class ConfigurationAppUITest extends AbstractMagnoliaUITest {
         getDialogCommitButton().click();
 
         getEnabledActionBarItem("Add folder").click();
+        waitUntil(elementToBeClickable(getTreeTableItem("untitled")));
 
         getEnabledActionBarItem("Rename item").click();
         setFormTextFieldText("Name", "lvl3");
@@ -159,6 +164,7 @@ public class ConfigurationAppUITest extends AbstractMagnoliaUITest {
         getDialogCommitButton().click();
 
         getEnabledActionBarItem("Add content node").click();
+        waitUntil(elementToBeClickable(getTreeTableItem("untitled")));
         getEnabledActionBarItem("Add property").click();
 
         // publish lvl1
@@ -188,6 +194,7 @@ public class ConfigurationAppUITest extends AbstractMagnoliaUITest {
     public void unpublishActionIsDisabledForLvl1Or2Nodes() {
 
         getEnabledActionBarItem("Add folder").click();
+        waitUntil(elementToBeClickable(getTreeTableItem("untitled")));
 
         getEnabledActionBarItem("Rename item").click();
         setFormTextFieldText("Name", "depth1");
@@ -195,6 +202,7 @@ public class ConfigurationAppUITest extends AbstractMagnoliaUITest {
         getDialogCommitButton().click();
 
         getEnabledActionBarItem("Add folder").click();
+        waitUntil(elementToBeClickable(getTreeTableItem("untitled")));
 
         getEnabledActionBarItem("Rename item").click();
         setFormTextFieldText("Name", "depth2");
@@ -202,6 +210,7 @@ public class ConfigurationAppUITest extends AbstractMagnoliaUITest {
         getDialogCommitButton().click();
 
         getEnabledActionBarItem("Add folder").click();
+        waitUntil(elementToBeClickable(getTreeTableItem("untitled")));
 
         getEnabledActionBarItem("Rename item").click();
         setFormTextFieldText("Name", "depth3");
