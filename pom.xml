@@ -28,8 +28,8 @@
     <stkVersion>2.9.3</stkVersion>
     <restVersion>1.1.1</restVersion>
     <restClientVersion>1.0.6</restClientVersion>
-    <damVersion>2.1.3</damVersion>
-    <categorizationVersion>2.4.1</categorizationVersion>
+    <damVersion>2.1.4-SNAPSHOT</damVersion>
+    <categorizationVersion>2.4.2-SNAPSHOT</categorizationVersion>
     <mteVersion>0.9-SNAPSHOT</mteVersion>
     <resourcesVersion>2.4.4-SNAPSHOT</resourcesVersion>
     <imagingVersion>3.2.4</imagingVersion>
