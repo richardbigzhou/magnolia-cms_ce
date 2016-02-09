@@ -603,9 +603,13 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         return getElementsByPath(path, -1);
     }
 
+    protected By getElementLocatorByXpath(String path, Object... param) {
+        final String xpath = String.format(path, param);
+        return By.xpath(xpath);
+    }
+
     protected WebElement getElementByXpath(String path, Object... param) {
-        String xpath = String.format(path, param);
-        return getElementByPath(By.xpath(xpath));
+        return getElementByPath(getElementLocatorByXpath(path, param));
     }
 
     protected List<WebElement> getElementsByXPath(String path, Object... param) {
@@ -625,16 +629,28 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         return getElementByXpath("//*[@class = 'v-form-field-label' and text() = '%s']/following-sibling::div/textarea", caption);
     }
 
+    protected By getLocatorForTreeTableItemExpander(String itemCaption) {
+        return getElementLocatorByXpath("//*[normalize-space(text()) = '%s']/*[contains(@class, 'v-treetable-treespacer') and contains(@class, 'v-treetable-node-')]", itemCaption);
+    }
+
     protected WebElement getTreeTableItemExpander(String itemCaption) {
         return getElementByXpath("//*[normalize-space(text()) = '%s']/*[contains(@class, 'v-treetable-treespacer') and contains(@class, 'v-treetable-node-')]", itemCaption);
     }
 
     protected WebElement getTreeTableItem(String itemCaption) {
-        return getElementByXpath("//*[contains(@class, 'v-table-cell-wrapper') and normalize-space(text()) = '%s']", itemCaption);
+        return getElementByPath(getTreeTableItemLocator(itemCaption));
+    }
+
+    protected By getTreeTableItemLocator(String itemCaption) {
+        return getElementLocatorByXpath("//*[contains(@class, 'v-table-cell-wrapper') and normalize-space(text()) = '%s']", itemCaption);
     }
 
     protected WebElement getTreeTableItemRow(String itemCaption) {
-        return getElementByXpath("//*[contains(@class, 'v-table-cell-wrapper') and normalize-space(text()) = '%s']/parent::*/parent::*", itemCaption);
+        return getElementByPath(getTreeTableItemRowLocator(itemCaption));
+    }
+
+    protected By getTreeTableItemRowLocator(String itemCaption) {
+        return getElementLocatorByXpath("//*[contains(@class, 'v-table-cell-wrapper') and normalize-space(text()) = '%s']/parent::*/parent::*", itemCaption);
     }
 
     protected WebElement getTreeTableCheckBox(String itemCaption) {
@@ -657,7 +673,11 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
     }
 
     protected WebElement getEnabledActionBarItem(String itemCaption) {
-        return getElementByXpath("//*[contains(@class,'v-actionbar')]//*[contains(@class, 'v-actionbar-section') and not(@aria-hidden)]//li[@class ='v-action']//*[text()='%s']", itemCaption);
+        return getElementByPath(getEnabledActionBarItemLocator(itemCaption));
+    }
+
+    protected By getEnabledActionBarItemLocator(String itemCaption) {
+        return getElementLocatorByXpath("//*[contains(@class,'v-actionbar')]//*[contains(@class, 'v-actionbar-section') and not(@aria-hidden)]//li[@class ='v-action']//*[text()='%s']", itemCaption);
     }
 
     protected WebElement getActionBarItemWithContains(String itemCaption) {
@@ -1222,7 +1242,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
      * App is considered loaded once the app-preloader has appeared (zoom-in) then disappeared (fade out after app is loaded).
      * This should be called right after opening an app.
      */
-    protected ExpectedCondition<WebElement> appIsLoaded() {
+    protected ExpectedCondition<Boolean> appIsLoaded() {
         getElementByXpath(XPATH_V_APP_PRELOADER); // wait for preloader to be around
         return elementIsGone(XPATH_V_APP_PRELOADER); // then disappear
     }
@@ -1231,24 +1251,33 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
      * Wait until a specific WebElement is gone;
      * this method temporarily reduce implicit wait so that we exit right as soon as condition is successful.
      */
-    protected ExpectedCondition<WebElement> elementIsGone(final String xpath) {
-        return new ExpectedCondition<WebElement>() {
+    protected ExpectedCondition<Boolean> elementIsGone(final String xpath) {
+        return elementIsGone(By.xpath(xpath));
+    }
+
+    /**
+     * Wait until a specific WebElement is gone;
+     * this method temporarily reduce implicit wait so that we exit right as soon as condition is successful.
+     */
+    protected ExpectedCondition<Boolean> elementIsGone(final By locator) {
+        return new ExpectedCondition<Boolean>() {
 
             @Override
-            public WebElement apply(WebDriver driver) {
+            public Boolean apply(WebDriver driver) {
                 // drastically reduce driver timeout so that implicit wait doesn't get in the way
-                driver.manage().timeouts().implicitlyWait(500, TimeUnit.MILLISECONDS);
+                driver.manage().timeouts().implicitlyWait(50, TimeUnit.MILLISECONDS);
                 WebElement gone = null;
                 try {
                     // do not use getElementsByPath utils to avoid cascading another expected condition
-                    gone = driver.findElement(By.xpath(xpath));
+                    gone = driver.findElement(locator);
                 } catch (NoSuchElementException e) {
                     // expecting element not to be found
                 }
                 // restore driver timeout
                 driver.manage().timeouts().implicitlyWait(DRIVER_WAIT_IN_SECONDS, TimeUnit.SECONDS);
-                return gone != null ? null : new NonExistingWebElement(xpath);
+                return gone == null;
             }
+
         };
     }
 
@@ -1434,7 +1463,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
     /**
      * Checks that the dialog with the specified title is closed.
      */
-    protected ExpectedCondition<WebElement> dialogIsClosed(final String dialogTitle) {
+    protected ExpectedCondition<Boolean> dialogIsClosed(final String dialogTitle) {
         return elementIsGone(String.format(XPATH_TO_DIALOG, dialogTitle));
     }
 
