@@ -32,7 +32,7 @@
     <categorizationVersion>2.4.2-SNAPSHOT</categorizationVersion>
     <mteVersion>0.9-SNAPSHOT</mteVersion>
     <resourcesVersion>2.4.4-SNAPSHOT</resourcesVersion>
-    <imagingVersion>3.2.4</imagingVersion>
+    <imagingVersion>3.2.5-SNAPSHOT</imagingVersion>
     <siteVersion>1.0.5-SNAPSHOT</siteVersion>
     <travelDemoVersion>0.10-SNAPSHOT</travelDemoVersion>
     <cacheVersion>5.4.3</cacheVersion>
