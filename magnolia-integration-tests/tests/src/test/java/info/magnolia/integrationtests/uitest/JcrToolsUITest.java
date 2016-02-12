@@ -87,7 +87,7 @@ public class JcrToolsUITest extends AbstractMagnoliaUITest {
 
     @Before
     public void openSubApp() {
-        getCollapsibleAppSectionIcon("Dev").click();
+        getCollapsibleAppSectionIcon("Tools").click();
         getAppIcon("JCR Tools").click();
         waitUntil(appIsLoaded());
     }
