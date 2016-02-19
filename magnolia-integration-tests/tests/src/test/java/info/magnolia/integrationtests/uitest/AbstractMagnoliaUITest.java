@@ -121,8 +121,6 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         }
     }
 
-    protected static final String XPATH_V_APP_PRELOADER = "//*[contains(@class, 'v-app-preloader')]";
-
     public static final String DEFAULT_NATIVE_BUTTON_CLASS = "magnoliabutton v-nativebutton-magnoliabutton";
 
     private static final String XPATH_TO_DIALOG = "//*[contains(@class, 'dialog-header')]//*[contains(@class, 'title') and text() = '%s']";
@@ -1231,8 +1229,9 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
      * This should be called right after opening an app.
      */
     protected ExpectedCondition<Boolean> appIsLoaded() {
-        getElementByXpath(XPATH_V_APP_PRELOADER); // wait for preloader to be around
-        return elementIsGone(XPATH_V_APP_PRELOADER); // then disappear
+        final By byAppPreLoader = By.xpath("//*[contains(@class, 'v-app-preloader')]");
+        getElement(byAppPreLoader); // wait for preloader to be around
+        return elementIsGone(byAppPreLoader); // then disappear
     }
 
     /**
