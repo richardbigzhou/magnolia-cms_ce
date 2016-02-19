@@ -498,11 +498,11 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
     /**
      * Tries to retrieve requested element.
      *
-     * @param path path to search the element at
+     * @param by locator of an element
      * @param driver driver to use
      * @return the searched specified element or a NonExistingWebElement in case it couldn't be found.
      */
-    protected WebElement getElementByPath(final By path, WebDriver driver) {
+    private WebElement getElement(final By by, WebDriver driver) {
         WebElement element;
         try {
             // will loop and try to retrieve the specified element until found or it times out.
@@ -512,51 +512,68 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
                         @Override
                         public WebElement apply(WebDriver d) {
                             try {
-                                WebElement element = d.findElement(path);
+                                WebElement element = d.findElement(by);
                                 if (element.isDisplayed()) {
-                                    takeScreenshot(path.toString());
+                                    takeScreenshot(by.toString());
                                     return element;
                                 }
-                                takeScreenshot(path.toString() + "_notDisplayed");
+                                takeScreenshot(by.toString() + "_notDisplayed");
                                 return null;
                             } catch (NoSuchElementException e) {
-                                takeScreenshot(path.toString() + "_notFound");
+                                takeScreenshot(by.toString() + "_notFound");
                                 return null;
                             }
                         }
                     }
             );
         } catch (TimeoutException e) {
-            log.debug("Could not retrieve element by path {}. Got: {}", path, e);
+            log.debug("Could not retrieve element by path {}. Got: {}", by, e);
             // not found within the time limit - assume that element is not existing
-            element = new NonExistingWebElement(path.toString());
+            element = new NonExistingWebElement(by.toString());
         } catch (StaleElementReferenceException s) {
             // re-trying on StaleElementReferenceExceptions: see http://docs.seleniumhq.org/exceptions/stale_element_reference.jsp
-            log.info("{} when accessing element {} - trying again", s.toString(), path);
-            element = getElementByPath(path);
+            log.info("{} when accessing element {} - trying again", s.toString(), by);
+            element = getElement(by);
         }
         return element;
+    }
+
+
+    /**
+     * @deprecated use {@link #getElement(By, WebDriver)} instead.
+     */
+    @Deprecated
+    private WebElement getElementByPath(final By by, WebDriver driver) {
+        return getElement(by, driver);
     }
 
     /**
      * Tries to retrieve requested element.
      *
-     * @param path path to search the element at
+     * @param by locator of an element
      * @return the searched specified element or a NonExistingWebElement in case it couldn't be found.
      */
-    protected WebElement getElementByPath(final By path) {
-        return getElementByPath(path, driver);
+    protected WebElement getElement(final By by) {
+        return getElement(by, driver);
+    }
+
+    /**
+     * @deprecated use {@link #getElement(By)} instead.
+     */
+    @Deprecated
+    protected WebElement getElementByPath(final By by) {
+        return getElement(by, driver);
     }
 
     /**
      * Tries to retrieve requested elements.
      *
-     * @param path path to search the element at
+     * @param by locator of an element
      * @return a list matching the searched specified element or <code>null</code> in case it couldn't be found.
      * Tries to retrieve the requested amount of elements matching the given path.
      * Will retry until the amount matches or until the whole process times out.
      */
-    protected List<WebElement> getElementsByPath(final By path, final int expectedElementCount) {
+    protected List<WebElement> getElements(final By by, final int expectedElementCount) {
         List<WebElement> elements;
         try {
             // will loop and try to retrieve the specified element until found or it times out.
@@ -566,41 +583,57 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
                         @Override
                         public List<WebElement> apply(WebDriver d) {
                             try {
-                                List<WebElement> elements = d.findElements(path);
+                                List<WebElement> elements = d.findElements(by);
                                 if ((elements.size() > 0 && expectedElementCount == -1) || (elements.size() == expectedElementCount)) {
-                                    takeScreenshot(path.toString());
+                                    takeScreenshot(by.toString());
                                     return elements;
                                 }
-                                log.warn("Expecting {} element(s) for {} - trying again - found {} so far: {}", expectedElementCount != -1 ? expectedElementCount : "at least 1", path, elements.size(), elements);
-                                takeScreenshot(path.toString() + "_wrongCount");
+                                log.warn("Expecting {} element(s) for {} - trying again - found {} so far: {}", expectedElementCount != -1 ? expectedElementCount : "at least 1", by, elements.size(), elements);
+                                takeScreenshot(by.toString() + "_wrongCount");
                                 return null;
                             } catch (NoSuchElementException e) {
-                                takeScreenshot(path.toString() + "_notFound");
+                                takeScreenshot(by.toString() + "_notFound");
                                 return null;
                             }
                         }
                     }
             );
         } catch (TimeoutException e) {
-            log.error("Could not retrieve " + (expectedElementCount != -1 ? expectedElementCount : "at least 1") + " elements by path " + path + " : " + e.getMessage());
+            log.error("Could not retrieve " + (expectedElementCount != -1 ? expectedElementCount : "at least 1") + " elements by path " + by + " : " + e.getMessage());
             return Collections.emptyList();
         } catch (StaleElementReferenceException s) {
             // re-trying on StaleElementReferenceExceptions: see http://docs.seleniumhq.org/exceptions/stale_element_reference.jsp
-            log.info("{} when accessing element {} - trying again", s.toString(), path);
-            elements = getElementsByPath(path, expectedElementCount);
+            log.info("{} when accessing element {} - trying again", s.toString(), by);
+            elements = getElements(by, expectedElementCount);
         }
         return elements;
     }
 
     /**
+     * @deprecated use {@link #getElements(By, int)} instead.
+     */
+    @Deprecated
+    protected List<WebElement> getElementsByPath(final By path, final int expectedElementCount) {
+        return getElements(path, expectedElementCount);
+    }
+
+    /**
      * Tries to retrieve multiple elements.
      *
-     * @param path path to search the element at
+     * @param by locator of an element
      * @return a list matching the searched specified element or <code>null</code> in case it couldn't be found.
      * Will retry until there is at least one match or until the whole process times out.
      */
-    protected List<WebElement> getElementsByPath(final By path) {
-        return getElementsByPath(path, -1);
+    protected List<WebElement> getElements(final By by) {
+        return getElements(by, -1);
+    }
+
+    /**
+     * @deprecated use {@link #getElements(By)} instead.
+     */
+    @Deprecated
+    protected List<WebElement> getElementsByPath(final By by) {
+        return getElements(by);
     }
 
     protected By getElementLocatorByXpath(String path, Object... param) {
@@ -609,12 +642,11 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
     }
 
     protected WebElement getElementByXpath(String path, Object... param) {
-        return getElementByPath(getElementLocatorByXpath(path, param));
+        return getElement(getElementLocatorByXpath(path, param));
     }
 
-    protected List<WebElement> getElementsByXPath(String path, Object... param) {
-        String xpath = String.format(path, param);
-        return getElementsByPath(By.xpath(xpath));
+    protected List<WebElement> getElementsByXpath(String path, Object... param) {
+        return getElements(getElementLocatorByXpath(path, param));
     }
 
     protected WebElement getFormField(String caption) {
@@ -638,7 +670,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
     }
 
     protected WebElement getTreeTableItem(String itemCaption) {
-        return getElementByPath(getTreeTableItemLocator(itemCaption));
+        return getElement(getTreeTableItemLocator(itemCaption));
     }
 
     protected By getTreeTableItemLocator(String itemCaption) {
@@ -646,7 +678,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
     }
 
     protected WebElement getTreeTableItemRow(String itemCaption) {
-        return getElementByPath(getTreeTableItemRowLocator(itemCaption));
+        return getElement(getTreeTableItemRowLocator(itemCaption));
     }
 
     protected By getTreeTableItemRowLocator(String itemCaption) {
@@ -673,7 +705,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
     }
 
     protected WebElement getEnabledActionBarItem(String itemCaption) {
-        return getElementByPath(getEnabledActionBarItemLocator(itemCaption));
+        return getElement(getEnabledActionBarItemLocator(itemCaption));
     }
 
     protected By getEnabledActionBarItemLocator(String itemCaption) {
@@ -685,7 +717,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
     }
 
     protected String getActionBarTitle() {
-        List<WebElement> elements = getElementsByPath(By.xpath("//div[contains(@class,'v-actionbar-section') and not(@aria-hidden)]/h3"));
+        List<WebElement> elements = getElements(By.xpath("//div[contains(@class,'v-actionbar-section') and not(@aria-hidden)]/h3"));
         if (elements.size() != 1) {
             fail("More then one actionBar cannot be visible, something went terribly wrong/interesting");
         }
@@ -790,7 +822,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         final String fullTabXPath = String.format("%s%s", parentXPath1, tabCaptionPath);
         // Use multi-element search method in order to work-around a limitation of #getElementByXpath() - it returns only visible element,
         // whereas here we're interested if the element just exists in DOM
-        final List<WebElement> allMatchingElements = getElementsByPath(By.xpath(fullTabXPath));
+        final List<WebElement> allMatchingElements = getElements(By.xpath(fullTabXPath));
         return allMatchingElements.isEmpty() ? new NonExistingWebElement(fullTabXPath) : allMatchingElements.get(0);
     }
 
@@ -865,15 +897,15 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
     }
 
     protected void closeErrorNotification() {
-        getElementByPath(By.className("close-error")).click();
+        getElement(By.className("close-error")).click();
     }
 
     protected void closeInfoNotification() {
-        getElementByPath(By.xpath("//*[contains(@class, 'v-shell-notification')]//*[@class = 'close']")).click();
+        getElement(By.xpath("//*[contains(@class, 'v-shell-notification')]//*[@class = 'close']")).click();
     }
 
     protected void closeApp() {
-        getElementByPath(By.className("m-closebutton-app")).click();
+        getElement(By.className("m-closebutton-app")).click();
         waitUntil(DRIVER_WAIT_IN_SECONDS, applauncherTransitionIsComplete());
     }
 
@@ -911,7 +943,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
     protected By confirmationOverlay = By.xpath("//*[contains(@class, 'dialog-root-confirmation')]");
 
     protected WebElement getConfirmationOverlay() {
-        return getElementByPath(confirmationOverlay);
+        return getElement(confirmationOverlay);
     }
 
     protected WebElement getFocusedElement() {
@@ -974,8 +1006,8 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
      */
     protected void openDialogComponent() {
         switchToPageEditorContent();
-        getElementByPath(By.xpath("//h3[text() = 'Fields Show-Room Component']")).click();
-        getElementByPath(By.xpath("//*[contains(@class, 'focus')]//*[contains(@class, 'icon-edit')]")).click();
+        getElement(By.xpath("//h3[text() = 'Fields Show-Room Component']")).click();
+        getElement(By.xpath("//*[contains(@class, 'focus')]//*[contains(@class, 'icon-edit')]")).click();
         switchToDefaultContent();
     }
 
@@ -1008,7 +1040,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
     }
 
     protected WebElement getSelectedTableElement() {
-        return getElementByPath(By.xpath("//div[contains(@class, 'popupContent')]//div/table"));
+        return getElement(By.xpath("//div[contains(@class, 'popupContent')]//div/table"));
     }
 
     /**
@@ -1202,7 +1234,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
     }
 
     protected ExpectedCondition<WebElement> applauncherTransitionIsComplete() {
-        final WebElement shellappsViewport = getElementByPath(By.className("v-viewport-shellapps"));
+        final WebElement shellappsViewport = getElement(By.className("v-viewport-shellapps"));
         return new ExpectedCondition<WebElement>() {
 
             @Override
@@ -1224,7 +1256,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
     protected ExpectedCondition<WebElement> shellAppIsLoaded(final ShellApp shellAppType) {
         // shell app should be displayed (block) and non-transitioning (opacity cleared upon transition complete)
         final WebElement shellApp = driver.findElement(By.xpath(String.format("//div[contains(@class, 'v-viewport-shellapps')]/*[contains(@class, '%s')]", shellAppType.getClassName())));
-        final WebElement viewport = getElementByPath(By.className("v-viewport-shellapps"));
+        final WebElement viewport = getElement(By.className("v-viewport-shellapps"));
         return new ExpectedCondition<WebElement>() {
 
             @Override
@@ -1435,7 +1467,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
     }
 
     protected WebElement getNotificationMessage() {
-        return getElementByPath(notificationMessage);
+        return getElement(notificationMessage);
     }
 
     protected By notificationMessage = By.xpath("//div[contains(@class, 'v-label-dialog-content')]");
@@ -1484,7 +1516,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
      * @param expectedElementCount: number of expected elements
      */
     protected void selectMultipleElementsByPath(final By path, final int expectedElementCount) {
-        List<WebElement> els = getElementsByPath(path, expectedElementCount);
+        List<WebElement> els = getElements(path, expectedElementCount);
 
         Actions multiSelect = new Actions(driver).keyDown(Keys.CONTROL);
         for (WebElement el : els) {

@@ -68,7 +68,7 @@ public class FavoriteUITest extends AbstractPageEditorUITest {
 
         // THEN
         WebElement newGroupElement = null;
-        List<WebElement> groupTitles = getElementsByXPath("//div[contains(@class, 'favorites-group-title')]/*[contains(@class, 'v-textfield')]");
+        List<WebElement> groupTitles = getElementsByXpath("//div[contains(@class, 'favorites-group-title')]/*[contains(@class, 'v-textfield')]");
         for (WebElement element : groupTitles) {
             if (newGroupName.equals(element.getAttribute("value"))) {
                 newGroupElement = element;
