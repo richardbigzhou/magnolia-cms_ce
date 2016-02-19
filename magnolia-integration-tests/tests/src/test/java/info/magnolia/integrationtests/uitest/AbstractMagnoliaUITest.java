@@ -36,7 +36,7 @@ package info.magnolia.integrationtests.uitest;
 import static org.hamcrest.Matchers.nullValue;
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.Assert.*;
-import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated;
+import static org.openqa.selenium.support.ui.ExpectedConditions.*;
 
 import info.magnolia.testframework.AbstractMagnoliaIntegrationTest;
 import info.magnolia.testframework.htmlunit.AbstractMagnoliaHtmlUnitTest;
@@ -655,7 +655,11 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
     }
 
     protected WebElement getDisabledActionBarItem(String itemCaption) {
-        return getElementByXpath("//*[contains(@class,'v-actionbar')]//*[contains(@class, 'v-actionbar-section') and not(@aria-hidden)]//li[@class ='v-action v-disabled']//*[text()='%s']", itemCaption);
+        return getElement(byDisabledActionBarItem(itemCaption));
+    }
+
+    protected By byDisabledActionBarItem(String itemCaption) {
+        return getElementLocatorByXpath("//*[contains(@class,'v-actionbar')]//*[contains(@class, 'v-actionbar-section') and not(@aria-hidden)]//li[@class ='v-action v-disabled']//*[text()='%s']", itemCaption);
     }
 
     protected WebElement getEnabledActionBarItem(String itemCaption) {
@@ -1059,13 +1063,15 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
 
     protected void checkEnabledActions(String... actions) {
         for (String action : actions) {
-            assertTrue("'" + action + "' action should be enabled ", isExisting(getEnabledActionBarItem(action)));
+            waitUntil(visibilityOfElementLocated(byEnabledActionBarItem(action)));
+            //assertTrue("'" + action + "' action should be enabled ", isExisting(getEnabledActionBarItem(action)));
         }
     }
 
     protected void checkDisabledActions(String... actions) {
         for (String action : actions) {
-            assertTrue("'" + action + "' action should be disabled ", isExisting(getDisabledActionBarItem(action)));
+            waitUntil(visibilityOfElementLocated(byDisabledActionBarItem(action)));
+            //assertTrue("'" + action + "' action should be disabled ", isExisting(getDisabledActionBarItem(action)));
         }
     }
 
