@@ -63,7 +63,7 @@ public class ResourcesAppUITest extends AbstractMagnoliaUITest {
     @Before
     public void setUp() {
         super.setUp();
-        getElementByPath(XPATH_WEB_DEV_SECTION).click();
+        getElement(XPATH_WEB_DEV_SECTION).click();
         getAppIcon(RESOURCES_APP).click();
         waitUntil(appIsLoaded());
         assertAppOpen(RESOURCES_APP);

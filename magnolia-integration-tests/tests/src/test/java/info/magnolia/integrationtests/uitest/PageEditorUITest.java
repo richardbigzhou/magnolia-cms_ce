@@ -58,8 +58,8 @@ public class PageEditorUITest extends AbstractPageEditorUITest {
         getActionBarItem(EDIT_PAGE_ACTION).click();
 
         switchToPageEditorContent();
-        getElementByPath(By.xpath("//h3[text() = 'Main - Component One']")).click();
-        getElementByPath(By.xpath("//*[contains(@class, 'focus')]//*[contains(@class, 'icon-edit')]")).click();
+        getElement(By.xpath("//h3[text() = 'Main - Component One']")).click();
+        getElement(By.xpath("//*[contains(@class, 'focus')]//*[contains(@class, 'icon-edit')]")).click();
         switchToDefaultContent();
 
         // THEN
@@ -77,8 +77,8 @@ public class PageEditorUITest extends AbstractPageEditorUITest {
         getActionBarItem(EDIT_PAGE_ACTION).click();
 
         switchToPageEditorContent();
-        getElementByPath(By.xpath("//h3[text() = 'Main - Component One']")).click();
-        getElementByPath(By.xpath("//*[contains(@class, 'focus')]//*[contains(@class, 'icon-edit')]")).click();
+        getElement(By.xpath("//h3[text() = 'Main - Component One']")).click();
+        getElement(By.xpath("//*[contains(@class, 'focus')]//*[contains(@class, 'icon-edit')]")).click();
         switchToDefaultContent();
 
         // THEN
@@ -100,12 +100,12 @@ public class PageEditorUITest extends AbstractPageEditorUITest {
         getActionBarItem(EDIT_PAGE_ACTION).click();
 
         switchToPageEditorContent();
-        getElementByPath(By.xpath("//h2[text() = 'More interesting ']")).click();
-        getElementByPath(By.xpath("//*[contains(@class, 'focus')]//*[contains(@class, 'icon-edit')]")).click();
+        getElement(By.xpath("//h2[text() = 'More interesting ']")).click();
+        getElement(By.xpath("//*[contains(@class, 'focus')]//*[contains(@class, 'icon-edit')]")).click();
         switchToDefaultContent();
 
         // THEN
-        assertTrue(getElementByPath(By.xpath("//*[contains(@class, 'cke_chrome')]")).isDisplayed());
+        assertTrue(getElement(By.xpath("//*[contains(@class, 'cke_chrome')]")).isDisplayed());
         getDialogCancelButton().click();
     }
 
@@ -121,11 +121,11 @@ public class PageEditorUITest extends AbstractPageEditorUITest {
         getActionBarItem(EDIT_PAGE_ACTION).click();
 
         switchToPageEditorContent();
-        getElementByPath(By.id("promo-1")).click();
+        getElement(By.id("promo-1")).click();
 
         // THEN
         setMinimalTimeout();
-        assertFalse("Inherited components should not have edit bars.", isExisting(getElementByPath(By.xpath("//*[contains(@class, 'focus')]//*[contains(@class, 'icon-edit')]"))));
+        assertFalse("Inherited components should not have edit bars.", isExisting(getElement(By.xpath("//*[contains(@class, 'focus')]//*[contains(@class, 'icon-edit')]"))));
         resetTimeout();
 
         switchToDefaultContent();
@@ -149,10 +149,10 @@ public class PageEditorUITest extends AbstractPageEditorUITest {
 
         switchToPageEditorContent();
 
-        getElementByPath(By.linkText("About")).click();
+        getElement(By.linkText("About")).click();
 
         // THEN
-        assertTrue("Edit bars should be around.", isExisting(getElementByPath(By.cssSelector("div.mgnlEditorBar"))));
+        assertTrue("Edit bars should be around.", isExisting(getElement(By.cssSelector("div.mgnlEditorBar"))));
         switchToDefaultContent();
         assertTrue("We should still be in edit mode.", getCurrentDriverUrl().contains("about:edit"));
     }
@@ -275,7 +275,7 @@ public class PageEditorUITest extends AbstractPageEditorUITest {
 
         switchToPageEditorContent();
 
-        assertTrue("Content in editor frame doesn't seem to have loaded.", isExisting(getElementByPath(By.linkText("About"))));
+        assertTrue("Content in editor frame doesn't seem to have loaded.", isExisting(getElement(By.linkText("About"))));
     }
 
     /**
@@ -308,9 +308,9 @@ public class PageEditorUITest extends AbstractPageEditorUITest {
         getTreeTableItem("demo-project").click();
         getActionBarItem(EDIT_PAGE_ACTION).click();
         switchToPageEditorContent();
-        getElementByPath(By.xpath("//div[@id = 'main']//div[contains(@class, 'mgnlEditorBarLabel') and text() = 'Teasers']")).click();
-        getElementByPath(By.xpath("//div[@id = 'teaser-1']//div[contains(@class, 'mgnlEditorBarLabel') and text() = 'Internal Page Teaser']")).click();
-        getElementByPath(By.xpath("//div[@id = 'teaser-1']//div[contains(@class, 'mgnlEditorBarLabel') and text() = 'Link List (optional)']")).click();
+        getElement(By.xpath("//div[@id = 'main']//div[contains(@class, 'mgnlEditorBarLabel') and text() = 'Teasers']")).click();
+        getElement(By.xpath("//div[@id = 'teaser-1']//div[contains(@class, 'mgnlEditorBarLabel') and text() = 'Internal Page Teaser']")).click();
+        getElement(By.xpath("//div[@id = 'teaser-1']//div[contains(@class, 'mgnlEditorBarLabel') and text() = 'Link List (optional)']")).click();
         switchToDefaultContent();
 
         // THEN
@@ -327,19 +327,19 @@ public class PageEditorUITest extends AbstractPageEditorUITest {
 
     private void generateTestData() {
         switchToPageEditorContent();
-        getElementByPath(By.xpath("//div[@id = 'main']//div[contains(@class, 'mgnlEditorBarLabel') and text() = 'Teasers']")).click();
-        getElementByPath(By.xpath("//div[@id = 'main']//div[text() = 'New Teasers Component']")).click();
+        getElement(By.xpath("//div[@id = 'main']//div[contains(@class, 'mgnlEditorBarLabel') and text() = 'Teasers']")).click();
+        getElement(By.xpath("//div[@id = 'main']//div[text() = 'New Teasers Component']")).click();
         switchToDefaultContent();
-        getElementByPath(By.xpath("//div[contains(@class, 'dialog-root')]//div[@role = 'combobox']//div[@role = 'button']")).click();
-        getElementByPath(By.xpath("//div[contains(@class, 'v-filterselect-suggestpopup')]//span[text() = 'Internal Page Teaser']")).click();
-        getElementByPath(By.xpath("//div[contains(@class, 'dialog-root')]//span[text() = 'Choose']")).click();
+        getElement(By.xpath("//div[contains(@class, 'dialog-root')]//div[@role = 'combobox']//div[@role = 'button']")).click();
+        getElement(By.xpath("//div[contains(@class, 'v-filterselect-suggestpopup')]//span[text() = 'Internal Page Teaser']")).click();
+        getElement(By.xpath("//div[contains(@class, 'dialog-root')]//span[text() = 'Choose']")).click();
         delay("wait");
-        getElementByPath(By.xpath("//div[contains(@class, 'dialog-root')]//input[@type = 'text']")).sendKeys("/demo-project/about/history");
-        getElementByPath(By.xpath("//div[contains(@class, 'dialog-root')]//span[text() = 'save changes']")).click();
+        getElement(By.xpath("//div[contains(@class, 'dialog-root')]//input[@type = 'text']")).sendKeys("/demo-project/about/history");
+        getElement(By.xpath("//div[contains(@class, 'dialog-root')]//span[text() = 'save changes']")).click();
         waitUntil(dialogIsClosed("Teaser"));
         switchToPageEditorContent();
-        getElementByPath(By.xpath("//div[@id = 'main']//div[contains(@class, 'mgnlEditorBarLabel') and text() = 'Teasers']")).click();
-        WebElement lastTeaser = getElementByPath(By.xpath("//div[@id = 'main']//div[contains(@class, 'teaser')][last() - 1]"));
+        getElement(By.xpath("//div[@id = 'main']//div[contains(@class, 'mgnlEditorBarLabel') and text() = 'Teasers']")).click();
+        WebElement lastTeaser = getElement(By.xpath("//div[@id = 'main']//div[contains(@class, 'teaser')][last() - 1]"));
         lastTeaser.findElement(By.xpath(".//div[contains(@class, 'mgnlEditorBarLabel') and text() = 'Internal Page Teaser']")).click();
         lastTeaser.findElement(By.xpath(".//div[contains(@class, 'mgnlEditorBarLabel') and text() = 'Link List (optional)']")).click();
         switchToDefaultContent();
@@ -347,12 +347,12 @@ public class PageEditorUITest extends AbstractPageEditorUITest {
 
     private void clearTestData() {
         switchToPageEditorContent();
-        getElementByPath(By.xpath("//div[@id = 'main']//div[contains(@class, 'mgnlEditorBarLabel') and text() = 'Teasers']")).click();
-        WebElement lastTeaser = getElementByPath(By.xpath("//div[@id = 'main']//div[contains(@class, 'teaser')][last() - 1]"));
+        getElement(By.xpath("//div[@id = 'main']//div[contains(@class, 'mgnlEditorBarLabel') and text() = 'Teasers']")).click();
+        WebElement lastTeaser = getElement(By.xpath("//div[@id = 'main']//div[contains(@class, 'teaser')][last() - 1]"));
         lastTeaser.findElement(By.xpath(".//div[contains(@class, 'mgnlEditorBarLabel') and text() = 'Internal Page Teaser']")).click();
         switchToDefaultContent();
         getActionBarItem("Delete component").click();
-        getElementByPath(By.xpath("//div[contains(@class, 'dialog-root')]//span[text() = 'Yes, Delete']")).click();
+        getElement(By.xpath("//div[contains(@class, 'dialog-root')]//span[text() = 'Yes, Delete']")).click();
     }
 
     @Test
@@ -367,7 +367,7 @@ public class PageEditorUITest extends AbstractPageEditorUITest {
         getTreeTableItem("site-map").click();
         getActionBarItem(EDIT_PAGE_ACTION).click();
         switchToPageEditorContent();
-        getElementByPath(By.xpath("//div[contains(@class, 'mgnlEditorBarLabel') and text() = 'Content']")).click();
+        getElement(By.xpath("//div[contains(@class, 'mgnlEditorBarLabel') and text() = 'Content']")).click();
         switchToDefaultContent();
 
         // THEN
@@ -375,7 +375,7 @@ public class PageEditorUITest extends AbstractPageEditorUITest {
 
         // WHEN
         switchToPageEditorContent();
-        getElementByPath(By.xpath("//div[contains(@class, 'mgnlEditorBarLabel') and text() = 'Site Map']")).click();
+        getElement(By.xpath("//div[contains(@class, 'mgnlEditorBarLabel') and text() = 'Site Map']")).click();
         switchToDefaultContent();
 
         // THEN

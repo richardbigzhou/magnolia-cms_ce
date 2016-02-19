@@ -60,7 +60,7 @@ public class FavoriteUITest extends AbstractPageEditorUITest {
 
         // WHEN
         getButton("dialog-header", "Add new").click();
-        WebElement groupComboBox = getElementByPath(By.xpath("//*[contains(@class, 'v-filterselect')]/*[@class = 'v-filterselect-input']"));
+        WebElement groupComboBox = getElement(By.xpath("//*[contains(@class, 'v-filterselect')]/*[@class = 'v-filterselect-input']"));
         String newGroupName = String.valueOf((new Date()).getTime());
         groupComboBox.sendKeys(newGroupName);
         simulateKeyPress(Keys.TAB);
@@ -68,7 +68,7 @@ public class FavoriteUITest extends AbstractPageEditorUITest {
 
         // THEN
         WebElement newGroupElement = null;
-        List<WebElement> groupTitles = getElementsByXPath("//div[contains(@class, 'favorites-group-title')]/*[contains(@class, 'v-textfield')]");
+        List<WebElement> groupTitles = getElementsByXpath("//div[contains(@class, 'favorites-group-title')]/*[contains(@class, 'v-textfield')]");
         for (WebElement element : groupTitles) {
             if (newGroupName.equals(element.getAttribute("value"))) {
                 newGroupElement = element;
@@ -85,7 +85,7 @@ public class FavoriteUITest extends AbstractPageEditorUITest {
 
     private void removeExistingItems() {
         getEditFavoritesButton().click();
-        WebElement trashElement = getElementByPath(By.xpath("//*[@class = 'icon-trash']"));
+        WebElement trashElement = getElement(By.xpath("//*[@class = 'icon-trash']"));
         if (trashElement != null) {
             trashElement.click();
             getDialogConfirmButton().click();
@@ -110,7 +110,7 @@ public class FavoriteUITest extends AbstractPageEditorUITest {
 
         // WHEN
         getEditFavoritesButton().click();
-        getElementByPath(By.xpath("//*[@class = 'icon-trash']")).click();
+        getElement(By.xpath("//*[@class = 'icon-trash']")).click();
 
         getDialogConfirmButton().click();
         waitUntil(DRIVER_WAIT_IN_SECONDS, elementIsGone("//*[contains(@class, 'dialog-root-confirmation')]"));
@@ -131,7 +131,7 @@ public class FavoriteUITest extends AbstractPageEditorUITest {
         waitUntil(DRIVER_WAIT_IN_SECONDS, shellAppIsLoaded(ShellApp.FAVORITES));
 
         getButton("dialog-header", "Add new").click();
-        WebElement groupComboBox = getElementByPath(By.xpath("//*[contains(@class, 'v-filterselect')]/*[@class = 'v-filterselect-input']"));
+        WebElement groupComboBox = getElement(By.xpath("//*[contains(@class, 'v-filterselect')]/*[@class = 'v-filterselect-input']"));
         String newGroupName = String.valueOf((new Date()).getTime());
         groupComboBox.sendKeys(newGroupName);
         simulateKeyPress(Keys.TAB);
@@ -142,9 +142,9 @@ public class FavoriteUITest extends AbstractPageEditorUITest {
         getEditFavoritesButton().click();
 
         // THEN
-        List<WebElement> trashIconElementsList = getElementsByPath(By.xpath("//*[@class = 'icon-trash']"));
+        List<WebElement> trashIconElementsList = getElements(By.xpath("//*[@class = 'icon-trash']"));
         assertEquals(trashIconElementsList.size(), 2);
-        List<WebElement> editIconElementsList = getElementsByPath(By.xpath("//*[@class = 'icon-edit']"));
+        List<WebElement> editIconElementsList = getElements(By.xpath("//*[@class = 'icon-edit']"));
         assertEquals(editIconElementsList.size(), 2);
 
         // WHEN

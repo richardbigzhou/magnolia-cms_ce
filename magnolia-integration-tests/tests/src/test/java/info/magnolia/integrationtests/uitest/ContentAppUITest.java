@@ -173,8 +173,8 @@ public class ContentAppUITest extends AbstractPageEditorUITest {
 
         switchToPageEditorContent();
 
-        getElementByPath(By.xpath(String.format("//div[@role='article']//div[@class='text-section']"))).click();
-        getElementByPath(By.xpath("//*[contains(@class, 'focus')]//*[contains(@class, 'icon-edit')]")).click();
+        getElement(By.xpath(String.format("//div[@role='article']//div[@class='text-section']"))).click();
+        getElement(By.xpath("//*[contains(@class, 'focus')]//*[contains(@class, 'icon-edit')]")).click();
 
         switchToDefaultContent();
 

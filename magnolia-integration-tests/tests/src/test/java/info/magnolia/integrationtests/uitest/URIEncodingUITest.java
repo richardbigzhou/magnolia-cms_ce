@@ -93,7 +93,7 @@ public class URIEncodingUITest extends AbstractMagnoliaUITest {
         delay("Give some time to restart magnolia");
 
         // WHEN - search is entered and triggered
-        WebElement searchBox = getElementByPath(By.xpath("//input[contains(@class, 'searchfield')]"));
+        WebElement searchBox = getElement(By.xpath("//input[contains(@class, 'searchfield')]"));
         searchBox.sendKeys("");
         searchBox.sendKeys(unencodedSearchString);
         simulateKeyPress(Keys.ENTER);

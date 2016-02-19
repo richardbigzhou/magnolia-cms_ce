@@ -95,10 +95,10 @@ public class ContactsAppUITest extends AbstractMagnoliaUITest {
         delay("Waiting for the popup to show up");
 
         // Click on version drop-down to show versions
-        getElementByPath(By.xpath("//*[contains(@class, 'v-filterselect-input')]")).click();
+        getElement(By.xpath("//*[contains(@class, 'v-filterselect-input')]")).click();
 
         // Get version drop-down
-        WebElement table = getElementByPath(By.xpath("//div[contains(@class, 'popupContent')]//div/table"));
+        WebElement table = getElement(By.xpath("//div[contains(@class, 'popupContent')]//div/table"));
 
         assertTrue("We expect to have at least one version", table.findElements(By.xpath("tbody/tr")).size() >= 1);
 
@@ -108,7 +108,7 @@ public class ContactsAppUITest extends AbstractMagnoliaUITest {
         delay("Waiting for the editSubApp to open");
 
         // Get inputs
-        List<WebElement> inputs = getElementsByPath(By.xpath("//div[@class='form-content']//input[contains(@class, 'v-textfield')]"), CONTACTS_APP_INPUT_COUNT);
+        List<WebElement> inputs = getElements(By.xpath("//div[@class='form-content']//input[contains(@class, 'v-textfield')]"), CONTACTS_APP_INPUT_COUNT);
         assertNotNull(inputs);
 
         // THEN
@@ -144,10 +144,10 @@ public class ContactsAppUITest extends AbstractMagnoliaUITest {
         delay("Waiting for the popup to show up");
 
         // Click on version drop-down to show versions
-        getElementByPath(By.xpath("//*[contains(@class, 'v-filterselect-input')]")).click();
+        getElement(By.xpath("//*[contains(@class, 'v-filterselect-input')]")).click();
 
         // Get version drop-down
-        WebElement table = getElementByPath(By.xpath("//div[contains(@class, 'popupContent')]//div/table"));
+        WebElement table = getElement(By.xpath("//div[contains(@class, 'popupContent')]//div/table"));
 
         assertTrue("We expect to have at least one version", table.findElements(By.xpath("tbody/tr")).size() >= 1);
 
@@ -157,7 +157,7 @@ public class ContactsAppUITest extends AbstractMagnoliaUITest {
         delay("Waiting for the editSubApp to open");
 
         // Get inputs
-        List<WebElement> inputs = getElementsByPath(By.xpath("//div[@class='form-content']//input[contains(@class, 'v-textfield')]"), CONTACTS_APP_INPUT_COUNT);
+        List<WebElement> inputs = getElements(By.xpath("//div[@class='form-content']//input[contains(@class, 'v-textfield')]"), CONTACTS_APP_INPUT_COUNT);
         assertNotNull(inputs);
 
         // Assert subApp is open and all fields in editor are readonly
@@ -179,7 +179,7 @@ public class ContactsAppUITest extends AbstractMagnoliaUITest {
         delay("Waiting for the editSubApp to open");
 
         // Get inputs afterwards
-        List<WebElement> inputsEditable = getElementsByPath(By.xpath("//div[@class='form-content']//input[contains(@class, 'v-textfield')]"), CONTACTS_APP_INPUT_COUNT);
+        List<WebElement> inputsEditable = getElements(By.xpath("//div[@class='form-content']//input[contains(@class, 'v-textfield')]"), CONTACTS_APP_INPUT_COUNT);
         assertNotNull(inputsEditable);
 
         // THEN

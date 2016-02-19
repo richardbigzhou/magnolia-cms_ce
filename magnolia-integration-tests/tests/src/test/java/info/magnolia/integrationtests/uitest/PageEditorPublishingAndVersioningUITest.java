@@ -428,8 +428,8 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
         switchToPageEditorContent();
         // Open Text Image Content Form
 
-        getElementByPath(By.xpath("//div[@role='article']//div[@class='text-section']")).click();
-        getElementByPath(By.xpath("//*[contains(@class, 'focus')]//*[contains(@class, 'icon-edit')]")).click();
+        getElement(By.xpath("//div[@role='article']//div[@class='text-section']")).click();
+        getElement(By.xpath("//*[contains(@class, 'focus')]//*[contains(@class, 'icon-edit')]")).click();
         switchToDefaultContent();
         // Do changes in the Text Image form and save
         setFormTextFieldText("Subheading", newSubheadingValue);
@@ -509,8 +509,8 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
         delay(5, "Make sure we finish rendering before anything else.");
 
         // THEN
-        assertTrue("Following published change has to be visible on public instance '" + subheadingValue + "'", isExisting(getElementByPath(By.xpath(String.format("//h2[text() = '%s']", subheadingValue)))));
-        assertTrue("Following published change has to be visible on public instance '" + imageCaptionValue + "'", isExisting(getElementByPath(By.xpath(String.format("//dd[text() = '%s']", imageCaptionValue)))));
+        assertTrue("Following published change has to be visible on public instance '" + subheadingValue + "'", isExisting(getElement(By.xpath(String.format("//h2[text() = '%s']", subheadingValue)))));
+        assertTrue("Following published change has to be visible on public instance '" + imageCaptionValue + "'", isExisting(getElement(By.xpath(String.format("//dd[text() = '%s']", imageCaptionValue)))));
 
         // Go back to the last url
         navigateDriverTo(lastUrl);
@@ -538,7 +538,7 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
 
         // Sub App Open in a Read Only Mode
         setMinimalTimeout();
-        assertTrue(getElementByPath(By.xpath("//div[@class = 'mgnlEditorBar mgnlEditor area init']")) instanceof NonExistingWebElement);
+        assertTrue(getElement(By.xpath("//div[@class = 'mgnlEditorBar mgnlEditor area init']")) instanceof NonExistingWebElement);
         resetTimeout();
         // Check tab header (include version)
         assertFalse(getTabForCaption(tabHeader) instanceof NonExistingWebElement);

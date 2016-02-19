@@ -110,7 +110,7 @@ public class ConfigurationAppUITest extends AbstractMagnoliaUITest {
 
         // THEN
         // Unescaped property shouldn't show up
-        WebElement propertyUnescaped = getElementByPath(By.xpath("//div[@class='v-table-cell-wrapper']//img[contains(@src, 'gif')]"));
+        WebElement propertyUnescaped = getElement(By.xpath("//div[@class='v-table-cell-wrapper']//img[contains(@src, 'gif')]"));
         if (isExisting(propertyUnescaped)) {
             log.info("Found un-escaped property [{}]", propertyUnescaped);
 
@@ -123,7 +123,7 @@ public class ConfigurationAppUITest extends AbstractMagnoliaUITest {
         }
 
         // Escaped property shouldn't trigger alert
-        WebElement property = getElementByPath(By.xpath("//div[@class='v-table-cell-wrapper' and contains(text(), 'onmouseover')]"));
+        WebElement property = getElement(By.xpath("//div[@class='v-table-cell-wrapper' and contains(text(), 'onmouseover')]"));
         if (!(property instanceof NonExistingWebElement)) {
             log.info("Found escaped property [{}]", property);
 
@@ -261,7 +261,7 @@ public class ConfigurationAppUITest extends AbstractMagnoliaUITest {
             delay("Delete might take some time");
             refreshTreeView();
 
-            List<WebElement> rows = getElementsByPath(By.xpath(String.format("//*[contains(@class, 'v-table-cell-wrapper') and text() = '%s']", "untitled")), 0);
+            List<WebElement> rows = getElements(By.xpath(String.format("//*[contains(@class, 'v-table-cell-wrapper') and text() = '%s']", "untitled")), 0);
             assertTrue(rows.isEmpty());
         }
     }
