@@ -108,7 +108,7 @@ public class JcrToolsUITest extends AbstractMagnoliaUITest {
         getButton("v-button-commit", "Execute").click();
 
         // WHEN
-        waitUntil(visibilityOfElementLocated(notificationMessage));
+        waitUntil(visibilityOfElementLocated(byNotificationMessage));
 
         // THEN
         assertThat(getNotificationMessage().getText(), is("Node Dump Succeeded"));
@@ -121,7 +121,7 @@ public class JcrToolsUITest extends AbstractMagnoliaUITest {
         populateFormFieldsAndSubmitForm("Dumper", "TextField", "Level", "2");
 
         // WHEN
-        waitUntil(visibilityOfElementLocated(notificationMessage));
+        waitUntil(visibilityOfElementLocated(byNotificationMessage));
 
         // THEN
         assertThat(getNotificationMessage().getText(), is("Node Dump Succeeded"));
@@ -247,7 +247,7 @@ public class JcrToolsUITest extends AbstractMagnoliaUITest {
         populateQueryFormFieldsAndSubmitForm("magnolia", "magnolia");
 
         // WHEN
-        waitUntil(visibilityOfElementLocated(notificationMessage));
+        waitUntil(visibilityOfElementLocated(byNotificationMessage));
 
         // THEN
         assertThat(getNotificationMessage().getText(), is("Query Failed"));
@@ -260,7 +260,7 @@ public class JcrToolsUITest extends AbstractMagnoliaUITest {
         populateQueryFormFieldsAndSubmitForm("nt:base", "magnolia");
 
         // WHEN
-        waitUntil(visibilityOfElementLocated(notificationMessage));
+        waitUntil(visibilityOfElementLocated(byNotificationMessage));
 
         // THEN
         assertThat(getNotificationMessage().getText(), is("Query Failed"));
@@ -273,7 +273,7 @@ public class JcrToolsUITest extends AbstractMagnoliaUITest {
         populateQueryFormFieldsAndSubmitForm("nt:base", "select * from [mgnl:content]");
 
         // WHEN
-        waitUntil(visibilityOfElementLocated(notificationMessage));
+        waitUntil(visibilityOfElementLocated(byNotificationMessage));
 
         // THEN
         assertThat(getNotificationMessage().getText(), is("Query Succeeded"));
@@ -286,7 +286,7 @@ public class JcrToolsUITest extends AbstractMagnoliaUITest {
         populateQueryFormFieldsAndSubmitForm("magnolia", "select * from [mgnl:content]");
 
         // WHEN
-        waitUntil(visibilityOfElementLocated(notificationMessage));
+        waitUntil(visibilityOfElementLocated(byNotificationMessage));
 
         // THEN
         assertThat(getNotificationMessage().getText(), is("Query Succeeded"));
@@ -349,7 +349,7 @@ public class JcrToolsUITest extends AbstractMagnoliaUITest {
         getButton("v-button-commit", "Execute").click();
 
         // WHEN
-        waitUntil(visibilityOfElementLocated(notificationMessage));
+        waitUntil(visibilityOfElementLocated(byNotificationMessage));
 
         // THEN
         assertThat(getNotificationMessage().getText(), is("Node Export Succeeded"));
@@ -364,7 +364,7 @@ public class JcrToolsUITest extends AbstractMagnoliaUITest {
 
         // WHEN
         getButton("v-button-commit", "Execute").click();
-        waitUntil(visibilityOfElementLocated(notificationMessage));
+        waitUntil(visibilityOfElementLocated(byNotificationMessage));
 
         // THEN
         assertThat(getNotificationMessage().getText(), is("Node Export Succeeded"));

@@ -311,7 +311,7 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
         getActionBarItem(PUBLISH_PAGE_ACTION).click();
 
         // THEN
-        waitUntil(10, visibilityOfElementLocated(notificationMessage));
+        waitUntil(10, visibilityOfElementLocated(byNotificationMessage));
         assertThat(getNotificationMessage().getText(), is("Publication successful."));
 
         // Reset utf-8 enabled on author/public

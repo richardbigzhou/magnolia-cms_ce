@@ -617,7 +617,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         return getElementByXpath("//*[@class = 'v-form-field-label' and text() = '%s']/following-sibling::div/textarea", caption);
     }
 
-    protected By getLocatorForTreeTableItemExpander(String itemCaption) {
+    protected By byTreeTableItemExpander(String itemCaption) {
         return getElementLocatorByXpath("//*[normalize-space(text()) = '%s']/*[contains(@class, 'v-treetable-treespacer') and contains(@class, 'v-treetable-node-')]", itemCaption);
     }
 
@@ -626,18 +626,18 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
     }
 
     protected WebElement getTreeTableItem(String itemCaption) {
-        return getElement(getTreeTableItemLocator(itemCaption));
+        return getElement(byTreeTableItem(itemCaption));
     }
 
-    protected By getTreeTableItemLocator(String itemCaption) {
+    protected By byTreeTableItem(String itemCaption) {
         return getElementLocatorByXpath("//*[contains(@class, 'v-table-cell-wrapper') and normalize-space(text()) = '%s']", itemCaption);
     }
 
     protected WebElement getTreeTableItemRow(String itemCaption) {
-        return getElement(getTreeTableItemRowLocator(itemCaption));
+        return getElement(byTreeTableItemRow(itemCaption));
     }
 
-    protected By getTreeTableItemRowLocator(String itemCaption) {
+    protected By byTreeTableItemRow(String itemCaption) {
         return getElementLocatorByXpath("//*[contains(@class, 'v-table-cell-wrapper') and normalize-space(text()) = '%s']/parent::*/parent::*", itemCaption);
     }
 
@@ -661,10 +661,10 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
     }
 
     protected WebElement getEnabledActionBarItem(String itemCaption) {
-        return getElement(getEnabledActionBarItemLocator(itemCaption));
+        return getElement(byEnabledActionBarItem(itemCaption));
     }
 
-    protected By getEnabledActionBarItemLocator(String itemCaption) {
+    protected By byEnabledActionBarItem(String itemCaption) {
         return getElementLocatorByXpath("//*[contains(@class,'v-actionbar')]//*[contains(@class, 'v-actionbar-section') and not(@aria-hidden)]//li[@class ='v-action']//*[text()='%s']", itemCaption);
     }
 
@@ -806,7 +806,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         return doGetTabElement(tabCaption, true);
     }
 
-    protected By getXpathOfTabContainingCaption(String tabCaption) {
+    protected By byTabContainingCaption(String tabCaption) {
         return By.xpath(String.format("//*[contains(@class, 'v-shell-tabsheet')]//*[@class = 'tab-title' and contains(text(),'%s')]", tabCaption));
     }
 
@@ -830,12 +830,12 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         return getElementByXpath("//*[contains(@class, 'v-table-caption-container')]/span[text() = '%s']", columnName);
     }
 
-    protected By getXpathForAppByAppName(String appName) {
+    protected By byAppName(String appName) {
         return By.xpath(String.format("//*[contains(@class, 'v-viewport-apps')]//*[@class = 'tab-title' and text() = '%s']", appName));
     }
 
     protected void assertAppOpen(String appName) {
-        assertTrue(driver.findElement(getXpathForAppByAppName(appName)).isDisplayed());
+        assertTrue(driver.findElement(byAppName(appName)).isDisplayed());
     }
 
     protected WebElement getDialog(final String dialogTitle) {
@@ -896,10 +896,10 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         driver.switchTo().defaultContent();
     }
 
-    protected By confirmationOverlay = By.xpath("//*[contains(@class, 'dialog-root-confirmation')]");
+    protected By byConfirmationOverlay = By.xpath("//*[contains(@class, 'dialog-root-confirmation')]");
 
     protected WebElement getConfirmationOverlay() {
-        return getElement(confirmationOverlay);
+        return getElement(byConfirmationOverlay);
     }
 
     protected WebElement getFocusedElement() {
@@ -1423,10 +1423,10 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
     }
 
     protected WebElement getNotificationMessage() {
-        return getElement(notificationMessage);
+        return getElement(byNotificationMessage);
     }
 
-    protected By notificationMessage = By.xpath("//div[contains(@class, 'v-label-dialog-content')]");
+    protected By byNotificationMessage = By.xpath("//div[contains(@class, 'v-label-dialog-content')]");
 
 
     /**

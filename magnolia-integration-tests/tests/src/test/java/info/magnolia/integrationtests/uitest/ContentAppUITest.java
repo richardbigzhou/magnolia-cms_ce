@@ -118,7 +118,7 @@ public class ContentAppUITest extends AbstractPageEditorUITest {
 
         // WHEN - navigate directly to Edit Subapp
         navigateDriverTo(Instance.AUTHOR.getURL() + ".magnolia/admincentral#app:contacts:detail;/mmonroe:edit");
-        waitUntil(visibilityOfElementLocated(getXpathForAppByAppName("Contacts")));
+        waitUntil(visibilityOfElementLocated(byAppName("Contacts")));
 
         // THEN
         assertTrue(getTabForCaption("Contacts").isDisplayed());
@@ -131,7 +131,7 @@ public class ContentAppUITest extends AbstractPageEditorUITest {
 
         // WHEN - navigate directly to Edit Subapp
         navigateDriverTo(Instance.AUTHOR.getURL() + ".magnolia/admincentral#app:pages:browser;/demo-project/about/subsection-articles:treeview:");
-        waitUntil(visibilityOfElementLocated(getXpathForAppByAppName("Pages")));
+        waitUntil(visibilityOfElementLocated(byAppName("Pages")));
 
         // THEN
         assertTrue("The subsection-articles page should be visible after navigating to it.", getTreeTableItem("subsection-articles").isDisplayed());
@@ -145,7 +145,7 @@ public class ContentAppUITest extends AbstractPageEditorUITest {
 
         // WHEN
         getAppIcon("Pages").click();
-        waitUntil(visibilityOfElementLocated(getXpathForAppByAppName("Pages")));
+        waitUntil(visibilityOfElementLocated(byAppName("Pages")));
 
         // THEN
         final WebElement statusColumn = getColumnHeader("Status");
@@ -196,7 +196,7 @@ public class ContentAppUITest extends AbstractPageEditorUITest {
         navigateDriverTo(Instance.PUBLIC.getURL() + ".magnolia/admincentral#app:pages");
         // on setup we only login to author instance - now we need to login to public...
         login(getTestUserName());
-        waitUntil(visibilityOfElementLocated(getXpathForAppByAppName("Pages")));
+        waitUntil(visibilityOfElementLocated(byAppName("Pages")));
 
         // THEN
         final WebElement statusColumn = getColumnHeader("Status");

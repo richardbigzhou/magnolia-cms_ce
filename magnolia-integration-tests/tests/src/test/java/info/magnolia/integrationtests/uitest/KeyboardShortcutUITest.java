@@ -62,13 +62,13 @@ public class KeyboardShortcutUITest extends AbstractPageEditorUITest {
         getTreeTableItem("Albert Einstein").click();
         getActionBarItem("Delete contact").click();
 
-        waitUntil(visibilityOfElementLocated(confirmationOverlay));
+        waitUntil(visibilityOfElementLocated(byConfirmationOverlay));
         confirmation = getConfirmationOverlay();
 
         assertTrue("Delete action should have caused confirmation overlay.", isExisting(confirmation));
         simulateKeyPress(Keys.ESCAPE);
 
-        waitUntil(invisibilityOfElementLocated(confirmationOverlay));
+        waitUntil(invisibilityOfElementLocated(byConfirmationOverlay));
 
         // THEN
         WebElement contact = getTreeTableItem("Albert Einstein");
@@ -97,7 +97,7 @@ public class KeyboardShortcutUITest extends AbstractPageEditorUITest {
         // First pass - we cancel the dialog closing.
         // WHEN
         simulateKeyPress(Keys.ESCAPE);
-        waitUntil(visibilityOfElementLocated(confirmationOverlay));
+        waitUntil(visibilityOfElementLocated(byConfirmationOverlay));
         // THEN
         confirmation = getConfirmationOverlay();
         assertTrue("ESC key should have caused confirmation overlay.", isExisting(confirmation));
@@ -105,20 +105,20 @@ public class KeyboardShortcutUITest extends AbstractPageEditorUITest {
         // WHEN
         simulateKeyPress(Keys.ESCAPE);
         // THEN
-        waitUntil(invisibilityOfElementLocated(confirmationOverlay));
+        waitUntil(invisibilityOfElementLocated(byConfirmationOverlay));
 
         // Now do it again, but this time confirm the dialog closing.
 
         // WHEN
         simulateKeyPress(Keys.ESCAPE);
-        waitUntil(visibilityOfElementLocated(confirmationOverlay));
+        waitUntil(visibilityOfElementLocated(byConfirmationOverlay));
         // THEN
         confirmation = getConfirmationOverlay();
         assertTrue("ESC key should have caused confirmation overlay.", isExisting(confirmation));
         // WHEN
         simulateKeyPress(Keys.ENTER);
         // THEN
-        waitUntil(invisibilityOfElementLocated(confirmationOverlay));
+        waitUntil(invisibilityOfElementLocated(byConfirmationOverlay));
     }
 
     /**
@@ -148,12 +148,12 @@ public class KeyboardShortcutUITest extends AbstractPageEditorUITest {
         getElement(By.xpath("//*[contains(@class, 'focus')]//*[contains(@class, 'icon-edit')]")).click();
         switchToDefaultContent();
 
-        waitUntil(visibilityOfElementLocated(getXpathOfTabContainingCaption("Settings")));
+        waitUntil(visibilityOfElementLocated(byTabContainingCaption("Settings")));
 
         // WHEN
         simulateKeyPress(Keys.ESCAPE);
         // THEN
-        waitUntil(visibilityOfElementLocated(confirmationOverlay));
+        waitUntil(visibilityOfElementLocated(byConfirmationOverlay));
 
         // Validate that PageEditor is not in preview mode.
         url = getCurrentDriverUrl();
@@ -163,7 +163,7 @@ public class KeyboardShortcutUITest extends AbstractPageEditorUITest {
         // WHEN
         simulateKeyPress(Keys.ENTER);
         // THEN
-        waitUntil(invisibilityOfElementLocated(confirmationOverlay));
+        waitUntil(invisibilityOfElementLocated(byConfirmationOverlay));
 
         // Validate that PageEditor is not in preview mode.
         url = getCurrentDriverUrl();
@@ -194,7 +194,7 @@ public class KeyboardShortcutUITest extends AbstractPageEditorUITest {
         // First pass - we cancel the ESCAPE action.
         // WHEN
         simulateKeyPress(Keys.ESCAPE);
-        waitUntil(visibilityOfElementLocated(confirmationOverlay));
+        waitUntil(visibilityOfElementLocated(byConfirmationOverlay));
         // THEN
         confirmation = getConfirmationOverlay();
         assertTrue("ESC key should have caused confirmation overlay.", isExisting(confirmation));
@@ -202,20 +202,20 @@ public class KeyboardShortcutUITest extends AbstractPageEditorUITest {
         // WHEN
         simulateKeyPress(Keys.ESCAPE);
         // THEN
-        waitUntil(invisibilityOfElementLocated(confirmationOverlay));
+        waitUntil(invisibilityOfElementLocated(byConfirmationOverlay));
 
         // Now do it again, but this time confirm the detailEditor closing.
 
         // WHEN
         simulateKeyPress(Keys.ESCAPE);
-        waitUntil(visibilityOfElementLocated(confirmationOverlay));
+        waitUntil(visibilityOfElementLocated(byConfirmationOverlay));
         // THEN
         confirmation = getConfirmationOverlay();
         assertTrue("ESC key should have caused confirmation overlay.", isExisting(confirmation));
         // WHEN
         simulateKeyPress(Keys.RETURN);
         // THEN
-        waitUntil(invisibilityOfElementLocated(confirmationOverlay));
+        waitUntil(invisibilityOfElementLocated(byConfirmationOverlay));
     }
 
     /**

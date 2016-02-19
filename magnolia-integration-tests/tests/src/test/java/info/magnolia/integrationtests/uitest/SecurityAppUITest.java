@@ -159,13 +159,13 @@ public class SecurityAppUITest extends AbstractMagnoliaUITest {
         addSecurityAppItem(GROUP, groupName);
 
         // THEN 1
-        waitUntil(visibilityOfElementLocated(getTreeTableItemLocator(groupName)));
+        waitUntil(visibilityOfElementLocated(byTreeTableItem(groupName)));
 
         // WHEN 2
         deleteSecurityAppItem(GROUP, groupName);
 
         // THEN 2
-        waitUntil(elementIsGone(getTreeTableItemLocator(groupName)));
+        waitUntil(elementIsGone(byTreeTableItem(groupName)));
     }
 
     @Test
@@ -174,7 +174,7 @@ public class SecurityAppUITest extends AbstractMagnoliaUITest {
         final String groupName = "test-group";
         openSecuritySubApp("Groups");
         addSecurityAppItem(GROUP, groupName);
-        waitUntil(visibilityOfElementLocated(getTreeTableItemLocator(groupName)));
+        waitUntil(visibilityOfElementLocated(byTreeTableItem(groupName)));
 
         // WHEN / THEN
         doTestEditGroup(groupName, groupName + "1");
@@ -219,13 +219,13 @@ public class SecurityAppUITest extends AbstractMagnoliaUITest {
         addSecurityAppItem(ROLE, roleName);
 
         // THEN 1
-        waitUntil(visibilityOfElementLocated(getTreeTableItemLocator(roleName)));
+        waitUntil(visibilityOfElementLocated(byTreeTableItem(roleName)));
 
         // WHEN 2
         deleteSecurityAppItem(ROLE, roleName);
 
         // THEN 2
-        waitUntil(elementIsGone(getTreeTableItemLocator(roleName)));
+        waitUntil(elementIsGone(byTreeTableItem(roleName)));
     }
 
     @Test
@@ -234,7 +234,7 @@ public class SecurityAppUITest extends AbstractMagnoliaUITest {
         final String roleName = "test-role";
         openSecuritySubApp("Roles");
         addSecurityAppItem(ROLE, roleName);
-        waitUntil(visibilityOfElementLocated(getTreeTableItemLocator(roleName)));
+        waitUntil(visibilityOfElementLocated(byTreeTableItem(roleName)));
 
         // WHEN / THEN
         doTestEditRole(roleName, roleName + "1");
@@ -292,13 +292,13 @@ public class SecurityAppUITest extends AbstractMagnoliaUITest {
         if (PUBLIC_USERS_APP_NAME.equals(subAppName)) {
             expandTreeAndSelectAnElement(getHierarchicalPath(userName));
         }
-        waitUntil(visibilityOfElementLocated(getTreeTableItemLocator(userName)));
+        waitUntil(visibilityOfElementLocated(byTreeTableItem(userName)));
 
         // WHEN 2
         deleteSecurityAppItem(USER, userName);
 
         // THEN 2
-        waitUntil(elementIsGone(getTreeTableItemLocator(userName)));
+        waitUntil(elementIsGone(byTreeTableItem(userName)));
     }
 
     private String getHierarchicalPath(String name) {
@@ -320,14 +320,14 @@ public class SecurityAppUITest extends AbstractMagnoliaUITest {
         renameSecurityAppItem(USER, userName, newUserName);
 
         // THEN 1
-        waitUntil(visibilityOfElementLocated(getTreeTableItemLocator(newUserName)));
+        waitUntil(visibilityOfElementLocated(byTreeTableItem(newUserName)));
 
         // WHEN 2
         renameSecurityAppItem(USER, newUserName, userName);
 
         // THEN 2
-        waitUntil(visibilityOfElementLocated(getTreeTableItemLocator(userName)));
-        waitUntil(elementIsGone(getTreeTableItemLocator(newUserName)));
+        waitUntil(visibilityOfElementLocated(byTreeTableItem(userName)));
+        waitUntil(elementIsGone(byTreeTableItem(newUserName)));
     }
 
     private void doTestEditGroup(String groupName, String newGroupName) {
@@ -335,7 +335,7 @@ public class SecurityAppUITest extends AbstractMagnoliaUITest {
         renameSecurityAppItem(GROUP, groupName, newGroupName);
 
         // THEN 1
-        waitUntil(visibilityOfElementLocated(getTreeTableItemLocator(newGroupName)));
+        waitUntil(visibilityOfElementLocated(byTreeTableItem(newGroupName)));
 
         // WHEN 2
         renameSecurityAppItem(GROUP, newGroupName, groupName);
@@ -343,8 +343,8 @@ public class SecurityAppUITest extends AbstractMagnoliaUITest {
         addRoleToGroup(groupName, "anonymous");
 
         // THEN 2
-        waitUntil(visibilityOfElementLocated(getTreeTableItemLocator(groupName)));
-        waitUntil(elementIsGone(getTreeTableItemLocator(newGroupName)));
+        waitUntil(visibilityOfElementLocated(byTreeTableItem(groupName)));
+        waitUntil(elementIsGone(byTreeTableItem(newGroupName)));
     }
 
     private void addRoleToGroup(String groupName, String anonymous) {
@@ -368,7 +368,7 @@ public class SecurityAppUITest extends AbstractMagnoliaUITest {
         // THEN 2
         assertTrue(getTreeTableItem(roleName).isDisplayed());
         // TODO: the below generates a 10s delay (getElement() times out then return a NonExistingWebElement impl)
-        waitUntil(elementIsGone(getTreeTableItemLocator(newRoleName)));
+        waitUntil(elementIsGone(byTreeTableItem(newRoleName)));
     }
 
     /**
@@ -381,7 +381,7 @@ public class SecurityAppUITest extends AbstractMagnoliaUITest {
         addFolder(folderName);
         duplicateSecurityAppItem(itemTypeCaption, itemNameToCopy, newItemName);
 
-        waitUntil(visibilityOfElementLocated(getTreeTableItemLocator(newItemName)));
+        waitUntil(visibilityOfElementLocated(byTreeTableItem(newItemName)));
 
         getActionBarItem(getMoveActionName(itemTypeCaption)).click();
         getMoveDialogElement(folderName).click();
@@ -389,13 +389,13 @@ public class SecurityAppUITest extends AbstractMagnoliaUITest {
         refreshTreeView();
 
         // THEN
-        waitUntil(visibilityOfElementLocated(getTreeTableItemLocator(newItemName)));
+        waitUntil(visibilityOfElementLocated(byTreeTableItem(newItemName)));
 
         // Delete user and folder
         deleteSecurityAppItem(itemTypeCaption, newItemName);
         deleteFolder(folderName);
 
-        waitUntil(elementIsGone(getTreeTableItemLocator(folderName)));
+        waitUntil(elementIsGone(byTreeTableItem(folderName)));
     }
 
     /**
@@ -407,15 +407,15 @@ public class SecurityAppUITest extends AbstractMagnoliaUITest {
         // WHEN
         addFolder(folderName);
         duplicateSecurityAppItem(itemTypeCaption, itemNameToCopy, newItemName);
-        waitUntil(visibilityOfElementLocated(getTreeTableItemLocator(newItemName)));
-        waitUntil(visibilityOfElementLocated(getTreeTableItemLocator(folderName)));
+        waitUntil(visibilityOfElementLocated(byTreeTableItem(newItemName)));
+        waitUntil(visibilityOfElementLocated(byTreeTableItem(folderName)));
 
         getTreeTableItemRow(folderName).click(); // TODO: Because of a bug uncovered by the changes from MGNLUI-2927 we have to explicitly ensure that the dnd target is visibly by selecting it.
 
         dragAndDropElement(getTreeTableItemRow(newItemName), getTreeTableItemRow(folderName));
 
         // THEN
-        By treeExpanderLocator = getLocatorForTreeTableItemExpander(folderName);
+        By treeExpanderLocator = byTreeTableItemExpander(folderName);
         waitUntil(ExpectedConditions.elementToBeClickable(treeExpanderLocator));
         getElement(treeExpanderLocator).click();
         assertTrue(getTreeTableItem(newItemName).isDisplayed());
@@ -424,7 +424,7 @@ public class SecurityAppUITest extends AbstractMagnoliaUITest {
         deleteSecurityAppItem(itemTypeCaption, newItemName);
         deleteFolder(folderName);
 
-        waitUntil(elementIsGone(getTreeTableItemLocator(folderName)));
+        waitUntil(elementIsGone(byTreeTableItem(folderName)));
     }
 
     /**
@@ -603,7 +603,7 @@ public class SecurityAppUITest extends AbstractMagnoliaUITest {
 
         takeScreenshot("dialog-confirm-should-be-gone");
 
-        waitUntil(elementIsGone(getTreeTableItemLocator(itemName)));
+        waitUntil(elementIsGone(byTreeTableItem(itemName)));
     }
 
     private WebElement getTableBody() {
