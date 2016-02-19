@@ -127,7 +127,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
 
     private static final String XPATH_TO_DIALOG = "//*[contains(@class, 'dialog-header')]//*[contains(@class, 'title') and text() = '%s']";
 
-    protected static final By XPATH_WEB_DEV_SECTION = By.xpath("//div[contains(@class, 'item')]/*[contains(@class,'sectionLabel') and (text() = 'STK' or text() = 'Web dev' or text() = 'MTE')]");
+    protected static final By BY_XPATH_WEB_DEV_SECTION = By.xpath("//div[contains(@class, 'item')]/*[contains(@class,'sectionLabel') and (text() = 'STK' or text() = 'Web dev' or text() = 'MTE')]");
 
     // ICON STYLES
     public static final String COLOR_GREEN_ICON_STYLE = "color-green";

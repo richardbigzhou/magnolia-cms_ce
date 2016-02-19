@@ -46,7 +46,7 @@ public class SiteAppUITest extends AbstractPageEditorUITest {
 
     @Test
     public void canPublishUnpublishAndDeleteVariation() {
-        getElement(XPATH_WEB_DEV_SECTION).click();
+        getElement(BY_XPATH_WEB_DEV_SECTION).click();
         getAppIcon(SITE_APP).click();
         waitUntil(appIsLoaded());
         assertAppOpen("Site definitions");
