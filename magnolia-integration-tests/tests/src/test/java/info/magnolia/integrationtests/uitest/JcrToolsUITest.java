@@ -112,7 +112,7 @@ public class JcrToolsUITest extends AbstractMagnoliaUITest {
 
         // THEN
         assertThat(getNotificationMessage().getText(), is("Node Dump Succeeded"));
-        assertThat(getElementByPath(textAreaOutput).getAttribute("value"), containsString("/modules"));
+        assertThat(getElement(textAreaOutput).getAttribute("value"), containsString("/modules"));
     }
 
     @Test
@@ -125,7 +125,7 @@ public class JcrToolsUITest extends AbstractMagnoliaUITest {
 
         // THEN
         assertThat(getNotificationMessage().getText(), is("Node Dump Succeeded"));
-        assertThat(getElementByPath(textAreaOutput).getAttribute("value"), containsString("/"));
+        assertThat(getElement(textAreaOutput).getAttribute("value"), containsString("/"));
     }
 
     @Test
@@ -251,7 +251,7 @@ public class JcrToolsUITest extends AbstractMagnoliaUITest {
 
         // THEN
         assertThat(getNotificationMessage().getText(), is("Query Failed"));
-        assertThat(getElementByPath(textAreaOutput).getAttribute("value"), containsString("0 nodes returned in"));
+        assertThat(getElement(textAreaOutput).getAttribute("value"), containsString("0 nodes returned in"));
     }
 
     @Test
@@ -264,7 +264,7 @@ public class JcrToolsUITest extends AbstractMagnoliaUITest {
 
         // THEN
         assertThat(getNotificationMessage().getText(), is("Query Failed"));
-        assertThat(getElementByPath(textAreaOutput).getAttribute("value"), containsString("0 nodes returned in"));
+        assertThat(getElement(textAreaOutput).getAttribute("value"), containsString("0 nodes returned in"));
     }
 
     @Test
@@ -277,7 +277,7 @@ public class JcrToolsUITest extends AbstractMagnoliaUITest {
 
         // THEN
         assertThat(getNotificationMessage().getText(), is("Query Succeeded"));
-        assertThat(getElementByPath(textAreaOutput).getAttribute("value"), containsString("/"));
+        assertThat(getElement(textAreaOutput).getAttribute("value"), containsString("/"));
     }
 
     @Test
@@ -290,7 +290,7 @@ public class JcrToolsUITest extends AbstractMagnoliaUITest {
 
         // THEN
         assertThat(getNotificationMessage().getText(), is("Query Succeeded"));
-        assertThat(getElementByPath(textAreaOutput).getAttribute("value"), containsString("0 nodes returned in"));
+        assertThat(getElement(textAreaOutput).getAttribute("value"), containsString("0 nodes returned in"));
     }
 
     /**
@@ -310,7 +310,7 @@ public class JcrToolsUITest extends AbstractMagnoliaUITest {
     public void exporterIssuesRequiredWarningWithNullBasePathAndFormatXMLChecked() {
         // GIVEN
         openTabWithCaption("Exporter");
-        final WebElement checkbox = getElementByPath(formatXMLCheckbox).findElement(By.tagName("input"));
+        final WebElement checkbox = getElement(formatXMLCheckbox).findElement(By.tagName("input"));
         checkbox.click();
         populateFormFieldsAndSubmitForm("Exporter", "TextField", "Base Path", null);
 
@@ -333,7 +333,7 @@ public class JcrToolsUITest extends AbstractMagnoliaUITest {
     public void exporterIssuesRequiredWarningWithInvalidBasePathAndFormatXMLChecked() {
         // GIVEN
         openTabWithCaption("Exporter");
-        final WebElement checkbox = getElementByPath(formatXMLCheckbox).findElement(By.tagName("input"));
+        final WebElement checkbox = getElement(formatXMLCheckbox).findElement(By.tagName("input"));
         checkbox.click();
         populateFormFieldsAndSubmitForm("Exporter", "TextField", "Base Path", "magnolia");
 
@@ -359,7 +359,7 @@ public class JcrToolsUITest extends AbstractMagnoliaUITest {
     public void exporterIssuesSuccessNotificationWithDefaultBasePathAndFormatXMLChecked() {
         // GIVEN
         openTabWithCaption("Exporter");
-        final WebElement checkbox = getElementByPath(formatXMLCheckbox).findElement(By.tagName("input"));
+        final WebElement checkbox = getElement(formatXMLCheckbox).findElement(By.tagName("input"));
         checkbox.click();
 
         // WHEN

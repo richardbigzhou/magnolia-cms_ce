@@ -68,7 +68,7 @@ public class PageEditorStatusIndicatorUITest extends AbstractPageEditorUITest {
         getActionBarItem(EDIT_PAGE_ACTION).click();
         waitUntil(appIsLoaded());
         switchToPageEditorContent();
-        WebElement areaElement = getElementByPath(XPATH_STAGE_DIV1);
+        WebElement areaElement = getElement(XPATH_STAGE_DIV1);
 
         // WHEN
         areaElement.click();
@@ -86,13 +86,13 @@ public class PageEditorStatusIndicatorUITest extends AbstractPageEditorUITest {
         getActionBarItem(EDIT_PAGE_ACTION).click();
         waitUntil(appIsLoaded());
         switchToPageEditorContent();
-        getElementByPath(XPATH_STAGE_DIV1).click();
-        getElementByPath(XPATH_STAGE_DIV2).click();
+        getElement(XPATH_STAGE_DIV1).click();
+        getElement(XPATH_STAGE_DIV2).click();
 
         switchToDefaultContent();
         getActionBarItem("Edit component").click();
 
-        getElementByPath(By.xpath(".//*[contains(@class, 'v-form-field-container')]//input[contains(@class, 'v-textfield')]")).sendKeys("test text");
+        getElement(By.xpath(".//*[contains(@class, 'v-form-field-container')]//input[contains(@class, 'v-textfield')]")).sendKeys("test text");
 
         getDialogCommitButton().click();
 
@@ -104,13 +104,13 @@ public class PageEditorStatusIndicatorUITest extends AbstractPageEditorUITest {
         switchToPageEditorContent();
 
         // WHEN
-        getElementByPath(XPATH_STAGE_DIV1).click();
+        getElement(XPATH_STAGE_DIV1).click();
 
         // THEN
-        assertTrue(getElementByPath(XPATH_STAGE_DIV1).getAttribute("class").contains("mgnlEditorBarStatusIndicator"));
-        assertTrue(getElementByPath(XPATH_STAGE_DIV2).getAttribute("class").contains("mgnlEditorBarStatusIndicator"));
-        assertTrue(getElementByPath(XPATH_STAGE_DIV1_STATUS_INDICATOR).getAttribute("class").contains("icon-status-orange"));
-        assertTrue(getElementByPath(XPATH_STAGE_DIV2_STATUS_INDICATOR).getAttribute("class").contains("icon-status-orange"));
+        assertTrue(getElement(XPATH_STAGE_DIV1).getAttribute("class").contains("mgnlEditorBarStatusIndicator"));
+        assertTrue(getElement(XPATH_STAGE_DIV2).getAttribute("class").contains("mgnlEditorBarStatusIndicator"));
+        assertTrue(getElement(XPATH_STAGE_DIV1_STATUS_INDICATOR).getAttribute("class").contains("icon-status-orange"));
+        assertTrue(getElement(XPATH_STAGE_DIV2_STATUS_INDICATOR).getAttribute("class").contains("icon-status-orange"));
     }
 
     @Test
@@ -127,14 +127,14 @@ public class PageEditorStatusIndicatorUITest extends AbstractPageEditorUITest {
         switchToPageEditorContent();
 
         // WHEN
-        getElementByPath(XPATH_STAGE_DIV1).click();
-        getElementByPath(XPATH_STAGE_DIV2).click();
+        getElement(XPATH_STAGE_DIV1).click();
+        getElement(XPATH_STAGE_DIV2).click();
 
         // THEN
-        assertTrue(getElementByPath(XPATH_STAGE_DIV1).getAttribute("class").contains("mgnlEditorBarStatusIndicator"));
-        assertTrue(getElementByPath(XPATH_STAGE_DIV2).getAttribute("class").contains("mgnlEditorBarStatusIndicator"));
-        assertTrue(getElementByPath(XPATH_STAGE_DIV1_STATUS_INDICATOR).getAttribute("class").contains("icon-status-red"));
-        assertTrue(getElementByPath(XPATH_STAGE_DIV2_STATUS_INDICATOR).getAttribute("class").contains("icon-status-red"));
+        assertTrue(getElement(XPATH_STAGE_DIV1).getAttribute("class").contains("mgnlEditorBarStatusIndicator"));
+        assertTrue(getElement(XPATH_STAGE_DIV2).getAttribute("class").contains("mgnlEditorBarStatusIndicator"));
+        assertTrue(getElement(XPATH_STAGE_DIV1_STATUS_INDICATOR).getAttribute("class").contains("icon-status-red"));
+        assertTrue(getElement(XPATH_STAGE_DIV2_STATUS_INDICATOR).getAttribute("class").contains("icon-status-red"));
 
         // Re-publish page sp that crawler finds it on the public instance
         switchToDefaultContent();

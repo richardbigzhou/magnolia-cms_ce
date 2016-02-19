@@ -90,13 +90,13 @@ public class MagnoliaShellUITest extends AbstractMagnoliaUITest {
         // GIVEN
         JavascriptExecutor js = getJavascriptExecutor();
         String temporarySectionsXPath = "//section[contains(@class,'app-list') and contains(@class,'temporary')]";
-        List<WebElement> sections = getElementsByPath(By.xpath(temporarySectionsXPath));
+        List<WebElement> sections = getElements(By.xpath(temporarySectionsXPath));
         for (WebElement section : sections) {
             // remove 'temporary' from class attribute to make apps visible
             js.executeScript(String.format("document.evaluate(\"%s\", document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue.setAttribute('class', 'app-list section');", temporarySectionsXPath));
         }
 
-        List<WebElement> apps = getElementsByPath(By.xpath("//section[contains(@class,'app-list')]/div[@class='item']/*[@class='label']"));
+        List<WebElement> apps = getElements(By.xpath("//section[contains(@class,'app-list')]/div[@class='item']/*[@class='label']"));
         for (WebElement app : apps) {
             // WHEN
             app.click();

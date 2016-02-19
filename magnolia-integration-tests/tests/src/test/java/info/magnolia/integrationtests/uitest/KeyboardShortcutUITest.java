@@ -144,8 +144,8 @@ public class KeyboardShortcutUITest extends AbstractPageEditorUITest {
 
         // Open component editor
         switchToPageEditorContent();
-        getElementByPath(By.xpath("//h3[text() = 'Main - Component One']")).click();
-        getElementByPath(By.xpath("//*[contains(@class, 'focus')]//*[contains(@class, 'icon-edit')]")).click();
+        getElement(By.xpath("//h3[text() = 'Main - Component One']")).click();
+        getElement(By.xpath("//*[contains(@class, 'focus')]//*[contains(@class, 'icon-edit')]")).click();
         switchToDefaultContent();
 
         waitUntil(visibilityOfElementLocated(getXpathOfTabContainingCaption("Settings")));

@@ -52,7 +52,7 @@ public class AdmincentralUITest extends AbstractMagnoliaUITest {
         // GIVEN
         getShellAppIcon("icon-pulse").click();
         getPulseTab("Messages").click();
-        assertTrue(getElementByPath(By.xpath("//label[text() ='group by type']")).isDisplayed());
+        assertTrue(getElement(By.xpath("//label[text() ='group by type']")).isDisplayed());
         getShellAppIcon("icon-appslauncher").click();
         waitUntil(DRIVER_WAIT_IN_SECONDS, shellAppIsLoaded(ShellApp.APPLAUNCHER));
 
@@ -61,7 +61,7 @@ public class AdmincentralUITest extends AbstractMagnoliaUITest {
 
         // THEN
         // use getElements because singular form doesn't match elements that are not displayed (and times out)
-        List<WebElement> elements = getElementsByPath(By.xpath("//label[text() ='group by type']"));
+        List<WebElement> elements = getElements(By.xpath("//label[text() ='group by type']"));
         assertNotNull(elements);
         assertEquals(1, elements.size());
         assertFalse(elements.get(0).isDisplayed());
@@ -78,14 +78,14 @@ public class AdmincentralUITest extends AbstractMagnoliaUITest {
         assertAppOpen("Messages");
 
         // WHEN
-        //getElementsByPath(By.xpath("//*[contains(@class, 'v-layout')]//input[@type = 'text']"), 2).get(0).sendKeys(messageTitle);
-        getElementByPath(By.xpath("//*[contains(@class, 'v-formlayout-firstrow')]//input[@type = 'text' and contains(@class, 'v-textfield')]")).sendKeys(messageTitle);
-        getElementByPath(By.xpath("//textarea")).sendKeys(messageContent);
-        getElementByPath(By.xpath("//label[text() = 'Error']")).click();
+        //getElements(By.xpath("//*[contains(@class, 'v-layout')]//input[@type = 'text']"), 2).get(0).sendKeys(messageTitle);
+        getElement(By.xpath("//*[contains(@class, 'v-formlayout-firstrow')]//input[@type = 'text' and contains(@class, 'v-textfield')]")).sendKeys(messageTitle);
+        getElement(By.xpath("//textarea")).sendKeys(messageContent);
+        getElement(By.xpath("//label[text() = 'Error']")).click();
         getNativeButton("commit").click();
 
         // THEN
-        assertTrue(getElementByPath(By.xpath(String.format("//span[text() = '%s']", messageTitle))).isDisplayed());
+        assertTrue(getElement(By.xpath(String.format("//span[text() = '%s']", messageTitle))).isDisplayed());
         closeErrorNotification();
         closeApp();
     }
@@ -137,9 +137,9 @@ public class AdmincentralUITest extends AbstractMagnoliaUITest {
         assertAppOpen("Messages");
 
         // WHEN
-        //getElementsByPath(By.xpath("//*[contains(@class, 'v-layout')]//input[@type = 'text' and contains(@class, 'v-textfield')]"), 2).get(0).sendKeys("iam a message");
-        getElementByPath(By.xpath("//*[contains(@class, 'v-formlayout-firstrow')]//input[@type = 'text' and contains(@class, 'v-textfield')]")).sendKeys("iam a message");
-        getElementByPath(By.xpath("//textarea")).sendKeys(messageContent);
+        //getElements(By.xpath("//*[contains(@class, 'v-layout')]//input[@type = 'text' and contains(@class, 'v-textfield')]"), 2).get(0).sendKeys("iam a message");
+        getElement(By.xpath("//*[contains(@class, 'v-formlayout-firstrow')]//input[@type = 'text' and contains(@class, 'v-textfield')]")).sendKeys("iam a message");
+        getElement(By.xpath("//textarea")).sendKeys(messageContent);
         getNativeButton("commit").click();
         closeInfoNotification();
         closeApp();
@@ -148,7 +148,7 @@ public class AdmincentralUITest extends AbstractMagnoliaUITest {
 
         // THEN
         delay(1, "make sure pulse table is updated");
-        WebElement message = getElementByPath(By.xpath(String.format("//*[text() = '%s']", messageContent)));
+        WebElement message = getElement(By.xpath(String.format("//*[text() = '%s']", messageContent)));
         assertTrue(message.isDisplayed());
     }
 
@@ -162,19 +162,19 @@ public class AdmincentralUITest extends AbstractMagnoliaUITest {
         assertAppOpen("Messages");
 
         // WHEN
-        //getElementsByPath(By.xpath("//*[contains(@class, 'v-layout')]//input[@type = 'text' and contains(@class, 'v-textfield')]"), 2).get(0).sendKeys(messageTitle);
-        getElementByPath(By.xpath("//*[contains(@class, 'v-formlayout-firstrow')]//input[@type = 'text' and contains(@class, 'v-textfield')]")).sendKeys(messageTitle);
-        getElementByPath(By.xpath("//textarea")).sendKeys(messageContent);
-        getElementByPath(By.xpath("//label[text() = 'Error']")).click();
+        //getElements(By.xpath("//*[contains(@class, 'v-layout')]//input[@type = 'text' and contains(@class, 'v-textfield')]"), 2).get(0).sendKeys(messageTitle);
+        getElement(By.xpath("//*[contains(@class, 'v-formlayout-firstrow')]//input[@type = 'text' and contains(@class, 'v-textfield')]")).sendKeys(messageTitle);
+        getElement(By.xpath("//textarea")).sendKeys(messageContent);
+        getElement(By.xpath("//label[text() = 'Error']")).click();
         getNativeButton("commit").click();
         // Click on the MORE link
-        getElementByPath(By.className("link")).click();
+        getElement(By.className("link")).click();
 
         // THEN
         delay(2, "make sure pulse switch to message detail view");
-        WebElement title = getElementByPath(By.cssSelector(".v-pulse .message-title"));
+        WebElement title = getElement(By.cssSelector(".v-pulse .message-title"));
         assertEquals(messageTitle, title.getText());
-        WebElement actionbar = getElementByPath(By.cssSelector(".v-actionbar"));
+        WebElement actionbar = getElement(By.cssSelector(".v-actionbar"));
         assertTrue(actionbar.isDisplayed());
     }
 

@@ -367,7 +367,7 @@ public class SecurityAppUITest extends AbstractMagnoliaUITest {
 
         // THEN 2
         assertTrue(getTreeTableItem(roleName).isDisplayed());
-        // TODO: the below generates a 10s delay (getElementByPath() times out then return a NonExistingWebElement impl)
+        // TODO: the below generates a 10s delay (getElement() times out then return a NonExistingWebElement impl)
         waitUntil(elementIsGone(getTreeTableItemLocator(newRoleName)));
     }
 
@@ -417,7 +417,7 @@ public class SecurityAppUITest extends AbstractMagnoliaUITest {
         // THEN
         By treeExpanderLocator = getLocatorForTreeTableItemExpander(folderName);
         waitUntil(ExpectedConditions.elementToBeClickable(treeExpanderLocator));
-        getElementByPath(treeExpanderLocator).click();
+        getElement(treeExpanderLocator).click();
         assertTrue(getTreeTableItem(newItemName).isDisplayed());
 
         // Delete item and folder

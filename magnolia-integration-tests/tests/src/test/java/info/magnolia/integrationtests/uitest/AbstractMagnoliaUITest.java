@@ -538,15 +538,6 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         return element;
     }
 
-
-    /**
-     * @deprecated use {@link #getElement(By, WebDriver)} instead.
-     */
-    @Deprecated
-    private WebElement getElementByPath(final By by, WebDriver driver) {
-        return getElement(by, driver);
-    }
-
     /**
      * Tries to retrieve requested element.
      *
@@ -554,14 +545,6 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
      * @return the searched specified element or a NonExistingWebElement in case it couldn't be found.
      */
     protected WebElement getElement(final By by) {
-        return getElement(by, driver);
-    }
-
-    /**
-     * @deprecated use {@link #getElement(By)} instead.
-     */
-    @Deprecated
-    protected WebElement getElementByPath(final By by) {
         return getElement(by, driver);
     }
 
@@ -610,14 +593,6 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
     }
 
     /**
-     * @deprecated use {@link #getElements(By, int)} instead.
-     */
-    @Deprecated
-    protected List<WebElement> getElementsByPath(final By path, final int expectedElementCount) {
-        return getElements(path, expectedElementCount);
-    }
-
-    /**
      * Tries to retrieve multiple elements.
      *
      * @param by locator of an element
@@ -626,14 +601,6 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
      */
     protected List<WebElement> getElements(final By by) {
         return getElements(by, -1);
-    }
-
-    /**
-     * @deprecated use {@link #getElements(By)} instead.
-     */
-    @Deprecated
-    protected List<WebElement> getElementsByPath(final By by) {
-        return getElements(by);
     }
 
     protected By getElementLocatorByXpath(String path, Object... param) {
@@ -1300,7 +1267,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
                 driver.manage().timeouts().implicitlyWait(50, TimeUnit.MILLISECONDS);
                 WebElement gone = null;
                 try {
-                    // do not use getElementsByPath utils to avoid cascading another expected condition
+                    // do not use getElements utils to avoid cascading another expected condition
                     gone = driver.findElement(locator);
                 } catch (NoSuchElementException e) {
                     // expecting element not to be found

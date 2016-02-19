@@ -172,19 +172,19 @@ public class SimpleFieldUITest extends AbstractMagnoliaUITest {
 
         // select footer about text component
         switchToPageEditorContent();
-        getElementByPath(By.xpath("//h3[text()='About']")).click();
+        getElement(By.xpath("//h3[text()='About']")).click();
         switchToDefaultContent();
         getActionBarItem("Edit component").click();
 
-        String editorId = getElementByPath(By.xpath("//div[starts-with(@id,'cke_editor')]")).getAttribute("id");
+        String editorId = getElement(By.xpath("//div[starts-with(@id,'cke_editor')]")).getAttribute("id");
         editorId = editorId.substring(4);
 
         String newFooterText = "This is standard text component, edited in a rich text field.";
 
         // WHEN
-        WebElement ckeditorFrame = getElementByPath(By.xpath("//iframe[contains(@class, 'cke_wysiwyg_frame')]"));
+        WebElement ckeditorFrame = getElement(By.xpath("//iframe[contains(@class, 'cke_wysiwyg_frame')]"));
         switchDriverToFrame(ckeditorFrame);
-        WebElement body = getElementByPath(By.xpath("//body[@contenteditable]"));
+        WebElement body = getElement(By.xpath("//body[@contenteditable]"));
         body.click();
         body.clear();
 
@@ -199,7 +199,7 @@ public class SimpleFieldUITest extends AbstractMagnoliaUITest {
 
         // THEN
         switchToPageEditorContent();
-        WebElement footer = getElementByPath(By.xpath("//h3[text()='About']/following-sibling::p[1]"));
+        WebElement footer = getElement(By.xpath("//h3[text()='About']/following-sibling::p[1]"));
         assertEquals(newFooterText, footer.getText());
     }
 
@@ -217,7 +217,7 @@ public class SimpleFieldUITest extends AbstractMagnoliaUITest {
         selection.click();
 
         // WHEN
-        WebElement suggestMenu = getElementByPath(By.xpath("//div[contains(@class, 'v-filterselect-suggestmenu')]"));
+        WebElement suggestMenu = getElement(By.xpath("//div[contains(@class, 'v-filterselect-suggestmenu')]"));
 
         // THEN
         assertEquals("auto", suggestMenu.getCssValue("overflow-y"));
