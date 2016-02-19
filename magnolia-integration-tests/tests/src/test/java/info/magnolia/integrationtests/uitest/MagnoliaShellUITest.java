@@ -100,7 +100,7 @@ public class MagnoliaShellUITest extends AbstractMagnoliaUITest {
         for (WebElement app : apps) {
             // WHEN
             app.click();
-            waitUntil(DRIVER_WAIT_IN_SECONDS, appIsLoaded());
+            waitUntil(appIsLoaded());
 
             // THEN
             closeApp();

@@ -101,7 +101,7 @@ public class MultiFieldUITest extends AbstractI18nEnabledUITest {
         // /////////
         // Switch Language to DE
         switchToLanguage("German");
-        waitUntil(DRIVER_WAIT_IN_SECONDS, languageSwitched("de"));
+        waitUntil(languageSwitched("de"));
 
         textValuePrefix = " de ";
         // Add a first main element to the 'Multi Fields' in DE
@@ -120,7 +120,7 @@ public class MultiFieldUITest extends AbstractI18nEnabledUITest {
 
         // Switch Language to EN
         switchToLanguage("English");
-        waitUntil(DRIVER_WAIT_IN_SECONDS, languageSwitched("en"));
+        waitUntil(languageSwitched("en"));
 
         // Check all values entered at the STEP 1
         textValuePrefix = " en ";
@@ -138,7 +138,7 @@ public class MultiFieldUITest extends AbstractI18nEnabledUITest {
 
         // Check all values entered at the STEP 2
         switchToLanguage("German");
-        waitUntil(DRIVER_WAIT_IN_SECONDS, languageSwitched("de"));
+        waitUntil(languageSwitched("de"));
 
         textValuePrefix = " de ";
         getMultiFieldComponentTextElement("Text 2", 1).click();
@@ -165,7 +165,7 @@ public class MultiFieldUITest extends AbstractI18nEnabledUITest {
         openTabWithCaption("Multi Fields");
 
         switchToLanguage("English");
-        waitUntil(DRIVER_WAIT_IN_SECONDS, languageSwitched("en"));
+        waitUntil(languageSwitched("en"));
 
         // THEN
         // Check that all values entered in STEP 1 and STEP 2 are correctly displayed after the STEP 3
@@ -184,7 +184,7 @@ public class MultiFieldUITest extends AbstractI18nEnabledUITest {
         assertEquals(textValuePrefix + "value 311", getMultiFieldInnerText(subFieldName, 3, 1).getAttribute("value"));
 
         switchToLanguage("German");
-        waitUntil(DRIVER_WAIT_IN_SECONDS, languageSwitched("de"));
+        waitUntil(languageSwitched("de"));
 
         textValuePrefix = " de ";
         getMultiFieldComponentTextElement("Text 2", 1).click();
@@ -199,7 +199,7 @@ public class MultiFieldUITest extends AbstractI18nEnabledUITest {
         //
         // /////////
         switchToLanguage("English");
-        waitUntil(DRIVER_WAIT_IN_SECONDS, languageSwitched("en"));
+        waitUntil(languageSwitched("en"));
 
         // Delete one element
         textValuePrefix = " en ";
@@ -234,7 +234,7 @@ public class MultiFieldUITest extends AbstractI18nEnabledUITest {
         //
         // /////////
         switchToLanguage("German");
-        waitUntil(DRIVER_WAIT_IN_SECONDS, languageSwitched("de"));
+        waitUntil(languageSwitched("de"));
 
         getMultiFieldComponentTextElement("Text 2", 1).click();
         textValuePrefix = " de ";
@@ -242,7 +242,7 @@ public class MultiFieldUITest extends AbstractI18nEnabledUITest {
         getMultiFieldElementDeleteButtonAt(fieldName, 5).click();
 
         switchToLanguage("English");
-        waitUntil(DRIVER_WAIT_IN_SECONDS, languageSwitched("en"));
+        waitUntil(languageSwitched("en"));
 
         // Check all values changed at the STEP 4
         textValuePrefix = " en ";
@@ -258,7 +258,7 @@ public class MultiFieldUITest extends AbstractI18nEnabledUITest {
         assertEquals(textValuePrefix + "value 412", getMultiFieldInnerText(subFieldName, 2, 2).getAttribute("value"));
 
         switchToLanguage("German");
-        waitUntil(DRIVER_WAIT_IN_SECONDS, languageSwitched("de"));
+        waitUntil(languageSwitched("de"));
 
         textValuePrefix = " de ";
         // Check all values changed at the STEP 5
@@ -284,7 +284,7 @@ public class MultiFieldUITest extends AbstractI18nEnabledUITest {
         openTabWithCaption("Multi Fields");
 
         switchToLanguage("English");
-        waitUntil(DRIVER_WAIT_IN_SECONDS, languageSwitched("en"));
+        waitUntil(languageSwitched("en"));
 
         textValuePrefix = " en ";
         getMultiFieldComponentTextElement("Text 2", 1).click();
@@ -299,7 +299,7 @@ public class MultiFieldUITest extends AbstractI18nEnabledUITest {
         assertEquals(textValuePrefix + "value 412", getMultiFieldInnerText(subFieldName, 2, 2).getAttribute("value"));
 
         switchToLanguage("German");
-        waitUntil(DRIVER_WAIT_IN_SECONDS, languageSwitched("de"));
+        waitUntil(languageSwitched("de"));
 
         textValuePrefix = " de ";
         assertEquals(textValuePrefix + "value 1", getMultiFieldComponentTextElement("Text 2", 1).getAttribute("value"));

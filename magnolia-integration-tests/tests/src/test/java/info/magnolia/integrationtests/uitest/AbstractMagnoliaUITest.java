@@ -315,7 +315,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
             fail("Expected Pages app tile being present after login but got: " + e.getMessage());
         }
 
-        waitUntil(DEFAULT_DELAY_IN_SECONDS, applauncherTransitionIsComplete());
+        waitUntil(applauncherTransitionIsComplete());
     }
 
     /**
@@ -847,7 +847,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
 
     protected void toLandingPage() {
         driver.navigate().to(Instance.AUTHOR.getURL());
-        waitUntil(DRIVER_WAIT_IN_SECONDS, shellAppIsLoaded(ShellApp.APPLAUNCHER));
+        waitUntil(shellAppIsLoaded(ShellApp.APPLAUNCHER));
     }
 
     protected void closeErrorNotification() {
@@ -860,7 +860,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
 
     protected void closeApp() {
         getElement(By.className("m-closebutton-app")).click();
-        waitUntil(DRIVER_WAIT_IN_SECONDS, applauncherTransitionIsComplete());
+        waitUntil(applauncherTransitionIsComplete());
     }
 
     protected boolean hasCssClass(WebElement webElement, String cssClass) {

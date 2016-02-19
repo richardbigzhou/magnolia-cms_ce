@@ -83,7 +83,7 @@ public class CompositeFieldUITest extends AbstractI18nEnabledUITest {
         // WHEN - STEP 2 : Add elements in DE
 
         switchToLanguage("German");
-        waitUntil(DRIVER_WAIT_IN_SECONDS, languageSwitched("de"));
+        waitUntil(languageSwitched("de"));
 
         textValuePrefix = " de ";
         // Add a first main element to the field 'Multi' in DE
@@ -97,7 +97,7 @@ public class CompositeFieldUITest extends AbstractI18nEnabledUITest {
         // THEN - Check all values entered at the STEP 1
 
         switchToLanguage("English");
-        waitUntil(DRIVER_WAIT_IN_SECONDS, languageSwitched("en"));
+        waitUntil(languageSwitched("en"));
 
         textValuePrefix = " en ";
         getMultiFieldComponentTextElement("Text 2", 1).click();
@@ -114,7 +114,7 @@ public class CompositeFieldUITest extends AbstractI18nEnabledUITest {
         // THEN - Check all values entered at the STEP 2
 
         switchToLanguage("German");
-        waitUntil(DRIVER_WAIT_IN_SECONDS, languageSwitched("de"));
+        waitUntil(languageSwitched("de"));
 
         textValuePrefix = " de ";
         getMultiFieldComponentTextElement("Text 2", 1).click();
@@ -124,14 +124,14 @@ public class CompositeFieldUITest extends AbstractI18nEnabledUITest {
 
         // WHEN - STEP 3 : Save and reopen dialog
         getDialogCommitButton().click();
-        waitUntil(DRIVER_WAIT_IN_SECONDS, elementIsGone("//div[contains(concat(' ',normalize-space(@class),' '),' overlay ')]"));
+        waitUntil(elementIsGone("//div[contains(concat(' ',normalize-space(@class),' '),' overlay ')]"));
 
         // Open it again
         openDialogComponent();
         getTabForCaption("Switch").click();
 
         switchToLanguage("English");
-        waitUntil(DRIVER_WAIT_IN_SECONDS, languageSwitched("en"));
+        waitUntil(languageSwitched("en"));
 
         // THEN - Check that all values entered in STEP 1 and STEP 2 are correctly displayed after the STEP 3
         textValuePrefix = " en ";
@@ -148,7 +148,7 @@ public class CompositeFieldUITest extends AbstractI18nEnabledUITest {
 
         // Check all values entered at the STEP 2
         switchToLanguage("German");
-        waitUntil(DRIVER_WAIT_IN_SECONDS, languageSwitched("de"));
+        waitUntil(languageSwitched("de"));
 
         textValuePrefix = " de ";
         getMultiFieldComponentTextElement("Text 2", 1).click();
@@ -159,7 +159,7 @@ public class CompositeFieldUITest extends AbstractI18nEnabledUITest {
         // WHEN - STEP 4 : Remove and add entry in EN
 
         switchToLanguage("English");
-        waitUntil(DRIVER_WAIT_IN_SECONDS, languageSwitched("en"));
+        waitUntil(languageSwitched("en"));
 
         textValuePrefix = " en ";
         // Delete one element
@@ -175,7 +175,7 @@ public class CompositeFieldUITest extends AbstractI18nEnabledUITest {
         // WHEN - STEP 5 : Remove and add entry in DE
 
         switchToLanguage("German");
-        waitUntil(DRIVER_WAIT_IN_SECONDS, languageSwitched("de"));
+        waitUntil(languageSwitched("de"));
 
         getMultiFieldComponentTextElement("Text 2", 1).click();
         textValuePrefix = " de ";
@@ -190,7 +190,7 @@ public class CompositeFieldUITest extends AbstractI18nEnabledUITest {
 
         // Switch to en
         switchToLanguage("English");
-        waitUntil(DRIVER_WAIT_IN_SECONDS, languageSwitched("en"));
+        waitUntil(languageSwitched("en"));
 
         // THEN - Check all values entered at the STEP 4
 
@@ -200,27 +200,27 @@ public class CompositeFieldUITest extends AbstractI18nEnabledUITest {
         assertEquals(textValuePrefix + "value 1", getMultiFieldComponentTextElement("Text 2", 1).getAttribute("value"));
         assertEquals(textValuePrefix + "value 111", getMultiFieldInnerText(subFieldName, 1, 1).getAttribute("value"));
         assertEquals(textValuePrefix + "value 112", getMultiFieldInnerText(subFieldName, 1, 2).getAttribute("value"));
-        waitUntil(DRIVER_WAIT_IN_SECONDS, elementIsGone(String.format(
+        waitUntil(elementIsGone(String.format(
                 "((//div[@class = 'v-caption v-caption-linkfield' and .//span[text() = '%s']])[%s]/following-sibling::div//*[contains(@class, 'v-slot')]/input[@type = 'text'])[%s]", subFieldName, 1, 3)));
 
         assertEquals(textValuePrefix + "not default", getMultiFieldComponentTextElement("Text 1", 2).getAttribute("value"));
         assertEquals(textValuePrefix + "value 2", getMultiFieldComponentTextElement("Text 2", 2).getAttribute("value"));
         assertEquals(textValuePrefix + "value 211", getMultiFieldInnerText(subFieldName, 2, 1).getAttribute("value"));
         assertEquals(textValuePrefix + "value 212", getMultiFieldInnerText(subFieldName, 2, 2).getAttribute("value"));
-        waitUntil(DRIVER_WAIT_IN_SECONDS, elementIsGone(String.format(
+        waitUntil(elementIsGone(String.format(
                 "(//div[@class = 'v-caption' and .//span[text() = '%s']])[%s]/following-sibling::input[@type = 'text']", "Text 2", 3)));
 
         // THEN - Check all values entered at the STEP 5
 
         switchToLanguage("German");
-        waitUntil(DRIVER_WAIT_IN_SECONDS, languageSwitched("de"));
+        waitUntil(languageSwitched("de"));
         textValuePrefix = " de ";
-        waitUntil(DRIVER_WAIT_IN_SECONDS, elementIsGone(String.format(
+        waitUntil(elementIsGone(String.format(
                 "(//div[@class = 'v-caption' and .//span[text() = '%s']])[%s]/following-sibling::input[@type = 'text']", "Text 2", 1)));
 
         // WHEN - STEP 6 : Save and reopen dialog
         getDialogCommitButton().click();
-        waitUntil(DRIVER_WAIT_IN_SECONDS, elementIsGone("//div[contains(concat(' ',normalize-space(@class),' '),' overlay ')]"));
+        waitUntil(elementIsGone("//div[contains(concat(' ',normalize-space(@class),' '),' overlay ')]"));
 
         // Open it again
         openDialogComponent();
@@ -228,7 +228,7 @@ public class CompositeFieldUITest extends AbstractI18nEnabledUITest {
 
         // THEN - Check all values entered at the STEP 4
         switchToLanguage("English");
-        waitUntil(DRIVER_WAIT_IN_SECONDS, languageSwitched("en"));
+        waitUntil(languageSwitched("en"));
 
         textValuePrefix = " en ";
         getMultiFieldComponentTextElement("Text 2", 1).click();
@@ -236,21 +236,21 @@ public class CompositeFieldUITest extends AbstractI18nEnabledUITest {
         assertEquals(textValuePrefix + "value 1", getMultiFieldComponentTextElement("Text 2", 1).getAttribute("value"));
         assertEquals(textValuePrefix + "value 111", getMultiFieldInnerText(subFieldName, 1, 1).getAttribute("value"));
         assertEquals(textValuePrefix + "value 112", getMultiFieldInnerText(subFieldName, 1, 2).getAttribute("value"));
-        waitUntil(DRIVER_WAIT_IN_SECONDS, elementIsGone(String.format(
+        waitUntil(elementIsGone(String.format(
                 "((//div[@class = 'v-caption v-caption-linkfield' and .//span[text() = '%s']])[%s]/following-sibling::div//*[contains(@class, 'v-slot')]/input[@type = 'text'])[%s]", subFieldName, 1, 3)));
         assertEquals(textValuePrefix + "not default", getMultiFieldComponentTextElement("Text 1", 2).getAttribute("value"));
         assertEquals(textValuePrefix + "value 2", getMultiFieldComponentTextElement("Text 2", 2).getAttribute("value"));
         assertEquals(textValuePrefix + "value 211", getMultiFieldInnerText(subFieldName, 2, 1).getAttribute("value"));
         assertEquals(textValuePrefix + "value 212", getMultiFieldInnerText(subFieldName, 2, 2).getAttribute("value"));
-        waitUntil(DRIVER_WAIT_IN_SECONDS, elementIsGone(String.format(
+        waitUntil(elementIsGone(String.format(
                 "(//div[@class = 'v-caption' and .//span[text() = '%s']])[%s]/following-sibling::input[@type = 'text']", "Text 2", 3)));
 
         // THEN - Check all values entered at the STEP 5
 
         switchToLanguage("German");
-        waitUntil(DRIVER_WAIT_IN_SECONDS, languageSwitched("de"));
+        waitUntil(languageSwitched("de"));
         textValuePrefix = " de ";
-        waitUntil(DRIVER_WAIT_IN_SECONDS, elementIsGone(String.format(
+        waitUntil(elementIsGone(String.format(
                 "(//div[@class = 'v-caption' and .//span[text() = '%s']])[%s]/following-sibling::input[@type = 'text']", "Text 2", 1)));
 
     }

@@ -56,7 +56,7 @@ public class FavoriteUITest extends AbstractPageEditorUITest {
         waitUntil(appIsLoaded());
         getTreeTableItem("ftl-sample-site").click();
         getShellAppIcon("icon-favorites").click();
-        waitUntil(DRIVER_WAIT_IN_SECONDS, shellAppIsLoaded(ShellApp.FAVORITES));
+        waitUntil(shellAppIsLoaded(ShellApp.FAVORITES));
 
         // WHEN
         getButton("dialog-header", "Add new").click();
@@ -89,7 +89,7 @@ public class FavoriteUITest extends AbstractPageEditorUITest {
         if (trashElement != null) {
             trashElement.click();
             getDialogConfirmButton().click();
-            waitUntil(DRIVER_WAIT_IN_SECONDS, elementIsGone("//*[contains(@class, 'dialog-root-confirmation')]"));
+            waitUntil(elementIsGone("//*[contains(@class, 'dialog-root-confirmation')]"));
         }
     }
 
@@ -97,9 +97,9 @@ public class FavoriteUITest extends AbstractPageEditorUITest {
     public void addAndRemoveFavorite() {
         // GIVEN
         getAppIcon("Pages").click();
-        waitUntil(DRIVER_WAIT_IN_SECONDS, appIsLoaded());
+        waitUntil(appIsLoaded());
         getShellAppIcon("icon-favorites").click();
-        waitUntil(DRIVER_WAIT_IN_SECONDS, shellAppIsLoaded(ShellApp.FAVORITES));
+        waitUntil(shellAppIsLoaded(ShellApp.FAVORITES));
 
         // WHEN
         getButton("dialog-header", "Add new").click();
@@ -113,10 +113,10 @@ public class FavoriteUITest extends AbstractPageEditorUITest {
         getElement(By.xpath("//*[@class = 'icon-trash']")).click();
 
         getDialogConfirmButton().click();
-        waitUntil(DRIVER_WAIT_IN_SECONDS, elementIsGone("//*[contains(@class, 'dialog-root-confirmation')]"));
+        waitUntil(elementIsGone("//*[contains(@class, 'dialog-root-confirmation')]"));
 
         // THEN
-        waitUntil(DRIVER_WAIT_IN_SECONDS, elementIsGone("//input[contains(@class, 'v-textfield-readonly')]"));
+        waitUntil(elementIsGone("//input[contains(@class, 'v-textfield-readonly')]"));
     }
 
     @Test
@@ -128,7 +128,7 @@ public class FavoriteUITest extends AbstractPageEditorUITest {
         waitUntil(appIsLoaded());
         getTreeTableItem("ftl-sample-site").click();
         getShellAppIcon("icon-favorites").click();
-        waitUntil(DRIVER_WAIT_IN_SECONDS, shellAppIsLoaded(ShellApp.FAVORITES));
+        waitUntil(shellAppIsLoaded(ShellApp.FAVORITES));
 
         getButton("dialog-header", "Add new").click();
         WebElement groupComboBox = getElement(By.xpath("//*[contains(@class, 'v-filterselect')]/*[@class = 'v-filterselect-input']"));
@@ -152,7 +152,7 @@ public class FavoriteUITest extends AbstractPageEditorUITest {
         getEditFavoritesButton().click();
 
         // THEN
-        waitUntil(DRIVER_WAIT_IN_SECONDS, elementIsGone("//*[@class = 'icon-trash']"));
+        waitUntil(elementIsGone("//*[@class = 'icon-trash']"));
 
         // clean-up at the end ...
         removeExistingItems();

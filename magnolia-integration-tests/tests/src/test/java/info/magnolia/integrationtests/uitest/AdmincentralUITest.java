@@ -54,7 +54,7 @@ public class AdmincentralUITest extends AbstractMagnoliaUITest {
         getPulseTab("Messages").click();
         assertTrue(getElement(By.xpath("//label[text() ='group by type']")).isDisplayed());
         getShellAppIcon("icon-appslauncher").click();
-        waitUntil(DRIVER_WAIT_IN_SECONDS, shellAppIsLoaded(ShellApp.APPLAUNCHER));
+        waitUntil(shellAppIsLoaded(ShellApp.APPLAUNCHER));
 
         // WHEN
         toLandingPage();
@@ -112,13 +112,13 @@ public class AdmincentralUITest extends AbstractMagnoliaUITest {
     public void appLauncherDisplayedWhenOneOfSeveralAppsIsClosed() {
         // GIVEN
         getAppIcon("Pages").click();
-        waitUntil(DRIVER_WAIT_IN_SECONDS, appIsLoaded());
+        waitUntil(appIsLoaded());
 
         getShellIconAppsLauncher().click();
-        waitUntil(DRIVER_WAIT_IN_SECONDS, shellAppIsLoaded(ShellApp.APPLAUNCHER));
+        waitUntil(shellAppIsLoaded(ShellApp.APPLAUNCHER));
 
         getAppIcon("Contacts").click();
-        waitUntil(DRIVER_WAIT_IN_SECONDS, appIsLoaded());
+        waitUntil(appIsLoaded());
 
         // WHEN
         closeApp();
