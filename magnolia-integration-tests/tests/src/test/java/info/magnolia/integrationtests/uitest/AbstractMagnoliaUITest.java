@@ -499,10 +499,9 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
      * Tries to retrieve requested element.
      *
      * @param by locator of an element
-     * @param driver driver to use
      * @return the searched specified element or a NonExistingWebElement in case it couldn't be found.
      */
-    private WebElement getElement(final By by, WebDriver driver) {
+    protected WebElement getElement(final By by) {
         WebElement element;
         try {
             // will loop and try to retrieve the specified element until found or it times out.
@@ -536,16 +535,6 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
             element = getElement(by);
         }
         return element;
-    }
-
-    /**
-     * Tries to retrieve requested element.
-     *
-     * @param by locator of an element
-     * @return the searched specified element or a NonExistingWebElement in case it couldn't be found.
-     */
-    protected WebElement getElement(final By by) {
-        return getElement(by, driver);
     }
 
     /**
