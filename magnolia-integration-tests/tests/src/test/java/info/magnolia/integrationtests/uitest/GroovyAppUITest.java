@@ -54,7 +54,7 @@ public class GroovyAppUITest extends AbstractMagnoliaUITest {
         getAppIcon("Groovy").click();
         waitUntil(appIsLoaded());
 
-        getTabForCaption(consoleName).click();
+        openTabWithCaption(consoleName);
 
         waitUntil(appIsLoaded());
 

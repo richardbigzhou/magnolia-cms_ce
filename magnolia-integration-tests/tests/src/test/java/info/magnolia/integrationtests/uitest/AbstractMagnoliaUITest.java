@@ -792,22 +792,6 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         return path.toString();
     }
 
-    /**
-     * @deprecated since 5.4.1 - use {@link #openTabWithCaption(String, String...)} instead.
-     */
-    @Deprecated
-    protected WebElement getTabForCaption(String tabCaption) {
-        return doGetTabElement(tabCaption, false);
-    }
-
-    /**
-     * @deprecated since 5.4.1 - use {@link #getTabWithPartialCaption(String, String...)} instead.
-     */
-    @Deprecated
-    protected WebElement getTabContainingCaption(String tabCaption) {
-        return doGetTabElement(tabCaption, true);
-    }
-
     protected By byTabContainingCaption(String tabCaption) {
         return By.xpath(String.format("//*[contains(@class, 'v-shell-tabsheet')]//*[@class = 'tab-title' and contains(text(),'%s')]", tabCaption));
     }

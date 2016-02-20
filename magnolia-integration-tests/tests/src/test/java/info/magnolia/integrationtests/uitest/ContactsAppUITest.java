@@ -34,6 +34,7 @@
 package info.magnolia.integrationtests.uitest;
 
 import static org.junit.Assert.*;
+import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
 
 import java.util.Date;
 import java.util.List;
@@ -58,7 +59,7 @@ public class ContactsAppUITest extends AbstractMagnoliaUITest {
 
         getTreeTableItem(contactName).click();
         getActionBarItem("Edit contact").click();
-        getTabForCaption("Contact details").click();
+        openTabWithCaption("Contact details");
 
         setFormTextFieldText("E-Mail address", testEmailAddr);
         getFormTextField("Website").click();
@@ -114,7 +115,7 @@ public class ContactsAppUITest extends AbstractMagnoliaUITest {
         // THEN
         // Assert subApp is open and all fields in editor are readonly
         // Tab name will contain a version number
-        assertTrue("We expect the editor subApp tab to be open", getTabContainingCaption(contactName).isDisplayed());
+        waitUntil(visibilityOfElementLocated(byTabContainingCaption(contactName)));
         for (WebElement element : inputs) {
             assertEquals("We expect element [" + element.getTagName() + "] to be readonly", "true", element.getAttribute("readonly"));
         }
@@ -162,14 +163,14 @@ public class ContactsAppUITest extends AbstractMagnoliaUITest {
 
         // Assert subApp is open and all fields in editor are readonly
         // Tab name will contain a version number
-        assertTrue("We expect the editor subApp tab to be open", getTabContainingCaption(contactName).isDisplayed());
+        waitUntil(visibilityOfElementLocated(byTabContainingCaption(contactName)));
         for (WebElement element : inputs) {
             assertEquals("We expect element [" + element.getTagName() + "] to be readonly", "true", element.getAttribute("readonly"));
         }
 
         // WHEN
         // Click back to browser
-        getTabForCaption("Contacts").click();
+        openTabWithCaption("Contacts");
 
         delay("Wait for the browserSubApp to open");
 
@@ -184,7 +185,7 @@ public class ContactsAppUITest extends AbstractMagnoliaUITest {
 
         // THEN
         // Assert fields are editable afterwards
-        assertTrue("We expect the editor subApp tab to be open", getTabContainingCaption(contactName).isDisplayed());
+        waitUntil(visibilityOfElementLocated(byTabContainingCaption(contactName)));
         for (WebElement element : inputsEditable) {
             assertEquals("We expect element [" + element.getTagName() + "] with value [" + element.getAttribute("value") + "] to be editable", null, element.getAttribute("readonly"));
         }

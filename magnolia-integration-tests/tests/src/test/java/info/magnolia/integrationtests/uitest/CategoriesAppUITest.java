@@ -34,7 +34,7 @@
 package info.magnolia.integrationtests.uitest;
 
 import static org.junit.Assert.assertTrue;
-import static org.openqa.selenium.support.ui.ExpectedConditions.*;
+import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
 
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;

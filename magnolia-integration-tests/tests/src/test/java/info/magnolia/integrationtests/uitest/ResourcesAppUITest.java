@@ -33,13 +33,12 @@
  */
 package info.magnolia.integrationtests.uitest;
 
-import static org.openqa.selenium.support.ui.ExpectedConditions.*;
-
 import static com.google.common.collect.Lists.newArrayList;
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsInstanceOf.instanceOf;
+import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
 
 import java.util.List;
 

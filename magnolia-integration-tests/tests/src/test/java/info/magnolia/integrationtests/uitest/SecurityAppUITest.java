@@ -578,7 +578,7 @@ public class SecurityAppUITest extends AbstractMagnoliaUITest {
     private void openSecuritySubApp(String subAppName) {
         getAppIcon("Security").click();
         waitUntil(appIsLoaded());
-        getTabForCaption(subAppName).click();
+        openTabWithCaption(subAppName);
         waitUntil(appIsLoaded());
     }
 

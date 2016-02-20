@@ -188,7 +188,7 @@ public class KeyboardShortcutUITest extends AbstractPageEditorUITest {
         waitUntil(appIsLoaded());
         assertAppOpen("Contacts");
         getActionBarItem("Add contact").click();
-        getTabForCaption("Personal").click();
+        openTabWithCaption("Personal");
         setFormTextFieldText("First name", nameFirst);
 
         // First pass - we cancel the ESCAPE action.
@@ -313,13 +313,10 @@ public class KeyboardShortcutUITest extends AbstractPageEditorUITest {
 
         // THEN
         //Check that editor is closed
-        WebElement editorTab = getTabForCaption(contactName);
-        setMinimalTimeout();
-        assertFalse("ENTER key should have closed the DetailEditor subapp.", isExisting(editorTab));
-        resetTimeout();
-        //Check that entry is added.
-        WebElement newRow = getTreeTableItem(email);
-        assertTrue("ENTER key should have caused new contact to be created, but no new contact is present.", isExisting(newRow));
+        waitUntil(elementIsGone(byTabContainingCaption(contactName)));
+
+        // Check that entry is added.
+        waitUntil(visibilityOfElementLocated(byTreeTableItem(email)));
     }
 
     /**
@@ -342,7 +339,7 @@ public class KeyboardShortcutUITest extends AbstractPageEditorUITest {
         fillInRequiredContactFields(nameFirst, nameLast, email);
 
         // WHEN
-        getTabForCaption("Address").click();
+        openTabWithCaption("Address");
         getFormTextAreaField("Street address").sendKeys(Keys.RETURN);
         delay(1, "");
 
@@ -358,13 +355,13 @@ public class KeyboardShortcutUITest extends AbstractPageEditorUITest {
      * @param nameLast
      */
     private void fillInRequiredContactFields(String nameFirst, String nameLast, String email){
-        getTabForCaption("Personal").click();
+        openTabWithCaption("Personal");
         setFormTextFieldText("First name", nameFirst);
         setFormTextFieldText("Last name", nameLast);
-        getTabForCaption("Address").click();
+        openTabWithCaption("Address");
         setFormTextFieldText("Organization", "org");
         setFormTextAreaFieldText("Street address", "address-125");
-        getTabForCaption("Contact details").click();
+        openTabWithCaption("Contact details");
         setFormTextFieldText("E-Mail address", email);
     }
 

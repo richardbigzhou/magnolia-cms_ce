@@ -49,7 +49,7 @@ public class CompositeFieldUITest extends AbstractI18nEnabledUITest {
         String textValuePrefix = " en ";
         String subFieldName = "Sub Multi";
         goToDialogShowRoomAndOpenDialogComponent("ftl");
-        getTabForCaption("Switch").click();
+        openTabWithCaption("Switch");
 
         // WHEN - STEP 1 : Add elements in EN
 
@@ -128,7 +128,7 @@ public class CompositeFieldUITest extends AbstractI18nEnabledUITest {
 
         // Open it again
         openDialogComponent();
-        getTabForCaption("Switch").click();
+        openTabWithCaption("Switch");
 
         switchToLanguage("English");
         waitUntil(languageSwitched("en"));
@@ -224,7 +224,7 @@ public class CompositeFieldUITest extends AbstractI18nEnabledUITest {
 
         // Open it again
         openDialogComponent();
-        getTabForCaption("Switch").click();
+        openTabWithCaption("Switch");
 
         // THEN - Check all values entered at the STEP 4
         switchToLanguage("English");

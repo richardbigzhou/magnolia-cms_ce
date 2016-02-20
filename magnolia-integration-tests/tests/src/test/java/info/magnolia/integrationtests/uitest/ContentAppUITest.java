@@ -59,7 +59,7 @@ public class ContentAppUITest extends AbstractPageEditorUITest {
 
         getTreeTableItem("Albert Einstein").click();
         getActionBarItem("Edit contact").click();
-        getTabForCaption("Contact details").click();
+        openTabWithCaption("Contact details");
 
         setFormTextFieldText("E-Mail address", testEmailAddr);
         getDialogCommitButton().click();
@@ -101,15 +101,15 @@ public class ContentAppUITest extends AbstractPageEditorUITest {
         getTreeTableItem("Marilyn Monroe").click();
         getActionBarItem("Edit contact").click();
 
-        assertTrue(getTabForCaption("Contacts").isDisplayed());
-        assertTrue(getTabForCaption("Marilyn Monroe").isDisplayed());
+        assertTrue(getTabWithCaption("Contacts").isDisplayed());
+        assertTrue(getTabWithCaption("Marilyn Monroe").isDisplayed());
 
         // WHEN
         navigateDriverRefresh();
 
         // THEN
-        assertTrue(getTabForCaption("Contacts").isDisplayed());
-        assertTrue(getTabForCaption("Marilyn Monroe").isDisplayed());
+        assertTrue(getTabWithCaption("Contacts").isDisplayed());
+        assertTrue(getTabWithCaption("Marilyn Monroe").isDisplayed());
     }
 
     @Test
@@ -121,8 +121,8 @@ public class ContentAppUITest extends AbstractPageEditorUITest {
         waitUntil(visibilityOfElementLocated(byAppName("Contacts")));
 
         // THEN
-        assertTrue(getTabForCaption("Contacts").isDisplayed());
-        assertTrue(getTabForCaption("Marilyn Monroe").isDisplayed());
+        assertTrue(getTabWithCaption("Contacts").isDisplayed());
+        assertTrue(getTabWithCaption("Marilyn Monroe").isDisplayed());
     }
 
     @Test
@@ -175,7 +175,7 @@ public class ContentAppUITest extends AbstractPageEditorUITest {
 
         switchToDefaultContent();
 
-        getTabForCaption("Image").click();
+        openTabWithCaption("Image");
         setFormTextFieldText("Choose image", "/demo-project/img/bk/Opener/round-wooden-blocks-in-various-colors");
         getElementByXpath("//button/span[text() = '%s']", "Select new...").click();
 

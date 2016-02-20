@@ -91,16 +91,12 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
         openPageVersion(2, 1, "Standard Article [1.0]");
 
         // Go Back to tree and edit the same page
-        getTabForCaption(PAGES_APP).click();
+        openTabWithCaption(PAGES_APP);
         getActionBarItem(EDIT_PAGE_ACTION).click();
 
         // CHECK THE TAB HEADER
-        delay("Waiting before check");
-        setMinimalTimeout();
-        assertFalse(isExisting(getTabForCaption("Standard Article [1.0]")));
-        resetTimeout();
-        assertTrue(isExisting(getTabForCaption("Standard Article")));
-
+        waitUntil(elementIsGone(byTabContainingCaption("Standard Article [1.0]")));
+        waitUntil(visibilityOfElementLocated(byTabContainingCaption("Standard Article")));
     }
 
     @Test
@@ -126,7 +122,7 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
         selectAreaAndComponent("Content", "Text and Image");
         // Add Text
         setFormTextFieldText("Subheading", "New Text Image Component");
-        getTabForCaption("Image").click();
+        openTabWithCaption("Image");
         setFormTextAreaFieldText("Image Caption", "Image Caption");
         // Add Image
         getNativeButton().click();
@@ -146,8 +142,9 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
         getDialogCommitButton().click();
 
         // Publish and check on the Public instance
-        getTabForCaption(PAGES_APP).click();
-        delay(3, "Switch to page may take time");
+        openTabWithCaption(PAGES_APP);
+        waitUntil(appIsLoaded());
+
         publishAndCheckAuthorAndPublic("New Text Image Component", "Image Caption", "New-Funny-Article", DEMO_PROJECT_PAGE, ABOUT_PAGE, SUBSECTION_ARTICLES);
     }
 
@@ -172,9 +169,9 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
 
         // Open page editor
         getActionBarItem(EDIT_PAGE_ACTION).click();
-        delay(1, "Switch to page may take time");
-        getTabForCaption(PAGES_APP).click();
-        delay(1, "Switch to page may take time");
+        waitUntil(appIsLoaded());
+        openTabWithCaption(PAGES_APP);
+        waitUntil(appIsLoaded());
 
         // Delete Page
         getActionBarItem(DELETE_PAGE_ACTION).click();
@@ -194,13 +191,13 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
         // Validate the Delete
         getActionBarItem(PUBLISH_DELETION_ACTION).click();
         delay(2, "Wait for the confirmation message");
+
         // Check that the Detail sub app is closed
-        setMinimalTimeout();
-        assertFalse(isExisting(getTabForCaption("Title of the new Article To Delete")));
+        waitUntil(elementIsGone(byTabContainingCaption("Title of the new Article To Delete")));
         // Check that the page is not existing on Public
 
         // Check that the row is gone in the tree table
-        assertFalse(isExisting(getElementByXpath("//div[text()='New-Article-To-Delete']")));
+        waitUntil(elementIsGone(getElementLocatorByXpath("//div[text()='New-Article-To-Delete']")));
     }
 
     @Test
@@ -226,7 +223,7 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
         getActionBarItem(RESTORE_PREVIOUS_VERSION_ACTION).click();
         delay(2, "Wait for the confirmation message");
 
-        getTabForCaption(PAGES_APP).click();
+        openTabWithCaption(PAGES_APP);
         setMinimalTimeout();
         assertFalse("Article should have been restored - no trash icon should be displayed any longer", isExisting(getSelectedIcon(TRASH_ICON_STYLE)));
         resetTimeout();
@@ -379,7 +376,7 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
         selectElementOfTabListForLabel(componentName);
 
         // make sure field is blurred and changed (test-only)
-        getTabForCaption("Component").click();
+        openTabWithCaption("Component");
         delay(1, "make sure there is enough time to process change event");
 
         getDialogCommitButton().click();
@@ -433,12 +430,12 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
         switchToDefaultContent();
         // Do changes in the Text Image form and save
         setFormTextFieldText("Subheading", newSubheadingValue);
-        getTabForCaption("Image").click();
+        openTabWithCaption("Image");
         setFormTextAreaFieldText("Image Caption", newImageCaptionValue);
         getDialogCommitButton().click();
 
-        getTabForCaption(PAGES_APP).click();
-        delay(3, "Switch to page may take time");
+        openTabWithCaption(PAGES_APP);
+        waitUntil(appIsLoaded());
     }
 
     /**
@@ -537,11 +534,10 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
         delay("Waiting for the editSubApp to open");
 
         // Sub App Open in a Read Only Mode
-        setMinimalTimeout();
-        assertTrue(getElement(By.xpath("//div[@class = 'mgnlEditorBar mgnlEditor area init']")) instanceof NonExistingWebElement);
-        resetTimeout();
+        waitUntil(elementIsGone(By.xpath("//div[@class = 'mgnlEditorBar mgnlEditor area init']")));
+
         // Check tab header (include version)
-        assertFalse(getTabForCaption(tabHeader) instanceof NonExistingWebElement);
+        waitUntil(visibilityOfElementLocated(byTabContainingCaption(tabHeader)));
         // Check available actions
         // With MGNLUI-2126 those actions were disabled, as they should not be available for versioned contents
         checkDisabledActions(EDIT_PAGE_ACTION, PUBLISH_PAGE_ACTION, UNPUBLISH_PAGE_ACTION);
