@@ -283,7 +283,7 @@ public class KeyboardShortcutUITest extends AbstractPageEditorUITest {
 
         //THEN
         //Check that dialog is still open
-        assertDialogOpen("Add new page");
+        waitUntil(visibilityOfElementLocated(byDialogTitle("Add new page")));
     }
 
     /**

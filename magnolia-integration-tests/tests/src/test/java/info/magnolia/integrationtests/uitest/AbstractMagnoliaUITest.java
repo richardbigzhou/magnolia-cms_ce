@@ -123,7 +123,9 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
 
     public static final String DEFAULT_NATIVE_BUTTON_CLASS = "magnoliabutton v-nativebutton-magnoliabutton";
 
-    private static final String XPATH_TO_DIALOG = "//*[contains(@class, 'dialog-header')]//*[contains(@class, 'title') and text() = '%s']";
+    protected By byDialogTitle(final String dialogTitle) {
+        return getElementLocatorByXpath("//*[contains(@class, 'dialog-header')]//*[contains(@class, 'title') and text() = '%s']", dialogTitle);
+    }
 
     protected static final By BY_XPATH_WEB_DEV_SECTION = By.xpath("//div[contains(@class, 'item')]/*[contains(@class,'sectionLabel') and (text() = 'STK' or text() = 'Web dev' or text() = 'MTE')]");
 
@@ -825,16 +827,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
     }
 
     protected void assertAppOpen(String appName) {
-        assertTrue(driver.findElement(byAppName(appName)).isDisplayed());
-    }
-
-    protected WebElement getDialog(final String dialogTitle) {
-        return getElementByXpath("//*[contains(@class, 'dialog-header')]//*[contains(@class, 'title') and text() = '%s']", dialogTitle);
-    }
-
-    protected void assertDialogOpen(String dialogTitle) {
-        String path = String.format("//*[contains(@class, 'dialog-header')]//*[contains(@class, 'title') and text() = '%s']", dialogTitle);
-        assertTrue(driver.findElement(By.xpath(path)).isDisplayed());
+        assertTrue(getElement(byAppName(appName)).isDisplayed());
     }
 
     protected void toLandingPage() {
@@ -1445,7 +1438,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
      * Checks that the dialog with the specified title is closed.
      */
     protected ExpectedCondition<Boolean> dialogIsClosed(final String dialogTitle) {
-        return elementIsGone(String.format(XPATH_TO_DIALOG, dialogTitle));
+        return elementIsGone(byDialogTitle(dialogTitle));
     }
 
     /**
