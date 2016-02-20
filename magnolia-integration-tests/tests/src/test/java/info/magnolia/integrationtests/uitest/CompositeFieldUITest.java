@@ -214,7 +214,6 @@ public class CompositeFieldUITest extends AbstractI18nEnabledUITest {
 
         switchToLanguage("German");
         waitUntil(languageSwitched("de"));
-        textValuePrefix = " de ";
         waitUntil(elementIsGone(String.format(
                 "(//div[@class = 'v-caption' and .//span[text() = '%s']])[%s]/following-sibling::input[@type = 'text']", "Text 2", 1)));
 
@@ -249,7 +248,6 @@ public class CompositeFieldUITest extends AbstractI18nEnabledUITest {
 
         switchToLanguage("German");
         waitUntil(languageSwitched("de"));
-        textValuePrefix = " de ";
         waitUntil(elementIsGone(String.format(
                 "(//div[@class = 'v-caption' and .//span[text() = '%s']])[%s]/following-sibling::input[@type = 'text']", "Text 2", 1)));
 
