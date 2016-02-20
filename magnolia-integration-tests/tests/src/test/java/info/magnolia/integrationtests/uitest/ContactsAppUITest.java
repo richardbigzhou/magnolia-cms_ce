@@ -66,16 +66,15 @@ public class ContactsAppUITest extends AbstractMagnoliaUITest {
         delay(1, "give time for change event to proceed");
         getDialogCommitButton().click();
 
-        WebElement showVersionParent = getActionBarItem("Show versions").findElement(By.xpath(".."));;
-
         // Assert showVersions is disabled beforehand
-        assertTrue(showVersionParent.getAttribute("class").contains("v-disabled"));
+        waitUntil(visibilityOfElementLocated(byDisabledActionBarItem("Show versions")));
 
         getActionBarItem("Publish").click();
 
         delay(5, "Waiting for the contacts to be published");
 
-        assertFalse("We expect showVersions action to be enabled after publishing", showVersionParent.getAttribute("class").contains("v-disabled"));
+        // We expect showVersions action to be enabled after publishing
+        waitUntil(visibilityOfElementLocated(byEnabledActionBarItem("Show versions")));
     }
 
     /**
@@ -121,8 +120,7 @@ public class ContactsAppUITest extends AbstractMagnoliaUITest {
         }
 
         // Assert button "commit" is not shown
-        setMinimalTimeout();
-        assertTrue(isNotExisting(getButton("v-button-commit", "save changes")));
+        waitUntil(elementIsGone(byButtonClassnameAndCaption("v-button-commit", "save changes")));
     }
 
     /**
@@ -191,7 +189,7 @@ public class ContactsAppUITest extends AbstractMagnoliaUITest {
         }
 
         // Assert button "commit" is shown
-        assertTrue("We expect that the 'commit' button is shown", getButton("v-button-commit", "save changes").isDisplayed());
+        waitUntil(visibilityOfElementLocated(byButtonClassnameAndCaption("v-button-commit", "save changes")));
     }
 
 }
