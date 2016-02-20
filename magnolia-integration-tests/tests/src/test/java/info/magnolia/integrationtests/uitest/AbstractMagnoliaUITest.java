@@ -829,7 +829,11 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
     }
 
     protected WebElement getColumnHeader(final String columnName) {
-        return getElementByXpath("//*[contains(@class, 'v-table-caption-container')]/span[text() = '%s']", columnName);
+        return getElement(byColumnHeader(columnName));
+    }
+
+    protected By byColumnHeader(final String columnName) {
+        return getElementLocatorByXpath("//*[contains(@class, 'v-table-caption-container')]/span[text() = '%s']", columnName);
     }
 
     protected By byAppName(String appName) {

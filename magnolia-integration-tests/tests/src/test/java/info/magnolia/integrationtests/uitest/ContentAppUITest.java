@@ -147,9 +147,7 @@ public class ContentAppUITest extends AbstractPageEditorUITest {
         waitUntil(visibilityOfElementLocated(byAppName("Pages")));
 
         // THEN
-        final WebElement statusColumn = getColumnHeader("Status");
-        setMinimalTimeout();
-        assertFalse("There should be a status column as we're testing on a author instance.", isNotExisting(statusColumn));
+        waitUntil(visibilityOfElementLocated(byColumnHeader("Status")));
     }
 
     @Test
@@ -198,9 +196,7 @@ public class ContentAppUITest extends AbstractPageEditorUITest {
         waitUntil(visibilityOfElementLocated(byAppName("Pages")));
 
         // THEN
-        final WebElement statusColumn = getColumnHeader("Status");
-        setMinimalTimeout();
-        assertTrue("There should be no status column as we're testing on a public instance with no subscribers.", isNotExisting(statusColumn));
+        waitUntil(elementIsGone(byColumnHeader("Status")));
     }
 
     @Test
