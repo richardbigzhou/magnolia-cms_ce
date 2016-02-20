@@ -105,14 +105,14 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         timeout = 1;
     }
 
-    protected static enum ShellApp {
+    protected enum ShellApp {
         APPLAUNCHER("v-app-launcher"),
         PULSE("v-pulse"),
         FAVORITES("favorites");
 
         private final String className;
 
-        private ShellApp(String className) {
+        ShellApp(String className) {
             this.className = className;
         }
 
