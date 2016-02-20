@@ -135,8 +135,7 @@ public class ContentAppUITest extends AbstractPageEditorUITest {
 
         // THEN
         assertTrue("The subsection-articles page should be visible after navigating to it.", getTreeTableItem("subsection-articles").isDisplayed());
-        setMinimalTimeout();
-        assertTrue("The subpages for subsection-articles should not be visible.", isNotExisting(getTreeTableItem("large-article")));
+        waitUntil(elementIsGone(byTreeTableItem("large-article")));
     }
 
     @Test
