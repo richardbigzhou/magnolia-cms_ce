@@ -64,6 +64,6 @@ public class GroovyAppUITest extends AbstractMagnoliaUITest {
 
         // THEN
         // Check that no shell app is active
-        assertThat("We expect the MainLauncherShell 'class' to not contain 'active'", getMainLauncherShell().getAttribute("class"), not(containsString("active")));
+        assertThat("We expect the MainLauncherShell 'class' to not contain 'active'", getShellIconAppsLauncher().getAttribute("class"), not(containsString("active")));
     }
 }

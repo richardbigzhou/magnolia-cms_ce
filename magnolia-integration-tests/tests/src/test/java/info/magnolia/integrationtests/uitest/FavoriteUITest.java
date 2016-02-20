@@ -55,7 +55,7 @@ public class FavoriteUITest extends AbstractPageEditorUITest {
         getAppIcon("Pages").click();
         waitUntil(appIsLoaded());
         getTreeTableItem("ftl-sample-site").click();
-        getShellAppIcon("icon-favorites").click();
+        getShellIconFavorites().click();
         waitUntil(shellAppIsLoaded(ShellApp.FAVORITES));
 
         // WHEN
@@ -98,7 +98,7 @@ public class FavoriteUITest extends AbstractPageEditorUITest {
         // GIVEN
         getAppIcon("Pages").click();
         waitUntil(appIsLoaded());
-        getShellAppIcon("icon-favorites").click();
+        getShellIconFavorites().click();
         waitUntil(shellAppIsLoaded(ShellApp.FAVORITES));
 
         // WHEN
@@ -127,7 +127,7 @@ public class FavoriteUITest extends AbstractPageEditorUITest {
         getAppIcon("Pages").click();
         waitUntil(appIsLoaded());
         getTreeTableItem("ftl-sample-site").click();
-        getShellAppIcon("icon-favorites").click();
+        getShellIconFavorites().click();
         waitUntil(shellAppIsLoaded(ShellApp.FAVORITES));
 
         getButton("dialog-header", "Add new").click();
@@ -164,7 +164,7 @@ public class FavoriteUITest extends AbstractPageEditorUITest {
         // Create a new favorite item
         getAppIcon("Pages").click();
         waitUntil(appIsLoaded());
-        getShellAppIcon("icon-favorites").click();
+        getShellIconFavorites().click();
         waitUntil(shellAppIsLoaded(ShellApp.FAVORITES));
 
         // WHEN
@@ -176,12 +176,12 @@ public class FavoriteUITest extends AbstractPageEditorUITest {
 
         // GIVEN
         // Close Favorites and Pages app.
-        getShellAppIcon("icon-favorites").click();
+        getShellIconFavorites().click();
         delay("Wait a second to close Favorites");
         closeApp();
         delay("Wait a second to close Pages app");
         // Open Favorites again
-        getShellAppIcon("icon-favorites").click();
+        getShellIconFavorites().click();
         waitUntil(shellAppIsLoaded(ShellApp.FAVORITES));
 
         // WHEN
@@ -198,7 +198,7 @@ public class FavoriteUITest extends AbstractPageEditorUITest {
         assertTrue("We should be in edit mode.", getCurrentDriverUrl().contains("demo-project:edit"));
 
         // Clean up
-        getShellAppIcon("icon-favorites").click();
+        getShellIconFavorites().click();
         waitUntil(shellAppIsLoaded(ShellApp.FAVORITES));
         removeExistingItems();
     }

@@ -36,7 +36,6 @@ package info.magnolia.integrationtests.uitest;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
-import org.openqa.selenium.By;
 
 /**
  * UITests executed for a non-superuser.
@@ -55,7 +54,7 @@ public class NonSuperuserUITest extends AbstractMagnoliaUITest {
         // WHEN - everything should be done in setUp already
 
         // THEN
-        assertTrue("If user " + getTestUserName() + " was logged in, appslauncher should be around", isExisting(getElement(By.xpath("//*[@id = 'btn-appslauncher']"))));
+        assertTrue("If user " + getTestUserName() + " was logged in, appslauncher should be around", isExisting(getShellIconAppsLauncher()));
     }
 
 }

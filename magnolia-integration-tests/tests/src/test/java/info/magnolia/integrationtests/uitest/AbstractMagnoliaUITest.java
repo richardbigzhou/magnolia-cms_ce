@@ -410,7 +410,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
 
         workaroundJsessionIdInUrl();
 
-        assertTrue("If login succeeded, user should get a screen containing the appslauncher", isExisting(getElementByXpath("//*[@id = 'btn-appslauncher']")));
+        assertTrue("If login succeeded, user should get a screen containing the appslauncher", isExisting(getShellIconAppsLauncher()));
     }
 
     /**
@@ -714,20 +714,20 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         return getElementByXpath("//div[contains(@class, 'item')]/*[@class = 'label' and text() = '%s']", appName);
     }
 
-    protected WebElement getShellAppIcon(String appIcon) {
-        return getElementByXpath("//*[contains(@class, '%s')]", appIcon);
+    private WebElement getShellAppIcon(String appIconId) {
+        return getElementByXpath("//*[contains(@id, '%s')]", appIconId);
     }
 
     protected WebElement getShellIconAppsLauncher() {
-        return getElementByXpath("//*[@id = 'btn-appslauncher']");
+        return getShellAppIcon("btn-appslauncher");
     }
 
     protected WebElement getShellIconPulse() {
-        return getElementByXpath("//*[@id = 'btn-pulse']");
+        return getShellAppIcon("btn-pulse");
     }
 
     protected WebElement getShellIconFavorites() {
-        return getElementByXpath("//*[@id = 'btn-favorites']");
+        return getShellAppIcon("btn-favorites");
     }
 
     protected void openTabWithCaption(String tabCaption, String... parentTitles) {
@@ -1452,11 +1452,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
      * Checks if dialog (identified by {@link By#xpath(String)}) is present.
      */
     protected ExpectedCondition<WebElement> dialogIsOpen(final String dialogTitle) {
-        return presenceOfElementLocated(By.xpath(String.format(XPATH_TO_DIALOG, dialogTitle)));
-    }
-
-    protected WebElement getMainLauncherShell() {
-        return getElementByXpath("//*[@id = 'btn-appslauncher']");
+        return presenceOfElementLocated(byDialogTitle(dialogTitle));
     }
 
     /**
