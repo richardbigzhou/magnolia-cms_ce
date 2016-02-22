@@ -36,7 +36,7 @@ package info.magnolia.integrationtests.uitest;
 import static org.hamcrest.Matchers.nullValue;
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.Assert.*;
-import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated;
+import static org.openqa.selenium.support.ui.ExpectedConditions.*;
 
 import info.magnolia.testframework.AbstractMagnoliaIntegrationTest;
 import info.magnolia.testframework.htmlunit.AbstractMagnoliaHtmlUnitTest;
@@ -105,14 +105,14 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         timeout = 1;
     }
 
-    protected static enum ShellApp {
+    protected enum ShellApp {
         APPLAUNCHER("v-app-launcher"),
         PULSE("v-pulse"),
         FAVORITES("favorites");
 
         private final String className;
 
-        private ShellApp(String className) {
+        ShellApp(String className) {
             this.className = className;
         }
 
@@ -123,7 +123,9 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
 
     public static final String DEFAULT_NATIVE_BUTTON_CLASS = "magnoliabutton v-nativebutton-magnoliabutton";
 
-    private static final String XPATH_TO_DIALOG = "//*[contains(@class, 'dialog-header')]//*[contains(@class, 'title') and text() = '%s']";
+    protected By byDialogTitle(final String dialogTitle) {
+        return getElementLocatorByXpath("//*[contains(@class, 'dialog-header')]//*[contains(@class, 'title') and text() = '%s']", dialogTitle);
+    }
 
     protected static final By BY_XPATH_WEB_DEV_SECTION = By.xpath("//div[contains(@class, 'item')]/*[contains(@class,'sectionLabel') and (text() = 'STK' or text() = 'Web dev' or text() = 'MTE')]");
 
@@ -410,7 +412,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
 
         workaroundJsessionIdInUrl();
 
-        assertTrue("If login succeeded, user should get a screen containing the appslauncher", isExisting(getElementByXpath("//*[@id = 'btn-appslauncher']")));
+        assertTrue("If login succeeded, user should get a screen containing the appslauncher", isExisting(getShellIconAppsLauncher()));
     }
 
     /**
@@ -655,7 +657,11 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
     }
 
     protected WebElement getDisabledActionBarItem(String itemCaption) {
-        return getElementByXpath("//*[contains(@class,'v-actionbar')]//*[contains(@class, 'v-actionbar-section') and not(@aria-hidden)]//li[@class ='v-action v-disabled']//*[text()='%s']", itemCaption);
+        return getElement(byDisabledActionBarItem(itemCaption));
+    }
+
+    protected By byDisabledActionBarItem(String itemCaption) {
+        return getElementLocatorByXpath("//*[contains(@class,'v-actionbar')]//*[contains(@class, 'v-actionbar-section') and not(@aria-hidden)]//li[@class ='v-action v-disabled']//*[text()='%s']", itemCaption);
     }
 
     protected WebElement getEnabledActionBarItem(String itemCaption) {
@@ -699,7 +705,11 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
     }
 
     protected WebElement getButton(String classname, String caption) {
-        return getElementByXpath("//*[contains(@class, '%s')]//*[text() = '%s']", classname, caption);
+        return getElement(byButtonClassnameAndCaption(classname, caption));
+    }
+
+    protected By byButtonClassnameAndCaption(String classname, String caption) {
+        return getElementLocatorByXpath("//*[contains(@class, '%s')]//*[text() = '%s']", classname, caption);
     }
 
     protected WebElement getCollapsibleAppSectionIcon(String sectionName) {
@@ -710,20 +720,20 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         return getElementByXpath("//div[contains(@class, 'item')]/*[@class = 'label' and text() = '%s']", appName);
     }
 
-    protected WebElement getShellAppIcon(String appIcon) {
-        return getElementByXpath("//*[contains(@class, '%s')]", appIcon);
+    private WebElement getShellAppIcon(String appIconId) {
+        return getElementByXpath("//*[contains(@id, '%s')]", appIconId);
     }
 
     protected WebElement getShellIconAppsLauncher() {
-        return getElementByXpath("//*[@id = 'btn-appslauncher']");
+        return getShellAppIcon("btn-appslauncher");
     }
 
     protected WebElement getShellIconPulse() {
-        return getElementByXpath("//*[@id = 'btn-pulse']");
+        return getShellAppIcon("btn-pulse");
     }
 
     protected WebElement getShellIconFavorites() {
-        return getElementByXpath("//*[@id = 'btn-favorites']");
+        return getShellAppIcon("btn-favorites");
     }
 
     protected void openTabWithCaption(String tabCaption, String... parentTitles) {
@@ -788,22 +798,6 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         return path.toString();
     }
 
-    /**
-     * @deprecated since 5.4.1 - use {@link #openTabWithCaption(String, String...)} instead.
-     */
-    @Deprecated
-    protected WebElement getTabForCaption(String tabCaption) {
-        return doGetTabElement(tabCaption, false);
-    }
-
-    /**
-     * @deprecated since 5.4.1 - use {@link #getTabWithPartialCaption(String, String...)} instead.
-     */
-    @Deprecated
-    protected WebElement getTabContainingCaption(String tabCaption) {
-        return doGetTabElement(tabCaption, true);
-    }
-
     protected By byTabContainingCaption(String tabCaption) {
         return By.xpath(String.format("//*[contains(@class, 'v-shell-tabsheet')]//*[@class = 'tab-title' and contains(text(),'%s')]", tabCaption));
     }
@@ -825,7 +819,11 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
     }
 
     protected WebElement getColumnHeader(final String columnName) {
-        return getElementByXpath("//*[contains(@class, 'v-table-caption-container')]/span[text() = '%s']", columnName);
+        return getElement(byColumnHeader(columnName));
+    }
+
+    protected By byColumnHeader(final String columnName) {
+        return getElementLocatorByXpath("//*[contains(@class, 'v-table-caption-container')]/span[text() = '%s']", columnName);
     }
 
     protected By byAppName(String appName) {
@@ -833,16 +831,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
     }
 
     protected void assertAppOpen(String appName) {
-        assertTrue(driver.findElement(byAppName(appName)).isDisplayed());
-    }
-
-    protected WebElement getDialog(final String dialogTitle) {
-        return getElementByXpath("//*[contains(@class, 'dialog-header')]//*[contains(@class, 'title') and text() = '%s']", dialogTitle);
-    }
-
-    protected void assertDialogOpen(String dialogTitle) {
-        String path = String.format("//*[contains(@class, 'dialog-header')]//*[contains(@class, 'title') and text() = '%s']", dialogTitle);
-        assertTrue(driver.findElement(By.xpath(path)).isDisplayed());
+        assertTrue(getElement(byAppName(appName)).isDisplayed());
     }
 
     protected void toLandingPage() {
@@ -1059,13 +1048,15 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
 
     protected void checkEnabledActions(String... actions) {
         for (String action : actions) {
-            assertTrue("'" + action + "' action should be enabled ", isExisting(getEnabledActionBarItem(action)));
+            waitUntil(visibilityOfElementLocated(byEnabledActionBarItem(action)));
+            //assertTrue("'" + action + "' action should be enabled ", isExisting(getEnabledActionBarItem(action)));
         }
     }
 
     protected void checkDisabledActions(String... actions) {
         for (String action : actions) {
-            assertTrue("'" + action + "' action should be disabled ", isExisting(getDisabledActionBarItem(action)));
+            waitUntil(visibilityOfElementLocated(byDisabledActionBarItem(action)));
+            //assertTrue("'" + action + "' action should be disabled ", isExisting(getDisabledActionBarItem(action)));
         }
     }
 
@@ -1451,18 +1442,14 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
      * Checks that the dialog with the specified title is closed.
      */
     protected ExpectedCondition<Boolean> dialogIsClosed(final String dialogTitle) {
-        return elementIsGone(String.format(XPATH_TO_DIALOG, dialogTitle));
+        return elementIsGone(byDialogTitle(dialogTitle));
     }
 
     /**
      * Checks if dialog (identified by {@link By#xpath(String)}) is present.
      */
     protected ExpectedCondition<WebElement> dialogIsOpen(final String dialogTitle) {
-        return presenceOfElementLocated(By.xpath(String.format(XPATH_TO_DIALOG, dialogTitle)));
-    }
-
-    protected WebElement getMainLauncherShell() {
-        return getElementByXpath("//*[@id = 'btn-appslauncher']");
+        return presenceOfElementLocated(byDialogTitle(dialogTitle));
     }
 
     /**

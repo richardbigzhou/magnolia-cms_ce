@@ -48,7 +48,7 @@ public class ComplexFieldUITest extends AbstractPageEditorUITest {
         // GIVEN
         String fieldName = "Date List Field";
         goToDialogShowRoomAndOpenDialogComponent("ftl");
-        getTabForCaption("Multi Fields").click();
+        openTabWithCaption("Multi Fields");
         // Add a element to the multifield
         getMultiFieldAddButton(fieldName, "Add").click();
         setMultiFieldElementValueAt(fieldName, 1, "2013-08-20");
@@ -65,7 +65,7 @@ public class ComplexFieldUITest extends AbstractPageEditorUITest {
 
         // Open it again
         openDialogComponent();
-        getTabForCaption("Multi Fields").click();
+        openTabWithCaption("Multi Fields");
         // Pre test
         assertEquals("2013-08-20", getFromMultiFieldElementValueAt(fieldName, 1).getAttribute("value"));
         assertEquals("2013-08-21", getFromMultiFieldElementValueAt(fieldName, 2).getAttribute("value"));
@@ -87,7 +87,7 @@ public class ComplexFieldUITest extends AbstractPageEditorUITest {
 
         // Open it again
         openDialogComponent();
-        getTabForCaption("Multi Fields").click();
+        openTabWithCaption("Multi Fields");
 
         // THEN
         assertEquals("2013-08-21", getFromMultiFieldElementValueAt(fieldName, 1).getAttribute("value"));
@@ -104,7 +104,7 @@ public class ComplexFieldUITest extends AbstractPageEditorUITest {
         // GIVEN
         String fieldName = "Composite Multi Field";
         goToDialogShowRoomAndOpenDialogComponent("ftl");
-        getTabForCaption("Multi Fields").click();
+        openTabWithCaption("Multi Fields");
         // Add a element to the multifield
         getMultiFieldAddButton(fieldName, "Add").click();
         setMultiFieldElementValueAt(fieldName, 1, "text 1");
@@ -143,7 +143,7 @@ public class ComplexFieldUITest extends AbstractPageEditorUITest {
 
         // Open it again
         openDialogComponent();
-        getTabForCaption("Multi Fields").click();
+        openTabWithCaption("Multi Fields");
 
         // THEN
         assertEquals("text 2", getFromMultiFieldElementValueAt(fieldName, 1).getAttribute("value"));
@@ -155,7 +155,7 @@ public class ComplexFieldUITest extends AbstractPageEditorUITest {
         // GIVEN
         String fieldName = "Simple Composite";
         goToDialogShowRoomAndOpenDialogComponent("ftl");
-        getTabForCaption("Switch").click();
+        openTabWithCaption("Switch");
 
         // Set Initial Values
         setMultiFieldElementValueAt(fieldName, 1, "text 1");
@@ -173,7 +173,7 @@ public class ComplexFieldUITest extends AbstractPageEditorUITest {
         // Pre test
         // Open it again
         openDialogComponent();
-        getTabForCaption("Switch").click();
+        openTabWithCaption("Switch");
         assertEquals("text 1", getFromMultiFieldElementValueAt(fieldName, 1).getAttribute("value"));
         assertEquals("/demo-project", getFromMultiFieldElementValueAt(fieldName, 3).getAttribute("value"));
 
@@ -194,7 +194,7 @@ public class ComplexFieldUITest extends AbstractPageEditorUITest {
 
         // Open it again
         openDialogComponent();
-        getTabForCaption("Switch").click();
+        openTabWithCaption("Switch");
         assertEquals("text 11", getFromMultiFieldElementValueAt(fieldName, 1).getAttribute("value"));
         assertEquals("/demo-features", getFromMultiFieldElementValueAt(fieldName, 3).getAttribute("value"));
 

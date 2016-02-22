@@ -59,7 +59,7 @@ public class ContentAppUITest extends AbstractPageEditorUITest {
 
         getTreeTableItem("Albert Einstein").click();
         getActionBarItem("Edit contact").click();
-        getTabForCaption("Contact details").click();
+        openTabWithCaption("Contact details");
 
         setFormTextFieldText("E-Mail address", testEmailAddr);
         getDialogCommitButton().click();
@@ -101,15 +101,15 @@ public class ContentAppUITest extends AbstractPageEditorUITest {
         getTreeTableItem("Marilyn Monroe").click();
         getActionBarItem("Edit contact").click();
 
-        assertTrue(getTabForCaption("Contacts").isDisplayed());
-        assertTrue(getTabForCaption("Marilyn Monroe").isDisplayed());
+        assertTrue(getTabWithCaption("Contacts").isDisplayed());
+        assertTrue(getTabWithCaption("Marilyn Monroe").isDisplayed());
 
         // WHEN
         navigateDriverRefresh();
 
         // THEN
-        assertTrue(getTabForCaption("Contacts").isDisplayed());
-        assertTrue(getTabForCaption("Marilyn Monroe").isDisplayed());
+        assertTrue(getTabWithCaption("Contacts").isDisplayed());
+        assertTrue(getTabWithCaption("Marilyn Monroe").isDisplayed());
     }
 
     @Test
@@ -121,8 +121,8 @@ public class ContentAppUITest extends AbstractPageEditorUITest {
         waitUntil(visibilityOfElementLocated(byAppName("Contacts")));
 
         // THEN
-        assertTrue(getTabForCaption("Contacts").isDisplayed());
-        assertTrue(getTabForCaption("Marilyn Monroe").isDisplayed());
+        assertTrue(getTabWithCaption("Contacts").isDisplayed());
+        assertTrue(getTabWithCaption("Marilyn Monroe").isDisplayed());
     }
 
     @Test
@@ -135,8 +135,7 @@ public class ContentAppUITest extends AbstractPageEditorUITest {
 
         // THEN
         assertTrue("The subsection-articles page should be visible after navigating to it.", getTreeTableItem("subsection-articles").isDisplayed());
-        setMinimalTimeout();
-        assertTrue("The subpages for subsection-articles should not be visible.", isNotExisting(getTreeTableItem("large-article")));
+        waitUntil(elementIsGone(byTreeTableItem("large-article")));
     }
 
     @Test
@@ -148,9 +147,7 @@ public class ContentAppUITest extends AbstractPageEditorUITest {
         waitUntil(visibilityOfElementLocated(byAppName("Pages")));
 
         // THEN
-        final WebElement statusColumn = getColumnHeader("Status");
-        setMinimalTimeout();
-        assertFalse("There should be a status column as we're testing on a author instance.", isNotExisting(statusColumn));
+        waitUntil(visibilityOfElementLocated(byColumnHeader("Status")));
     }
 
     @Test
@@ -178,7 +175,7 @@ public class ContentAppUITest extends AbstractPageEditorUITest {
 
         switchToDefaultContent();
 
-        getTabForCaption("Image").click();
+        openTabWithCaption("Image");
         setFormTextFieldText("Choose image", "/demo-project/img/bk/Opener/round-wooden-blocks-in-various-colors");
         getElementByXpath("//button/span[text() = '%s']", "Select new...").click();
 
@@ -199,9 +196,7 @@ public class ContentAppUITest extends AbstractPageEditorUITest {
         waitUntil(visibilityOfElementLocated(byAppName("Pages")));
 
         // THEN
-        final WebElement statusColumn = getColumnHeader("Status");
-        setMinimalTimeout();
-        assertTrue("There should be no status column as we're testing on a public instance with no subscribers.", isNotExisting(statusColumn));
+        waitUntil(elementIsGone(byColumnHeader("Status")));
     }
 
     @Test

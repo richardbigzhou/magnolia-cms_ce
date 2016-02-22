@@ -50,10 +50,10 @@ public class AdmincentralUITest extends AbstractMagnoliaUITest {
     @Test
     public void navigateToPulseAndBackToAppLauncherDoesntScrewLayout() {
         // GIVEN
-        getShellAppIcon("icon-pulse").click();
+        getShellIconPulse().click();
         getPulseTab("Messages").click();
         assertTrue(getElement(By.xpath("//label[text() ='group by type']")).isDisplayed());
-        getShellAppIcon("icon-appslauncher").click();
+        getShellIconAppsLauncher().click();
         waitUntil(shellAppIsLoaded(ShellApp.APPLAUNCHER));
 
         // WHEN
@@ -143,7 +143,7 @@ public class AdmincentralUITest extends AbstractMagnoliaUITest {
         getNativeButton("commit").click();
         closeInfoNotification();
         closeApp();
-        getShellAppIcon("icon-pulse").click();
+        getShellIconPulse().click();
         getPulseTab("Messages").click();
 
         // THEN

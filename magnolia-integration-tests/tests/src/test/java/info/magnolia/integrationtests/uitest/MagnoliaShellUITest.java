@@ -56,8 +56,8 @@ public class MagnoliaShellUITest extends AbstractMagnoliaUITest {
         // GIVEN
         getAppIcon("Pages").click();
         assertAppOpen("Pages");
-        getMainLauncherShell().click();
-        assertTrue(getMainLauncherShell().getAttribute("class").contains("active"));
+        getShellIconAppsLauncher().click();
+        assertTrue(getShellIconAppsLauncher().getAttribute("class").contains("active"));
 
         // WHEN
         getElementByXpath("//*[@class = 'v-shell-viewport-slot']").click();
@@ -75,11 +75,11 @@ public class MagnoliaShellUITest extends AbstractMagnoliaUITest {
         // GIVEN
         getAppIcon("Pages").click();
         assertAppOpen("Pages");
-        getMainLauncherShell().click();
-        assertTrue(getMainLauncherShell().getAttribute("class").contains("active"));
+        getShellIconAppsLauncher().click();
+        assertTrue(getShellIconAppsLauncher().getAttribute("class").contains("active"));
 
         // WHEN
-        getMainLauncherShell().click();
+        getShellIconAppsLauncher().click();
 
         // THEN
         assertAppOpen("Pages");

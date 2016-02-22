@@ -186,8 +186,7 @@ public class ConfigurationAppUITest extends AbstractMagnoliaUITest {
         getDialogConfirmButton().click();
         delay("Delete might take some time");
         refreshTreeView();
-        setMinimalTimeout();
-        assertTrue("Lvl3 folder should be gone", isNotExisting(getTreeTableItem("lvl3")));
+        waitUntil(elementIsGone(byTreeTableItem("lvl3")));
     }
 
     @Test

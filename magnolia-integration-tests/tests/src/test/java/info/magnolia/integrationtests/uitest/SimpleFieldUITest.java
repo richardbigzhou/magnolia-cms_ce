@@ -54,7 +54,7 @@ public class SimpleFieldUITest extends AbstractMagnoliaUITest {
     public void setTextFieldValue() {
         // GIVEN
         goToDialogShowRoomAndOpenDialogComponent("ftl");
-        getTabForCaption("Edit controls").click();
+        openTabWithCaption("Edit controls");
 
         // WHEN
         // Set input values
@@ -71,7 +71,7 @@ public class SimpleFieldUITest extends AbstractMagnoliaUITest {
         resetTimeout();
 
         openDialogComponent();
-        getTabForCaption("Edit controls").click();
+        openTabWithCaption("Edit controls");
 
         // THEN
         assertEquals("test", getFormTextField("Text 1").getAttribute("value"));
@@ -83,7 +83,7 @@ public class SimpleFieldUITest extends AbstractMagnoliaUITest {
     public void checkSetTextFieldValueValidationError() {
         // GIVEN
         goToDialogShowRoomAndOpenDialogComponent("ftl");
-        getTabForCaption("Edit controls").click();
+        openTabWithCaption("Edit controls");
         // WHEN
         setFormTextFieldText("Number long", "true");
 
@@ -104,7 +104,7 @@ public class SimpleFieldUITest extends AbstractMagnoliaUITest {
     public void setLinkFieldValue() {
         // GIVEN
         goToDialogShowRoomAndOpenDialogComponent("ftl");
-        getTabForCaption("Link and Date").click();
+        openTabWithCaption("Link and Date");
         getNativeButton().click();
         getTreeTableItem("demo-project").click();
 
@@ -122,7 +122,7 @@ public class SimpleFieldUITest extends AbstractMagnoliaUITest {
         goToDialogShowRoomAndOpenDialogComponent("ftl");
 
         // WHEN
-        getTabForCaption("File").click();
+        openTabWithCaption("File");
 
         // THEN
         WebElement upload = getFormField("Upload a file");
@@ -134,7 +134,7 @@ public class SimpleFieldUITest extends AbstractMagnoliaUITest {
     public void checkUploadFieldUploadFile() {
         // GIVEN
         goToDialogShowRoomAndOpenDialogComponent("ftl");
-        getTabForCaption("File").click();
+        openTabWithCaption("File");
         // Init file ref
         URL resource = getClass().getClassLoader().getResource("me.jpg");
         assertNotNull(resource);

@@ -82,8 +82,8 @@ import org.openqa.selenium.WebElement;
  * </ul></p>
  */
 public class JcrToolsUITest extends AbstractMagnoliaUITest {
-    By textAreaOutput = By.xpath("//*[contains(@class, 'v-slot-smallapp-sections')]/div/div/textarea");
-    By formatXMLCheckbox = By.xpath("//*[@class = 'v-form-field-label' and text() = 'Format XML']/following-sibling::div[contains(@class,'v-form-field')]");
+    By byTextAreaOutput = By.xpath("//*[contains(@class, 'v-slot-smallapp-sections')]/div/div/textarea");
+    By byFormatXMLCheckbox = By.xpath("//*[@class = 'v-form-field-label' and text() = 'Format XML']/following-sibling::div[contains(@class,'v-form-field')]");
 
     @Before
     public void openSubApp() {
@@ -112,7 +112,7 @@ public class JcrToolsUITest extends AbstractMagnoliaUITest {
 
         // THEN
         assertThat(getNotificationMessage().getText(), is("Node Dump Succeeded"));
-        assertThat(getElement(textAreaOutput).getAttribute("value"), containsString("/modules"));
+        assertThat(getElement(byTextAreaOutput).getAttribute("value"), containsString("/modules"));
     }
 
     @Test
@@ -125,7 +125,7 @@ public class JcrToolsUITest extends AbstractMagnoliaUITest {
 
         // THEN
         assertThat(getNotificationMessage().getText(), is("Node Dump Succeeded"));
-        assertThat(getElement(textAreaOutput).getAttribute("value"), containsString("/"));
+        assertThat(getElement(byTextAreaOutput).getAttribute("value"), containsString("/"));
     }
 
     @Test
@@ -251,7 +251,7 @@ public class JcrToolsUITest extends AbstractMagnoliaUITest {
 
         // THEN
         assertThat(getNotificationMessage().getText(), is("Query Failed"));
-        assertThat(getElement(textAreaOutput).getAttribute("value"), containsString("0 nodes returned in"));
+        assertThat(getElement(byTextAreaOutput).getAttribute("value"), containsString("0 nodes returned in"));
     }
 
     @Test
@@ -264,7 +264,7 @@ public class JcrToolsUITest extends AbstractMagnoliaUITest {
 
         // THEN
         assertThat(getNotificationMessage().getText(), is("Query Failed"));
-        assertThat(getElement(textAreaOutput).getAttribute("value"), containsString("0 nodes returned in"));
+        assertThat(getElement(byTextAreaOutput).getAttribute("value"), containsString("0 nodes returned in"));
     }
 
     @Test
@@ -277,7 +277,7 @@ public class JcrToolsUITest extends AbstractMagnoliaUITest {
 
         // THEN
         assertThat(getNotificationMessage().getText(), is("Query Succeeded"));
-        assertThat(getElement(textAreaOutput).getAttribute("value"), containsString("/"));
+        assertThat(getElement(byTextAreaOutput).getAttribute("value"), containsString("/"));
     }
 
     @Test
@@ -290,7 +290,7 @@ public class JcrToolsUITest extends AbstractMagnoliaUITest {
 
         // THEN
         assertThat(getNotificationMessage().getText(), is("Query Succeeded"));
-        assertThat(getElement(textAreaOutput).getAttribute("value"), containsString("0 nodes returned in"));
+        assertThat(getElement(byTextAreaOutput).getAttribute("value"), containsString("0 nodes returned in"));
     }
 
     /**
@@ -310,7 +310,7 @@ public class JcrToolsUITest extends AbstractMagnoliaUITest {
     public void exporterIssuesRequiredWarningWithNullBasePathAndFormatXMLChecked() {
         // GIVEN
         openTabWithCaption("Exporter");
-        final WebElement checkbox = getElement(formatXMLCheckbox).findElement(By.tagName("input"));
+        final WebElement checkbox = getElement(byFormatXMLCheckbox).findElement(By.tagName("input"));
         checkbox.click();
         populateFormFieldsAndSubmitForm("Exporter", "TextField", "Base Path", null);
 
@@ -333,7 +333,7 @@ public class JcrToolsUITest extends AbstractMagnoliaUITest {
     public void exporterIssuesRequiredWarningWithInvalidBasePathAndFormatXMLChecked() {
         // GIVEN
         openTabWithCaption("Exporter");
-        final WebElement checkbox = getElement(formatXMLCheckbox).findElement(By.tagName("input"));
+        final WebElement checkbox = getElement(byFormatXMLCheckbox).findElement(By.tagName("input"));
         checkbox.click();
         populateFormFieldsAndSubmitForm("Exporter", "TextField", "Base Path", "magnolia");
 
@@ -359,7 +359,7 @@ public class JcrToolsUITest extends AbstractMagnoliaUITest {
     public void exporterIssuesSuccessNotificationWithDefaultBasePathAndFormatXMLChecked() {
         // GIVEN
         openTabWithCaption("Exporter");
-        final WebElement checkbox = getElement(formatXMLCheckbox).findElement(By.tagName("input"));
+        final WebElement checkbox = getElement(byFormatXMLCheckbox).findElement(By.tagName("input"));
         checkbox.click();
 
         // WHEN

@@ -49,7 +49,7 @@ public class CompositeFieldUITest extends AbstractI18nEnabledUITest {
         String textValuePrefix = " en ";
         String subFieldName = "Sub Multi";
         goToDialogShowRoomAndOpenDialogComponent("ftl");
-        getTabForCaption("Switch").click();
+        openTabWithCaption("Switch");
 
         // WHEN - STEP 1 : Add elements in EN
 
@@ -128,7 +128,7 @@ public class CompositeFieldUITest extends AbstractI18nEnabledUITest {
 
         // Open it again
         openDialogComponent();
-        getTabForCaption("Switch").click();
+        openTabWithCaption("Switch");
 
         switchToLanguage("English");
         waitUntil(languageSwitched("en"));
@@ -214,7 +214,6 @@ public class CompositeFieldUITest extends AbstractI18nEnabledUITest {
 
         switchToLanguage("German");
         waitUntil(languageSwitched("de"));
-        textValuePrefix = " de ";
         waitUntil(elementIsGone(String.format(
                 "(//div[@class = 'v-caption' and .//span[text() = '%s']])[%s]/following-sibling::input[@type = 'text']", "Text 2", 1)));
 
@@ -224,7 +223,7 @@ public class CompositeFieldUITest extends AbstractI18nEnabledUITest {
 
         // Open it again
         openDialogComponent();
-        getTabForCaption("Switch").click();
+        openTabWithCaption("Switch");
 
         // THEN - Check all values entered at the STEP 4
         switchToLanguage("English");
@@ -249,7 +248,6 @@ public class CompositeFieldUITest extends AbstractI18nEnabledUITest {
 
         switchToLanguage("German");
         waitUntil(languageSwitched("de"));
-        textValuePrefix = " de ";
         waitUntil(elementIsGone(String.format(
                 "(//div[@class = 'v-caption' and .//span[text() = '%s']])[%s]/following-sibling::input[@type = 'text']", "Text 2", 1)));
 

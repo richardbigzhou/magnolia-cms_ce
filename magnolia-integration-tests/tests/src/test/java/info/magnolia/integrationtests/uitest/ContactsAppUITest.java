@@ -34,6 +34,7 @@
 package info.magnolia.integrationtests.uitest;
 
 import static org.junit.Assert.*;
+import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
 
 import java.util.Date;
 import java.util.List;
@@ -58,23 +59,22 @@ public class ContactsAppUITest extends AbstractMagnoliaUITest {
 
         getTreeTableItem(contactName).click();
         getActionBarItem("Edit contact").click();
-        getTabForCaption("Contact details").click();
+        openTabWithCaption("Contact details");
 
         setFormTextFieldText("E-Mail address", testEmailAddr);
         getFormTextField("Website").click();
         delay(1, "give time for change event to proceed");
         getDialogCommitButton().click();
 
-        WebElement showVersionParent = getActionBarItem("Show versions").findElement(By.xpath(".."));;
-
         // Assert showVersions is disabled beforehand
-        assertTrue(showVersionParent.getAttribute("class").contains("v-disabled"));
+        waitUntil(visibilityOfElementLocated(byDisabledActionBarItem("Show versions")));
 
         getActionBarItem("Publish").click();
 
         delay(5, "Waiting for the contacts to be published");
 
-        assertFalse("We expect showVersions action to be enabled after publishing", showVersionParent.getAttribute("class").contains("v-disabled"));
+        // We expect showVersions action to be enabled after publishing
+        waitUntil(visibilityOfElementLocated(byEnabledActionBarItem("Show versions")));
     }
 
     /**
@@ -114,14 +114,13 @@ public class ContactsAppUITest extends AbstractMagnoliaUITest {
         // THEN
         // Assert subApp is open and all fields in editor are readonly
         // Tab name will contain a version number
-        assertTrue("We expect the editor subApp tab to be open", getTabContainingCaption(contactName).isDisplayed());
+        waitUntil(visibilityOfElementLocated(byTabContainingCaption(contactName)));
         for (WebElement element : inputs) {
             assertEquals("We expect element [" + element.getTagName() + "] to be readonly", "true", element.getAttribute("readonly"));
         }
 
         // Assert button "commit" is not shown
-        setMinimalTimeout();
-        assertTrue(isNotExisting(getButton("v-button-commit", "save changes")));
+        waitUntil(elementIsGone(byButtonClassnameAndCaption("v-button-commit", "save changes")));
     }
 
     /**
@@ -162,14 +161,14 @@ public class ContactsAppUITest extends AbstractMagnoliaUITest {
 
         // Assert subApp is open and all fields in editor are readonly
         // Tab name will contain a version number
-        assertTrue("We expect the editor subApp tab to be open", getTabContainingCaption(contactName).isDisplayed());
+        waitUntil(visibilityOfElementLocated(byTabContainingCaption(contactName)));
         for (WebElement element : inputs) {
             assertEquals("We expect element [" + element.getTagName() + "] to be readonly", "true", element.getAttribute("readonly"));
         }
 
         // WHEN
         // Click back to browser
-        getTabForCaption("Contacts").click();
+        openTabWithCaption("Contacts");
 
         delay("Wait for the browserSubApp to open");
 
@@ -184,13 +183,13 @@ public class ContactsAppUITest extends AbstractMagnoliaUITest {
 
         // THEN
         // Assert fields are editable afterwards
-        assertTrue("We expect the editor subApp tab to be open", getTabContainingCaption(contactName).isDisplayed());
+        waitUntil(visibilityOfElementLocated(byTabContainingCaption(contactName)));
         for (WebElement element : inputsEditable) {
             assertEquals("We expect element [" + element.getTagName() + "] with value [" + element.getAttribute("value") + "] to be editable", null, element.getAttribute("readonly"));
         }
 
         // Assert button "commit" is shown
-        assertTrue("We expect that the 'commit' button is shown", getButton("v-button-commit", "save changes").isDisplayed());
+        waitUntil(visibilityOfElementLocated(byButtonClassnameAndCaption("v-button-commit", "save changes")));
     }
 
 }
