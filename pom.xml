@@ -27,7 +27,7 @@
     <documentationURL>http://documentation.magnolia-cms.com/releases/${project.version}.html</documentationURL>
     <stkVersion>2.8.10</stkVersion>
     <restVersion>1.1.1</restVersion>
-    <damVersion>2.0.12</damVersion>
+    <damVersion>2.0.13-SNAPSHOT</damVersion>
     <scmTagPrefix>magnolia-bundle</scmTagPrefix>
     <!-- Disable clover during releases: -->
     <additionalReleaseProfiles />
