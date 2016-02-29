@@ -38,6 +38,7 @@ import static org.junit.Assert.*;
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -81,6 +82,7 @@ import org.openqa.selenium.WebElement;
  * <li>'Base Path' null && 'File' null</li>
  * </ul></p>
  */
+@Ignore("Ignored until JCRTOOLS-21 was done and app was re-added to the bundle")
 public class JcrToolsUITest extends AbstractMagnoliaUITest {
     By byTextAreaOutput = By.xpath("//*[contains(@class, 'v-slot-smallapp-sections')]/div/div/textarea");
     By byFormatXMLCheckbox = By.xpath("//*[@class = 'v-form-field-label' and text() = 'Format XML']/following-sibling::div[contains(@class,'v-form-field')]");
