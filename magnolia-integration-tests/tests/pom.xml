@@ -3,7 +3,7 @@
   <parent>
     <groupId>info.magnolia.bundle.test</groupId>
     <artifactId>magnolia-integration-tests-parent</artifactId>
-    <version>5.2.12-SNAPSHOT</version>
+    <version>5.2.12</version>
   </parent>
   <groupId>info.magnolia.bundle.test</groupId>
   <artifactId>magnolia-integration-tests</artifactId>
@@ -134,7 +134,7 @@
               <containerId>OVERRIDE ME IN A PROFILE</containerId>
               <type>OVERRIDE ME IN A PROFILE</type>
               <!-- Also specify a :
-              <zipUrlInstaller/> or <artifactInstaller/>
+              <zipUrlInstaller /> or <artifactInstaller />
               -->
               <!-- Specifying empty values for output and log should result in everything being printed in the console.
                    If not, we log to these files:
