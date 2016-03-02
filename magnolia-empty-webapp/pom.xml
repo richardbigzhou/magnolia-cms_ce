@@ -3,7 +3,7 @@
   <parent>
     <groupId>info.magnolia.bundle</groupId>
     <artifactId>magnolia-bundle-parent</artifactId>
-    <version>5.3.14</version>
+    <version>5.3.15-SNAPSHOT</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <groupId>info.magnolia</groupId>
