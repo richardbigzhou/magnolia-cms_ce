@@ -21,13 +21,13 @@
 
   <properties>
     <magnoliaEdition>Community Edition</magnoliaEdition>
-    <magnoliaVersion>5.3.14-SNAPSHOT</magnoliaVersion>
-    <magnoliaUiVersion>5.3.14-SNAPSHOT</magnoliaUiVersion>
+    <magnoliaVersion>5.3.14</magnoliaVersion>
+    <magnoliaUiVersion>5.3.14</magnoliaUiVersion>
     <javaVersion>1.6</javaVersion>
     <documentationURL>http://documentation.magnolia-cms.com/releases/${project.version}.html</documentationURL>
     <stkVersion>2.8.10</stkVersion>
     <restVersion>1.1.1</restVersion>
-    <damVersion>2.0.13-SNAPSHOT</damVersion>
+    <damVersion>2.0.13</damVersion>
     <scmTagPrefix>magnolia-bundle</scmTagPrefix>
     <skipClover>true</skipClover>
     <!-- This project is in "maintenance mode". See http://www.magnolia-cms.com/services/support/maintenance-policy.html for details -->
@@ -94,7 +94,7 @@
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-legacy-admininterface</artifactId>
-        <version>5.2.5-SNAPSHOT</version>
+        <version>5.2.5</version>
       </dependency>
 
       <!-- DAM -->
