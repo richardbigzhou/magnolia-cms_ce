@@ -25,7 +25,7 @@
     <magnoliaUiVersion>5.4.6-SNAPSHOT</magnoliaUiVersion>
     <javaVersion>1.7</javaVersion>
     <documentationURL>http://documentation.magnolia-cms.com/releases/${project.version}.html</documentationURL>
-    <stkVersion>2.9.3</stkVersion>
+    <stkVersion>2.9.4-SNAPSHOT</stkVersion>
     <restVersion>1.1.1</restVersion>
     <restClientVersion>1.0.6</restClientVersion>
     <damVersion>2.1.5-SNAPSHOT</damVersion>
@@ -33,7 +33,7 @@
     <mteVersion>0.10-SNAPSHOT</mteVersion>
     <resourcesVersion>2.4.4</resourcesVersion>
     <imagingVersion>3.2.5</imagingVersion>
-    <siteVersion>1.0.5</siteVersion>
+    <siteVersion>1.0.6-SNAPSHOT</siteVersion>
     <travelDemoVersion>0.11-SNAPSHOT</travelDemoVersion>
     <cacheVersion>5.4.3</cacheVersion>
     <langVersion>1.0.3</langVersion>
@@ -123,7 +123,7 @@
       <dependency>
         <groupId>info.magnolia.task</groupId>
         <artifactId>magnolia-task-management</artifactId>
-        <version>1.1.1</version>
+        <version>1.1.2-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
