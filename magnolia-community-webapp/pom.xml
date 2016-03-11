@@ -132,13 +132,10 @@
       <groupId>info.magnolia.cache</groupId>
       <artifactId>magnolia-cache-browser-app</artifactId>
     </dependency>
-    <!-- JcrTools will be re-added once JCRTOOLS-21 was done -->
-    <!--
     <dependency>
       <groupId>info.magnolia.jcrtools</groupId>
       <artifactId>magnolia-jcr-tools</artifactId>
     </dependency>
-    -->
   </dependencies>
 
   <build>
