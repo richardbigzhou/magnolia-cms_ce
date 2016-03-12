@@ -539,11 +539,11 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
 
     /**
      * Tries to retrieve requested elements.
+     * Tries to retrieve the requested amount of elements matching the given path.
+     * Will retry until the amount matches or until the whole process times out.
      *
      * @param by locator of an element
      * @return a list matching the searched specified element or <code>null</code> in case it couldn't be found.
-     * Tries to retrieve the requested amount of elements matching the given path.
-     * Will retry until the amount matches or until the whole process times out.
      */
     protected List<WebElement> getElements(final By by, final int expectedElementCount) {
         List<WebElement> elements;
@@ -583,10 +583,10 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
 
     /**
      * Tries to retrieve multiple elements.
+     * Will retry until there is at least one match or until the whole process times out.
      *
      * @param by locator of an element
      * @return a list matching the searched specified element or <code>null</code> in case it couldn't be found.
-     * Will retry until there is at least one match or until the whole process times out.
      */
     protected List<WebElement> getElements(final By by) {
         return getElements(by, -1);
@@ -952,6 +952,30 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         getElement(By.xpath("//h3[text() = 'Fields Show-Room Component']")).click();
         getElement(By.xpath("//*[contains(@class, 'focus')]//*[contains(@class, 'icon-edit')]")).click();
         switchToDefaultContent();
+    }
+
+    /**
+     * Create a new page.
+     */
+    protected void addNewPage(String pageName, String pageTitle, String templateType) {
+        getActionBarItem("Add page").click();
+        setFormTextFieldText("Page name", pageName);
+
+        setFormTextAreaFieldText("Page title", pageTitle);
+        if (templateType != null) {
+            getSelectTabElement("Template").click();
+            selectElementOfTabListForLabel(templateType);
+        }
+
+        // make sure field is blurred and changed to avoid validation error (test-only)
+        getFormTextField("Page name").click();
+        delay(1, "make sure there is enough time to process change event");
+
+        // Select
+        getDialogCommitButton().click(); //there might be some required field we don't know off, so just close the page properties dialog
+        waitUntil(dialogIsClosed("Add new page"));
+
+        getDialogCancelButton().click();
     }
 
     /**
@@ -1440,6 +1464,8 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
 
     /**
      * Checks that the dialog with the specified title is closed.
+     *
+     * @param dialogTitle the title of the dialog to be closed or null if any opened dialog should be closed.
      */
     protected ExpectedCondition<Boolean> dialogIsClosed(final String dialogTitle) {
         return elementIsGone(byDialogTitle(dialogTitle));
@@ -1454,6 +1480,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
 
     /**
      * This allow to select multiple web elements matching the given path.
+     *
      * @param path: to list of elements
      * @param expectedElementCount: number of expected elements
      */

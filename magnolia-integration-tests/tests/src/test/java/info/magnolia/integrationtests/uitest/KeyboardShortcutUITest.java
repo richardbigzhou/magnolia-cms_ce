@@ -237,12 +237,14 @@ public class KeyboardShortcutUITest extends AbstractPageEditorUITest {
         setFormTextFieldText("Page name", pageName);
         setFormTextAreaFieldText("Page title", title);
         getSelectTabElement("Template").click();
+
         // Click on selector item.
         selectElementOfTabListForLabel("Redirect");
         delay(3, "give time for change event to proceed");
 
         simulateKeyPress(Keys.RETURN);
-        delay(1, "give time for change event to proceed");
+        waitUntil(dialogIsClosed("Add new page"));
+        getDialogCancelButton().click();
 
         //THEN
         //Check that entry is added.

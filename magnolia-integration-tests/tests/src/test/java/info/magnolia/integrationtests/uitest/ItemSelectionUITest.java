@@ -165,19 +165,15 @@ public class ItemSelectionUITest extends AbstractMagnoliaUITest {
         waitUntil(appIsLoaded());
         assertAppOpen("Pages");
 
-        // add new page
-        getEnabledActionBarItem("Add page").click();
-        setFormTextFieldText("Page name", "foobar");
-
-        // WHEN
-        getDialogConfirmButton().click();
-
-        // THEN
-        assertTrue(isTreeTableItemSelected("foobar"));
-        // cleanup
-        getEnabledActionBarItem("Delete page").click();
-        getDialogCommitButton().click();
-        getEnabledActionBarItem("Publish deletion").click();
+        try {
+            // WHEN
+            addNewPage("foobar", null, null);
+            // THEN
+            assertTrue(isTreeTableItemSelected("foobar"));
+        } catch (Exception e) {
+            // cleanup
+            deleteTreeTableRow("Delete page", "foobar");
+        }
     }
 
     @Test
