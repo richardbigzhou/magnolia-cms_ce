@@ -976,6 +976,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         waitUntil(dialogIsClosed("Add new page"));
 
         getDialogCancelButton().click();
+        delay(1, "make sure there is enough time to process change event");
     }
 
     /**
@@ -1464,8 +1465,6 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
 
     /**
      * Checks that the dialog with the specified title is closed.
-     *
-     * @param dialogTitle the title of the dialog to be closed or null if any opened dialog should be closed.
      */
     protected ExpectedCondition<Boolean> dialogIsClosed(final String dialogTitle) {
         return elementIsGone(byDialogTitle(dialogTitle));
