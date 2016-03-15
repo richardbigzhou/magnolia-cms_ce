@@ -37,10 +37,9 @@ import static org.hamcrest.core.StringContains.containsString;
 import static org.junit.Assert.*;
 import static org.openqa.selenium.support.ui.ExpectedConditions.*;
 
-import java.util.List;
-
 import org.junit.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.slf4j.Logger;
@@ -76,35 +75,10 @@ public class ConfigurationAppUITest extends AbstractMagnoliaUITest {
         final String propertyName = "property";
 
         // WHEN
-        deleteUntitledFolderIfExisting();
-
-        // Create folder and rename it
-        getEnabledActionBarItem("Add folder").click();
-        waitUntil(elementToBeClickable(getTreeTableItem("untitled")));
-
-        getEnabledActionBarItem("Rename item").click();
-        setFormTextFieldText("Name", folderName);
-
-        getDialogCommitButton().click();
-
-        // Create content node and rename it
-        getEnabledActionBarItem("Add content node").click();
-        waitUntil(elementToBeClickable(getTreeTableItem("untitled")));
-
-        getEnabledActionBarItem("Rename item").click();
-        setFormTextFieldText("Name", nodeName);
-
-        getDialogCommitButton().click();
-
-        // Create property and set name & value
-        getEnabledActionBarItem("Add property").click();
-        waitUntil(elementToBeClickable(getEnabledActionBarItem("Edit property")));
-
-        getEnabledActionBarItem("Edit property").click();
-        setFormTextFieldText("Name", propertyName);
-        setFormTextFieldText("Value", unEscapedHTML);
-
-        getDialogCommitButton().click();
+        deleteTableItemIfExisting("untitled");
+        createFolder(folderName);
+        createContentNode(nodeName);
+        createProperty(propertyName, unEscapedHTML);
 
         delay(2, "Wait a second for the image to show up");
 
@@ -138,30 +112,9 @@ public class ConfigurationAppUITest extends AbstractMagnoliaUITest {
 
     @Test
     public void canPublishUnpublishAndDeleteNewNode() {
-
-        getEnabledActionBarItem("Add folder").click();
-        waitUntil(elementToBeClickable(getTreeTableItem("untitled")));
-
-        getEnabledActionBarItem("Rename item").click();
-        setFormTextFieldText("Name", "lvl1");
-        waitUntil(textToBePresentInElementValue(getFormTextField("Name"), "lvl1"));
-        getDialogCommitButton().click();
-
-        getEnabledActionBarItem("Add folder").click();
-        waitUntil(elementToBeClickable(getTreeTableItem("untitled")));
-
-        getEnabledActionBarItem("Rename item").click();
-        setFormTextFieldText("Name", "lvl2");
-        waitUntil(textToBePresentInElementValue(getFormTextField("Name"), "lvl2"));
-        getDialogCommitButton().click();
-
-        getEnabledActionBarItem("Add folder").click();
-        waitUntil(elementToBeClickable(getTreeTableItem("untitled")));
-
-        getEnabledActionBarItem("Rename item").click();
-        setFormTextFieldText("Name", "lvl3");
-        waitUntil(textToBePresentInElementValue(getFormTextField("Name"), "lvl3"));
-        getDialogCommitButton().click();
+        createFolder("lvl1");
+        createFolder("lvl2");
+        createFolder("lvl3");
 
         getEnabledActionBarItem("Add content node").click();
         waitUntil(elementToBeClickable(getTreeTableItem("untitled")));
@@ -191,30 +144,9 @@ public class ConfigurationAppUITest extends AbstractMagnoliaUITest {
 
     @Test
     public void unpublishActionIsDisabledForLvl1Or2Nodes() {
-
-        getEnabledActionBarItem("Add folder").click();
-        waitUntil(elementToBeClickable(getTreeTableItem("untitled")));
-
-        getEnabledActionBarItem("Rename item").click();
-        setFormTextFieldText("Name", "depth1");
-        waitUntil(textToBePresentInElementValue(getFormTextField("Name"), "depth1"));
-        getDialogCommitButton().click();
-
-        getEnabledActionBarItem("Add folder").click();
-        waitUntil(elementToBeClickable(getTreeTableItem("untitled")));
-
-        getEnabledActionBarItem("Rename item").click();
-        setFormTextFieldText("Name", "depth2");
-        waitUntil(textToBePresentInElementValue(getFormTextField("Name"), "depth2"));
-        getDialogCommitButton().click();
-
-        getEnabledActionBarItem("Add folder").click();
-        waitUntil(elementToBeClickable(getTreeTableItem("untitled")));
-
-        getEnabledActionBarItem("Rename item").click();
-        setFormTextFieldText("Name", "depth3");
-        waitUntil(textToBePresentInElementValue(getFormTextField("Name"), "depth3"));
-        getDialogCommitButton().click();
+        createFolder("depth1");
+        createFolder("depth2");
+        createFolder("depth3");
 
         // publish depth1
         refreshTreeView();
@@ -251,17 +183,97 @@ public class ConfigurationAppUITest extends AbstractMagnoliaUITest {
         assertTrue(isTreeTableItemSelected("String"));
     }
 
-    private void deleteUntitledFolderIfExisting() {
-        WebElement untitledFolder = getTreeTableItem("untitled");
-        if (isExisting(untitledFolder)) {
-            untitledFolder.click();
+    @Test
+    public void selectTheFolderAfterRenamingByDoubleClick() throws Exception {
+        // GIVEN
+        createFolder("bar");
+
+        // WHEN
+        renameTableItemByDoubleClick("bar", "baz");
+
+        // THEN
+        assertTrue(isTreeTableItemSelected("baz"));
+    }
+
+    @Test
+    public void selectTheContentNodeAfterRenamingByDoubleClick() throws Exception {
+        // GIVEN
+        createContentNode("qux");
+
+        // WHEN
+        renameTableItemByDoubleClick("qux", "quux");
+
+        // THEN
+        assertTrue(isTreeTableItemSelected("quux"));
+    }
+
+    @Test
+    public void selectThePropertyAfterRenamingByDoubleClick() throws Exception {
+        // GIVEN
+        createFolder("foo");
+        createProperty("bar", "baz");
+
+        // WHEN
+        renameTableItemByDoubleClick("bar", "qux");
+
+        // THEN
+        assertTrue(isTreeTableItemSelected("qux"));
+    }
+
+    private void createFolder(String name) {
+        // Create folder and rename it
+        getEnabledActionBarItem("Add folder").click();
+        waitUntil(elementToBeClickable(getTreeTableItem("untitled")));
+        getEnabledActionBarItem("Rename item").click();
+        setFormTextFieldText("Name", name);
+        waitUntil(textToBePresentInElementValue(getFormTextField("Name"), name));
+        getDialogCommitButton().click();
+        waitUntil(dialogIsClosed("Rename item"));
+    }
+
+    private void createContentNode(String name) {
+        // Create content node and rename it
+        getEnabledActionBarItem("Add content node").click();
+        waitUntil(elementToBeClickable(getTreeTableItem("untitled")));
+        getEnabledActionBarItem("Rename item").click();
+        setFormTextFieldText("Name", name);
+        waitUntil(textToBePresentInElementValue(getFormTextField("Name"), name));
+        getDialogCommitButton().click();
+        waitUntil(dialogIsClosed("Rename item"));
+    }
+
+    private void createProperty(String name, String value) {
+        // Create property and set name & value
+        getEnabledActionBarItem("Add property").click();
+        waitUntil(elementToBeClickable(getEnabledActionBarItem("Edit property")));
+        getEnabledActionBarItem("Edit property").click();
+        setFormTextFieldText("Name", name);
+        waitUntil(textToBePresentInElementValue(getFormTextField("Name"), name));
+        setFormTextFieldText("Value", value);
+        waitUntil(textToBePresentInElementValue(getFormTextField("Value"), value));
+        getDialogCommitButton().click();
+        waitUntil(dialogIsClosed("Edit property"));
+    }
+
+    private void renameTableItemByDoubleClick(String oldName, String newName) {
+        WebElement propertyElement = getTreeTableItem(oldName);
+        doubleClick(propertyElement);
+        WebElement textField = getElementByXpath("//*[contains(@class, 'v-table-cell-wrapper')]/input[@type = 'text']", newName);
+        textField.clear();
+        textField.sendKeys(newName);
+        simulateKeyPress(Keys.RETURN);
+    }
+
+    private void deleteTableItemIfExisting(String name) {
+        WebElement tableItem = getTreeTableItem(name);
+        if (isExisting(tableItem)) {
+            if (!isTreeTableItemSelected(name))
+                tableItem.click();
             getEnabledActionBarItem("Delete item").click();
             getDialogConfirmButton().click();
             delay("Delete might take some time");
             refreshTreeView();
-
-            List<WebElement> rows = getElements(By.xpath(String.format("//*[contains(@class, 'v-table-cell-wrapper') and text() = '%s']", "untitled")), 0);
-            assertTrue(rows.isEmpty());
+            waitUntil(elementIsGone(byTreeTableItem(name)));
         }
     }
 }
