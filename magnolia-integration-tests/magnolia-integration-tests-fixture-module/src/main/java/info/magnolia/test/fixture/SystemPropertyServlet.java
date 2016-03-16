@@ -33,31 +33,51 @@
  */
 package info.magnolia.test.fixture;
 
+import info.magnolia.cms.core.SystemProperty;
+
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import info.magnolia.cms.core.SystemProperty;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
- * Servlet used to toggle system properties.
+ * Servlet used to get or set system properties.
+ *
+ * <p>Parameter properties:</p><ul>
+ * <li><code>name</code>: Name of the property</li>
+ * <li><code>value</code>: Value to set<ul>
+ * <li>If the value is empty, return the current property value.</li>
+ * <li>If the value is not empty, set this value to the property, and return the previous property value.</li></ul></li></ul>
+ *
+ * <p>A call to <code>/.magnolia/sysprop/?name=magnolia.utf8.enabled</code> will most likely return
+ * <code>false</code>.</p>
  */
 public class SystemPropertyServlet extends HttpServlet {
-    private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(SystemPropertyServlet.class);
+
+    private static final Logger log = LoggerFactory.getLogger(SystemPropertyServlet.class);
 
     @Override
-    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void service(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws ServletException, IOException {
+        final String propertyName = httpServletRequest.getParameter("name");
+        final String newValue = httpServletRequest.getParameter("value");
 
-        String name = req.getParameter("name");
-        String value = req.getParameter("value");
+        if (propertyName != null) {
+            final String previousValue = SystemProperty.getProperty(propertyName);
 
-        String previousValue = SystemProperty.getProperty(name);
-        log.info("Changing value of: " + name + " from [" + previousValue + "] to [" + value + "]");
+            if (newValue != null) {
+                log.info("Changing value of property [{}] from [{}] to [{}]", propertyName, previousValue, newValue);
+                SystemProperty.setProperty(propertyName, newValue);
+            }
 
-        SystemProperty.setProperty(name, value);
-
-        resp.getWriter().write(previousValue);
+            if (previousValue != null) {
+                httpServletResponse.getWriter().write(previousValue);
+            }
+        }
     }
+
 }
