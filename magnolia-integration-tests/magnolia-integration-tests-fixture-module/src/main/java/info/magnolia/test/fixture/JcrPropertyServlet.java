@@ -52,14 +52,18 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Servlet that can read and change a property from JCR to verify settings in tests.<br>
- * Parameter properties: <br>
- * - workspace : Name of the target workspace<br>
- * - path : Specify the absolute path in the workspace to the property <br>
- * - value : Value to set to the property <br>
- * -- if the value is empty, return the current property value. <br>
- * -- if the value is not empty, set this value to the property, and return the previous property value. <br>
- * - delete : remove the property (don't forget '=true')
+ * Servlet that can read and change a property from JCR to verify settings in tests.
+ *
+ * <p>Parameter properties:</p><ul>
+ * <li><code>workspace</code>: Name of the target workspace</li>
+ * <li><code>path</code>: Specify the absolute path in the workspace to the property</li>
+ * <li><code>value</code>: Value to set<ul>
+ * <li>If the value is empty, return the current property value.</li>
+ * <li>If the value is not empty, set this value to the property, and return the previous property value.</li></ul></li>
+ * <li><code>delete</code>: Remove the property (don't forget '<code>=true</code>')</li></ul>
+ *
+ * <p>A call to <code>/.magnolia/jcrprop/?workspace=config&path=/server/admin</code> will most likely return
+ * <code>true</code> for an author instance.</p>
  */
 public class JcrPropertyServlet extends HttpServlet {
 
