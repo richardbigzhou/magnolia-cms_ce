@@ -75,6 +75,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.interactions.Keyboard;
 import org.openqa.selenium.logging.LogEntries;
 import org.openqa.selenium.logging.LogEntry;
 import org.openqa.selenium.logging.Logs;
@@ -287,6 +288,10 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         }
 
         return new FirefoxDriver(capabilities);
+    }
+
+    protected Keyboard getKeyboard() {
+        return ((RemoteWebDriver) driver).getKeyboard();
     }
 
     @Before
