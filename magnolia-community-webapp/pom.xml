@@ -133,6 +133,10 @@
       <artifactId>magnolia-cache-browser-app</artifactId>
     </dependency>
     <dependency>
+      <groupId>info.magnolia.log</groupId>
+      <artifactId>magnolia-log-tools</artifactId>
+    </dependency>
+    <dependency>
       <groupId>info.magnolia.jcrtools</groupId>
       <artifactId>magnolia-jcr-tools</artifactId>
     </dependency>
