@@ -61,6 +61,8 @@ public abstract class AbstractMagnoliaIntegrationTest {
      */
     public static final String DEFAULT_DOMAIN = "http://localhost:8299/";
 
+    public static final String SELENIUM_SERVER_HOST_NAME_PROPERTY = "seleniumServerHostName";
+
     /**
      * A simple way of referring to one of the two test instances deployed during ITs.
      */
@@ -111,6 +113,10 @@ public abstract class AbstractMagnoliaIntegrationTest {
         superuser,
         eric,
         peter
+    }
+
+    public boolean isExecutedInVirtualMachine() {
+        return System.getProperty(SELENIUM_SERVER_HOST_NAME_PROPERTY) != null;
     }
 
 }

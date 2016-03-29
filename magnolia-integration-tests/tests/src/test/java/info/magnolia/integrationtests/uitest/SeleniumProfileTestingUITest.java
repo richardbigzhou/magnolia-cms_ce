@@ -34,10 +34,12 @@
 package info.magnolia.integrationtests.uitest;
 
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assume.assumeFalse;
 
 import java.io.File;
 import java.io.IOException;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -51,8 +53,17 @@ public class SeleniumProfileTestingUITest extends AbstractMagnoliaUITest {
 
     private File file;
 
+    @Before
+    public void setUp() {
+        super.setUp();
+
+        // When assumtion fails, all tests will be ignored
+        assumeFalse(isExecutedInVirtualMachine());
+    }
+
     /**
      * This tests the default profile setting of the {@link org.openqa.selenium.WebDriver}.
+     *
      * @see <a href="http://jira.magnolia-cms.com/browse/MAGNOLIA-5672">MAGNOLIA-5672</a>
      */
     @Test
