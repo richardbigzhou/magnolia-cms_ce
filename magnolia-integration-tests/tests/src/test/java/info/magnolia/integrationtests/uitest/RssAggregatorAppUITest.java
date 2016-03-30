@@ -88,6 +88,7 @@ public class RssAggregatorAppUITest extends AbstractMagnoliaUITest {
         getTreeTableItem("untitled").click();
         getEnabledActionBarItem("Delete folder").click();
         getDialogButtonWithCaption("Yes, delete").click();
+        waitUntil(elementIsGone(byDialogButtonWithCaption("Yes, delete")));
 
         // WHEN
         getEnabledActionBarItem("Publish deletion").click();
