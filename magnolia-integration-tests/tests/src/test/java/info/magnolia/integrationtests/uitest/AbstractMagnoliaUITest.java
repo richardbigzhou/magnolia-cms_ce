@@ -1125,6 +1125,14 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
     }
 
     /**
+     * Moves to specified web element.
+     */
+    protected void moveToElement(final WebElement element) {
+        Actions moveToElementAction = new Actions(driver);
+        moveToElementAction.moveToElement(element).click().perform();
+    }
+
+    /**
      * Navigates browser to specified url.
      */
     protected void navigateDriverTo(String url) {

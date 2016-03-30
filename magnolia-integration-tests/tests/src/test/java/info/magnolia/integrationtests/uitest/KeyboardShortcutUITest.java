@@ -241,7 +241,10 @@ public class KeyboardShortcutUITest extends AbstractPageEditorUITest {
 
         // Click on selector item.
         selectElementOfTabListForLabel("Redirect");
-        delay(3, "give time for change event to proceed");
+
+        // We move back to the page name input field, so return is triggered more easily
+        // Selenium might get hiccups when stuck in the select field
+        moveToElement(getFormTextField("Page name"));
 
         simulateKeyPress(Keys.RETURN);
         waitUntil(dialogIsClosed("Add new page"));
