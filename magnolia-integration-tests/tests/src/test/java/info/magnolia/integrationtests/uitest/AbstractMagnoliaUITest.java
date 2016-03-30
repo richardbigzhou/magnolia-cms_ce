@@ -705,8 +705,12 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         return getNativeButton(DEFAULT_NATIVE_BUTTON_CLASS);
     }
 
+    protected By byDialogButtonWithCaption(final String caption) {
+        return getElementLocatorByXpath("//div[.='%s']", caption);
+    }
+
     protected WebElement getDialogButtonWithCaption(final String caption) {
-        return getElementByXpath("//div[.='%s']", caption);
+        return getElement(byDialogButtonWithCaption(caption));
     }
 
     protected WebElement getButton(String classname, String caption) {
