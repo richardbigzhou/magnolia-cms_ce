@@ -77,7 +77,7 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
 
         // PERFORM AND PUBLISH THE FIRST MODIFICATION (V1)
         // Make changes on an article and check publication status and available actions
-        modifyATextImageContentAndCheckStatusAndAction("Subheading V1", "Image Caption", false);
+        modifyATextImageContentAndCheckStatusAndAction("Subheading V1", "Image Caption");
         // Publish modification
         publishAndCheckAuthorAndPublic("Subheading V1", "Image Caption", article, pathToArticle);
 
@@ -372,6 +372,7 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
         getElementByXpath("//div[contains(@class, 'area')]//div[@title='%s']", areaName).click();
         switchToDefaultContent();
         getActionBarItem("Add component").click();
+        waitUntil(dialogIsOpen("Create new component"));
         getSelectTabElement("Component").click();
         selectElementOfTabListForLabel(componentName);
 
@@ -392,23 +393,30 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
      * @param newSubheadingValue New value of the Subheading field.
      * @param newImageCaptionValue New value of the image caption.
      */
-    protected void modifyATextImageContentAndCheckStatusAndAction(String newSubheadingValue, String newImageCaptionValue, boolean hasAlreadyVersions) {
+    protected void modifyATextImageContentAndCheckStatusAndAction(String newSubheadingValue, String newImageCaptionValue, Boolean hasAlreadyVersions) {
         // Change content
         changeTextImageContent(newSubheadingValue, newImageCaptionValue);
 
-        if (hasAlreadyVersions) {
-            // Check available actions
-            checkEnabledActions(PUBLISH_PAGE_ACTION, UNPUBLISH_PAGE_ACTION, SHOW_VERSIONS_ACTION);
-            // Check non available actions
-            checkDisabledActions(PUBLISH_INCLUDING_SUBPAGES_ACTION);
-        } else {
-            // Check available actions
-            checkEnabledActions(PUBLISH_PAGE_ACTION, UNPUBLISH_PAGE_ACTION);
-            // Check non available actions
-            checkDisabledActions(SHOW_VERSIONS_ACTION, PUBLISH_INCLUDING_SUBPAGES_ACTION);
+        if (hasAlreadyVersions != null) {
+            if (hasAlreadyVersions) {
+                // Check available actions
+                checkEnabledActions(PUBLISH_PAGE_ACTION, UNPUBLISH_PAGE_ACTION, SHOW_VERSIONS_ACTION);
+                // Check non available actions
+                checkDisabledActions(PUBLISH_INCLUDING_SUBPAGES_ACTION);
+            } else {
+                // Check available actions
+                checkEnabledActions(PUBLISH_PAGE_ACTION, UNPUBLISH_PAGE_ACTION);
+                // Check non available actions
+                checkDisabledActions(SHOW_VERSIONS_ACTION, PUBLISH_INCLUDING_SUBPAGES_ACTION);
+            }
         }
+
         // Check the status
         assertThat(getSelectedActivationStatusIcon().getAttribute("class"), containsString(COLOR_YELLOW_ICON_STYLE));
+    }
+
+    protected void modifyATextImageContentAndCheckStatusAndAction(String newSubheadingValue, String newImageCaptionValue) {
+        modifyATextImageContentAndCheckStatusAndAction(newSubheadingValue, newImageCaptionValue, null);
     }
 
     /**
@@ -422,6 +430,8 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
     protected void changeTextImageContent(String newSubheadingValue, String newImageCaptionValue) {
         // Edit content (open an Edit sub app)
         getActionBarItem(EDIT_PAGE_ACTION).click();
+        waitUntil(appIsLoaded());
+
         switchToPageEditorContent();
         // Open Text Image Content Form
 
