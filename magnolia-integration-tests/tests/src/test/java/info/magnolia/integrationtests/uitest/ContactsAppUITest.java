@@ -59,12 +59,17 @@ public class ContactsAppUITest extends AbstractMagnoliaUITest {
 
         getTreeTableItem(contactName).click();
         getActionBarItem("Edit contact").click();
+        waitUntil(visibilityOfElementLocated(byDialogTitle("Edit contact")));
+        delay(1, "Waiting until the dialog is open might not be enough");
+
         openTabWithCaption("Contact details");
 
         setFormTextFieldText("E-Mail address", testEmailAddr);
         getFormTextField("Website").click();
-        delay(1, "give time for change event to proceed");
+        delay(1, "Give time for change event to proceed");
         getDialogCommitButton().click();
+        waitUntil(dialogIsClosed("Edit contact"));
+        delay(1, "Waiting until the dialog is closed might not be enough");
 
         // Assert showVersions is disabled beforehand
         waitUntil(visibilityOfElementLocated(byDisabledActionBarItem("Show versions")));
