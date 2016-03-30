@@ -844,8 +844,12 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         waitUntil(shellAppIsLoaded(ShellApp.APPLAUNCHER));
     }
 
+    protected By byErrorNotificationCloser() {
+        return By.className("close-error");
+    }
+
     protected void closeErrorNotification() {
-        getElement(By.className("close-error")).click();
+        getElement(byErrorNotificationCloser()).click();
     }
 
     protected void closeInfoNotification() {

@@ -87,6 +87,7 @@ public class AdmincentralUITest extends AbstractMagnoliaUITest {
         // THEN
         assertTrue(getElement(By.xpath(String.format("//span[text() = '%s']", messageTitle))).isDisplayed());
         closeErrorNotification();
+        waitUntil(elementIsGone(byErrorNotificationCloser()));
         closeApp();
     }
 
@@ -94,11 +95,13 @@ public class AdmincentralUITest extends AbstractMagnoliaUITest {
     public void assureAppLauncherDoesNotGoBlank() {
         // GIVEN
         getAppIcon("Pages").click();
+        waitUntil(appIsLoaded());
         closeApp();
         toLandingPage();
 
         // WHEN
         getAppIcon("Pages").click();
+        waitUntil(appIsLoaded());
         closeApp();
 
         // THEN
