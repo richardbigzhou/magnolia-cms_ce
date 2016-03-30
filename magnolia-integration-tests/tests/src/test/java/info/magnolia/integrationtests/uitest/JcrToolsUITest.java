@@ -99,6 +99,9 @@ public class JcrToolsUITest extends AbstractMagnoliaUITest {
     public void dumperIssuesSuccessNotificationAndProvidesValidResultWithSwitchedWorkspaceAndValidBasePath() {
         // GIVEN
         openTabWithCaption("Dumper");
+        waitUntil(visibilityOfElementLocated(byTabContainingCaption("Dumper")));
+        delay(1, "Wait until transitions are done");
+
         getSelectTabElement("Workspace").click();
         selectElementOfTabListForLabel("config");
 
@@ -135,7 +138,8 @@ public class JcrToolsUITest extends AbstractMagnoliaUITest {
 
         // WHEN
         // THEN
-        assertEquals("Level is not a valid value", getFormFieldError().getText());
+        waitUntil(visibilityOfElementLocated(byFormFieldValidationMessage()));
+        assertThat(getFormFieldError().getText(), is("Level is not a valid value"));
     }
 
     @Test
@@ -145,7 +149,8 @@ public class JcrToolsUITest extends AbstractMagnoliaUITest {
 
         // WHEN
         // THEN
-        assertEquals("This field is required.", getFormFieldError().getText());
+        waitUntil(visibilityOfElementLocated(byFormFieldValidationMessage()));
+        assertThat(getFormFieldError().getText(), is("This field is required."));
     }
 
     @Test
@@ -155,6 +160,7 @@ public class JcrToolsUITest extends AbstractMagnoliaUITest {
 
         // WHEN
         // THEN
+        waitUntil(visibilityOfElementLocated(byFormFieldValidationMessage()));
         assertThat(getFormFieldError().getText(), containsString("That Base Path does not exist. Please try again."));
     }
 
@@ -165,6 +171,7 @@ public class JcrToolsUITest extends AbstractMagnoliaUITest {
 
         // WHEN
         // THEN
+        waitUntil(visibilityOfElementLocated(byFormFieldValidationMessage()));
         assertThat(getFormFieldError().getText(), containsString("Could not convert value to Long"));
     }
 
@@ -175,7 +182,8 @@ public class JcrToolsUITest extends AbstractMagnoliaUITest {
 
         // WHEN
         // THEN
-        assertEquals("This field is required.", getFormFieldError().getText());
+        waitUntil(visibilityOfElementLocated(byFormFieldValidationMessage()));
+        assertThat(getFormFieldError().getText(), is("This field is required."));
     }
 
     @Test
@@ -185,7 +193,8 @@ public class JcrToolsUITest extends AbstractMagnoliaUITest {
 
         // WHEN
         // THEN
-        assertEquals("Level is not a valid value", getFormFieldError().getText());
+        waitUntil(visibilityOfElementLocated(byFormFieldValidationMessage()));
+        assertThat(getFormFieldError().getText(), is("Level is not a valid value"));
     }
 
     /**
@@ -198,7 +207,8 @@ public class JcrToolsUITest extends AbstractMagnoliaUITest {
 
         // WHEN
         // THEN
-        assertEquals("This field is required.", getFormFieldError().getText());
+        waitUntil(visibilityOfElementLocated(byFormFieldValidationMessage()));
+        assertThat(getFormFieldError().getText(), is("This field is required."));
     }
 
     @Test
@@ -208,7 +218,8 @@ public class JcrToolsUITest extends AbstractMagnoliaUITest {
 
         // WHEN
         // THEN
-        assertEquals("This field is required.", getFormFieldError().getText());
+        waitUntil(visibilityOfElementLocated(byFormFieldValidationMessage()));
+        assertThat(getFormFieldError().getText(), is("This field is required."));
     }
 
     @Test
@@ -218,7 +229,8 @@ public class JcrToolsUITest extends AbstractMagnoliaUITest {
 
         // WHEN
         // THEN
-        assertEquals("This field is required.", getFormFieldError().getText());
+        waitUntil(visibilityOfElementLocated(byFormFieldValidationMessage()));
+        assertThat(getFormFieldError().getText(), is("This field is required."));
     }
 
     @Test
@@ -228,7 +240,8 @@ public class JcrToolsUITest extends AbstractMagnoliaUITest {
 
         // WHEN
         // THEN
-        assertEquals("This field is required.", getFormFieldError().getText());
+        waitUntil(visibilityOfElementLocated(byFormFieldValidationMessage()));
+        assertThat(getFormFieldError().getText(), is("This field is required."));
     }
 
     @Test
@@ -238,7 +251,8 @@ public class JcrToolsUITest extends AbstractMagnoliaUITest {
 
         // WHEN
         // THEN
-        assertEquals("This field is required.", getFormFieldError().getText());
+        waitUntil(visibilityOfElementLocated(byFormFieldValidationMessage()));
+        assertThat(getFormFieldError().getText(), is("This field is required."));
     }
 
     @Test
@@ -303,6 +317,7 @@ public class JcrToolsUITest extends AbstractMagnoliaUITest {
 
         // WHEN
         // THEN
+        waitUntil(visibilityOfElementLocated(byFormFieldValidationMessage()));
         assertThat(getFormFieldError().getText(), containsString("This field is required."));
     }
 
@@ -316,6 +331,7 @@ public class JcrToolsUITest extends AbstractMagnoliaUITest {
 
         // WHEN
         // THEN
+        waitUntil(visibilityOfElementLocated(byFormFieldValidationMessage()));
         assertThat(getFormFieldError().getText(), containsString("This field is required."));
     }
 
@@ -326,6 +342,7 @@ public class JcrToolsUITest extends AbstractMagnoliaUITest {
 
         // WHEN
         // THEN
+        waitUntil(visibilityOfElementLocated(byFormFieldValidationMessage()));
         assertThat(getFormFieldError().getText(), containsString("That Base Path does not exist. Please try again."));
     }
 
@@ -339,6 +356,7 @@ public class JcrToolsUITest extends AbstractMagnoliaUITest {
 
         // WHEN
         // THEN
+        waitUntil(visibilityOfElementLocated(byFormFieldValidationMessage()));
         assertThat(getFormFieldError().getText(), containsString("That Base Path does not exist. Please try again."));
     }
 
@@ -346,6 +364,9 @@ public class JcrToolsUITest extends AbstractMagnoliaUITest {
     public void exporterIssuesSuccessNotificationWithDefaultBasePathAndFormatXMLNotChecked() {
         // GIVEN
         openTabWithCaption("Exporter");
+        waitUntil(visibilityOfElementLocated(byTabContainingCaption("Exporter")));
+        delay(1, "Wait until transitions are done");
+
         getButton("v-button-commit", "Execute").click();
 
         // WHEN
@@ -380,7 +401,8 @@ public class JcrToolsUITest extends AbstractMagnoliaUITest {
 
         // WHEN
         // THEN
-        assertEquals("This field is required.", getFormFieldError().getText());
+        waitUntil(visibilityOfElementLocated(byFormFieldValidationMessage()));
+        assertThat(getFormFieldError().getText(), is("This field is required."));
     }
 
     @Test
@@ -390,6 +412,7 @@ public class JcrToolsUITest extends AbstractMagnoliaUITest {
 
         // WHEN
         // THEN
+        waitUntil(visibilityOfElementLocated(byFormFieldValidationMessage()));
         assertThat(getFormFieldError().getText(), containsString("That Base Path does not exist. Please try again."));
     }
 
@@ -397,15 +420,20 @@ public class JcrToolsUITest extends AbstractMagnoliaUITest {
     public void importerIssuesRequiredWarningWithDefaultBasePathAndNullFile() {
         // GIVEN
         openTabWithCaption("Importer");
+        waitUntil(visibilityOfElementLocated(byTabContainingCaption("Importer")));
+        delay(1, "Wait until transitions are done");
+
         getButton("v-button-commit", "Execute").click();
 
         // WHEN
         // THEN
-        assertEquals("This field is required.", getFormFieldError().getText());
+        waitUntil(visibilityOfElementLocated(byFormFieldValidationMessage()));
+        assertThat(getFormFieldError().getText(), is("This field is required."));
     }
 
     private void populateFormFieldsAndSubmitForm(final String subAppName, final String fieldType, final String fieldKey, final String fieldValue) {
         openTabWithCaption(subAppName);
+        waitUntil(visibilityOfElementLocated(byTabContainingCaption(subAppName)));
 
         if (fieldType.equals("TextField")) {
             setFormTextFieldText(fieldKey, fieldValue);
@@ -418,6 +446,7 @@ public class JcrToolsUITest extends AbstractMagnoliaUITest {
 
     private void populateQueryFormFieldsAndSubmitForm(final String textFieldText, final String textAreaFieldText) {
         openTabWithCaption("Query");
+        waitUntil(visibilityOfElementLocated(byTabContainingCaption("Query")));
         setFormTextFieldText("Result Item Type", textFieldText);
         setFormTextAreaFieldText("Statement", textAreaFieldText);
         getButton("v-button-commit", "Execute").click();

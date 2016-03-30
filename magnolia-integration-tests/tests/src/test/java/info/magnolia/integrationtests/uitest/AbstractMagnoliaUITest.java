@@ -877,8 +877,12 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         return getFormErrorHeader().findElement(By.xpath("//*[contains(@class, 'action-jump-to-next-error')]"));
     }
 
+    protected By byFormFieldValidationMessage() {
+        return By.xpath("//*[contains(@class, 'validation-message')]");
+    }
+
     protected WebElement getFormFieldError() {
-        return getElementByXpath("//*[contains(@class, 'validation-message')]");
+        return getElement(byFormFieldValidationMessage());
     }
 
     /**
