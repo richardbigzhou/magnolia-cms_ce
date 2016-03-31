@@ -33,6 +33,7 @@
  */
 package info.magnolia.integrationtests.uitest;
 
+import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
 import static org.openqa.selenium.support.ui.ExpectedConditions.*;
 
@@ -349,6 +350,152 @@ public class KeyboardShortcutUITest extends AbstractPageEditorUITest {
         //Check that editor is not closed
         WebElement fieldToCheck = getFormTextAreaField("Street address");
         assertTrue("ENTER key should not have closed the DetailEditor subapp when TextArea has focus.", isExisting(fieldToCheck));
+    }
+
+    @Test
+    public void itemCanBeEditedAfterCreation() throws Exception {
+        // GIVEN
+        getAppIcon("Configuration").click();
+        waitUntil(appIsLoaded());
+        assertAppOpen("Configuration");
+
+        getActionBarItem("Add content node").click();
+        delay(1, "Wait for node creation");
+
+        // WHEN
+        getKeyboard().pressKey(Keys.ENTER);
+        delay(1, "Wait for key press");
+        getEditedElement().sendKeys("newContentNode");
+        delay(1, "Wait for key press");
+        getKeyboard().pressKey(Keys.ENTER);
+        delay(1, "Wait for key press");
+
+        // THEN
+        assertTrue(isTreeTableItemSelected("newContentNode"));
+        // cleanup
+        getActionBarItem("Delete item").click();
+        getDialogConfirmButton().click();
+    }
+
+    @Test
+    public void focusIsNotLostIfThereIsNotAnotherItemToEdit() throws Exception {
+        // GIVEN
+        getAppIcon("Configuration").click();
+        waitUntil(appIsLoaded());
+        assertAppOpen("Configuration");
+
+        getTreeTableItem("server").click();
+
+        // WHEN
+        getKeyboard().pressKey(Keys.chord(Keys.SHIFT, Keys.TAB));
+        delay(1, "Wait for key press");
+
+        // THEN
+        // make sure server node is still selected
+        assertTrue(isTreeTableItemSelected("server"));
+
+        // WHEN
+        getKeyboard().pressKey(Keys.ENTER);
+        delay(1, "Wait for key press");
+
+        // THEN
+        // check if we're in inline editing mode
+        assertThat(getEditedElement().getTagName(), is("input"));
+    }
+
+    @Test
+    public void selectionIsOnCorrectRowWhenCyclingUsingTab() throws Exception {
+        // GIVEN
+        getAppIcon("Configuration").click();
+        waitUntil(appIsLoaded());
+        assertAppOpen("Configuration");
+
+        getTreeTableItemExpander("server").click();
+        getTreeTableItem("server").click();
+        getTreeTableItem("admin").click();
+
+        // WHEN
+        // edit admin property and cycle 3 times using tab
+        getKeyboard().pressKey(Keys.ENTER);
+        delay(1, "Wait for key press");
+        getKeyboard().pressKey(Keys.TAB);
+        delay(1, "Wait for key press");
+        getKeyboard().pressKey(Keys.TAB);
+        delay(1, "Wait for key press");
+        getKeyboard().pressKey(Keys.TAB);
+        delay(1, "Wait for key press");
+        getKeyboard().pressKey(Keys.ENTER);
+
+        // THEN
+        assertTrue(isTreeTableItemSelected("defaultBaseUrl"));
+
+        // WHEN
+        // now cycle back to admin property
+        getKeyboard().pressKey(Keys.ENTER);
+        delay(1, "Wait for key press");
+        getKeyboard().pressKey(Keys.chord(Keys.SHIFT, Keys.TAB));
+        delay(1, "Wait for key press");
+        getKeyboard().pressKey(Keys.chord(Keys.SHIFT, Keys.TAB));
+        delay(1, "Wait for key press");
+        getKeyboard().pressKey(Keys.chord(Keys.SHIFT, Keys.TAB));
+        delay(1, "Wait for key press");
+        getKeyboard().pressKey(Keys.ENTER);
+        delay(1, "Wait for key press");
+
+        // THEN
+        assertTrue(isTreeTableItemSelected("admin"));
+    }
+
+    @Test
+    public void itIsPossibleToCycleBetweenPropertiesAndNodes() throws Exception {
+        // GIVEN
+        getAppIcon("Configuration").click();
+        waitUntil(appIsLoaded());
+        assertAppOpen("Configuration");
+
+        getTreeTableItemExpander("server").click();
+        getTreeTableItem("server").click();
+        getTreeTableItem("admin").click();
+
+        // WHEN
+        // cycle back to auditLogging node
+        getKeyboard().pressKey(Keys.ENTER);
+        delay(1, "Wait for key press");
+        getKeyboard().pressKey(Keys.chord(Keys.SHIFT, Keys.TAB));
+        delay(1, "Wait for key press");
+        getKeyboard().pressKey(Keys.chord(Keys.SHIFT, Keys.TAB));
+        delay(1, "Wait for key press");
+        getKeyboard().pressKey(Keys.chord(Keys.SHIFT, Keys.TAB));
+        delay(1, "Wait for key press");
+        getKeyboard().pressKey(Keys.ENTER);
+        delay(1, "Wait for key press");
+
+        // THEN
+        assertTrue(isTreeTableItemSelected("auditLogging"));
+
+        // WHEN
+        // now cycle back to admin property
+        getKeyboard().pressKey(Keys.ENTER);
+        delay(1, "Wait for key press");
+        getKeyboard().pressKey(Keys.TAB);
+        delay(1, "Wait for key press");
+        getKeyboard().pressKey(Keys.TAB);
+        delay(1, "Wait for key press");
+        getKeyboard().pressKey(Keys.TAB);
+        delay(1, "Wait for key press");
+        getKeyboard().pressKey(Keys.ENTER);
+        delay(1, "Wait for key press");
+
+        // THEN
+        assertTrue(isTreeTableItemSelected("admin"));
+    }
+
+    private WebElement getEditedElement() {
+        return getElement(By.xpath("//input[@type='text' and contains(@class, 'v-textfield v-widget v-has-width v-has-height')]"));
+    }
+
+    private WebElement getNextSiblingOfEditedElement() {
+        return getEditedElement().findElement(By.xpath("../..")).findElement(By.xpath("following-sibling::*[1]"));
     }
 
     /**
