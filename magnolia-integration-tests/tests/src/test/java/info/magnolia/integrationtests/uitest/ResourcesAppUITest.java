@@ -280,25 +280,31 @@ public class ResourcesAppUITest extends AbstractMagnoliaUITest {
 
     private void setUpStructureFor(List<String> folders, List<String> files) {
         for (String folder : folders) {
-            delay("Let folder to be created");
             createFolderFor(folder);
+
+            delay("Folder creation might take some time");
         }
 
-        String lastFolderName = folders.get(folders.size() - 1);
+        final String lastFolderName = folders.get(folders.size() - 1);
         for (String file : files) {
+            // Created folder needs to be selected
             if (!isTreeTableItemSelected(lastFolderName)) {
                 getTreeTableItem(lastFolderName).click();
             }
-            delay("Let file to be created");
             createFileFor(file);
+
+            waitUntil(elementToBeClickable(byTreeTableItem(file)));
+            delay("File creation might take some time");
         }
 
         expandTreeAndSelectAnElement(Iterables.getLast(files), Iterables.getLast(folders));
+
         delay("Let structure to initialize");
     }
 
     private void createFileFor(String fileName) {
         getEnabledActionBarItem("Add file").click();
+        waitUntil(dialogIsOpen("Add resource file"));
         setFormTextFieldText("File name", fileName);
         getDialogCommitButton().click();
         waitUntil(appIsLoaded());
@@ -308,6 +314,7 @@ public class ResourcesAppUITest extends AbstractMagnoliaUITest {
 
     private void createFolderFor(String folderName) {
         getEnabledActionBarItem("Add folder").click();
+        waitUntil(dialogIsOpen("Add folder"));
         setFormTextFieldText("Folder name", folderName);
         getDialogCommitButton().click();
         waitUntil(dialogIsClosed("Add folder"));
