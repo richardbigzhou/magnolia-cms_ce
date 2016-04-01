@@ -42,6 +42,7 @@ import java.io.IOException;
 import java.util.List;
 
 import org.junit.After;
+import org.junit.Assume;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -106,6 +107,8 @@ public class LogToolsAppUITest extends AbstractMagnoliaUITest {
 
     @Test
     public void downloadSingleLogFile() throws IOException {
+        Assume.assumeFalse(isExecutedInVirtualMachine());
+
         // GIVEN
         goToSubApp(LOG_LIST);
 
@@ -121,6 +124,8 @@ public class LogToolsAppUITest extends AbstractMagnoliaUITest {
 
     @Test
     public void downloadMultipleLogFiles() throws IOException {
+        Assume.assumeFalse(isExecutedInVirtualMachine());
+
         // GIVEN
         goToSubApp(LOG_LIST);
 
