@@ -568,12 +568,12 @@ public class SecurityAppUITest extends AbstractMagnoliaUITest {
         getEnabledActionBarItem(getAddItemActionName(itemTypeCaption)).click();
         sendKeysToDialogField(getItemNameFieldLabel(itemTypeCaption), itemName);
         getDialogCommitButton().click();
+        waitUntil(dialogIsClosed(getItemNameFieldLabel(itemTypeCaption)));
+        delay(1, "Let the dialog close properly");
         // de-select created item
         if (isTreeTableItemSelected(itemName)) {
             getTreeTableItem(itemName).click();
         }
-        waitUntil(dialogIsClosed(getItemNameFieldLabel(itemTypeCaption)));
-        waitUntil(elementToBeClickable(getTreeTableItem(itemName)));
     }
 
     private void openSecuritySubApp(String subAppName) {
