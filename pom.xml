@@ -200,7 +200,7 @@
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-groovy</artifactId>
-        <version>2.4.4-SNAPSHOT</version>
+        <version>2.4.4</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia.activation</groupId>
