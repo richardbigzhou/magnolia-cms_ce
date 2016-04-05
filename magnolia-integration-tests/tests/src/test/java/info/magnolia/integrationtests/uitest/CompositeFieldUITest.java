@@ -103,7 +103,6 @@ public class CompositeFieldUITest extends AbstractI18nEnabledUITest {
         waitUntil(languageSwitched("en"));
 
         textValuePrefix = " en ";
-        getMultiFieldComponentTextElement("Text 2", 1).click();
         assertEquals("no I18n", getCompositeTextFieldValue("Name (no I18n)").getAttribute("value"));
         assertEquals(textValuePrefix + "value 1", getMultiFieldComponentTextElement("Text 2", 1).getAttribute("value"));
         assertEquals(textValuePrefix + "value 111", getMultiFieldInnerText(subFieldName, 1, 1).getAttribute("value"));
@@ -120,7 +119,6 @@ public class CompositeFieldUITest extends AbstractI18nEnabledUITest {
         waitUntil(languageSwitched("de"));
 
         textValuePrefix = " de ";
-        getMultiFieldComponentTextElement("Text 2", 1).click();
         assertEquals("no I18n", getCompositeTextFieldValue("Name (no I18n)").getAttribute("value"));
         assertEquals(textValuePrefix + "value 1", getMultiFieldComponentTextElement("Text 2", 1).getAttribute("value"));
         assertEquals(textValuePrefix + "value 111", getMultiFieldInnerText(subFieldName, 1, 1).getAttribute("value"));
@@ -138,7 +136,6 @@ public class CompositeFieldUITest extends AbstractI18nEnabledUITest {
 
         // THEN - Check that all values entered in STEP 1 and STEP 2 are correctly displayed after the STEP 3
         textValuePrefix = " en ";
-        getMultiFieldComponentTextElement("Text 2", 1).click();
         assertEquals("no I18n", getCompositeTextFieldValue("Name (no I18n)").getAttribute("value"));
         assertEquals(textValuePrefix + "value 1", getMultiFieldComponentTextElement("Text 2", 1).getAttribute("value"));
         assertEquals(textValuePrefix + "value 111", getMultiFieldInnerText(subFieldName, 1, 1).getAttribute("value"));
@@ -154,7 +151,6 @@ public class CompositeFieldUITest extends AbstractI18nEnabledUITest {
         waitUntil(languageSwitched("de"));
 
         textValuePrefix = " de ";
-        getMultiFieldComponentTextElement("Text 2", 1).click();
         assertEquals("no I18n", getCompositeTextFieldValue("Name (no I18n)").getAttribute("value"));
         assertEquals(textValuePrefix + "value 1", getMultiFieldComponentTextElement("Text 2", 1).getAttribute("value"));
         assertEquals(textValuePrefix + "value 111", getMultiFieldInnerText(subFieldName, 1, 1).getAttribute("value"));
@@ -198,7 +194,6 @@ public class CompositeFieldUITest extends AbstractI18nEnabledUITest {
         // THEN - Check all values entered at the STEP 4
 
         textValuePrefix = " en ";
-        getMultiFieldComponentTextElement("Text 2", 1).click();
         assertEquals("no I18n", getCompositeTextFieldValue("Name (no I18n)").getAttribute("value"));
         assertEquals(textValuePrefix + "value 1", getMultiFieldComponentTextElement("Text 2", 1).getAttribute("value"));
         assertEquals(textValuePrefix + "value 111", getMultiFieldInnerText(subFieldName, 1, 1).getAttribute("value"));
@@ -233,7 +228,6 @@ public class CompositeFieldUITest extends AbstractI18nEnabledUITest {
         waitUntil(languageSwitched("en"));
 
         textValuePrefix = " en ";
-        getMultiFieldComponentTextElement("Text 2", 1).click();
         assertEquals("no I18n", getCompositeTextFieldValue("Name (no I18n)").getAttribute("value"));
         assertEquals(textValuePrefix + "value 1", getMultiFieldComponentTextElement("Text 2", 1).getAttribute("value"));
         assertEquals(textValuePrefix + "value 111", getMultiFieldInnerText(subFieldName, 1, 1).getAttribute("value"));
