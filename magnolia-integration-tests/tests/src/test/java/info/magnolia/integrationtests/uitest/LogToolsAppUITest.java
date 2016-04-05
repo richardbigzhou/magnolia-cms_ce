@@ -198,10 +198,13 @@ public class LogToolsAppUITest extends AbstractMagnoliaUITest {
     // utils
 
     @After
-    public void tearDown() {
+    @Override
+    public void tearDown() throws Throwable {
         if (file != null && file.exists()) {
             file.delete();
         }
+
+        super.tearDown();
     }
 
     private void assertPatternIsInAllColumnRows(String xPathSelector, String searchPattern, boolean lowerCase) {
