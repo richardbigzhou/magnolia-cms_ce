@@ -34,6 +34,7 @@
 package info.magnolia.integrationtests.uitest;
 
 import static org.junit.Assert.*;
+import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
 
 import org.junit.Ignore;
 import org.junit.Test;
@@ -49,6 +50,9 @@ public class ComplexFieldUITest extends AbstractPageEditorUITest {
         String fieldName = "Date List Field";
         goToDialogShowRoomAndOpenDialogComponent("ftl");
         openTabWithCaption("Multi Fields");
+        waitUntil(visibilityOfElementLocated(byTabContainingCaption("Multi Fields")));
+        delay(1, "We wait another second for transitions to finish");
+
         // Add a element to the multifield
         getMultiFieldAddButton(fieldName, "Add").click();
         setMultiFieldElementValueAt(fieldName, 1, "2013-08-20");
@@ -105,6 +109,9 @@ public class ComplexFieldUITest extends AbstractPageEditorUITest {
         String fieldName = "Composite Multi Field";
         goToDialogShowRoomAndOpenDialogComponent("ftl");
         openTabWithCaption("Multi Fields");
+        waitUntil(visibilityOfElementLocated(byTabContainingCaption("Multi Fields")));
+        delay(1, "We wait another second for transitions to finish");
+
         // Add a element to the multifield
         getMultiFieldAddButton(fieldName, "Add").click();
         setMultiFieldElementValueAt(fieldName, 1, "text 1");

@@ -34,6 +34,7 @@
 package info.magnolia.integrationtests.uitest;
 
 import static org.junit.Assert.*;
+import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
 
 import java.net.URL;
 import java.text.NumberFormat;
@@ -105,6 +106,9 @@ public class SimpleFieldUITest extends AbstractMagnoliaUITest {
         // GIVEN
         goToDialogShowRoomAndOpenDialogComponent("ftl");
         openTabWithCaption("Link and Date");
+        waitUntil(visibilityOfElementLocated(byTabContainingCaption("Link and Date")));
+        delay(1, "We wait another second for transitions to finish");
+
         getNativeButton().click();
         getTreeTableItem("demo-project").click();
 
@@ -169,6 +173,7 @@ public class SimpleFieldUITest extends AbstractMagnoliaUITest {
         waitUntil(appIsLoaded());
         getTreeTableItem("ftl-sample-site").click();
         getActionBarItem("Edit page").click();
+        waitUntil(appIsLoaded());
 
         // select footer about text component
         switchToPageEditorContent();
@@ -208,6 +213,8 @@ public class SimpleFieldUITest extends AbstractMagnoliaUITest {
         // GIVEN
         goToDialogShowRoomAndOpenDialogComponent("ftl");
         openTabWithCaption("Selections");
+        waitUntil(visibilityOfElementLocated(byTabContainingCaption("Selections")));
+        delay(1, "We wait another second for transitions to finish");
 
         WebElement select = getFormField("Select");
 

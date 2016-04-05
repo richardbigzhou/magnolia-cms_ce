@@ -36,12 +36,14 @@ package info.magnolia.integrationtests.uitest;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
+import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
 import org.junit.After;
+import org.junit.Assume;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -106,6 +108,8 @@ public class LogToolsAppUITest extends AbstractMagnoliaUITest {
 
     @Test
     public void downloadSingleLogFile() throws IOException {
+        Assume.assumeFalse(isExecutedInVirtualMachine());
+
         // GIVEN
         goToSubApp(LOG_LIST);
 
@@ -121,6 +125,8 @@ public class LogToolsAppUITest extends AbstractMagnoliaUITest {
 
     @Test
     public void downloadMultipleLogFiles() throws IOException {
+        Assume.assumeFalse(isExecutedInVirtualMachine());
+
         // GIVEN
         goToSubApp(LOG_LIST);
 
@@ -192,10 +198,13 @@ public class LogToolsAppUITest extends AbstractMagnoliaUITest {
     // utils
 
     @After
-    public void tearDown() {
+    @Override
+    public void tearDown() throws Throwable {
         if (file != null && file.exists()) {
             file.delete();
         }
+
+        super.tearDown();
     }
 
     private void assertPatternIsInAllColumnRows(String xPathSelector, String searchPattern, boolean lowerCase) {
@@ -221,7 +230,10 @@ public class LogToolsAppUITest extends AbstractMagnoliaUITest {
     private void goToSubApp(String subApp) {
         getCollapsibleAppSectionIcon(SECTION).click();
         getAppIcon(APP_NAME).click();
+        waitUntil(appIsLoaded());
         getTabWithCaption(subApp).click();
+        waitUntil(visibilityOfElementLocated(byTabContainingCaption(subApp)));
+        delay(1, "Wait until transition is finished");
     }
 
     private WebElement getLogFile(String fileName) {

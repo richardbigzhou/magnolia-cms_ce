@@ -88,6 +88,7 @@ public class CategoriesAppUITest extends AbstractMagnoliaUITest {
         }
         getActionBarItem("Delete folder").click();
         getDialogButtonWithCaption("Yes, delete").click();
+        waitUntil(elementIsGone(byDialogButtonWithCaption("Yes, delete")));
 
         // WHEN
         getActionBarItem("Publish deletion").click();

@@ -705,8 +705,12 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         return getNativeButton(DEFAULT_NATIVE_BUTTON_CLASS);
     }
 
+    protected By byDialogButtonWithCaption(final String caption) {
+        return getElementLocatorByXpath("//div[.='%s']", caption);
+    }
+
     protected WebElement getDialogButtonWithCaption(final String caption) {
-        return getElementByXpath("//div[.='%s']", caption);
+        return getElement(byDialogButtonWithCaption(caption));
     }
 
     protected WebElement getButton(String classname, String caption) {
@@ -745,60 +749,41 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         getTabWithCaption(tabCaption, parentTitles).click();
     }
 
-    protected void openTabWithPartialCaption(String tabCaption, String... parentTitles) {
-        getTabWithPartialCaption(tabCaption, parentTitles).click();
-    }
-
     protected WebElement getTabWithCaption(String tabCaption, String... parentTitles) {
-        return doGetTabElement(tabCaption, false, parentTitles);
+        return doGetTabElement(tabCaption, parentTitles);
     }
 
-    protected WebElement getTabWithPartialCaption(String tabCaption, String... parentTitles) {
-        return doGetTabElement(tabCaption, true, parentTitles);
-    }
-
-    protected boolean tabWithCaptionExists(String tabCaption, String... parentTitles) {
-        return isExisting(getPotentiallyHiddenTab(tabCaption, false, parentTitles));
-    }
-
-    protected boolean tabWithPartialCaptionExists(String tabCaption, String... parentTitles) {
-        return isExisting(getPotentiallyHiddenTab(tabCaption, true, parentTitles));
-    }
-
-    private WebElement doGetTabElement(String tabCaption, boolean partial, String... parentTitles) {
-        final WebElement tabLabel = getPotentiallyHiddenTab(tabCaption, partial, parentTitles);
+    private WebElement doGetTabElement(String tabCaption, String... parentTitles) {
+        final WebElement tabLabel = getPotentiallyHiddenTab(tabCaption, parentTitles);
         // Either tab does not exist at all (yield non-existent element) or it is displayed and ready to shown
         if (!isExisting(tabLabel) || tabLabel.isDisplayed()) {
             return tabLabel;
         } else {
             final String parentXPath = buildPathFromTitles(parentTitles);
-            final String popupControlXPath = String.format("%s%s", parentXPath, "//*[contains(@class, 'hidden-tabs-popup-button') and not(contains(@style, 'display: none'))]");
-            final WebElement popupControl = getElementByXpath(popupControlXPath);
+            final By byPopupControl = getElementLocatorByXpath("%s%s", parentXPath, "//*[contains(@class, 'hidden-tabs-popup-button') and not(contains(@style, 'display: none'))]");
+            final WebElement popupControl = getElement(byPopupControl);
             popupControl.click();
-            final String hiddenTabPath = partial ?
-                    String.format("//*[contains(@class, 'hidden-tabs-menu')]//*[contains(@class, 'menu-item') and contains(text(), '%s')]", tabCaption) :
-                    String.format("//*[contains(@class, 'hidden-tabs-menu')]//*[contains(@class, 'menu-item') and text() = '%s']", tabCaption);
-            return getElementByXpath(hiddenTabPath);
+            final By byHiddenTab = getElementLocatorByXpath("//*[contains(@class, 'hidden-tabs-menu')]//*[contains(@class, 'menu-item') and text() = '%s']", tabCaption);
+            return getElement(byHiddenTab);
         }
     }
 
-    private WebElement getPotentiallyHiddenTab(String tabCaption, boolean partial, String[] parentTitles) {
-        final String parentXPath1 = buildPathFromTitles(parentTitles);
-        final String tabCaptionPath = partial ?
-                String.format("//*[contains(@class, 'v-shell-tabsheet')]//*[@class = 'tab-title' and contains(text(), '%s')]", tabCaption) :
-                String.format("//*[contains(@class, 'v-shell-tabsheet')]//*[@class = 'tab-title' and text() = '%s']", tabCaption);
+    private WebElement getPotentiallyHiddenTab(String tabCaption, String... parentTitles) {
+        final String parentXPath = buildPathFromTitles(parentTitles);
+        final String tabCaptionPath = String.format("//*[contains(@class, 'v-shell-tabsheet')]//*[@class = 'tab-title' and text() = '%s']", tabCaption);
+        final By byFullTab = getElementLocatorByXpath("%s%s", parentXPath, tabCaptionPath);
 
-        final String fullTabXPath = String.format("%s%s", parentXPath1, tabCaptionPath);
         // Use multi-element search method in order to work-around a limitation of #getElementByXpath() - it returns only visible element,
         // whereas here we're interested if the element just exists in DOM
-        final List<WebElement> allMatchingElements = getElements(By.xpath(fullTabXPath));
-        return allMatchingElements.isEmpty() ? new NonExistingWebElement(fullTabXPath) : allMatchingElements.get(0);
+        final List<WebElement> allMatchingElements = getElements(byFullTab);
+
+        return allMatchingElements.isEmpty() ? new NonExistingWebElement(byFullTab.toString()) : allMatchingElements.get(0);
     }
 
-    private String buildPathFromTitles(String[] titles) {
+    private String buildPathFromTitles(String... titles) {
         final StringBuilder path = new StringBuilder();
-        for (final String parentName : titles) {
-            path.append("//*[text() = ").append(parentName).append("]");
+        for (final String title : titles) {
+            path.append("//*[text() = ").append(title).append("]");
         }
         return path.toString();
     }
@@ -844,8 +829,12 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         waitUntil(shellAppIsLoaded(ShellApp.APPLAUNCHER));
     }
 
+    protected By byErrorNotificationCloser() {
+        return By.className("close-error");
+    }
+
     protected void closeErrorNotification() {
-        getElement(By.className("close-error")).click();
+        getElement(byErrorNotificationCloser()).click();
     }
 
     protected void closeInfoNotification() {
@@ -873,8 +862,12 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         return getFormErrorHeader().findElement(By.xpath("//*[contains(@class, 'action-jump-to-next-error')]"));
     }
 
+    protected By byFormFieldValidationMessage() {
+        return By.xpath("//*[contains(@class, 'validation-message')]");
+    }
+
     protected WebElement getFormFieldError() {
-        return getElementByXpath("//*[contains(@class, 'validation-message')]");
+        return getElement(byFormFieldValidationMessage());
     }
 
     /**
@@ -1110,6 +1103,14 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
                 .build();
 
         dragAndDrop.perform();
+    }
+
+    /**
+     * Moves to specified web element.
+     */
+    protected void moveToElement(final WebElement element) {
+        Actions moveToElementAction = new Actions(driver);
+        moveToElementAction.moveToElement(element).click().perform();
     }
 
     /**

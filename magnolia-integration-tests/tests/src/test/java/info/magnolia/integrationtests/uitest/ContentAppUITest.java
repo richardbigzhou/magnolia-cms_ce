@@ -33,6 +33,7 @@
  */
 package info.magnolia.integrationtests.uitest;
 
+import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
 
@@ -59,10 +60,13 @@ public class ContentAppUITest extends AbstractPageEditorUITest {
 
         getTreeTableItem("Albert Einstein").click();
         getActionBarItem("Edit contact").click();
-        openTabWithCaption("Contact details");
+        waitUntil(visibilityOfElementLocated(byDialogTitle("Edit contact")));
+        delay(1, "Waiting until the dialog is open might not be enough");
 
+        openTabWithCaption("Contact details");
         setFormTextFieldText("E-Mail address", testEmailAddr);
         getDialogCommitButton().click();
+        waitUntil(dialogIsClosed("Edit contact"));
 
         // THEN
         assertTrue(getTreeTableItem(testEmailAddr).isDisplayed());
@@ -77,18 +81,20 @@ public class ContentAppUITest extends AbstractPageEditorUITest {
 
         getTreeTableItem("Albert Einstein").click();
         getActionBarItem("Edit contact").click();
-        getFormTextField("Salutation").click();
+        waitUntil(dialogIsOpen("Edit contact"));
 
-        WebElement currentlyFocussedElement = getFocusedElement();
-        assertEquals(currentlyFocussedElement, getFormTextField("Salutation"));
+        //moveToElement(getFormTextField("Salutation")); // Moving to element is not necessary as it is already focused
+
+        WebElement currentlyFocusedElement = getFocusedElement();
+        assertThat(currentlyFocusedElement, is(getFormTextField("Salutation")));
 
         // WHEN
         simulateKeyPress(Keys.TAB);
         delay(2, "Can take some time, until tab is responded to.");
 
         // THEN
-        currentlyFocussedElement = getFocusedElement();
-        assertEquals("Pressing tab should have passed focuss to next field.", currentlyFocussedElement, getFormTextField("First name"));
+        currentlyFocusedElement = getFocusedElement();
+        assertThat("Pressing tab should have passed focus to next field.", currentlyFocusedElement, is(getFormTextField("First name")));
     }
 
     @Test

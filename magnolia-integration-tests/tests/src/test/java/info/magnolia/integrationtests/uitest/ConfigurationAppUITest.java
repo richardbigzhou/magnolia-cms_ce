@@ -225,6 +225,7 @@ public class ConfigurationAppUITest extends AbstractMagnoliaUITest {
         getEnabledActionBarItem("Add folder").click();
         waitUntil(elementToBeClickable(getTreeTableItem("untitled")));
         getEnabledActionBarItem("Rename item").click();
+        waitUntil(dialogIsOpen("Rename Item"));
         setFormTextFieldText("Name", name);
         waitUntil(textToBePresentInElementValue(getFormTextField("Name"), name));
         getDialogCommitButton().click();
@@ -236,6 +237,7 @@ public class ConfigurationAppUITest extends AbstractMagnoliaUITest {
         getEnabledActionBarItem("Add content node").click();
         waitUntil(elementToBeClickable(getTreeTableItem("untitled")));
         getEnabledActionBarItem("Rename item").click();
+        waitUntil(dialogIsOpen("Rename Item"));
         setFormTextFieldText("Name", name);
         waitUntil(textToBePresentInElementValue(getFormTextField("Name"), name));
         getDialogCommitButton().click();
@@ -247,6 +249,7 @@ public class ConfigurationAppUITest extends AbstractMagnoliaUITest {
         getEnabledActionBarItem("Add property").click();
         waitUntil(elementToBeClickable(getEnabledActionBarItem("Edit property")));
         getEnabledActionBarItem("Edit property").click();
+        waitUntil(dialogIsOpen("Edit property"));
         setFormTextFieldText("Name", name);
         waitUntil(textToBePresentInElementValue(getFormTextField("Name"), name));
         setFormTextFieldText("Value", value);

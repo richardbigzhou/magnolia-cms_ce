@@ -35,6 +35,7 @@ package info.magnolia.integrationtests.uitest;
 
 
 import static org.junit.Assert.*;
+import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
 
 import org.junit.Test;
 
@@ -53,6 +54,9 @@ public class MultiFieldUITest extends AbstractI18nEnabledUITest {
         // Go to Multi field tab
         goToDialogShowRoomAndOpenDialogComponent("ftl");
         openTabWithCaption("Multi Fields");
+        waitUntil(visibilityOfElementLocated(byTabContainingCaption("Multi Fields")));
+        delay(1, "We wait another second for transitions to finish");
+
         // WHEN
         // //////////
         //
@@ -124,7 +128,6 @@ public class MultiFieldUITest extends AbstractI18nEnabledUITest {
 
         // Check all values entered at the STEP 1
         textValuePrefix = " en ";
-        getMultiFieldComponentTextElement("Text 2", 1).click();
         assertEquals(textValuePrefix + "value 1", getMultiFieldComponentTextElement("Text 2", 1).getAttribute("value"));
         assertEquals(textValuePrefix + "value 111", getMultiFieldInnerText(subFieldName, 1, 1).getAttribute("value"));
         assertEquals(textValuePrefix + "value 112", getMultiFieldInnerText(subFieldName, 1, 2).getAttribute("value"));
@@ -141,7 +144,6 @@ public class MultiFieldUITest extends AbstractI18nEnabledUITest {
         waitUntil(languageSwitched("de"));
 
         textValuePrefix = " de ";
-        getMultiFieldComponentTextElement("Text 2", 1).click();
         assertEquals(textValuePrefix + "value 1", getMultiFieldComponentTextElement("Text 2", 1).getAttribute("value"));
         assertEquals(textValuePrefix + "value 111", getMultiFieldInnerText(subFieldName, 1, 1).getAttribute("value"));
         assertEquals(textValuePrefix + "value 112", getMultiFieldInnerText(subFieldName, 1, 2).getAttribute("value"));
@@ -171,7 +173,6 @@ public class MultiFieldUITest extends AbstractI18nEnabledUITest {
         // Check that all values entered in STEP 1 and STEP 2 are correctly displayed after the STEP 3
         // Value have to be present
         textValuePrefix = " en ";
-        getMultiFieldComponentTextElement("Text 2", 1).click();
         assertEquals(textValuePrefix + "value 1", getMultiFieldComponentTextElement("Text 2", 1).getAttribute("value"));
         assertEquals(textValuePrefix + "value 111", getMultiFieldInnerText(subFieldName, 1, 1).getAttribute("value"));
         assertEquals(textValuePrefix + "value 112", getMultiFieldInnerText(subFieldName, 1, 2).getAttribute("value"));
@@ -187,7 +188,6 @@ public class MultiFieldUITest extends AbstractI18nEnabledUITest {
         waitUntil(languageSwitched("de"));
 
         textValuePrefix = " de ";
-        getMultiFieldComponentTextElement("Text 2", 1).click();
         assertEquals(textValuePrefix + "value 1", getMultiFieldComponentTextElement("Text 2", 1).getAttribute("value"));
         assertEquals(textValuePrefix + "value 111", getMultiFieldInnerText(subFieldName, 1, 1).getAttribute("value"));
         assertEquals(textValuePrefix + "value 112", getMultiFieldInnerText(subFieldName, 1, 2).getAttribute("value"));
@@ -237,7 +237,6 @@ public class MultiFieldUITest extends AbstractI18nEnabledUITest {
         waitUntil(languageSwitched("de"));
 
         getMultiFieldComponentTextElement("Text 2", 1).click();
-        textValuePrefix = " de ";
         // Remove the third value of the first sub multiple
         getMultiFieldElementDeleteButtonAt(fieldName, 5).click();
 
@@ -246,7 +245,6 @@ public class MultiFieldUITest extends AbstractI18nEnabledUITest {
 
         // Check all values changed at the STEP 4
         textValuePrefix = " en ";
-        getMultiFieldComponentTextElement("Text 2", 1).click();
         assertEquals(textValuePrefix + "value 1", getMultiFieldComponentTextElement("Text 2", 1).getAttribute("value"));
         assertEquals(textValuePrefix + "value 111", getMultiFieldInnerText(subFieldName, 1, 1).getAttribute("value"));
         assertEquals(textValuePrefix + "value 112", getMultiFieldInnerText(subFieldName, 1, 2).getAttribute("value"));
@@ -287,7 +285,6 @@ public class MultiFieldUITest extends AbstractI18nEnabledUITest {
         waitUntil(languageSwitched("en"));
 
         textValuePrefix = " en ";
-        getMultiFieldComponentTextElement("Text 2", 1).click();
         assertEquals(textValuePrefix + "value 1", getMultiFieldComponentTextElement("Text 2", 1).getAttribute("value"));
         assertEquals(textValuePrefix + "value 111", getMultiFieldInnerText(subFieldName, 1, 1).getAttribute("value"));
         assertEquals(textValuePrefix + "value 112", getMultiFieldInnerText(subFieldName, 1, 2).getAttribute("value"));

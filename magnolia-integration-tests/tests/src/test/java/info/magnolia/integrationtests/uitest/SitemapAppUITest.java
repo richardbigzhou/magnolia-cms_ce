@@ -83,6 +83,7 @@ public class SitemapAppUITest extends AbstractMagnoliaUITest {
         }
         getEnabledActionBarItem("Delete folder").click();
         getDialogButtonWithCaption("Yes, delete").click();
+        waitUntil(elementIsGone(byDialogButtonWithCaption("Yes, delete")));
 
         // WHEN
         getEnabledActionBarItem("Publish deletion").click();

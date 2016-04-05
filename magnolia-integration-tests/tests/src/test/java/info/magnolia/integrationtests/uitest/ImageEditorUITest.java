@@ -51,6 +51,8 @@ public class ImageEditorUITest extends AbstractMagnoliaUITest {
 
         getTreeTableItem("Marilyn Monroe").click();
         getActionBarItem("Edit contact").click();
+        waitUntil(dialogIsOpen("Edit contact"));
+        delay(1, "Dialog transition might not be done yet, wait one more second");
 
         getButton("v-button-edit", "Edit image...").click();
 

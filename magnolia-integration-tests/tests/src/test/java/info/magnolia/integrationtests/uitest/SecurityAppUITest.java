@@ -565,14 +565,15 @@ public class SecurityAppUITest extends AbstractMagnoliaUITest {
      * Adds arbitrary security app item (user/system user/group/role).
      */
     private void addSecurityAppItem(String itemTypeCaption, String itemName) {
-        getActionBarItem(getAddItemActionName(itemTypeCaption)).click();
+        getEnabledActionBarItem(getAddItemActionName(itemTypeCaption)).click();
         sendKeysToDialogField(getItemNameFieldLabel(itemTypeCaption), itemName);
         getDialogCommitButton().click();
-        //de-select created item
+        waitUntil(dialogIsClosed(getItemNameFieldLabel(itemTypeCaption)));
+        delay(1, "Let the dialog close properly");
+        // de-select created item
         if (isTreeTableItemSelected(itemName)) {
             getTreeTableItem(itemName).click();
         }
-        waitUntil(dialogIsClosed(getItemNameFieldLabel(itemTypeCaption)));
     }
 
     private void openSecuritySubApp(String subAppName) {
@@ -580,6 +581,7 @@ public class SecurityAppUITest extends AbstractMagnoliaUITest {
         waitUntil(appIsLoaded());
         openTabWithCaption(subAppName);
         waitUntil(appIsLoaded());
+        delay(1, "Wait until transition is done");
     }
 
     /**
