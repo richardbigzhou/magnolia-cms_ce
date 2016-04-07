@@ -332,7 +332,7 @@ public class PageEditorUITest extends AbstractPageEditorUITest {
         switchToDefaultContent();
         getElement(By.xpath("//div[contains(@class, 'dialog-root')]//div[@role = 'combobox']//div[@role = 'button']")).click();
         getElement(By.xpath("//div[contains(@class, 'v-filterselect-suggestpopup')]//span[text() = 'Internal Page Teaser']")).click();
-        getElement(By.xpath("//div[contains(@class, 'dialog-root')]//span[text() = 'Choose']")).click();
+        getElement(By.xpath("//div[contains(@class, 'dialog-root')]//span[text() = 'Next']")).click();
         delay("wait");
         getElement(By.xpath("//div[contains(@class, 'dialog-root')]//input[@type = 'text']")).sendKeys("/demo-project/about/history");
         getElement(By.xpath("//div[contains(@class, 'dialog-root')]//span[text() = 'save changes']")).click();

@@ -372,7 +372,7 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
         getElementByXpath("//div[contains(@class, 'area')]//div[@title='%s']", areaName).click();
         switchToDefaultContent();
         getActionBarItem("Add component").click();
-        waitUntil(dialogIsOpen("Create new component"));
+        waitUntil(dialogIsOpen("Add component"));
         getSelectTabElement("Component").click();
         selectElementOfTabListForLabel(componentName);
 
