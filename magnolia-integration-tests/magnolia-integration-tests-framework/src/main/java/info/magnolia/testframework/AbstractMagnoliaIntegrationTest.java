@@ -116,7 +116,7 @@ public abstract class AbstractMagnoliaIntegrationTest {
     }
 
     public boolean isExecutedInVirtualMachine() {
-        return System.getProperty(SELENIUM_SERVER_HOST_NAME_PROPERTY) != null;
+        return StringUtils.isNotEmpty(System.getProperty(SELENIUM_SERVER_HOST_NAME_PROPERTY));
     }
 
 }

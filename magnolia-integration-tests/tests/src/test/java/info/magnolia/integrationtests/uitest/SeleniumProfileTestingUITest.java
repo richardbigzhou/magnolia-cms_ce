@@ -57,7 +57,7 @@ public class SeleniumProfileTestingUITest extends AbstractMagnoliaUITest {
     public void setUp() {
         super.setUp();
 
-        // When assumtion fails, all tests will be ignored
+        // When assumption fails, all tests will be ignored
         assumeFalse(isExecutedInVirtualMachine());
     }
 
