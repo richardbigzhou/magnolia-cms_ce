@@ -373,11 +373,11 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
         switchToDefaultContent();
         getActionBarItem("Add component").click();
         waitUntil(dialogIsOpen("Add component"));
-        getSelectTabElement("Component").click();
+        getSelectTabElement("Type of component").click();
         selectElementOfTabListForLabel(componentName);
 
         // make sure field is blurred and changed (test-only)
-        openTabWithCaption("Component");
+        openTabWithCaption("");
         delay(1, "make sure there is enough time to process change event");
 
         getDialogCommitButton().click();
