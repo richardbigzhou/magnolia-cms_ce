@@ -377,7 +377,7 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
         selectElementOfTabListForLabel(componentName);
 
         // make sure field is blurred and changed (test-only)
-        openTabWithCaption("");
+        getElement(byDialogTitle("Add component")).click();
         delay(1, "make sure there is enough time to process change event");
 
         getDialogCommitButton().click();
