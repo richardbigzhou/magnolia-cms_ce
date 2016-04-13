@@ -40,7 +40,6 @@ import java.util.List;
 
 import org.junit.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 
 /**
@@ -95,22 +94,25 @@ public class MagnoliaShellUITest extends AbstractMagnoliaUITest {
     @Test
     public void allShellAppsCanBeStartedAndClosed() {
         // GIVEN
-        JavascriptExecutor js = getJavascriptExecutor();
-        String temporarySectionsXPath = "//section[contains(@class,'app-list') and contains(@class,'temporary')]";
-        List<WebElement> sections = getElements(By.xpath(temporarySectionsXPath));
+        final By byTemporarySections = By.xpath("//div[contains(@class,'app-list')]/div[contains(@class,'section') and contains(@class,'closed')]");
+        List<WebElement> sections = getElements(byTemporarySections);
         for (WebElement section : sections) {
-            // remove 'temporary' from class attribute to make apps visible
-            js.executeScript(String.format("document.evaluate(\"%s\", document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue.setAttribute('class', 'app-list section');", temporarySectionsXPath));
+            // Open section
+            section.click();
+
+            delay("Wait for the bar to open");
+
+            // Go through all apps and open them
+            final List<WebElement> apps = getElements(By.xpath("//section[contains(@class,'app-list') and contains(@class, 'section') and contains(@class, 'temporary') and contains(@style, 'height: 80px')]/div[@class='item']/*[@class='label']"));
+            for (WebElement app : apps) {
+                // WHEN
+                app.click();
+                waitUntil(appIsLoaded());
+
+                // THEN
+                closeApp();
+            }
         }
 
-        List<WebElement> apps = getElements(By.xpath("//section[contains(@class,'app-list')]/div[@class='item']/*[@class='label']"));
-        for (WebElement app : apps) {
-            // WHEN
-            app.click();
-            waitUntil(appIsLoaded());
-
-            // THEN
-            closeApp();
-        }
     }
 }
