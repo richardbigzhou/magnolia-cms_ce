@@ -66,10 +66,12 @@ import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.Point;
+import org.openqa.selenium.Rectangle;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxProfile;
@@ -247,8 +249,18 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         }
 
         @Override
+        public Rectangle getRect() {
+            return null;
+        }
+
+        @Override
         public String getCssValue(String propertyName) {
             fail("Cannot get cssValue for non existing WebElement. PropertyName: " + propertyName);
+            return null;
+        }
+
+        @Override
+        public <X> X getScreenshotAs(OutputType<X> outputType) throws WebDriverException {
             return null;
         }
     }
