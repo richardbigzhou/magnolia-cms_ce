@@ -34,6 +34,7 @@
 package info.magnolia.integrationtests.uitest;
 
 import static org.junit.Assert.assertTrue;
+import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
 
 import java.util.List;
 
@@ -57,7 +58,11 @@ public class MagnoliaShellUITest extends AbstractMagnoliaUITest {
         getAppIcon("Pages").click();
         assertAppOpen("Pages");
         getShellIconAppsLauncher().click();
+
+        waitUntil(visibilityOfElementLocated(byShellIconAppsLauncher()));
         assertTrue(getShellIconAppsLauncher().getAttribute("class").contains("active"));
+
+        waitUntil(appIsLoaded());
 
         // WHEN
         getElementByXpath("//*[@class = 'v-shell-viewport-slot']").click();
@@ -76,6 +81,8 @@ public class MagnoliaShellUITest extends AbstractMagnoliaUITest {
         getAppIcon("Pages").click();
         assertAppOpen("Pages");
         getShellIconAppsLauncher().click();
+
+        waitUntil(visibilityOfElementLocated(byShellIconAppsLauncher()));
         assertTrue(getShellIconAppsLauncher().getAttribute("class").contains("active"));
 
         // WHEN
