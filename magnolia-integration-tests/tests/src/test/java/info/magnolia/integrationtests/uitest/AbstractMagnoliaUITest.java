@@ -84,6 +84,7 @@ import org.openqa.selenium.logging.Logs;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -1260,14 +1261,17 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         };
     }
 
+    private By byAppPreLoader() {
+        return By.xpath("//*[contains(@class, 'v-app-preloader')]");
+    }
+
     /**
      * App is considered loaded once the app-preloader has appeared (zoom-in) then disappeared (fade out after app is loaded).
      * This should be called right after opening an app.
      */
     protected ExpectedCondition<Boolean> appIsLoaded() {
-        final By byAppPreLoader = By.xpath("//*[contains(@class, 'v-app-preloader')]");
-        getElement(byAppPreLoader); // wait for preloader to be around
-        return elementIsGone(byAppPreLoader); // then disappear
+        getElement(byAppPreLoader()); // wait for preloader to be around
+        return elementIsGone(byAppPreLoader()); // then disappear
     }
 
     /**
@@ -1487,14 +1491,30 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
      * Checks that the dialog with the specified title is closed.
      */
     protected ExpectedCondition<Boolean> dialogIsClosed(final String dialogTitle) {
-        return elementIsGone(byDialogTitle(dialogTitle));
+        return ExpectedConditions.and(
+                invisibilityOfElementLocated(By.className("overlay")),
+                elementIsGone(byDialogTitle(dialogTitle))
+        );
     }
 
     /**
      * Checks if dialog (identified by {@link By#xpath(String)}) is present.
      */
-    protected ExpectedCondition<WebElement> dialogIsOpen(final String dialogTitle) {
-        return presenceOfElementLocated(byDialogTitle(dialogTitle));
+    protected ExpectedCondition<Boolean> dialogIsOpen(final String dialogTitle) {
+        return elementIsOpen(byDialogTitle(dialogTitle));
+    }
+
+    protected ExpectedCondition<Boolean> tabIsOpen(final String tabCaption) {
+        return elementIsOpen(byTabContainingCaption(tabCaption));
+    }
+
+    private ExpectedCondition<Boolean> elementIsOpen(final By locator) {
+        getElement(byAppPreLoader()); // wait for preloader to be around
+
+        return ExpectedConditions.and(
+                presenceOfElementLocated(locator),
+                elementIsGone(byAppPreLoader())
+        );
     }
 
     /**
