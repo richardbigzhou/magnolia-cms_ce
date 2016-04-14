@@ -127,9 +127,13 @@ public class ConfigurationAppUITest extends AbstractMagnoliaUITest {
         delay(5, "Publication may take some time");
         refreshTreeView();
         assertThat(getSelectedActivationStatusIcon().getAttribute("class"), containsString(COLOR_GREEN_ICON_STYLE));
+        delay(1, "Wait a second for the tree to reload");
 
         // unpublish lvl3
-        getTreeTableItem("lvl3").click();
+        if (!isTreeTableItemSelected("lvl3")) {
+            getTreeTableItem("lvl3").click();
+            delay(1, "Wait until element is selected");
+        }
         getEnabledActionBarItem("Unpublish").click();
         refreshTreeView();
         assertThat(getSelectedActivationStatusIcon().getAttribute("class"), containsString(COLOR_RED_ICON_STYLE));
