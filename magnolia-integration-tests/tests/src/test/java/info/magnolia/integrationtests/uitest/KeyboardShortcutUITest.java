@@ -37,6 +37,10 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
 import static org.openqa.selenium.support.ui.ExpectedConditions.*;
 
+import info.magnolia.integrationtests.rules.Site;
+import info.magnolia.integrationtests.rules.SiteRule;
+
+import org.junit.Rule;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -46,6 +50,9 @@ import org.openqa.selenium.WebElement;
  * UI Tests for keyboard shortcuts.
  */
 public class KeyboardShortcutUITest extends AbstractPageEditorUITest {
+
+    @Rule
+    public SiteRule siteRule = new SiteRule();
 
     /**
      * Get a confirmation to test by running 'Delete contact' action.
@@ -228,6 +235,7 @@ public class KeyboardShortcutUITest extends AbstractPageEditorUITest {
      * Verify that page was created, then cleanup by deleting it.
      */
     @Test
+    @Site
     public void whenEnterPressedOnDialogItCommits() {
         // GIVEN
         final String pageName = "testCommitOnEnter";
@@ -271,6 +279,7 @@ public class KeyboardShortcutUITest extends AbstractPageEditorUITest {
      * Verify that the dialog is not closed.
      */
     @Test
+    @Site
     public void whenEnterPressedOnDialogInTextAreaItDoesntCommit() {
         // GIVEN
         final String pageName = "testEnterInTextAreaDoesntCommit";

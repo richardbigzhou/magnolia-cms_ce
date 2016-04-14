@@ -35,6 +35,10 @@ package info.magnolia.integrationtests.uitest;
 
 import static org.junit.Assert.*;
 
+import info.magnolia.integrationtests.rules.Site;
+import info.magnolia.integrationtests.rules.SiteRule;
+
+import org.junit.Rule;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -43,6 +47,9 @@ import org.openqa.selenium.WebElement;
  * UI tests for Page Editor.
  */
 public class PageEditorUITest extends AbstractPageEditorUITest {
+
+    @Rule
+    public SiteRule siteRule = new SiteRule();
 
     private static final String LARGE_ARTICLE = "large-article";
 
@@ -88,6 +95,7 @@ public class PageEditorUITest extends AbstractPageEditorUITest {
     }
 
     @Test
+    @Site
     public void editingTextImageParagraphBringsUpRichTextEditor() {
         // GIVEN
 
@@ -113,6 +121,7 @@ public class PageEditorUITest extends AbstractPageEditorUITest {
     }
 
     @Test
+    @Site
     public void inheritedComponentsAreNotEditable() {
         // GIVEN
 
@@ -139,6 +148,7 @@ public class PageEditorUITest extends AbstractPageEditorUITest {
     }
 
     @Test
+    @Site
     public void followingLinksKeepsTheCurrentMode() {
         // GIVEN
 
@@ -180,6 +190,7 @@ public class PageEditorUITest extends AbstractPageEditorUITest {
     }
 
     @Test
+    @Site
     public void testPageStatusBarIsShown() {
         // GIVEN
         getAppIcon(PAGES_APP).click();
@@ -201,6 +212,7 @@ public class PageEditorUITest extends AbstractPageEditorUITest {
     }
 
     @Test
+    @Site
     public void testPageStatusBarIsChangedAfterPageModification() {
         // GIVEN
         getAppIcon(PAGES_APP).click();
@@ -229,6 +241,7 @@ public class PageEditorUITest extends AbstractPageEditorUITest {
     }
 
     @Test
+    @Site
     public void testPageStatusBarIsChangedAfterNavigatingToAnotherPage() {
         // GIVEN
         getAppIcon(PAGES_APP).click();
@@ -263,6 +276,7 @@ public class PageEditorUITest extends AbstractPageEditorUITest {
     }
 
     @Test
+    @Site
     public void switchToPreview() {
         // GIVEN
 
@@ -310,6 +324,7 @@ public class PageEditorUITest extends AbstractPageEditorUITest {
     }
 
     @Test
+    @Site
     public void testAddComponentActionForOptionalArea() {
         // GIVEN
 
@@ -371,6 +386,7 @@ public class PageEditorUITest extends AbstractPageEditorUITest {
     }
 
     @Test
+    @Site
     public void testAddComponentActionForSingleArea() {
         // GIVEN
 

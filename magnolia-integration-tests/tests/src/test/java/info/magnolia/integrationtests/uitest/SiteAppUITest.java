@@ -35,6 +35,10 @@ package info.magnolia.integrationtests.uitest;
 
 import static org.junit.Assert.*;
 
+import info.magnolia.integrationtests.rules.Site;
+import info.magnolia.integrationtests.rules.SiteRule;
+
+import org.junit.Rule;
 import org.junit.Test;
 
 /**
@@ -42,9 +46,13 @@ import org.junit.Test;
  */
 public class SiteAppUITest extends AbstractPageEditorUITest {
 
+    @Rule
+    public SiteRule siteRule = new SiteRule();
+
     private static final String SITE_APP = "Site";
 
     @Test
+    @Site
     public void canPublishUnpublishAndDeleteVariation() {
         getElement(BY_XPATH_WEB_DEV_SECTION).click();
         getAppIcon(SITE_APP).click();

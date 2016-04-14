@@ -38,9 +38,13 @@ import static org.hamcrest.core.StringContains.containsString;
 import static org.junit.Assert.*;
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
 
+import info.magnolia.integrationtests.rules.Site;
+import info.magnolia.integrationtests.rules.SiteRule;
+
 import java.util.HashMap;
 
 import org.apache.commons.lang3.StringUtils;
+import org.junit.Rule;
 import org.junit.Test;
 import org.openqa.selenium.By;
 
@@ -48,6 +52,9 @@ import org.openqa.selenium.By;
  * Publishing and versioning test for pages app.
  */
 public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorUITest {
+
+    @Rule
+    public SiteRule siteRule = new SiteRule();
 
     /**
      * Single page publication and versioning check.<br>
@@ -65,6 +72,7 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
      * -- Check the app tab header (no version inside).<br>
      */
     @Test
+    @Site(requiresPublic = true)
     public void publishAndCheckVersions() {
         // GIVEN
         final String[] pathToArticle = new String[]{DEMO_PROJECT_PAGE, ABOUT_PAGE, SUBSECTION_ARTICLES};
@@ -104,6 +112,7 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
     }
 
     @Test
+    @Site(requiresPublic = true)
     public void publishNewArticle() {
 
         final String[] pathToArticle = new String[]{DEMO_PROJECT_PAGE, ABOUT_PAGE};
@@ -162,6 +171,7 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
     }
 
     @Test
+    @Site
     public void publishNewArticleAndRemoveIt() {
         final String[] pathToArticle = new String[]{DEMO_PROJECT_PAGE, ABOUT_PAGE};
         // Go to pages App
@@ -214,6 +224,7 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
     }
 
     @Test
+    @Site
     public void deleteAndRestoreArticle() {
         getAppIcon(PAGES_APP).click();
         waitUntil(appIsLoaded());
@@ -263,6 +274,7 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
     }
 
     @Test
+    @Site(requiresPublic = true)
     public void canPublishAfterNewPublishedPageHasBeenRenderedOnBothInstances() {
         // GIVEN
         final String[] pathToArticle = new String[]{DEMO_PROJECT_PAGE, ABOUT_PAGE};
@@ -336,6 +348,7 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
      * Delete multiple items and check if the publish delete is available for multiple items.
      */
     @Test
+    @Site
     public void canPublishDeletionMultipleItems() {
         // GIVEN
         getAppIcon(PAGES_APP).click();
