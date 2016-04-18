@@ -110,7 +110,7 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
         expandTreeAndSelectAnElement(SUBSECTION_ARTICLES, pathToArticle);
 
         // Add an Article
-        addNewPage("New Funny Article", "Title of the new Funny Article", "Article");
+        addNewTemplate("New Funny Article", "Title of the new Funny Article", "Article");
         expandTreeAndSelectAnElement("New-Funny-Article", SUBSECTION_ARTICLES);
         // Check Status and actions
         assertThat(getSelectedActivationStatusIcon().getAttribute("class"), containsString(COLOR_RED_ICON_STYLE));
@@ -158,7 +158,7 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
         expandTreeAndSelectAnElement(SUBSECTION_ARTICLES, pathToArticle);
 
         // Add an Article
-        addNewPage("New Article To Delete", "Title of the new Article To Delete", "Article");
+        addNewTemplate("New Article To Delete", "Title of the new Article To Delete", "Article");
         expandTreeAndSelectAnElement("New-Article-To-Delete", SUBSECTION_ARTICLES);
         // Check Status and actions
         assertThat(getSelectedActivationStatusIcon().getAttribute("class"), containsString(COLOR_RED_ICON_STYLE));
@@ -256,7 +256,7 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
         getAppIcon(PAGES_APP).click();
         waitUntil(appIsLoaded());
         expandTreeAndSelectAnElement(SUBSECTION_ARTICLES, pathToArticle);
-        addNewPage(pageNameAndTitle, pageNameAndTitle, template);
+        addNewTemplate(pageNameAndTitle, pageNameAndTitle, template);
         expandTreeAndSelectAnElement(pageNameAndTitle, SUBSECTION_ARTICLES);
         assertThat(getSelectedActivationStatusIcon().getAttribute("class"), containsString(COLOR_RED_ICON_STYLE));
 
@@ -328,11 +328,11 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
 
         final String FIRST_PAGE = "first-page-to-delete";
         final String SECOND_PAGE = "second-page-to-delete";
-        addNewPage(FIRST_PAGE, "Title of the first page to delete", "Home");
+        addNewTemplate(FIRST_PAGE, "Title of the first page to delete", "Home");
         //de-select the item
         getTreeTableItem(FIRST_PAGE).click();
 
-        addNewPage(SECOND_PAGE, "Title of the second to delete", "Home");
+        addNewTemplate(SECOND_PAGE, "Title of the second to delete", "Home");
         //de-select the item
         getTreeTableItem(SECOND_PAGE).click();
 
@@ -446,6 +446,25 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
 
         openTabWithCaption(PAGES_APP);
         waitUntil(appIsLoaded());
+    }
+
+    /**
+     * Create a new Page template.
+     */
+    protected void addNewTemplate(String templateName, String templateTitle, String templateType) {
+        getActionBarItem(ADD_PAGE_ACTION).click();
+        setFormTextFieldText("Page name", templateName);
+        setFormTextAreaFieldText("Page title", templateTitle);
+        getSelectTabElement("Template").click();
+        selectElementOfTabListForLabel(templateType);// Article
+
+        // make sure field is blurred and changed to avoid validation error (test-only)
+        getFormTextField("Page name").click();
+        delay(1, "make sure there is enough time to process change event");
+
+        // Select
+        getDialogCommitButton().click();
+        delay("Waiting for the editSubApp to open");
     }
 
     /**
