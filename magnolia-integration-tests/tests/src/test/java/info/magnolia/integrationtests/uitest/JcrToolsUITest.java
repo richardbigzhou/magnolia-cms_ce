@@ -51,9 +51,9 @@ import org.openqa.selenium.WebElement;
  * <li>'Level' = NaN</li>
  * <li>'Level' = EMPTY</li>
  * <li>'Level' = int > MAX(int)</li>
- * <li>'Base Path' = null</li>
- * <li>'Base Path' = '/'</li>
- * <li>'Base Path' = '/modules'</li></ul></p>
+ * <li>'Path' = null</li>
+ * <li>'Path' = '/'</li>
+ * <li>'Path' = '/modules'</li></ul></p>
  *
  * <p>Query SubApp.<ul>
  * <li>'Result Item Type' null && 'Statement' valid</li>
@@ -67,18 +67,18 @@ import org.openqa.selenium.WebElement;
  * <li>'Result Item Type' not null && 'Statement' valid</li></ul></p>
  *
  * <p>Exporter SubApp.<ul>
- * <li>'Base Path' = '/' && 'Format XML' 'checked'</li>
- * <li>'Base Path' = '/' && 'Format XML' 'not checked'</li>
- * <li>'Base Path' = invalid && 'Format XML' 'checked'</li>
- * <li>'Base Path' = invalid && 'Format XML' 'not checked'</li>
- * <li>'Base Path' null && 'Format XML' 'checked'</li>
- * <li>'Base Path' null && 'Format XML' 'not checked'</li></ul></p>
+ * <li>'Path' = '/' && 'Format XML' 'checked'</li>
+ * <li>'Path' = '/' && 'Format XML' 'not checked'</li>
+ * <li>'Path' = invalid && 'Format XML' 'checked'</li>
+ * <li>'Path' = invalid && 'Format XML' 'not checked'</li>
+ * <li>'Path' null && 'Format XML' 'checked'</li>
+ * <li>'Path' null && 'Format XML' 'not checked'</li></ul></p>
  *
  * <p>Importer SubApp.<ul>
  * <li>file upload testing is difficult from this area, and is covered elsewhere</li>
- * <li>'Base Path' = '/' && 'File' null</li>
- * <li>'Base Path' = invalid && 'File' null</li>
- * <li>'Base Path' null && 'File' null</li>
+ * <li>'Path' = '/' && 'File' null</li>
+ * <li>'Path' = invalid && 'File' null</li>
+ * <li>'Path' null && 'File' null</li>
  * </ul></p>
  */
 public class JcrToolsUITest extends AbstractMagnoliaUITest {
@@ -105,7 +105,7 @@ public class JcrToolsUITest extends AbstractMagnoliaUITest {
         getSelectTabElement("Workspace").click();
         selectElementOfTabListForLabel("config");
 
-        setFormTextFieldText("Base Path", "/modules");
+        setFormTextFieldText("Path", "/modules");
         setFormTextFieldText("Level", "1");
 
         getButton("v-button-commit", "Execute").click();
@@ -145,7 +145,7 @@ public class JcrToolsUITest extends AbstractMagnoliaUITest {
     @Test
     public void dumperIssuesRequiredWarningAndProvidesNoResultWithEmptyBasePath() {
         // GIVEN
-        populateFormFieldsAndSubmitForm("Dumper", "TextField", "Base Path", null);
+        populateFormFieldsAndSubmitForm("Dumper", "TextField", "Path", null);
 
         // WHEN
         // THEN
@@ -156,12 +156,12 @@ public class JcrToolsUITest extends AbstractMagnoliaUITest {
     @Test
     public void dumperIssuesRequiredWarningWithInvalidBasePath() {
         // GIVEN
-        populateFormFieldsAndSubmitForm("Dumper", "TextField", "Base Path", "magnolia");
+        populateFormFieldsAndSubmitForm("Dumper", "TextField", "Path", "magnolia");
 
         // WHEN
         // THEN
         waitUntil(visibilityOfElementLocated(byFormFieldValidationMessage()));
-        assertThat(getFormFieldError().getText(), containsString("That Base Path does not exist. Please try again."));
+        assertThat(getFormFieldError().getText(), containsString("That path does not exist. Please try again."));
     }
 
     @Test
@@ -313,7 +313,7 @@ public class JcrToolsUITest extends AbstractMagnoliaUITest {
     @Test
     public void exporterIssuesRequiredWarningWithNullBasePathAndFormatXMLNotChecked() {
         // GIVEN
-        populateFormFieldsAndSubmitForm("Exporter", "TextField", "Base Path", null);
+        populateFormFieldsAndSubmitForm("Exporter", "TextField", "Path", null);
 
         // WHEN
         // THEN
@@ -327,7 +327,7 @@ public class JcrToolsUITest extends AbstractMagnoliaUITest {
         openTabWithCaption("Exporter");
         final WebElement checkbox = getElement(byFormatXMLCheckbox).findElement(By.tagName("input"));
         checkbox.click();
-        populateFormFieldsAndSubmitForm("Exporter", "TextField", "Base Path", null);
+        populateFormFieldsAndSubmitForm("Exporter", "TextField", "Path", null);
 
         // WHEN
         // THEN
@@ -338,12 +338,12 @@ public class JcrToolsUITest extends AbstractMagnoliaUITest {
     @Test
     public void exporterIssuesRequiredWarningWithInvalidBasePathAndFormatXMLNotChecked() {
         // GIVEN
-        populateFormFieldsAndSubmitForm("Exporter", "TextField", "Base Path", "magnolia");
+        populateFormFieldsAndSubmitForm("Exporter", "TextField", "Path", "magnolia");
 
         // WHEN
         // THEN
         waitUntil(visibilityOfElementLocated(byFormFieldValidationMessage()));
-        assertThat(getFormFieldError().getText(), containsString("That Base Path does not exist. Please try again."));
+        assertThat(getFormFieldError().getText(), containsString("That path does not exist. Please try again."));
     }
 
     @Test
@@ -352,12 +352,12 @@ public class JcrToolsUITest extends AbstractMagnoliaUITest {
         openTabWithCaption("Exporter");
         final WebElement checkbox = getElement(byFormatXMLCheckbox).findElement(By.tagName("input"));
         checkbox.click();
-        populateFormFieldsAndSubmitForm("Exporter", "TextField", "Base Path", "magnolia");
+        populateFormFieldsAndSubmitForm("Exporter", "TextField", "Path", "magnolia");
 
         // WHEN
         // THEN
         waitUntil(visibilityOfElementLocated(byFormFieldValidationMessage()));
-        assertThat(getFormFieldError().getText(), containsString("That Base Path does not exist. Please try again."));
+        assertThat(getFormFieldError().getText(), containsString("That path does not exist. Please try again."));
     }
 
     @Test
@@ -397,7 +397,7 @@ public class JcrToolsUITest extends AbstractMagnoliaUITest {
     @Test
     public void importerIssuesRequiredWarningWithNullBasePathAndNullFile() {
         // GIVEN
-        populateFormFieldsAndSubmitForm("Importer", "TextField", "Base Path", null);
+        populateFormFieldsAndSubmitForm("Importer", "TextField", "Path", null);
 
         // WHEN
         // THEN
@@ -408,12 +408,12 @@ public class JcrToolsUITest extends AbstractMagnoliaUITest {
     @Test
     public void importerIssuesRequiredWarningWithInvalidBasePathAndNullFile() {
         // GIVEN
-        populateFormFieldsAndSubmitForm("Importer", "TextField", "Base Path", "magnolia");
+        populateFormFieldsAndSubmitForm("Importer", "TextField", "Path", "magnolia");
 
         // WHEN
         // THEN
         waitUntil(visibilityOfElementLocated(byFormFieldValidationMessage()));
-        assertThat(getFormFieldError().getText(), containsString("That Base Path does not exist. Please try again."));
+        assertThat(getFormFieldError().getText(), containsString("That path does not exist. Please try again."));
     }
 
     @Test
