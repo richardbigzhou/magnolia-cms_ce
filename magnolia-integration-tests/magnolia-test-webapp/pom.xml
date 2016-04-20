@@ -4,7 +4,7 @@
   <parent>
     <groupId>info.magnolia.bundle.test</groupId>
     <artifactId>magnolia-integration-tests-parent</artifactId>
-    <version>5.4.6-SNAPSHOT</version>
+    <version>5.4.6</version>
     <relativePath>../pom.xml</relativePath>
   </parent>
   <artifactId>magnolia-test-webapp</artifactId>
