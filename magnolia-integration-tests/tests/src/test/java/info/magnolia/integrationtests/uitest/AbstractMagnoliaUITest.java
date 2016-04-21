@@ -654,6 +654,14 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         return getElementLocatorByXpath("//*[contains(@class, 'v-table-cell-wrapper') and normalize-space(text()) = '%s']", itemCaption);
     }
 
+    protected WebElement getTreeTableItemByIcon(String itemCaption) {
+        return getElement(byTreeTableItemIcon(itemCaption));
+    }
+
+    protected By byTreeTableItemIcon(String itemCaption) {
+        return getElementLocatorByXpath("//*[contains(@class, 'v-table-cell-wrapper') and normalize-space(text()) = '%s']/span[contains(@class,'icon')]", itemCaption);
+    }
+
     protected WebElement getTreeTableItemRow(String itemCaption) {
         return getElement(byTreeTableItemRow(itemCaption));
     }
@@ -1065,7 +1073,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
     protected void expandTreeAndSelectAnElement(String element, String... paths) {
         expandTreeNoSelection(paths);
         if (!isTreeTableItemSelected(element)) {
-            getTreeTableItem(element).click();
+            getTreeTableItemByIcon(element).click();
         }
     }
 

@@ -131,7 +131,7 @@ public class ConfigurationAppUITest extends AbstractMagnoliaUITest {
 
         // unpublish lvl3
         if (!isTreeTableItemSelected("lvl3")) {
-            getTreeTableItem("lvl3").click();
+            getTreeTableItemByIcon("lvl3").click();
             delay(1, "Wait until element is selected");
         }
         getEnabledActionBarItem("Unpublish").click();
