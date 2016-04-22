@@ -51,6 +51,8 @@ import org.openqa.selenium.WebElement;
  */
 public class KeyboardShortcutUITest extends AbstractPageEditorUITest {
 
+    private static final String ADD_NEW_PAGE_DIALOG_TITLE = "Add new page";
+
     @Rule
     public SiteRule siteRule = new SiteRule();
 
@@ -100,7 +102,7 @@ public class KeyboardShortcutUITest extends AbstractPageEditorUITest {
         waitUntil(appIsLoaded());
         assertAppOpen("Pages");
         getActionBarItem("Add page").click();
-        waitUntil(dialogIsOpen("Add new page"));
+        waitUntil(dialogIsOpen(ADD_NEW_PAGE_DIALOG_TITLE));
         setFormTextFieldText("Page name", pageName);
 
         // First pass - we cancel the dialog closing.
@@ -245,7 +247,7 @@ public class KeyboardShortcutUITest extends AbstractPageEditorUITest {
 
         // WHEN
         getActionBarItem("Add page").click();
-        waitUntil(dialogIsOpen("Add new page"));
+        waitUntil(dialogIsOpen(ADD_NEW_PAGE_DIALOG_TITLE));
         setFormTextFieldText("Page name", pageName);
         getSelectTabElement("Template").click();
 
@@ -286,7 +288,7 @@ public class KeyboardShortcutUITest extends AbstractPageEditorUITest {
         assertAppOpen("Pages");
 
         getActionBarItem("Add page").click();
-        waitUntil(dialogIsOpen("Add new page"));
+        waitUntil(dialogIsOpen(ADD_NEW_PAGE_DIALOG_TITLE));
         setFormTextFieldText("Page name", pageName);
         getSelectTabElement("Template").click();
         // Click on selector item.
