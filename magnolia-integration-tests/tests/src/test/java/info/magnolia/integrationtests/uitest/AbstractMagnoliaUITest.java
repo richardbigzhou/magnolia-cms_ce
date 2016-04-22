@@ -50,6 +50,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.io.FileUtils;
@@ -975,29 +976,48 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         switchToDefaultContent();
     }
 
+    protected void addNewPage(String pageName, String templateType) {
+        addNewPage(pageName, templateType, null);
+    }
+
+    protected void addNewPage(String pageName, String templateType, String dialogName) {
+        addNewPage(pageName, templateType, dialogName, null);
+    }
+
     /**
      * Create a new page.
      */
-    protected void addNewPage(String pageName, String pageTitle, String templateType) {
+    protected void addNewPage(String pageName, String templateType, String dialogName, Map<String, String> requiredFieldValues) {
         getActionBarItem("Add page").click();
-        setFormTextFieldText("Page name", pageName);
+        waitUntil(dialogIsOpen("Add new page"));
 
-        setFormTextAreaFieldText("Page title", pageTitle);
+        setFormTextFieldText("Page name", pageName);
         if (templateType != null) {
             getSelectTabElement("Template").click();
             selectElementOfTabListForLabel(templateType);
         }
 
-        // make sure field is blurred and changed to avoid validation error (test-only)
+        // Make sure field is blurred and changed to avoid validation error (test-only)
         getFormTextField("Page name").click();
+        delay(1, "Make sure there is enough time to process change event");
+
+        /*
+        // Opening page properties dialog is currently not implemented
+        getDialogCommitButton().click();
+        waitUntil(dialogIsOpen(dialogName == null ? templateType : dialogName));
         delay(1, "make sure there is enough time to process change event");
 
-        // Select
-        getDialogCommitButton().click(); //there might be some required field we don't know off, so just close the page properties dialog
-        waitUntil(dialogIsClosed("Add new page"));
+        // fill in required fields
+        if (requiredFieldValues != null) {
+            for (Map.Entry<String, String> entry : requiredFieldValues.entrySet()) {
+                setFormTextFieldText(entry.getKey(), entry.getValue());
+            }
+        }
+        */
 
-        getDialogCancelButton().click();
-        delay(1, "make sure there is enough time to process change event");
+        // Save page
+        getDialogCommitButton().click();
+        delay(1, "Make sure there is enough time to process change event");
     }
 
     /**
@@ -1025,11 +1045,16 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
     }
 
     protected void selectElementOfTabListForLabel(String label) {
+        waitUntil(visibilityOfElementLocated(bySelectedTableElement()));
         getElementByXpath("//div[contains(@class, 'popupContent')]//div/table/tbody/tr/td/span[text() = '%s']/..", label).click();
     }
 
+    private By bySelectedTableElement() {
+        return By.xpath("//div[contains(@class, 'popupContent')]//div/table");
+    }
+
     protected WebElement getSelectedTableElement() {
-        return getElement(By.xpath("//div[contains(@class, 'popupContent')]//div/table"));
+        return getElement(bySelectedTableElement());
     }
 
     /**
@@ -1056,6 +1081,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
             // Only expand node if it's not open yet
             if (!treeExpander.getAttribute("class").contains("v-treetable-node-open")) {
                 treeExpander.click();
+                delay(1, "Wait until node is expanded");
             }
         }
     }

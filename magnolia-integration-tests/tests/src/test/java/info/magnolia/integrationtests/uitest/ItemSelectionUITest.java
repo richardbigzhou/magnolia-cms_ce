@@ -176,15 +176,14 @@ public class ItemSelectionUITest extends AbstractMagnoliaUITest {
         waitUntil(appIsLoaded());
         assertAppOpen("Pages");
 
-        try {
-            // WHEN
-            addNewPage("foobar", null, null);
-            // THEN
-            assertTrue(isTreeTableItemSelected("foobar"));
-        } catch (Exception e) {
-            // cleanup
-            deleteTreeTableRow("Delete page", "foobar");
-        }
+        // WHEN
+        addNewPage("foobar", null, "Page properties");
+
+        // THEN
+        assertTrue(isTreeTableItemSelected("foobar"));
+
+        // cleanup
+        deleteTreeTableRow("Delete page", "foobar");
     }
 
     @Test

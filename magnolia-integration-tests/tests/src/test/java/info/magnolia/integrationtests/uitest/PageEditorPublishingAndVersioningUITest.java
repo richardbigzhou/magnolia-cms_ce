@@ -38,6 +38,8 @@ import static org.hamcrest.core.StringContains.containsString;
 import static org.junit.Assert.*;
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
 
+import java.util.HashMap;
+
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 import org.openqa.selenium.By;
@@ -112,7 +114,7 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
         expandTreeAndSelectAnElement(SUBSECTION_ARTICLES, pathToArticle);
 
         // Add an Article
-        addNewPage("New Funny Article", "Title of the new Funny Article", "Article");
+        addNewPage("New Funny Article", "Article", "Article Info");
         expandTreeAndSelectAnElement("New-Funny-Article", SUBSECTION_ARTICLES);
         // Check Status and actions
         assertThat(getSelectedActivationStatusIcon().getAttribute("class"), containsString(COLOR_RED_ICON_STYLE));
@@ -169,7 +171,7 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
         expandTreeAndSelectAnElement(SUBSECTION_ARTICLES, pathToArticle);
 
         // Add an Article
-        addNewPage("New Article To Delete", "Title of the new Article To Delete", "Article");
+        addNewPage("New Article To Delete", "Article", "Article Info");
         expandTreeAndSelectAnElement("New-Article-To-Delete", SUBSECTION_ARTICLES);
         // Check Status and actions
         assertThat(getSelectedActivationStatusIcon().getAttribute("class"), containsString(COLOR_RED_ICON_STYLE));
@@ -264,13 +266,14 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
     public void canPublishAfterNewPublishedPageHasBeenRenderedOnBothInstances() {
         // GIVEN
         final String[] pathToArticle = new String[]{DEMO_PROJECT_PAGE, ABOUT_PAGE};
-        final String pageNameAndTitle = "new";
+        final String pageName = "new";
         final String template = "Article";
+        final String dialogName = "Article Info";
         getAppIcon(PAGES_APP).click();
         waitUntil(appIsLoaded());
         expandTreeAndSelectAnElement(SUBSECTION_ARTICLES, pathToArticle);
-        addNewPage(pageNameAndTitle, pageNameAndTitle, template);
-        expandTreeAndSelectAnElement(pageNameAndTitle, SUBSECTION_ARTICLES);
+        addNewPage(pageName, template, dialogName);
+        expandTreeAndSelectAnElement(pageName, SUBSECTION_ARTICLES);
         assertThat(getSelectedActivationStatusIcon().getAttribute("class"), containsString(COLOR_RED_ICON_STYLE));
 
         // now publish & render on author
@@ -279,13 +282,13 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
         delay(3, "make sure page had been rendered before continuing...");
 
         // render an public as well
-        String url = StringUtils.join(new String[]{DEMO_PROJECT_PAGE, ABOUT_PAGE, SUBSECTION_ARTICLES}, "/") + "/" + pageNameAndTitle + ".html";
+        String url = StringUtils.join(new String[]{DEMO_PROJECT_PAGE, ABOUT_PAGE, SUBSECTION_ARTICLES}, "/") + "/" + pageName + ".html";
 
         navigateDriverTo(Instance.PUBLIC.getURL(url));
         delay(3, "Make sure we finish rendering on public.");
 
         // hint: would be more elegant to simply switch to proper subapp
-        navigateDriverTo(Instance.AUTHOR.getURL() + String.format(".magnolia/admincentral#app:pages:browser;%s:treeview:", "/demo-project/about/subsection-articles/" + pageNameAndTitle));
+        navigateDriverTo(Instance.AUTHOR.getURL() + String.format(".magnolia/admincentral#app:pages:browser;%s:treeview:", "/demo-project/about/subsection-articles/" + pageName));
         delay(3, "Make sure it's open.");
 
         // WHEN
@@ -341,11 +344,14 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
 
         final String FIRST_PAGE = "first-page-to-delete";
         final String SECOND_PAGE = "second-page-to-delete";
-        addNewPage(FIRST_PAGE, "Title of the first page to delete", "Home");
+
+        addNewPage(FIRST_PAGE, "Home", "Home", new HashMap<String, String>() {{ put("Headline", "Cool headline"); }});
+
         //de-select the item
         getTreeTableItem(FIRST_PAGE).click();
 
-        addNewPage(SECOND_PAGE, "Title of the second to delete", "Home");
+        addNewPage(SECOND_PAGE, "Home", "Home", new HashMap<String, String>() {{ put("Headline", "Another cool headline"); }});
+
         //de-select the item
         getTreeTableItem(SECOND_PAGE).click();
 
@@ -524,6 +530,7 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
 
         // Go back to the last url
         navigateDriverTo(lastUrl);
+        delay("Wait for the driver...");
     }
 
     /**
