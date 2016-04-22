@@ -260,8 +260,11 @@ public class KeyboardShortcutUITest extends AbstractPageEditorUITest {
 
         simulateKeyPress(Keys.RETURN);
         // Instead of waiting for the page dialog to be closed we rather wait for the callback dialog to be open
+        /*
+        // Opening page properties dialog is currently not implemented
         waitUntil(dialogIsOpen("Redirect"));
         getDialogCommitButton().click();
+        */
 
         //THEN
         //Check that entry is added.
@@ -293,18 +296,16 @@ public class KeyboardShortcutUITest extends AbstractPageEditorUITest {
         getSelectTabElement("Template").click();
         // Click on selector item.
         selectElementOfTabListForLabel("Home");
-        delay(1, "give time for change event to proceed");
-
-        getDialogCommitButton().click();
+        delay(1, "Give time for change event to proceed");
 
         // WHEN
         // Ensure a text area has focus and hit ENTER.
-        getFormTextAreaField("Abstract").sendKeys(Keys.RETURN);
-        delay(1, "give time for change event to proceed");
+        getFormTextAreaField("Page title").sendKeys(Keys.RETURN);
+        delay(1, "Give time for change event to proceed");
 
-        //THEN
-        //Check that dialog is still open
-        waitUntil(visibilityOfElementLocated(byDialogTitle("Home")));
+        // THEN
+        // Check that dialog is still open
+        waitUntil(visibilityOfElementLocated(byDialogTitle("Add new page")));
     }
 
     /**

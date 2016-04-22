@@ -1367,22 +1367,22 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
 
     /**
      * Deletes a row from a TreeTable.
-     * Row must not be unselected when method is called.
      *
      * @param deleteActionCaption The caption of the delete action.
      * @param rowName The caption of the row.
      */
     protected void deleteTreeTableRow(String deleteActionCaption, String rowName) {
-
         if (!isTreeTableItemSelected(rowName)) {
-            WebElement rowToDelete = getTreeTableItem(rowName);
+            final WebElement rowToDelete = getTreeTableItem(rowName);
             rowToDelete.click();
         }
-        delay(1, "");
+        delay(1, "Wait for the row to be selected");
+
         getActionBarItem(deleteActionCaption).click();
-        delay(1, "");
+        waitUntil(dialogIsOpen("Delete this item?"));
+
         getDialogCommitButton().click();
-        delay("Delete might take some time");
+        waitUntil(dialogIsClosed("Delete this item?"));
 
         refreshTreeView();
 
