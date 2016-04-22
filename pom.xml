@@ -21,20 +21,20 @@
 
   <properties>
     <magnoliaEdition>Community Edition</magnoliaEdition>
-    <magnoliaVersion>5.4.6</magnoliaVersion>
-    <magnoliaUiVersion>5.4.6</magnoliaUiVersion>
+    <magnoliaVersion>5.4.7-SNAPSHOT</magnoliaVersion>
+    <magnoliaUiVersion>5.4.7-SNAPSHOT</magnoliaUiVersion>
     <javaVersion>1.7</javaVersion>
     <documentationURL>http://documentation.magnolia-cms.com/releases/${project.version}.html</documentationURL>
     <stkVersion>2.9.4</stkVersion>
     <restVersion>1.1.1</restVersion>
-    <restClientVersion>1.0.7</restClientVersion>
-    <damVersion>2.1.4</damVersion>
+    <restClientVersion>1.0.8-SNAPSHOT</restClientVersion>
+    <damVersion>2.1.5-SNAPSHOT</damVersion>
     <categorizationVersion>2.4.2</categorizationVersion>
-    <mteVersion>0.10</mteVersion>
+    <mteVersion>0.11-SNAPSHOT</mteVersion>
     <resourcesVersion>2.4.5</resourcesVersion>
     <imagingVersion>3.2.6</imagingVersion>
-    <siteVersion>1.0.6</siteVersion>
-    <travelDemoVersion>0.11</travelDemoVersion>
+    <siteVersion>1.0.7-SNAPSHOT</siteVersion>
+    <travelDemoVersion>0.12-SNAPSHOT</travelDemoVersion>
     <cacheVersion>5.4.4</cacheVersion>
     <langVersion>1.0.4</langVersion>
     <scmTagPrefix>magnolia-bundle</scmTagPrefix>
@@ -178,7 +178,7 @@
       <dependency>
         <groupId>info.magnolia.pages</groupId>
         <artifactId>magnolia-pages-app</artifactId>
-        <version>5.4.5</version>
+        <version>5.4.6-SNAPSHOT</version>
       </dependency>
 
       <dependency>
