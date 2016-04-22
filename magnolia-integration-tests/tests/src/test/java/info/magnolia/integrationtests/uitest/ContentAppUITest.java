@@ -60,10 +60,11 @@ public class ContentAppUITest extends AbstractPageEditorUITest {
 
         getTreeTableItem("Albert Einstein").click();
         getActionBarItem("Edit contact").click();
-        waitUntil(visibilityOfElementLocated(byDialogTitle("Edit contact")));
-        delay(1, "Waiting until the dialog is open might not be enough");
+        waitUntil(dialogIsOpen("Edit contact"));
 
         openTabWithCaption("Contact details");
+        waitUntil(tabIsOpen("Contact details"));
+
         setFormTextFieldText("E-Mail address", testEmailAddr);
         getDialogCommitButton().click();
         waitUntil(dialogIsClosed("Edit contact"));
@@ -177,12 +178,18 @@ public class ContentAppUITest extends AbstractPageEditorUITest {
         switchToPageEditorContent();
 
         getElement(By.xpath(String.format("//div[@role='article']//div[@class='text-section']"))).click();
+        delay(1, "Wait until item is selected...");
         getElement(By.xpath("//*[contains(@class, 'focus')]//*[contains(@class, 'icon-edit')]")).click();
 
         switchToDefaultContent();
 
+        waitUntil(dialogIsOpen("Text and Image"));
+
         openTabWithCaption("Image");
+        waitUntil(tabIsOpen("Image"));
+
         setFormTextFieldText("Choose image", "/demo-project/img/bk/Opener/round-wooden-blocks-in-various-colors");
+        delay(1, "Wait until change is propagated");
         getElementByXpath("//button/span[text() = '%s']", "Select new...").click();
 
         assertTrue(isTreeTableItemSelected("round-wooden-blocks-in-various-colors"));

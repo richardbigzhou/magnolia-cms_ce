@@ -92,6 +92,8 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
 
         // Go Back to tree and edit the same page
         openTabWithCaption(PAGES_APP);
+        waitUntil(appIsLoaded());
+
         getActionBarItem(EDIT_PAGE_ACTION).click();
 
         // CHECK THE TAB HEADER
@@ -123,23 +125,32 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
         // Add Text
         setFormTextFieldText("Subheading", "New Text Image Component");
         openTabWithCaption("Image");
+        waitUntil(tabIsOpen("Image"));
         setFormTextAreaFieldText("Image Caption", "Image Caption");
         // Add Image
         getNativeButton().click();
+        waitUntil(dialogIsOpen("Assets chooser"));
         expandTreeAndSelectAnElement("a-grey-curvature-of-lines", "demo-project", "img", "bk", "Stage");
         getDialogButtonWithCaption("Choose").click();
+        waitUntil(elementIsGone(byDialogTitle("Assets chooser")));
         // Close and Save the Dialog.
         getDialogCommitButton().click();
+        waitUntil(dialogIsClosed("Text and Image"));
 
         // Add a Contact into the Extra Area Content
         selectAreaAndComponent("Extras", "Contact");
         // Add an Image
         switchToDefaultContent();
+        waitUntil(dialogIsOpen("Contact"));
         getNativeButton().click();
+        waitUntil(dialogIsOpen("Contacts chooser"));
         getTreeTableItem("Pablo Picasso").click();
+        getDialogButtonWithCaption("Choose").click();
+        waitUntil(elementIsGone(byDialogTitle("Contacts chooser")));
         getDialogButtonWithCaption("save changes").click();
         // Close and Save the Dialog.
-        getDialogCommitButton().click();
+        //getDialogCommitButton().click();
+        waitUntil(dialogIsClosed("Contacts chooser"));
 
         // Publish and check on the Public instance
         openTabWithCaption(PAGES_APP);
@@ -175,9 +186,9 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
 
         // Delete Page
         getActionBarItem(DELETE_PAGE_ACTION).click();
-        delay(2, "Wait for the confirmation message");
+        waitUntil(dialogIsOpen("Delete this item?"));
         getDialogConfirmButton().click();
-        delay("Give dialog some time to fade away...");
+        waitUntil(dialogIsClosed("Delete this item?"));
 
         refreshTreeView();
 
@@ -209,9 +220,9 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
         assertThat(getSelectedActivationStatusIcon().getAttribute("class"), containsString(COLOR_GREEN_ICON_STYLE));
 
         getActionBarItem(DELETE_PAGE_ACTION).click();
-        delay(2, "Wait for the confirmation message");
+        waitUntil(dialogIsOpen("Delete this item?"));
         getDialogConfirmButton().click();
-        delay("Give dialog some time to fade away...");
+        waitUntil(dialogIsClosed("Delete this item?"));
 
         refreshTreeView();
 
@@ -224,6 +235,8 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
         delay(2, "Wait for the confirmation message");
 
         openTabWithCaption(PAGES_APP);
+        waitUntil(appIsLoaded());
+
         setMinimalTimeout();
         assertFalse("Article should have been restored - no trash icon should be displayed any longer", isExisting(getSelectedIcon(TRASH_ICON_STYLE)));
         resetTimeout();
@@ -343,9 +356,9 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
 
         // Delete Page
         getActionBarItem(DELETE_PAGE_ACTION).click();
-        delay(3, "Wait for the confirmation message");
+        waitUntil(dialogIsOpen("Delete  these 2 items?"));
         getDialogConfirmButton().click();
-        delay(3, "Give dialog some time to fade away...");
+        waitUntil(dialogIsClosed("Delete  these 2 items?"));
 
         refreshTreeView();
 
@@ -437,12 +450,21 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
 
         getElement(By.xpath("//div[@role='article']//div[@class='text-section']")).click();
         getElement(By.xpath("//*[contains(@class, 'focus')]//*[contains(@class, 'icon-edit')]")).click();
+
         switchToDefaultContent();
+
+        waitUntil(dialogIsOpen("Text and Image"));
+
         // Do changes in the Text Image form and save
         setFormTextFieldText("Subheading", newSubheadingValue);
+
         openTabWithCaption("Image");
+        waitUntil(tabIsOpen("Image"));
+
         setFormTextAreaFieldText("Image Caption", newImageCaptionValue);
+
         getDialogCommitButton().click();
+        waitUntil(dialogIsClosed("Text and Image"));
 
         openTabWithCaption(PAGES_APP);
         waitUntil(appIsLoaded());
@@ -509,9 +531,8 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
      * Check the available actions and tab header.
      */
     protected void openPageVersion(int expectedNumberOfVersion, int desiredVersion, String tabHeader) {
-
         getActionBarItem(SHOW_VERSIONS_ACTION).click();
-        delay("Waiting for the popup to show up");
+        waitUntil(dialogIsOpen("Versions"));
 
         // Click on version drop-down to show versions
         getSelectTabElement("Version").click();
@@ -522,7 +543,7 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
         selectElementOfTabListAtPosition(desiredVersion);
         // Select
         getDialogCommitButton().click();
-        delay("Waiting for the editSubApp to open");
+        waitUntil(appIsLoaded());
 
         // Sub App Open in a Read Only Mode
         waitUntil(elementIsGone(By.xpath("//div[@class = 'mgnlEditorBar mgnlEditor area init']")));

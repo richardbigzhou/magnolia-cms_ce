@@ -36,7 +36,6 @@ package info.magnolia.integrationtests.uitest;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
-import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
 
 import java.io.File;
 import java.io.IOException;
@@ -232,8 +231,7 @@ public class LogToolsAppUITest extends AbstractMagnoliaUITest {
         getAppIcon(APP_NAME).click();
         waitUntil(appIsLoaded());
         getTabWithCaption(subApp).click();
-        waitUntil(visibilityOfElementLocated(byTabContainingCaption(subApp)));
-        delay(1, "Wait until transition is finished");
+        waitUntil(tabIsOpen(subApp));
     }
 
     private WebElement getLogFile(String fileName) {

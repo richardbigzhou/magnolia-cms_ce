@@ -55,8 +55,7 @@ public class GroovyAppUITest extends AbstractMagnoliaUITest {
         waitUntil(appIsLoaded());
 
         openTabWithCaption(consoleName);
-
-        waitUntil(appIsLoaded());
+        waitUntil(tabIsOpen(consoleName));
 
         // WHEN
         simulateKeyPress(Keys.NUMPAD1);

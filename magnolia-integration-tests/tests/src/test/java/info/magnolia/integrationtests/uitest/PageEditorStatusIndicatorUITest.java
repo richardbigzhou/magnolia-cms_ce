@@ -139,6 +139,8 @@ public class PageEditorStatusIndicatorUITest extends AbstractPageEditorUITest {
         // Re-publish page sp that crawler finds it on the public instance
         switchToDefaultContent();
         openTabWithCaption("Pages");
+        waitUntil(tabIsOpen("Pages"));
+
         expandTreeAndSelectAnElement("ftl-sample-site");
         publishSelected(PUBLISH_INCLUDING_SUBPAGES_ACTION);
     }

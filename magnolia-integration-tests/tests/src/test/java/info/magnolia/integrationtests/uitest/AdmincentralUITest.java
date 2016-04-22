@@ -162,6 +162,7 @@ public class AdmincentralUITest extends AbstractMagnoliaUITest {
         String messageTitle = "iam an error";
         getCollapsibleAppSectionIcon("Dev").click();
         getAppIcon("Messages").click();
+        waitUntil(appIsLoaded());
         assertAppOpen("Messages");
 
         // WHEN

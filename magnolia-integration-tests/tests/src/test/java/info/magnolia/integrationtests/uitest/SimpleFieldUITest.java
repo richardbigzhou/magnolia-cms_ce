@@ -34,7 +34,6 @@
 package info.magnolia.integrationtests.uitest;
 
 import static org.junit.Assert.*;
-import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
 
 import java.net.URL;
 import java.text.NumberFormat;
@@ -56,6 +55,7 @@ public class SimpleFieldUITest extends AbstractMagnoliaUITest {
         // GIVEN
         goToDialogShowRoomAndOpenDialogComponent("ftl");
         openTabWithCaption("Edit controls");
+        waitUntil(tabIsOpen("Edit controls"));
 
         // WHEN
         // Set input values
@@ -73,6 +73,7 @@ public class SimpleFieldUITest extends AbstractMagnoliaUITest {
 
         openDialogComponent();
         openTabWithCaption("Edit controls");
+        waitUntil(tabIsOpen("Edit controls"));
 
         // THEN
         assertEquals("test", getFormTextField("Text 1").getAttribute("value"));
@@ -85,6 +86,8 @@ public class SimpleFieldUITest extends AbstractMagnoliaUITest {
         // GIVEN
         goToDialogShowRoomAndOpenDialogComponent("ftl");
         openTabWithCaption("Edit controls");
+        waitUntil(tabIsOpen("Edit controls"));
+
         // WHEN
         setFormTextFieldText("Number long", "true");
 
@@ -106,8 +109,7 @@ public class SimpleFieldUITest extends AbstractMagnoliaUITest {
         // GIVEN
         goToDialogShowRoomAndOpenDialogComponent("ftl");
         openTabWithCaption("Link and Date");
-        waitUntil(visibilityOfElementLocated(byTabContainingCaption("Link and Date")));
-        delay(1, "We wait another second for transitions to finish");
+        waitUntil(tabIsOpen("Link and Date"));
 
         getNativeButton().click();
         getTreeTableItem("demo-project").click();
@@ -127,6 +129,7 @@ public class SimpleFieldUITest extends AbstractMagnoliaUITest {
 
         // WHEN
         openTabWithCaption("File");
+        waitUntil(tabIsOpen("File"));
 
         // THEN
         WebElement upload = getFormField("Upload a file");
@@ -139,6 +142,8 @@ public class SimpleFieldUITest extends AbstractMagnoliaUITest {
         // GIVEN
         goToDialogShowRoomAndOpenDialogComponent("ftl");
         openTabWithCaption("File");
+        waitUntil(tabIsOpen("File"));
+
         // Init file ref
         URL resource = getClass().getClassLoader().getResource("me.jpg");
         assertNotNull(resource);
@@ -213,8 +218,7 @@ public class SimpleFieldUITest extends AbstractMagnoliaUITest {
         // GIVEN
         goToDialogShowRoomAndOpenDialogComponent("ftl");
         openTabWithCaption("Selections");
-        waitUntil(visibilityOfElementLocated(byTabContainingCaption("Selections")));
-        delay(1, "We wait another second for transitions to finish");
+        waitUntil(tabIsOpen("Selections"));
 
         WebElement select = getFormField("Select");
 

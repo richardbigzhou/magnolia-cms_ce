@@ -53,6 +53,7 @@ public class CategoriesAppUITest extends AbstractMagnoliaUITest {
         getActionBarItem("Add folder").click();
         waitUntil(elementToBeClickable(getTreeTableItem("untitled")));
         getActionBarItem("Add category").click();
+        waitUntil(appIsLoaded());
 
         getFormTextField("Category name").sendKeys(testName);
         getFormTextField("Display name").sendKeys(StringUtils.capitalize(testName));
@@ -70,6 +71,8 @@ public class CategoriesAppUITest extends AbstractMagnoliaUITest {
         final String renamedName = "RenamedFrom" + testName;
 
         getActionBarItem("Edit category").click();
+        waitUntil(appIsLoaded());
+
         WebElement categoryNameField = getFormTextField("Category name");
         categoryNameField.clear();
         categoryNameField.sendKeys(renamedName);

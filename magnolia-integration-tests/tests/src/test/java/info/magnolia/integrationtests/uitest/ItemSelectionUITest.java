@@ -138,22 +138,33 @@ public class ItemSelectionUITest extends AbstractMagnoliaUITest {
         assertAppOpen("Contacts");
         // add new contact
         getEnabledActionBarItem("Add contact").click();
+        waitUntil(dialogIsOpen("Edit contact"));
+
         setFormTextFieldText("First name", "John");
         setFormTextFieldText("Last name", "Doe");
+
         getTabWithCaption("Address").click();
+        waitUntil(tabIsOpen("Address"));
+
         setFormTextFieldText("Organization", "Magnolia");
+
         getTabWithCaption("Contact details").click();
+        waitUntil(tabIsOpen("Contact details"));
+
         setFormTextFieldText("E-Mail address", "johndoe@example.com");
 
         // WHEN
         getDialogCommitButton().click();
+        waitUntil(dialogIsClosed("Edit contact"));
 
         // THEN
-        delay("Wait a moment until detail app is closed.");
         assertTrue(isTreeTableItemSelected("John Doe"));
+
         // cleanup
         getEnabledActionBarItem("Delete contact").click();
         getDialogCommitButton().click();
+        waitUntil(dialogIsClosed("Delete this contact?"));
+
         getEnabledActionBarItem("Publish deletion").click();
     }
 
@@ -185,16 +196,19 @@ public class ItemSelectionUITest extends AbstractMagnoliaUITest {
 
         // go to users subapp
         openTabWithCaption("Users");
-        waitUntil(appIsLoaded());
+        waitUntil(tabIsOpen("Users"));
         assertAppOpen("Users");
 
         getEnabledActionBarItem("Add user").click();
+        waitUntil(dialogIsOpen("User"));
+
         setFormTextFieldText("User name", "johndoe");
         sendKeysToDialogField(getPassword(), "password");
         sendKeysToDialogField(getPasswordConfirmation(), "password");
 
         // WHEN
         getDialogCommitButton().click();
+        waitUntil(dialogIsClosed("User"));
 
         // THEN
         assertTrue(isTreeTableItemSelected("johndoe"));
@@ -212,14 +226,18 @@ public class ItemSelectionUITest extends AbstractMagnoliaUITest {
 
         // go to roles subapp
         openTabWithCaption("Roles");
-        waitUntil(appIsLoaded());
+        waitUntil(tabIsOpen("Roles"));
         assertAppOpen("Roles");
 
         getEnabledActionBarItem("Add role").click();
+        waitUntil(dialogIsOpen("Role"));
+
         setFormTextFieldText("Role name", "tmprole");
 
         // WHEN
         getDialogCommitButton().click();
+
+        waitUntil(dialogIsClosed("Role"));
 
         // THEN
         assertTrue(isTreeTableItemSelected("tmprole"));
@@ -237,19 +255,22 @@ public class ItemSelectionUITest extends AbstractMagnoliaUITest {
 
         // go to groups subapp
         openTabWithCaption("Groups");
-        waitUntil(appIsLoaded());
+        waitUntil(tabIsOpen("Groups"));
         assertAppOpen("Groups");
 
         getEnabledActionBarItem("Add group").click();
+        waitUntil(dialogIsOpen("Group"));
         setFormTextFieldText("Group name", "tmpgroup");
 
         // WHEN
         getDialogCommitButton().click();
+        waitUntil(dialogIsClosed("Group"));
 
         // THEN
         assertTrue(isTreeTableItemSelected("tmpgroup"));
         //cleanup
         getEnabledActionBarItem("Delete group").click();
+        waitUntil(dialogIsOpen("Do you really want to delete selected group(s)?"));
         getDialogCommitButton().click();
     }
 

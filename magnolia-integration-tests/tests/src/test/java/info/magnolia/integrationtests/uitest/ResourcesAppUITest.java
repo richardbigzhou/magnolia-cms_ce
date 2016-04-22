@@ -276,6 +276,7 @@ public class ResourcesAppUITest extends AbstractMagnoliaUITest {
         getEnabledActionBarItem("Edit file").click();
         waitUntil(appIsLoaded());
         getDialogCommitButton().click();
+        waitUntil(appIsLoaded());
     }
 
     private void setUpStructureFor(List<String> folders, List<String> files) {

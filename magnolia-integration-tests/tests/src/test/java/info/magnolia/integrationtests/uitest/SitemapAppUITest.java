@@ -63,8 +63,10 @@ public class SitemapAppUITest extends AbstractMagnoliaUITest {
         assertTrue(isExisting(getTreeTableItem(testName)));
 
         // GIVEN - rename
-        final String renamedName = "RenamedFrom" + testName;
         getEnabledActionBarItem("Edit site map properties").click();
+        waitUntil(appIsLoaded());
+
+        final String renamedName = "RenamedFrom" + testName;
         final WebElement nameField = getFormTextField("Name");
         nameField.clear();
         nameField.sendKeys(renamedName);

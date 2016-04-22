@@ -93,6 +93,7 @@ public class KeyboardShortcutUITest extends AbstractPageEditorUITest {
         waitUntil(appIsLoaded());
         assertAppOpen("Pages");
         getActionBarItem("Add page").click();
+        waitUntil(dialogIsOpen("Add new page"));
         setFormTextFieldText("Page name", pageName);
 
         // First pass - we cancel the dialog closing.
@@ -141,7 +142,7 @@ public class KeyboardShortcutUITest extends AbstractPageEditorUITest {
         assertAppOpen("Pages");
 
         doubleClick(getTreeTableItem("ftl-sample-site"));
-        delay(1, "");
+        waitUntil(appIsLoaded());
 
         // Open component editor
         switchToPageEditorContent();
@@ -189,7 +190,9 @@ public class KeyboardShortcutUITest extends AbstractPageEditorUITest {
         waitUntil(appIsLoaded());
         assertAppOpen("Contacts");
         getActionBarItem("Add contact").click();
+        waitUntil(appIsLoaded());
         openTabWithCaption("Personal");
+        waitUntil(tabIsOpen("Personal"));
         setFormTextFieldText("First name", nameFirst);
 
         // First pass - we cancel the ESCAPE action.
@@ -235,6 +238,7 @@ public class KeyboardShortcutUITest extends AbstractPageEditorUITest {
 
         // WHEN
         getActionBarItem("Add page").click();
+        waitUntil(dialogIsOpen("Add new page"));
         setFormTextFieldText("Page name", pageName);
         setFormTextAreaFieldText("Page title", title);
         getSelectTabElement("Template").click();
@@ -247,7 +251,8 @@ public class KeyboardShortcutUITest extends AbstractPageEditorUITest {
         moveToElement(getFormTextField("Page name"));
 
         simulateKeyPress(Keys.RETURN);
-        waitUntil(dialogIsClosed("Add new page"));
+        // Instead of waiting for the page dialog to be closed we rather wait for the callback dialog to be open
+        waitUntil(dialogIsOpen("Redirect"));
         getDialogCancelButton().click();
 
         //THEN
@@ -275,6 +280,7 @@ public class KeyboardShortcutUITest extends AbstractPageEditorUITest {
         assertAppOpen("Pages");
 
         getActionBarItem("Add page").click();
+        waitUntil(dialogIsOpen("Add new page"));
         setFormTextFieldText("Page name", pageName);
         setFormTextAreaFieldText("Page title", title);
         getSelectTabElement("Template").click();
@@ -310,6 +316,7 @@ public class KeyboardShortcutUITest extends AbstractPageEditorUITest {
         waitUntil(appIsLoaded());
         assertAppOpen("Contacts");
         getActionBarItem("Add contact").click();
+        waitUntil(appIsLoaded());
 
         fillInRequiredContactFields(nameFirst, nameLast, email);
 
@@ -341,11 +348,14 @@ public class KeyboardShortcutUITest extends AbstractPageEditorUITest {
         waitUntil(appIsLoaded());
         assertAppOpen("Contacts");
         getActionBarItem("Add contact").click();
+        waitUntil(appIsLoaded());
 
         fillInRequiredContactFields(nameFirst, nameLast, email);
 
         // WHEN
         openTabWithCaption("Address");
+        waitUntil(tabIsOpen("Address"));
+
         getFormTextAreaField("Street address").sendKeys(Keys.RETURN);
         delay(1, "");
 
@@ -508,12 +518,15 @@ public class KeyboardShortcutUITest extends AbstractPageEditorUITest {
      */
     private void fillInRequiredContactFields(String nameFirst, String nameLast, String email){
         openTabWithCaption("Personal");
+        waitUntil(tabIsOpen("Personal"));
         setFormTextFieldText("First name", nameFirst);
         setFormTextFieldText("Last name", nameLast);
         openTabWithCaption("Address");
+        waitUntil(tabIsOpen("Address"));
         setFormTextFieldText("Organization", "org");
         setFormTextAreaFieldText("Street address", "address-125");
         openTabWithCaption("Contact details");
+        waitUntil(tabIsOpen("Contact details"));
         setFormTextFieldText("E-Mail address", email);
     }
 
