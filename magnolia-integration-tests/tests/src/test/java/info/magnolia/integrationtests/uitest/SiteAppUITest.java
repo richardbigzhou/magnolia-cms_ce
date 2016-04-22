@@ -61,6 +61,8 @@ public class SiteAppUITest extends AbstractPageEditorUITest {
 
         getTreeTableItem("variations").click();
 
+        delay(1, "Wait for the node to be expanded");
+
         getActionBarItem("Add content node").click();
 
         // publish

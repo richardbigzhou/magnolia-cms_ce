@@ -46,7 +46,7 @@ public class ComplexFieldUITest extends AbstractPageEditorUITest {
     @Test
     public void testMultiFieldWithDefaultPropertyBuilderAddRemove() {
         // GIVEN
-        String fieldName = "Date List Field";
+        String fieldName = "Date List Field (en)";
         goToDialogShowRoomAndOpenDialogComponent("ftl");
         openTabWithCaption("Multi Fields");
         waitUntil(tabIsOpen("Multi Fields"));
