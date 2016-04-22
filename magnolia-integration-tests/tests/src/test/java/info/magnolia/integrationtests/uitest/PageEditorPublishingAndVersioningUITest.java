@@ -133,6 +133,7 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
 
         // Add Text Image component into the main Content
         selectAreaAndComponent("Content", "Text and Image");
+
         // Add Text
         setFormTextFieldText("Subheading", "New Text Image Component");
         openTabWithCaption("Image");
@@ -201,6 +202,7 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
         waitUntil(dialogIsOpen("Delete this item?"));
         getDialogConfirmButton().click();
         waitUntil(dialogIsClosed("Delete this item?"));
+        delay("Wait for the confirmation message");
 
         refreshTreeView();
 
@@ -213,7 +215,7 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
 
         // Validate the Delete
         getActionBarItem(PUBLISH_DELETION_ACTION).click();
-        delay(2, "Wait for the confirmation message");
+        delay("Wait for the confirmation message");
 
         // Check that the Detail sub app is closed
         waitUntil(elementIsGone(byTabContainingCaption("Title of the new Article To Delete")));
@@ -279,12 +281,12 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
         // GIVEN
         final String[] pathToArticle = new String[]{DEMO_PROJECT_PAGE, ABOUT_PAGE};
         final String pageName = "new";
-        final String template = "Article";
-        final String dialogName = "Article Info";
+
         getAppIcon(PAGES_APP).click();
         waitUntil(appIsLoaded());
+
         expandTreeAndSelectAnElement(SUBSECTION_ARTICLES, pathToArticle);
-        addNewPage(pageName, template, dialogName);
+        addNewPage(pageName, "Article", "Article Info");
         expandTreeAndSelectAnElement(pageName, SUBSECTION_ARTICLES);
         assertThat(getSelectedActivationStatusIcon().getAttribute("class"), containsString(COLOR_RED_ICON_STYLE));
 
@@ -413,6 +415,7 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
         delay(1, "make sure there is enough time to process change event");
 
         getDialogCommitButton().click();
+        waitUntil(dialogIsOpen(componentName));
     }
 
     /**
@@ -502,7 +505,6 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
         // Check the Public instance.
         delay(5, "Wait for publication");
         checkPublicInstance(subheadingValue, imageCaptionValue, article, pathToArticle);
-
     }
 
     /**
@@ -543,7 +545,7 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
 
         // Go back to the last url
         navigateDriverTo(lastUrl);
-        delay("Wait for the driver...");
+        waitUntil(appIsLoaded());
     }
 
     /**
