@@ -1370,8 +1370,9 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
      *
      * @param deleteActionCaption The caption of the delete action.
      * @param rowName The caption of the row.
+     * @param dialogTitle Title of the deletion dialog (varies from app to app)
      */
-    protected void deleteTreeTableRow(String deleteActionCaption, String rowName) {
+    protected void deleteTreeTableRow(String deleteActionCaption, String rowName, String dialogTitle) {
         if (!isTreeTableItemSelected(rowName)) {
             final WebElement rowToDelete = getTreeTableItem(rowName);
             rowToDelete.click();
@@ -1379,10 +1380,10 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         delay(1, "Wait for the row to be selected");
 
         getActionBarItem(deleteActionCaption).click();
-        waitUntil(dialogIsOpen("Delete this item?"));
+        waitUntil(dialogIsOpen(dialogTitle));
 
         getDialogCommitButton().click();
-        waitUntil(dialogIsClosed("Delete this item?"));
+        waitUntil(dialogIsClosed(dialogTitle));
 
         refreshTreeView();
 
@@ -1392,6 +1393,10 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         // Publish the Deletion
         getActionBarItem("Publish deletion").click();
         delay(2, "Time to process the deletion");
+    }
+
+    protected void deleteTreeTableRow(String deleteActionCaption, String rowName) {
+        deleteTreeTableRow(deleteActionCaption, rowName, "Delete this item?");
     }
 
     private WebElement getViewButton(String viewName) {
