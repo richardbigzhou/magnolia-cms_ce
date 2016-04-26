@@ -40,7 +40,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 
 /**
  * UI tests for SecurityApp.
@@ -384,8 +383,13 @@ public class SecurityAppUITest extends AbstractMagnoliaUITest {
         waitUntil(visibilityOfElementLocated(byTreeTableItem(newItemName)));
 
         getActionBarItem(getMoveActionName(itemTypeCaption)).click();
+        waitUntil(dialogIsOpen("Move destination"));
+
         getMoveDialogElement(folderName).click();
+
         getDialogCommitButton().click();
+        waitUntil(dialogIsClosed("Move destination"));
+
         refreshTreeView();
 
         // THEN
@@ -416,7 +420,7 @@ public class SecurityAppUITest extends AbstractMagnoliaUITest {
 
         // THEN
         By treeExpanderLocator = byTreeTableItemExpander(folderName);
-        waitUntil(ExpectedConditions.elementToBeClickable(treeExpanderLocator));
+        waitUntil(elementToBeClickable(treeExpanderLocator));
         getElement(treeExpanderLocator).click();
         assertTrue(getTreeTableItem(newItemName).isDisplayed());
 
@@ -440,6 +444,8 @@ public class SecurityAppUITest extends AbstractMagnoliaUITest {
 
         // Rename folder
         getActionBarItem("Rename folder").click();
+        waitUntil(dialogIsOpen("Rename folder"));
+
         getDialogInputByLabel("Folder Name").clear();
         sendKeysToDialogField("Folder Name", folderName);
         getDialogCommitButton().click();
@@ -498,8 +504,9 @@ public class SecurityAppUITest extends AbstractMagnoliaUITest {
      */
     private void addUser(String username, String password) {
         getActionBarItem(getAddItemActionName(USER)).click();
-        sendKeysToDialogField(getItemNameFieldLabel(USER), username);
+        waitUntil(dialogIsOpen(StringUtils.capitalize(USER)));
 
+        sendKeysToDialogField(getItemNameFieldLabel(USER), username);
         sendKeysToDialogField(getPassword(), password);
         sendKeysToDialogField(getPasswordConfirmation(), password);
 
@@ -528,13 +535,15 @@ public class SecurityAppUITest extends AbstractMagnoliaUITest {
             getTreeTableItem(itemName).click();
         }
         getActionBarItem(getEditItemActionName(itemTypeCaption)).click();
+        waitUntil(dialogIsOpen(StringUtils.capitalize(itemTypeCaption)));
+
         getDialogInputByLabel(getItemNameFieldLabel(itemTypeCaption)).clear();
         sendKeysToDialogField(getItemNameFieldLabel(itemTypeCaption), newItemName);
 
         delay("Let the name change propagate");
         getDialogCommitButton().click();
 
-        waitUntil(dialogIsClosed(getItemNameFieldLabel(itemTypeCaption)));
+        waitUntil(dialogIsClosed(StringUtils.capitalize(itemTypeCaption)));
     }
 
     private String getItemNameFieldLabel(String itemTypeId) {
@@ -566,10 +575,13 @@ public class SecurityAppUITest extends AbstractMagnoliaUITest {
      */
     private void addSecurityAppItem(String itemTypeCaption, String itemName) {
         getEnabledActionBarItem(getAddItemActionName(itemTypeCaption)).click();
+        waitUntil(dialogIsOpen(StringUtils.capitalize(itemTypeCaption)));
+
         sendKeysToDialogField(getItemNameFieldLabel(itemTypeCaption), itemName);
+
         getDialogCommitButton().click();
-        waitUntil(dialogIsClosed(getItemNameFieldLabel(itemTypeCaption)));
-        delay(1, "Let the dialog close properly");
+        waitUntil(dialogIsClosed(StringUtils.capitalize(itemTypeCaption)));
+
         // de-select created item
         if (isTreeTableItemSelected(itemName)) {
             getTreeTableItem(itemName).click();
@@ -580,8 +592,7 @@ public class SecurityAppUITest extends AbstractMagnoliaUITest {
         getAppIcon("Security").click();
         waitUntil(appIsLoaded());
         openTabWithCaption(subAppName);
-        waitUntil(appIsLoaded());
-        delay(1, "Wait until transition is done");
+        waitUntil(tabIsOpen(subAppName));
     }
 
     /**

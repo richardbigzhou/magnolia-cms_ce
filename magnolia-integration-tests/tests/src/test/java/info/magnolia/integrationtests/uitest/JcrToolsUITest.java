@@ -34,7 +34,7 @@
 package info.magnolia.integrationtests.uitest;
 
 import static org.hamcrest.CoreMatchers.*;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertThat;
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
 
 import org.junit.Before;
@@ -99,8 +99,7 @@ public class JcrToolsUITest extends AbstractMagnoliaUITest {
     public void dumperIssuesSuccessNotificationAndProvidesValidResultWithSwitchedWorkspaceAndValidBasePath() {
         // GIVEN
         openTabWithCaption("Dumper");
-        waitUntil(visibilityOfElementLocated(byTabContainingCaption("Dumper")));
-        delay(1, "Wait until transitions are done");
+        waitUntil(tabIsOpen("Dumper"));
 
         getSelectTabElement("Workspace").click();
         selectElementOfTabListForLabel("config");
@@ -325,6 +324,8 @@ public class JcrToolsUITest extends AbstractMagnoliaUITest {
     public void exporterIssuesRequiredWarningWithNullBasePathAndFormatXMLChecked() {
         // GIVEN
         openTabWithCaption("Exporter");
+        waitUntil(tabIsOpen("Exporter"));
+
         final WebElement checkbox = getElement(byFormatXMLCheckbox).findElement(By.tagName("input"));
         checkbox.click();
         populateFormFieldsAndSubmitForm("Exporter", "TextField", "Path", null);
@@ -350,6 +351,8 @@ public class JcrToolsUITest extends AbstractMagnoliaUITest {
     public void exporterIssuesRequiredWarningWithInvalidBasePathAndFormatXMLChecked() {
         // GIVEN
         openTabWithCaption("Exporter");
+        waitUntil(tabIsOpen("Exporter"));
+
         final WebElement checkbox = getElement(byFormatXMLCheckbox).findElement(By.tagName("input"));
         checkbox.click();
         populateFormFieldsAndSubmitForm("Exporter", "TextField", "Path", "magnolia");
@@ -364,8 +367,7 @@ public class JcrToolsUITest extends AbstractMagnoliaUITest {
     public void exporterIssuesSuccessNotificationWithDefaultBasePathAndFormatXMLNotChecked() {
         // GIVEN
         openTabWithCaption("Exporter");
-        waitUntil(visibilityOfElementLocated(byTabContainingCaption("Exporter")));
-        delay(1, "Wait until transitions are done");
+        waitUntil(tabIsOpen("Exporter"));
 
         getButton("v-button-commit", "Execute").click();
 
@@ -380,6 +382,8 @@ public class JcrToolsUITest extends AbstractMagnoliaUITest {
     public void exporterIssuesSuccessNotificationWithDefaultBasePathAndFormatXMLChecked() {
         // GIVEN
         openTabWithCaption("Exporter");
+        waitUntil(tabIsOpen("Exporter"));
+
         final WebElement checkbox = getElement(byFormatXMLCheckbox).findElement(By.tagName("input"));
         checkbox.click();
 
@@ -420,8 +424,7 @@ public class JcrToolsUITest extends AbstractMagnoliaUITest {
     public void importerIssuesRequiredWarningWithDefaultBasePathAndNullFile() {
         // GIVEN
         openTabWithCaption("Importer");
-        waitUntil(visibilityOfElementLocated(byTabContainingCaption("Importer")));
-        delay(1, "Wait until transitions are done");
+        waitUntil(tabIsOpen("Importer"));
 
         getButton("v-button-commit", "Execute").click();
 
@@ -433,7 +436,7 @@ public class JcrToolsUITest extends AbstractMagnoliaUITest {
 
     private void populateFormFieldsAndSubmitForm(final String subAppName, final String fieldType, final String fieldKey, final String fieldValue) {
         openTabWithCaption(subAppName);
-        waitUntil(visibilityOfElementLocated(byTabContainingCaption(subAppName)));
+        waitUntil(tabIsOpen(subAppName));
 
         if (fieldType.equals("TextField")) {
             setFormTextFieldText(fieldKey, fieldValue);
@@ -446,7 +449,8 @@ public class JcrToolsUITest extends AbstractMagnoliaUITest {
 
     private void populateQueryFormFieldsAndSubmitForm(final String textFieldText, final String textAreaFieldText) {
         openTabWithCaption("Query");
-        waitUntil(visibilityOfElementLocated(byTabContainingCaption("Query")));
+        waitUntil(tabIsOpen("Query"));
+
         setFormTextFieldText("Result Item Type", textFieldText);
         setFormTextAreaFieldText("Statement", textAreaFieldText);
         getButton("v-button-commit", "Execute").click();

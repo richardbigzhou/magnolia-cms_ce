@@ -35,6 +35,10 @@ package info.magnolia.integrationtests.uitest;
 
 import static org.junit.Assert.*;
 
+import info.magnolia.integrationtests.rules.Site;
+import info.magnolia.integrationtests.rules.SiteRule;
+
+import org.junit.Rule;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -43,6 +47,9 @@ import org.openqa.selenium.WebElement;
  * UI tests for Page Editor.
  */
 public class PageEditorUITest extends AbstractPageEditorUITest {
+
+    @Rule
+    public SiteRule siteRule = new SiteRule();
 
     private static final String LARGE_ARTICLE = "large-article";
 
@@ -56,6 +63,7 @@ public class PageEditorUITest extends AbstractPageEditorUITest {
 
         getTreeTableItem("ftl-sample-site").click();
         getActionBarItem(EDIT_PAGE_ACTION).click();
+        waitUntil(appIsLoaded());
 
         switchToPageEditorContent();
         getElement(By.xpath("//h3[text() = 'Main - Component One']")).click();
@@ -75,6 +83,7 @@ public class PageEditorUITest extends AbstractPageEditorUITest {
         waitUntil(appIsLoaded());
         getTreeTableItem("jsp-sample-site").click();
         getActionBarItem(EDIT_PAGE_ACTION).click();
+        waitUntil(appIsLoaded());
 
         switchToPageEditorContent();
         getElement(By.xpath("//h3[text() = 'Main - Component One']")).click();
@@ -86,6 +95,7 @@ public class PageEditorUITest extends AbstractPageEditorUITest {
     }
 
     @Test
+    @Site
     public void editingTextImageParagraphBringsUpRichTextEditor() {
         // GIVEN
 
@@ -98,6 +108,7 @@ public class PageEditorUITest extends AbstractPageEditorUITest {
         getTreeTableItemExpander(SUBSECTION_ARTICLES).click();
         getTreeTableItem("an-interesting-article").click();
         getActionBarItem(EDIT_PAGE_ACTION).click();
+        waitUntil(appIsLoaded());
 
         switchToPageEditorContent();
         getElement(By.xpath("//h2[text() = 'More interesting ']")).click();
@@ -110,6 +121,7 @@ public class PageEditorUITest extends AbstractPageEditorUITest {
     }
 
     @Test
+    @Site
     public void inheritedComponentsAreNotEditable() {
         // GIVEN
 
@@ -119,6 +131,7 @@ public class PageEditorUITest extends AbstractPageEditorUITest {
         getTreeTableItemExpander(DEMO_PROJECT_PAGE).click();
         getTreeTableItem(ABOUT_PAGE).click();
         getActionBarItem(EDIT_PAGE_ACTION).click();
+        waitUntil(appIsLoaded());
 
         switchToPageEditorContent();
         getElement(By.id("promo-1")).click();
@@ -135,6 +148,7 @@ public class PageEditorUITest extends AbstractPageEditorUITest {
     }
 
     @Test
+    @Site
     public void followingLinksKeepsTheCurrentMode() {
         // GIVEN
 
@@ -144,7 +158,8 @@ public class PageEditorUITest extends AbstractPageEditorUITest {
 
         getTreeTableItem(DEMO_PROJECT_PAGE).click();
         getActionBarItem(EDIT_PAGE_ACTION).click();
-        delay(3, "Give some time to load the page");
+        waitUntil(appIsLoaded());
+
         assertTrue("We should be in edit mode.", getCurrentDriverUrl().contains("demo-project:edit"));
 
         switchToPageEditorContent();
@@ -175,6 +190,7 @@ public class PageEditorUITest extends AbstractPageEditorUITest {
     }
 
     @Test
+    @Site
     public void testPageStatusBarIsShown() {
         // GIVEN
         getAppIcon(PAGES_APP).click();
@@ -184,6 +200,7 @@ public class PageEditorUITest extends AbstractPageEditorUITest {
 
         // WHEN
         getActionBarItem(EDIT_PAGE_ACTION).click();
+        waitUntil(appIsLoaded());
 
         // THEN
         WebElement icon = getElementByXpath("//div[contains(@class, 'icon-status-green')]//div");
@@ -195,6 +212,7 @@ public class PageEditorUITest extends AbstractPageEditorUITest {
     }
 
     @Test
+    @Site
     public void testPageStatusBarIsChangedAfterPageModification() {
         // GIVEN
         getAppIcon(PAGES_APP).click();
@@ -204,6 +222,7 @@ public class PageEditorUITest extends AbstractPageEditorUITest {
         getTreeTableItemExpander(SUBSECTION_ARTICLES).click();
         getTreeTableItem(LARGE_ARTICLE).click();
         getActionBarItem(EDIT_PAGE_ACTION).click();
+        waitUntil(appIsLoaded());
 
         switchToPageEditorContent();
 
@@ -222,6 +241,7 @@ public class PageEditorUITest extends AbstractPageEditorUITest {
     }
 
     @Test
+    @Site
     public void testPageStatusBarIsChangedAfterNavigatingToAnotherPage() {
         // GIVEN
         getAppIcon(PAGES_APP).click();
@@ -231,6 +251,7 @@ public class PageEditorUITest extends AbstractPageEditorUITest {
         getTreeTableItemExpander(SUBSECTION_ARTICLES).click();
         getTreeTableItem(LARGE_ARTICLE).click();
         getActionBarItem(EDIT_PAGE_ACTION).click();
+        waitUntil(appIsLoaded());
 
         switchToPageEditorContent();
         changeTextImageContent("new subheading value", "new image caption value");
@@ -255,6 +276,7 @@ public class PageEditorUITest extends AbstractPageEditorUITest {
     }
 
     @Test
+    @Site
     public void switchToPreview() {
         // GIVEN
 
@@ -263,12 +285,13 @@ public class PageEditorUITest extends AbstractPageEditorUITest {
         waitUntil(appIsLoaded());
         getTreeTableItem(DEMO_PROJECT_PAGE).click();
         getActionBarItem(EDIT_PAGE_ACTION).click();
-        delay(3, "Give some time to load the page");
+        waitUntil(appIsLoaded());
+
         assertTrue("We should be in edit mode.", getCurrentDriverUrl().contains("demo-project:edit"));
         waitUntil(elementIsGone("//*[contains(@class, 'iframe-preloader')]"));
 
         getActionBarItem(PREVIEW_PAGE_ACTION).click();
-        delay(3, "Give some time to load the page");
+        waitUntil(appIsLoaded());
 
         // THEN
         assertTrue("We should be in view mode.", getCurrentDriverUrl().contains("demo-project:view"));
@@ -289,15 +312,19 @@ public class PageEditorUITest extends AbstractPageEditorUITest {
         getElementByXpath("//div[@role='article']//div[@class='text-section']").click();
         getElementByXpath("//*[contains(@class, 'focus')]//*[contains(@class, 'icon-edit')]").click();
         switchToDefaultContent();
+        waitUntil(dialogIsOpen("Text and Image"));
         // Do changes in the Text Image form and save
         setFormTextFieldText("Subheading", newSubheadingValue);
         openTabWithCaption("Image");
+        waitUntil(tabIsOpen("Image"));
         setFormTextAreaFieldText("Image Caption", newImageCaptionValue);
         getDialogCommitButton().click();
+        waitUntil(dialogIsClosed("Text and Image"));
         switchToPageEditorContent();
     }
 
     @Test
+    @Site
     public void testAddComponentActionForOptionalArea() {
         // GIVEN
 
@@ -307,6 +334,8 @@ public class PageEditorUITest extends AbstractPageEditorUITest {
 
         getTreeTableItem("demo-project").click();
         getActionBarItem(EDIT_PAGE_ACTION).click();
+        waitUntil(appIsLoaded());
+
         switchToPageEditorContent();
         getElement(By.xpath("//div[@id = 'main']//div[contains(@class, 'mgnlEditorBarLabel') and text() = 'Teasers']")).click();
         getElement(By.xpath("//div[@id = 'teaser-1']//div[contains(@class, 'mgnlEditorBarLabel') and text() = 'Internal Page Teaser']")).click();
@@ -330,10 +359,11 @@ public class PageEditorUITest extends AbstractPageEditorUITest {
         getElement(By.xpath("//div[@id = 'main']//div[contains(@class, 'mgnlEditorBarLabel') and text() = 'Teasers']")).click();
         getElement(By.xpath("//div[@id = 'main']//div[text() = 'New Teasers Component']")).click();
         switchToDefaultContent();
+        waitUntil(dialogIsOpen("Add component"));
         getElement(By.xpath("//div[contains(@class, 'dialog-root')]//div[@role = 'combobox']//div[@role = 'button']")).click();
         getElement(By.xpath("//div[contains(@class, 'v-filterselect-suggestpopup')]//span[text() = 'Internal Page Teaser']")).click();
         getElement(By.xpath("//div[contains(@class, 'dialog-root')]//span[text() = 'Next']")).click();
-        delay("wait");
+        waitUntil(dialogIsOpen("Teaser"));
         getElement(By.xpath("//div[contains(@class, 'dialog-root')]//input[@type = 'text']")).sendKeys("/demo-project/about/history");
         getElement(By.xpath("//div[contains(@class, 'dialog-root')]//span[text() = 'save changes']")).click();
         waitUntil(dialogIsClosed("Teaser"));
@@ -356,6 +386,7 @@ public class PageEditorUITest extends AbstractPageEditorUITest {
     }
 
     @Test
+    @Site
     public void testAddComponentActionForSingleArea() {
         // GIVEN
 
@@ -366,6 +397,8 @@ public class PageEditorUITest extends AbstractPageEditorUITest {
         getTreeTableItem("service").findElement(By.xpath("./div[contains(@class, 'icon-arrow1_e')]")).click();
         getTreeTableItem("site-map").click();
         getActionBarItem(EDIT_PAGE_ACTION).click();
+        waitUntil(appIsLoaded());
+
         switchToPageEditorContent();
         getElement(By.xpath("//div[contains(@class, 'mgnlEditorBarLabel') and text() = 'Content']")).click();
         switchToDefaultContent();

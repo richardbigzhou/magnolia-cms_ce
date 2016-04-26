@@ -36,14 +36,13 @@ package info.magnolia.integrationtests.uitest;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
-import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
+import static org.junit.Assume.assumeFalse;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
 import org.junit.After;
-import org.junit.Assume;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -108,7 +107,7 @@ public class LogToolsAppUITest extends AbstractMagnoliaUITest {
 
     @Test
     public void downloadSingleLogFile() throws IOException {
-        Assume.assumeFalse(isExecutedInVirtualMachine());
+        assumeFalse(isExecutedInVirtualMachine());
 
         // GIVEN
         goToSubApp(LOG_LIST);
@@ -125,7 +124,7 @@ public class LogToolsAppUITest extends AbstractMagnoliaUITest {
 
     @Test
     public void downloadMultipleLogFiles() throws IOException {
-        Assume.assumeFalse(isExecutedInVirtualMachine());
+        assumeFalse(isExecutedInVirtualMachine());
 
         // GIVEN
         goToSubApp(LOG_LIST);
@@ -232,8 +231,7 @@ public class LogToolsAppUITest extends AbstractMagnoliaUITest {
         getAppIcon(APP_NAME).click();
         waitUntil(appIsLoaded());
         getTabWithCaption(subApp).click();
-        waitUntil(visibilityOfElementLocated(byTabContainingCaption(subApp)));
-        delay(1, "Wait until transition is finished");
+        waitUntil(tabIsOpen(subApp));
     }
 
     private WebElement getLogFile(String fileName) {

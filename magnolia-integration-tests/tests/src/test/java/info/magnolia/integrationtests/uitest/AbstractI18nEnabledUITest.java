@@ -59,6 +59,7 @@ public abstract class AbstractI18nEnabledUITest extends AbstractMagnoliaUITest {
         final String currentUrl = getCurrentDriverUrl();
         navigateDriverTo(Instance.AUTHOR.getURL(".magnolia/jcrprop/?workspace=config&path=/modules/standard-templating-kit/config/site/i18n/enabled&value=false"));
         navigateDriverTo(Instance.AUTHOR.getURL(".magnolia/jcrprop/?workspace=config&path=/modules/site/config/site/reload&delete=true")); // restart site module to pick up changes for i18n
+        delay(10, "Wait until observation triggers change"); // AWS might be too fast, so we should wait...
         navigateDriverTo(currentUrl);
 
         super.tearDown();

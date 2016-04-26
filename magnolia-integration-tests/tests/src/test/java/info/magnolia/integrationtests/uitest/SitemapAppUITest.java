@@ -49,7 +49,9 @@ public class SitemapAppUITest extends AbstractMagnoliaUITest {
         assertAppOpen("Sitemaps");
 
         getActionBarItem("Add folder").click();
+        delay(1, "Wait for folder to be created");
         getEnabledActionBarItem("Add site map").click();
+        waitUntil(dialogIsOpen("Edit site map properties"));
 
         getFormTextField("Name").sendKeys(testName);
         getFormTextField("URI").click();
@@ -63,8 +65,10 @@ public class SitemapAppUITest extends AbstractMagnoliaUITest {
         assertTrue(isExisting(getTreeTableItem(testName)));
 
         // GIVEN - rename
-        final String renamedName = "RenamedFrom" + testName;
         getEnabledActionBarItem("Edit site map properties").click();
+        waitUntil(appIsLoaded());
+
+        final String renamedName = "RenamedFrom" + testName;
         final WebElement nameField = getFormTextField("Name");
         nameField.clear();
         nameField.sendKeys(renamedName);

@@ -50,6 +50,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.io.FileUtils;
@@ -66,10 +67,12 @@ import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.Point;
+import org.openqa.selenium.Rectangle;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxProfile;
@@ -82,6 +85,7 @@ import org.openqa.selenium.logging.Logs;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -247,8 +251,18 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         }
 
         @Override
+        public Rectangle getRect() {
+            return null;
+        }
+
+        @Override
         public String getCssValue(String propertyName) {
             fail("Cannot get cssValue for non existing WebElement. PropertyName: " + propertyName);
+            return null;
+        }
+
+        @Override
+        public <X> X getScreenshotAs(OutputType<X> outputType) throws WebDriverException {
             return null;
         }
     }
@@ -545,10 +559,11 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
     /**
      * Tries to retrieve requested elements.
      *
+     * <p>Tries to retrieve the requested amount of elements matching the given path.
+     * Will retry until the amount matches or until the whole process times out.</p>
+     *
      * @param by locator of an element
      * @return a list matching the searched specified element or <code>null</code> in case it couldn't be found.
-     * Tries to retrieve the requested amount of elements matching the given path.
-     * Will retry until the amount matches or until the whole process times out.
      */
     protected List<WebElement> getElements(final By by, final int expectedElementCount) {
         List<WebElement> elements;
@@ -589,9 +604,10 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
     /**
      * Tries to retrieve multiple elements.
      *
+     * <p>Will retry until there is at least one match or until the whole process times out.</p>
+     *
      * @param by locator of an element
      * @return a list matching the searched specified element or <code>null</code> in case it couldn't be found.
-     * Will retry until there is at least one match or until the whole process times out.
      */
     protected List<WebElement> getElements(final By by) {
         return getElements(by, -1);
@@ -636,6 +652,14 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
 
     protected By byTreeTableItem(String itemCaption) {
         return getElementLocatorByXpath("//*[contains(@class, 'v-table-cell-wrapper') and normalize-space(text()) = '%s']", itemCaption);
+    }
+
+    protected WebElement getTreeTableItemByIcon(String itemCaption) {
+        return getElement(byTreeTableItemIcon(itemCaption));
+    }
+
+    protected By byTreeTableItemIcon(String itemCaption) {
+        return getElementLocatorByXpath("//*[contains(@class, 'v-table-cell-wrapper') and normalize-space(text()) = '%s']/span[contains(@class,'icon')]", itemCaption);
     }
 
     protected WebElement getTreeTableItemRow(String itemCaption) {
@@ -729,8 +753,16 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         return getElementByXpath("//div[contains(@class, 'item')]/*[@class = 'label' and text() = '%s']", appName);
     }
 
+    private By byShellAppIcon(String appIconId) {
+        return getElementLocatorByXpath("//*[contains(@id, '%s')]", appIconId);
+    }
+
     private WebElement getShellAppIcon(String appIconId) {
-        return getElementByXpath("//*[contains(@id, '%s')]", appIconId);
+        return getElement(byShellAppIcon(appIconId));
+    }
+
+    protected By byShellIconAppsLauncher() {
+        return byShellAppIcon("btn-appslauncher");
     }
 
     protected WebElement getShellIconAppsLauncher() {
@@ -952,6 +984,50 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         switchToDefaultContent();
     }
 
+    protected void addNewPage(String pageName, String templateType) {
+        addNewPage(pageName, templateType, null);
+    }
+
+    protected void addNewPage(String pageName, String templateType, String dialogName) {
+        addNewPage(pageName, templateType, dialogName, null);
+    }
+
+    /**
+     * Create a new page.
+     */
+    protected void addNewPage(String pageName, String templateType, String dialogName, Map<String, String> requiredFieldValues) {
+        getActionBarItem("Add page").click();
+        waitUntil(dialogIsOpen("Add new page"));
+
+        setFormTextFieldText("Page name", pageName);
+        if (templateType != null) {
+            getSelectTabElement("Template").click();
+            selectElementOfTabListForLabel(templateType);
+        }
+
+        // Make sure field is blurred and changed to avoid validation error (test-only)
+        getFormTextField("Page name").click();
+        delay(1, "Make sure there is enough time to process change event");
+
+        /*
+        // Opening page properties dialog is currently not implemented
+        getDialogCommitButton().click();
+        waitUntil(dialogIsOpen(dialogName == null ? templateType : dialogName));
+        delay(1, "make sure there is enough time to process change event");
+
+        // fill in required fields
+        if (requiredFieldValues != null) {
+            for (Map.Entry<String, String> entry : requiredFieldValues.entrySet()) {
+                setFormTextFieldText(entry.getKey(), entry.getValue());
+            }
+        }
+        */
+
+        // Save page
+        getDialogCommitButton().click();
+        delay(1, "Make sure there is enough time to process change event");
+    }
+
     /**
      * Return the select element.
      */
@@ -977,11 +1053,16 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
     }
 
     protected void selectElementOfTabListForLabel(String label) {
+        waitUntil(visibilityOfElementLocated(bySelectedTableElement()));
         getElementByXpath("//div[contains(@class, 'popupContent')]//div/table/tbody/tr/td/span[text() = '%s']/..", label).click();
     }
 
+    private By bySelectedTableElement() {
+        return By.xpath("//div[contains(@class, 'popupContent')]//div/table");
+    }
+
     protected WebElement getSelectedTableElement() {
-        return getElement(By.xpath("//div[contains(@class, 'popupContent')]//div/table"));
+        return getElement(bySelectedTableElement());
     }
 
     /**
@@ -992,7 +1073,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
     protected void expandTreeAndSelectAnElement(String element, String... paths) {
         expandTreeNoSelection(paths);
         if (!isTreeTableItemSelected(element)) {
-            getTreeTableItem(element).click();
+            getTreeTableItemByIcon(element).click();
         }
     }
 
@@ -1008,6 +1089,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
             // Only expand node if it's not open yet
             if (!treeExpander.getAttribute("class").contains("v-treetable-node-open")) {
                 treeExpander.click();
+                delay(1, "Wait until node is expanded");
             }
         }
     }
@@ -1221,14 +1303,17 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         };
     }
 
+    private By byAppPreLoader() {
+        return By.xpath("//*[contains(@class, 'v-app-preloader')]");
+    }
+
     /**
      * App is considered loaded once the app-preloader has appeared (zoom-in) then disappeared (fade out after app is loaded).
      * This should be called right after opening an app.
      */
     protected ExpectedCondition<Boolean> appIsLoaded() {
-        final By byAppPreLoader = By.xpath("//*[contains(@class, 'v-app-preloader')]");
-        getElement(byAppPreLoader); // wait for preloader to be around
-        return elementIsGone(byAppPreLoader); // then disappear
+        getElement(byAppPreLoader()); // wait for preloader to be around
+        return elementIsGone(byAppPreLoader()); // then disappear
     }
 
     /**
@@ -1282,22 +1367,23 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
 
     /**
      * Deletes a row from a TreeTable.
-     * Row must not be unselected when method is called.
      *
      * @param deleteActionCaption The caption of the delete action.
      * @param rowName The caption of the row.
+     * @param dialogTitle Title of the deletion dialog (varies from app to app)
      */
-    protected void deleteTreeTableRow(String deleteActionCaption, String rowName) {
-
+    protected void deleteTreeTableRow(String deleteActionCaption, String rowName, String dialogTitle) {
         if (!isTreeTableItemSelected(rowName)) {
-            WebElement rowToDelete = getTreeTableItem(rowName);
+            final WebElement rowToDelete = getTreeTableItem(rowName);
             rowToDelete.click();
         }
-        delay(1, "");
+        delay(1, "Wait for the row to be selected");
+
         getActionBarItem(deleteActionCaption).click();
-        delay(1, "");
+        waitUntil(dialogIsOpen(dialogTitle));
+
         getDialogCommitButton().click();
-        delay("Delete might take some time");
+        waitUntil(dialogIsClosed(dialogTitle));
 
         refreshTreeView();
 
@@ -1307,6 +1393,10 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         // Publish the Deletion
         getActionBarItem("Publish deletion").click();
         delay(2, "Time to process the deletion");
+    }
+
+    protected void deleteTreeTableRow(String deleteActionCaption, String rowName) {
+        deleteTreeTableRow(deleteActionCaption, rowName, "Delete this item?");
     }
 
     private WebElement getViewButton(String viewName) {
@@ -1448,18 +1538,35 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
      * Checks that the dialog with the specified title is closed.
      */
     protected ExpectedCondition<Boolean> dialogIsClosed(final String dialogTitle) {
-        return elementIsGone(byDialogTitle(dialogTitle));
+        return ExpectedConditions.and(
+                invisibilityOfElementLocated(By.className("overlay")),
+                elementIsGone(byDialogTitle(dialogTitle))
+        );
     }
 
     /**
      * Checks if dialog (identified by {@link By#xpath(String)}) is present.
      */
-    protected ExpectedCondition<WebElement> dialogIsOpen(final String dialogTitle) {
-        return presenceOfElementLocated(byDialogTitle(dialogTitle));
+    protected ExpectedCondition<Boolean> dialogIsOpen(final String dialogTitle) {
+        return elementIsOpen(byDialogTitle(dialogTitle));
+    }
+
+    protected ExpectedCondition<Boolean> tabIsOpen(final String tabCaption) {
+        return elementIsOpen(byTabContainingCaption(tabCaption));
+    }
+
+    private ExpectedCondition<Boolean> elementIsOpen(final By locator) {
+        getElement(byAppPreLoader()); // wait for preloader to be around
+
+        return ExpectedConditions.and(
+                presenceOfElementLocated(locator),
+                elementIsGone(byAppPreLoader())
+        );
     }
 
     /**
      * This allow to select multiple web elements matching the given path.
+     *
      * @param path: to list of elements
      * @param expectedElementCount: number of expected elements
      */

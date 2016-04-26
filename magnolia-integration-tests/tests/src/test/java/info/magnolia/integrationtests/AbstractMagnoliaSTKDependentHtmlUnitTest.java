@@ -57,13 +57,15 @@ public abstract class AbstractMagnoliaSTKDependentHtmlUnitTest extends AbstractM
         final Page page = TestUtil.openJcrPropServlet(Instance.PUBLIC.getURL(url));
         previousSite = page.getWebResponse().getContentAsString().trim();
 
-        Thread.sleep(10000); // Wait for observation
+        Thread.sleep(11000); // Wait for observation
     }
 
     @AfterClass
     public static void restoreSite() throws Exception {
         final String url = String.format(JCRPROP_SERVLET_FORMAT, PATH_TO_SITE_CONFIG, previousSite);
         TestUtil.openJcrPropServlet(Instance.PUBLIC.getURL(url));
+
+        Thread.sleep(11000); // Wait for observation
     }
 
 }

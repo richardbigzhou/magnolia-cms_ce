@@ -35,7 +35,6 @@ package info.magnolia.integrationtests.uitest;
 
 
 import static org.junit.Assert.*;
-import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
 
 import org.junit.Test;
 
@@ -54,8 +53,7 @@ public class MultiFieldUITest extends AbstractI18nEnabledUITest {
         // Go to Multi field tab
         goToDialogShowRoomAndOpenDialogComponent("ftl");
         openTabWithCaption("Multi Fields");
-        waitUntil(visibilityOfElementLocated(byTabContainingCaption("Multi Fields")));
-        delay(1, "We wait another second for transitions to finish");
+        waitUntil(tabIsOpen("Multi Fields"));
 
         // WHEN
         // //////////
@@ -165,6 +163,7 @@ public class MultiFieldUITest extends AbstractI18nEnabledUITest {
         // Open it again
         openDialogComponent();
         openTabWithCaption("Multi Fields");
+        waitUntil(tabIsOpen("Multi Fields"));
 
         switchToLanguage("English");
         waitUntil(languageSwitched("en"));
@@ -280,6 +279,7 @@ public class MultiFieldUITest extends AbstractI18nEnabledUITest {
         // Open it again
         openDialogComponent();
         openTabWithCaption("Multi Fields");
+        waitUntil(tabIsOpen("Multi Fields"));
 
         switchToLanguage("English");
         waitUntil(languageSwitched("en"));

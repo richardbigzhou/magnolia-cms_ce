@@ -36,11 +36,14 @@ package info.magnolia.integrationtests.uitest;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
+import org.openqa.selenium.By;
 
 /**
  * UI tests for Image Editor.
  */
 public class ImageEditorUITest extends AbstractMagnoliaUITest {
+
+    private final By byMediaEditor =  By.className("v-media-editor");
 
     @Test
     public void canExecuteTwoImagingOperationsInARow() {
@@ -52,7 +55,6 @@ public class ImageEditorUITest extends AbstractMagnoliaUITest {
         getTreeTableItem("Marilyn Monroe").click();
         getActionBarItem("Edit contact").click();
         waitUntil(dialogIsOpen("Edit contact"));
-        delay(1, "Dialog transition might not be done yet, wait one more second");
 
         getButton("v-button-edit", "Edit image...").click();
 
@@ -62,7 +64,8 @@ public class ImageEditorUITest extends AbstractMagnoliaUITest {
         getDialogButton("v-button-save").click();
 
         // WHEN - now try a second imaging operation
-        delay("Give UI time to settle");
+        waitUntil(elementIsGone(byMediaEditor));
+
         getButton("v-button-edit", "Edit image...").click();
 
         getActionBarItemWithContains("Rotate 90").click();
@@ -70,6 +73,8 @@ public class ImageEditorUITest extends AbstractMagnoliaUITest {
         // save after imaging operation
         delay(6, "Give UI time to settle");
         getDialogButton("v-button-save").click();
+
+        waitUntil(elementIsGone(byMediaEditor));
 
         // save editing contact - editor subapp should be closing...
         getDialogButton("v-button-commit").click();

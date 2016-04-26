@@ -37,6 +37,10 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
 import static org.openqa.selenium.support.ui.ExpectedConditions.*;
 
+import info.magnolia.integrationtests.rules.Site;
+import info.magnolia.integrationtests.rules.SiteRule;
+
+import org.junit.Rule;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -46,6 +50,11 @@ import org.openqa.selenium.WebElement;
  * UI Tests for keyboard shortcuts.
  */
 public class KeyboardShortcutUITest extends AbstractPageEditorUITest {
+
+    private static final String ADD_NEW_PAGE_DIALOG_TITLE = "Add new page";
+
+    @Rule
+    public SiteRule siteRule = new SiteRule();
 
     /**
      * Get a confirmation to test by running 'Delete contact' action.
@@ -93,6 +102,7 @@ public class KeyboardShortcutUITest extends AbstractPageEditorUITest {
         waitUntil(appIsLoaded());
         assertAppOpen("Pages");
         getActionBarItem("Add page").click();
+        waitUntil(dialogIsOpen(ADD_NEW_PAGE_DIALOG_TITLE));
         setFormTextFieldText("Page name", pageName);
 
         // First pass - we cancel the dialog closing.
@@ -141,7 +151,7 @@ public class KeyboardShortcutUITest extends AbstractPageEditorUITest {
         assertAppOpen("Pages");
 
         doubleClick(getTreeTableItem("ftl-sample-site"));
-        delay(1, "");
+        waitUntil(appIsLoaded());
 
         // Open component editor
         switchToPageEditorContent();
@@ -189,7 +199,9 @@ public class KeyboardShortcutUITest extends AbstractPageEditorUITest {
         waitUntil(appIsLoaded());
         assertAppOpen("Contacts");
         getActionBarItem("Add contact").click();
+        waitUntil(appIsLoaded());
         openTabWithCaption("Personal");
+        waitUntil(tabIsOpen("Personal"));
         setFormTextFieldText("First name", nameFirst);
 
         // First pass - we cancel the ESCAPE action.
@@ -225,19 +237,20 @@ public class KeyboardShortcutUITest extends AbstractPageEditorUITest {
      * Verify that page was created, then cleanup by deleting it.
      */
     @Test
+    @Site
     public void whenEnterPressedOnDialogItCommits() {
         // GIVEN
         final String pageName = "testCommitOnEnter";
-        final String title = "My page title";
         getAppIcon("Pages").click();
         waitUntil(appIsLoaded());
         assertAppOpen("Pages");
 
         // WHEN
         getActionBarItem("Add page").click();
+        waitUntil(dialogIsOpen(ADD_NEW_PAGE_DIALOG_TITLE));
         setFormTextFieldText("Page name", pageName);
-        setFormTextAreaFieldText("Page title", title);
         getSelectTabElement("Template").click();
+
         // Click on selector item.
         selectElementOfTabListForLabel("Redirect");
 
@@ -246,7 +259,12 @@ public class KeyboardShortcutUITest extends AbstractPageEditorUITest {
         moveToElement(getFormTextField("Page name"));
 
         simulateKeyPress(Keys.RETURN);
-        delay(1, "give time for change event to proceed");
+        // Instead of waiting for the page dialog to be closed we rather wait for the callback dialog to be open
+        /*
+        // Opening page properties dialog is currently not implemented
+        waitUntil(dialogIsOpen("Redirect"));
+        getDialogCommitButton().click();
+        */
 
         //THEN
         //Check that entry is added.
@@ -264,29 +282,29 @@ public class KeyboardShortcutUITest extends AbstractPageEditorUITest {
      * Verify that the dialog is not closed.
      */
     @Test
+    @Site
     public void whenEnterPressedOnDialogInTextAreaItDoesntCommit() {
         // GIVEN
         final String pageName = "testEnterInTextAreaDoesntCommit";
-        final String title = "My page title";
         getAppIcon("Pages").click();
         waitUntil(appIsLoaded());
         assertAppOpen("Pages");
 
         getActionBarItem("Add page").click();
+        waitUntil(dialogIsOpen(ADD_NEW_PAGE_DIALOG_TITLE));
         setFormTextFieldText("Page name", pageName);
-        setFormTextAreaFieldText("Page title", title);
         getSelectTabElement("Template").click();
         // Click on selector item.
-        selectElementOfTabListForLabel("Redirect");
-        delay(1, "give time for change event to proceed");
+        selectElementOfTabListForLabel("Home");
+        delay(1, "Give time for change event to proceed");
 
         // WHEN
         // Ensure a text area has focus and hit ENTER.
         getFormTextAreaField("Page title").sendKeys(Keys.RETURN);
-        delay(1, "give time for change event to proceed");
+        delay(1, "Give time for change event to proceed");
 
-        //THEN
-        //Check that dialog is still open
+        // THEN
+        // Check that dialog is still open
         waitUntil(visibilityOfElementLocated(byDialogTitle("Add new page")));
     }
 
@@ -308,6 +326,7 @@ public class KeyboardShortcutUITest extends AbstractPageEditorUITest {
         waitUntil(appIsLoaded());
         assertAppOpen("Contacts");
         getActionBarItem("Add contact").click();
+        waitUntil(appIsLoaded());
 
         fillInRequiredContactFields(nameFirst, nameLast, email);
 
@@ -339,11 +358,14 @@ public class KeyboardShortcutUITest extends AbstractPageEditorUITest {
         waitUntil(appIsLoaded());
         assertAppOpen("Contacts");
         getActionBarItem("Add contact").click();
+        waitUntil(appIsLoaded());
 
         fillInRequiredContactFields(nameFirst, nameLast, email);
 
         // WHEN
         openTabWithCaption("Address");
+        waitUntil(tabIsOpen("Address"));
+
         getFormTextAreaField("Street address").sendKeys(Keys.RETURN);
         delay(1, "");
 
@@ -455,8 +477,11 @@ public class KeyboardShortcutUITest extends AbstractPageEditorUITest {
         assertAppOpen("Configuration");
 
         getTreeTableItemExpander("server").click();
+        delay(1, "Wait so item gets expanded");
         getTreeTableItem("server").click();
+        delay(1, "Wait for item to be selected");
         getTreeTableItem("admin").click();
+        delay(1, "Wait for item to be selected");
 
         // WHEN
         // cycle back to auditLogging node
@@ -506,12 +531,15 @@ public class KeyboardShortcutUITest extends AbstractPageEditorUITest {
      */
     private void fillInRequiredContactFields(String nameFirst, String nameLast, String email){
         openTabWithCaption("Personal");
+        waitUntil(tabIsOpen("Personal"));
         setFormTextFieldText("First name", nameFirst);
         setFormTextFieldText("Last name", nameLast);
         openTabWithCaption("Address");
+        waitUntil(tabIsOpen("Address"));
         setFormTextFieldText("Organization", "org");
         setFormTextAreaFieldText("Street address", "address-125");
         openTabWithCaption("Contact details");
+        waitUntil(tabIsOpen("Contact details"));
         setFormTextFieldText("E-Mail address", email);
     }
 

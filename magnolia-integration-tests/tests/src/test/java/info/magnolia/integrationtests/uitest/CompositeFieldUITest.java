@@ -34,7 +34,6 @@
 package info.magnolia.integrationtests.uitest;
 
 import static org.junit.Assert.assertEquals;
-import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
 
 import org.junit.Test;
 
@@ -51,8 +50,7 @@ public class CompositeFieldUITest extends AbstractI18nEnabledUITest {
         String subFieldName = "Sub Multi";
         goToDialogShowRoomAndOpenDialogComponent("ftl");
         openTabWithCaption("Switch");
-        waitUntil(visibilityOfElementLocated(byTabContainingCaption("Switch")));
-        delay(1, "We wait another second for transitions to finish");
+        waitUntil(tabIsOpen("Switch"));
 
         // WHEN - STEP 1 : Add elements in EN
 
@@ -130,6 +128,7 @@ public class CompositeFieldUITest extends AbstractI18nEnabledUITest {
         // Open it again
         openDialogComponent();
         openTabWithCaption("Switch");
+        waitUntil(tabIsOpen("Switch"));
 
         switchToLanguage("English");
         waitUntil(languageSwitched("en"));
@@ -212,8 +211,6 @@ public class CompositeFieldUITest extends AbstractI18nEnabledUITest {
 
         switchToLanguage("German");
         waitUntil(languageSwitched("de"));
-        waitUntil(elementIsGone(String.format(
-                "(//div[@class = 'v-caption' and .//span[text() = '%s']])[%s]/following-sibling::input[@type = 'text']", "Text 2", 1)));
 
         // WHEN - STEP 6 : Save and reopen dialog
         getDialogCommitButton().click();
@@ -222,6 +219,7 @@ public class CompositeFieldUITest extends AbstractI18nEnabledUITest {
         // Open it again
         openDialogComponent();
         openTabWithCaption("Switch");
+        waitUntil(tabIsOpen("Switch"));
 
         // THEN - Check all values entered at the STEP 4
         switchToLanguage("English");
@@ -245,9 +243,6 @@ public class CompositeFieldUITest extends AbstractI18nEnabledUITest {
 
         switchToLanguage("German");
         waitUntil(languageSwitched("de"));
-        waitUntil(elementIsGone(String.format(
-                "(//div[@class = 'v-caption' and .//span[text() = '%s']])[%s]/following-sibling::input[@type = 'text']", "Text 2", 1)));
-
     }
 
 }

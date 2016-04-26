@@ -34,7 +34,6 @@
 package info.magnolia.integrationtests.uitest;
 
 import static org.junit.Assert.*;
-import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
 
 import org.junit.Ignore;
 import org.junit.Test;
@@ -47,11 +46,10 @@ public class ComplexFieldUITest extends AbstractPageEditorUITest {
     @Test
     public void testMultiFieldWithDefaultPropertyBuilderAddRemove() {
         // GIVEN
-        String fieldName = "Date List Field";
+        String fieldName = "Date List Field (en)";
         goToDialogShowRoomAndOpenDialogComponent("ftl");
         openTabWithCaption("Multi Fields");
-        waitUntil(visibilityOfElementLocated(byTabContainingCaption("Multi Fields")));
-        delay(1, "We wait another second for transitions to finish");
+        waitUntil(tabIsOpen("Multi Fields"));
 
         // Add a element to the multifield
         getMultiFieldAddButton(fieldName, "Add").click();
@@ -70,6 +68,8 @@ public class ComplexFieldUITest extends AbstractPageEditorUITest {
         // Open it again
         openDialogComponent();
         openTabWithCaption("Multi Fields");
+        waitUntil(tabIsOpen("Multi Fields"));
+
         // Pre test
         assertEquals("2013-08-20", getFromMultiFieldElementValueAt(fieldName, 1).getAttribute("value"));
         assertEquals("2013-08-21", getFromMultiFieldElementValueAt(fieldName, 2).getAttribute("value"));
@@ -92,6 +92,7 @@ public class ComplexFieldUITest extends AbstractPageEditorUITest {
         // Open it again
         openDialogComponent();
         openTabWithCaption("Multi Fields");
+        waitUntil(tabIsOpen("Multi Fields"));
 
         // THEN
         assertEquals("2013-08-21", getFromMultiFieldElementValueAt(fieldName, 1).getAttribute("value"));
@@ -109,8 +110,7 @@ public class ComplexFieldUITest extends AbstractPageEditorUITest {
         String fieldName = "Composite Multi Field";
         goToDialogShowRoomAndOpenDialogComponent("ftl");
         openTabWithCaption("Multi Fields");
-        waitUntil(visibilityOfElementLocated(byTabContainingCaption("Multi Fields")));
-        delay(1, "We wait another second for transitions to finish");
+        waitUntil(tabIsOpen("Multi Fields"));
 
         // Add a element to the multifield
         getMultiFieldAddButton(fieldName, "Add").click();
@@ -129,6 +129,8 @@ public class ComplexFieldUITest extends AbstractPageEditorUITest {
         // Open it again
         openDialogComponent();
         openTabWithCaption("Multi Fields");
+        waitUntil(tabIsOpen("Multi Fields"));
+
         // Pre test
         assertEquals("text 1", getFromMultiFieldElementValueAt(fieldName, 1).getAttribute("value"));
         assertEquals("text 2", getFromMultiFieldElementValueAt(fieldName, 3).getAttribute("value"));
@@ -151,6 +153,7 @@ public class ComplexFieldUITest extends AbstractPageEditorUITest {
         // Open it again
         openDialogComponent();
         openTabWithCaption("Multi Fields");
+        waitUntil(tabIsOpen("Multi Fields"));
 
         // THEN
         assertEquals("text 2", getFromMultiFieldElementValueAt(fieldName, 1).getAttribute("value"));
@@ -163,6 +166,7 @@ public class ComplexFieldUITest extends AbstractPageEditorUITest {
         String fieldName = "Simple Composite";
         goToDialogShowRoomAndOpenDialogComponent("ftl");
         openTabWithCaption("Switch");
+        waitUntil(tabIsOpen("Switch"));
 
         // Set Initial Values
         setMultiFieldElementValueAt(fieldName, 1, "text 1");
@@ -181,6 +185,8 @@ public class ComplexFieldUITest extends AbstractPageEditorUITest {
         // Open it again
         openDialogComponent();
         openTabWithCaption("Switch");
+        waitUntil(tabIsOpen("Switch"));
+
         assertEquals("text 1", getFromMultiFieldElementValueAt(fieldName, 1).getAttribute("value"));
         assertEquals("/demo-project", getFromMultiFieldElementValueAt(fieldName, 3).getAttribute("value"));
 
@@ -202,6 +208,8 @@ public class ComplexFieldUITest extends AbstractPageEditorUITest {
         // Open it again
         openDialogComponent();
         openTabWithCaption("Switch");
+        waitUntil(tabIsOpen("Switch"));
+
         assertEquals("text 11", getFromMultiFieldElementValueAt(fieldName, 1).getAttribute("value"));
         assertEquals("/demo-features", getFromMultiFieldElementValueAt(fieldName, 3).getAttribute("value"));
 

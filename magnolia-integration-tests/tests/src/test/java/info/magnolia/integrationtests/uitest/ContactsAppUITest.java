@@ -59,10 +59,10 @@ public class ContactsAppUITest extends AbstractMagnoliaUITest {
 
         getTreeTableItem(contactName).click();
         getActionBarItem("Edit contact").click();
-        waitUntil(visibilityOfElementLocated(byDialogTitle("Edit contact")));
-        delay(1, "Waiting until the dialog is open might not be enough");
+        waitUntil(dialogIsOpen("Edit contact"));
 
         openTabWithCaption("Contact details");
+        waitUntil(tabIsOpen("Contact details"));
 
         setFormTextFieldText("E-Mail address", testEmailAddr);
         getFormTextField("Website").click();
@@ -174,8 +174,7 @@ public class ContactsAppUITest extends AbstractMagnoliaUITest {
         // WHEN
         // Click back to browser
         openTabWithCaption("Contacts");
-
-        delay("Wait for the browserSubApp to open");
+        waitUntil(tabIsOpen("Contacts"));
 
         // And open contacts in edit mode
         getActionBarItem("Edit contact").click();

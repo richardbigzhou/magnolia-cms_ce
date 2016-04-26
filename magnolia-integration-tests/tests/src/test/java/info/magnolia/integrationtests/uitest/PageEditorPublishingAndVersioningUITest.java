@@ -38,7 +38,13 @@ import static org.hamcrest.core.StringContains.containsString;
 import static org.junit.Assert.*;
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
 
+import info.magnolia.integrationtests.rules.Site;
+import info.magnolia.integrationtests.rules.SiteRule;
+
+import java.util.HashMap;
+
 import org.apache.commons.lang3.StringUtils;
+import org.junit.Rule;
 import org.junit.Test;
 import org.openqa.selenium.By;
 
@@ -46,6 +52,9 @@ import org.openqa.selenium.By;
  * Publishing and versioning test for pages app.
  */
 public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorUITest {
+
+    @Rule
+    public SiteRule siteRule = new SiteRule();
 
     /**
      * Single page publication and versioning check.<br>
@@ -63,6 +72,7 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
      * -- Check the app tab header (no version inside).<br>
      */
     @Test
+    @Site(requiresPublic = true)
     public void publishAndCheckVersions() {
         // GIVEN
         final String[] pathToArticle = new String[]{DEMO_PROJECT_PAGE, ABOUT_PAGE, SUBSECTION_ARTICLES};
@@ -92,6 +102,8 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
 
         // Go Back to tree and edit the same page
         openTabWithCaption(PAGES_APP);
+        waitUntil(appIsLoaded());
+
         getActionBarItem(EDIT_PAGE_ACTION).click();
 
         // CHECK THE TAB HEADER
@@ -100,6 +112,7 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
     }
 
     @Test
+    @Site(requiresPublic = true)
     public void publishNewArticle() {
 
         final String[] pathToArticle = new String[]{DEMO_PROJECT_PAGE, ABOUT_PAGE};
@@ -110,7 +123,7 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
         expandTreeAndSelectAnElement(SUBSECTION_ARTICLES, pathToArticle);
 
         // Add an Article
-        addNewTemplate("New Funny Article", "Title of the new Funny Article", "Article");
+        addNewPage("New Funny Article", "Article", "Article Info");
         expandTreeAndSelectAnElement("New-Funny-Article", SUBSECTION_ARTICLES);
         // Check Status and actions
         assertThat(getSelectedActivationStatusIcon().getAttribute("class"), containsString(COLOR_RED_ICON_STYLE));
@@ -120,26 +133,36 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
 
         // Add Text Image component into the main Content
         selectAreaAndComponent("Content", "Text and Image");
+
         // Add Text
         setFormTextFieldText("Subheading", "New Text Image Component");
         openTabWithCaption("Image");
+        waitUntil(tabIsOpen("Image"));
         setFormTextAreaFieldText("Image Caption", "Image Caption");
         // Add Image
         getNativeButton().click();
+        waitUntil(dialogIsOpen("Assets chooser"));
         expandTreeAndSelectAnElement("a-grey-curvature-of-lines", "demo-project", "img", "bk", "Stage");
         getDialogButtonWithCaption("Choose").click();
+        waitUntil(elementIsGone(byDialogTitle("Assets chooser")));
         // Close and Save the Dialog.
         getDialogCommitButton().click();
+        waitUntil(dialogIsClosed("Text and Image"));
 
         // Add a Contact into the Extra Area Content
         selectAreaAndComponent("Extras", "Contact");
         // Add an Image
         switchToDefaultContent();
+        waitUntil(dialogIsOpen("Contact"));
         getNativeButton().click();
+        waitUntil(dialogIsOpen("Contacts chooser"));
         getTreeTableItem("Pablo Picasso").click();
+        getDialogButtonWithCaption("Choose").click();
+        waitUntil(elementIsGone(byDialogTitle("Contacts chooser")));
         getDialogButtonWithCaption("save changes").click();
         // Close and Save the Dialog.
-        getDialogCommitButton().click();
+        //getDialogCommitButton().click();
+        waitUntil(dialogIsClosed("Contacts chooser"));
 
         // Publish and check on the Public instance
         openTabWithCaption(PAGES_APP);
@@ -149,6 +172,7 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
     }
 
     @Test
+    @Site
     public void publishNewArticleAndRemoveIt() {
         final String[] pathToArticle = new String[]{DEMO_PROJECT_PAGE, ABOUT_PAGE};
         // Go to pages App
@@ -158,7 +182,7 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
         expandTreeAndSelectAnElement(SUBSECTION_ARTICLES, pathToArticle);
 
         // Add an Article
-        addNewTemplate("New Article To Delete", "Title of the new Article To Delete", "Article");
+        addNewPage("New Article To Delete", "Article", "Article Info");
         expandTreeAndSelectAnElement("New-Article-To-Delete", SUBSECTION_ARTICLES);
         // Check Status and actions
         assertThat(getSelectedActivationStatusIcon().getAttribute("class"), containsString(COLOR_RED_ICON_STYLE));
@@ -175,9 +199,10 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
 
         // Delete Page
         getActionBarItem(DELETE_PAGE_ACTION).click();
-        delay(2, "Wait for the confirmation message");
+        waitUntil(dialogIsOpen("Delete this item?"));
         getDialogConfirmButton().click();
-        delay("Give dialog some time to fade away...");
+        waitUntil(dialogIsClosed("Delete this item?"));
+        delay("Wait for the confirmation message");
 
         refreshTreeView();
 
@@ -190,7 +215,7 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
 
         // Validate the Delete
         getActionBarItem(PUBLISH_DELETION_ACTION).click();
-        delay(2, "Wait for the confirmation message");
+        delay("Wait for the confirmation message");
 
         // Check that the Detail sub app is closed
         waitUntil(elementIsGone(byTabContainingCaption("Title of the new Article To Delete")));
@@ -201,6 +226,7 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
     }
 
     @Test
+    @Site
     public void deleteAndRestoreArticle() {
         getAppIcon(PAGES_APP).click();
         waitUntil(appIsLoaded());
@@ -209,9 +235,9 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
         assertThat(getSelectedActivationStatusIcon().getAttribute("class"), containsString(COLOR_GREEN_ICON_STYLE));
 
         getActionBarItem(DELETE_PAGE_ACTION).click();
-        delay(2, "Wait for the confirmation message");
+        waitUntil(dialogIsOpen("Delete this item?"));
         getDialogConfirmButton().click();
-        delay("Give dialog some time to fade away...");
+        waitUntil(dialogIsClosed("Delete this item?"));
 
         refreshTreeView();
 
@@ -224,6 +250,8 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
         delay(2, "Wait for the confirmation message");
 
         openTabWithCaption(PAGES_APP);
+        waitUntil(appIsLoaded());
+
         setMinimalTimeout();
         assertFalse("Article should have been restored - no trash icon should be displayed any longer", isExisting(getSelectedIcon(TRASH_ICON_STYLE)));
         resetTimeout();
@@ -248,16 +276,18 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
     }
 
     @Test
+    @Site(requiresPublic = true)
     public void canPublishAfterNewPublishedPageHasBeenRenderedOnBothInstances() {
         // GIVEN
         final String[] pathToArticle = new String[]{DEMO_PROJECT_PAGE, ABOUT_PAGE};
-        final String pageNameAndTitle = "new";
-        final String template = "Article";
+        final String pageName = "new";
+
         getAppIcon(PAGES_APP).click();
         waitUntil(appIsLoaded());
+
         expandTreeAndSelectAnElement(SUBSECTION_ARTICLES, pathToArticle);
-        addNewTemplate(pageNameAndTitle, pageNameAndTitle, template);
-        expandTreeAndSelectAnElement(pageNameAndTitle, SUBSECTION_ARTICLES);
+        addNewPage(pageName, "Article", "Article Info");
+        expandTreeAndSelectAnElement(pageName, SUBSECTION_ARTICLES);
         assertThat(getSelectedActivationStatusIcon().getAttribute("class"), containsString(COLOR_RED_ICON_STYLE));
 
         // now publish & render on author
@@ -266,13 +296,13 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
         delay(3, "make sure page had been rendered before continuing...");
 
         // render an public as well
-        String url = StringUtils.join(new String[]{DEMO_PROJECT_PAGE, ABOUT_PAGE, SUBSECTION_ARTICLES}, "/") + "/" + pageNameAndTitle + ".html";
+        String url = StringUtils.join(new String[]{DEMO_PROJECT_PAGE, ABOUT_PAGE, SUBSECTION_ARTICLES}, "/") + "/" + pageName + ".html";
 
         navigateDriverTo(Instance.PUBLIC.getURL(url));
         delay(3, "Make sure we finish rendering on public.");
 
         // hint: would be more elegant to simply switch to proper subapp
-        navigateDriverTo(Instance.AUTHOR.getURL() + String.format(".magnolia/admincentral#app:pages:browser;%s:treeview:", "/demo-project/about/subsection-articles/" + pageNameAndTitle));
+        navigateDriverTo(Instance.AUTHOR.getURL() + String.format(".magnolia/admincentral#app:pages:browser;%s:treeview:", "/demo-project/about/subsection-articles/" + pageName));
         delay(3, "Make sure it's open.");
 
         // WHEN
@@ -320,6 +350,7 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
      * Delete multiple items and check if the publish delete is available for multiple items.
      */
     @Test
+    @Site
     public void canPublishDeletionMultipleItems() {
         // GIVEN
         getAppIcon(PAGES_APP).click();
@@ -328,11 +359,14 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
 
         final String FIRST_PAGE = "first-page-to-delete";
         final String SECOND_PAGE = "second-page-to-delete";
-        addNewTemplate(FIRST_PAGE, "Title of the first page to delete", "Home");
+
+        addNewPage(FIRST_PAGE, "Home", "Home", new HashMap<String, String>() {{ put("Headline", "Cool headline"); }});
+
         //de-select the item
         getTreeTableItem(FIRST_PAGE).click();
 
-        addNewTemplate(SECOND_PAGE, "Title of the second to delete", "Home");
+        addNewPage(SECOND_PAGE, "Home", "Home", new HashMap<String, String>() {{ put("Headline", "Another cool headline"); }});
+
         //de-select the item
         getTreeTableItem(SECOND_PAGE).click();
 
@@ -343,9 +377,9 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
 
         // Delete Page
         getActionBarItem(DELETE_PAGE_ACTION).click();
-        delay(3, "Wait for the confirmation message");
+        waitUntil(dialogIsOpen("Delete  these 2 items?"));
         getDialogConfirmButton().click();
-        delay(3, "Give dialog some time to fade away...");
+        waitUntil(dialogIsClosed("Delete  these 2 items?"));
 
         refreshTreeView();
 
@@ -381,6 +415,7 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
         delay(1, "make sure there is enough time to process change event");
 
         getDialogCommitButton().click();
+        waitUntil(dialogIsOpen(componentName));
     }
 
     /**
@@ -437,34 +472,24 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
 
         getElement(By.xpath("//div[@role='article']//div[@class='text-section']")).click();
         getElement(By.xpath("//*[contains(@class, 'focus')]//*[contains(@class, 'icon-edit')]")).click();
+
         switchToDefaultContent();
+
+        waitUntil(dialogIsOpen("Text and Image"));
+
         // Do changes in the Text Image form and save
         setFormTextFieldText("Subheading", newSubheadingValue);
+
         openTabWithCaption("Image");
+        waitUntil(tabIsOpen("Image"));
+
         setFormTextAreaFieldText("Image Caption", newImageCaptionValue);
+
         getDialogCommitButton().click();
+        waitUntil(dialogIsClosed("Text and Image"));
 
         openTabWithCaption(PAGES_APP);
         waitUntil(appIsLoaded());
-    }
-
-    /**
-     * Create a new Page template.
-     */
-    protected void addNewTemplate(String templateName, String templateTitle, String templateType) {
-        getActionBarItem(ADD_PAGE_ACTION).click();
-        setFormTextFieldText("Page name", templateName);
-        setFormTextAreaFieldText("Page title", templateTitle);
-        getSelectTabElement("Template").click();
-        selectElementOfTabListForLabel(templateType);// Article
-
-        // make sure field is blurred and changed to avoid validation error (test-only)
-        getFormTextField("Page name").click();
-        delay(1, "make sure there is enough time to process change event");
-
-        // Select
-        getDialogCommitButton().click();
-        delay("Waiting for the editSubApp to open");
     }
 
     /**
@@ -480,7 +505,6 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
         // Check the Public instance.
         delay(5, "Wait for publication");
         checkPublicInstance(subheadingValue, imageCaptionValue, article, pathToArticle);
-
     }
 
     /**
@@ -521,6 +545,7 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
 
         // Go back to the last url
         navigateDriverTo(lastUrl);
+        waitUntil(appIsLoaded());
     }
 
     /**
@@ -528,9 +553,8 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
      * Check the available actions and tab header.
      */
     protected void openPageVersion(int expectedNumberOfVersion, int desiredVersion, String tabHeader) {
-
         getActionBarItem(SHOW_VERSIONS_ACTION).click();
-        delay("Waiting for the popup to show up");
+        waitUntil(dialogIsOpen("Versions"));
 
         // Click on version drop-down to show versions
         getSelectTabElement("Version").click();
@@ -541,7 +565,7 @@ public class PageEditorPublishingAndVersioningUITest extends AbstractPageEditorU
         selectElementOfTabListAtPosition(desiredVersion);
         // Select
         getDialogCommitButton().click();
-        delay("Waiting for the editSubApp to open");
+        waitUntil(appIsLoaded());
 
         // Sub App Open in a Read Only Mode
         waitUntil(elementIsGone(By.xpath("//div[@class = 'mgnlEditorBar mgnlEditor area init']")));

@@ -1,5 +1,5 @@
 /**
- * This file Copyright (c) 2014-2016 Magnolia International
+ * This file Copyright (c) 2016 Magnolia International
  * Ltd.  (http://www.magnolia-cms.com). All rights reserved.
  *
  *
@@ -31,38 +31,22 @@
  * intact.
  *
  */
-package info.magnolia.integrationtests.uitest;
+package info.magnolia.integrationtests.rules;
 
-import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.assertThat;
+import static java.lang.annotation.ElementType.METHOD;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
-import org.junit.Test;
-import org.openqa.selenium.Keys;
+import java.lang.annotation.Retention;
+import java.lang.annotation.Target;
 
 /**
- * UI tests for the Groovy app.
+ * Site annotation for tests.
  */
-public class GroovyAppUITest extends AbstractMagnoliaUITest {
+@Retention(RUNTIME)
+@Target(METHOD)
+public @interface Site {
 
-    @Test
-    public void whenEnteringDigitsInGroovyConsoleNoShortcutIsTriggered() {
-        // GIVEN
-        final String consoleName = "Groovy console";
+    String pathToSite() default "/modules/standard-templating-kit/config/site";
+    boolean requiresPublic() default false;
 
-        getCollapsibleAppSectionIcon("Dev").click();
-
-        getAppIcon("Groovy").click();
-        waitUntil(appIsLoaded());
-
-        openTabWithCaption(consoleName);
-        waitUntil(tabIsOpen(consoleName));
-
-        // WHEN
-        simulateKeyPress(Keys.NUMPAD1);
-        delay("Wait until keypress was performed");
-
-        // THEN
-        // Check that no shell app is active
-        assertThat("We expect the MainLauncherShell 'class' to not contain 'active'", getShellIconAppsLauncher().getAttribute("class"), not(containsString("active")));
-    }
 }
