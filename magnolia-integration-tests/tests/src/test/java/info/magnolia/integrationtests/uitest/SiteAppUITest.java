@@ -82,8 +82,9 @@ public class SiteAppUITest extends AbstractPageEditorUITest {
 
         // delete
         getActionBarItem("Delete item").click();
+        waitUntil(dialogIsOpen("Delete this item?"));
         getDialogConfirmButton().click();
-        delay("Delete might take some time");
+        waitUntil(dialogIsClosed("Delete this item?"));
 
         refreshTreeView();
 
