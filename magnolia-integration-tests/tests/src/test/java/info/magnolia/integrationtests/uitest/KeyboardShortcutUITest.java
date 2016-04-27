@@ -249,7 +249,7 @@ public class KeyboardShortcutUITest extends AbstractPageEditorUITest {
         setFormTextFieldText("Page name", pageName);
         getSelectTabElement("Template").click();
 
-        // Click on selector item.
+        // Click on selector item
         selectElementOfTabListForLabel("Redirect");
 
         // We move back to the page name input field, so return is triggered more easily
@@ -261,12 +261,12 @@ public class KeyboardShortcutUITest extends AbstractPageEditorUITest {
         waitUntil(dialogIsOpen("Redirect"));
         getDialogCommitButton().click();
 
-        //THEN
-        //Check that entry is added.
+        // THEN
+        // Check that entry is added
         WebElement newRow = getTreeTableItem(pageName);
         assertTrue("ENTER key should have caused new page to be created.", isExisting(newRow));
 
-        // Cleanup - delete the created page.
+        // Cleanup - delete the created page
         deleteTreeTableRow("Delete page", pageName);
         waitUntil(invisibilityOfElementLocated(By.xpath(String.format("//*[contains(@class, 'v-table-cell-wrapper') and text() = '%s']", pageName))));
     }
