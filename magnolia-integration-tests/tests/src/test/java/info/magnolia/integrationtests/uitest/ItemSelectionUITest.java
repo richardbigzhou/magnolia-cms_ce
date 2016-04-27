@@ -58,21 +58,24 @@ public class ItemSelectionUITest extends AbstractMagnoliaUITest {
         getAppIcon("Configuration").click();
         waitUntil(appIsLoaded());
         assertAppOpen("Configuration");
+
         // go to modules/core
-        getTreeTableItem("modules").click();
-        getTreeTableItemExpander("modules").click();
-        getTreeTableItem("core").click();
+        expandTreeAndSelectAnElement("core", "modules");
 
         // WHEN
         // add new node
         getEnabledActionBarItem("Add content node").click();
+        delay(1, "Wait for the node to be created...");
 
         // THEN
         // check that newly created item is selected
         assertTrue(isTreeTableItemSelected("untitled"));
+
         // cleanup
         getEnabledActionBarItem("Delete item").click();
+        waitUntil(dialogIsOpen("Delete this item?"));
         getDialogConfirmButton().click();
+        waitUntil(dialogIsClosed("Delete this item?"));
     }
 
     @Test
@@ -82,21 +85,24 @@ public class ItemSelectionUITest extends AbstractMagnoliaUITest {
         getAppIcon("Configuration").click();
         waitUntil(appIsLoaded());
         assertAppOpen("Configuration");
+
         // go to modules/core
-        getTreeTableItem("modules").click();
-        getTreeTableItemExpander("modules").click();
-        getTreeTableItem("core").click();
+        expandTreeAndSelectAnElement("core", "modules");
 
         // WHEN
         // add new property
         getEnabledActionBarItem("Add property").click();
+        delay(1, "Wait for the property to be created...");
 
         // THEN
         // check that newly created item is selected
         assertTrue(isTreeTableItemSelected("untitled"));
+
         // cleanup
         getEnabledActionBarItem("Delete item").click();
+        waitUntil(dialogIsOpen("Delete this item?"));
         getDialogConfirmButton().click();
+        waitUntil(dialogIsClosed("Delete this item?"));
     }
 
     @Test
@@ -106,13 +112,13 @@ public class ItemSelectionUITest extends AbstractMagnoliaUITest {
         getAppIcon("Configuration").click();
         waitUntil(appIsLoaded());
         assertAppOpen("Configuration");
+
         // go to modules/core
-        getTreeTableItem("modules").click();
-        getTreeTableItemExpander("modules").click();
-        getTreeTableItem("core").click();
+        expandTreeAndSelectAnElement("core", "modules");
+
         // add new node
         getEnabledActionBarItem("Add content node").click();
-        delay("Wait a moment in order to be sure node is added.");
+        delay(1, "Wait a moment in order to be sure node is added.");
 
         // WHEN
         getEnabledActionBarItem("Duplicate item").click();
@@ -120,13 +126,18 @@ public class ItemSelectionUITest extends AbstractMagnoliaUITest {
         // THEN
         // check that newly created item is selected
         assertTrue(isTreeTableItemSelected("untitled0"));
+
         // cleanup
         getEnabledActionBarItem("Delete item").click();
+        waitUntil(dialogIsOpen("Delete this item?"));
         getDialogConfirmButton().click();
-        delay("Wait a moment so first item is deleted.");
-        getTreeTableItem("untitled").click();
+        waitUntil(dialogIsClosed("Delete this item?"));
+
+        getTreeTableItemByIcon("untitled").click();
         getEnabledActionBarItem("Delete item").click();
+        waitUntil(dialogIsOpen("Delete this item?"));
         getDialogConfirmButton().click();
+        waitUntil(dialogIsClosed("Delete this item?"));
     }
 
     @Test
@@ -136,6 +147,7 @@ public class ItemSelectionUITest extends AbstractMagnoliaUITest {
         getAppIcon("Contacts").click();
         waitUntil(appIsLoaded());
         assertAppOpen("Contacts");
+
         // add new contact
         getEnabledActionBarItem("Add contact").click();
         waitUntil(dialogIsOpen("Edit contact"));
@@ -211,6 +223,7 @@ public class ItemSelectionUITest extends AbstractMagnoliaUITest {
 
         // THEN
         assertTrue(isTreeTableItemSelected("johndoe"));
+
         //cleanup
         getEnabledActionBarItem("Delete user").click();
         getDialogCommitButton().click();
@@ -240,6 +253,7 @@ public class ItemSelectionUITest extends AbstractMagnoliaUITest {
 
         // THEN
         assertTrue(isTreeTableItemSelected("tmprole"));
+
         //cleanup
         getEnabledActionBarItem("Delete role").click();
         getDialogCommitButton().click();
