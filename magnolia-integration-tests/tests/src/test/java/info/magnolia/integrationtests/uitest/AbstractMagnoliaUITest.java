@@ -98,6 +98,9 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
     public static final int DEFAULT_DELAY_IN_SECONDS = 2;
     public static final int DRIVER_WAIT_IN_SECONDS = 10;
     public static final String SELENIUM_SERVER_HOST_NAME = "seleniumServerHostName";
+
+    protected static final String ADD_NEW_PAGE_DIALOG_TITLE = "Add page";
+
     private int timeout = DRIVER_WAIT_IN_SECONDS;
 
     protected void resetTimeout() {
@@ -997,7 +1000,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
      */
     protected void addNewPage(String pageName, String templateType, String dialogName, Map<String, String> requiredFieldValues) {
         getActionBarItem("Add page").click();
-        waitUntil(dialogIsOpen("Add new page"));
+        waitUntil(dialogIsOpen(ADD_NEW_PAGE_DIALOG_TITLE));
 
         setFormTextFieldText("Page name", pageName);
         if (templateType != null) {
@@ -1009,8 +1012,6 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         getFormTextField("Page name").click();
         delay(1, "Make sure there is enough time to process change event");
 
-        /*
-        // Opening page properties dialog is currently not implemented
         getDialogCommitButton().click();
         waitUntil(dialogIsOpen(dialogName == null ? templateType : dialogName));
         delay(1, "make sure there is enough time to process change event");
@@ -1021,7 +1022,6 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
                 setFormTextFieldText(entry.getKey(), entry.getValue());
             }
         }
-        */
 
         // Save page
         getDialogCommitButton().click();

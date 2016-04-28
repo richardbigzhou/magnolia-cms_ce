@@ -51,8 +51,6 @@ import org.openqa.selenium.WebElement;
  */
 public class KeyboardShortcutUITest extends AbstractPageEditorUITest {
 
-    private static final String ADD_NEW_PAGE_DIALOG_TITLE = "Add new page";
-
     @Rule
     public SiteRule siteRule = new SiteRule();
 
@@ -251,7 +249,7 @@ public class KeyboardShortcutUITest extends AbstractPageEditorUITest {
         setFormTextFieldText("Page name", pageName);
         getSelectTabElement("Template").click();
 
-        // Click on selector item.
+        // Click on selector item
         selectElementOfTabListForLabel("Redirect");
 
         // We move back to the page name input field, so return is triggered more easily
@@ -260,18 +258,15 @@ public class KeyboardShortcutUITest extends AbstractPageEditorUITest {
 
         simulateKeyPress(Keys.RETURN);
         // Instead of waiting for the page dialog to be closed we rather wait for the callback dialog to be open
-        /*
-        // Opening page properties dialog is currently not implemented
         waitUntil(dialogIsOpen("Redirect"));
         getDialogCommitButton().click();
-        */
 
-        //THEN
-        //Check that entry is added.
+        // THEN
+        // Check that entry is added
         WebElement newRow = getTreeTableItem(pageName);
         assertTrue("ENTER key should have caused new page to be created.", isExisting(newRow));
 
-        // Cleanup - delete the created page.
+        // Cleanup - delete the created page
         deleteTreeTableRow("Delete page", pageName);
         waitUntil(invisibilityOfElementLocated(By.xpath(String.format("//*[contains(@class, 'v-table-cell-wrapper') and text() = '%s']", pageName))));
     }
@@ -298,14 +293,19 @@ public class KeyboardShortcutUITest extends AbstractPageEditorUITest {
         selectElementOfTabListForLabel("Home");
         delay(1, "Give time for change event to proceed");
 
+        getDialogCommitButton().click();
+        waitUntil(dialogIsOpen("Home"));
+
         // WHEN
         // Ensure a text area has focus and hit ENTER.
-        getFormTextAreaField("Page title").sendKeys(Keys.RETURN);
+        setFormTextFieldText("Headline", "The headline");
+        delay(1, "Wait for changes to be propagated");
+        getFormTextAreaField("Abstract").sendKeys(Keys.RETURN);
         delay(1, "Give time for change event to proceed");
 
         // THEN
         // Check that dialog is still open
-        waitUntil(visibilityOfElementLocated(byDialogTitle("Add new page")));
+        waitUntil(visibilityOfElementLocated(byDialogTitle("Home")));
     }
 
     /**
