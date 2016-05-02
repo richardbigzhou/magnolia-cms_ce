@@ -16,7 +16,7 @@
     <connection>scm:git:ssh://git@git.magnolia-cms.com/PLATFORM/ce</connection>
     <developerConnection>scm:git:ssh://git@git.magnolia-cms.com/PLATFORM/ce</developerConnection>
     <url>https://git.magnolia-cms.com/projects/PLATFORM/repos/ce</url>
-    <tag>HEAD</tag>
+    <tag>magnolia-bundle-5.4.x</tag>
   </scm>
 
   <properties>
