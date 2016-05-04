@@ -59,7 +59,7 @@ public abstract class AbstractMagnoliaIntegrationTest {
     /**
      * Default domain, should never be used.
      */
-    public static final String DEFAULT_DOMAIN = "http://localhost:8299/";
+    public static final String DEFAULT_DOMAIN = "http://localhost:8399/";
 
     public static final String SELENIUM_SERVER_HOST_NAME_PROPERTY = "seleniumServerHostName";
 
