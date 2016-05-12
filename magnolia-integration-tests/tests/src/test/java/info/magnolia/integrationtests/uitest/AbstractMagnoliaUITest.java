@@ -1359,7 +1359,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
 
             @Override
             public WebElement apply(WebDriver driver) {
-                WebElement label = driver.findElement(By.xpath(String.format("//*[@class = 'v-form-field-label' and contains(text(), '(%s)')]", langSuffix)));
+                WebElement label = driver.findElement(By.xpath(String.format("//*[@class = 'v-form-field-label']/*[@class = 'locale-label' and text() = '(%s)']", langSuffix)));
                 return isExisting(label) ? label : null;
             }
         };
