@@ -205,7 +205,7 @@
       <dependency>
         <groupId>info.magnolia.activation</groupId>
         <artifactId>magnolia-module-activation</artifactId>
-        <version>5.4.3</version>
+        <version>5.4.4-SNAPSHOT</version>
       </dependency>
       <dependency>
         <!-- This group/artifactId now gets redirected to magnolia-cache-core -->
