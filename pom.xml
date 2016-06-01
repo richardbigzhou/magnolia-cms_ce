@@ -21,22 +21,22 @@
 
   <properties>
     <magnoliaEdition>Community Edition</magnoliaEdition>
-    <magnoliaVersion>5.4.7-SNAPSHOT</magnoliaVersion>
-    <magnoliaUiVersion>5.4.7-SNAPSHOT</magnoliaUiVersion>
+    <magnoliaVersion>5.4.7</magnoliaVersion>
+    <magnoliaUiVersion>5.4.7</magnoliaUiVersion>
     <javaVersion>1.7</javaVersion>
     <documentationURL>http://documentation.magnolia-cms.com/releases/${project.version}.html</documentationURL>
-    <stkVersion>2.9.5-SNAPSHOT</stkVersion>
+    <stkVersion>2.9.5</stkVersion>
     <restVersion>1.1.1</restVersion>
     <restClientVersion>1.0.7</restClientVersion>
-    <damVersion>2.1.5-SNAPSHOT</damVersion>
+    <damVersion>2.1.5</damVersion>
     <categorizationVersion>2.4.2</categorizationVersion>
-    <mteVersion>0.11-SNAPSHOT</mteVersion>
+    <mteVersion>0.11</mteVersion>
     <resourcesVersion>2.4.5</resourcesVersion>
     <imagingVersion>3.2.6</imagingVersion>
-    <siteVersion>1.0.7-SNAPSHOT</siteVersion>
-    <travelDemoVersion>0.12-SNAPSHOT</travelDemoVersion>
-    <cacheVersion>5.4.5-SNAPSHOT</cacheVersion>
-    <langVersion>1.0.5-SNAPSHOT</langVersion>
+    <siteVersion>1.0.7</siteVersion>
+    <travelDemoVersion>0.12</travelDemoVersion>
+    <cacheVersion>5.4.5</cacheVersion>
+    <langVersion>1.0.5</langVersion>
     <scmTagPrefix>magnolia-bundle</scmTagPrefix>
 
     <skipClover>true</skipClover>
@@ -178,7 +178,7 @@
       <dependency>
         <groupId>info.magnolia.pages</groupId>
         <artifactId>magnolia-pages-app</artifactId>
-        <version>5.4.6-SNAPSHOT</version>
+        <version>5.4.6</version>
       </dependency>
 
       <dependency>
@@ -553,7 +553,7 @@
       <dependency>
         <groupId>info.magnolia.log</groupId>
         <artifactId>magnolia-log-tools</artifactId>
-        <version>1.0.1-SNAPSHOT</version>
+        <version>1.0.1</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia.jcrtools</groupId>
