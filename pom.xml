@@ -25,18 +25,18 @@
     <magnoliaUiVersion>5.5-SNAPSHOT</magnoliaUiVersion>
     <javaVersion>1.8</javaVersion>
     <documentationURL>http://documentation.magnolia-cms.com/releases/${project.version}.html</documentationURL>
-    <stkVersion>2.9.5-SNAPSHOT</stkVersion>
+    <stkVersion>2.9.5</stkVersion>
     <restVersion>1.1.1</restVersion>
     <restClientVersion>1.0.8-SNAPSHOT</restClientVersion>
-    <damVersion>2.1.5-SNAPSHOT</damVersion>
+    <damVersion>2.1.5</damVersion>
     <categorizationVersion>2.4.2</categorizationVersion>
     <mteVersion>2.0-SNAPSHOT</mteVersion>
     <resourcesVersion>2.4.6-SNAPSHOT</resourcesVersion>
     <imagingVersion>3.3-SNAPSHOT</imagingVersion>
-    <siteVersion>1.0.7-SNAPSHOT</siteVersion>
-    <travelDemoVersion>0.12-SNAPSHOT</travelDemoVersion>
-    <cacheVersion>5.4.5-SNAPSHOT</cacheVersion>
-    <langVersion>1.0.5-SNAPSHOT</langVersion>
+    <siteVersion>1.0.7</siteVersion>
+    <travelDemoVersion>0.12</travelDemoVersion>
+    <cacheVersion>5.4.5</cacheVersion>
+    <langVersion>1.0.5</langVersion>
     <scmTagPrefix>magnolia-bundle</scmTagPrefix>
 
     <skipClover>true</skipClover>
