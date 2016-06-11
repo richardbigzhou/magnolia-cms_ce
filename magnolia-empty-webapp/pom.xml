@@ -112,10 +112,6 @@
       <groupId>org.bouncycastle</groupId>
       <artifactId>bcmail-jdk15on</artifactId>
     </dependency>
-    <dependency>
-      <groupId>net.sourceforge.openutils</groupId>
-      <artifactId>openutils-log4j</artifactId>
-    </dependency>
 
     <!-- Dependencies to language bundles -->
     <dependency>
