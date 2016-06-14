@@ -83,10 +83,15 @@ public abstract class AbstractMagnoliaIntegrationTest {
         };
 
         @Override
-        public String getURL() {
+        public String getDomain() {
             final String domainFromProperty = System.getProperty(DOMAIN_PROPERTY);
             final String domain = StringUtils.defaultIfEmpty(domainFromProperty, DEFAULT_DOMAIN);
-            return domain + getContextPath();
+            return StringUtils.removeEnd(domain, "/");
+        }
+
+        @Override
+        public String getURL() {
+            return getDomain() + "/" + getContextPath();
         }
 
         @Override
@@ -100,6 +105,8 @@ public abstract class AbstractMagnoliaIntegrationTest {
 
     private interface InstanceProperties {
         String getContextPath();
+
+        String getDomain();
 
         String getURL();
 
