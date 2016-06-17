@@ -51,14 +51,15 @@ public class MostBasicTest extends AbstractMagnoliaHtmlUnitTest {
 
     @Test
     public void authorInstanceShouldBePasswordProtected() throws Exception {
-        final Page root = openPage(Instance.AUTHOR.getURL(""), null);
+        final Page root = openPage(Instance.AUTHOR.getURL(), null);
         assertEquals(401, root.getWebResponse().getStatusCode());
     }
 
     @Test
     public void loginOnAuthorInstanceWithSuperuser() throws Exception {
-        final Page root = openPage(Instance.AUTHOR.getURL(""), User.superuser);
-        final HtmlPage adminCentralPage = assertRedirected("adminCentral redirect is not setup?", Instance.AUTHOR.getURL("/\\.magnolia/admincentral" + SESSION_ID_REGEXP), root, User.superuser);
+        final Page root = openPage(Instance.AUTHOR.getURL(), User.superuser);
+        final String expectedTargetURLPattern = "(" + Instance.AUTHOR.getDomain() + ")?/" + Instance.AUTHOR.getContextPath() + "\\.magnolia/admincentral" + SESSION_ID_REGEXP;
+        final HtmlPage adminCentralPage = assertRedirected("adminCentral redirect is not setup?", expectedTargetURLPattern, root, User.superuser);
         assertEquals(200, adminCentralPage.getWebResponse().getStatusCode());
         final String allContents = adminCentralPage.getWebResponse().getContentAsString();
         assertThat("Apparently login did not succed.", allContents, containsString("v-app admincentral"));

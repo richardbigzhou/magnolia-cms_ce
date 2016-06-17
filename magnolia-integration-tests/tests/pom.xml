@@ -552,7 +552,7 @@
         <configType>standalone</configType>
         <containerGroupId>org.apache.tomcat</containerGroupId>
         <containerArtifactId>tomcat</containerArtifactId>
-        <containerVersion>8.0.20</containerVersion>
+        <containerVersion>8.0.35</containerVersion>
       </properties>
     </profile>
     <profile>
@@ -563,7 +563,7 @@
         <configType>standalone</configType>
         <containerGroupId>org.apache.tomcat</containerGroupId>
         <containerArtifactId>tomcat</containerArtifactId>
-        <containerVersion>7.0.55</containerVersion>
+        <containerVersion>7.0.69</containerVersion>
       </properties>
     </profile>
     <profile>
@@ -574,7 +574,7 @@
         <configType>standalone</configType>
         <containerGroupId>org.apache.tomcat</containerGroupId>
         <containerArtifactId>catalina</containerArtifactId>
-        <containerVersion>6.0.32</containerVersion>
+        <containerVersion>6.0.45</containerVersion>
       </properties>
     </profile>
     <profile>

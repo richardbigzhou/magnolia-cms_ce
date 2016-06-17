@@ -41,6 +41,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Collections;
 import java.util.HashMap;
@@ -176,15 +178,28 @@ public abstract class AbstractMagnoliaHtmlUnitTest extends AbstractMagnoliaInteg
         return (P) webClient.getPage(new URL(url));
     }
 
-    protected <P extends Page> P assertRedirected(String reason, String expectedTargetURLPattern, Page page, User user) throws IOException {
+    protected <P extends Page> P assertRedirected(String reason, String expectedTargetURLPattern, Page page, User user) throws IOException, URISyntaxException {
+        return assertRedirected(reason, expectedTargetURLPattern, page, user, Instance.AUTHOR);
+    }
+
+    protected <P extends Page> P assertRedirected(String reason, String expectedTargetURLPattern, Page page, User user, Instance instance) throws IOException, URISyntaxException {
         assertEquals(302, page.getWebResponse().getStatusCode());
         final String location = page.getWebResponse().getResponseHeaderValue("Location");
         // only test whether it has the proper start in order to ignore e.g. attached sessionIds
         assertTrue("Redirect location " + location + " does not match the expected pattern: " + expectedTargetURLPattern + " ("+reason+")", location.matches(expectedTargetURLPattern));
 
+        // location can be relative (https://bz.apache.org/bugzilla/show_bug.cgi?id=56917) transfer it to absolute url
+        final URI uri = new URI(location);
+        final String url;
+        if (uri.isAbsolute()) {
+            url = location;
+        } else {
+            url = instance.getDomain() + location;
+        }
+
         // since this is already redirected do not follow more redirects
         // also do not execute javascript on the target page - at least not until https://sourceforge.net/tracker/?func=detail&aid=3110090&group_id=47038&atid=448266 is solved
-        return (P) openPage(location, user, false, false, DEFAULT_HEADERS);
+        return (P) openPage(url, user, false, false, DEFAULT_HEADERS);
     }
 
     /**

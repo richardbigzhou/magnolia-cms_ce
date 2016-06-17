@@ -201,8 +201,16 @@ class WebCrawler {
 
                     if (redirected(response)) {
                         def origHost = getHost(url)
-                        def redirHost = getHost(location)
-                        if (!origHost.equalsIgnoreCase(redirHost)) {
+
+                        def uri = new URI(location)
+                        def redirHost
+                        if (uri.isAbsolute()) {
+                            redirHost = getHost(location);
+                        } else {
+                            location = origHost + location
+                        }
+
+                        if (redirHost != null && !origHost.equalsIgnoreCase(redirHost)) {
                             debugMessage("Redirected to different host (" + location + ").")
                         } else {
                             def redirect = ["url" : location, "depth" : depth]
