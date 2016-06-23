@@ -27,7 +27,7 @@
     <documentationURL>http://documentation.magnolia-cms.com/releases/${project.version}.html</documentationURL>
     <stkVersion>2.8.11</stkVersion>
     <restVersion>1.1.1</restVersion>
-    <damVersion>2.0.13</damVersion>
+    <damVersion>2.0.14-SNAPSHOT</damVersion>
     <scmTagPrefix>magnolia-bundle</scmTagPrefix>
     <skipClover>true</skipClover>
     <!-- This project is in "maintenance mode". See http://www.magnolia-cms.com/services/support/maintenance-policy.html for details -->
