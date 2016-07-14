@@ -53,10 +53,6 @@
       <artifactId>magnolia-module-groovy</artifactId>
     </dependency>
     <dependency>
-      <groupId>info.magnolia.sample</groupId>
-      <artifactId>magnolia-sample-app</artifactId>
-    </dependency>
-    <dependency>
       <groupId>info.magnolia.messages</groupId>
       <artifactId>magnolia-messages-app</artifactId>
     </dependency>
