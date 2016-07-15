@@ -31,7 +31,7 @@
     <damVersion>2.1.6-SNAPSHOT</damVersion>
     <categorizationVersion>2.4.2</categorizationVersion>
     <mteVersion>2.0-SNAPSHOT</mteVersion>
-    <resourcesVersion>2.4.6-SNAPSHOT</resourcesVersion>
+    <resourcesVersion>2.5-SNAPSHOT</resourcesVersion>
     <imagingVersion>3.3-SNAPSHOT</imagingVersion>
     <siteVersion>1.0.8-SNAPSHOT</siteVersion>
     <travelDemoVersion>0.13-SNAPSHOT</travelDemoVersion>
@@ -200,7 +200,7 @@
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-groovy</artifactId>
-        <version>2.4.4</version>
+        <version>2.5-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia.activation</groupId>
@@ -330,12 +330,12 @@
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-forum</artifactId>
-        <version>3.5</version>
+        <version>3.6-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-public-user-registration</artifactId>
-        <version>2.5.2</version>
+        <version>2.6-SNAPSHOT</version>
       </dependency>
 
       <dependency>
