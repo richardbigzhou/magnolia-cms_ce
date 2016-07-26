@@ -333,7 +333,7 @@
         <version>3.6-SNAPSHOT</version>
       </dependency>
       <dependency>
-        <groupId>info.magnolia</groupId>
+        <groupId>info.magnolia.pur</groupId>
         <artifactId>magnolia-module-public-user-registration</artifactId>
         <version>2.6-SNAPSHOT</version>
       </dependency>
