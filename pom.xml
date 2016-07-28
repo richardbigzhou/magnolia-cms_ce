@@ -123,7 +123,7 @@
       <dependency>
         <groupId>info.magnolia.task</groupId>
         <artifactId>magnolia-task-management</artifactId>
-        <version>1.1.2</version>
+        <version>1.2-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
@@ -280,12 +280,12 @@
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-scheduler</artifactId>
-        <version>2.2.3-SNAPSHOT</version>
+        <version>2.3-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia.scheduler</groupId>
         <artifactId>magnolia-module-scheduler</artifactId>
-        <version>2.2.3-SNAPSHOT</version>
+        <version>2.3-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia</groupId>
