@@ -716,6 +716,10 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         return elements.get(0).getText();
     }
 
+    protected By byActionBarSection(String title) {
+        return getElementLocatorByXpath("//*[contains(@class,'v-actionbar-section-title') and text() = '%s']", title);
+    }
+
     protected WebElement getDialogButton(String classname) {
         return getElementByXpath("//div[contains(@class, '%s')]", classname);
     }
@@ -1380,7 +1384,7 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         delay(1, "Wait for the row to be selected");
 
         getActionBarItem(deleteActionCaption).click();
-        waitUntil(dialogIsOpen(dialogTitle));
+        waitUntil(confirmDialogIsOpen(dialogTitle));
 
         getDialogCommitButton().click();
         waitUntil(dialogIsClosed(dialogTitle));
@@ -1537,10 +1541,10 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
     /**
      * Checks that the dialog with the specified title is closed.
      */
-    protected ExpectedCondition<Boolean> dialogIsClosed(final String dialogTitle) {
+    protected ExpectedCondition<Boolean> dialogIsClosed(String dialogTitle) {
         return ExpectedConditions.and(
-                invisibilityOfElementLocated(By.className("overlay")),
-                elementIsGone(byDialogTitle(dialogTitle))
+                elementIsGone(byDialogTitle(dialogTitle)),
+                elementIsGone(By.xpath("//*[contains(@class, 'dialog-header')]//*[contains(@class, 'title') and text() = '%s']/ancestor::div[contains(@class, ' overlay ')]"))
         );
     }
 
@@ -1551,8 +1555,16 @@ public abstract class AbstractMagnoliaUITest extends AbstractMagnoliaIntegration
         return elementIsOpen(byDialogTitle(dialogTitle));
     }
 
+    protected ExpectedCondition<WebElement> confirmDialogIsOpen(String dialogTitle) {
+        return visibilityOfElementLocated(byDialogTitle(dialogTitle));
+    }
+
     protected ExpectedCondition<Boolean> tabIsOpen(final String tabCaption) {
         return elementIsOpen(byTabContainingCaption(tabCaption));
+    }
+
+    protected ExpectedCondition<WebElement> actionBarSectionIsVisible(String title) {
+        return visibilityOfElementLocated(byActionBarSection(title));
     }
 
     private ExpectedCondition<Boolean> elementIsOpen(final By locator) {

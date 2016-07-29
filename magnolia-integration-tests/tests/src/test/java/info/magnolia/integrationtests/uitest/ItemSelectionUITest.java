@@ -61,19 +61,20 @@ public class ItemSelectionUITest extends AbstractMagnoliaUITest {
 
         // go to modules/core
         expandTreeAndSelectAnElement("core", "modules");
+        waitUntil(actionBarSectionIsVisible("Folder"));
 
         // WHEN
         // add new node
         getEnabledActionBarItem("Add content node").click();
-        delay(1, "Wait for the node to be created...");
 
         // THEN
         // check that newly created item is selected
         assertTrue(isTreeTableItemSelected("untitled"));
+        waitUntil(actionBarSectionIsVisible("Content node"));
 
         // cleanup
         getEnabledActionBarItem("Delete item").click();
-        waitUntil(dialogIsOpen("Delete this item?"));
+        waitUntil(confirmDialogIsOpen("Delete this item?"));
         getDialogConfirmButton().click();
         waitUntil(dialogIsClosed("Delete this item?"));
     }
@@ -88,19 +89,20 @@ public class ItemSelectionUITest extends AbstractMagnoliaUITest {
 
         // go to modules/core
         expandTreeAndSelectAnElement("core", "modules");
+        waitUntil(actionBarSectionIsVisible("Folder"));
 
         // WHEN
         // add new property
         getEnabledActionBarItem("Add property").click();
-        delay(1, "Wait for the property to be created...");
 
         // THEN
         // check that newly created item is selected
         assertTrue(isTreeTableItemSelected("untitled"));
+        waitUntil(actionBarSectionIsVisible("Property"));
 
         // cleanup
         getEnabledActionBarItem("Delete item").click();
-        waitUntil(dialogIsOpen("Delete this item?"));
+        waitUntil(confirmDialogIsOpen("Delete this item?"));
         getDialogConfirmButton().click();
         waitUntil(dialogIsClosed("Delete this item?"));
     }
@@ -115,10 +117,12 @@ public class ItemSelectionUITest extends AbstractMagnoliaUITest {
 
         // go to modules/core
         expandTreeAndSelectAnElement("core", "modules");
+        waitUntil(actionBarSectionIsVisible("Folder"));
 
         // add new node
         getEnabledActionBarItem("Add content node").click();
-        delay(1, "Wait a moment in order to be sure node is added.");
+        assertTrue(isTreeTableItemSelected("untitled"));
+        waitUntil(actionBarSectionIsVisible("Content node"));
 
         // WHEN
         getEnabledActionBarItem("Duplicate item").click();
@@ -129,13 +133,13 @@ public class ItemSelectionUITest extends AbstractMagnoliaUITest {
 
         // cleanup
         getEnabledActionBarItem("Delete item").click();
-        waitUntil(dialogIsOpen("Delete this item?"));
+        waitUntil(confirmDialogIsOpen("Delete this item?"));
         getDialogConfirmButton().click();
         waitUntil(dialogIsClosed("Delete this item?"));
 
         getTreeTableItemByIcon("untitled").click();
         getEnabledActionBarItem("Delete item").click();
-        waitUntil(dialogIsOpen("Delete this item?"));
+        waitUntil(confirmDialogIsOpen("Delete this item?"));
         getDialogConfirmButton().click();
         waitUntil(dialogIsClosed("Delete this item?"));
     }
@@ -204,10 +208,6 @@ public class ItemSelectionUITest extends AbstractMagnoliaUITest {
         // open security app
         getAppIcon("Security").click();
         waitUntil(appIsLoaded());
-
-        // go to users subapp
-        openTabWithCaption("Users");
-        waitUntil(tabIsOpen("Users"));
         assertAppOpen("Users");
 
         getEnabledActionBarItem("Add user").click();
@@ -283,7 +283,7 @@ public class ItemSelectionUITest extends AbstractMagnoliaUITest {
         assertTrue(isTreeTableItemSelected("tmpgroup"));
         //cleanup
         getEnabledActionBarItem("Delete group").click();
-        waitUntil(dialogIsOpen("Do you really want to delete selected group(s)?"));
+        waitUntil(confirmDialogIsOpen("Do you really want to delete selected group(s)?"));
         getDialogCommitButton().click();
     }
 
