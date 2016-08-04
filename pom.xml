@@ -27,16 +27,16 @@
     <documentationURL>http://documentation.magnolia-cms.com/releases/${project.version}.html</documentationURL>
     <stkVersion>3.0-SNAPSHOT</stkVersion>
     <restVersion>1.1.1</restVersion>
-    <restClientVersion>1.0.8-SNAPSHOT</restClientVersion>
-    <damVersion>2.1.6-SNAPSHOT</damVersion>
+    <restClientVersion>1.0.8</restClientVersion>
+    <damVersion>2.1.6</damVersion>
     <categorizationVersion>2.4.2</categorizationVersion>
     <mteVersion>2.0-SNAPSHOT</mteVersion>
     <resourcesVersion>2.5-SNAPSHOT</resourcesVersion>
     <imagingVersion>3.3-SNAPSHOT</imagingVersion>
-    <siteVersion>1.0.8-SNAPSHOT</siteVersion>
-    <travelDemoVersion>0.13-SNAPSHOT</travelDemoVersion>
+    <siteVersion>1.0.8</siteVersion>
+    <travelDemoVersion>0.13</travelDemoVersion>
     <cacheVersion>5.4.5</cacheVersion>
-    <langVersion>1.0.6-SNAPSHOT</langVersion>
+    <langVersion>1.0.6</langVersion>
     <scmTagPrefix>magnolia-bundle</scmTagPrefix>
 
     <skipClover>true</skipClover>
@@ -128,7 +128,7 @@
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-module-legacy-admininterface</artifactId>
-        <version>5.3.2-SNAPSHOT</version>
+        <version>5.3.2</version>
       </dependency>
 
       <!-- DAM -->
@@ -559,12 +559,12 @@
       <dependency>
         <groupId>info.magnolia.log</groupId>
         <artifactId>magnolia-log-tools</artifactId>
-        <version>1.0.2-SNAPSHOT</version>
+        <version>1.0.2</version>
       </dependency>
       <dependency>
         <groupId>info.magnolia.jcrtools</groupId>
         <artifactId>magnolia-jcr-tools</artifactId>
-        <version>1.0.1-SNAPSHOT</version>
+        <version>1.0.1</version>
       </dependency>
 
       <!-- Tests -->
